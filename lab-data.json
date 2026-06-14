@@ -18,12 +18,19 @@
   "contenants": [],
   "echantillons": [],
   "techniciens": [],
-  "commandesStatut": {},
+  "commandesStatut": {
+    "1781446866469": "commandee"
+  },
   "activity": [
     {
       "icon": "flask-2",
       "text": "Produit ajoute : Méthanol HPLC Grade",
       "time": "14/06 16:21"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande mise a jour : Méthanol HPLC Grade",
+      "time": "14/06 16:23"
     }
   ]
 }
