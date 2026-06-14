@@ -227,7 +227,7 @@
   <aside>
     <div class="nav-section">
       <div class="nav-label">Navigation</div>
-      <div class="nav-item active" onclick="goTo('dashboard')"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
+      <div class="nav-item active" onclick="goTo('dashboard', this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
       <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
       <div id="planning-submenu" style="display:none">
         <div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div>
@@ -245,8 +245,8 @@
         <div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div>
         <div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marchés</div>
       </div>
-      <div class="nav-item" onclick="goTo('habilitations')"><i class="ti ti-certificate"></i> Habilitations</div>
-      <div class="nav-item" onclick="goTo('commandes')"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+      <div class="nav-item" onclick="goTo('habilitations', this)"><i class="ti ti-certificate"></i> Habilitations</div>
+      <div class="nav-item" onclick="goTo('commandes', this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
     </div>
   </aside>
 
@@ -281,6 +281,7 @@
       </div>
     </div>
 
+
     <!-- PLANNING -->
     <div class="page" id="page-planning">
 
@@ -310,8 +311,9 @@
         <table><thead><tr><th>Analyse</th><th>Technicien</th><th>Date prévue</th><th>Priorité</th><th>Statut</th><th></th></tr></thead>
         <tbody id="planning-tbody"></tbody></table>
       </div>
-    </div>
+      </div><!-- fin planning-view-calendar -->
 
+</div>
     <!-- REACTIFS -->
     <div class="page" id="page-reactifs">
 
@@ -444,9 +446,9 @@
             <tbody id="catalogue-tbody"></tbody>
           </table>
         </div>
-      </div><!-- fin planning-view-catalogue -->
+      <!-- fin planning-view-catalogue -->
+    <!-- fin page-reactifs -->
 
-    </div><!-- fin page-planning -->
 
     <!-- ECHANTILLONS -->
     <div class="page" id="page-echantillons">
@@ -505,6 +507,7 @@
 
     </div>
 
+
     <!-- COMMANDES -->
     <div class="page" id="page-commandes">
       <div class="page-header">
@@ -538,6 +541,7 @@
       </div>
     </div>
 
+
     <!-- HABILITATIONS -->
     <div class="page" id="page-habilitations">
       <div class="page-header">
@@ -548,7 +552,8 @@
       </div>
       <div class="tech-grid" id="tech-grid"></div>
     </div>
-  </main>
+  
+</main>
 </div>
 
 <!-- TOAST CONTAINER -->
@@ -849,29 +854,40 @@ function renderAll() {
   renderTechniciens();
   updateBadges();
   renderCommandes();
-  // Afficher sous-vues par defaut
-  setTimeout(() => {
-    goToReactifs('contenants');
-    goToPlanning('calendar');
-    goToEch('reception');
-    // Revenir au dashboard
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-dashboard').classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    const dashNav = document.querySelector('.nav-item[onclick*="dashboard"]');
-    if (dashNav) dashNav.classList.add('active');
-  }, 0);
+  // Initialiser les sous-vues sans changer la page active
+  // Reactifs : afficher contenants par defaut
+  ['produits','contenants','archives'].forEach(v => {
+    const el = document.getElementById('reactifs-view-'+v);
+    if (el) el.style.display = v === 'contenants' ? 'block' : 'none';
+  });
+  // Planning : afficher calendar par defaut
+  ['calendar','catalogue'].forEach(v => {
+    const el = document.getElementById('planning-view-'+v);
+    if (el) el.style.display = v === 'calendar' ? 'block' : 'none';
+  });
+  // Echantillons : afficher reception par defaut
+  ['reception','produits-ech','marches'].forEach(v => {
+    const el = document.getElementById('ech-view-'+v);
+    if (el) el.style.display = v === 'reception' ? 'block' : 'none';
+  });
+  // Marquer les premiers sous-items comme actifs
+  const reactSubs = document.querySelectorAll('#reactifs-submenu .nav-sub');
+  if (reactSubs[1]) reactSubs[1].classList.add('active');
+  const planSubs = document.querySelectorAll('#planning-submenu .nav-sub');
+  if (planSubs[0]) planSubs[0].classList.add('active');
+  const echSubs = document.querySelectorAll('#ech-submenu .nav-sub');
+  if (echSubs[0]) echSubs[0].classList.add('active');
 }
 
 // ============================================================
 // NAVIGATION
 // ============================================================
-function goTo(page) {
+function goTo(page, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const target = document.getElementById('page-' + page);
   if (target) target.classList.add('active');
-  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+  if (el) el.classList.add('active');
   if (page === 'commandes') renderCommandes();
   if (page === 'habilitations') renderTechniciens();
   if (page === 'dashboard') renderDashboard();
@@ -1050,8 +1066,7 @@ function togglePlanningMenu(e) {
   const chevron = document.getElementById('planning-chevron');
   if (menu) menu.style.display = planningMenuOpen ? 'block' : 'none';
   if (chevron) chevron.style.transform = planningMenuOpen ? 'rotate(180deg)' : '';
-  e.currentTarget.classList.toggle('active', planningMenuOpen);
-  if (planningMenuOpen) goToPlanning(currentPlanningView);
+  if (planningMenuOpen) goToPlanning('calendar');
 }
 
 function goToPlanning(view) {
@@ -1649,8 +1664,7 @@ function toggleEchMenu(e) {
   const chevron = document.getElementById('ech-chevron');
   if (menu) menu.style.display = echMenuOpen ? 'block' : 'none';
   if (chevron) chevron.style.transform = echMenuOpen ? 'rotate(180deg)' : '';
-  e.currentTarget.classList.toggle('active', echMenuOpen);
-  if (echMenuOpen) goToEch(currentEchView);
+  if (echMenuOpen) goToEch('reception');
 }
 
 function goToEch(view) {
@@ -2202,13 +2216,12 @@ window.toggleAccordion = toggleAccordion;
 // -- NAVIGATION REACTIFS --------------------------------------
 
 function toggleReactifsMenu(e) {
-  e.currentTarget.classList.toggle('active');
   reactifsMenuOpen = !reactifsMenuOpen;
   const menu = document.getElementById('reactifs-submenu');
   const chevron = document.getElementById('reactifs-chevron');
-  menu.style.display = reactifsMenuOpen ? 'block' : 'none';
+  if (menu) menu.style.display = reactifsMenuOpen ? 'block' : 'none';
   if (chevron) chevron.style.transform = reactifsMenuOpen ? 'rotate(180deg)' : '';
-  if (reactifsMenuOpen) goToReactifs(currentReactifsView);
+  if (reactifsMenuOpen) goToReactifs('contenants');
 }
 
 function goToReactifs(view) {
