@@ -25,7 +25,176 @@
       "note": ""
     }
   ],
-  "contenants": [],
+  "contenants": [
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391189
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391190
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391191
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391192
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391193
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391194
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391195
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391196
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391197
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391198
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391199
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391200
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391201
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "V5GHTHU89",
+      "qte": "2.5 L",
+      "reception": "2026-06-01",
+      "peremption": "2032-01-05",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781437391202
+    }
+  ],
   "echantillons": [],
   "techniciens": [
     {
@@ -76,6 +245,11 @@
       "icon": "flask-2",
       "text": "Produit ajouté : Méthanol HPLC Grade",
       "time": "14/06 13:42"
+    },
+    {
+      "icon": "package",
+      "text": "14x Méthanol HPLC Grade lot V5GHTHU89 réceptionné(s)",
+      "time": "14/06 13:43"
     }
   ]
 }
