@@ -1,5 +1,18 @@
 {
   "planning": [],
+  "catalogue": [
+    {
+      "id": 1781448902884,
+      "nom": "TCC0015 (Phase Mobile)",
+      "habilitations": [
+        "Volume",
+        "pH"
+      ],
+      "duree": "",
+      "code": "TCC0015-PM",
+      "description": "Préparation de la Phase Mobile selon TCC0015"
+    }
+  ],
   "reactifs": [],
   "produits": [
     {
@@ -16,6 +29,8 @@
     }
   ],
   "contenants": [],
+  "produitsEch": [],
+  "marches": [],
   "echantillons": [],
   "techniciens": [],
   "commandesStatut": {
@@ -36,6 +51,11 @@
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
       "time": "14/06 16:23"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : TCC0015 (Phase Mobile)",
+      "time": "14/06 16:55"
     }
   ]
 }
