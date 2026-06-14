@@ -32,9 +32,9 @@
       "lot": "VBCN32443",
       "qte": "",
       "reception": "2026-06-14",
-      "ouverture": "",
+      "ouverture": "2026-06-16",
       "peremption": "2028-07-30",
-      "validite": "",
+      "validite": "2027-09-24",
       "statut": "en_stock",
       "note": ""
     }
@@ -73,6 +73,11 @@
     {
       "icon": "package",
       "text": "Contenant ajouté : Methanol HPLC Grade lot VBCN32443",
+      "time": "14/06 11:47"
+    },
+    {
+      "icon": "pencil",
+      "text": "Contenant modifié : lot VBCN32443",
       "time": "14/06 11:47"
     }
   ]
