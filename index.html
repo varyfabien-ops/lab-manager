@@ -1301,8 +1301,7 @@ function openModal(id) {
     const sels = document.querySelectorAll('#'+id+' select');
     sels.forEach(s => { if(s.options.length) s.selectedIndex = 0; });
     if (id === 'modal-contenant') {
-      document.getElementById('c-validite-display').textContent = '— Renseignez ouverture et péremption —';
-      document.getElementById('c-validite-display').style.color = 'var(--text2)';
+      const nb = document.getElementById('c-nb'); if(nb) nb.value = 1;
     }
   }
   const el = document.getElementById(id);
