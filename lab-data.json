@@ -3,7 +3,7 @@
   "reactifs": [
     {
       "id": 1781429589952,
-      "nom": "MÃ©thanol HPLC Grade",
+      "nom": "MÃÂ©thanol HPLC Grade",
       "fournisseur": "CARLO ERBA",
       "ref": "Test",
       "stock": "5",
@@ -13,32 +13,8 @@
       "note": ""
     }
   ],
-  "produits": [
-    {
-      "id": 1781430392848,
-      "nom": "Methanol HPLC Grade",
-      "fournisseur": "CARLO ERBA",
-      "ref": "XXXXX",
-      "localisation": "I4",
-      "fc": "0.6",
-      "conditionnement": "2.5 L",
-      "note": "Inflammable"
-    }
-  ],
-  "contenants": [
-    {
-      "id": 1781430438998,
-      "produitId": 1781430392848,
-      "lot": "VBCN32443",
-      "qte": "",
-      "reception": "2026-06-14",
-      "ouverture": "2026-06-16",
-      "peremption": "2028-07-30",
-      "validite": "2027-09-24",
-      "statut": "en_stock",
-      "note": ""
-    }
-  ],
+  "produits": [],
+  "contenants": [],
   "echantillons": [],
   "techniciens": [
     {
@@ -57,28 +33,33 @@
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajoutÃ© : Fabien VARY",
+      "text": "Technicien ajoutÃÂ© : Fabien VARY",
       "time": "14/06 11:29"
     },
     {
       "icon": "flask",
-      "text": "RÃ©actif ajoutÃ© : MÃ©thanol HPLC Grade",
+      "text": "RÃÂ©actif ajoutÃÂ© : MÃÂ©thanol HPLC Grade",
       "time": "14/06 11:33"
     },
     {
       "icon": "flask-2",
-      "text": "Produit ajouté : Methanol HPLC Grade",
+      "text": "Produit ajoutÃ© : Methanol HPLC Grade",
       "time": "14/06 11:46"
     },
     {
       "icon": "package",
-      "text": "Contenant ajouté : Methanol HPLC Grade lot VBCN32443",
+      "text": "Contenant ajoutÃ© : Methanol HPLC Grade lot VBCN32443",
       "time": "14/06 11:47"
     },
     {
       "icon": "pencil",
-      "text": "Contenant modifié : lot VBCN32443",
+      "text": "Contenant modifiÃ© : lot VBCN32443",
       "time": "14/06 11:47"
+    },
+    {
+      "icon": "trash",
+      "text": "Produit supprimé : Methanol HPLC Grade",
+      "time": "14/06 13:29"
     }
   ]
 }
