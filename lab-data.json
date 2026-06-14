@@ -195,6 +195,150 @@
       "statut": "en_stock",
       "note": "",
       "id": 1781437391202
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896650
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896651
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896652
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896653
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896654
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896655
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896656
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896657
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896658
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896659
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896660
+    },
+    {
+      "produitId": 1781437347306,
+      "lot": "VBCN32443",
+      "qte": "2.5 L",
+      "reception": "2026-06-10",
+      "peremption": "2030-01-03",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1781438896661
     }
   ],
   "echantillons": [],
@@ -268,6 +412,11 @@
       "icon": "lock",
       "text": "Cloture : MÃÂÃÂ©thanol HPLC Grade lot V5GHTHU89",
       "time": "14/06 14:06"
+    },
+    {
+      "icon": "package",
+      "text": "12x MÃÂÃÂ©thanol HPLC Grade lot VBCN32443 receptionne(s)",
+      "time": "14/06 14:08"
     }
   ]
 }
