@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v2 — Physico-Chimie</title>
+<title>LabManager v3 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -156,7 +156,7 @@
 <header>
   <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie</span></div>
   <div class="header-right">
-    <button class="btn" onclick="openGithubConfig()" id="github-config-btn" style="gap:8px">
+    <button class="btn" onclick="openGithubConfig()" style="gap:8px">
       <div class="sync-dot" id="sync-dot"></div>
       <i class="ti ti-brand-github"></i>
       <span id="sync-label">Non configure</span>
@@ -170,7 +170,7 @@
 <aside>
   <div class="nav-section">
     <div class="nav-label">Navigation</div>
-    <div class="nav-item active" onclick="goTo('dashboard', this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
+    <div class="nav-item active" onclick="goTo('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
     <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
     <div id="planning-submenu" style="display:none">
       <div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div>
@@ -188,318 +188,219 @@
       <div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div>
       <div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div>
     </div>
-    <div class="nav-item" onclick="goTo('habilitations', this)"><i class="ti ti-certificate"></i> Habilitations</div>
-    <div class="nav-item" onclick="goTo('commandes', this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+    <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
+    <div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
   </div>
 </aside>
 
 <main>
-<!-- DASHBOARD -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-header">
-        <div class="page-header-text">
-          <h1>Tableau de bord</h1>
-          <p id="dash-date">Chargement...</p>
-        </div>
+
+<div class="page active" id="page-dashboard">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Tableau de bord</h1><p id="dash-date">Chargement...</p></div>
+  </div>
+  <div id="github-banner" style="display:none;background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius-lg);padding:14px 18px;align-items:center;gap:12px;margin-bottom:20px">
+    <i class="ti ti-brand-github" style="font-size:22px;color:var(--cyan);flex-shrink:0"></i>
+    <div style="flex:1"><div style="font-weight:600;font-size:14px;color:var(--cyan)">GitHub non configure</div><div style="font-size:12px;color:var(--text2)">Configurez GitHub pour synchroniser les donnees</div></div>
+    <button class="btn btn-primary" onclick="showGithubConfig()"><i class="ti ti-settings"></i> Configurer</button>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card cyan"><div class="label"><i class="ti ti-calendar"></i>Analyses planifiees</div><div class="value" id="stat-planning">0</div><div class="sub">cette semaine</div></div>
+    <div class="stat-card green"><div class="label"><i class="ti ti-package"></i>Echantillons recus</div><div class="value" id="stat-ech">0</div><div class="sub">en attente d'analyse</div></div>
+    <div class="stat-card amber"><div class="label"><i class="ti ti-alert-triangle"></i>Reactifs critiques</div><div class="value" id="stat-reactifs">0</div><div class="sub">stock faible ou expirant</div></div>
+    <div class="stat-card purple"><div class="label"><i class="ti ti-certificate"></i>Techniciens</div><div class="value" id="stat-techs">0</div><div class="sub">habilites actifs</div></div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><h3><i class="ti ti-clock" style="margin-right:6px;color:var(--cyan)"></i>Activite recente</h3></div>
+    <div id="activity-log" style="padding:12px 18px;max-height:300px;overflow-y:auto;"></div>
+  </div>
+</div>
+
+<div class="page" id="page-planning">
+  <div id="planning-view-calendar" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Planification</h1><p>Calendrier des experiences et analyses</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-planning')"><i class="ti ti-plus"></i> Nouvelle analyse</button></div>
+    </div>
+    <div class="table-card" style="padding:20px;margin-bottom:20px;">
+      <div class="cal-nav">
+        <button class="btn" onclick="changeMonth(-1)"><i class="ti ti-chevron-left"></i></button>
+        <h3 id="cal-title"></h3>
+        <button class="btn" onclick="changeMonth(1)"><i class="ti ti-chevron-right"></i></button>
       </div>
-      <div id="github-banner" style="display:none; background:var(--cyan-dim); border:1px solid var(--cyan3); border-radius:var(--radius-lg); padding:14px 18px; margin-bottom:20px; align-items:center; gap:12px;">
-        <i class="ti ti-brand-github" style="font-size:22px;color:var(--cyan);flex-shrink:0"></i>
-        <div style="flex:1">
-          <div style="font-weight:600;font-size:14px;color:var(--cyan)">GitHub non configuré</div>
-          <div style="font-size:12px;color:var(--text2)">Configurez GitHub pour synchroniser les données avec votre équipe</div>
-        </div>
-        <button class="btn btn-primary" onclick="showGithubConfig()"><i class="ti ti-settings"></i> Configurer</button>
+      <div class="calendar-grid" id="cal-days-names"></div>
+      <div class="calendar-grid" id="calendar"></div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3>Liste des analyses</h3><div class="spacer"></div>
+        <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-planning" placeholder="Rechercher..." oninput="renderPlanningTable()"></div>
       </div>
-      <div class="stats-grid" id="stats-grid">
-        <div class="stat-card cyan"><div class="label"><i class="ti ti-calendar"></i>Analyses planifiées</div><div class="value" id="stat-planning">—</div><div class="sub">cette semaine</div></div>
-        <div class="stat-card green"><div class="label"><i class="ti ti-package"></i>Échantillons reçus</div><div class="value" id="stat-ech">—</div><div class="sub">en attente d'analyse</div></div>
-        <div class="stat-card amber"><div class="label"><i class="ti ti-alert-triangle"></i>Réactifs critiques</div><div class="value" id="stat-reactifs">—</div><div class="sub">stock faible ou expirant</div></div>
-        <div class="stat-card purple"><div class="label"><i class="ti ti-certificate"></i>Techniciens</div><div class="value" id="stat-techs">—</div><div class="sub">habilités actifs</div></div>
+      <table><thead><tr><th>Analyse</th><th>Technicien</th><th>Date prevue</th><th>Priorite</th><th>Statut</th><th></th></tr></thead>
+      <tbody id="planning-tbody"></tbody></table>
+    </div>
+  </div>
+  <div id="planning-view-catalogue" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Catalogue des analyses</h1><p>Base de reference avec habilitations requises</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-analyse')"><i class="ti ti-plus"></i> Nouvelle analyse</button></div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Analyses referencees</h3><div class="spacer"></div>
+        <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
       </div>
-      <div class="table-card">
-        <div class="table-card-header"><h3><i class="ti ti-clock" style="margin-right:6px;color:var(--cyan)"></i>Activité récente</h3></div>
-        <div id="activity-log" style="padding:12px 18px;max-height:300px;overflow-y:auto;">
-          <div class="empty-state"><i class="ti ti-clock"></i><p>Aucune activité récente</p></div>
-        </div>
+      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations requises</th><th>Duree estimee</th><th>Description / Norme</th><th></th></tr></thead>
+      <tbody id="catalogue-tbody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-reactifs">
+  <div id="reactifs-view-produits" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Fiches produits</h1><p>Catalogue des reactifs du laboratoire</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau produit</button></div>
+    </div>
+    <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;display:flex;align-items:center;gap:10px">
+      <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Produits enregistres</h3>
+      <div class="spacer"></div>
+      <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits" placeholder="Rechercher..." oninput="renderProduitsAccordion()"></div>
+    </div>
+    <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
+  </div>
+  <div id="reactifs-view-contenants" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Contenants</h1><p>Stocks en cours</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button></div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Contenants actifs</h3><div class="spacer"></div>
+        <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
+      </div>
+      <div style="overflow-x:auto">
+      <table style="table-layout:fixed;min-width:900px">
+        <thead><tr>
+          <th style="width:180px">Produit<br><input class="filter-input" id="f-produit" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+          <th style="width:110px">N Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+          <th style="width:120px">Fournisseur<br><input class="filter-input" id="f-fourn" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+          <th style="width:90px">Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
+          <th style="width:90px">Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
+          <th style="width:100px">Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
+          <th style="width:130px">Validite<br>
+            <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()">
+              <option value="">Tous</option><option value="ok">OK</option>
+              <option value="alerte">Alerte</option><option value="expire">Expire</option>
+              <option value="non_ouvert">Non ouvert</option>
+            </select>
+          </th>
+          <th style="width:100px">Statut<br>
+            <select class="filter-input" id="f-statut" onchange="renderReactifsTable()">
+              <option value="">Tous</option><option value="en_stock">En stock</option>
+              <option value="ouvert">Ouvert</option>
+            </select>
+          </th>
+          <th style="width:80px"></th>
+        </tr></thead>
+        <tbody id="reactifs-tbody"></tbody>
+      </table>
       </div>
     </div>
-
-
-    <!-- PLANNING -->
-    <div class="page" id="page-planning">
-
-      <!-- SOUS-VUE PLANNING -->
-      <div id="planning-view-calendar" style="display:none">
-      <div class="page-header">
-        <div class="page-header-text"><h1>Planification</h1><p>Calendrier des expériences et analyses</p></div>
-        <div class="page-header-actions">
-          <button class="btn btn-primary" onclick="openModal('modal-planning')"><i class="ti ti-plus"></i> Nouvelle analyse</button>
-        </div>
-      </div>
-      <div class="table-card" style="padding:20px;margin-bottom:20px;">
-        <div class="cal-nav">
-          <button class="btn" onclick="changeMonth(-1)"><i class="ti ti-chevron-left"></i></button>
-          <h3 id="cal-title"></h3>
-          <button class="btn" onclick="changeMonth(1)"><i class="ti ti-chevron-right"></i></button>
-        </div>
-        <div class="calendar-grid" id="cal-days-names"></div>
-        <div class="calendar-grid" id="calendar"></div>
-      </div>
-      <div class="table-card">
-        <div class="table-card-header">
-          <h3>Liste des analyses</h3>
-          <div class="spacer"></div>
-          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-planning" placeholder="Rechercher..." oninput="renderPlanningTable()"></div>
-        </div>
-        <table><thead><tr><th>Analyse</th><th>Technicien</th><th>Date prévue</th><th>Priorité</th><th>Statut</th><th></th></tr></thead>
-        <tbody id="planning-tbody"></tbody></table>
-      </div>
-      </div><!-- fin planning-view-calendar -->
-
-      
-    </div><!-- fin page-planning -->
-
-    <!-- REACTIFS -->
-    <div class="page" id="page-reactifs">
-
-      <!-- SOUS-VUE : FICHES PRODUITS -->
-      <div id="reactifs-view-produits" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Fiches produits</h1><p>Catalogue des réactifs du laboratoire</p></div>
-          <div class="page-header-actions">
-            <button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau produit</button>
-          </div>
-        </div>
-        <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;display:flex;align-items:center;gap:10px">
-          <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Produits enregistrés</h3>
-          <div class="spacer"></div>
-          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits" placeholder="Rechercher..." oninput="renderProduitsAccordion()"></div>
-        </div>
-        <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
-      </div>
-
-      <!-- SOUS-VUE : CONTENANTS ACTIFS -->
-      <div id="reactifs-view-contenants" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Contenants</h1><p>Stocks en cours — non ouverts et ouverts</p></div>
-          <div class="page-header-actions">
-            <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button>
-          </div>
-        </div>
-        <div class="table-card">
-          <div class="table-card-header">
-            <h3>Contenants actifs</h3>
-            <div class="spacer"></div>
-            <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
-          </div>
-          <div style="overflow-x:auto">
-          <table style="table-layout:fixed;min-width:900px">
-            <thead><tr>
-              <th style="width:180px">Produit<br><input class="filter-input" id="f-produit" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-              <th style="width:110px">N° Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-              <th style="width:120px">Fournisseur<br><input class="filter-input" id="f-fourn" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-              <th style="width:90px">Réception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
-              <th style="width:90px">Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
-              <th style="width:100px">Péremption fab.<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
-              <th style="width:130px">Validité calculée<br>
-                <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()">
-                  <option value="">Tous</option>
-                  <option value="ok">OK</option>
-                  <option value="alerte">Alerte (&lt;30j)</option>
-                  <option value="expire">Expiré</option>
-                  <option value="non_ouvert">Non ouvert</option>
-                </select>
-              </th>
-              <th style="width:100px">Statut<br>
-                <select class="filter-input" id="f-statut" onchange="renderReactifsTable()">
-                  <option value="">Tous</option>
-                  <option value="en_stock">En stock</option>
-                  <option value="ouvert">Ouvert</option>
-                </select>
-              </th>
-              <th style="width:80px"></th>
-            </tr></thead>
-            <tbody id="reactifs-tbody"></tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- SOUS-VUE : ARCHIVES -->
-      <div id="reactifs-view-archives" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Archives</h1><p>Contenants épuisés, retirés ou expirés</p></div>
-        </div>
-        <div class="table-card">
-          <div class="table-card-header">
-            <h3>Historique</h3>
-            <div class="spacer"></div>
-            <button class="btn" onclick="resetFiltresArchives()" style="font-size:12px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
-          </div>
-          <div style="overflow-x:auto">
-          <table style="table-layout:fixed;min-width:900px">
-            <thead><tr>
-              <th style="width:180px">Produit<br><input class="filter-input" id="fa-produit" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
-              <th style="width:110px">N° Lot<br><input class="filter-input" id="fa-lot" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
-              <th style="width:120px">Fournisseur<br><input class="filter-input" id="fa-fourn" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
-              <th style="width:90px">Réception</th>
-              <th style="width:90px">Ouverture</th>
-              <th style="width:100px">Péremption fab.</th>
-              <th style="width:130px">Validité calculée</th>
-              <th style="width:100px">Statut<br>
-                <select class="filter-input" id="fa-statut" onchange="renderArchivesTable()">
-                  <option value="">Tous</option>
-                  <option value="archive">Archivé</option>
-                  <option value="retire">Retiré</option>
-                  <option value="expire">Expiré</option>
-                </select>
-              </th>
-              <th style="width:80px"></th>
-            </tr></thead>
-            <tbody id="archives-tbody"></tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-
+  </div>
+  <div id="reactifs-view-archives" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Archives</h1><p>Contenants archives, retires ou expires</p></div>
     </div>
-
-      </div><!-- fin planning-view-calendar -->
-
-      <!-- SOUS-VUE CATALOGUE -->
-      <div id="planning-view-catalogue" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Catalogue des analyses</h1><p>Base de référence avec habilitations requises</p></div>
-          <div class="page-header-actions">
-            <button class="btn btn-primary" onclick="openModal('modal-analyse')"><i class="ti ti-plus"></i> Nouvelle analyse</button>
-          </div>
-        </div>
-        <div class="table-card">
-          <div class="table-card-header">
-            <h3>Analyses référencées</h3>
-            <div class="spacer"></div>
-            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
-          </div>
-          <table>
-            <thead><tr>
-              <th>Nom de l'analyse</th>
-              <th>Habilitations requises</th>
-              <th>Durée estimée</th>
-              <th>Description / Norme</th>
-              <th></th>
-            </tr></thead>
-            <tbody id="catalogue-tbody"></tbody>
-          </table>
-        </div>
-      <!-- fin planning-view-catalogue -->
-
-    <!-- fin page-reactifs -->
-
-
-    <!-- ECHANTILLONS -->
-    <div class="page" id="page-echantillons">
-
-      <!-- SOUS-VUE RECEPTION -->
-      <div id="ech-view-reception" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Réception des échantillons</h1><p>Enregistrement et suivi</p></div>
-          <div class="page-header-actions">
-            <button class="btn btn-primary" onclick="openModal('modal-echantillon')"><i class="ti ti-plus"></i> Enregistrer</button>
-          </div>
-        </div>
-        <div class="table-card">
-          <div class="table-card-header"><h3>Échantillons</h3><div class="spacer"></div>
-            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
-          </div>
-          <table>
-            <thead><tr><th>ID</th><th>Produit</th><th>Marchés</th><th>N° lot</th><th>Date réception</th><th>Analyses générées</th><th>Statut global</th><th></th></tr></thead>
-            <tbody id="ech-tbody"></tbody>
-          </table>
-        </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Historique</h3><div class="spacer"></div>
+        <button class="btn" onclick="resetFiltresArchives()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
-
-      <!-- SOUS-VUE PRODUITS -->
-      <div id="ech-view-produits-ech" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Produits</h1><p>Catalogue des produits pharmaceutiques</p></div>
-          <div class="page-header-actions">
-            <button class="btn btn-primary" onclick="openModal('modal-produit-ech')"><i class="ti ti-plus"></i> Nouveau produit</button>
-          </div>
-        </div>
-        <div class="table-card">
-          <div class="table-card-header"><h3>Produits enregistrés</h3><div class="spacer"></div>
-            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits-ech" placeholder="Rechercher..." oninput="renderProduitsEch()"></div>
-          </div>
-          <table>
-            <thead><tr><th>Produit</th><th>Forme / Dosage</th><th>Marchés associés</th><th>Responsable</th><th></th></tr></thead>
-            <tbody id="produits-ech-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- SOUS-VUE MARCHES -->
-      <div id="ech-view-marches" style="display:none">
-        <div class="page-header">
-          <div class="page-header-text"><h1>Marchés</h1><p>Définissez les analyses requises par marché</p></div>
-          <div class="page-header-actions">
-            <button class="btn btn-primary" onclick="openModal('modal-marche')"><i class="ti ti-plus"></i> Nouveau marché</button>
-          </div>
-        </div>
-        <div class="table-card">
-          <div class="table-card-header"><h3>Marchés enregistrés</h3></div>
-          <div id="marches-list" style="padding:0"></div>
-        </div>
-      </div>
-
-    </div>
-
-
-    <!-- COMMANDES -->
-    <div class="page" id="page-commandes">
-      <div class="page-header">
-        <div class="page-header-text"><h1>Commandes à passer</h1><p>Produits en dessous du stock minimum</p></div>
-        <div class="page-header-actions">
-          <button class="btn" onclick="exportCommandes()"><i class="ti ti-download"></i> Exporter CSV</button>
-        </div>
-      </div>
-
-      <!-- Alertes stock -->
-      <div id="commandes-alertes" style="margin-bottom:20px"></div>
-
-      <!-- Tableau commandes -->
-      <div class="table-card">
-        <div class="table-card-header">
-          <h3><i class="ti ti-alert-triangle" style="color:var(--amber);margin-right:6px"></i>Produits à recommander</h3>
-        </div>
-        <table>
-          <thead><tr>
-            <th>Produit</th>
-            <th>Fournisseur</th>
-            <th>Référence</th>
-            <th>Stock actuel</th>
-            <th>Stock minimum</th>
-            <th>Qté à commander</th>
-            <th>Urgence</th>
-            <th>Statut commande</th>
-          </tr></thead>
-          <tbody id="commandes-tbody"></tbody>
-        </table>
+      <div style="overflow-x:auto">
+      <table style="table-layout:fixed;min-width:900px">
+        <thead><tr>
+          <th style="width:180px">Produit<br><input class="filter-input" id="fa-produit" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
+          <th style="width:110px">N Lot<br><input class="filter-input" id="fa-lot" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
+          <th style="width:120px">Fournisseur<br><input class="filter-input" id="fa-fourn" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
+          <th style="width:90px">Reception</th><th style="width:90px">Ouverture</th>
+          <th style="width:100px">Peremption</th><th style="width:130px">Validite</th>
+          <th style="width:100px">Statut<br>
+            <select class="filter-input" id="fa-statut" onchange="renderArchivesTable()">
+              <option value="">Tous</option><option value="archive">Archive</option>
+              <option value="retire">Retire</option><option value="expire">Expire</option>
+            </select>
+          </th>
+          <th style="width:80px"></th>
+        </tr></thead>
+        <tbody id="archives-tbody"></tbody>
+      </table>
       </div>
     </div>
+  </div>
+</div>
 
-
-    <!-- HABILITATIONS -->
-    <div class="page" id="page-habilitations">
-      <div class="page-header">
-        <div class="page-header-text"><h1>Habilitations des techniciens</h1><p>Compétences et qualifications</p></div>
-        <div class="page-header-actions">
-          <button class="btn btn-primary" onclick="openModal('modal-hab')"><i class="ti ti-plus"></i> Ajouter un technicien</button>
-        </div>
-      </div>
-      <div class="tech-grid" id="tech-grid"></div>
+<div class="page" id="page-echantillons">
+  <div id="ech-view-reception" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Reception des echantillons</h1><p>Enregistrement et suivi</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-echantillon')"><i class="ti ti-plus"></i> Enregistrer</button></div>
     </div>
-  
+    <div class="table-card">
+      <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
+        <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
+      </div>
+      <table><thead><tr><th>ID</th><th>Produit</th><th>Marches</th><th>Date reception</th><th>Analyses generees</th><th>Statut</th><th></th></tr></thead>
+      <tbody id="ech-tbody"></tbody></table>
+    </div>
+  </div>
+  <div id="ech-view-produits-ech" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Produits</h1><p>Catalogue des produits pharmaceutiques</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-produit-ech')"><i class="ti ti-plus"></i> Nouveau produit</button></div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Produits enregistres</h3><div class="spacer"></div>
+        <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits-ech" placeholder="Rechercher..." oninput="renderProduitsEch()"></div>
+      </div>
+      <table><thead><tr><th>Produit</th><th>Forme / Dosage</th><th>Marches associes</th><th>Responsable</th><th></th></tr></thead>
+      <tbody id="produits-ech-tbody"></tbody></table>
+    </div>
+  </div>
+  <div id="ech-view-marches" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Marches</h1><p>Definissez les analyses requises par marche</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-marche')"><i class="ti ti-plus"></i> Nouveau marche</button></div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Marches enregistres</h3></div>
+      <div id="marches-list" style="padding:0"></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-commandes">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Commandes a passer</h1><p>Produits en dessous du stock minimum</p></div>
+    <div class="page-header-actions"><button class="btn" onclick="exportCommandes()"><i class="ti ti-download"></i> Exporter CSV</button></div>
+  </div>
+  <div id="commandes-alertes" style="margin-bottom:20px"></div>
+  <div class="table-card">
+    <div class="table-card-header"><h3><i class="ti ti-alert-triangle" style="color:var(--amber);margin-right:6px"></i>Produits a recommander</h3></div>
+    <table><thead><tr><th>Produit</th><th>Fournisseur</th><th>Reference</th><th>Stock actuel</th><th>Stock minimum</th><th>Qte a commander</th><th>Urgence</th><th>Statut commande</th></tr></thead>
+    <tbody id="commandes-tbody"></tbody></table>
+  </div>
+</div>
+
+<div class="page" id="page-habilitations">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Habilitations des techniciens</h1><p>Competences et qualifications</p></div>
+    <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-hab')"><i class="ti ti-plus"></i> Ajouter un technicien</button></div>
+  </div>
+  <div class="tech-grid" id="tech-grid"></div>
+</div>
+
 </main>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
 
 </div>
 
