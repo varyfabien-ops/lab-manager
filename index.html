@@ -6,41 +6,42 @@
 <title>LabManager — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
   :root {
-    --bg: #0d1117;
-    --bg2: #161b22;
-    --bg3: #21262d;
-    --bg4: #30363d;
-    --border: #30363d;
-    --border2: #484f58;
-    --text: #e6edf3;
-    --text2: #8b949e;
-    --text3: #6e7681;
-    --cyan: #39d0c7;
-    --cyan2: #1a9e96;
-    --cyan3: #0d6b65;
-    --cyan-dim: rgba(57,208,199,0.12);
-    --cyan-dim2: rgba(57,208,199,0.06);
-    --green: #3fb950;
-    --green-dim: rgba(63,185,80,0.12);
-    --amber: #d29922;
-    --amber-dim: rgba(210,153,34,0.12);
-    --red: #f85149;
-    --red-dim: rgba(248,81,73,0.12);
-    --blue: #58a6ff;
-    --blue-dim: rgba(88,166,255,0.12);
-    --purple: #bc8cff;
-    --purple-dim: rgba(188,140,255,0.12);
+    --bg: #f5f7fa;
+    --bg2: #ffffff;
+    --bg3: #eef1f5;
+    --bg4: #e2e6ec;
+    --border: #dde2ea;
+    --border2: #c5cdd8;
+    --text: #1a2233;
+    --text2: #4a5568;
+    --text3: #8896a8;
+    --cyan: #0d7c75;
+    --cyan2: #0a6860;
+    --cyan3: #e0f5f4;
+    --cyan-dim: rgba(13,124,117,0.10);
+    --cyan-dim2: rgba(13,124,117,0.05);
+    --green: #1a7f37;
+    --green-dim: rgba(26,127,55,0.10);
+    --amber: #9a6700;
+    --amber-dim: rgba(154,103,0,0.10);
+    --red: #cf222e;
+    --red-dim: rgba(207,34,46,0.10);
+    --blue: #0550ae;
+    --blue-dim: rgba(5,80,174,0.10);
+    --purple: #6639ba;
+    --purple-dim: rgba(102,57,186,0.10);
     --radius: 8px;
     --radius-lg: 12px;
     --sidebar-w: 220px;
     --header-h: 56px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
+  body { background: var(--bg); color: var(--text); font-family: 'Aptos', 'Nunito', 'Segoe UI', Arial, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
 
   /* HEADER */
-  header { height: var(--header-h); background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; gap: 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  header { height: var(--header-h); background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; gap: 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--cyan); letter-spacing: -0.3px; }
   .logo i { font-size: 22px; }
   .logo span { color: var(--text); font-weight: 400; }
@@ -62,7 +63,7 @@
   .layout { display: flex; margin-top: var(--header-h); min-height: calc(100vh - var(--header-h)); }
 
   /* SIDEBAR */
-  aside { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: var(--header-h); bottom: 0; overflow-y: auto; padding: 16px 0; }
+  aside { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: var(--header-h); bottom: 0; overflow-y: auto; padding: 16px 0; box-shadow: 1px 0 4px rgba(0,0,0,0.04); }
   .nav-section { margin-bottom: 8px; }
   .nav-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: 0 16px; margin-bottom: 4px; }
   .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 16px; cursor: pointer; color: var(--text2); border-left: 2px solid transparent; transition: all 0.15s; font-size: 13px; }
@@ -87,7 +88,7 @@
 
   /* STAT CARDS */
   .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
-  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .stat-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
   .stat-card .label i { font-size: 14px; }
   .stat-card .value { font-size: 28px; font-weight: 600; line-height: 1; }
@@ -99,7 +100,7 @@
   .stat-card.purple { border-left: 3px solid var(--purple); }
 
   /* TABLES */
-  .table-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .table-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .table-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
   .table-card-header h3 { font-size: 14px; font-weight: 600; }
   .table-card-header .spacer { flex: 1; }
@@ -108,7 +109,7 @@
   .search-wrap i { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 15px; pointer-events: none; }
   .search-input:focus { outline: none; border-color: var(--cyan); }
   table { width: 100%; border-collapse: collapse; }
-  th { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  th { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
   td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 13px; }
   tr:last-child td { border-bottom: none; }
   tr:hover td { background: var(--cyan-dim2); }
@@ -146,7 +147,7 @@
   html, body { position: relative; }
   .modal-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; background: rgba(0,0,0,0.75); z-index: 9999; align-items: flex-start; justify-content: center; padding-top: 80px; padding-bottom: 40px; }
   .modal-overlay.open { display: flex !important; }
-  .modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius-lg); width: 520px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
+  .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 520px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
   .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
   .modal-header h3 { font-size: 16px; font-weight: 600; }
   .modal-header .close-btn { margin-left: auto; background: transparent; border: none; color: var(--text2); cursor: pointer; font-size: 20px; display: flex; padding: 2px; border-radius: var(--radius); }
@@ -156,7 +157,7 @@
   .form-group { display: flex; flex-direction: column; gap: 5px; }
   .form-group.full { grid-column: 1 / -1; }
   label { font-size: 12px; font-weight: 600; color: var(--text2); }
-  input, select, textarea { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; color: var(--text); font-size: 13px; font-family: inherit; transition: border-color 0.15s; }
+  input, select, textarea { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; color: var(--text); font-size: 13px; font-family: 'Aptos', 'Nunito', 'Segoe UI', Arial, sans-serif; transition: border-color 0.15s; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--cyan); }
   select option { background: var(--bg3); }
   textarea { resize: vertical; min-height: 72px; }
@@ -191,7 +192,7 @@
 
   /* HABILITATION */
   .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-  .tech-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
+  .tech-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .tech-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
   .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--cyan3); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--cyan); flex-shrink: 0; }
   .tech-name { font-weight: 600; font-size: 14px; }
@@ -227,14 +228,23 @@
     <div class="nav-section">
       <div class="nav-label">Navigation</div>
       <div class="nav-item active" onclick="goTo('dashboard')"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
-      <div class="nav-item" onclick="goTo('planning')"><i class="ti ti-calendar"></i> Planification</div>
+      <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+      <div id="planning-submenu" style="display:none">
+        <div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div>
+        <div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div>
+      </div>
       <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Réactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
       <div id="reactifs-submenu" style="display:none">
         <div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div>
         <div class="nav-item nav-sub active-sub" id="subnav-contenants" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div>
         <div class="nav-item nav-sub" id="subnav-archives" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div>
       </div>
-      <div class="nav-item" onclick="goTo('echantillons')"><i class="ti ti-package"></i> Échantillons</div>
+      <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Échantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+      <div id="ech-submenu" style="display:none">
+        <div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Réception</div>
+        <div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div>
+        <div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marchés</div>
+      </div>
       <div class="nav-item" onclick="goTo('habilitations')"><i class="ti ti-certificate"></i> Habilitations</div>
       <div class="nav-item" onclick="goTo('commandes')"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
     </div>
@@ -273,6 +283,9 @@
 
     <!-- PLANNING -->
     <div class="page" id="page-planning">
+
+      <!-- SOUS-VUE PLANNING -->
+      <div id="planning-view-calendar" style="display:block">
       <div class="page-header">
         <div class="page-header-text"><h1>Planification</h1><p>Calendrier des expériences et analyses</p></div>
         <div class="page-header-actions">
@@ -404,25 +417,92 @@
 
     </div>
 
+      </div><!-- fin planning-view-calendar -->
+
+      <!-- SOUS-VUE CATALOGUE -->
+      <div id="planning-view-catalogue" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Catalogue des analyses</h1><p>Base de référence avec habilitations requises</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-analyse')"><i class="ti ti-plus"></i> Nouvelle analyse</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>Analyses référencées</h3>
+            <div class="spacer"></div>
+            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
+          </div>
+          <table>
+            <thead><tr>
+              <th>Nom de l'analyse</th>
+              <th>Habilitations requises</th>
+              <th>Durée estimée</th>
+              <th>Description / Norme</th>
+              <th></th>
+            </tr></thead>
+            <tbody id="catalogue-tbody"></tbody>
+          </table>
+        </div>
+      </div><!-- fin planning-view-catalogue -->
+
+    </div><!-- fin page-planning -->
+
     <!-- ECHANTILLONS -->
     <div class="page" id="page-echantillons">
-      <div class="page-header">
-        <div class="page-header-text"><h1>Réception des échantillons</h1><p>Enregistrement et suivi</p></div>
-        <div class="page-header-actions">
-          <button class="btn btn-primary" onclick="openModal('modal-echantillon')"><i class="ti ti-plus"></i> Enregistrer</button>
+
+      <!-- SOUS-VUE RECEPTION -->
+      <div id="ech-view-reception" style="display:block">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Réception des échantillons</h1><p>Enregistrement et suivi</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-echantillon')"><i class="ti ti-plus"></i> Enregistrer</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-card-header"><h3>Échantillons</h3><div class="spacer"></div>
+            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
+          </div>
+          <table>
+            <thead><tr><th>ID</th><th>Produit</th><th>Marchés</th><th>N° lot</th><th>Date réception</th><th>Analyses générées</th><th>Statut global</th><th></th></tr></thead>
+            <tbody id="ech-tbody"></tbody>
+          </table>
         </div>
       </div>
-      <div class="table-card">
-        <div class="table-card-header">
-          <h3>Échantillons</h3>
-          <div class="spacer"></div>
-          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
+
+      <!-- SOUS-VUE PRODUITS -->
+      <div id="ech-view-produits-ech" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Produits</h1><p>Catalogue des produits pharmaceutiques</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-produit-ech')"><i class="ti ti-plus"></i> Nouveau produit</button>
+          </div>
         </div>
-        <table>
-          <thead><tr><th>ID</th><th>Désignation</th><th>Origine</th><th>Date réception</th><th>Analyse demandée</th><th>Statut</th><th></th></tr></thead>
-          <tbody id="ech-tbody"></tbody>
-        </table>
+        <div class="table-card">
+          <div class="table-card-header"><h3>Produits enregistrés</h3><div class="spacer"></div>
+            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits-ech" placeholder="Rechercher..." oninput="renderProduitsEch()"></div>
+          </div>
+          <table>
+            <thead><tr><th>Produit</th><th>Forme / Dosage</th><th>Marchés associés</th><th>Responsable</th><th></th></tr></thead>
+            <tbody id="produits-ech-tbody"></tbody>
+          </table>
+        </div>
       </div>
+
+      <!-- SOUS-VUE MARCHES -->
+      <div id="ech-view-marches" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Marchés</h1><p>Définissez les analyses requises par marché</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-marche')"><i class="ti ti-plus"></i> Nouveau marché</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-card-header"><h3>Marchés enregistrés</h3></div>
+          <div id="marches-list" style="padding:0"></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- COMMANDES -->
@@ -474,20 +554,49 @@
 <!-- TOAST CONTAINER -->
 <div class="toast-container" id="toast-container"></div>
 
+<!-- MODAL CATALOGUE ANALYSE -->
+<div class="modal-overlay" id="modal-analyse">
+  <div class="modal">
+    <div class="modal-header"><i class="ti ti-book" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-analyse-title">Nouvelle analyse</h3><button class="close-btn" onclick="closeModal('modal-analyse')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>Nom de l'analyse *</label><input id="a-nom" placeholder="Ex: Dosage HPLC, Test de dissolution..."></div>
+        <div class="form-group full"><label>Habilitations requises <span style="color:var(--text3);font-weight:400">(séparées par des virgules)</span></label><input id="a-habs" placeholder="Ex: HPLC, Dissolution, pH-métrie"></div>
+        <div class="form-group"><label>Durée estimée</label><input id="a-duree" placeholder="Ex: 2h, 30min, 1 journée"></div>
+        <div class="form-group"><label>Code / Référence</label><input id="a-code" placeholder="Ex: MO-HPLC-001"></div>
+        <div class="form-group full"><label>Description / Norme applicable</label><textarea id="a-desc" placeholder="Ex: Dosage par HPLC selon Ph.Eur. 2.2.29"></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-analyse')">Annuler</button><button class="btn btn-primary" onclick="saveAnalyse()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
 <!-- MODAL PLANNING -->
 <div class="modal-overlay" id="modal-planning">
   <div class="modal">
     <div class="modal-header"><h3>Nouvelle analyse planifiée</h3><button class="close-btn" onclick="closeModal('modal-planning')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group full"><label>Nom de l'analyse *</label><input id="p-nom" placeholder="Ex: Dosage HPLC API-01"></div>
+        <div class="form-group full">
+          <label>Analyse *</label>
+          <div style="display:flex;gap:8px">
+            <select id="p-catalogue" onchange="onCatalogueSelect()" style="flex:1"><option value="">— Choisir dans le catalogue —</option></select>
+            <span style="line-height:34px;color:var(--text3);font-size:12px">ou</span>
+            <input id="p-nom" placeholder="Saisir librement..." style="flex:1">
+          </div>
+        </div>
+        <div id="p-habs-info" style="display:none;grid-column:1/-1">
+          <div style="background:var(--cyan-dim);border:1px solid var(--cyan);border-radius:var(--radius);padding:8px 12px;font-size:12px;color:var(--cyan)">
+            <i class="ti ti-certificate" style="font-size:13px"></i> <strong>Habilitations requises :</strong> <span id="p-habs-list"></span>
+          </div>
+        </div>
         <div class="form-group"><label>Technicien *</label><select id="p-tech"><option value="">— Choisir —</option></select></div>
         <div class="form-group"><label>Date prévue *</label><input type="date" id="p-date"></div>
         <div class="form-group"><label>Priorité</label>
           <select id="p-priorite"><option value="normale">Normale</option><option value="haute">Haute</option><option value="urgente">Urgente</option></select>
         </div>
         <div class="form-group"><label>Statut</label>
-          <select id="p-statut"><option value="planifié">Planifié</option><option value="en_cours">En cours</option><option value="terminé">Terminé</option><option value="annulé">Annulé</option></select>
+          <select id="p-statut"><option value="planifie">Planifié</option><option value="en_cours">En cours</option><option value="termine">Terminé</option><option value="annule">Annulé</option></select>
         </div>
         <div class="form-group full"><label>Commentaire</label><textarea id="p-note" placeholder="Informations complémentaires..."></textarea></div>
       </div>
@@ -552,25 +661,71 @@
   </div>
 </div>
 
-<!-- MODAL ECHANTILLON -->
-<div class="modal-overlay" id="modal-echantillon">
+<!-- MODAL PRODUIT ECH -->
+<div class="modal-overlay" id="modal-produit-ech">
   <div class="modal">
-    <div class="modal-header"><h3>Enregistrer un échantillon</h3><button class="close-btn" onclick="closeModal('modal-echantillon')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-header"><i class="ti ti-pill" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-produit-ech-title">Nouveau produit</h3><button class="close-btn" onclick="closeModal('modal-produit-ech')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>ID / Code échantillon *</label><input id="e-id" placeholder="Ex: ECH-2024-001"></div>
-        <div class="form-group"><label>Date de réception *</label><input type="date" id="e-date"></div>
-        <div class="form-group full"><label>Désignation *</label><input id="e-nom" placeholder="Ex: Comprimé paracétamol 500mg lot A"></div>
-        <div class="form-group"><label>Origine / Donneur d'ordre</label><input id="e-origine" placeholder="Ex: Production, R&D..."></div>
-        <div class="form-group"><label>Analyse demandée</label><input id="e-analyse" placeholder="Ex: Dosage, Dissolution..."></div>
-        <div class="form-group"><label>Technicien assigné</label><select id="e-tech"><option value="">— Choisir —</option></select></div>
-        <div class="form-group"><label>Statut</label>
-          <select id="e-statut"><option value="reçu">Reçu</option><option value="en_analyse">En analyse</option><option value="terminé">Terminé</option><option value="conforme">Conforme</option><option value="non_conforme">Non conforme</option></select>
-        </div>
-        <div class="form-group full"><label>Remarques</label><textarea id="e-note" placeholder="Conditions de réception, particularités..."></textarea></div>
+        <div class="form-group full"><label>Nom du produit *</label><input id="pe-nom" placeholder="Ex: Paracetamol 500mg comprimes"></div>
+        <div class="form-group"><label>Forme pharmaceutique</label><input id="pe-forme" placeholder="Ex: Comprime, Gelule, Solution..."></div>
+        <div class="form-group"><label>Dosage</label><input id="pe-dosage" placeholder="Ex: 500mg, 1g/5mL..."></div>
+        <div class="form-group"><label>Code produit</label><input id="pe-code" placeholder="Ex: PARA-500-CPR"></div>
+        <div class="form-group"><label>Responsable produit</label><input id="pe-resp" placeholder="Ex: Dr. Martin"></div>
+        <div class="form-group full"><label>Description</label><textarea id="pe-desc" placeholder="Informations complementaires..."></textarea></div>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-echantillon')">Annuler</button><button class="btn btn-primary" onclick="saveEchantillon()"><i class="ti ti-check"></i> Enregistrer</button></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-produit-ech')">Annuler</button><button class="btn btn-primary" onclick="saveProduitEch()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL MARCHE -->
+<div class="modal-overlay" id="modal-marche">
+  <div class="modal" style="width:580px">
+    <div class="modal-header"><i class="ti ti-world" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-marche-title">Nouveau marche</h3><button class="close-btn" onclick="closeModal('modal-marche')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Nom du marche *</label><input id="m-nom" placeholder="Ex: France, USA, Europe..."></div>
+        <div class="form-group"><label>Code</label><input id="m-code" placeholder="Ex: FR, US, EU"></div>
+        <div class="form-group full"><label>Analyses requises</label>
+          <div id="m-analyses-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:12px;max-height:220px;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px"></div>
+        </div>
+        <div class="form-group full"><label>Remarques</label><textarea id="m-note" placeholder="Exigences reglementaires, normes..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-marche')">Annuler</button><button class="btn btn-primary" onclick="saveMarche()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL ECHANTILLON -->
+<div class="modal-overlay" id="modal-echantillon">
+  <div class="modal" style="width:600px">
+    <div class="modal-header"><i class="ti ti-package" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-ech-title">Reception echantillon</h3><button class="close-btn" onclick="closeModal('modal-echantillon')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>ID / Code echantillon *</label><input id="e-id" placeholder="Ex: ECH-2024-001"></div>
+        <div class="form-group"><label>Date de reception *</label><input type="date" id="e-date"></div>
+        <div class="form-group"><label>Produit</label><select id="e-produit" onchange="onProduitEchSelect()"><option value="">— Choisir un produit —</option></select></div>
+        <div class="form-group"><label>N° de lot</label><input id="e-lot" placeholder="Ex: LOT-2024-001"></div>
+        <div class="form-group full">
+          <label>Marches</label>
+          <div id="e-marches-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;min-height:40px"></div>
+        </div>
+        <div id="e-analyses-preview" style="display:none;grid-column:1/-1">
+          <div style="background:var(--cyan-dim);border:1px solid var(--cyan);border-radius:var(--radius);padding:10px 12px">
+            <div style="font-size:12px;font-weight:600;color:var(--cyan);margin-bottom:6px"><i class="ti ti-list-check"></i> Analyses qui seront generees :</div>
+            <div id="e-analyses-list" style="display:flex;flex-wrap:wrap;gap:5px"></div>
+          </div>
+        </div>
+        <div class="form-group"><label>Origine / Donneur d\'ordre</label><input id="e-origine" placeholder="Ex: Production, R&D..."></div>
+        <div class="form-group"><label>Technicien assigne</label><select id="e-tech"><option value="">— Choisir —</option></select></div>
+        <div class="form-group"><label>Statut</label>
+          <select id="e-statut"><option value="recu">Recu</option><option value="en_analyse">En analyse</option><option value="termine">Termine</option><option value="conforme">Conforme</option><option value="non_conforme">Non conforme</option></select>
+        </div>
+        <div class="form-group full"><label>Remarques</label><textarea id="e-note" placeholder="Conditions de reception, particularites..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-echantillon')">Annuler</button><button class="btn btn-primary" onclick="saveEchantillon()"><i class="ti ti-check"></i> Enregistrer et generer analyses</button></div>
   </div>
 </div>
 
@@ -628,7 +783,9 @@
 // ============================================================
 let state = {
   planning: [],
+  catalogue: [],
   reactifs: [], produits: [], contenants: [],
+  produitsEch: [], marches: [],
   echantillons: [],
   techniciens: [],
   commandesStatut: {},
@@ -657,18 +814,35 @@ window.onload = async () => {
   if (menu) menu.style.display = 'block';
   const chevron = document.getElementById('reactifs-chevron');
   if (chevron) chevron.style.transform = 'rotate(180deg)';
-  // Afficher la sous-vue contenants par defaut
   document.getElementById('reactifs-view-contenants').style.display = 'block';
+  // Ouvrir sous-menu echantillons
+  echMenuOpen = true;
+  const emenu = document.getElementById('ech-submenu');
+  if (emenu) emenu.style.display = 'block';
+  const echevron = document.getElementById('ech-chevron');
+  if (echevron) echevron.style.transform = 'rotate(180deg)';
+  document.getElementById('ech-view-reception').style.display = 'block';
+  // Ouvrir sous-menu planning
+  planningMenuOpen = true;
+  const pmenu = document.getElementById('planning-submenu');
+  if (pmenu) pmenu.style.display = 'block';
+  const pchevron = document.getElementById('planning-chevron');
+  if (pchevron) pchevron.style.transform = 'rotate(180deg)';
 };
 
 function renderAll() {
   renderDashboard();
   renderCalendar();
   renderPlanningTable();
+  renderCatalogue();
+  populateCatalogueSelect();
   if (currentReactifsView === 'contenants') renderReactifsTable();
   else if (currentReactifsView === 'produits') renderProduitsAccordion();
   else if (currentReactifsView === 'archives') renderArchivesTable();
   renderEchantillonsTable();
+  renderProduitsEch();
+  renderMarches();
+  populateProduitEchSelect();
   renderTechniciens();
   updateBadges();
   renderCommandes();
@@ -768,7 +942,7 @@ async function loadData() {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, activity: decoded.activity||[] };
+    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, activity: decoded.activity||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Donnees synchronisees', 'success');
@@ -844,6 +1018,152 @@ function renderDashboard() {
 function addActivity(icon, text) {
   state.activity.push({ icon, text, time: new Date().toLocaleString('fr-FR', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) });
   if (state.activity.length > 50) state.activity.shift();
+}
+
+
+// ============================================================
+// CATALOGUE ANALYSES
+// ============================================================
+let planningMenuOpen = false;
+let currentPlanningView = 'calendar';
+
+function togglePlanningMenu(e) {
+  planningMenuOpen = !planningMenuOpen;
+  const menu = document.getElementById('planning-submenu');
+  const chevron = document.getElementById('planning-chevron');
+  if (menu) menu.style.display = planningMenuOpen ? 'block' : 'none';
+  if (chevron) chevron.style.transform = planningMenuOpen ? 'rotate(180deg)' : '';
+  e.currentTarget.classList.toggle('active', planningMenuOpen);
+  if (planningMenuOpen) goToPlanning(currentPlanningView);
+}
+
+function goToPlanning(view) {
+  currentPlanningView = view;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-planning').classList.add('active');
+  document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-sub').forEach(n => n.classList.remove('active'));
+  ['calendar','catalogue'].forEach(v => {
+    const el = document.getElementById('planning-view-'+v);
+    if (el) el.style.display = 'none';
+  });
+  const target = document.getElementById('planning-view-'+view);
+  if (target) target.style.display = 'block';
+  const subItems = document.querySelectorAll('#planning-submenu .nav-sub');
+  const idx = {calendar:0, catalogue:1};
+  if (subItems[idx[view]]) subItems[idx[view]].classList.add('active');
+  if (view === 'calendar') { renderCalendar(); renderPlanningTable(); }
+  if (view === 'catalogue') renderCatalogue();
+}
+
+function saveAnalyse() {
+  const nom = document.getElementById('a-nom').value.trim();
+  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
+  if (!state.catalogue) state.catalogue = [];
+  const habs = document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const entry = { id: editingId||Date.now(), nom, habilitations: habs, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
+  if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
+  else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
+  editingId = null;
+  closeModal('modal-analyse');
+  renderCatalogue();
+  populateCatalogueSelect();
+  saveData();
+  toast('Analyse enregistree', 'success');
+}
+
+function renderCatalogue() {
+  const q = (document.getElementById('search-catalogue')?.value||'').toLowerCase();
+  const rows = (state.catalogue||[]).filter(a => !q || a.nom.toLowerCase().includes(q) || (a.code||'').toLowerCase().includes(q));
+  const tbody = document.getElementById('catalogue-tbody');
+  if (!tbody) return;
+  if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
+  tbody.innerHTML = rows.map(a => `<tr>
+    <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
+    <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
+    <td>${a.duree||'—'}</td>
+    <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
+    <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
+  </tr>`).join('');
+}
+
+function editAnalyse(id) {
+  const a = (state.catalogue||[]).find(x=>x.id===id); if(!a) return;
+  editingId = id;
+  document.getElementById('a-nom').value = a.nom||'';
+  document.getElementById('a-habs').value = (a.habilitations||[]).join(', ');
+  document.getElementById('a-duree').value = a.duree||'';
+  document.getElementById('a-code').value = a.code||'';
+  document.getElementById('a-desc').value = a.description||'';
+  document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
+  openModal('modal-analyse');
+}
+
+function deleteAnalyse(id) {
+  const a = (state.catalogue||[]).find(x=>x.id===id);
+  state.catalogue = (state.catalogue||[]).filter(x=>x.id!==id);
+  addActivity('trash','Analyse supprimee : '+(a?.nom||''));
+  renderCatalogue(); populateCatalogueSelect(); saveData();
+}
+
+function populateCatalogueSelect() {
+  const sel = document.getElementById('p-catalogue'); if(!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">— Choisir dans le catalogue —</option>' +
+    (state.catalogue||[]).map(a=>'<option value="'+a.id+'">'+a.nom+(a.code?' ('+a.code+')':'')+'</option>').join('');
+  if (cur) sel.value = cur;
+}
+
+function onCatalogueSelect() {
+  const selId = parseInt(document.getElementById('p-catalogue').value);
+  const analyse = (state.catalogue||[]).find(a=>a.id===selId);
+  const habInfo = document.getElementById('p-habs-info');
+  const habList = document.getElementById('p-habs-list');
+  const nomInput = document.getElementById('p-nom');
+  if (analyse) {
+    nomInput.value = analyse.nom;
+    nomInput.placeholder = analyse.nom;
+    if (analyse.habilitations && analyse.habilitations.length) {
+      habList.textContent = analyse.habilitations.join(', ');
+      habInfo.style.display = 'block';
+      // Filtrer techniciens habilites
+      populateTechSelectFiltered(analyse.habilitations);
+    } else {
+      habInfo.style.display = 'none';
+      populateTechSelects();
+    }
+  } else {
+    habInfo.style.display = 'none';
+    populateTechSelects();
+  }
+}
+
+function populateTechSelectFiltered(habsRequises) {
+  const sel = document.getElementById('p-tech'); if(!sel) return;
+  const cur = sel.value;
+  const techHabilites = state.techniciens.filter(t => {
+    if (t.statut !== 'actif') return false;
+    return habsRequises.every(h => (t.habilitations||[]).some(th => th.toLowerCase().includes(h.toLowerCase()) || h.toLowerCase().includes(th.toLowerCase())));
+  });
+  const techNonHabilites = state.techniciens.filter(t => {
+    if (t.statut !== 'actif') return false;
+    return !habsRequises.every(h => (t.habilitations||[]).some(th => th.toLowerCase().includes(h.toLowerCase()) || h.toLowerCase().includes(th.toLowerCase())));
+  });
+  sel.innerHTML = '<option value="">— Choisir —</option>';
+  if (techHabilites.length) {
+    const grp1 = document.createElement('optgroup');
+    grp1.label = 'Habilites (' + techHabilites.length + ')';
+    techHabilites.forEach(t => { const o = document.createElement('option'); o.value=t.prenom+' '+t.nom; o.textContent=t.prenom+' '+t.nom; grp1.appendChild(o); });
+    sel.appendChild(grp1);
+  }
+  if (techNonHabilites.length) {
+    const grp2 = document.createElement('optgroup');
+    grp2.label = 'Non habilites';
+    grp2.style.color = 'var(--text3)';
+    techNonHabilites.forEach(t => { const o = document.createElement('option'); o.value=t.prenom+' '+t.nom; o.textContent=t.prenom+' '+t.nom+' (non habilite)'; o.style.color='var(--text3)'; grp2.appendChild(o); });
+    sel.appendChild(grp2);
+  }
+  if (cur) sel.value = cur;
 }
 
 // ============================================================
@@ -1298,6 +1618,214 @@ function expiryStatus(expiry) {
   return { cls:'', badge:`<span class="badge badge-green">OK</span>` };
 }
 
+
+// ============================================================
+// ECHANTILLONS - PRODUITS ECH + MARCHES
+// ============================================================
+let echMenuOpen = false;
+let currentEchView = 'reception';
+
+function toggleEchMenu(e) {
+  echMenuOpen = !echMenuOpen;
+  const menu = document.getElementById('ech-submenu');
+  const chevron = document.getElementById('ech-chevron');
+  if (menu) menu.style.display = echMenuOpen ? 'block' : 'none';
+  if (chevron) chevron.style.transform = echMenuOpen ? 'rotate(180deg)' : '';
+  e.currentTarget.classList.toggle('active', echMenuOpen);
+  if (echMenuOpen) goToEch(currentEchView);
+}
+
+function goToEch(view) {
+  currentEchView = view;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-echantillons').classList.add('active');
+  document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('#ech-submenu .nav-sub').forEach(n => n.classList.remove('active'));
+  ['reception','produits-ech','marches'].forEach(v => {
+    const el = document.getElementById('ech-view-'+v);
+    if (el) el.style.display = 'none';
+  });
+  const target = document.getElementById('ech-view-'+view);
+  if (target) target.style.display = 'block';
+  const subItems = document.querySelectorAll('#ech-submenu .nav-sub');
+  const idx = {reception:0, 'produits-ech':1, marches:2};
+  if (subItems[idx[view]]) subItems[idx[view]].classList.add('active');
+  if (view === 'reception') renderEchantillonsTable();
+  if (view === 'produits-ech') renderProduitsEch();
+  if (view === 'marches') renderMarches();
+}
+
+// ── PRODUITS ECH ─────────────────────────────────────────────
+function saveProduitEch() {
+  const nom = document.getElementById('pe-nom').value.trim();
+  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
+  if (!state.produitsEch) state.produitsEch = [];
+  const entry = { id: editingId||Date.now(), nom, forme: document.getElementById('pe-forme').value, dosage: document.getElementById('pe-dosage').value, code: document.getElementById('pe-code').value, responsable: document.getElementById('pe-resp').value, description: document.getElementById('pe-desc').value };
+  if (editingId) { const i=state.produitsEch.findIndex(x=>x.id===editingId); state.produitsEch[i]=entry; addActivity('pencil','Produit modifie : '+nom); }
+  else { state.produitsEch.push(entry); addActivity('pill','Produit ajoute : '+nom); }
+  editingId = null;
+  closeModal('modal-produit-ech');
+  renderProduitsEch(); populateProduitEchSelect(); saveData();
+  toast('Produit enregistre', 'success');
+}
+
+function renderProduitsEch() {
+  const q = (document.getElementById('search-produits-ech')?.value||'').toLowerCase();
+  const rows = (state.produitsEch||[]).filter(p => !q || p.nom.toLowerCase().includes(q));
+  const tbody = document.getElementById('produits-ech-tbody');
+  if (!tbody) return;
+  if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-pill"></i><p>Aucun produit enregistre</p></div></td></tr>'; return; }
+  tbody.innerHTML = rows.map(p => {
+    const marchesProd = (state.marches||[]).filter(m => (m.produits||[]).includes(p.id));
+    return `<tr>
+      <td><strong>${p.nom}</strong>${p.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+p.code+'</code>':''}</td>
+      <td>${p.forme||'—'}${p.dosage?' / '+p.dosage:''}</td>
+      <td>${marchesProd.length ? marchesProd.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3)">Aucun</span>'}</td>
+      <td>${p.responsable||'—'}</td>
+      <td><div class="actions"><button class="icon-btn" onclick="editProduitEch(${p.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteProduitEch(${p.id})"><i class="ti ti-trash"></i></button></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function editProduitEch(id) {
+  const p = (state.produitsEch||[]).find(x=>x.id===id); if(!p) return;
+  editingId = id;
+  document.getElementById('pe-nom').value = p.nom||'';
+  document.getElementById('pe-forme').value = p.forme||'';
+  document.getElementById('pe-dosage').value = p.dosage||'';
+  document.getElementById('pe-code').value = p.code||'';
+  document.getElementById('pe-resp').value = p.responsable||'';
+  document.getElementById('pe-desc').value = p.description||'';
+  document.getElementById('modal-produit-ech-title').textContent = 'Modifier le produit';
+  openModal('modal-produit-ech');
+}
+
+function deleteProduitEch(id) {
+  const p = (state.produitsEch||[]).find(x=>x.id===id);
+  state.produitsEch = (state.produitsEch||[]).filter(x=>x.id!==id);
+  addActivity('trash','Produit supprime : '+(p?.nom||''));
+  renderProduitsEch(); populateProduitEchSelect(); saveData();
+}
+
+function populateProduitEchSelect() {
+  const sel = document.getElementById('e-produit'); if(!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">— Choisir un produit —</option>' +
+    (state.produitsEch||[]).map(p=>'<option value="'+p.id+'">'+p.nom+(p.code?' ('+p.code+')':'')+'</option>').join('');
+  if (cur) sel.value = cur;
+}
+
+// ── MARCHES ──────────────────────────────────────────────────
+function saveMarche() {
+  const nom = document.getElementById('m-nom').value.trim();
+  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
+  if (!state.marches) state.marches = [];
+  const checked = Array.from(document.querySelectorAll('#m-analyses-check input:checked')).map(cb=>parseInt(cb.value));
+  const entry = { id: editingId||Date.now(), nom, code: document.getElementById('m-code').value, analyses: checked, note: document.getElementById('m-note').value };
+  if (editingId) { const i=state.marches.findIndex(x=>x.id===editingId); state.marches[i]=entry; addActivity('pencil','Marche modifie : '+nom); }
+  else { state.marches.push(entry); addActivity('world','Marche ajoute : '+nom); }
+  editingId = null;
+  closeModal('modal-marche');
+  renderMarches(); saveData();
+  toast('Marche enregistre', 'success');
+}
+
+function renderMarches() {
+  const el = document.getElementById('marches-list'); if(!el) return;
+  const marches = state.marches||[];
+  if (!marches.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-world"></i><p>Aucun marche enregistre</p></div>'; return; }
+  el.innerHTML = marches.map(m => {
+    const analyses = (m.analyses||[]).map(id => (state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+    return `<div style="padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:14px">
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <strong>${m.nom}</strong>
+          ${m.code?'<span class="badge badge-blue">'+m.code+'</span>':''}
+          <span class="badge badge-gray">${analyses.length} analyse${analyses.length>1?'s':''}</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          ${analyses.length ? analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('') : '<span style="color:var(--text3);font-size:12px">Aucune analyse definie</span>'}
+        </div>
+        ${m.note?'<div style="font-size:11px;color:var(--text2);margin-top:6px">'+m.note+'</div>':''}
+      </div>
+      <div style="display:flex;gap:6px">
+        <button class="icon-btn" onclick="editMarche(${m.id})"><i class="ti ti-pencil"></i></button>
+        <button class="icon-btn danger" onclick="deleteMarche(${m.id})"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function populateMarcheChecks(containerId, selectedIds) {
+  const el = document.getElementById(containerId); if(!el) return;
+  const marches = state.marches||[];
+  if (!marches.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucun marche defini</span>'; return; }
+  el.innerHTML = marches.map(m => {
+    const checked = selectedIds && selectedIds.includes(m.id) ? 'checked' : '';
+    const analyses = (m.analyses||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)?.nom).filter(Boolean);
+    return `<label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:6px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${m.id}" ${checked} onchange="onMarcheEchChange()" style="margin-top:2px">
+      <div>
+        <div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span style=\"font-size:10px;color:var(--text3)\">'+m.code+'</span>':''}</div>
+        <div style="font-size:10px;color:var(--text2)">${analyses.slice(0,3).join(', ')}${analyses.length>3?' +'+( analyses.length-3):''}  </div>
+      </div>
+    </label>`;
+  }).join('');
+}
+
+function populateAnalysesChecks(containerId, selectedIds) {
+  const el = document.getElementById(containerId); if(!el) return;
+  const catalogue = state.catalogue||[];
+  if (!catalogue.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucune analyse dans le catalogue</span>'; return; }
+  el.innerHTML = catalogue.map(a => {
+    const checked = selectedIds && selectedIds.includes(a.id) ? 'checked' : '';
+    return `<label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:5px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${a.id}" ${checked}>
+      <span style="font-size:12px">${a.nom}${a.code?' <code style=\"font-size:10px\">'+a.code+'</code>':''}</span>
+    </label>`;
+  }).join('');
+}
+
+function editMarche(id) {
+  const m = (state.marches||[]).find(x=>x.id===id); if(!m) return;
+  editingId = id;
+  document.getElementById('m-nom').value = m.nom||'';
+  document.getElementById('m-code').value = m.code||'';
+  document.getElementById('m-note').value = m.note||'';
+  document.getElementById('modal-marche-title').textContent = 'Modifier le marche';
+  openModal('modal-marche');
+  setTimeout(() => populateAnalysesChecks('m-analyses-check', m.analyses||[]), 50);
+}
+
+function deleteMarche(id) {
+  const m = (state.marches||[]).find(x=>x.id===id);
+  state.marches = (state.marches||[]).filter(x=>x.id!==id);
+  addActivity('trash','Marche supprime : '+(m?.nom||''));
+  renderMarches(); saveData();
+}
+
+// ── SELECTION MARCHE DANS MODAL ECHANTILLON ───────────────────
+function onProduitEchSelect() {
+  populateMarcheChecks('e-marches-check', []);
+  onMarcheEchChange();
+}
+
+function onMarcheEchChange() {
+  const checked = Array.from(document.querySelectorAll('#e-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const preview = document.getElementById('e-analyses-preview');
+  const list = document.getElementById('e-analyses-list');
+  if (!checked.length) { if(preview) preview.style.display='none'; return; }
+  // Collecter toutes les analyses uniques des marches selectionnes
+  const analysesIds = new Set();
+  checked.forEach(mid => {
+    const m = (state.marches||[]).find(x=>x.id===mid);
+    if (m) (m.analyses||[]).forEach(aid => analysesIds.add(aid));
+  });
+  const analyses = Array.from(analysesIds).map(id => (state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  if (preview) preview.style.display = analyses.length ? 'block' : 'none';
+  if (list) list.innerHTML = analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('');
+}
+
 // ============================================================
 // ECHANTILLONS
 // ============================================================
@@ -1315,20 +1843,25 @@ function saveEchantillon() {
 
 function renderEchantillonsTable() {
   const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
-  const rows = state.echantillons.filter(e => !q || e.nom.toLowerCase().includes(q) || (e.code||'').toLowerCase().includes(q));
+  const rows = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q));
   const tbody = document.getElementById('ech-tbody');
-  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>`; return; }
+  if (!tbody) return;
+  if (!rows.length) { tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
   const statuts = { recu:'badge-blue', en_analyse:'badge-amber', termine:'badge-green', conforme:'badge-cyan', non_conforme:'badge-red' };
-  const icons = { recu:'package', en_analyse:'microscope', termine:'check', conforme:'circle-check', non_conforme:'alert-circle' };
-  tbody.innerHTML = rows.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e => `<tr>
-    <td><code style="font-size:12px;background:var(--bg3);padding:2px 8px;border-radius:4px;color:var(--cyan)">${e.code}</code></td>
-    <td><strong>${e.nom}</strong></td>
-    <td>${e.origine||'-'}</td>
-    <td>${e.date?formatDate(e.date):'-'}</td>
-    <td>${e.analyse||'-'}</td>
-    <td><span class="badge ${statuts[e.statut]||'badge-gray'}"><i class="ti ti-${icons[e.statut]||'circle'}" style="font-size:11px"></i> ${(e.statut||'').replace('_',' ')}</span></td>
-    <td><div class="actions"><button class="icon-btn" onclick="editEchantillon(${e.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
-  </tr>`).join('');
+  tbody.innerHTML = rows.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e => {
+    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
+    const marches = (e.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    return '<tr>'
+      +'<td><code style="font-size:12px;background:var(--bg3);padding:2px 8px;border-radius:4px;color:var(--cyan)">'+e.code+'</code>'+(e.lot?'<br><span style="font-size:11px;color:var(--text3)">Lot: '+e.lot+'</span>':'')+'</td>'
+      +'<td><strong>'+(produit?produit.nom:e.nom||'—')+'</strong>'+(produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+(produit.dosage?' '+produit.dosage:'')+'</span>':'')+'</td>'
+      +'<td>'+(marches.length?marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</td>'
+      +'<td>'+(e.date?formatDate(e.date):'—')+'</td>'
+      +'<td>'+(analyses.length?analyses.map(a=>'<span class="badge badge-cyan" style="font-size:10px">'+a.nom+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</td>'
+      +'<td><span class="badge '+(statuts[e.statut]||'badge-gray')+'">'+(e.statut||'').replace('_',' ')+'</span></td>'
+      +'<td><div class="actions"><button class="icon-btn" onclick="editEchantillon('+e.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon('+e.id+')"><i class="ti ti-trash"></i></button></div></td>'
+      +'</tr>';
+  }).join('');
 }
 
 function editEchantillon(id) {
@@ -1554,8 +2087,27 @@ function formatDate(d) {
 // MODAL
 // ============================================================
 function openModal(id) {
-  if (id === 'modal-planning') populateTechSelects();
-  if (id === 'modal-echantillon') populateTechSelects();
+  if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
+  if (id === 'modal-analyse') { if(!editingId) document.getElementById('modal-analyse-title').textContent='Nouvelle analyse'; }
+  if (id === 'modal-echantillon') {
+    populateTechSelects();
+    populateProduitEchSelect();
+    if (!editingId) {
+      populateMarcheChecks('e-marches-check', []);
+      const prev = document.getElementById('e-analyses-preview');
+      if (prev) prev.style.display = 'none';
+      document.getElementById('modal-ech-title').textContent = 'Reception echantillon';
+    }
+  }
+  if (id === 'modal-marche') {
+    if (!editingId) {
+      populateAnalysesChecks('m-analyses-check', []);
+      document.getElementById('modal-marche-title').textContent = 'Nouveau marche';
+    }
+  }
+  if (id === 'modal-produit-ech') {
+    if (!editingId) document.getElementById('modal-produit-ech-title').textContent = 'Nouveau produit';
+  }
   if (id === 'modal-contenant') { populateProduitSelect(); }
   if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
@@ -1721,6 +2273,30 @@ window.exportCommandes = exportCommandes;
 window.getProduitsSousMin = getProduitsSousMin;
 window.getStockActif = getStockActif;
 window.toggleReactifsMenu = toggleReactifsMenu;
+window.togglePlanningMenu = togglePlanningMenu;
+window.toggleEchMenu = toggleEchMenu;
+window.goToEch = goToEch;
+window.saveProduitEch = saveProduitEch;
+window.editProduitEch = editProduitEch;
+window.deleteProduitEch = deleteProduitEch;
+window.renderProduitsEch = renderProduitsEch;
+window.populateProduitEchSelect = populateProduitEchSelect;
+window.saveMarche = saveMarche;
+window.editMarche = editMarche;
+window.deleteMarche = deleteMarche;
+window.renderMarches = renderMarches;
+window.onProduitEchSelect = onProduitEchSelect;
+window.onMarcheEchChange = onMarcheEchChange;
+window.populateMarcheChecks = populateMarcheChecks;
+window.populateAnalysesChecks = populateAnalysesChecks;
+window.goToPlanning = goToPlanning;
+window.saveAnalyse = saveAnalyse;
+window.editAnalyse = editAnalyse;
+window.deleteAnalyse = deleteAnalyse;
+window.renderCatalogue = renderCatalogue;
+window.populateCatalogueSelect = populateCatalogueSelect;
+window.onCatalogueSelect = onCatalogueSelect;
+window.populateTechSelectFiltered = populateTechSelectFiltered;
 window.goToReactifs = goToReactifs;
 window.renderArchivesTable = renderArchivesTable;
 window.resetFiltresArchives = resetFiltresArchives;
