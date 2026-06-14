@@ -3,7 +3,7 @@
   "reactifs": [
     {
       "id": 1781429589952,
-      "nom": "MÃÂ©thanol HPLC Grade",
+      "nom": "MÃÂÃÂ©thanol HPLC Grade",
       "fournisseur": "CARLO ERBA",
       "ref": "Test",
       "stock": "5",
@@ -13,7 +13,18 @@
       "note": ""
     }
   ],
-  "produits": [],
+  "produits": [
+    {
+      "id": 1781437347306,
+      "nom": "Méthanol HPLC Grade",
+      "fournisseur": "CARLO ERBA",
+      "ref": "41239000",
+      "localisation": "I4",
+      "fc": "0.6",
+      "conditionnement": "2.5 L",
+      "note": ""
+    }
+  ],
   "contenants": [],
   "echantillons": [],
   "techniciens": [
@@ -33,33 +44,38 @@
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajoutÃÂ© : Fabien VARY",
+      "text": "Technicien ajoutÃÂÃÂ© : Fabien VARY",
       "time": "14/06 11:29"
     },
     {
       "icon": "flask",
-      "text": "RÃÂ©actif ajoutÃÂ© : MÃÂ©thanol HPLC Grade",
+      "text": "RÃÂÃÂ©actif ajoutÃÂÃÂ© : MÃÂÃÂ©thanol HPLC Grade",
       "time": "14/06 11:33"
     },
     {
       "icon": "flask-2",
-      "text": "Produit ajoutÃ© : Methanol HPLC Grade",
+      "text": "Produit ajoutÃÂ© : Methanol HPLC Grade",
       "time": "14/06 11:46"
     },
     {
       "icon": "package",
-      "text": "Contenant ajoutÃ© : Methanol HPLC Grade lot VBCN32443",
+      "text": "Contenant ajoutÃÂ© : Methanol HPLC Grade lot VBCN32443",
       "time": "14/06 11:47"
     },
     {
       "icon": "pencil",
-      "text": "Contenant modifiÃ© : lot VBCN32443",
+      "text": "Contenant modifiÃÂ© : lot VBCN32443",
       "time": "14/06 11:47"
     },
     {
       "icon": "trash",
-      "text": "Produit supprimé : Methanol HPLC Grade",
+      "text": "Produit supprimÃ© : Methanol HPLC Grade",
       "time": "14/06 13:29"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajouté : Méthanol HPLC Grade",
+      "time": "14/06 13:42"
     }
   ]
 }
