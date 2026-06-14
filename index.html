@@ -290,21 +290,30 @@
     <!-- REACTIFS -->
     <div class="page" id="page-reactifs">
       <div class="page-header">
-        <div class="page-header-text"><h1>Suivi des réactifs</h1><p>Stocks, fournisseurs, dates de péremption</p></div>
+        <div class="page-header-text"><h1>Suivi des réactifs</h1><p>Fiches produits et contenants par lot</p></div>
         <div class="page-header-actions">
-          <button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Ajouter un réactif</button>
+          <button class="btn" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button>
+          <button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-flask-2"></i> Nouveau produit</button>
         </div>
       </div>
+      <!-- Vue contenants (tableau principal) -->
       <div class="table-card">
         <div class="table-card-header">
-          <h3>Inventaire</h3>
+          <h3>Contenants / Lots</h3>
           <div class="spacer"></div>
           <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-reactifs" placeholder="Rechercher..." oninput="renderReactifsTable()"></div>
         </div>
         <table>
-          <thead><tr><th>Réactif</th><th>Fournisseur</th><th>Référence</th><th>Stock</th><th>Expiration</th><th>Statut</th><th></th></tr></thead>
+          <thead><tr><th>Produit</th><th>N° Lot</th><th>Fournisseur</th><th>Réf.</th><th>Réception</th><th>Ouverture</th><th>Péremption fab.</th><th>Validité calculée</th><th>Statut</th><th></th></tr></thead>
           <tbody id="reactifs-tbody"></tbody>
         </table>
+      </div>
+      <!-- Fiches produits (accordéon) -->
+      <div style="margin-top:20px">
+        <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;">
+          <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Fiches produits</h3>
+        </div>
+        <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
       </div>
     </div>
 
@@ -367,23 +376,49 @@
   </div>
 </div>
 
-<!-- MODAL REACTIF -->
+<!-- MODAL PRODUIT (fiche produit) -->
 <div class="modal-overlay" id="modal-reactif">
   <div class="modal">
-    <div class="modal-header"><h3>Ajouter un réactif</h3><button class="close-btn" onclick="closeModal('modal-reactif')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-header"><i class="ti ti-flask-2" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-reactif-title">Nouveau produit</h3><button class="close-btn" onclick="closeModal('modal-reactif')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group full"><label>Nom du réactif *</label><input id="r-nom" placeholder="Ex: Acétonitrile HPLC grade"></div>
         <div class="form-group"><label>Fournisseur</label><input id="r-fourn" placeholder="Ex: Sigma-Aldrich"></div>
         <div class="form-group"><label>Référence catalogue</label><input id="r-ref" placeholder="Ex: 34998"></div>
-        <div class="form-group"><label>Quantité en stock</label><input id="r-stock" placeholder="Ex: 5 L"></div>
-        <div class="form-group"><label>Seuil d'alerte</label><input id="r-seuil" placeholder="Ex: 1 L"></div>
-        <div class="form-group"><label>Date de péremption</label><input type="date" id="r-expiry"></div>
         <div class="form-group"><label>Localisation</label><input id="r-loc" placeholder="Ex: Armoire A - étagère 2"></div>
-        <div class="form-group full"><label>Remarques</label><textarea id="r-note" placeholder="Conditions de stockage, précautions..."></textarea></div>
+        <div class="form-group"><label>Facteur correctif</label><input id="r-fc" type="number" step="0.01" min="0" max="1" placeholder="Ex: 0.5"></div>
+        <div class="form-group"><label>Conditionnement</label><input id="r-cond" placeholder="Ex: 2.5 L, 500 g..."></div>
+        <div class="form-group full"><label>Remarques / Conditions de stockage</label><textarea id="r-note" placeholder="Précautions, température, lumière..."></textarea></div>
       </div>
     </div>
-    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-reactif')">Annuler</button><button class="btn btn-primary" onclick="saveReactif()"><i class="ti ti-check"></i> Enregistrer</button></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-reactif')">Annuler</button><button class="btn btn-primary" onclick="saveProduit()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL CONTENANT (lot) -->
+<div class="modal-overlay" id="modal-contenant">
+  <div class="modal">
+    <div class="modal-header"><i class="ti ti-package" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-contenant-title">Nouveau contenant</h3><button class="close-btn" onclick="closeModal('modal-contenant')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>Produit *</label><select id="c-produit"><option value="">— Choisir un produit —</option></select></div>
+        <div class="form-group"><label>N° de lot *</label><input id="c-lot" placeholder="Ex: MKBR1234V"></div>
+        <div class="form-group"><label>Quantité</label><input id="c-qte" placeholder="Ex: 2.5 L"></div>
+        <div class="form-group"><label>Date de réception</label><input type="date" id="c-reception"></div>
+        <div class="form-group"><label>Date d'ouverture</label><input type="date" id="c-ouverture" oninput="calcValidite()"></div>
+        <div class="form-group"><label>Péremption fournisseur</label><input type="date" id="c-peremption" oninput="calcValidite()"></div>
+        <div class="form-group full">
+          <label>Validité calculée <span style="color:var(--text3);font-weight:400">(automatique)</span></label>
+          <div id="c-validite-display" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;font-size:13px;color:var(--text2)">— Renseignez ouverture et péremption —</div>
+          <input type="hidden" id="c-validite">
+        </div>
+        <div class="form-group"><label>Statut</label>
+          <select id="c-statut"><option value="en_stock">En stock</option><option value="ouvert">Ouvert</option><option value="epuise">Épuisé</option><option value="retire">Retiré</option></select>
+        </div>
+        <div class="form-group full"><label>Remarques</label><textarea id="c-note" placeholder="Observations à la réception, anomalies..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-contenant')">Annuler</button><button class="btn btn-primary" onclick="saveContenant()"><i class="ti ti-check"></i> Enregistrer</button></div>
   </div>
 </div>
 
@@ -463,7 +498,7 @@
 // ============================================================
 let state = {
   planning: [],
-  reactifs: [],
+  reactifs: [], produits: [], contenants: [],
   echantillons: [],
   techniciens: [],
   activity: []
@@ -490,6 +525,7 @@ function renderAll() {
   renderCalendar();
   renderPlanningTable();
   renderReactifsTable();
+  renderProduitsAccordion();
   renderEchantillonsTable();
   renderTechniciens();
   updateBadges();
@@ -584,7 +620,7 @@ async function loadData() {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
     const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], activity: decoded.activity||[] };
+    state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], activity: decoded.activity||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Données synchronisées', 'success');
@@ -640,7 +676,7 @@ function renderDashboard() {
   document.getElementById('stat-planning').textContent = thisWeek.length;
   const pending = state.echantillons.filter(e => e.statut === 'reçu' || e.statut === 'en_analyse');
   document.getElementById('stat-ech').textContent = pending.length;
-  const critical = state.reactifs.filter(r => isReactifCritical(r));
+  const critical = (state.contenants||[]).filter(c => isContenantCritical(c) && c.statut !== 'epuise' && c.statut !== 'retire');
   document.getElementById('stat-reactifs').textContent = critical.length;
   document.getElementById('stat-techs').textContent = state.techniciens.filter(t => t.statut === 'actif').length;
   const log = document.getElementById('activity-log');
@@ -751,54 +787,195 @@ function quickAddPlanning(date) {
 }
 
 // ============================================================
-// REACTIFS
+// REACTIFS — PRODUITS + CONTENANTS
 // ============================================================
-function saveReactif() {
+
+// ── Calcul validité ──────────────────────────────────────────
+function calcValidite() {
+  const ouv = document.getElementById('c-ouverture').value;
+  const per = document.getElementById('c-peremption').value;
+  const disp = document.getElementById('c-validite-display');
+  const inp = document.getElementById('c-validite');
+  if (!ouv || !per) { disp.textContent = '— Renseignez ouverture et péremption —'; disp.style.color='var(--text2)'; inp.value=''; return; }
+  const dOuv = new Date(ouv+'T12:00:00');
+  const dPer = new Date(per+'T12:00:00');
+  const jours = Math.ceil((dPer - dOuv) / (1000*60*60*24));
+  if (jours <= 0) { disp.textContent = 'Péremption antérieure à l'ouverture !'; disp.style.color='var(--red)'; inp.value=''; return; }
+  const produitId = document.getElementById('c-produit').value;
+  const produit = (state.produits||[]).find(p=>p.id==produitId);
+  const fc = produit ? parseFloat(produit.fc||1) : 1;
+  const joursValides = Math.round(jours * fc);
+  const dValide = new Date(dOuv.getTime() + joursValides*24*60*60*1000);
+  const dateValide = dValide.toISOString().slice(0,10);
+  inp.value = dateValide;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const restants = Math.ceil((dValide-today)/(1000*60*60*24));
+  const fcTxt = fc !== 1 ? ` (FC ${fc} × ${jours}j)` : '';
+  if (restants < 0) { disp.innerHTML = `<span style="color:var(--red)">Expiré le ${formatDate(dateValide)}${fcTxt}</span>`; }
+  else if (restants <= 30) { disp.innerHTML = `<span style="color:var(--amber)">${formatDate(dateValide)} — ${restants}j restants${fcTxt}</span>`; }
+  else { disp.innerHTML = `<span style="color:var(--green)">${formatDate(dateValide)} — ${restants}j restants${fcTxt}</span>`; }
+}
+
+function populateProduitSelect() {
+  const sel = document.getElementById('c-produit'); if(!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">— Choisir un produit —</option>' + (state.produits||[]).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
+  if (cur) sel.value = cur;
+}
+
+// ── PRODUITS ─────────────────────────────────────────────────
+function saveProduit() {
   const nom = document.getElementById('r-nom').value.trim();
   if (!nom) { toast('Le nom du réactif est obligatoire', 'error'); return; }
-  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, stock: document.getElementById('r-stock').value, seuil: document.getElementById('r-seuil').value, expiry: document.getElementById('r-expiry').value, localisation: document.getElementById('r-loc').value, note: document.getElementById('r-note').value };
-  if (editingId) { const i=state.reactifs.findIndex(x=>x.id===editingId); state.reactifs[i]=entry; addActivity('pencil','Réactif modifié : '+nom); }
-  else { state.reactifs.push(entry); addActivity('flask','Réactif ajouté : '+nom); }
+  if (!state.produits) state.produits = [];
+  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, note: document.getElementById('r-note').value };
+  if (editingId) { const i=state.produits.findIndex(x=>x.id===editingId); state.produits[i]=entry; addActivity('pencil','Produit modifié : '+nom); }
+  else { state.produits.push(entry); addActivity('flask-2','Produit ajouté : '+nom); }
   editingId = null;
   closeModal('modal-reactif');
-  renderReactifsTable(); renderDashboard(); updateBadges(); saveData();
+  renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
 }
 
-function renderReactifsTable() {
-  const q = (document.getElementById('search-reactifs')?.value||'').toLowerCase();
-  const rows = state.reactifs.filter(r => !q || r.nom.toLowerCase().includes(q) || (r.fournisseur||'').toLowerCase().includes(q));
-  const tbody = document.getElementById('reactifs-tbody');
-  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun réactif enregistré</p></div></td></tr>`; return; }
-  tbody.innerHTML = rows.map(r => {
-    const exp = expiryStatus(r.expiry);
-    return `<tr>
-      <td><strong>${r.nom}</strong>${r.localisation?`<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${r.localisation}</span>`:''}</td>
-      <td>${r.fournisseur||'—'}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${r.ref||'—'}</code></td>
-      <td>${r.stock||'—'}${r.seuil?`<br><span style="font-size:11px;color:var(--text3)">seuil : ${r.seuil}</span>`:''}</td>
-      <td class="${exp.cls}">${r.expiry?formatDate(r.expiry):'—'}</td>
-      <td>${exp.badge}</td>
-      <td><div class="actions"><button class="icon-btn" onclick="editReactif(${r.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteReactif(${r.id})"><i class="ti ti-trash"></i></button></div></td>
-    </tr>`;
-  }).join('');
-}
-
-function editReactif(id) {
-  const r = state.reactifs.find(x=>x.id===id); if(!r) return;
+function editProduit(id) {
+  if (!state.produits) return;
+  const p = state.produits.find(x=>x.id===id); if(!p) return;
   editingId = id;
-  ['nom','fourn','ref','stock','seuil','loc','note'].forEach(k => {
-    const map={nom:'r-nom',fourn:'r-fourn',ref:'r-ref',stock:'r-stock',seuil:'r-seuil',loc:'r-loc',note:'r-note'};
-    document.getElementById(map[k]).value = r[k==='fourn'?'fournisseur':k==='loc'?'localisation':k]||'';
-  });
-  document.getElementById('r-expiry').value = r.expiry||'';
+  document.getElementById('r-nom').value = p.nom||'';
+  document.getElementById('r-fourn').value = p.fournisseur||'';
+  document.getElementById('r-ref').value = p.ref||'';
+  document.getElementById('r-loc').value = p.localisation||'';
+  document.getElementById('r-fc').value = p.fc||'';
+  document.getElementById('r-cond').value = p.conditionnement||'';
+  document.getElementById('r-note').value = p.note||'';
+  document.getElementById('modal-reactif-title').textContent = 'Modifier le produit';
   openModal('modal-reactif');
 }
 
-function deleteReactif(id) {
-  const r = state.reactifs.find(x=>x.id===id);
-  state.reactifs = state.reactifs.filter(x=>x.id!==id);
-  addActivity('trash','Réactif supprimé : '+(r?.nom||''));
-  renderReactifsTable(); renderDashboard(); updateBadges(); saveData();
+function deleteProduit(id) {
+  if (!state.produits) return;
+  const p = state.produits.find(x=>x.id===id);
+  state.produits = state.produits.filter(x=>x.id!==id);
+  state.contenants = (state.contenants||[]).filter(c=>c.produitId!==id);
+  addActivity('trash','Produit supprimé : '+(p?.nom||''));
+  renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
+}
+
+function renderProduitsAccordion() {
+  const el = document.getElementById('produits-list'); if(!el) return;
+  const produits = state.produits||[];
+  if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun produit enregistré</p></div>'; return; }
+  el.innerHTML = produits.map(p => {
+    const contenants = (state.contenants||[]).filter(c=>c.produitId===p.id);
+    return `<div style="border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:10px;padding:12px 18px;cursor:pointer;background:var(--bg2);" onclick="toggleAccordion(${p.id})">
+        <i class="ti ti-flask-2" style="color:var(--cyan);font-size:16px"></i>
+        <strong style="font-size:13px">${p.nom}</strong>
+        ${p.ref?`<code style="font-size:11px;background:var(--bg3);padding:1px 6px;border-radius:4px">${p.ref}</code>`:''}
+        ${p.fc?`<span class="badge badge-purple">FC ${p.fc}</span>`:''}
+        ${p.localisation?`<span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${p.localisation}</span>`:''}
+        <span class="badge badge-gray" style="margin-left:4px">${contenants.length} contenant${contenants.length>1?'s':''}</span>
+        <div style="margin-left:auto;display:flex;gap:6px">
+          <button class="icon-btn" onclick="event.stopPropagation();addContenantForProduit(${p.id})" title="Ajouter un contenant"><i class="ti ti-plus"></i></button>
+          <button class="icon-btn" onclick="event.stopPropagation();editProduit(${p.id})"><i class="ti ti-pencil"></i></button>
+          <button class="icon-btn danger" onclick="event.stopPropagation();deleteProduit(${p.id})"><i class="ti ti-trash"></i></button>
+        </div>
+      </div>
+      <div id="acc-${p.id}" style="display:none;padding:0 18px 12px;background:var(--bg3);">
+        ${p.note?`<p style="font-size:12px;color:var(--text2);padding:8px 0;border-bottom:1px solid var(--border);margin-bottom:8px">${p.note}</p>`:''}
+        ${contenants.length ? `<table style="width:100%;font-size:12px;margin-top:6px">
+          <thead><tr style="color:var(--text3)"><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Lot</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Qté</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Réception</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Ouverture</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Validité</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Statut</th><th></th></tr></thead>
+          <tbody>${contenants.map(c=>{const es=expiryStatus(c.validite||c.peremption);return `<tr><td style="padding:5px 8px"><code style="background:var(--bg4);padding:1px 5px;border-radius:3px">${c.lot||'—'}</code></td><td style="padding:5px 8px">${c.qte||'—'}</td><td style="padding:5px 8px">${c.reception?formatDate(c.reception):'—'}</td><td style="padding:5px 8px">${c.ouverture?formatDate(c.ouverture):'—'}</td><td style="padding:5px 8px" class="${es.cls}">${c.validite?formatDate(c.validite):'—'}</td><td style="padding:5px 8px">${statutContenantBadge(c.statut)}</td><td style="padding:5px 8px"><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button></div></td></tr>`;}).join('')}</tbody>
+        </table>` : `<p style="font-size:12px;color:var(--text3);padding:8px 0">Aucun contenant — <button class="btn" style="font-size:11px;padding:3px 8px" onclick="addContenantForProduit(${p.id})">Ajouter</button></p>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleAccordion(id) {
+  const el = document.getElementById('acc-'+id);
+  if (!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+// ── CONTENANTS ───────────────────────────────────────────────
+function saveContenant() {
+  const produitId = parseInt(document.getElementById('c-produit').value);
+  const lot = document.getElementById('c-lot').value.trim();
+  if (!produitId || !lot) { toast('Produit et numéro de lot obligatoires', 'error'); return; }
+  if (!state.contenants) state.contenants = [];
+  const entry = { id: editingId||Date.now(), produitId, lot, qte: document.getElementById('c-qte').value, reception: document.getElementById('c-reception').value, ouverture: document.getElementById('c-ouverture').value, peremption: document.getElementById('c-peremption').value, validite: document.getElementById('c-validite').value, statut: document.getElementById('c-statut').value, note: document.getElementById('c-note').value };
+  const produit = (state.produits||[]).find(p=>p.id===produitId);
+  if (editingId) { const i=state.contenants.findIndex(x=>x.id===editingId); state.contenants[i]=entry; addActivity('pencil','Contenant modifié : lot '+lot); }
+  else { state.contenants.push(entry); addActivity('package','Contenant ajouté : '+(produit?.nom||'')+' lot '+lot); }
+  editingId = null;
+  closeModal('modal-contenant');
+  renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
+}
+
+function addContenantForProduit(produitId) {
+  editingId = null;
+  openModal('modal-contenant');
+  setTimeout(()=>{ const sel=document.getElementById('c-produit'); if(sel){sel.value=produitId; calcValidite();} }, 50);
+}
+
+function editContenant(id) {
+  const c = (state.contenants||[]).find(x=>x.id===id); if(!c) return;
+  editingId = id;
+  populateProduitSelect();
+  document.getElementById('c-produit').value = c.produitId||'';
+  document.getElementById('c-lot').value = c.lot||'';
+  document.getElementById('c-qte').value = c.qte||'';
+  document.getElementById('c-reception').value = c.reception||'';
+  document.getElementById('c-ouverture').value = c.ouverture||'';
+  document.getElementById('c-peremption').value = c.peremption||'';
+  document.getElementById('c-statut').value = c.statut||'en_stock';
+  document.getElementById('c-note').value = c.note||'';
+  document.getElementById('modal-contenant-title').textContent = 'Modifier le contenant';
+  calcValidite();
+  openModal('modal-contenant');
+}
+
+function deleteContenant(id) {
+  const c = (state.contenants||[]).find(x=>x.id===id);
+  state.contenants = (state.contenants||[]).filter(x=>x.id!==id);
+  addActivity('trash','Contenant supprimé : lot '+(c?.lot||''));
+  renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
+}
+
+function statutContenantBadge(s) {
+  const map = { en_stock:'badge-blue', ouvert:'badge-green', epuise:'badge-gray', retire:'badge-red' };
+  const labels = { en_stock:'En stock', ouvert:'Ouvert', epuise:'Épuisé', retire:'Retiré' };
+  return `<span class="badge ${map[s]||'badge-gray'}">${labels[s]||s||'—'}</span>`;
+}
+
+// ── TABLE CONTENANTS (vue principale) ────────────────────────
+function renderReactifsTable() {
+  const q = (document.getElementById('search-reactifs')?.value||'').toLowerCase();
+  const contenants = (state.contenants||[]).filter(c => {
+    if (!q) return true;
+    const p = (state.produits||[]).find(x=>x.id===c.produitId);
+    return (p?.nom||'').toLowerCase().includes(q) || (c.lot||'').toLowerCase().includes(q) || (p?.fournisseur||'').toLowerCase().includes(q);
+  });
+  const tbody = document.getElementById('reactifs-tbody');
+  if (!tbody) return;
+  if (!contenants.length) { tbody.innerHTML=`<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun contenant enregistré — ajoutez d'abord un produit puis un contenant</p></div></td></tr>`; return; }
+  tbody.innerHTML = contenants.map(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const expFab = expiryStatus(c.peremption);
+    const expVal = expiryStatus(c.validite);
+    return `<tr>
+      <td><strong>${p.nom||'—'}</strong>${p.localisation?`<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${p.localisation}</span>`:''}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${c.lot||'—'}</code></td>
+      <td>${p.fournisseur||'—'}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'—'}</code></td>
+      <td>${c.reception?formatDate(c.reception):'—'}</td>
+      <td>${c.ouverture?formatDate(c.ouverture):'—'}</td>
+      <td class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'—'}${p.fc&&p.fc!=1?`<br><span style="font-size:10px;color:var(--text3)">FC ${p.fc}</span>`:''}</td>
+      <td class="${expVal.cls}"><strong>${c.validite?formatDate(c.validite):'—'}</strong><br>${expVal.badge}</td>
+      <td>${statutContenantBadge(c.statut)}</td>
+      <td><div class="actions"><button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button></div></td>
+    </tr>`;
+  }).join('');
 }
 
 function isReactifCritical(r) {
@@ -806,6 +983,12 @@ function isReactifCritical(r) {
   const d = new Date(r.expiry); const today = new Date(); today.setHours(0,0,0,0);
   const days = Math.ceil((d-today)/(1000*60*60*24));
   return days <= 30;
+}
+function isContenantCritical(c) {
+  const dateRef = c.validite || c.peremption;
+  if (!dateRef) return false;
+  const d = new Date(dateRef); const today = new Date(); today.setHours(0,0,0,0);
+  return Math.ceil((d-today)/(1000*60*60*24)) <= 30;
 }
 
 function expiryStatus(expiry) {
@@ -942,7 +1125,7 @@ function populateTechSelects() {
 // BADGES & UTILS
 // ============================================================
 function updateBadges() {
-  const critical = state.reactifs.filter(r=>isReactifCritical(r)).length;
+  const critical = (state.contenants||[]).filter(c=>isContenantCritical(c) && c.statut !== 'epuise' && c.statut !== 'retire').length;
   const badge = document.getElementById('badge-reactifs');
   badge.textContent = critical; badge.style.display = critical ? '' : 'none';
 }
@@ -969,11 +1152,19 @@ function formatDate(d) {
 function openModal(id) {
   if (id === 'modal-planning') populateTechSelects();
   if (id === 'modal-echantillon') populateTechSelects();
+  if (id === 'modal-contenant') { populateProduitSelect(); }
+  if (id === 'modal-reactif') {
+    document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
+  }
   if (!editingId) {
-    const inputs = document.querySelectorAll(`#${id} input, #${id} textarea`);
-    inputs.forEach(i => { if(i.type!=='date') i.value=''; });
-    const sels = document.querySelectorAll(`#${id} select`);
+    const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
+    inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
+    const sels = document.querySelectorAll('#'+id+' select');
     sels.forEach(s => { if(s.options.length) s.selectedIndex = 0; });
+    if (id === 'modal-contenant') {
+      document.getElementById('c-validite-display').textContent = '— Renseignez ouverture et péremption —';
+      document.getElementById('c-validite-display').style.color = 'var(--text2)';
+    }
   }
   const el = document.getElementById(id);
   el.classList.add('open');
@@ -1006,9 +1197,15 @@ window.closeModal = closeModal;
 window.savePlanning = savePlanning;
 window.editPlanning = editPlanning;
 window.deletePlanning = deletePlanning;
-window.saveReactif = saveReactif;
-window.editReactif = editReactif;
-window.deleteReactif = deleteReactif;
+window.saveProduit = saveProduit;
+window.editProduit = editProduit;
+window.deleteProduit = deleteProduit;
+window.saveContenant = saveContenant;
+window.editContenant = editContenant;
+window.deleteContenant = deleteContenant;
+window.addContenantForProduit = addContenantForProduit;
+window.calcValidite = calcValidite;
+window.toggleAccordion = toggleAccordion;
 window.saveEchantillon = saveEchantillon;
 window.editEchantillon = editEchantillon;
 window.deleteEchantillon = deleteEchantillon;
