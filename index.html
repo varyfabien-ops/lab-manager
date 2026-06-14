@@ -313,6 +313,33 @@
       </div>
       </div><!-- fin planning-view-calendar -->
 
+      <!-- SOUS-VUE CATALOGUE -->
+      <div id="planning-view-catalogue" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Catalogue des analyses</h1><p>Base de référence avec habilitations requises</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-analyse')"><i class="ti ti-plus"></i> Nouvelle analyse</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>Analyses référencées</h3>
+            <div class="spacer"></div>
+            <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
+          </div>
+          <table>
+            <thead><tr>
+              <th>Nom de l'analyse</th>
+              <th>Habilitations requises</th>
+              <th>Durée estimée</th>
+              <th>Description / Norme</th>
+              <th></th>
+            </tr></thead>
+            <tbody id="catalogue-tbody"></tbody>
+          </table>
+        </div>
+      </div><!-- fin planning-view-catalogue -->
+
 </div>
     <!-- REACTIFS -->
     <div class="page" id="page-reactifs">
@@ -447,6 +474,7 @@
           </table>
         </div>
       <!-- fin planning-view-catalogue -->
+
     <!-- fin page-reactifs -->
 
 
