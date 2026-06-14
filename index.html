@@ -140,8 +140,9 @@
   .cal-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
   .cal-nav h3 { font-size: 16px; font-weight: 600; min-width: 180px; }
 
-  /* MODAL */
-  .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.75); z-index: 9999; align-items: center; justify-content: center; }
+  /* MODAL - using absolute on html/body */
+  html, body { position: relative; }
+  .modal-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; background: rgba(0,0,0,0.75); z-index: 9999; align-items: flex-start; justify-content: center; padding-top: 80px; padding-bottom: 40px; }
   .modal-overlay.open { display: flex !important; }
   .modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius-lg); width: 520px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
   .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
@@ -235,6 +236,14 @@
           <h1>Tableau de bord</h1>
           <p id="dash-date">Chargement...</p>
         </div>
+      </div>
+      <div id="github-banner" style="display:none; background:var(--cyan-dim); border:1px solid var(--cyan3); border-radius:var(--radius-lg); padding:14px 18px; margin-bottom:20px; align-items:center; gap:12px;">
+        <i class="ti ti-brand-github" style="font-size:22px;color:var(--cyan);flex-shrink:0"></i>
+        <div style="flex:1">
+          <div style="font-weight:600;font-size:14px;color:var(--cyan)">GitHub non configuré</div>
+          <div style="font-size:12px;color:var(--text2)">Configurez GitHub pour synchroniser les données avec votre équipe</div>
+        </div>
+        <button class="btn btn-primary" onclick="showGithubConfig()"><i class="ti ti-settings"></i> Configurer</button>
       </div>
       <div class="stats-grid" id="stats-grid">
         <div class="stat-card cyan"><div class="label"><i class="ti ti-calendar"></i>Analyses planifiées</div><div class="value" id="stat-planning">—</div><div class="sub">cette semaine</div></div>
@@ -505,7 +514,16 @@ function loadGithubConfig() {
   if (saved) {
     githubConfig = JSON.parse(saved);
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
+    const banner = document.getElementById('github-banner');
+    if (banner) banner.style.display = 'none';
+  } else {
+    const banner = document.getElementById('github-banner');
+    if (banner) banner.style.display = 'flex';
   }
+}
+
+function showGithubConfig() {
+  openGithubConfig();
 }
 
 function saveGithubConfig() {
@@ -521,6 +539,8 @@ function saveGithubConfig() {
   localStorage.setItem(STOR_KEY, JSON.stringify(githubConfig));
   setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
   closeModal('modal-github');
+  const banner = document.getElementById('github-banner');
+  if (banner) banner.style.display = 'none';
   toast('Configuration GitHub enregistrée', 'success');
   loadData();
 }
@@ -970,6 +990,31 @@ function closeModal(id) {
 document.querySelectorAll('.modal-overlay').forEach(m => {
   m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); });
 });
+
+// Expose all functions globally for onclick handlers
+window.openGithubConfig = openGithubConfig;
+window.showGithubConfig = showGithubConfig;
+window.saveGithubConfig = saveGithubConfig;
+window.testGithubConfig = testGithubConfig;
+window.syncNow = syncNow;
+window.exportData = exportData;
+window.goTo = goTo;
+window.changeMonth = changeMonth;
+window.quickAddPlanning = quickAddPlanning;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.savePlanning = savePlanning;
+window.editPlanning = editPlanning;
+window.deletePlanning = deletePlanning;
+window.saveReactif = saveReactif;
+window.editReactif = editReactif;
+window.deleteReactif = deleteReactif;
+window.saveEchantillon = saveEchantillon;
+window.editEchantillon = editEchantillon;
+window.deleteEchantillon = deleteEchantillon;
+window.saveHabilitation = saveHabilitation;
+window.editTech = editTech;
+window.deleteTech = deleteTech;
 
 // ============================================================
 // TOAST
