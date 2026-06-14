@@ -199,6 +199,10 @@
   /* REACTIFS EXPIRY */
   .expiry-warn { color: var(--amber); }
   .expiry-danger { color: var(--red); }
+  /* FILTER INPUTS */
+  .filter-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 4px 6px; color: var(--text); font-size: 11px; margin-top: 4px; font-family: inherit; }
+  .filter-input:focus { outline: none; border-color: var(--cyan); }
+  th { vertical-align: top; }
 </style>
 </head>
 <body>
@@ -301,12 +305,43 @@
         <div class="table-card-header">
           <h3>Contenants / Lots</h3>
           <div class="spacer"></div>
-          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-reactifs" placeholder="Rechercher..." oninput="renderReactifsTable()"></div>
+          <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
         </div>
-        <table>
-          <thead><tr><th>Produit</th><th>N° Lot</th><th>Fournisseur</th><th>Réf.</th><th>Réception</th><th>Ouverture</th><th>Péremption fab.</th><th>Validité calculée</th><th>Statut</th><th></th></tr></thead>
+        <div style="overflow-x:auto">
+        <table style="table-layout:fixed;min-width:900px">
+          <thead>
+            <tr>
+              <th style="width:180px">Produit<br><input class="filter-input" id="f-produit" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+              <th style="width:110px">N° Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+              <th style="width:120px">Fournisseur<br><input class="filter-input" id="f-fourn" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+              <th style="width:90px">Réception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
+              <th style="width:90px">Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
+              <th style="width:100px">Péremption fab.<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
+              <th style="width:130px">Validité calculée<br>
+                <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()">
+                  <option value="">Tous</option>
+                  <option value="ok">OK</option>
+                  <option value="alerte">Alerte (&lt;30j)</option>
+                  <option value="expire">Expiré</option>
+                  <option value="non_ouvert">Non ouvert</option>
+                </select>
+              </th>
+              <th style="width:100px">Statut<br>
+                <select class="filter-input" id="f-statut" onchange="renderReactifsTable()">
+                  <option value="">Tous</option>
+                  <option value="en_stock">En stock</option>
+                  <option value="ouvert">Ouvert</option>
+                  <option value="epuise">Épuisé</option>
+                  <option value="retire">Retiré</option>
+                  <option value="expire">Expiré</option>
+                </select>
+              </th>
+              <th style="width:80px"></th>
+            </tr>
+          </thead>
           <tbody id="reactifs-tbody"></tbody>
         </table>
+        </div>
       </div>
       <!-- Fiches produits (accordéon) -->
       <div style="margin-top:20px">
@@ -395,30 +430,38 @@
   </div>
 </div>
 
-<!-- MODAL CONTENANT (lot) -->
+<!-- MODAL RECEPTION (nouveau lot) -->
 <div class="modal-overlay" id="modal-contenant">
   <div class="modal">
-    <div class="modal-header"><i class="ti ti-package" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-contenant-title">Nouveau contenant</h3><button class="close-btn" onclick="closeModal('modal-contenant')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-header"><i class="ti ti-package" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-contenant-title">Réception de contenants</h3><button class="close-btn" onclick="closeModal('modal-contenant')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group full"><label>Produit *</label><select id="c-produit"><option value="">— Choisir un produit —</option></select></div>
         <div class="form-group"><label>N° de lot *</label><input id="c-lot" placeholder="Ex: MKBR1234V"></div>
-        <div class="form-group"><label>Quantité</label><input id="c-qte" placeholder="Ex: 2.5 L"></div>
+        <div class="form-group"><label>Nombre de contenants reçus *</label><input id="c-nb" type="number" min="1" max="100" value="1" placeholder="1"></div>
+        <div class="form-group"><label>Quantité par contenant</label><input id="c-qte" placeholder="Ex: 2.5 L"></div>
         <div class="form-group"><label>Date de réception</label><input type="date" id="c-reception"></div>
-        <div class="form-group"><label>Date d'ouverture</label><input type="date" id="c-ouverture" oninput="calcValidite()"></div>
-        <div class="form-group"><label>Péremption fournisseur</label><input type="date" id="c-peremption" oninput="calcValidite()"></div>
-        <div class="form-group full">
-          <label>Validité calculée <span style="color:var(--text3);font-weight:400">(automatique)</span></label>
-          <div id="c-validite-display" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;font-size:13px;color:var(--text2)">— Renseignez ouverture et péremption —</div>
-          <input type="hidden" id="c-validite">
-        </div>
-        <div class="form-group"><label>Statut</label>
-          <select id="c-statut"><option value="en_stock">En stock</option><option value="ouvert">Ouvert</option><option value="epuise">Épuisé</option><option value="retire">Retiré</option></select>
-        </div>
+        <div class="form-group"><label>Péremption fournisseur</label><input type="date" id="c-peremption"></div>
         <div class="form-group full"><label>Remarques</label><textarea id="c-note" placeholder="Observations à la réception, anomalies..."></textarea></div>
       </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-contenant')">Annuler</button><button class="btn btn-primary" onclick="saveContenant()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL OUVERTURE -->
+<div class="modal-overlay" id="modal-ouverture">
+  <div class="modal" style="max-width:380px">
+    <div class="modal-header"><i class="ti ti-lock-open" style="font-size:18px;color:var(--cyan)"></i><h3>Ouverture du contenant</h3><button class="close-btn" onclick="closeModal('modal-ouverture')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div id="ouv-produit-info" style="background:var(--bg3);border-radius:var(--radius);padding:10px 12px;margin-bottom:14px;font-size:13px;color:var(--text2)"></div>
+      <div class="form-group">
+        <label>Date d'ouverture *</label>
+        <input type="date" id="ouv-date" oninput="afficherValiditeOuverture()">
+      </div>
+      <div id="ouv-validite-display" style="margin-top:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:13px;color:var(--text2);display:none"></div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-ouverture')">Annuler</button><button class="btn btn-primary" onclick="confirmerOuverture()"><i class="ti ti-check"></i> Confirmer l'ouverture</button></div>
   </div>
 </div>
 
@@ -898,15 +941,36 @@ function toggleAccordion(id) {
 }
 
 // ── CONTENANTS ───────────────────────────────────────────────
+let ouvertureCible = null;
+
+function getStatutAuto(c) {
+  if (c.statut === 'epuise' || c.statut === 'retire') return c.statut;
+  if (c.validite) {
+    const today = new Date(); today.setHours(0,0,0,0);
+    if (new Date(c.validite) < today) return 'expire';
+    if (c.ouverture) return 'ouvert';
+  }
+  return c.statut || 'en_stock';
+}
+
 function saveContenant() {
   const produitId = parseInt(document.getElementById('c-produit').value);
   const lot = document.getElementById('c-lot').value.trim();
+  const nb = parseInt(document.getElementById('c-nb').value) || 1;
   if (!produitId || !lot) { toast('Produit et numéro de lot obligatoires', 'error'); return; }
   if (!state.contenants) state.contenants = [];
-  const entry = { id: editingId||Date.now(), produitId, lot, qte: document.getElementById('c-qte').value, reception: document.getElementById('c-reception').value, ouverture: document.getElementById('c-ouverture').value, peremption: document.getElementById('c-peremption').value, validite: document.getElementById('c-validite').value, statut: document.getElementById('c-statut').value, note: document.getElementById('c-note').value };
+  const base = { produitId, lot, qte: document.getElementById('c-qte').value, reception: document.getElementById('c-reception').value, peremption: document.getElementById('c-peremption').value, ouverture: '', validite: '', statut: 'en_stock', note: document.getElementById('c-note').value };
   const produit = (state.produits||[]).find(p=>p.id===produitId);
-  if (editingId) { const i=state.contenants.findIndex(x=>x.id===editingId); state.contenants[i]=entry; addActivity('pencil','Contenant modifié : lot '+lot); }
-  else { state.contenants.push(entry); addActivity('package','Contenant ajouté : '+(produit?.nom||'')+' lot '+lot); }
+  if (editingId) {
+    const i = state.contenants.findIndex(x=>x.id===editingId);
+    state.contenants[i] = { ...state.contenants[i], ...base };
+    addActivity('pencil', 'Contenant modifié : lot '+lot);
+  } else {
+    for (let i = 0; i < nb; i++) {
+      state.contenants.push({ ...base, id: Date.now() + i });
+    }
+    addActivity('package', nb+'x '+(produit?.nom||'')+' lot '+lot+' réceptionné(s)');
+  }
   editingId = null;
   closeModal('modal-contenant');
   renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
@@ -915,7 +979,7 @@ function saveContenant() {
 function addContenantForProduit(produitId) {
   editingId = null;
   openModal('modal-contenant');
-  setTimeout(()=>{ const sel=document.getElementById('c-produit'); if(sel){sel.value=produitId; calcValidite();} }, 50);
+  setTimeout(()=>{ const sel=document.getElementById('c-produit'); if(sel) sel.value=produitId; }, 50);
 }
 
 function editContenant(id) {
@@ -924,56 +988,130 @@ function editContenant(id) {
   populateProduitSelect();
   document.getElementById('c-produit').value = c.produitId||'';
   document.getElementById('c-lot').value = c.lot||'';
+  document.getElementById('c-nb').value = 1;
   document.getElementById('c-qte').value = c.qte||'';
   document.getElementById('c-reception').value = c.reception||'';
-  document.getElementById('c-ouverture').value = c.ouverture||'';
   document.getElementById('c-peremption').value = c.peremption||'';
-  document.getElementById('c-statut').value = c.statut||'en_stock';
   document.getElementById('c-note').value = c.note||'';
   document.getElementById('modal-contenant-title').textContent = 'Modifier le contenant';
-  calcValidite();
   openModal('modal-contenant');
+}
+
+function ouvrirContenant(id) {
+  ouvertureCible = (state.contenants||[]).find(x=>x.id===id);
+  if (!ouvertureCible) return;
+  const p = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
+  document.getElementById('ouv-produit-info').innerHTML =
+    '<strong>'+p.nom+'</strong> — Lot : '+(ouvertureCible.lot||'—')+'<br>Péremption fab. : '+(ouvertureCible.peremption?formatDate(ouvertureCible.peremption):'—')+(p.fc?'  ·  FC '+p.fc:'');
+  document.getElementById('ouv-date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('ouv-validite-display').style.display = 'none';
+  document.getElementById('ouv-validite-display').innerHTML = '';
+  const el = document.getElementById('modal-ouverture');
+  el.classList.add('open'); el.style.display = 'flex';
+  afficherValiditeOuverture();
+}
+
+function confirmerOuverture() {
+  const ouv = document.getElementById('ouv-date').value;
+  if (!ouv || !ouvertureCible) { toast('Date obligatoire', 'error'); return; }
+  const result = computeValidite(ouv, ouvertureCible.peremption, ouvertureCible.produitId);
+  const i = state.contenants.findIndex(x=>x.id===ouvertureCible.id);
+  if (i < 0) return;
+  state.contenants[i].ouverture = ouv;
+  state.contenants[i].validite = result ? result.date : '';
+  state.contenants[i].statut = 'ouvert';
+  const p = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
+  addActivity('lock-open', 'Ouverture : '+(p.nom||'')+' lot '+(ouvertureCible.lot||''));
+  ouvertureCible = null;
+  closeModal('modal-ouverture');
+  renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
 }
 
 function deleteContenant(id) {
   const c = (state.contenants||[]).find(x=>x.id===id);
   state.contenants = (state.contenants||[]).filter(x=>x.id!==id);
-  addActivity('trash','Contenant supprimé : lot '+(c?.lot||''));
+  addActivity('trash', 'Contenant supprimé : lot '+(c?.lot||''));
   renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
 }
 
 function statutContenantBadge(s) {
-  const map = { en_stock:'badge-blue', ouvert:'badge-green', epuise:'badge-gray', retire:'badge-red' };
-  const labels = { en_stock:'En stock', ouvert:'Ouvert', epuise:'Épuisé', retire:'Retiré' };
-  return `<span class="badge ${map[s]||'badge-gray'}">${labels[s]||s||'—'}</span>`;
+  const map = { en_stock:'badge-blue', ouvert:'badge-green', epuise:'badge-gray', retire:'badge-red', expire:'badge-red' };
+  const icons = { en_stock:'package', ouvert:'lock-open', epuise:'circle-x', retire:'ban', expire:'alert-circle' };
+  const labels = { en_stock:'En stock', ouvert:'Ouvert', epuise:'Épuisé', retire:'Retiré', expire:'Expiré' };
+  return `<span class="badge ${map[s]||'badge-gray'}"><i class="ti ti-${icons[s]||'circle'}" style="font-size:10px"></i> ${labels[s]||s||'—'}</span>`;
 }
 
-// ── TABLE CONTENANTS (vue principale) ────────────────────────
+function resetFiltres() {
+  ['f-produit','f-lot','f-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  ['f-reception','f-ouverture','f-peremption'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  ['f-validite-statut','f-statut'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  renderReactifsTable();
+}
+
+// ── TABLE CONTENANTS avec filtres ────────────────────────────
 function renderReactifsTable() {
-  const q = (document.getElementById('search-reactifs')?.value||'').toLowerCase();
-  const contenants = (state.contenants||[]).filter(c => {
-    if (!q) return true;
-    const p = (state.produits||[]).find(x=>x.id===c.produitId);
-    return (p?.nom||'').toLowerCase().includes(q) || (c.lot||'').toLowerCase().includes(q) || (p?.fournisseur||'').toLowerCase().includes(q);
+  if (!state.contenants) state.contenants = [];
+  const fProduit = (document.getElementById('f-produit')?.value||'').toLowerCase();
+  const fLot = (document.getElementById('f-lot')?.value||'').toLowerCase();
+  const fFourn = (document.getElementById('f-fourn')?.value||'').toLowerCase();
+  const fReception = document.getElementById('f-reception')?.value||'';
+  const fOuverture = document.getElementById('f-ouverture')?.value||'';
+  const fPeremption = document.getElementById('f-peremption')?.value||'';
+  const fValiditeStatut = document.getElementById('f-validite-statut')?.value||'';
+  const fStatut = document.getElementById('f-statut')?.value||'';
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  const contenants = state.contenants.filter(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const statAuto = getStatutAuto(c);
+    if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
+    if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
+    if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
+    if (fReception && c.reception !== fReception) return false;
+    if (fOuverture && c.ouverture !== fOuverture) return false;
+    if (fPeremption && c.peremption !== fPeremption) return false;
+    if (fStatut && statAuto !== fStatut) return false;
+    if (fValiditeStatut) {
+      if (!c.validite && fValiditeStatut !== 'non_ouvert') return false;
+      if (c.validite) {
+        const dV = new Date(c.validite);
+        const restants = Math.ceil((dV-today)/(1000*60*60*24));
+        if (fValiditeStatut === 'ok' && restants <= 30) return false;
+        if (fValiditeStatut === 'alerte' && (restants <= 0 || restants > 30)) return false;
+        if (fValiditeStatut === 'expire' && restants > 0) return false;
+        if (fValiditeStatut === 'non_ouvert') return false;
+      }
+      if (!c.validite && fValiditeStatut !== 'non_ouvert') return false;
+    }
+    return true;
   });
+
   const tbody = document.getElementById('reactifs-tbody');
   if (!tbody) return;
-  if (!contenants.length) { tbody.innerHTML=`<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun contenant enregistré — ajoutez d'abord un produit puis un contenant</p></div></td></tr>`; return; }
+  if (!contenants.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun contenant trouvé</p></div></td></tr>'; return; }
+
   tbody.innerHTML = contenants.map(c => {
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const statAuto = getStatutAuto(c);
     const expFab = expiryStatus(c.peremption);
-    const expVal = expiryStatus(c.validite);
+    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">—</span>' };
+    const canOpen = !c.ouverture && statAuto !== 'epuise' && statAuto !== 'retire';
     return `<tr>
-      <td><strong>${p.nom||'—'}</strong>${p.localisation?`<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${p.localisation}</span>`:''}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${c.lot||'—'}</code></td>
-      <td>${p.fournisseur||'—'}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'—'}</code></td>
-      <td>${c.reception?formatDate(c.reception):'—'}</td>
-      <td>${c.ouverture?formatDate(c.ouverture):'—'}</td>
-      <td class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'—'}${p.fc&&p.fc!=1?`<br><span style="font-size:10px;color:var(--text3)">FC ${p.fc}</span>`:''}</td>
-      <td class="${expVal.cls}"><strong>${c.validite?formatDate(c.validite):'—'}</strong><br>${expVal.badge}</td>
-      <td>${statutContenantBadge(c.statut)}</td>
-      <td><div class="actions"><button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button></div></td>
+      <td style="font-size:12px"><strong>${p.nom||'—'}</strong>${p.localisation?'<br><span style="font-size:10px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'—'}</code></td>
+      <td style="font-size:12px">${p.fournisseur||'—'}</td>
+      <td style="font-size:12px">${c.reception?formatDate(c.reception):'—'}</td>
+      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">—</span>'}</td>
+      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'—'}</td>
+      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite)+'<br>'+expVal.badge:'<span style="color:var(--text3)">Non ouvert</span>'}</td>
+      <td>${statutContenantBadge(statAuto)}</td>
+      <td>
+        <div class="actions" style="opacity:1;flex-wrap:wrap">
+          ${canOpen?`<button class="icon-btn" onclick="ouvrirContenant(${c.id})" title="Enregistrer ouverture" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>`:''}
+          <button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button>
+          <button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button>
+        </div>
+      </td>
     </tr>`;
   }).join('');
 }
@@ -1153,6 +1291,7 @@ function openModal(id) {
   if (id === 'modal-planning') populateTechSelects();
   if (id === 'modal-echantillon') populateTechSelects();
   if (id === 'modal-contenant') { populateProduitSelect(); }
+  if (id === 'modal-ouverture') { /* géré dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
     document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
   }
@@ -1204,8 +1343,12 @@ window.saveContenant = saveContenant;
 window.editContenant = editContenant;
 window.deleteContenant = deleteContenant;
 window.addContenantForProduit = addContenantForProduit;
+window.ouvrirContenant = ouvrirContenant;
+window.confirmerOuverture = confirmerOuverture;
+window.afficherValiditeOuverture = afficherValiditeOuverture;
 window.calcValidite = calcValidite;
 window.toggleAccordion = toggleAccordion;
+window.resetFiltres = resetFiltres;
 window.saveEchantillon = saveEchantillon;
 window.editEchantillon = editEchantillon;
 window.deleteEchantillon = deleteEchantillon;
