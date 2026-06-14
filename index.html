@@ -800,7 +800,7 @@ function calcValidite() {
   const dOuv = new Date(ouv+'T12:00:00');
   const dPer = new Date(per+'T12:00:00');
   const jours = Math.ceil((dPer - dOuv) / (1000*60*60*24));
-  if (jours <= 0) { disp.textContent = 'Péremption antérieure à l'ouverture !'; disp.style.color='var(--red)'; inp.value=''; return; }
+  if (jours <= 0) { disp.textContent = 'Péremption antérieure à l\'ouverture !'; disp.style.color='var(--red)'; inp.value=''; return; }
   const produitId = document.getElementById('c-produit').value;
   const produit = (state.produits||[]).find(p=>p.id==produitId);
   const fc = produit ? parseFloat(produit.fc||1) : 1;
