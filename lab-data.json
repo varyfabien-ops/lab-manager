@@ -3,7 +3,7 @@
   "reactifs": [
     {
       "id": 1781429589952,
-      "nom": "MÃÂÃÂ©thanol HPLC Grade",
+      "nom": "MÃÂÃÂÃÂÃÂ©thanol HPLC Grade",
       "fournisseur": "CARLO ERBA",
       "ref": "Test",
       "stock": "5",
@@ -16,12 +16,14 @@
   "produits": [
     {
       "id": 1781437347306,
-      "nom": "Méthanol HPLC Grade",
+      "nom": "MÃ©thanol HPLC Grade",
       "fournisseur": "CARLO ERBA",
       "ref": "41239000",
       "localisation": "I4",
       "fc": "0.6",
       "conditionnement": "2.5 L",
+      "stockMin": "15",
+      "qteCmde": "20",
       "note": ""
     }
   ],
@@ -210,46 +212,52 @@
       "statut": "actif"
     }
   ],
+  "commandesStatut": {},
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajoutÃÂÃÂ© : Fabien VARY",
+      "text": "Technicien ajoutÃÂÃÂÃÂÃÂ© : Fabien VARY",
       "time": "14/06 11:29"
     },
     {
       "icon": "flask",
-      "text": "RÃÂÃÂ©actif ajoutÃÂÃÂ© : MÃÂÃÂ©thanol HPLC Grade",
+      "text": "RÃÂÃÂÃÂÃÂ©actif ajoutÃÂÃÂÃÂÃÂ© : MÃÂÃÂÃÂÃÂ©thanol HPLC Grade",
       "time": "14/06 11:33"
     },
     {
       "icon": "flask-2",
-      "text": "Produit ajoutÃÂ© : Methanol HPLC Grade",
+      "text": "Produit ajoutÃÂÃÂ© : Methanol HPLC Grade",
       "time": "14/06 11:46"
     },
     {
       "icon": "package",
-      "text": "Contenant ajoutÃÂ© : Methanol HPLC Grade lot VBCN32443",
+      "text": "Contenant ajoutÃÂÃÂ© : Methanol HPLC Grade lot VBCN32443",
       "time": "14/06 11:47"
     },
     {
       "icon": "pencil",
-      "text": "Contenant modifiÃÂ© : lot VBCN32443",
+      "text": "Contenant modifiÃÂÃÂ© : lot VBCN32443",
       "time": "14/06 11:47"
     },
     {
       "icon": "trash",
-      "text": "Produit supprimÃ© : Methanol HPLC Grade",
+      "text": "Produit supprimÃÂ© : Methanol HPLC Grade",
       "time": "14/06 13:29"
     },
     {
       "icon": "flask-2",
-      "text": "Produit ajouté : Méthanol HPLC Grade",
+      "text": "Produit ajoutÃ© : MÃ©thanol HPLC Grade",
       "time": "14/06 13:42"
     },
     {
       "icon": "package",
-      "text": "14x Méthanol HPLC Grade lot V5GHTHU89 réceptionné(s)",
+      "text": "14x MÃ©thanol HPLC Grade lot V5GHTHU89 rÃ©ceptionnÃ©(s)",
       "time": "14/06 13:43"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifié : MÃ©thanol HPLC Grade",
+      "time": "14/06 13:55"
     }
   ]
 }
