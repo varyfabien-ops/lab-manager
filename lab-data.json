@@ -25,7 +25,20 @@
       "note": "Inflammable"
     }
   ],
-  "contenants": [],
+  "contenants": [
+    {
+      "id": 1781430438998,
+      "produitId": 1781430392848,
+      "lot": "VBCN32443",
+      "qte": "",
+      "reception": "2026-06-14",
+      "ouverture": "",
+      "peremption": "2028-07-30",
+      "validite": "",
+      "statut": "en_stock",
+      "note": ""
+    }
+  ],
   "echantillons": [],
   "techniciens": [
     {
@@ -56,6 +69,11 @@
       "icon": "flask-2",
       "text": "Produit ajouté : Methanol HPLC Grade",
       "time": "14/06 11:46"
+    },
+    {
+      "icon": "package",
+      "text": "Contenant ajouté : Methanol HPLC Grade lot VBCN32443",
+      "time": "14/06 11:47"
     }
   ]
 }
