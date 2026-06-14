@@ -205,11 +205,12 @@
 <header>
   <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie</span></div>
   <div class="header-right">
-    <div class="sync-status" onclick="openGithubConfig()" title="Configurer la synchronisation GitHub">
+    <button class="btn" onclick="openGithubConfig()" id="github-config-btn" style="gap:8px">
       <div class="sync-dot" id="sync-dot"></div>
+      <i class="ti ti-brand-github"></i>
       <span id="sync-label">Non configuré</span>
-    </div>
-    <button class="btn" onclick="syncNow()"><i class="ti ti-cloud-upload"></i> Sync</button>
+    </button>
+    <button class="btn" onclick="syncNow()"><i class="ti ti-refresh"></i> Sync</button>
     <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> Export</button>
   </div>
 </header>
