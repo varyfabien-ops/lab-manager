@@ -651,13 +651,13 @@ window.onload = async () => {
   loadGithubConfig();
   await loadData();
   renderAll();
-  // Ouvrir le sous-menu réactifs par défaut
+  // Ouvrir le sous-menu reactifs par defaut
   reactifsMenuOpen = true;
   const menu = document.getElementById('reactifs-submenu');
   if (menu) menu.style.display = 'block';
   const chevron = document.getElementById('reactifs-chevron');
   if (chevron) chevron.style.transform = 'rotate(180deg)';
-  // Afficher la sous-vue contenants par défaut
+  // Afficher la sous-vue contenants par defaut
   document.getElementById('reactifs-view-contenants').style.display = 'block';
 };
 
@@ -721,7 +721,7 @@ function saveGithubConfig() {
   closeModal('modal-github');
   const banner = document.getElementById('github-banner');
   if (banner) banner.style.display = 'none';
-  toast('Configuration GitHub enregistrée', 'success');
+  toast('Configuration GitHub enregistree', 'success');
   loadData();
 }
 
@@ -738,9 +738,9 @@ async function testGithubConfig() {
     const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}`, {
       headers: { Authorization: `token ${cfg.token}`, Accept: 'application/vnd.github.v3+json' }
     });
-    if (r.ok) { setSyncStatus('ok', 'Connexion réussie !'); toast('Connexion GitHub OK !', 'success'); }
-    else { setSyncStatus('error', 'Erreur'); toast('Erreur : vérifiez votre token et le dépôt', 'error'); }
-  } catch(e) { setSyncStatus('error', 'Erreur réseau'); toast('Erreur de connexion', 'error'); }
+    if (r.ok) { setSyncStatus('ok', 'Connexion reussie !'); toast('Connexion GitHub OK !', 'success'); }
+    else { setSyncStatus('error', 'Erreur'); toast('Erreur : verifiez votre token et le depot', 'error'); }
+  } catch(e) { setSyncStatus('error', 'Erreur reseau'); toast('Erreur de connexion', 'error'); }
 }
 
 function openGithubConfig() {
@@ -767,7 +767,7 @@ async function loadData() {
     state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, activity: decoded.activity||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
-    toast('Données synchronisées', 'success');
+    toast('Donnees synchronisees', 'success');
   } catch(e) { setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); }
 }
 
@@ -781,7 +781,7 @@ async function saveData() {
     });
     if (rGet.ok) { const d = await rGet.json(); sha = d.sha; }
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(state, null, 2))));
-    const body = { message: 'LabManager: mise à jour données', content };
+    const body = { message: 'LabManager: mise a jour donnees', content };
     if (sha) body.sha = sha;
     const rPut = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
       method: 'PUT',
@@ -790,7 +790,7 @@ async function saveData() {
     });
     if (!rPut.ok) throw new Error('HTTP ' + rPut.status);
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
-    toast('Sauvegardé sur GitHub', 'success');
+    toast('Sauvegarde sur GitHub', 'success');
   } catch(e) { setSyncStatus('error', 'Erreur sauvegarde'); toast('Erreur sauvegarde : ' + e.message, 'error'); }
 }
 
@@ -818,13 +818,13 @@ function renderDashboard() {
   const weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate() + 6);
   const thisWeek = state.planning.filter(p => { const d = new Date(p.date); return d >= weekStart && d <= weekEnd; });
   document.getElementById('stat-planning').textContent = thisWeek.length;
-  const pending = state.echantillons.filter(e => e.statut === 'reçu' || e.statut === 'en_analyse');
+  const pending = state.echantillons.filter(e => e.statut === 'recu' || e.statut === 'en_analyse');
   document.getElementById('stat-ech').textContent = pending.length;
   const critical = (state.contenants||[]).filter(c => isContenantCritical(c) && c.statut !== 'epuise' && c.statut !== 'retire');
   document.getElementById('stat-reactifs').textContent = critical.length;
   document.getElementById('stat-techs').textContent = state.techniciens.filter(t => t.statut === 'actif').length;
   const log = document.getElementById('activity-log');
-  if (!state.activity.length) { log.innerHTML = '<div class="empty-state"><i class="ti ti-clock"></i><p>Aucune activité récente</p></div>'; return; }
+  if (!state.activity.length) { log.innerHTML = '<div class="empty-state"><i class="ti ti-clock"></i><p>Aucune activite recente</p></div>'; return; }
   log.innerHTML = state.activity.slice(-20).reverse().map(a =>
     `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">
       <i class="ti ti-${a.icon}" style="font-size:16px;color:var(--cyan);flex-shrink:0"></i>
@@ -847,8 +847,8 @@ function savePlanning() {
   const date = document.getElementById('p-date').value;
   if (!nom || !date) { toast('Remplissez les champs obligatoires', 'error'); return; }
   const entry = { id: editingId || Date.now(), nom, technicien: document.getElementById('p-tech').value, date, priorite: document.getElementById('p-priorite').value, statut: document.getElementById('p-statut').value, note: document.getElementById('p-note').value };
-  if (editingId) { const i = state.planning.findIndex(x=>x.id===editingId); state.planning[i] = entry; addActivity('pencil','Analyse modifiée : '+nom); }
-  else { state.planning.push(entry); addActivity('calendar-plus','Nouvelle analyse planifiée : '+nom); }
+  if (editingId) { const i = state.planning.findIndex(x=>x.id===editingId); state.planning[i] = entry; addActivity('pencil','Analyse modifiee : '+nom); }
+  else { state.planning.push(entry); addActivity('calendar-plus','Nouvelle analyse planifiee : '+nom); }
   editingId = null;
   closeModal('modal-planning');
   renderCalendar(); renderPlanningTable(); renderDashboard(); updateBadges();
@@ -859,11 +859,11 @@ function renderPlanningTable() {
   const q = (document.getElementById('search-planning')?.value||'').toLowerCase();
   const rows = state.planning.filter(p => !q || p.nom.toLowerCase().includes(q) || (p.technicien||'').toLowerCase().includes(q));
   const tbody = document.getElementById('planning-tbody');
-  if (!rows.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-calendar"></i><p>Aucune analyse planifiée</p></div></td></tr>`; return; }
+  if (!rows.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-calendar"></i><p>Aucune analyse planifiee</p></div></td></tr>`; return; }
   tbody.innerHTML = rows.sort((a,b)=>a.date.localeCompare(b.date)).map(p => `
     <tr>
       <td><strong>${p.nom}</strong>${p.note?`<br><span style="font-size:11px;color:var(--text3)">${p.note}</span>`:''}</td>
-      <td>${p.technicien||'—'}</td>
+      <td>${p.technicien||'-'}</td>
       <td>${formatDate(p.date)}</td>
       <td>${prioriteBadge(p.priorite)}</td>
       <td>${statutBadge(p.statut)}</td>
@@ -878,7 +878,7 @@ function editPlanning(id) {
   document.getElementById('p-date').value = p.date;
   document.getElementById('p-tech').value = p.technicien||'';
   document.getElementById('p-priorite').value = p.priorite||'normale';
-  document.getElementById('p-statut').value = p.statut||'planifié';
+  document.getElementById('p-statut').value = p.statut||'planifie';
   document.getElementById('p-note').value = p.note||'';
   openModal('modal-planning');
 }
@@ -886,7 +886,7 @@ function editPlanning(id) {
 function deletePlanning(id) {
   const p = state.planning.find(x=>x.id===id);
   state.planning = state.planning.filter(x=>x.id!==id);
-  addActivity('trash','Analyse supprimée : '+(p?.nom||''));
+  addActivity('trash','Analyse supprimee : '+(p?.nom||''));
   renderCalendar(); renderPlanningTable(); renderDashboard(); updateBadges(); saveData();
 }
 
@@ -909,7 +909,7 @@ function renderCalendar() {
     const dayDate = new Date(calYear,calMonth,d);
     const isToday = dayDate.getTime()===today.getTime();
     const events = state.planning.filter(p=>p.date===dateStr);
-    const colors = {planifié:'',en_cours:'green',terminé:'amber',annulé:'gray',urgente:'red'};
+    const colors = {planifie:'',en_cours:'green',termine:'amber',annule:'gray',urgente:'red'};
     cells += `<div class="cal-day${isToday?' today':''}" onclick="quickAddPlanning('${dateStr}')">
       <div class="cal-day-num">${d}</div>
       ${events.map(e=>`<div class="cal-event ${colors[e.priorite==='urgente'?'urgente':e.statut]||''}" title="${e.nom}">${e.nom}</div>`).join('')}
@@ -926,25 +926,25 @@ function quickAddPlanning(date) {
   editingId = null;
   document.getElementById('p-nom').value=''; document.getElementById('p-date').value=date;
   document.getElementById('p-tech').value=''; document.getElementById('p-priorite').value='normale';
-  document.getElementById('p-statut').value='planifié'; document.getElementById('p-note').value='';
+  document.getElementById('p-statut').value='planifie'; document.getElementById('p-note').value='';
   openModal('modal-planning');
 }
 
 // ============================================================
-// REACTIFS — PRODUITS + CONTENANTS
+// REACTIFS - PRODUITS + CONTENANTS
 // ============================================================
 
-// ── Calcul validité ──────────────────────────────────────────
+// -- Calcul validite ------------------------------------------
 function calcValidite() {
   const ouv = document.getElementById('c-ouverture').value;
   const per = document.getElementById('c-peremption').value;
   const disp = document.getElementById('c-validite-display');
   const inp = document.getElementById('c-validite');
-  if (!ouv || !per) { disp.textContent = '— Renseignez ouverture et péremption —'; disp.style.color='var(--text2)'; inp.value=''; return; }
+  if (!ouv || !per) { disp.textContent = '- Renseignez ouverture et peremption -'; disp.style.color='var(--text2)'; inp.value=''; return; }
   const dOuv = new Date(ouv+'T12:00:00');
   const dPer = new Date(per+'T12:00:00');
   const jours = Math.ceil((dPer - dOuv) / (1000*60*60*24));
-  if (jours <= 0) { disp.textContent = 'Péremption antérieure à l\'ouverture !'; disp.style.color='var(--red)'; inp.value=''; return; }
+  if (jours <= 0) { disp.textContent = 'Peremption anterieure a l\'ouverture !'; disp.style.color='var(--red)'; inp.value=''; return; }
   const produitId = document.getElementById('c-produit').value;
   const produit = (state.produits||[]).find(p=>p.id==produitId);
   const fc = produit ? parseFloat(produit.fc||1) : 1;
@@ -954,27 +954,27 @@ function calcValidite() {
   inp.value = dateValide;
   const today = new Date(); today.setHours(0,0,0,0);
   const restants = Math.ceil((dValide-today)/(1000*60*60*24));
-  const fcTxt = fc !== 1 ? ` (FC ${fc} × ${jours}j)` : '';
-  if (restants < 0) { disp.innerHTML = `<span style="color:var(--red)">Expiré le ${formatDate(dateValide)}${fcTxt}</span>`; }
-  else if (restants <= 30) { disp.innerHTML = `<span style="color:var(--amber)">${formatDate(dateValide)} — ${restants}j restants${fcTxt}</span>`; }
-  else { disp.innerHTML = `<span style="color:var(--green)">${formatDate(dateValide)} — ${restants}j restants${fcTxt}</span>`; }
+  const fcTxt = fc !== 1 ? ` (FC ${fc} x ${jours}j)` : '';
+  if (restants < 0) { disp.innerHTML = `<span style="color:var(--red)">Expire le ${formatDate(dateValide)}${fcTxt}</span>`; }
+  else if (restants <= 30) { disp.innerHTML = `<span style="color:var(--amber)">${formatDate(dateValide)} - ${restants}j restants${fcTxt}</span>`; }
+  else { disp.innerHTML = `<span style="color:var(--green)">${formatDate(dateValide)} - ${restants}j restants${fcTxt}</span>`; }
 }
 
 function populateProduitSelect() {
   const sel = document.getElementById('c-produit'); if(!sel) return;
   const cur = sel.value;
-  sel.innerHTML = '<option value="">— Choisir un produit —</option>' + (state.produits||[]).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
+  sel.innerHTML = '<option value="">- Choisir un produit -</option>' + (state.produits||[]).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
   if (cur) sel.value = cur;
 }
 
-// ── PRODUITS ─────────────────────────────────────────────────
+// -- PRODUITS -------------------------------------------------
 function saveProduit() {
   const nom = document.getElementById('r-nom').value.trim();
-  if (!nom) { toast('Le nom du réactif est obligatoire', 'error'); return; }
+  if (!nom) { toast('Le nom du reactif est obligatoire', 'error'); return; }
   if (!state.produits) state.produits = [];
   const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, stockMin: document.getElementById('r-stock-min').value, qteCmde: document.getElementById('r-qte-cmd').value, note: document.getElementById('r-note').value };
-  if (editingId) { const i=state.produits.findIndex(x=>x.id===editingId); state.produits[i]=entry; addActivity('pencil','Produit modifié : '+nom); }
-  else { state.produits.push(entry); addActivity('flask-2','Produit ajouté : '+nom); }
+  if (editingId) { const i=state.produits.findIndex(x=>x.id===editingId); state.produits[i]=entry; addActivity('pencil','Produit modifie : '+nom); }
+  else { state.produits.push(entry); addActivity('flask-2','Produit ajoute : '+nom); }
   editingId = null;
   closeModal('modal-reactif');
   renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
@@ -1002,7 +1002,7 @@ function deleteProduit(id) {
   const p = state.produits.find(x=>x.id===id);
   state.produits = state.produits.filter(x=>x.id!==id);
   state.contenants = (state.contenants||[]).filter(c=>c.produitId!==id);
-  addActivity('trash','Produit supprimé : '+(p?.nom||''));
+  addActivity('trash','Produit supprime : '+(p?.nom||''));
   renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
 }
 
@@ -1010,7 +1010,7 @@ function renderProduitsAccordion() {
   const el = document.getElementById('produits-list'); if(!el) return;
   const qProd = (document.getElementById('search-produits')?.value||'').toLowerCase();
   const produits = (state.produits||[]).filter(p => !qProd || (p.nom||'').toLowerCase().includes(qProd) || (p.fournisseur||'').toLowerCase().includes(qProd));
-  if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun produit enregistré</p></div>'; return; }
+  if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun produit enregistre</p></div>'; return; }
   el.innerHTML = produits.map(p => {
     const contenants = (state.contenants||[]).filter(c=>c.produitId===p.id);
     return `<div style="border-bottom:1px solid var(--border);">
@@ -1030,9 +1030,9 @@ function renderProduitsAccordion() {
       <div id="acc-${p.id}" style="display:none;padding:0 18px 12px;background:var(--bg3);">
         ${p.note?`<p style="font-size:12px;color:var(--text2);padding:8px 0;border-bottom:1px solid var(--border);margin-bottom:8px">${p.note}</p>`:''}
         ${contenants.length ? `<table style="width:100%;font-size:12px;margin-top:6px">
-          <thead><tr style="color:var(--text3)"><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Lot</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Qté</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Réception</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Ouverture</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Validité</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Statut</th><th></th></tr></thead>
-          <tbody>${contenants.map(c=>{const es=expiryStatus(c.validite||c.peremption);return `<tr><td style="padding:5px 8px"><code style="background:var(--bg4);padding:1px 5px;border-radius:3px">${c.lot||'—'}</code></td><td style="padding:5px 8px">${c.qte||'—'}</td><td style="padding:5px 8px">${c.reception?formatDate(c.reception):'—'}</td><td style="padding:5px 8px">${c.ouverture?formatDate(c.ouverture):'—'}</td><td style="padding:5px 8px" class="${es.cls}">${c.validite?formatDate(c.validite):'—'}</td><td style="padding:5px 8px">${statutContenantBadge(c.statut)}</td><td style="padding:5px 8px"><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button></div></td></tr>`;}).join('')}</tbody>
-        </table>` : `<p style="font-size:12px;color:var(--text3);padding:8px 0">Aucun contenant — <button class="btn" style="font-size:11px;padding:3px 8px" onclick="addContenantForProduit(${p.id})">Ajouter</button></p>`}
+          <thead><tr style="color:var(--text3)"><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Lot</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Qte</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Reception</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Ouverture</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Validite</th><th style="padding:4px 8px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase">Statut</th><th></th></tr></thead>
+          <tbody>${contenants.map(c=>{const es=expiryStatus(c.validite||c.peremption);return `<tr><td style="padding:5px 8px"><code style="background:var(--bg4);padding:1px 5px;border-radius:3px">${c.lot||'-'}</code></td><td style="padding:5px 8px">${c.qte||'-'}</td><td style="padding:5px 8px">${c.reception?formatDate(c.reception):'-'}</td><td style="padding:5px 8px">${c.ouverture?formatDate(c.ouverture):'-'}</td><td style="padding:5px 8px" class="${es.cls}">${c.validite?formatDate(c.validite):'-'}</td><td style="padding:5px 8px">${statutContenantBadge(c.statut)}</td><td style="padding:5px 8px"><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button></div></td></tr>`;}).join('')}</tbody>
+        </table>` : `<p style="font-size:12px;color:var(--text3);padding:8px 0">Aucun contenant - <button class="btn" style="font-size:11px;padding:3px 8px" onclick="addContenantForProduit(${p.id})">Ajouter</button></p>`}
       </div>
     </div>`;
   }).join('');
@@ -1044,7 +1044,7 @@ function toggleAccordion(id) {
   el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
-// ── Calcul validité ──────────────────────────────────────────
+// -- Calcul validite ------------------------------------------
 function computeValidite(ouv, per, produitId) {
   if (!ouv || !per) return null;
   const dOuv = new Date(ouv+'T12:00:00');
@@ -1070,12 +1070,12 @@ function afficherValiditeOuverture() {
   const today = new Date(); today.setHours(0,0,0,0);
   const restants = Math.ceil((new Date(result.date) - today)/(1000*60*60*24));
   const fcTxt = result.fc !== 1 ? ' (FC '+result.fc+' x '+result.jours+'j)' : '';
-  if (restants < 0) disp.innerHTML = '<span style="color:var(--red)">Validite : '+formatDate(result.date)+' — Expire'+fcTxt+'</span>';
-  else if (restants <= 30) disp.innerHTML = '<span style="color:var(--amber)">Validite : '+formatDate(result.date)+' — '+restants+'j restants'+fcTxt+'</span>';
-  else disp.innerHTML = '<span style="color:var(--green)">Validite : '+formatDate(result.date)+' — '+restants+'j restants'+fcTxt+'</span>';
+  if (restants < 0) disp.innerHTML = '<span style="color:var(--red)">Validite : '+formatDate(result.date)+' - Expire'+fcTxt+'</span>';
+  else if (restants <= 30) disp.innerHTML = '<span style="color:var(--amber)">Validite : '+formatDate(result.date)+' - '+restants+'j restants'+fcTxt+'</span>';
+  else disp.innerHTML = '<span style="color:var(--green)">Validite : '+formatDate(result.date)+' - '+restants+'j restants'+fcTxt+'</span>';
 }
 
-// ── CONTENANTS ───────────────────────────────────────────────
+// -- CONTENANTS -----------------------------------------------
 let ouvertureCible = null;
 
 function getStatutAuto(c) {
@@ -1092,19 +1092,19 @@ function saveContenant() {
   const produitId = parseInt(document.getElementById('c-produit').value);
   const lot = document.getElementById('c-lot').value.trim();
   const nb = parseInt(document.getElementById('c-nb').value) || 1;
-  if (!produitId || !lot) { toast('Produit et numéro de lot obligatoires', 'error'); return; }
+  if (!produitId || !lot) { toast('Produit et numero de lot obligatoires', 'error'); return; }
   if (!state.contenants) state.contenants = [];
   const base = { produitId, lot, qte: document.getElementById('c-qte').value, reception: document.getElementById('c-reception').value, peremption: document.getElementById('c-peremption').value, ouverture: '', validite: '', statut: 'en_stock', note: document.getElementById('c-note').value };
   const produit = (state.produits||[]).find(p=>p.id===produitId);
   if (editingId) {
     const i = state.contenants.findIndex(x=>x.id===editingId);
     state.contenants[i] = { ...state.contenants[i], ...base };
-    addActivity('pencil', 'Contenant modifié : lot '+lot);
+    addActivity('pencil', 'Contenant modifie : lot '+lot);
   } else {
     for (let i = 0; i < nb; i++) {
       state.contenants.push({ ...base, id: Date.now() + i });
     }
-    addActivity('package', nb+'x '+(produit?.nom||'')+' lot '+lot+' réceptionné(s)');
+    addActivity('package', nb+'x '+(produit?.nom||'')+' lot '+lot+' receptionne(s)');
   }
   editingId = null;
   closeModal('modal-contenant');
@@ -1137,7 +1137,7 @@ function ouvrirContenant(id) {
   if (!ouvertureCible) return;
   const p = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
   document.getElementById('ouv-produit-info').innerHTML =
-    '<strong>'+p.nom+'</strong> — Lot : '+(ouvertureCible.lot||'—')+'<br>Péremption fab. : '+(ouvertureCible.peremption?formatDate(ouvertureCible.peremption):'—')+(p.fc?'  ·  FC '+p.fc:'');
+    '<strong>'+p.nom+'</strong> - Lot : '+(ouvertureCible.lot||'-')+'<br>Peremption fab. : '+(ouvertureCible.peremption?formatDate(ouvertureCible.peremption):'-')+(p.fc?'  -  FC '+p.fc:'');
   document.getElementById('ouv-date').value = new Date().toISOString().slice(0,10);
   document.getElementById('ouv-validite-display').style.display = 'none';
   document.getElementById('ouv-validite-display').innerHTML = '';
@@ -1165,15 +1165,26 @@ function confirmerOuverture() {
 function deleteContenant(id) {
   const c = (state.contenants||[]).find(x=>x.id===id);
   state.contenants = (state.contenants||[]).filter(x=>x.id!==id);
-  addActivity('trash', 'Contenant supprimé : lot '+(c?.lot||''));
+  addActivity('trash', 'Contenant supprime : lot '+(c?.lot||''));
   renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
+}
+
+function fermerContenant(id) {
+  const i = (state.contenants||[]).findIndex(x=>x.id===id);
+  if (i < 0) return;
+  const c = state.contenants[i];
+  const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+  state.contenants[i].statut = 'epuise';
+  addActivity('lock', 'Cloture : '+(p.nom||'')+' lot '+(c.lot||''));
+  renderReactifsTable(); renderProduitsAccordion(); renderArchivesTable(); updateBadges(); saveData();
+  toast('Contenant cloture et archive', 'success');
 }
 
 function statutContenantBadge(s) {
   const map = { en_stock:'badge-blue', ouvert:'badge-green', epuise:'badge-gray', retire:'badge-red', expire:'badge-red' };
   const icons = { en_stock:'package', ouvert:'lock-open', epuise:'circle-x', retire:'ban', expire:'alert-circle' };
-  const labels = { en_stock:'En stock', ouvert:'Ouvert', epuise:'Épuisé', retire:'Retiré', expire:'Expiré' };
-  return `<span class="badge ${map[s]||'badge-gray'}"><i class="ti ti-${icons[s]||'circle'}" style="font-size:10px"></i> ${labels[s]||s||'—'}</span>`;
+  const labels = { en_stock:'En stock', ouvert:'Ouvert', epuise:'Epuise', retire:'Retire', expire:'Expire' };
+  return `<span class="badge ${map[s]||'badge-gray'}"><i class="ti ti-${icons[s]||'circle'}" style="font-size:10px"></i> ${labels[s]||s||'-'}</span>`;
 }
 
 function resetFiltres() {
@@ -1183,7 +1194,7 @@ function resetFiltres() {
   renderReactifsTable();
 }
 
-// ── TABLE CONTENANTS avec filtres ────────────────────────────
+// -- TABLE CONTENANTS avec filtres ----------------------------
 function renderReactifsTable() {
   if (!state.contenants) state.contenants = [];
   const fProduit = (document.getElementById('f-produit')?.value||'').toLowerCase();
@@ -1225,26 +1236,31 @@ function renderReactifsTable() {
 
   const tbody = document.getElementById('reactifs-tbody');
   if (!tbody) return;
-  if (!contenants.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun contenant trouvé</p></div></td></tr>'; return; }
+  if (!contenants.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun contenant trouve</p></div></td></tr>'; return; }
 
   tbody.innerHTML = contenants.map(c => {
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
     const statAuto = getStatutAuto(c);
     const expFab = expiryStatus(c.peremption);
-    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">—</span>' };
+    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
     const canOpen = !c.ouverture && statAuto !== 'epuise' && statAuto !== 'retire';
     return `<tr>
-      <td style="font-size:12px"><strong>${p.nom||'—'}</strong>${p.localisation?'<br><span style="font-size:10px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'—'}</code></td>
-      <td style="font-size:12px">${p.fournisseur||'—'}</td>
-      <td style="font-size:12px">${c.reception?formatDate(c.reception):'—'}</td>
-      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">—</span>'}</td>
-      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'—'}</td>
+      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.localisation?'<br><span style="font-size:10px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
+      <td style="font-size:12px">${p.fournisseur||'-'}</td>
+      <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
+      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
+      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
       <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite)+'<br>'+expVal.badge:'<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
       <td>
         <div class="actions" style="opacity:1;flex-wrap:wrap">
-          ${canOpen?`<button class="icon-btn" onclick="ouvrirContenant(${c.id})" title="Enregistrer ouverture" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>`:''}
+          ${canOpen
+        ? `<button class="icon-btn" onclick="ouvrirContenant(${c.id})" title="Enregistrer l'ouverture" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>`
+        : statAuto === 'ouvert'
+          ? `<button class="icon-btn danger" onclick="fermerContenant(${c.id})" title="Cloturer - passer en archive"><i class="ti ti-lock"></i></button>`
+          : ''
+      }
           <button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button>
           <button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button>
         </div>
@@ -1267,10 +1283,10 @@ function isContenantCritical(c) {
 }
 
 function expiryStatus(expiry) {
-  if (!expiry) return { cls:'', badge:`<span class="badge badge-gray">—</span>` };
+  if (!expiry) return { cls:'', badge:`<span class="badge badge-gray">-</span>` };
   const d = new Date(expiry); const today = new Date(); today.setHours(0,0,0,0);
   const days = Math.ceil((d-today)/(1000*60*60*24));
-  if (days < 0) return { cls:'expiry-danger', badge:`<span class="badge badge-red"><i class="ti ti-alert-circle" style="font-size:11px"></i> Expiré</span>` };
+  if (days < 0) return { cls:'expiry-danger', badge:`<span class="badge badge-red"><i class="ti ti-alert-circle" style="font-size:11px"></i> Expire</span>` };
   if (days <= 30) return { cls:'expiry-warn', badge:`<span class="badge badge-amber"><i class="ti ti-clock" style="font-size:11px"></i> ${days}j</span>` };
   return { cls:'', badge:`<span class="badge badge-green">OK</span>` };
 }
@@ -1281,10 +1297,10 @@ function expiryStatus(expiry) {
 function saveEchantillon() {
   const id = document.getElementById('e-id').value.trim();
   const nom = document.getElementById('e-nom').value.trim();
-  if (!id || !nom) { toast('ID et désignation sont obligatoires', 'error'); return; }
+  if (!id || !nom) { toast('ID et designation sont obligatoires', 'error'); return; }
   const entry = { id: editingId||Date.now(), code: id, nom, origine: document.getElementById('e-origine').value, date: document.getElementById('e-date').value, analyse: document.getElementById('e-analyse').value, technicien: document.getElementById('e-tech').value, statut: document.getElementById('e-statut').value, note: document.getElementById('e-note').value };
-  if (editingId) { const i=state.echantillons.findIndex(x=>x.id===editingId); state.echantillons[i]=entry; addActivity('pencil','Échantillon modifié : '+id); }
-  else { state.echantillons.push(entry); addActivity('package','Échantillon enregistré : '+id); }
+  if (editingId) { const i=state.echantillons.findIndex(x=>x.id===editingId); state.echantillons[i]=entry; addActivity('pencil','Echantillon modifie : '+id); }
+  else { state.echantillons.push(entry); addActivity('package','Echantillon enregistre : '+id); }
   editingId = null;
   closeModal('modal-echantillon');
   renderEchantillonsTable(); renderDashboard(); saveData();
@@ -1294,15 +1310,15 @@ function renderEchantillonsTable() {
   const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
   const rows = state.echantillons.filter(e => !q || e.nom.toLowerCase().includes(q) || (e.code||'').toLowerCase().includes(q));
   const tbody = document.getElementById('ech-tbody');
-  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon enregistré</p></div></td></tr>`; return; }
-  const statuts = { reçu:'badge-blue', en_analyse:'badge-amber', terminé:'badge-green', conforme:'badge-cyan', non_conforme:'badge-red' };
-  const icons = { reçu:'package', en_analyse:'microscope', terminé:'check', conforme:'circle-check', non_conforme:'alert-circle' };
+  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>`; return; }
+  const statuts = { recu:'badge-blue', en_analyse:'badge-amber', termine:'badge-green', conforme:'badge-cyan', non_conforme:'badge-red' };
+  const icons = { recu:'package', en_analyse:'microscope', termine:'check', conforme:'circle-check', non_conforme:'alert-circle' };
   tbody.innerHTML = rows.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e => `<tr>
     <td><code style="font-size:12px;background:var(--bg3);padding:2px 8px;border-radius:4px;color:var(--cyan)">${e.code}</code></td>
     <td><strong>${e.nom}</strong></td>
-    <td>${e.origine||'—'}</td>
-    <td>${e.date?formatDate(e.date):'—'}</td>
-    <td>${e.analyse||'—'}</td>
+    <td>${e.origine||'-'}</td>
+    <td>${e.date?formatDate(e.date):'-'}</td>
+    <td>${e.analyse||'-'}</td>
     <td><span class="badge ${statuts[e.statut]||'badge-gray'}"><i class="ti ti-${icons[e.statut]||'circle'}" style="font-size:11px"></i> ${(e.statut||'').replace('_',' ')}</span></td>
     <td><div class="actions"><button class="icon-btn" onclick="editEchantillon(${e.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
   </tr>`).join('');
@@ -1317,7 +1333,7 @@ function editEchantillon(id) {
   document.getElementById('e-date').value = e.date||'';
   document.getElementById('e-analyse').value = e.analyse||'';
   document.getElementById('e-tech').value = e.technicien||'';
-  document.getElementById('e-statut').value = e.statut||'reçu';
+  document.getElementById('e-statut').value = e.statut||'recu';
   document.getElementById('e-note').value = e.note||'';
   openModal('modal-echantillon');
 }
@@ -1325,7 +1341,7 @@ function editEchantillon(id) {
 function deleteEchantillon(id) {
   const e = state.echantillons.find(x=>x.id===id);
   state.echantillons = state.echantillons.filter(x=>x.id!==id);
-  addActivity('trash','Échantillon supprimé : '+(e?.code||''));
+  addActivity('trash','Echantillon supprime : '+(e?.code||''));
   renderEchantillonsTable(); renderDashboard(); saveData();
 }
 
@@ -1364,7 +1380,7 @@ function renderCommandes() {
       const urgents = produits.filter(p => getStockActif(p.id) === 0);
       alertBox.innerHTML = `
         ${urgents.length ? `<div style="background:var(--red-dim);border:1px solid var(--red);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--red);margin-bottom:10px"><i class="ti ti-urgent" style="font-size:20px"></i><div><strong>${urgents.length} produit${urgents.length>1?'s':''} en rupture de stock !</strong><br><span style="font-size:12px;opacity:0.8">${urgents.map(p=>p.nom).join(', ')}</span></div></div>` : ''}
-        <div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--amber)"><i class="ti ti-alert-triangle" style="font-size:20px"></i><div><strong>${produits.length} produit${produits.length>1?'s':''} sous le stock minimum</strong><br><span style="font-size:12px;opacity:0.8">Une commande est recommandée</span></div></div>`;
+        <div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--amber)"><i class="ti ti-alert-triangle" style="font-size:20px"></i><div><strong>${produits.length} produit${produits.length>1?'s':''} sous le stock minimum</strong><br><span style="font-size:12px;opacity:0.8">Une commande est recommandee</span></div></div>`;
     }
   }
 
@@ -1372,7 +1388,7 @@ function renderCommandes() {
   const tbody = document.getElementById('commandes-tbody');
   if (!tbody) return;
   if (!produits.length) {
-    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande à passer</p></div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande a passer</p></div></td></tr>';
     return;
   }
 
@@ -1386,17 +1402,17 @@ function renderCommandes() {
       ? '<span class="badge badge-red"><i class="ti ti-urgent" style="font-size:10px"></i> Rupture</span>'
       : '<span class="badge badge-amber"><i class="ti ti-alert-triangle" style="font-size:10px"></i> Alerte</span>';
     const statutOptions = [
-      {v:'a_commander', l:'À commander'},
-      {v:'commandee', l:'Commandée'},
+      {v:'a_commander', l:'A commander'},
+      {v:'commandee', l:'Commandee'},
       {v:'en_attente', l:'En attente livraison'},
     ];
     return `<tr style="${urgent?'background:var(--red-dim)':''}">
       <td><strong>${p.nom}</strong>${p.localisation?'<br><span style="font-size:11px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
-      <td>${p.fournisseur||'—'}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'—'}</code></td>
+      <td>${p.fournisseur||'-'}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'-'}</code></td>
       <td style="text-align:center"><strong style="font-size:18px;color:${urgent?'var(--red)':'var(--amber)'}">${stock}</strong><br><span style="font-size:11px;color:var(--text3)">contenant${stock>1?'s':''}</span></td>
       <td style="text-align:center"><strong>${min}</strong><br><span style="font-size:11px;color:var(--text3)">minimum</span></td>
-      <td style="text-align:center">${p.qteCmde?'<strong>'+p.qteCmde+'</strong>':'—'}</td>
+      <td style="text-align:center">${p.qteCmde?'<strong>'+p.qteCmde+'</strong>':'-'}</td>
       <td>${urgenceBadge}</td>
       <td>
         <select style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;color:var(--text);font-size:12px;cursor:pointer" onchange="setCommandeStatut(${p.id}, this.value)">
@@ -1410,13 +1426,13 @@ function renderCommandes() {
 function setCommandeStatut(produitId, statut) {
   if (!state.commandesStatut) state.commandesStatut = {};
   state.commandesStatut[produitId] = statut;
-  addActivity('shopping-cart', 'Commande mise à jour : ' + ((state.produits||[]).find(p=>p.id===produitId)?.nom||''));
+  addActivity('shopping-cart', 'Commande mise a jour : ' + ((state.produits||[]).find(p=>p.id===produitId)?.nom||''));
   saveData();
 }
 
 function exportCommandes() {
   const produits = getProduitsSousMin();
-  if (!produits.length) { toast('Aucune commande à exporter', 'info'); return; }
+  if (!produits.length) { toast('Aucune commande a exporter', 'info'); return; }
   const headers = ['Produit','Fournisseur','Reference','Stock actuel','Stock minimum','Qte a commander','Urgence'];
   const rows = produits.map(p => {
     const stock = getStockActif(p.id);
@@ -1428,7 +1444,7 @@ function exportCommandes() {
   a.href = URL.createObjectURL(blob);
   a.download = 'commandes-' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
-  toast('Export CSV téléchargé', 'success');
+  toast('Export CSV telecharge', 'success');
 }
 
 // ============================================================
@@ -1437,11 +1453,11 @@ function exportCommandes() {
 function saveHabilitation() {
   const prenom = document.getElementById('h-prenom').value.trim();
   const nom = document.getElementById('h-nom').value.trim();
-  if (!prenom || !nom) { toast('Prénom et nom sont obligatoires', 'error'); return; }
+  if (!prenom || !nom) { toast('Prenom et nom sont obligatoires', 'error'); return; }
   const habs = document.getElementById('h-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
   const entry = { id: editingId||Date.now(), prenom, nom, role: document.getElementById('h-role').value, habilitations: habs, date: document.getElementById('h-date').value, statut: document.getElementById('h-statut').value };
-  if (editingId) { const i=state.techniciens.findIndex(x=>x.id===editingId); state.techniciens[i]=entry; addActivity('pencil','Technicien modifié : '+prenom+' '+nom); }
-  else { state.techniciens.push(entry); addActivity('certificate','Technicien ajouté : '+prenom+' '+nom); }
+  if (editingId) { const i=state.techniciens.findIndex(x=>x.id===editingId); state.techniciens[i]=entry; addActivity('pencil','Technicien modifie : '+prenom+' '+nom); }
+  else { state.techniciens.push(entry); addActivity('certificate','Technicien ajoute : '+prenom+' '+nom); }
   editingId = null;
   closeModal('modal-hab');
   renderTechniciens(); renderDashboard(); updateBadges(); populateTechSelects(); saveData();
@@ -1449,7 +1465,7 @@ function saveHabilitation() {
 
 function renderTechniciens() {
   const grid = document.getElementById('tech-grid');
-  if (!state.techniciens.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-certificate"></i><p>Aucun technicien enregistré</p></div>`; return; }
+  if (!state.techniciens.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-certificate"></i><p>Aucun technicien enregistre</p></div>`; return; }
   const statutCls = { actif:'badge-green', formation:'badge-amber', inactif:'badge-gray' };
   grid.innerHTML = state.techniciens.map(t => `
     <div class="tech-card">
@@ -1485,7 +1501,7 @@ function editTech(id) {
 function deleteTech(id) {
   const t = state.techniciens.find(x=>x.id===id);
   state.techniciens = state.techniciens.filter(x=>x.id!==id);
-  addActivity('trash','Technicien supprimé : '+(t?t.prenom+' '+t.nom:''));
+  addActivity('trash','Technicien supprime : '+(t?t.prenom+' '+t.nom:''));
   renderTechniciens(); renderDashboard(); updateBadges(); saveData();
 }
 
@@ -1493,7 +1509,7 @@ function populateTechSelects() {
   ['p-tech','e-tech'].forEach(id => {
     const sel = document.getElementById(id); if(!sel) return;
     const cur = sel.value;
-    sel.innerHTML = '<option value="">— Choisir —</option>' + state.techniciens.filter(t=>t.statut==='actif').map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
+    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif').map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
     sel.value = cur;
   });
 }
@@ -1518,12 +1534,12 @@ function prioriteBadge(p) {
 }
 
 function statutBadge(s) {
-  const map = { planifié:'badge-blue', en_cours:'badge-amber', terminé:'badge-green', annulé:'badge-gray' };
+  const map = { planifie:'badge-blue', en_cours:'badge-amber', termine:'badge-green', annule:'badge-gray' };
   return `<span class="badge ${map[s]||'badge-gray'}">${(s||'').replace('_',' ')}</span>`;
 }
 
 function formatDate(d) {
-  if (!d) return '—';
+  if (!d) return '-';
   return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
 }
 
@@ -1534,7 +1550,7 @@ function openModal(id) {
   if (id === 'modal-planning') populateTechSelects();
   if (id === 'modal-echantillon') populateTechSelects();
   if (id === 'modal-contenant') { populateProduitSelect(); }
-  if (id === 'modal-ouverture') { /* géré dans ouvrirContenant */ }
+  if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
     document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
   }
@@ -1584,6 +1600,7 @@ window.deleteProduit = deleteProduit;
 window.saveContenant = saveContenant;
 window.editContenant = editContenant;
 window.deleteContenant = deleteContenant;
+window.fermerContenant = fermerContenant;
 window.addContenantForProduit = addContenantForProduit;
 window.ouvrirContenant = ouvrirContenant;
 window.confirmerOuverture = confirmerOuverture;
@@ -1605,7 +1622,7 @@ window.statutContenantBadge = statutContenantBadge;
 window.calcValidite = calcValidite;
 window.toggleAccordion = toggleAccordion;
 
-// ── NAVIGATION RÉACTIFS ──────────────────────────────────────
+// -- NAVIGATION REACTIFS --------------------------------------
 
 function toggleReactifsMenu(e) {
   e.currentTarget.classList.toggle('active');
@@ -1619,7 +1636,7 @@ function toggleReactifsMenu(e) {
 
 function goToReactifs(view) {
   currentReactifsView = view;
-  // Activer la page réactifs
+  // Activer la page reactifs
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-reactifs').classList.add('active');
   document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
@@ -1637,13 +1654,13 @@ function goToReactifs(view) {
   const subItems = document.querySelectorAll('.nav-sub');
   const labels = { produits: 0, contenants: 1, archives: 2 };
   if (subItems[labels[view]]) subItems[labels[view]].classList.add('active');
-  // Rafraîchir la vue
+  // Rafraichir la vue
   if (view === 'produits') renderProduitsAccordion();
   if (view === 'contenants') renderReactifsTable();
   if (view === 'archives') renderArchivesTable();
 }
 
-// ── ARCHIVES ─────────────────────────────────────────────────
+// -- ARCHIVES -------------------------------------------------
 function renderArchivesTable() {
   if (!state.contenants) state.contenants = [];
   const fProduit = (document.getElementById('fa-produit')?.value||'').toLowerCase();
@@ -1667,15 +1684,15 @@ function renderArchivesTable() {
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
     const statAuto = getStatutAuto(c);
     const expFab = expiryStatus(c.peremption);
-    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">—</span>' };
+    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
     return `<tr style="opacity:0.75">
-      <td style="font-size:12px"><strong>${p.nom||'—'}</strong></td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'—'}</code></td>
-      <td style="font-size:12px">${p.fournisseur||'—'}</td>
-      <td style="font-size:12px">${c.reception?formatDate(c.reception):'—'}</td>
-      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'—'}</td>
-      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'—'}</td>
-      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite):'—'}</td>
+      <td style="font-size:12px"><strong>${p.nom||'-'}</strong></td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
+      <td style="font-size:12px">${p.fournisseur||'-'}</td>
+      <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
+      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'-'}</td>
+      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
+      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite):'-'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
       <td><div class="actions" style="opacity:1">
         <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
