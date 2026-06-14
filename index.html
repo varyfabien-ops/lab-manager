@@ -71,6 +71,8 @@
   .nav-item.active { background: var(--cyan-dim); color: var(--cyan); border-left-color: var(--cyan); }
   .nav-badge { margin-left: auto; background: var(--red-dim); color: var(--red); font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 10px; }
   .nav-badge.amber { background: var(--amber-dim); color: var(--amber); }
+  .nav-sub { padding-left: 36px; font-size: 12px; }
+  .nav-sub.active { background: var(--cyan-dim); color: var(--cyan); border-left-color: var(--cyan); }
 
   /* MAIN */
   main { margin-left: var(--sidebar-w); flex: 1; padding: 28px; }
@@ -226,9 +228,15 @@
       <div class="nav-label">Navigation</div>
       <div class="nav-item active" onclick="goTo('dashboard')"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
       <div class="nav-item" onclick="goTo('planning')"><i class="ti ti-calendar"></i> Planification</div>
-      <div class="nav-item" onclick="goTo('reactifs')"><i class="ti ti-flask-2"></i> Réactifs <span class="nav-badge amber" id="badge-reactifs">0</span></div>
+      <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Réactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+      <div id="reactifs-submenu" style="display:none">
+        <div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div>
+        <div class="nav-item nav-sub active-sub" id="subnav-contenants" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div>
+        <div class="nav-item nav-sub" id="subnav-archives" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div>
+      </div>
       <div class="nav-item" onclick="goTo('echantillons')"><i class="ti ti-package"></i> Échantillons</div>
       <div class="nav-item" onclick="goTo('habilitations')"><i class="ti ti-certificate"></i> Habilitations</div>
+      <div class="nav-item" onclick="goTo('commandes')"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
     </div>
   </aside>
 
@@ -293,24 +301,40 @@
 
     <!-- REACTIFS -->
     <div class="page" id="page-reactifs">
-      <div class="page-header">
-        <div class="page-header-text"><h1>Suivi des réactifs</h1><p>Fiches produits et contenants par lot</p></div>
-        <div class="page-header-actions">
-          <button class="btn" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button>
-          <button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-flask-2"></i> Nouveau produit</button>
+
+      <!-- SOUS-VUE : FICHES PRODUITS -->
+      <div id="reactifs-view-produits" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Fiches produits</h1><p>Catalogue des réactifs du laboratoire</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau produit</button>
+          </div>
         </div>
-      </div>
-      <!-- Vue contenants (tableau principal) -->
-      <div class="table-card">
-        <div class="table-card-header">
-          <h3>Contenants / Lots</h3>
+        <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;display:flex;align-items:center;gap:10px">
+          <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Produits enregistrés</h3>
           <div class="spacer"></div>
-          <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
+          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits" placeholder="Rechercher..." oninput="renderProduitsAccordion()"></div>
         </div>
-        <div style="overflow-x:auto">
-        <table style="table-layout:fixed;min-width:900px">
-          <thead>
-            <tr>
+        <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
+      </div>
+
+      <!-- SOUS-VUE : CONTENANTS ACTIFS -->
+      <div id="reactifs-view-contenants" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Contenants</h1><p>Stocks en cours — non ouverts et ouverts</p></div>
+          <div class="page-header-actions">
+            <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button>
+          </div>
+        </div>
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>Contenants actifs</h3>
+            <div class="spacer"></div>
+            <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
+          </div>
+          <div style="overflow-x:auto">
+          <table style="table-layout:fixed;min-width:900px">
+            <thead><tr>
               <th style="width:180px">Produit<br><input class="filter-input" id="f-produit" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
               <th style="width:110px">N° Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
               <th style="width:120px">Fournisseur<br><input class="filter-input" id="f-fourn" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
@@ -331,25 +355,53 @@
                   <option value="">Tous</option>
                   <option value="en_stock">En stock</option>
                   <option value="ouvert">Ouvert</option>
+                </select>
+              </th>
+              <th style="width:80px"></th>
+            </tr></thead>
+            <tbody id="reactifs-tbody"></tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOUS-VUE : ARCHIVES -->
+      <div id="reactifs-view-archives" style="display:none">
+        <div class="page-header">
+          <div class="page-header-text"><h1>Archives</h1><p>Contenants épuisés, retirés ou expirés</p></div>
+        </div>
+        <div class="table-card">
+          <div class="table-card-header">
+            <h3>Historique</h3>
+            <div class="spacer"></div>
+            <button class="btn" onclick="resetFiltresArchives()" style="font-size:12px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
+          </div>
+          <div style="overflow-x:auto">
+          <table style="table-layout:fixed;min-width:900px">
+            <thead><tr>
+              <th style="width:180px">Produit<br><input class="filter-input" id="fa-produit" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
+              <th style="width:110px">N° Lot<br><input class="filter-input" id="fa-lot" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
+              <th style="width:120px">Fournisseur<br><input class="filter-input" id="fa-fourn" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
+              <th style="width:90px">Réception</th>
+              <th style="width:90px">Ouverture</th>
+              <th style="width:100px">Péremption fab.</th>
+              <th style="width:130px">Validité calculée</th>
+              <th style="width:100px">Statut<br>
+                <select class="filter-input" id="fa-statut" onchange="renderArchivesTable()">
+                  <option value="">Tous</option>
                   <option value="epuise">Épuisé</option>
                   <option value="retire">Retiré</option>
                   <option value="expire">Expiré</option>
                 </select>
               </th>
               <th style="width:80px"></th>
-            </tr>
-          </thead>
-          <tbody id="reactifs-tbody"></tbody>
-        </table>
+            </tr></thead>
+            <tbody id="archives-tbody"></tbody>
+          </table>
+          </div>
         </div>
       </div>
-      <!-- Fiches produits (accordéon) -->
-      <div style="margin-top:20px">
-        <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;">
-          <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Fiches produits</h3>
-        </div>
-        <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
-      </div>
+
     </div>
 
     <!-- ECHANTILLONS -->
@@ -369,6 +421,39 @@
         <table>
           <thead><tr><th>ID</th><th>Désignation</th><th>Origine</th><th>Date réception</th><th>Analyse demandée</th><th>Statut</th><th></th></tr></thead>
           <tbody id="ech-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- COMMANDES -->
+    <div class="page" id="page-commandes">
+      <div class="page-header">
+        <div class="page-header-text"><h1>Commandes à passer</h1><p>Produits en dessous du stock minimum</p></div>
+        <div class="page-header-actions">
+          <button class="btn" onclick="exportCommandes()"><i class="ti ti-download"></i> Exporter CSV</button>
+        </div>
+      </div>
+
+      <!-- Alertes stock -->
+      <div id="commandes-alertes" style="margin-bottom:20px"></div>
+
+      <!-- Tableau commandes -->
+      <div class="table-card">
+        <div class="table-card-header">
+          <h3><i class="ti ti-alert-triangle" style="color:var(--amber);margin-right:6px"></i>Produits à recommander</h3>
+        </div>
+        <table>
+          <thead><tr>
+            <th>Produit</th>
+            <th>Fournisseur</th>
+            <th>Référence</th>
+            <th>Stock actuel</th>
+            <th>Stock minimum</th>
+            <th>Qté à commander</th>
+            <th>Urgence</th>
+            <th>Statut commande</th>
+          </tr></thead>
+          <tbody id="commandes-tbody"></tbody>
         </table>
       </div>
     </div>
@@ -423,6 +508,8 @@
         <div class="form-group"><label>Localisation</label><input id="r-loc" placeholder="Ex: Armoire A - étagère 2"></div>
         <div class="form-group"><label>Facteur correctif</label><input id="r-fc" type="number" step="0.01" min="0" max="1" placeholder="Ex: 0.5"></div>
         <div class="form-group"><label>Conditionnement</label><input id="r-cond" placeholder="Ex: 2.5 L, 500 g..."></div>
+        <div class="form-group"><label>Stock minimum (contenants)</label><input id="r-stock-min" type="number" min="0" placeholder="Ex: 2"></div>
+        <div class="form-group"><label>Quantité à commander</label><input id="r-qte-cmd" type="number" min="0" placeholder="Ex: 5"></div>
         <div class="form-group full"><label>Remarques / Conditions de stockage</label><textarea id="r-note" placeholder="Précautions, température, lumière..."></textarea></div>
       </div>
     </div>
@@ -561,17 +648,27 @@ window.onload = async () => {
   loadGithubConfig();
   await loadData();
   renderAll();
+  // Ouvrir le sous-menu réactifs par défaut
+  reactifsMenuOpen = true;
+  const menu = document.getElementById('reactifs-submenu');
+  if (menu) menu.style.display = 'block';
+  const chevron = document.getElementById('reactifs-chevron');
+  if (chevron) chevron.style.transform = 'rotate(180deg)';
+  // Afficher la sous-vue contenants par défaut
+  document.getElementById('reactifs-view-contenants').style.display = 'block';
 };
 
 function renderAll() {
   renderDashboard();
   renderCalendar();
   renderPlanningTable();
-  renderReactifsTable();
-  renderProduitsAccordion();
+  if (currentReactifsView === 'contenants') renderReactifsTable();
+  else if (currentReactifsView === 'produits') renderProduitsAccordion();
+  else if (currentReactifsView === 'archives') renderArchivesTable();
   renderEchantillonsTable();
   renderTechniciens();
   updateBadges();
+  renderCommandes();
 }
 
 // ============================================================
@@ -583,6 +680,7 @@ function goTo(page) {
   document.getElementById('page-' + page).classList.add('active');
   event.currentTarget.classList.add('active');
   if (page === 'planning') renderCalendar();
+  if (page === 'commandes') renderCommandes();
 }
 
 // ============================================================
@@ -663,7 +761,7 @@ async function loadData() {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
     const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], activity: decoded.activity||[] };
+    state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, activity: decoded.activity||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Données synchronisées', 'success');
@@ -871,7 +969,7 @@ function saveProduit() {
   const nom = document.getElementById('r-nom').value.trim();
   if (!nom) { toast('Le nom du réactif est obligatoire', 'error'); return; }
   if (!state.produits) state.produits = [];
-  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, note: document.getElementById('r-note').value };
+  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, stockMin: document.getElementById('r-stock-min').value, qteCmde: document.getElementById('r-qte-cmd').value, note: document.getElementById('r-note').value };
   if (editingId) { const i=state.produits.findIndex(x=>x.id===editingId); state.produits[i]=entry; addActivity('pencil','Produit modifié : '+nom); }
   else { state.produits.push(entry); addActivity('flask-2','Produit ajouté : '+nom); }
   editingId = null;
@@ -889,6 +987,8 @@ function editProduit(id) {
   document.getElementById('r-loc').value = p.localisation||'';
   document.getElementById('r-fc').value = p.fc||'';
   document.getElementById('r-cond').value = p.conditionnement||'';
+  document.getElementById('r-stock-min').value = p.stockMin||'';
+  document.getElementById('r-qte-cmd').value = p.qteCmde||'';
   document.getElementById('r-note').value = p.note||'';
   document.getElementById('modal-reactif-title').textContent = 'Modifier le produit';
   openModal('modal-reactif');
@@ -905,7 +1005,8 @@ function deleteProduit(id) {
 
 function renderProduitsAccordion() {
   const el = document.getElementById('produits-list'); if(!el) return;
-  const produits = state.produits||[];
+  const qProd = (document.getElementById('search-produits')?.value||'').toLowerCase();
+  const produits = (state.produits||[]).filter(p => !qProd || (p.nom||'').toLowerCase().includes(qProd) || (p.fournisseur||'').toLowerCase().includes(qProd));
   if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun produit enregistré</p></div>'; return; }
   el.innerHTML = produits.map(p => {
     const contenants = (state.contenants||[]).filter(c=>c.produitId===p.id);
@@ -1064,6 +1165,8 @@ function renderReactifsTable() {
   const contenants = state.contenants.filter(c => {
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
     const statAuto = getStatutAuto(c);
+    // Vue contenants = uniquement actifs (pas les archives)
+    if (['epuise','retire','expire'].includes(statAuto)) return false;
     if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
     if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
     if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
@@ -1192,6 +1295,108 @@ function deleteEchantillon(id) {
   renderEchantillonsTable(); renderDashboard(); saveData();
 }
 
+
+// ============================================================
+// COMMANDES
+// ============================================================
+function getStockActif(produitId) {
+  return (state.contenants||[]).filter(c => {
+    const s = getStatutAuto(c);
+    return c.produitId === produitId && ['en_stock','ouvert'].includes(s);
+  }).length;
+}
+
+function getProduitsSousMin() {
+  return (state.produits||[]).filter(p => {
+    const min = parseInt(p.stockMin);
+    if (!min && min !== 0) return false;
+    return getStockActif(p.id) < min;
+  });
+}
+
+function renderCommandes() {
+  const produits = getProduitsSousMin();
+
+  // Badge sidebar
+  const badge = document.getElementById('badge-commandes');
+  if (badge) { badge.textContent = produits.length; badge.style.display = produits.length ? '' : 'none'; }
+
+  // Alertes visuelles
+  const alertBox = document.getElementById('commandes-alertes');
+  if (alertBox) {
+    if (!produits.length) {
+      alertBox.innerHTML = '<div style="background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--green)"><i class="ti ti-circle-check" style="font-size:20px"></i><div><strong>Tous les stocks sont OK</strong><br><span style="font-size:12px;opacity:0.8">Aucun produit en dessous du stock minimum</span></div></div>';
+    } else {
+      const urgents = produits.filter(p => getStockActif(p.id) === 0);
+      alertBox.innerHTML = `
+        ${urgents.length ? `<div style="background:var(--red-dim);border:1px solid var(--red);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--red);margin-bottom:10px"><i class="ti ti-urgent" style="font-size:20px"></i><div><strong>${urgents.length} produit${urgents.length>1?'s':''} en rupture de stock !</strong><br><span style="font-size:12px;opacity:0.8">${urgents.map(p=>p.nom).join(', ')}</span></div></div>` : ''}
+        <div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--amber)"><i class="ti ti-alert-triangle" style="font-size:20px"></i><div><strong>${produits.length} produit${produits.length>1?'s':''} sous le stock minimum</strong><br><span style="font-size:12px;opacity:0.8">Une commande est recommandée</span></div></div>`;
+    }
+  }
+
+  // Tableau
+  const tbody = document.getElementById('commandes-tbody');
+  if (!tbody) return;
+  if (!produits.length) {
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande à passer</p></div></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = produits.map(p => {
+    const stock = getStockActif(p.id);
+    const min = parseInt(p.stockMin)||0;
+    const urgent = stock === 0;
+    const cmdKey = 'cmd_statut_' + p.id;
+    const cmdStatut = (state.commandesStatut||{})[p.id] || 'a_commander';
+    const urgenceBadge = urgent
+      ? '<span class="badge badge-red"><i class="ti ti-urgent" style="font-size:10px"></i> Rupture</span>'
+      : '<span class="badge badge-amber"><i class="ti ti-alert-triangle" style="font-size:10px"></i> Alerte</span>';
+    const statutOptions = [
+      {v:'a_commander', l:'À commander'},
+      {v:'commandee', l:'Commandée'},
+      {v:'en_attente', l:'En attente livraison'},
+    ];
+    return `<tr style="${urgent?'background:var(--red-dim)':''}">
+      <td><strong>${p.nom}</strong>${p.localisation?'<br><span style="font-size:11px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
+      <td>${p.fournisseur||'—'}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'—'}</code></td>
+      <td style="text-align:center"><strong style="font-size:18px;color:${urgent?'var(--red)':'var(--amber)'}">${stock}</strong><br><span style="font-size:11px;color:var(--text3)">contenant${stock>1?'s':''}</span></td>
+      <td style="text-align:center"><strong>${min}</strong><br><span style="font-size:11px;color:var(--text3)">minimum</span></td>
+      <td style="text-align:center">${p.qteCmde?'<strong>'+p.qteCmde+'</strong>':'—'}</td>
+      <td>${urgenceBadge}</td>
+      <td>
+        <select style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;color:var(--text);font-size:12px;cursor:pointer" onchange="setCommandeStatut(${p.id}, this.value)">
+          ${statutOptions.map(o=>`<option value="${o.v}" ${cmdStatut===o.v?'selected':''}>${o.l}</option>`).join('')}
+        </select>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function setCommandeStatut(produitId, statut) {
+  if (!state.commandesStatut) state.commandesStatut = {};
+  state.commandesStatut[produitId] = statut;
+  addActivity('shopping-cart', 'Commande mise à jour : ' + ((state.produits||[]).find(p=>p.id===produitId)?.nom||''));
+  saveData();
+}
+
+function exportCommandes() {
+  const produits = getProduitsSousMin();
+  if (!produits.length) { toast('Aucune commande à exporter', 'info'); return; }
+  const headers = ['Produit','Fournisseur','Reference','Stock actuel','Stock minimum','Qte a commander','Urgence'];
+  const rows = produits.map(p => {
+    const stock = getStockActif(p.id);
+    return [p.nom, p.fournisseur||'', p.ref||'', stock, p.stockMin||'', p.qteCmde||'', stock===0?'Rupture':'Alerte'].join(';');
+  });
+  const csv = [headers.join(';'), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'commandes-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  toast('Export CSV téléchargé', 'success');
+}
+
 // ============================================================
 // HABILITATIONS
 // ============================================================
@@ -1265,7 +1470,11 @@ function populateTechSelects() {
 function updateBadges() {
   const critical = (state.contenants||[]).filter(c=>isContenantCritical(c) && c.statut !== 'epuise' && c.statut !== 'retire').length;
   const badge = document.getElementById('badge-reactifs');
-  badge.textContent = critical; badge.style.display = critical ? '' : 'none';
+  if (badge) { badge.textContent = critical; badge.style.display = critical ? '' : 'none'; }
+  // Badge commandes
+  const nbCmd = getProduitsSousMin ? getProduitsSousMin().length : 0;
+  const badgeCmd = document.getElementById('badge-commandes');
+  if (badgeCmd) { badgeCmd.textContent = nbCmd; badgeCmd.style.display = nbCmd ? '' : 'none'; }
 }
 
 function prioriteBadge(p) {
@@ -1345,9 +1554,120 @@ window.addContenantForProduit = addContenantForProduit;
 window.ouvrirContenant = ouvrirContenant;
 window.confirmerOuverture = confirmerOuverture;
 window.afficherValiditeOuverture = afficherValiditeOuverture;
+window.computeValidite = computeValidite;
+window.getStatutAuto = getStatutAuto;
+window.populateProduitSelect = populateProduitSelect;
+window.populateTechSelects = populateTechSelects;
+window.renderReactifsTable = renderReactifsTable;
+window.renderProduitsAccordion = renderProduitsAccordion;
+window.renderPlanningTable = renderPlanningTable;
+window.renderEchantillonsTable = renderEchantillonsTable;
+window.renderTechniciens = renderTechniciens;
+window.renderDashboard = renderDashboard;
+window.renderCalendar = renderCalendar;
+window.updateBadges = updateBadges;
+window.expiryStatus = expiryStatus;
+window.statutContenantBadge = statutContenantBadge;
 window.calcValidite = calcValidite;
 window.toggleAccordion = toggleAccordion;
+
+// ── NAVIGATION RÉACTIFS ──────────────────────────────────────
+let reactifsMenuOpen = false;
+let currentReactifsView = 'contenants';
+
+function toggleReactifsMenu(e) {
+  e.currentTarget.classList.toggle('active');
+  reactifsMenuOpen = !reactifsMenuOpen;
+  const menu = document.getElementById('reactifs-submenu');
+  const chevron = document.getElementById('reactifs-chevron');
+  menu.style.display = reactifsMenuOpen ? 'block' : 'none';
+  if (chevron) chevron.style.transform = reactifsMenuOpen ? 'rotate(180deg)' : '';
+  if (reactifsMenuOpen) goToReactifs(currentReactifsView);
+}
+
+function goToReactifs(view) {
+  currentReactifsView = view;
+  // Activer la page réactifs
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-reactifs').classList.add('active');
+  document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
+  // Activer le bon sous-menu
+  document.querySelectorAll('.nav-sub').forEach(n => n.classList.remove('active'));
+  // Cacher toutes les sous-vues
+  ['produits','contenants','archives'].forEach(v => {
+    const el = document.getElementById('reactifs-view-'+v);
+    if (el) el.style.display = 'none';
+  });
+  // Afficher la bonne sous-vue
+  const target = document.getElementById('reactifs-view-'+view);
+  if (target) target.style.display = 'block';
+  // Marquer le bon sous-nav
+  const subItems = document.querySelectorAll('.nav-sub');
+  const labels = { produits: 0, contenants: 1, archives: 2 };
+  if (subItems[labels[view]]) subItems[labels[view]].classList.add('active');
+  // Rafraîchir la vue
+  if (view === 'produits') renderProduitsAccordion();
+  if (view === 'contenants') renderReactifsTable();
+  if (view === 'archives') renderArchivesTable();
+}
+
+// ── ARCHIVES ─────────────────────────────────────────────────
+function renderArchivesTable() {
+  if (!state.contenants) state.contenants = [];
+  const fProduit = (document.getElementById('fa-produit')?.value||'').toLowerCase();
+  const fLot = (document.getElementById('fa-lot')?.value||'').toLowerCase();
+  const fFourn = (document.getElementById('fa-fourn')?.value||'').toLowerCase();
+  const fStatut = document.getElementById('fa-statut')?.value||'';
+  const archives = state.contenants.filter(c => {
+    const s = getStatutAuto(c);
+    if (!['epuise','retire','expire'].includes(s)) return false;
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
+    if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
+    if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
+    if (fStatut && s !== fStatut) return false;
+    return true;
+  });
+  const tbody = document.getElementById('archives-tbody');
+  if (!tbody) return;
+  if (!archives.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-archive"></i><p>Aucune archive</p></div></td></tr>'; return; }
+  tbody.innerHTML = archives.map(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const statAuto = getStatutAuto(c);
+    const expFab = expiryStatus(c.peremption);
+    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">—</span>' };
+    return `<tr style="opacity:0.75">
+      <td style="font-size:12px"><strong>${p.nom||'—'}</strong></td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'—'}</code></td>
+      <td style="font-size:12px">${p.fournisseur||'—'}</td>
+      <td style="font-size:12px">${c.reception?formatDate(c.reception):'—'}</td>
+      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'—'}</td>
+      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'—'}</td>
+      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite):'—'}</td>
+      <td>${statutContenantBadge(statAuto)}</td>
+      <td><div class="actions" style="opacity:1">
+        <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function resetFiltresArchives() {
+  ['fa-produit','fa-lot','fa-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  const sel=document.getElementById('fa-statut'); if(sel) sel.value='';
+  renderArchivesTable();
+}
+
 window.resetFiltres = resetFiltres;
+window.renderCommandes = renderCommandes;
+window.setCommandeStatut = setCommandeStatut;
+window.exportCommandes = exportCommandes;
+window.getProduitsSousMin = getProduitsSousMin;
+window.getStockActif = getStockActif;
+window.toggleReactifsMenu = toggleReactifsMenu;
+window.goToReactifs = goToReactifs;
+window.renderArchivesTable = renderArchivesTable;
+window.resetFiltresArchives = resetFiltresArchives;
 window.saveEchantillon = saveEchantillon;
 window.editEchantillon = editEchantillon;
 window.deleteEchantillon = deleteEchantillon;
