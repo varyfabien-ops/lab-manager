@@ -3,7 +3,7 @@
   "reactifs": [
     {
       "id": 1781429589952,
-      "nom": "Méthanol HPLC Grade",
+      "nom": "MÃ©thanol HPLC Grade",
       "fournisseur": "CARLO ERBA",
       "ref": "Test",
       "stock": "5",
@@ -13,6 +13,19 @@
       "note": ""
     }
   ],
+  "produits": [
+    {
+      "id": 1781430392848,
+      "nom": "Methanol HPLC Grade",
+      "fournisseur": "CARLO ERBA",
+      "ref": "XXXXX",
+      "localisation": "I4",
+      "fc": "0.6",
+      "conditionnement": "2.5 L",
+      "note": "Inflammable"
+    }
+  ],
+  "contenants": [],
   "echantillons": [],
   "techniciens": [
     {
@@ -31,13 +44,18 @@
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajouté : Fabien VARY",
+      "text": "Technicien ajoutÃ© : Fabien VARY",
       "time": "14/06 11:29"
     },
     {
       "icon": "flask",
-      "text": "Réactif ajouté : Méthanol HPLC Grade",
+      "text": "RÃ©actif ajoutÃ© : MÃ©thanol HPLC Grade",
       "time": "14/06 11:33"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajouté : Methanol HPLC Grade",
+      "time": "14/06 11:46"
     }
   ]
 }
