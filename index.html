@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LabManager — Physico-Chimie</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --bg4: #30363d;
+    --border: #30363d;
+    --border2: #484f58;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --cyan: #39d0c7;
+    --cyan2: #1a9e96;
+    --cyan3: #0d6b65;
+    --cyan-dim: rgba(57,208,199,0.12);
+    --cyan-dim2: rgba(57,208,199,0.06);
+    --green: #3fb950;
+    --green-dim: rgba(63,185,80,0.12);
+    --amber: #d29922;
+    --amber-dim: rgba(210,153,34,0.12);
+    --red: #f85149;
+    --red-dim: rgba(248,81,73,0.12);
+    --blue: #58a6ff;
+    --blue-dim: rgba(88,166,255,0.12);
+    --purple: #bc8cff;
+    --purple-dim: rgba(188,140,255,0.12);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --sidebar-w: 220px;
+    --header-h: 56px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* HEADER */
+  header { height: var(--header-h); background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; gap: 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--cyan); letter-spacing: -0.3px; }
+  .logo i { font-size: 22px; }
+  .logo span { color: var(--text); font-weight: 400; }
+  .header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+  .sync-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; cursor: pointer; transition: border-color 0.2s; }
+  .sync-status:hover { border-color: var(--border2); }
+  .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text3); }
+  .sync-dot.ok { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .sync-dot.syncing { background: var(--amber); animation: pulse 1s infinite; }
+  .sync-dot.error { background: var(--red); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius); border: 1px solid var(--border2); background: transparent; color: var(--text); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .btn:hover { background: var(--bg3); border-color: var(--cyan); color: var(--cyan); }
+  .btn-primary { background: var(--cyan3); border-color: var(--cyan2); color: var(--text); }
+  .btn-primary:hover { background: var(--cyan2); color: var(--bg); }
+  .btn i { font-size: 15px; }
+
+  /* LAYOUT */
+  .layout { display: flex; margin-top: var(--header-h); min-height: calc(100vh - var(--header-h)); }
+
+  /* SIDEBAR */
+  aside { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: var(--header-h); bottom: 0; overflow-y: auto; padding: 16px 0; }
+  .nav-section { margin-bottom: 8px; }
+  .nav-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: 0 16px; margin-bottom: 4px; }
+  .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 16px; cursor: pointer; color: var(--text2); border-left: 2px solid transparent; transition: all 0.15s; font-size: 13px; }
+  .nav-item i { font-size: 17px; width: 20px; }
+  .nav-item:hover { background: var(--cyan-dim2); color: var(--text); }
+  .nav-item.active { background: var(--cyan-dim); color: var(--cyan); border-left-color: var(--cyan); }
+  .nav-badge { margin-left: auto; background: var(--red-dim); color: var(--red); font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 10px; }
+  .nav-badge.amber { background: var(--amber-dim); color: var(--amber); }
+
+  /* MAIN */
+  main { margin-left: var(--sidebar-w); flex: 1; padding: 28px; }
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 24px; display: flex; align-items: flex-start; gap: 16px; }
+  .page-header-text h1 { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .page-header-text p { color: var(--text2); font-size: 13px; }
+  .page-header-actions { margin-left: auto; display: flex; gap: 8px; }
+
+  /* STAT CARDS */
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
+  .stat-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .stat-card .label i { font-size: 14px; }
+  .stat-card .value { font-size: 28px; font-weight: 600; line-height: 1; }
+  .stat-card .sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+  .stat-card.cyan { border-left: 3px solid var(--cyan); }
+  .stat-card.green { border-left: 3px solid var(--green); }
+  .stat-card.amber { border-left: 3px solid var(--amber); }
+  .stat-card.red { border-left: 3px solid var(--red); }
+  .stat-card.purple { border-left: 3px solid var(--purple); }
+
+  /* TABLES */
+  .table-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .table-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .table-card-header h3 { font-size: 14px; font-weight: 600; }
+  .table-card-header .spacer { flex: 1; }
+  .search-input { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 10px 6px 32px; color: var(--text); font-size: 13px; width: 200px; position: relative; }
+  .search-wrap { position: relative; }
+  .search-wrap i { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 15px; pointer-events: none; }
+  .search-input:focus { outline: none; border-color: var(--cyan); }
+  table { width: 100%; border-collapse: collapse; }
+  th { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--cyan-dim2); }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: var(--green-dim); color: var(--green); }
+  .badge-amber { background: var(--amber-dim); color: var(--amber); }
+  .badge-red { background: var(--red-dim); color: var(--red); }
+  .badge-blue { background: var(--blue-dim); color: var(--blue); }
+  .badge-cyan { background: var(--cyan-dim); color: var(--cyan); }
+  .badge-purple { background: var(--purple-dim); color: var(--purple); }
+  .badge-gray { background: var(--bg4); color: var(--text2); }
+  td .actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.15s; }
+  tr:hover .actions { opacity: 1; }
+  .icon-btn { background: transparent; border: 1px solid transparent; border-radius: var(--radius); padding: 3px 6px; color: var(--text2); cursor: pointer; font-size: 15px; transition: all 0.15s; display: inline-flex; }
+  .icon-btn:hover { border-color: var(--border2); color: var(--cyan); background: var(--bg3); }
+  .icon-btn.danger:hover { color: var(--red); border-color: var(--red); }
+
+  /* CALENDAR */
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 8px; }
+  .cal-day-name { text-align: center; font-size: 11px; font-weight: 600; color: var(--text3); padding: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .cal-day { min-height: 90px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px; cursor: pointer; transition: border-color 0.15s; }
+  .cal-day:hover { border-color: var(--cyan); }
+  .cal-day.other-month { opacity: 0.35; }
+  .cal-day.today { border-color: var(--cyan); background: var(--cyan-dim2); }
+  .cal-day-num { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 4px; }
+  .cal-day.today .cal-day-num { color: var(--cyan); }
+  .cal-event { font-size: 10px; background: var(--cyan-dim); color: var(--cyan); border-radius: 3px; padding: 1px 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cal-event.green { background: var(--green-dim); color: var(--green); }
+  .cal-event.amber { background: var(--amber-dim); color: var(--amber); }
+  .cal-event.purple { background: var(--purple-dim); color: var(--purple); }
+  .cal-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .cal-nav h3 { font-size: 16px; font-weight: 600; min-width: 180px; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius-lg); width: 520px; max-width: 95vw; max-height: 90vh; overflow-y: auto; }
+  .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+  .modal-header h3 { font-size: 16px; font-weight: 600; }
+  .modal-header .close-btn { margin-left: auto; background: transparent; border: none; color: var(--text2); cursor: pointer; font-size: 20px; display: flex; padding: 2px; border-radius: var(--radius); }
+  .modal-header .close-btn:hover { color: var(--text); background: var(--bg3); }
+  .modal-body { padding: 20px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 12px; font-weight: 600; color: var(--text2); }
+  input, select, textarea { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; color: var(--text); font-size: 13px; font-family: inherit; transition: border-color 0.15s; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--cyan); }
+  select option { background: var(--bg3); }
+  textarea { resize: vertical; min-height: 72px; }
+  .modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
+
+  /* GITHUB CONFIG MODAL */
+  .config-section { margin-bottom: 20px; }
+  .config-section h4 { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .config-section h4 i { font-size: 16px; color: var(--cyan); }
+  .info-box { background: var(--cyan-dim2); border: 1px solid var(--cyan3); border-radius: var(--radius); padding: 10px 12px; font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
+  .info-box a { color: var(--cyan); text-decoration: none; }
+
+  /* PROGRESS BAR */
+  .progress-bar { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .progress-fill { height: 100%; border-radius: 2px; background: var(--cyan); transition: width 0.3s; }
+  .progress-fill.amber { background: var(--amber); }
+  .progress-fill.red { background: var(--red); }
+  .progress-fill.green { background: var(--green); }
+
+  /* TOAST */
+  .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 300; display: flex; flex-direction: column; gap: 8px; }
+  .toast { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 12px 16px; display: flex; align-items: center; gap: 10px; font-size: 13px; animation: slide-in 0.2s ease; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+  .toast.success { border-left: 3px solid var(--green); }
+  .toast.error { border-left: 3px solid var(--red); }
+  .toast.info { border-left: 3px solid var(--cyan); }
+  @keyframes slide-in { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--text2); }
+  .empty-state i { font-size: 40px; color: var(--text3); margin-bottom: 12px; }
+  .empty-state p { font-size: 13px; }
+
+  /* HABILITATION */
+  .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .tech-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; }
+  .tech-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--cyan3); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--cyan); flex-shrink: 0; }
+  .tech-name { font-weight: 600; font-size: 14px; }
+  .tech-role { font-size: 12px; color: var(--text2); }
+  .hab-list { display: flex; flex-wrap: wrap; gap: 5px; }
+
+  /* REACTIFS EXPIRY */
+  .expiry-warn { color: var(--amber); }
+  .expiry-danger { color: var(--red); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie</span></div>
+  <div class="header-right">
+    <div class="sync-status" onclick="openGithubConfig()" title="Configurer la synchronisation GitHub">
+      <div class="sync-dot" id="sync-dot"></div>
+      <span id="sync-label">Non configuré</span>
+    </div>
+    <button class="btn" onclick="syncNow()"><i class="ti ti-cloud-upload"></i> Sync</button>
+    <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> Export</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside>
+    <div class="nav-section">
+      <div class="nav-label">Navigation</div>
+      <div class="nav-item active" onclick="goTo('dashboard')"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
+      <div class="nav-item" onclick="goTo('planning')"><i class="ti ti-calendar"></i> Planification</div>
+      <div class="nav-item" onclick="goTo('reactifs')"><i class="ti ti-flask-2"></i> Réactifs <span class="nav-badge amber" id="badge-reactifs">0</span></div>
+      <div class="nav-item" onclick="goTo('echantillons')"><i class="ti ti-package"></i> Échantillons</div>
+      <div class="nav-item" onclick="goTo('habilitations')"><i class="ti ti-certificate"></i> Habilitations</div>
+    </div>
+  </aside>
+
+  <main>
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-header-text">
+          <h1>Tableau de bord</h1>
+          <p id="dash-date">Chargement...</p>
+        </div>
+      </div>
+      <div class="stats-grid" id="stats-grid">
+        <div class="stat-card cyan"><div class="label"><i class="ti ti-calendar"></i>Analyses planifiées</div><div class="value" id="stat-planning">—</div><div class="sub">cette semaine</div></div>
+        <div class="stat-card green"><div class="label"><i class="ti ti-package"></i>Échantillons reçus</div><div class="value" id="stat-ech">—</div><div class="sub">en attente d'analyse</div></div>
+        <div class="stat-card amber"><div class="label"><i class="ti ti-alert-triangle"></i>Réactifs critiques</div><div class="value" id="stat-reactifs">—</div><div class="sub">stock faible ou expirant</div></div>
+        <div class="stat-card purple"><div class="label"><i class="ti ti-certificate"></i>Techniciens</div><div class="value" id="stat-techs">—</div><div class="sub">habilités actifs</div></div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header"><h3><i class="ti ti-clock" style="margin-right:6px;color:var(--cyan)"></i>Activité récente</h3></div>
+        <div id="activity-log" style="padding:12px 18px;max-height:300px;overflow-y:auto;">
+          <div class="empty-state"><i class="ti ti-clock"></i><p>Aucune activité récente</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANNING -->
+    <div class="page" id="page-planning">
+      <div class="page-header">
+        <div class="page-header-text"><h1>Planification</h1><p>Calendrier des expériences et analyses</p></div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" onclick="openModal('modal-planning')"><i class="ti ti-plus"></i> Nouvelle analyse</button>
+        </div>
+      </div>
+      <div class="table-card" style="padding:20px;margin-bottom:20px;">
+        <div class="cal-nav">
+          <button class="btn" onclick="changeMonth(-1)"><i class="ti ti-chevron-left"></i></button>
+          <h3 id="cal-title"></h3>
+          <button class="btn" onclick="changeMonth(1)"><i class="ti ti-chevron-right"></i></button>
+        </div>
+        <div class="calendar-grid" id="cal-days-names"></div>
+        <div class="calendar-grid" id="calendar"></div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header">
+          <h3>Liste des analyses</h3>
+          <div class="spacer"></div>
+          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-planning" placeholder="Rechercher..." oninput="renderPlanningTable()"></div>
+        </div>
+        <table><thead><tr><th>Analyse</th><th>Technicien</th><th>Date prévue</th><th>Priorité</th><th>Statut</th><th></th></tr></thead>
+        <tbody id="planning-tbody"></tbody></table>
+      </div>
+    </div>
+
+    <!-- REACTIFS -->
+    <div class="page" id="page-reactifs">
+      <div class="page-header">
+        <div class="page-header-text"><h1>Suivi des réactifs</h1><p>Stocks, fournisseurs, dates de péremption</p></div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Ajouter un réactif</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header">
+          <h3>Inventaire</h3>
+          <div class="spacer"></div>
+          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-reactifs" placeholder="Rechercher..." oninput="renderReactifsTable()"></div>
+        </div>
+        <table>
+          <thead><tr><th>Réactif</th><th>Fournisseur</th><th>Référence</th><th>Stock</th><th>Expiration</th><th>Statut</th><th></th></tr></thead>
+          <tbody id="reactifs-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ECHANTILLONS -->
+    <div class="page" id="page-echantillons">
+      <div class="page-header">
+        <div class="page-header-text"><h1>Réception des échantillons</h1><p>Enregistrement et suivi</p></div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" onclick="openModal('modal-echantillon')"><i class="ti ti-plus"></i> Enregistrer</button>
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-card-header">
+          <h3>Échantillons</h3>
+          <div class="spacer"></div>
+          <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
+        </div>
+        <table>
+          <thead><tr><th>ID</th><th>Désignation</th><th>Origine</th><th>Date réception</th><th>Analyse demandée</th><th>Statut</th><th></th></tr></thead>
+          <tbody id="ech-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HABILITATIONS -->
+    <div class="page" id="page-habilitations">
+      <div class="page-header">
+        <div class="page-header-text"><h1>Habilitations des techniciens</h1><p>Compétences et qualifications</p></div>
+        <div class="page-header-actions">
+          <button class="btn btn-primary" onclick="openModal('modal-hab')"><i class="ti ti-plus"></i> Ajouter un technicien</button>
+        </div>
+      </div>
+      <div class="tech-grid" id="tech-grid"></div>
+    </div>
+  </main>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- MODAL PLANNING -->
+<div class="modal-overlay" id="modal-planning">
+  <div class="modal">
+    <div class="modal-header"><h3>Nouvelle analyse planifiée</h3><button class="close-btn" onclick="closeModal('modal-planning')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>Nom de l'analyse *</label><input id="p-nom" placeholder="Ex: Dosage HPLC API-01"></div>
+        <div class="form-group"><label>Technicien *</label><select id="p-tech"><option value="">— Choisir —</option></select></div>
+        <div class="form-group"><label>Date prévue *</label><input type="date" id="p-date"></div>
+        <div class="form-group"><label>Priorité</label>
+          <select id="p-priorite"><option value="normale">Normale</option><option value="haute">Haute</option><option value="urgente">Urgente</option></select>
+        </div>
+        <div class="form-group"><label>Statut</label>
+          <select id="p-statut"><option value="planifié">Planifié</option><option value="en_cours">En cours</option><option value="terminé">Terminé</option><option value="annulé">Annulé</option></select>
+        </div>
+        <div class="form-group full"><label>Commentaire</label><textarea id="p-note" placeholder="Informations complémentaires..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-planning')">Annuler</button><button class="btn btn-primary" onclick="savePlanning()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL REACTIF -->
+<div class="modal-overlay" id="modal-reactif">
+  <div class="modal">
+    <div class="modal-header"><h3>Ajouter un réactif</h3><button class="close-btn" onclick="closeModal('modal-reactif')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>Nom du réactif *</label><input id="r-nom" placeholder="Ex: Acétonitrile HPLC grade"></div>
+        <div class="form-group"><label>Fournisseur</label><input id="r-fourn" placeholder="Ex: Sigma-Aldrich"></div>
+        <div class="form-group"><label>Référence catalogue</label><input id="r-ref" placeholder="Ex: 34998"></div>
+        <div class="form-group"><label>Quantité en stock</label><input id="r-stock" placeholder="Ex: 5 L"></div>
+        <div class="form-group"><label>Seuil d'alerte</label><input id="r-seuil" placeholder="Ex: 1 L"></div>
+        <div class="form-group"><label>Date de péremption</label><input type="date" id="r-expiry"></div>
+        <div class="form-group"><label>Localisation</label><input id="r-loc" placeholder="Ex: Armoire A - étagère 2"></div>
+        <div class="form-group full"><label>Remarques</label><textarea id="r-note" placeholder="Conditions de stockage, précautions..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-reactif')">Annuler</button><button class="btn btn-primary" onclick="saveReactif()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL ECHANTILLON -->
+<div class="modal-overlay" id="modal-echantillon">
+  <div class="modal">
+    <div class="modal-header"><h3>Enregistrer un échantillon</h3><button class="close-btn" onclick="closeModal('modal-echantillon')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>ID / Code échantillon *</label><input id="e-id" placeholder="Ex: ECH-2024-001"></div>
+        <div class="form-group"><label>Date de réception *</label><input type="date" id="e-date"></div>
+        <div class="form-group full"><label>Désignation *</label><input id="e-nom" placeholder="Ex: Comprimé paracétamol 500mg lot A"></div>
+        <div class="form-group"><label>Origine / Donneur d'ordre</label><input id="e-origine" placeholder="Ex: Production, R&D..."></div>
+        <div class="form-group"><label>Analyse demandée</label><input id="e-analyse" placeholder="Ex: Dosage, Dissolution..."></div>
+        <div class="form-group"><label>Technicien assigné</label><select id="e-tech"><option value="">— Choisir —</option></select></div>
+        <div class="form-group"><label>Statut</label>
+          <select id="e-statut"><option value="reçu">Reçu</option><option value="en_analyse">En analyse</option><option value="terminé">Terminé</option><option value="conforme">Conforme</option><option value="non_conforme">Non conforme</option></select>
+        </div>
+        <div class="form-group full"><label>Remarques</label><textarea id="e-note" placeholder="Conditions de réception, particularités..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-echantillon')">Annuler</button><button class="btn btn-primary" onclick="saveEchantillon()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL HABILITATION -->
+<div class="modal-overlay" id="modal-hab">
+  <div class="modal">
+    <div class="modal-header"><h3>Ajouter un technicien</h3><button class="close-btn" onclick="closeModal('modal-hab')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Prénom *</label><input id="h-prenom" placeholder="Ex: Marie"></div>
+        <div class="form-group"><label>Nom *</label><input id="h-nom" placeholder="Ex: Dupont"></div>
+        <div class="form-group full"><label>Poste / Rôle</label><input id="h-role" placeholder="Ex: Technicienne HPLC senior"></div>
+        <div class="form-group full"><label>Habilitations (séparées par des virgules)</label><textarea id="h-habs" placeholder="Ex: HPLC, GC, Karl Fischer, pH-métrie, Dissolution"></textarea></div>
+        <div class="form-group"><label>Date d'entrée</label><input type="date" id="h-date"></div>
+        <div class="form-group"><label>Statut</label><select id="h-statut"><option value="actif">Actif</option><option value="formation">En formation</option><option value="inactif">Inactif</option></select></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-hab')">Annuler</button><button class="btn btn-primary" onclick="saveHabilitation()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL GITHUB CONFIG -->
+<div class="modal-overlay" id="modal-github">
+  <div class="modal">
+    <div class="modal-header"><i class="ti ti-brand-github" style="font-size:20px;color:var(--cyan)"></i><h3>Configuration GitHub</h3><button class="close-btn" onclick="closeModal('modal-github')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="info-box">
+        Les données sont stockées dans un fichier <code>lab-data.json</code> sur votre dépôt GitHub. Chaque membre du labo accède aux mêmes données en temps réel.<br><br>
+        Créez un <strong>Personal Access Token</strong> avec la permission <code>repo</code> sur <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a>.
+      </div>
+      <div class="config-section">
+        <h4><i class="ti ti-key"></i> Authentification</h4>
+        <div class="form-grid">
+          <div class="form-group full"><label>Token GitHub (PAT)</label><input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"></div>
+          <div class="form-group"><label>Propriétaire du dépôt</label><input id="gh-owner" placeholder="Ex: mon-labo"></div>
+          <div class="form-group"><label>Nom du dépôt</label><input id="gh-repo" placeholder="Ex: lab-data"></div>
+        </div>
+      </div>
+      <div class="config-section">
+        <h4><i class="ti ti-file"></i> Fichier de données</h4>
+        <div class="form-group"><label>Chemin du fichier</label><input id="gh-path" placeholder="lab-data.json" value="lab-data.json"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-github')">Annuler</button>
+      <button class="btn" onclick="testGithubConfig()"><i class="ti ti-plug"></i> Tester</button>
+      <button class="btn btn-primary" onclick="saveGithubConfig()"><i class="ti ti-check"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  planning: [],
+  reactifs: [],
+  echantillons: [],
+  techniciens: [],
+  activity: []
+};
+let githubConfig = null;
+let editingId = null;
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
+
+const STOR_KEY = 'labmanager_github_config';
+
+// ============================================================
+// INIT
+// ============================================================
+window.onload = async () => {
+  document.getElementById('dash-date').textContent = new Date().toLocaleDateString('fr-FR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  loadGithubConfig();
+  await loadData();
+  renderAll();
+};
+
+function renderAll() {
+  renderDashboard();
+  renderCalendar();
+  renderPlanningTable();
+  renderReactifsTable();
+  renderEchantillonsTable();
+  renderTechniciens();
+  updateBadges();
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function goTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (page === 'planning') renderCalendar();
+}
+
+// ============================================================
+// GITHUB SYNC
+// ============================================================
+function loadGithubConfig() {
+  const saved = localStorage.getItem(STOR_KEY);
+  if (saved) {
+    githubConfig = JSON.parse(saved);
+    setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
+  }
+}
+
+function saveGithubConfig() {
+  githubConfig = {
+    token: document.getElementById('gh-token').value.trim(),
+    owner: document.getElementById('gh-owner').value.trim(),
+    repo: document.getElementById('gh-repo').value.trim(),
+    path: document.getElementById('gh-path').value.trim() || 'lab-data.json'
+  };
+  if (!githubConfig.token || !githubConfig.owner || !githubConfig.repo) {
+    toast('Veuillez remplir tous les champs obligatoires', 'error'); return;
+  }
+  localStorage.setItem(STOR_KEY, JSON.stringify(githubConfig));
+  setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
+  closeModal('modal-github');
+  toast('Configuration GitHub enregistrée', 'success');
+  loadData();
+}
+
+async function testGithubConfig() {
+  const cfg = {
+    token: document.getElementById('gh-token').value.trim(),
+    owner: document.getElementById('gh-owner').value.trim(),
+    repo: document.getElementById('gh-repo').value.trim(),
+    path: document.getElementById('gh-path').value.trim() || 'lab-data.json'
+  };
+  if (!cfg.token || !cfg.owner || !cfg.repo) { toast('Remplissez tous les champs', 'error'); return; }
+  setSyncStatus('syncing', 'Test en cours...');
+  try {
+    const r = await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}`, {
+      headers: { Authorization: `token ${cfg.token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (r.ok) { setSyncStatus('ok', 'Connexion réussie !'); toast('Connexion GitHub OK !', 'success'); }
+    else { setSyncStatus('error', 'Erreur'); toast('Erreur : vérifiez votre token et le dépôt', 'error'); }
+  } catch(e) { setSyncStatus('error', 'Erreur réseau'); toast('Erreur de connexion', 'error'); }
+}
+
+function openGithubConfig() {
+  if (githubConfig) {
+    document.getElementById('gh-token').value = githubConfig.token || '';
+    document.getElementById('gh-owner').value = githubConfig.owner || '';
+    document.getElementById('gh-repo').value = githubConfig.repo || '';
+    document.getElementById('gh-path').value = githubConfig.path || 'lab-data.json';
+  }
+  openModal('modal-github');
+}
+
+async function loadData() {
+  if (!githubConfig) return;
+  setSyncStatus('syncing', 'Chargement...');
+  try {
+    const r = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
+      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (r.status === 404) { setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`); return; }
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
+    state = { planning: decoded.planning||[], reactifs: decoded.reactifs||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], activity: decoded.activity||[] };
+    setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
+    renderAll();
+    toast('Données synchronisées', 'success');
+  } catch(e) { setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); }
+}
+
+async function saveData() {
+  if (!githubConfig) { toast('Configurez GitHub d\'abord', 'info'); return; }
+  setSyncStatus('syncing', 'Sauvegarde...');
+  try {
+    let sha = null;
+    const rGet = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
+      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (rGet.ok) { const d = await rGet.json(); sha = d.sha; }
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(state, null, 2))));
+    const body = { message: 'LabManager: mise à jour données', content };
+    if (sha) body.sha = sha;
+    const rPut = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
+      method: 'PUT',
+      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!rPut.ok) throw new Error('HTTP ' + rPut.status);
+    setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
+    toast('Sauvegardé sur GitHub', 'success');
+  } catch(e) { setSyncStatus('error', 'Erreur sauvegarde'); toast('Erreur sauvegarde : ' + e.message, 'error'); }
+}
+
+async function syncNow() { await loadData(); }
+
+function setSyncStatus(state, label) {
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  dot.className = 'sync-dot ' + state;
+  lbl.textContent = label;
+}
+
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'lab-data-' + new Date().toISOString().slice(0,10) + '.json'; a.click();
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard() {
+  const today = new Date();
+  const weekStart = new Date(today); weekStart.setDate(today.getDate() - today.getDay() + 1);
+  const weekEnd = new Date(weekStart); weekEnd.setDate(weekStart.getDate() + 6);
+  const thisWeek = state.planning.filter(p => { const d = new Date(p.date); return d >= weekStart && d <= weekEnd; });
+  document.getElementById('stat-planning').textContent = thisWeek.length;
+  const pending = state.echantillons.filter(e => e.statut === 'reçu' || e.statut === 'en_analyse');
+  document.getElementById('stat-ech').textContent = pending.length;
+  const critical = state.reactifs.filter(r => isReactifCritical(r));
+  document.getElementById('stat-reactifs').textContent = critical.length;
+  document.getElementById('stat-techs').textContent = state.techniciens.filter(t => t.statut === 'actif').length;
+  const log = document.getElementById('activity-log');
+  if (!state.activity.length) { log.innerHTML = '<div class="empty-state"><i class="ti ti-clock"></i><p>Aucune activité récente</p></div>'; return; }
+  log.innerHTML = state.activity.slice(-20).reverse().map(a =>
+    `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">
+      <i class="ti ti-${a.icon}" style="font-size:16px;color:var(--cyan);flex-shrink:0"></i>
+      <span style="flex:1;font-size:13px">${a.text}</span>
+      <span style="font-size:11px;color:var(--text3)">${a.time}</span>
+    </div>`
+  ).join('');
+}
+
+function addActivity(icon, text) {
+  state.activity.push({ icon, text, time: new Date().toLocaleString('fr-FR', {day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) });
+  if (state.activity.length > 50) state.activity.shift();
+}
+
+// ============================================================
+// PLANNING
+// ============================================================
+function savePlanning() {
+  const nom = document.getElementById('p-nom').value.trim();
+  const date = document.getElementById('p-date').value;
+  if (!nom || !date) { toast('Remplissez les champs obligatoires', 'error'); return; }
+  const entry = { id: editingId || Date.now(), nom, technicien: document.getElementById('p-tech').value, date, priorite: document.getElementById('p-priorite').value, statut: document.getElementById('p-statut').value, note: document.getElementById('p-note').value };
+  if (editingId) { const i = state.planning.findIndex(x=>x.id===editingId); state.planning[i] = entry; addActivity('pencil','Analyse modifiée : '+nom); }
+  else { state.planning.push(entry); addActivity('calendar-plus','Nouvelle analyse planifiée : '+nom); }
+  editingId = null;
+  closeModal('modal-planning');
+  renderCalendar(); renderPlanningTable(); renderDashboard(); updateBadges();
+  saveData();
+}
+
+function renderPlanningTable() {
+  const q = (document.getElementById('search-planning')?.value||'').toLowerCase();
+  const rows = state.planning.filter(p => !q || p.nom.toLowerCase().includes(q) || (p.technicien||'').toLowerCase().includes(q));
+  const tbody = document.getElementById('planning-tbody');
+  if (!rows.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-calendar"></i><p>Aucune analyse planifiée</p></div></td></tr>`; return; }
+  tbody.innerHTML = rows.sort((a,b)=>a.date.localeCompare(b.date)).map(p => `
+    <tr>
+      <td><strong>${p.nom}</strong>${p.note?`<br><span style="font-size:11px;color:var(--text3)">${p.note}</span>`:''}</td>
+      <td>${p.technicien||'—'}</td>
+      <td>${formatDate(p.date)}</td>
+      <td>${prioriteBadge(p.priorite)}</td>
+      <td>${statutBadge(p.statut)}</td>
+      <td><div class="actions"><button class="icon-btn" onclick="editPlanning(${p.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deletePlanning(${p.id})"><i class="ti ti-trash"></i></button></div></td>
+    </tr>`).join('');
+}
+
+function editPlanning(id) {
+  const p = state.planning.find(x=>x.id===id); if(!p) return;
+  editingId = id;
+  document.getElementById('p-nom').value = p.nom;
+  document.getElementById('p-date').value = p.date;
+  document.getElementById('p-tech').value = p.technicien||'';
+  document.getElementById('p-priorite').value = p.priorite||'normale';
+  document.getElementById('p-statut').value = p.statut||'planifié';
+  document.getElementById('p-note').value = p.note||'';
+  openModal('modal-planning');
+}
+
+function deletePlanning(id) {
+  const p = state.planning.find(x=>x.id===id);
+  state.planning = state.planning.filter(x=>x.id!==id);
+  addActivity('trash','Analyse supprimée : '+(p?.nom||''));
+  renderCalendar(); renderPlanningTable(); renderDashboard(); updateBadges(); saveData();
+}
+
+// ============================================================
+// CALENDAR
+// ============================================================
+function renderCalendar() {
+  const jours = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  document.getElementById('cal-days-names').innerHTML = jours.map(j=>`<div class="cal-day-name">${j}</div>`).join('');
+  document.getElementById('cal-title').textContent = new Date(calYear, calMonth).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  const firstDay = new Date(calYear, calMonth, 1);
+  let startDow = firstDay.getDay(); if(startDow===0) startDow=7; startDow--;
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const daysInPrev = new Date(calYear, calMonth, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+  let cells = '';
+  for(let i=startDow-1;i>=0;i--) cells += `<div class="cal-day other-month"><div class="cal-day-num">${daysInPrev-i}</div></div>`;
+  for(let d=1;d<=daysInMonth;d++) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayDate = new Date(calYear,calMonth,d);
+    const isToday = dayDate.getTime()===today.getTime();
+    const events = state.planning.filter(p=>p.date===dateStr);
+    const colors = {planifié:'',en_cours:'green',terminé:'amber',annulé:'gray',urgente:'red'};
+    cells += `<div class="cal-day${isToday?' today':''}" onclick="quickAddPlanning('${dateStr}')">
+      <div class="cal-day-num">${d}</div>
+      ${events.map(e=>`<div class="cal-event ${colors[e.priorite==='urgente'?'urgente':e.statut]||''}" title="${e.nom}">${e.nom}</div>`).join('')}
+    </div>`;
+  }
+  const remaining = 42 - (startDow + daysInMonth);
+  for(let d=1;d<=remaining;d++) cells += `<div class="cal-day other-month"><div class="cal-day-num">${d}</div></div>`;
+  document.getElementById('calendar').innerHTML = cells;
+}
+
+function changeMonth(dir) { calMonth += dir; if(calMonth>11){calMonth=0;calYear++;} if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+
+function quickAddPlanning(date) {
+  editingId = null;
+  document.getElementById('p-nom').value=''; document.getElementById('p-date').value=date;
+  document.getElementById('p-tech').value=''; document.getElementById('p-priorite').value='normale';
+  document.getElementById('p-statut').value='planifié'; document.getElementById('p-note').value='';
+  openModal('modal-planning');
+}
+
+// ============================================================
+// REACTIFS
+// ============================================================
+function saveReactif() {
+  const nom = document.getElementById('r-nom').value.trim();
+  if (!nom) { toast('Le nom du réactif est obligatoire', 'error'); return; }
+  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, stock: document.getElementById('r-stock').value, seuil: document.getElementById('r-seuil').value, expiry: document.getElementById('r-expiry').value, localisation: document.getElementById('r-loc').value, note: document.getElementById('r-note').value };
+  if (editingId) { const i=state.reactifs.findIndex(x=>x.id===editingId); state.reactifs[i]=entry; addActivity('pencil','Réactif modifié : '+nom); }
+  else { state.reactifs.push(entry); addActivity('flask','Réactif ajouté : '+nom); }
+  editingId = null;
+  closeModal('modal-reactif');
+  renderReactifsTable(); renderDashboard(); updateBadges(); saveData();
+}
+
+function renderReactifsTable() {
+  const q = (document.getElementById('search-reactifs')?.value||'').toLowerCase();
+  const rows = state.reactifs.filter(r => !q || r.nom.toLowerCase().includes(q) || (r.fournisseur||'').toLowerCase().includes(q));
+  const tbody = document.getElementById('reactifs-tbody');
+  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun réactif enregistré</p></div></td></tr>`; return; }
+  tbody.innerHTML = rows.map(r => {
+    const exp = expiryStatus(r.expiry);
+    return `<tr>
+      <td><strong>${r.nom}</strong>${r.localisation?`<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${r.localisation}</span>`:''}</td>
+      <td>${r.fournisseur||'—'}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${r.ref||'—'}</code></td>
+      <td>${r.stock||'—'}${r.seuil?`<br><span style="font-size:11px;color:var(--text3)">seuil : ${r.seuil}</span>`:''}</td>
+      <td class="${exp.cls}">${r.expiry?formatDate(r.expiry):'—'}</td>
+      <td>${exp.badge}</td>
+      <td><div class="actions"><button class="icon-btn" onclick="editReactif(${r.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteReactif(${r.id})"><i class="ti ti-trash"></i></button></div></td>
+    </tr>`;
+  }).join('');
+}
+
+function editReactif(id) {
+  const r = state.reactifs.find(x=>x.id===id); if(!r) return;
+  editingId = id;
+  ['nom','fourn','ref','stock','seuil','loc','note'].forEach(k => {
+    const map={nom:'r-nom',fourn:'r-fourn',ref:'r-ref',stock:'r-stock',seuil:'r-seuil',loc:'r-loc',note:'r-note'};
+    document.getElementById(map[k]).value = r[k==='fourn'?'fournisseur':k==='loc'?'localisation':k]||'';
+  });
+  document.getElementById('r-expiry').value = r.expiry||'';
+  openModal('modal-reactif');
+}
+
+function deleteReactif(id) {
+  const r = state.reactifs.find(x=>x.id===id);
+  state.reactifs = state.reactifs.filter(x=>x.id!==id);
+  addActivity('trash','Réactif supprimé : '+(r?.nom||''));
+  renderReactifsTable(); renderDashboard(); updateBadges(); saveData();
+}
+
+function isReactifCritical(r) {
+  if (!r.expiry) return false;
+  const d = new Date(r.expiry); const today = new Date(); today.setHours(0,0,0,0);
+  const days = Math.ceil((d-today)/(1000*60*60*24));
+  return days <= 30;
+}
+
+function expiryStatus(expiry) {
+  if (!expiry) return { cls:'', badge:`<span class="badge badge-gray">—</span>` };
+  const d = new Date(expiry); const today = new Date(); today.setHours(0,0,0,0);
+  const days = Math.ceil((d-today)/(1000*60*60*24));
+  if (days < 0) return { cls:'expiry-danger', badge:`<span class="badge badge-red"><i class="ti ti-alert-circle" style="font-size:11px"></i> Expiré</span>` };
+  if (days <= 30) return { cls:'expiry-warn', badge:`<span class="badge badge-amber"><i class="ti ti-clock" style="font-size:11px"></i> ${days}j</span>` };
+  return { cls:'', badge:`<span class="badge badge-green">OK</span>` };
+}
+
+// ============================================================
+// ECHANTILLONS
+// ============================================================
+function saveEchantillon() {
+  const id = document.getElementById('e-id').value.trim();
+  const nom = document.getElementById('e-nom').value.trim();
+  if (!id || !nom) { toast('ID et désignation sont obligatoires', 'error'); return; }
+  const entry = { id: editingId||Date.now(), code: id, nom, origine: document.getElementById('e-origine').value, date: document.getElementById('e-date').value, analyse: document.getElementById('e-analyse').value, technicien: document.getElementById('e-tech').value, statut: document.getElementById('e-statut').value, note: document.getElementById('e-note').value };
+  if (editingId) { const i=state.echantillons.findIndex(x=>x.id===editingId); state.echantillons[i]=entry; addActivity('pencil','Échantillon modifié : '+id); }
+  else { state.echantillons.push(entry); addActivity('package','Échantillon enregistré : '+id); }
+  editingId = null;
+  closeModal('modal-echantillon');
+  renderEchantillonsTable(); renderDashboard(); saveData();
+}
+
+function renderEchantillonsTable() {
+  const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
+  const rows = state.echantillons.filter(e => !q || e.nom.toLowerCase().includes(q) || (e.code||'').toLowerCase().includes(q));
+  const tbody = document.getElementById('ech-tbody');
+  if (!rows.length) { tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon enregistré</p></div></td></tr>`; return; }
+  const statuts = { reçu:'badge-blue', en_analyse:'badge-amber', terminé:'badge-green', conforme:'badge-cyan', non_conforme:'badge-red' };
+  const icons = { reçu:'package', en_analyse:'microscope', terminé:'check', conforme:'circle-check', non_conforme:'alert-circle' };
+  tbody.innerHTML = rows.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e => `<tr>
+    <td><code style="font-size:12px;background:var(--bg3);padding:2px 8px;border-radius:4px;color:var(--cyan)">${e.code}</code></td>
+    <td><strong>${e.nom}</strong></td>
+    <td>${e.origine||'—'}</td>
+    <td>${e.date?formatDate(e.date):'—'}</td>
+    <td>${e.analyse||'—'}</td>
+    <td><span class="badge ${statuts[e.statut]||'badge-gray'}"><i class="ti ti-${icons[e.statut]||'circle'}" style="font-size:11px"></i> ${(e.statut||'').replace('_',' ')}</span></td>
+    <td><div class="actions"><button class="icon-btn" onclick="editEchantillon(${e.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
+  </tr>`).join('');
+}
+
+function editEchantillon(id) {
+  const e = state.echantillons.find(x=>x.id===id); if(!e) return;
+  editingId = id;
+  document.getElementById('e-id').value = e.code||'';
+  document.getElementById('e-nom').value = e.nom||'';
+  document.getElementById('e-origine').value = e.origine||'';
+  document.getElementById('e-date').value = e.date||'';
+  document.getElementById('e-analyse').value = e.analyse||'';
+  document.getElementById('e-tech').value = e.technicien||'';
+  document.getElementById('e-statut').value = e.statut||'reçu';
+  document.getElementById('e-note').value = e.note||'';
+  openModal('modal-echantillon');
+}
+
+function deleteEchantillon(id) {
+  const e = state.echantillons.find(x=>x.id===id);
+  state.echantillons = state.echantillons.filter(x=>x.id!==id);
+  addActivity('trash','Échantillon supprimé : '+(e?.code||''));
+  renderEchantillonsTable(); renderDashboard(); saveData();
+}
+
+// ============================================================
+// HABILITATIONS
+// ============================================================
+function saveHabilitation() {
+  const prenom = document.getElementById('h-prenom').value.trim();
+  const nom = document.getElementById('h-nom').value.trim();
+  if (!prenom || !nom) { toast('Prénom et nom sont obligatoires', 'error'); return; }
+  const habs = document.getElementById('h-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const entry = { id: editingId||Date.now(), prenom, nom, role: document.getElementById('h-role').value, habilitations: habs, date: document.getElementById('h-date').value, statut: document.getElementById('h-statut').value };
+  if (editingId) { const i=state.techniciens.findIndex(x=>x.id===editingId); state.techniciens[i]=entry; addActivity('pencil','Technicien modifié : '+prenom+' '+nom); }
+  else { state.techniciens.push(entry); addActivity('certificate','Technicien ajouté : '+prenom+' '+nom); }
+  editingId = null;
+  closeModal('modal-hab');
+  renderTechniciens(); renderDashboard(); updateBadges(); populateTechSelects(); saveData();
+}
+
+function renderTechniciens() {
+  const grid = document.getElementById('tech-grid');
+  if (!state.techniciens.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-certificate"></i><p>Aucun technicien enregistré</p></div>`; return; }
+  const statutCls = { actif:'badge-green', formation:'badge-amber', inactif:'badge-gray' };
+  grid.innerHTML = state.techniciens.map(t => `
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="avatar">${t.prenom[0]}${t.nom[0]}</div>
+        <div>
+          <div class="tech-name">${t.prenom} ${t.nom}</div>
+          <div class="tech-role">${t.role||'Technicien'}</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:4px">
+          <button class="icon-btn" onclick="editTech(${t.id})"><i class="ti ti-pencil"></i></button>
+          <button class="icon-btn danger" onclick="deleteTech(${t.id})"><i class="ti ti-trash"></i></button>
+        </div>
+      </div>
+      <div style="margin-bottom:10px"><span class="badge ${statutCls[t.statut]||'badge-gray'}">${t.statut||'actif'}</span>${t.date?`<span style="font-size:11px;color:var(--text3);margin-left:8px"><i class="ti ti-calendar" style="font-size:11px"></i> depuis ${formatDate(t.date)}</span>`:''}</div>
+      <div class="hab-list">${(t.habilitations||[]).map(h=>`<span class="badge badge-cyan">${h}</span>`).join('')}</div>
+    </div>`).join('');
+  populateTechSelects();
+}
+
+function editTech(id) {
+  const t = state.techniciens.find(x=>x.id===id); if(!t) return;
+  editingId = id;
+  document.getElementById('h-prenom').value = t.prenom;
+  document.getElementById('h-nom').value = t.nom;
+  document.getElementById('h-role').value = t.role||'';
+  document.getElementById('h-habs').value = (t.habilitations||[]).join(', ');
+  document.getElementById('h-date').value = t.date||'';
+  document.getElementById('h-statut').value = t.statut||'actif';
+  openModal('modal-hab');
+}
+
+function deleteTech(id) {
+  const t = state.techniciens.find(x=>x.id===id);
+  state.techniciens = state.techniciens.filter(x=>x.id!==id);
+  addActivity('trash','Technicien supprimé : '+(t?t.prenom+' '+t.nom:''));
+  renderTechniciens(); renderDashboard(); updateBadges(); saveData();
+}
+
+function populateTechSelects() {
+  ['p-tech','e-tech'].forEach(id => {
+    const sel = document.getElementById(id); if(!sel) return;
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">— Choisir —</option>' + state.techniciens.filter(t=>t.statut==='actif').map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
+    sel.value = cur;
+  });
+}
+
+// ============================================================
+// BADGES & UTILS
+// ============================================================
+function updateBadges() {
+  const critical = state.reactifs.filter(r=>isReactifCritical(r)).length;
+  const badge = document.getElementById('badge-reactifs');
+  badge.textContent = critical; badge.style.display = critical ? '' : 'none';
+}
+
+function prioriteBadge(p) {
+  const map = { normale:'badge-gray', haute:'badge-amber', urgente:'badge-red' };
+  const icons = { normale:'minus', haute:'arrow-up', urgente:'urgent' };
+  return `<span class="badge ${map[p]||'badge-gray'}"><i class="ti ti-${icons[p]||'minus'}" style="font-size:11px"></i> ${p||'normale'}</span>`;
+}
+
+function statutBadge(s) {
+  const map = { planifié:'badge-blue', en_cours:'badge-amber', terminé:'badge-green', annulé:'badge-gray' };
+  return `<span class="badge ${map[s]||'badge-gray'}">${(s||'').replace('_',' ')}</span>`;
+}
+
+function formatDate(d) {
+  if (!d) return '—';
+  return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(id) {
+  if (id === 'modal-planning') populateTechSelects();
+  if (id === 'modal-echantillon') populateTechSelects();
+  if (!editingId) {
+    const inputs = document.querySelectorAll(`#${id} input, #${id} textarea`);
+    inputs.forEach(i => { if(i.type!=='date') i.value=''; });
+    const sels = document.querySelectorAll(`#${id} select`);
+    sels.forEach(s => { if(s.options.length) s.selectedIndex = 0; });
+  }
+  document.getElementById(id).classList.add('open');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  editingId = null;
+}
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); });
+});
+
+// ============================================================
+// TOAST
+// ============================================================
+function toast(msg, type='info') {
+  const icons = { success:'circle-check', error:'alert-circle', info:'info-circle' };
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<i class="ti ti-${icons[type]}" style="font-size:17px;color:var(--${type==='success'?'green':type==='error'?'red':'cyan'})"></i> ${msg}`;
+  document.getElementById('toast-container').appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+</script>
+</body>
+</html>
