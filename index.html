@@ -1044,6 +1044,37 @@ function toggleAccordion(id) {
   el.style.display = el.style.display === 'none' ? 'block' : 'none';
 }
 
+// ── Calcul validité ──────────────────────────────────────────
+function computeValidite(ouv, per, produitId) {
+  if (!ouv || !per) return null;
+  const dOuv = new Date(ouv+'T12:00:00');
+  const dPer = new Date(per+'T12:00:00');
+  const jours = Math.ceil((dPer - dOuv) / (1000*60*60*24));
+  if (jours <= 0) return null;
+  const produit = (state.produits||[]).find(p=>p.id==produitId);
+  const fc = produit ? parseFloat(produit.fc||1) : 1;
+  const joursValides = Math.round(jours * fc);
+  const dValide = new Date(dOuv.getTime() + joursValides*24*60*60*1000);
+  return { date: dValide.toISOString().slice(0,10), fc, jours };
+}
+
+function afficherValiditeOuverture() {
+  const ouv = document.getElementById('ouv-date').value;
+  const c = ouvertureCible;
+  if (!c || !ouv) return;
+  const result = computeValidite(ouv, c.peremption, c.produitId);
+  const disp = document.getElementById('ouv-validite-display');
+  if (!disp) return;
+  disp.style.display = 'block';
+  if (!result) { disp.innerHTML = '<span style="color:var(--red)">Date invalide</span>'; return; }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const restants = Math.ceil((new Date(result.date) - today)/(1000*60*60*24));
+  const fcTxt = result.fc !== 1 ? ' (FC '+result.fc+' x '+result.jours+'j)' : '';
+  if (restants < 0) disp.innerHTML = '<span style="color:var(--red)">Validite : '+formatDate(result.date)+' — Expire'+fcTxt+'</span>';
+  else if (restants <= 30) disp.innerHTML = '<span style="color:var(--amber)">Validite : '+formatDate(result.date)+' — '+restants+'j restants'+fcTxt+'</span>';
+  else disp.innerHTML = '<span style="color:var(--green)">Validite : '+formatDate(result.date)+' — '+restants+'j restants'+fcTxt+'</span>';
+}
+
 // ── CONTENANTS ───────────────────────────────────────────────
 let ouvertureCible = null;
 
