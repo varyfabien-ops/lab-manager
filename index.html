@@ -631,8 +631,11 @@ let state = {
   reactifs: [], produits: [], contenants: [],
   echantillons: [],
   techniciens: [],
+  commandesStatut: {},
   activity: []
 };
+let reactifsMenuOpen = false;
+let currentReactifsView = 'contenants';
 let githubConfig = null;
 let editingId = null;
 let calYear = new Date().getFullYear();
@@ -1572,8 +1575,6 @@ window.calcValidite = calcValidite;
 window.toggleAccordion = toggleAccordion;
 
 // ── NAVIGATION RÉACTIFS ──────────────────────────────────────
-let reactifsMenuOpen = false;
-let currentReactifsView = 'contenants';
 
 function toggleReactifsMenu(e) {
   e.currentTarget.classList.toggle('active');
