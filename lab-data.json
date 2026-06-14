@@ -1,0 +1,29 @@
+{
+  "planning": [],
+  "reactifs": [],
+  "produits": [
+    {
+      "id": 1781446866469,
+      "nom": "Méthanol HPLC Grade",
+      "fournisseur": "CARLO ERBA",
+      "ref": "41239000",
+      "localisation": "I4",
+      "fc": "0.6",
+      "conditionnement": "2.5 L",
+      "stockMin": "15",
+      "qteCmde": "20",
+      "note": ""
+    }
+  ],
+  "contenants": [],
+  "echantillons": [],
+  "techniciens": [],
+  "commandesStatut": {},
+  "activity": [
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Méthanol HPLC Grade",
+      "time": "14/06 16:21"
+    }
+  ]
+}
