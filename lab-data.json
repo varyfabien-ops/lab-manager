@@ -1,6 +1,18 @@
 {
   "planning": [],
-  "reactifs": [],
+  "reactifs": [
+    {
+      "id": 1781429589952,
+      "nom": "Méthanol HPLC Grade",
+      "fournisseur": "CARLO ERBA",
+      "ref": "Test",
+      "stock": "5",
+      "seuil": "1",
+      "expiry": "2027-01-01",
+      "localisation": "I4",
+      "note": ""
+    }
+  ],
   "echantillons": [],
   "techniciens": [
     {
@@ -21,6 +33,11 @@
       "icon": "certificate",
       "text": "Technicien ajouté : Fabien VARY",
       "time": "14/06 11:29"
+    },
+    {
+      "icon": "flask",
+      "text": "Réactif ajouté : Méthanol HPLC Grade",
+      "time": "14/06 11:33"
     }
   ]
 }
