@@ -3,69 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LabManager v2 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
   :root {
-    --bg: #f5f7fa;
-    --bg2: #ffffff;
-    --bg3: #eef1f5;
-    --bg4: #e2e6ec;
-    --border: #dde2ea;
-    --border2: #c5cdd8;
-    --text: #1a2233;
-    --text2: #4a5568;
-    --text3: #8896a8;
-    --cyan: #0d7c75;
-    --cyan2: #0a6860;
-    --cyan3: #e0f5f4;
-    --cyan-dim: rgba(13,124,117,0.10);
-    --cyan-dim2: rgba(13,124,117,0.05);
-    --green: #1a7f37;
-    --green-dim: rgba(26,127,55,0.10);
-    --amber: #9a6700;
-    --amber-dim: rgba(154,103,0,0.10);
-    --red: #cf222e;
-    --red-dim: rgba(207,34,46,0.10);
-    --blue: #0550ae;
-    --blue-dim: rgba(5,80,174,0.10);
-    --purple: #6639ba;
-    --purple-dim: rgba(102,57,186,0.10);
-    --radius: 8px;
-    --radius-lg: 12px;
-    --sidebar-w: 220px;
-    --header-h: 56px;
+    --bg: #f5f7fa; --bg2: #ffffff; --bg3: #eef1f5; --bg4: #e2e6ec;
+    --border: #dde2ea; --border2: #c5cdd8;
+    --text: #1a2233; --text2: #4a5568; --text3: #8896a8;
+    --cyan: #0d7c75; --cyan2: #0a6860; --cyan3: #e0f5f4;
+    --cyan-dim: rgba(13,124,117,0.10); --cyan-dim2: rgba(13,124,117,0.05);
+    --green: #1a7f37; --green-dim: rgba(26,127,55,0.10);
+    --amber: #9a6700; --amber-dim: rgba(154,103,0,0.10);
+    --red: #cf222e; --red-dim: rgba(207,34,46,0.10);
+    --blue: #0550ae; --blue-dim: rgba(5,80,174,0.10);
+    --purple: #6639ba; --purple-dim: rgba(102,57,186,0.10);
+    --radius: 8px; --radius-lg: 12px; --sidebar-w: 220px; --header-h: 56px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Aptos', 'Nunito', 'Segoe UI', Arial, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
-
-  /* HEADER */
+  body { background: var(--bg); color: var(--text); font-family: 'Aptos','Nunito','Segoe UI',Arial,sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column; min-height: 100vh; }
   header { height: var(--header-h); background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 20px; gap: 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   .logo { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--cyan); letter-spacing: -0.3px; }
   .logo i { font-size: 22px; }
   .logo span { color: var(--text); font-weight: 400; }
   .header-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-  .sync-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); background: var(--bg3); border: 1px solid var(--border); border-radius: 20px; padding: 4px 12px; cursor: pointer; transition: border-color 0.2s; }
-  .sync-status:hover { border-color: var(--border2); }
   .sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text3); }
   .sync-dot.ok { background: var(--green); box-shadow: 0 0 6px var(--green); }
   .sync-dot.syncing { background: var(--amber); animation: pulse 1s infinite; }
   .sync-dot.error { background: var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius); border: 1px solid var(--border2); background: transparent; color: var(--text); font-size: 13px; cursor: pointer; transition: all 0.15s; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--radius); border: 1px solid var(--border2); background: transparent; color: var(--text); font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: inherit; }
   .btn:hover { background: var(--bg3); border-color: var(--cyan); color: var(--cyan); }
-  .btn-primary { background: var(--cyan3); border-color: var(--cyan2); color: var(--text); }
-  .btn-primary:hover { background: var(--cyan2); color: var(--bg); }
+  .btn-primary { background: var(--cyan); border-color: var(--cyan2); color: #fff; }
+  .btn-primary:hover { background: var(--cyan2); color: #fff; }
   .btn i { font-size: 15px; }
-
-  /* LAYOUT */
   .layout { display: flex; margin-top: var(--header-h); min-height: calc(100vh - var(--header-h)); }
-
-  /* SIDEBAR */
   aside { width: var(--sidebar-w); background: var(--bg2); border-right: 1px solid var(--border); position: fixed; top: var(--header-h); bottom: 0; overflow-y: auto; padding: 16px 0; box-shadow: 1px 0 4px rgba(0,0,0,0.04); }
   .nav-section { margin-bottom: 8px; }
   .nav-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; padding: 0 16px; margin-bottom: 4px; }
@@ -77,19 +50,13 @@
   .nav-badge.amber { background: var(--amber-dim); color: var(--amber); }
   .nav-sub { padding-left: 36px; font-size: 12px; }
   .nav-sub.active { background: var(--cyan-dim); color: var(--cyan); border-left-color: var(--cyan); }
-
-  /* MAIN */
   main { margin-left: var(--sidebar-w); flex: 1; padding: 28px; }
   .page { display: none; }
   .page.active { display: block; }
-
-  /* PAGE HEADER */
   .page-header { margin-bottom: 24px; display: flex; align-items: flex-start; gap: 16px; }
   .page-header-text h1 { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
   .page-header-text p { color: var(--text2); font-size: 13px; }
   .page-header-actions { margin-left: auto; display: flex; gap: 8px; }
-
-  /* STAT CARDS */
   .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
   .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .stat-card .label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
@@ -101,18 +68,16 @@
   .stat-card.amber { border-left: 3px solid var(--amber); }
   .stat-card.red { border-left: 3px solid var(--red); }
   .stat-card.purple { border-left: 3px solid var(--purple); }
-
-  /* TABLES */
   .table-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .table-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
   .table-card-header h3 { font-size: 14px; font-weight: 600; }
   .table-card-header .spacer { flex: 1; }
-  .search-input { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 10px 6px 32px; color: var(--text); font-size: 13px; width: 200px; position: relative; }
+  .search-input { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 10px 6px 32px; color: var(--text); font-size: 13px; width: 200px; }
   .search-wrap { position: relative; }
   .search-wrap i { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 15px; pointer-events: none; }
   .search-input:focus { outline: none; border-color: var(--cyan); }
   table { width: 100%; border-collapse: collapse; }
-  th { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+  th { font-size: 11px; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.8px; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); vertical-align: top; }
   td { padding: 11px 16px; border-bottom: 1px solid var(--border); color: var(--text); font-size: 13px; }
   tr:last-child td { border-bottom: none; }
   tr:hover td { background: var(--cyan-dim2); }
@@ -129,8 +94,8 @@
   .icon-btn { background: transparent; border: 1px solid transparent; border-radius: var(--radius); padding: 3px 6px; color: var(--text2); cursor: pointer; font-size: 15px; transition: all 0.15s; display: inline-flex; }
   .icon-btn:hover { border-color: var(--border2); color: var(--cyan); background: var(--bg3); }
   .icon-btn.danger:hover { color: var(--red); border-color: var(--red); }
-
-  /* CALENDAR */
+  .cal-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .cal-nav h3 { font-size: 16px; font-weight: 600; min-width: 180px; }
   .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 8px; }
   .cal-day-name { text-align: center; font-size: 11px; font-weight: 600; color: var(--text3); padding: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
   .cal-day { min-height: 90px; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px; cursor: pointer; transition: border-color 0.15s; }
@@ -142,58 +107,23 @@
   .cal-event { font-size: 10px; background: var(--cyan-dim); color: var(--cyan); border-radius: 3px; padding: 1px 4px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .cal-event.green { background: var(--green-dim); color: var(--green); }
   .cal-event.amber { background: var(--amber-dim); color: var(--amber); }
-  .cal-event.purple { background: var(--purple-dim); color: var(--purple); }
-  .cal-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .cal-nav h3 { font-size: 16px; font-weight: 600; min-width: 180px; }
-
-  /* MODAL - using absolute on html/body */
-  html, body { position: relative; }
-  .modal-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; min-height: 100%; background: rgba(0,0,0,0.75); z-index: 9999; align-items: flex-start; justify-content: center; padding-top: 80px; padding-bottom: 40px; }
+  .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 9999; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex !important; }
   .modal { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); width: 520px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
   .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
   .modal-header h3 { font-size: 16px; font-weight: 600; }
-  .modal-header .close-btn { margin-left: auto; background: transparent; border: none; color: var(--text2); cursor: pointer; font-size: 20px; display: flex; padding: 2px; border-radius: var(--radius); }
-  .modal-header .close-btn:hover { color: var(--text); background: var(--bg3); }
+  .close-btn { margin-left: auto; background: transparent; border: none; color: var(--text2); cursor: pointer; font-size: 20px; display: flex; padding: 2px; border-radius: var(--radius); }
+  .close-btn:hover { color: var(--text); background: var(--bg3); }
   .modal-body { padding: 20px; }
   .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .form-group { display: flex; flex-direction: column; gap: 5px; }
   .form-group.full { grid-column: 1 / -1; }
   label { font-size: 12px; font-weight: 600; color: var(--text2); }
-  input, select, textarea { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; color: var(--text); font-size: 13px; font-family: 'Aptos', 'Nunito', 'Segoe UI', Arial, sans-serif; transition: border-color 0.15s; }
+  input, select, textarea { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; color: var(--text); font-size: 13px; font-family: 'Aptos','Nunito','Segoe UI',Arial,sans-serif; transition: border-color 0.15s; }
   input:focus, select:focus, textarea:focus { outline: none; border-color: var(--cyan); }
   select option { background: var(--bg3); }
   textarea { resize: vertical; min-height: 72px; }
   .modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
-
-  /* GITHUB CONFIG MODAL */
-  .config-section { margin-bottom: 20px; }
-  .config-section h4 { font-size: 13px; font-weight: 600; color: var(--text2); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .config-section h4 i { font-size: 16px; color: var(--cyan); }
-  .info-box { background: var(--cyan-dim2); border: 1px solid var(--cyan3); border-radius: var(--radius); padding: 10px 12px; font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
-  .info-box a { color: var(--cyan); text-decoration: none; }
-
-  /* PROGRESS BAR */
-  .progress-bar { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; margin-top: 6px; }
-  .progress-fill { height: 100%; border-radius: 2px; background: var(--cyan); transition: width 0.3s; }
-  .progress-fill.amber { background: var(--amber); }
-  .progress-fill.red { background: var(--red); }
-  .progress-fill.green { background: var(--green); }
-
-  /* TOAST */
-  .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 300; display: flex; flex-direction: column; gap: 8px; }
-  .toast { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 12px 16px; display: flex; align-items: center; gap: 10px; font-size: 13px; animation: slide-in 0.2s ease; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
-  .toast.success { border-left: 3px solid var(--green); }
-  .toast.error { border-left: 3px solid var(--red); }
-  .toast.info { border-left: 3px solid var(--cyan); }
-  @keyframes slide-in { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-
-  /* EMPTY STATE */
-  .empty-state { text-align: center; padding: 48px 20px; color: var(--text2); }
-  .empty-state i { font-size: 40px; color: var(--text3); margin-bottom: 12px; }
-  .empty-state p { font-size: 13px; }
-
-  /* HABILITATION */
   .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
   .tech-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .tech-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
@@ -201,14 +131,24 @@
   .tech-name { font-weight: 600; font-size: 14px; }
   .tech-role { font-size: 12px; color: var(--text2); }
   .hab-list { display: flex; flex-wrap: wrap; gap: 5px; }
-
-  /* REACTIFS EXPIRY */
-  .expiry-warn { color: var(--amber); }
-  .expiry-danger { color: var(--red); }
-  /* FILTER INPUTS */
   .filter-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 4px 6px; color: var(--text); font-size: 11px; margin-top: 4px; font-family: inherit; }
   .filter-input:focus { outline: none; border-color: var(--cyan); }
-  th { vertical-align: top; }
+  .expiry-warn { color: var(--amber); }
+  .expiry-danger { color: var(--red); }
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--text2); }
+  .empty-state i { font-size: 40px; color: var(--text3); margin-bottom: 12px; display: block; }
+  .empty-state p { font-size: 13px; }
+  .progress-bar { height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .progress-fill { height: 100%; border-radius: 2px; background: var(--cyan); transition: width 0.3s; }
+  .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 300; display: flex; flex-direction: column; gap: 8px; }
+  .toast { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 12px 16px; display: flex; align-items: center; gap: 10px; font-size: 13px; animation: slide-in 0.2s ease; min-width: 240px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .toast.success { border-left: 3px solid var(--green); }
+  .toast.error { border-left: 3px solid var(--red); }
+  .toast.info { border-left: 3px solid var(--cyan); }
+  @keyframes slide-in { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+  .info-box { background: var(--cyan-dim2); border: 1px solid var(--cyan3); border-radius: var(--radius); padding: 10px 12px; font-size: 12px; color: var(--text2); line-height: 1.6; margin-bottom: 14px; }
+  .info-box a { color: var(--cyan); text-decoration: none; }
+  code { font-size: 11px; background: var(--bg3); padding: 1px 5px; border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -219,7 +159,7 @@
     <button class="btn" onclick="openGithubConfig()" id="github-config-btn" style="gap:8px">
       <div class="sync-dot" id="sync-dot"></div>
       <i class="ti ti-brand-github"></i>
-      <span id="sync-label">Non configuré</span>
+      <span id="sync-label">Non configure</span>
     </button>
     <button class="btn" onclick="syncNow()"><i class="ti ti-refresh"></i> Sync</button>
     <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> Export</button>
@@ -227,33 +167,33 @@
 </header>
 
 <div class="layout">
-  <aside>
-    <div class="nav-section">
-      <div class="nav-label">Navigation</div>
-      <div class="nav-item active" onclick="goTo('dashboard', this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
-      <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-      <div id="planning-submenu" style="display:none">
-        <div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div>
-        <div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div>
-      </div>
-      <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Réactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-      <div id="reactifs-submenu" style="display:none">
-        <div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div>
-        <div class="nav-item nav-sub active-sub" id="subnav-contenants" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div>
-        <div class="nav-item nav-sub" id="subnav-archives" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div>
-      </div>
-      <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Échantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-      <div id="ech-submenu" style="display:none">
-        <div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Réception</div>
-        <div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div>
-        <div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marchés</div>
-      </div>
-      <div class="nav-item" onclick="goTo('habilitations', this)"><i class="ti ti-certificate"></i> Habilitations</div>
-      <div class="nav-item" onclick="goTo('commandes', this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+<aside>
+  <div class="nav-section">
+    <div class="nav-label">Navigation</div>
+    <div class="nav-item active" onclick="goTo('dashboard', this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
+    <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+    <div id="planning-submenu" style="display:none">
+      <div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div>
+      <div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div>
     </div>
-  </aside>
+    <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+    <div id="reactifs-submenu" style="display:none">
+      <div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div>
+      <div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div>
+      <div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div>
+    </div>
+    <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+    <div id="ech-submenu" style="display:none">
+      <div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div>
+      <div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div>
+      <div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div>
+    </div>
+    <div class="nav-item" onclick="goTo('habilitations', this)"><i class="ti ti-certificate"></i> Habilitations</div>
+    <div class="nav-item" onclick="goTo('commandes', this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+  </div>
+</aside>
 
-  <main>
+<main>
 <!-- DASHBOARD -->
     <div class="page active" id="page-dashboard">
       <div class="page-header">
@@ -585,6 +525,11 @@
     </div>
   
 </main>
+
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
 </div>
 
 <!-- TOAST CONTAINER -->
@@ -2375,5 +2320,6 @@ function toast(msg, type='info') {
   setTimeout(() => t.remove(), 3500);
 }
 </script>
+
 </body>
 </html>
