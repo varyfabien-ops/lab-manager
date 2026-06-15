@@ -269,8 +269,11 @@
       "stabTemps": "",
       "lot": "9960000",
       "date": "2026-06-15",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781508652926": "lancee"
+      }
     }
   ],
   "techniciens": [
@@ -376,6 +379,11 @@
       "icon": "package",
       "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
       "time": "15/06 09:55"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : lancee",
+      "time": "15/06 10:10"
     }
   ]
 }
