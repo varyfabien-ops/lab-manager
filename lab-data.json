@@ -26,6 +26,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 9960000-A | PIF"
+    },
+    {
+      "id": 1781511540450.0483,
+      "nom": "TCC0015",
+      "echantillonCode": "9960001-A",
+      "date": "2026-06-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960001-A | PIF STAB"
+    },
+    {
+      "id": 1781511540450.426,
+      "nom": "pH",
+      "echantillonCode": "9960001-A",
+      "date": "2026-06-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960001-A | PIF STAB"
     }
   ],
   "catalogue": [
@@ -274,6 +292,26 @@
       "analyseStatuts": {
         "1781508652926": "terminee"
       }
+    },
+    {
+      "id": 1781511540450,
+      "code": "9960001-A",
+      "produitId": 1781508169429,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781508652926,
+        1781509335357
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "9960001",
+      "date": "2026-06-15",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -409,6 +447,11 @@
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : terminee",
       "time": "15/06 10:10"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
+      "time": "15/06 10:19"
     }
   ]
 }
