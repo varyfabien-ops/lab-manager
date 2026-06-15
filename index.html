@@ -344,8 +344,21 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <table><thead><tr><th>Produit</th><th>Lot</th><th>Sous-serie</th><th>Analyse</th><th>Marches</th><th>Date reception</th><th>Statut analyse</th><th></th></tr></thead>
-      <tbody id="ech-tbody"></tbody></table>
+      <div style="overflow-x:auto"><table style="min-width:1000px"><thead><tr>
+  <th style="width:160px">Produit</th>
+  <th style="width:100px">Lot</th>
+  <th style="width:80px">Nb s-series</th>
+  <th style="width:80px">Sous-serie</th>
+  <th style="width:140px">Analyse</th>
+  <th style="width:100px">Marches</th>
+  <th style="width:100px">Date recep.</th>
+  <th style="width:90px;text-align:center;background:var(--amber-dim);color:var(--amber)"><i class="ti ti-player-play" style="font-size:13px"></i><br>A lancer</th>
+  <th style="width:90px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:13px"></i><br>En cours</th>
+  <th style="width:90px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:13px"></i><br>Terminee</th>
+  <th style="width:90px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:13px"></i><br>Verifiee</th>
+  <th style="width:40px"></th>
+</tr></thead>
+      <tbody id="ech-tbody"></tbody></table></div>
     </div>
   </div>
   <div id="ech-view-produits-ech" style="display:none">
@@ -2107,47 +2120,92 @@ function saveEchantillon() {
 
 function renderEchantillonsTable() {
   const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
-  const echantillons = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q));
+  // Grouper par lot
+  const echantillons = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q) || (e.produitId&&(state.produitsEch||[]).find(p=>p.id===e.produitId)?.nom.toLowerCase().includes(q)));
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
-  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
-  // Trier par date desc
-  echantillons.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-  const rows = [];
+  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="12"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>'; return; }
+  // Grouper par lot (meme lot = meme reception)
+  const lots = {};
   echantillons.forEach(e => {
-    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
-    const marches = (e.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
-    const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    if (!analyses.length) {
-      // Ligne sans analyse
-      rows.push(`<tr>
-        <td><strong>${produit?produit.nom:'—'}</strong>${produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+'</span>':''}</td>
-        <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:3px">${e.lot||'—'}</code></td>
-        <td><span class="badge badge-cyan">${e.code||'—'}</span></td>
-        <td><span style="color:var(--text3);font-size:12px">Aucune analyse</span></td>
-        <td>${marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—'}</td>
-        <td>${e.date?formatDate(e.date):'—'}</td>
-        <td>—</td>
-        <td><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
-      </tr>`);
-    } else {
-      analyses.forEach((a, ai) => {
-        const statKey = `${e.id}_${a.id}`;
-        const statut = (e.analyseStatuts||{})[a.id] || 'attente';
+    const key = e.lot||e.id;
+    if (!lots[key]) lots[key] = [];
+    lots[key].push(e);
+  });
+  const rows = [];
+  Object.entries(lots).sort((a,b) => {
+    const da = a[1][0].date||''; const db = b[1][0].date||'';
+    return db.localeCompare(da);
+  }).forEach(([lotKey, sousSeries]) => {
+    const e0 = sousSeries[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const marches = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const nbSeries = sousSeries.length;
+    const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    const totalRows = Math.max(1, nbSeries * analyses.length);
+
+    sousSeries.forEach((e, si) => {
+      const sousSerieAnalyses = analyses.length ? analyses : [null];
+      sousSerieAnalyses.forEach((a, ai) => {
+        const statut = a ? ((e.analyseStatuts||{})[a.id] || 'attente') : 'attente';
+        const statInfo = (e.analyseStatutsInfo||{})[a?.id] || {};
+        const isFirstOfLot = si===0 && ai===0;
+        const isFirstOfSerie = ai===0;
         rows.push(`<tr>
-          ${ai===0 ? `<td rowspan="${analyses.length}" style="border-right:1px solid var(--border);vertical-align:middle"><strong>${produit?produit.nom:'—'}</strong>${produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+'</span>':''}</td>
-          <td rowspan="${analyses.length}" style="border-right:1px solid var(--border);vertical-align:middle"><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:3px">${e.lot||'—'}</code></td>
-          <td rowspan="${analyses.length}" style="border-right:1px solid var(--border);vertical-align:middle"><span class="badge badge-cyan">${e.code||'—'}</span></td>` : ''}
-          <td style="font-size:13px"><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px">'+a.code+'</code>':''}</td>
-          <td>${ai===0?marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—':''}</td>
-          <td>${ai===0?(e.date?formatDate(e.date):'—'):''}</td>
-          <td>${analyseStatutBtn(e.id, a.id, statut)}</td>
-          <td>${ai===0?`<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div>`:''}</td>
+          ${isFirstOfLot ? `
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border)">
+              <strong style="font-size:13px">${produit?produit.nom:'—'}</strong>
+              ${produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+'</span>':''}
+            </td>
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
+              <code style="font-size:12px;background:var(--bg3);padding:3px 8px;border-radius:4px">${e0.lot||'—'}</code>
+            </td>
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
+              <span style="font-size:18px;font-weight:700;color:var(--cyan)">${nbSeries}</span>
+            </td>` : ''}
+          ${isFirstOfSerie ? `
+            <td rowspan="${sousSerieAnalyses.length}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
+              <span class="badge badge-cyan">${e.code||'—'}</span>
+            </td>` : ''}
+          <td style="font-size:12px">${a?`<strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px">'+a.code+'</code>':''}` : '<span style="color:var(--text3)">—</span>'}</td>
+          ${isFirstOfLot ? `
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border)">${marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join('<br>')||'—'}</td>
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);font-size:12px">${e0.date?formatDate(e0.date):'—'}</td>` : ''}
+          ${a ? `
+            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'a_lancer')}</td>
+            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'en_cours')}</td>
+            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'terminee')}</td>
+            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'verifiee')}</td>
+          ` : '<td colspan="4" style="text-align:center;color:var(--text3)">—</td>'}
+          ${isFirstOfLot ? `<td rowspan="${totalRows}" style="vertical-align:middle"><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e0.id})"><i class="ti ti-trash"></i></button></div></td>` : ''}
         </tr>`);
       });
-    }
+    });
   });
   tbody.innerHTML = rows.join('');
+}
+
+function statutCell(echId, analyseId, currentStatut, statInfo, cellType) {
+  const order = ['a_lancer','en_cours','terminee','verifiee'];
+  const curIdx = order.indexOf(currentStatut);
+  const cellIdx = order.indexOf(cellType);
+  const isDone = curIdx >= cellIdx && curIdx >= 0;
+  const isCurrent = currentStatut === cellType;
+  const date = statInfo[cellType];
+  if (isDone) {
+    const colors = { a_lancer:'var(--amber)', en_cours:'var(--blue)', terminee:'var(--cyan)', verifiee:'var(--green)' };
+    const icons = { a_lancer:'player-play', en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
+    const c = colors[cellType]; const ic = icons[cellType];
+    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" title="${date?'Le '+date:''}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%">
+      <i class="ti ti-${ic}" style="font-size:18px;color:${c}"></i>
+      ${date?`<span style="font-size:9px;color:${c}">${date}</span>`:''}
+    </button>`;
+  } else if (cellIdx === curIdx+1) {
+    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" title="Cliquer pour passer a cette etape" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:6px;width:100%;opacity:0.3">
+      <i class="ti ti-arrow-right" style="font-size:16px;color:var(--text3)"></i>
+    </button>`;
+  }
+  return '<span style="display:block;width:20px;height:2px;background:var(--border);margin:auto"></span>';
 }
 
 function analyseStatutBtn(echId, analyseId, statut) {
@@ -2164,21 +2222,28 @@ function analyseStatutBtn(echId, analyseId, statut) {
 }
 
 function cycleAnalyseStatut(echId, analyseId) {
-  const order = ['attente','lancee','terminee','verifiee'];
+  const order = ['a_lancer','en_cours','terminee','verifiee'];
+  // Chercher dans tous les echantillons du meme lot
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
   if (!ech) return;
   if (!ech.analyseStatuts) ech.analyseStatuts = {};
-  const cur = ech.analyseStatuts[analyseId] || 'attente';
-  const nextIdx = (order.indexOf(cur)+1) % order.length;
-  ech.analyseStatuts[analyseId] = order[nextIdx];
-  // Mettre à jour statut global echantillon
-  const allStatuts = Object.values(ech.analyseStatuts);
+  if (!ech.analyseStatutsInfo) ech.analyseStatutsInfo = {};
+  const cur = ech.analyseStatuts[analyseId] || 'a_lancer';
+  const curIdx = order.indexOf(cur);
+  const nextIdx = (curIdx+1) % order.length;
+  const next = order[nextIdx];
+  ech.analyseStatuts[analyseId] = next;
+  // Enregistrer la date de chaque etape
+  if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
+  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'});
+  ech.analyseStatutsInfo[analyseId][next] = today;
+  // Statut global
   const ids = ech.analysesIds||[];
-  if (ids.every(id => (ech.analyseStatuts[id]||'attente')==='verifiee')) ech.statut = 'conforme';
-  else if (allStatuts.some(s=>s==='lancee'||s==='terminee')) ech.statut = 'en_analyse';
-  else ech.statut = 'recu';
+  const allDone = ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
+  const anyStarted = ids.some(id=>{ const s=ech.analyseStatuts[id]||'a_lancer'; return s!=='a_lancer'; });
+  ech.statut = allDone ? 'conforme' : anyStarted ? 'en_analyse' : 'recu';
   const a = (state.catalogue||[]).find(x=>x.id===analyseId);
-  addActivity('list-check', `${ech.code} — ${a?.nom||'analyse'} : ${order[nextIdx]}`);
+  addActivity('list-check', `${ech.code} — ${a?.nom||'analyse'} : ${next}`);
   renderEchantillonsTable();
   saveData();
 }
@@ -2597,6 +2662,7 @@ window.wizardConfirm = wizardConfirm;
 window.wizardLoadAnalyses = wizardLoadAnalyses;
 window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.cycleAnalyseStatut = cycleAnalyseStatut;
+window.statutCell = statutCell;
 window.analyseStatutBtn = analyseStatutBtn;
 window.getMarcheAnalyses = getMarcheAnalyses;
 
