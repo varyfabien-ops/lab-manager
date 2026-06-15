@@ -287,15 +287,16 @@
       "stabTemps": "",
       "lot": "9960000",
       "date": "2026-06-15",
-      "statut": "recu",
+      "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "a_lancer"
+        "1781508652926": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
           "verifiee": "15/06/26",
-          "a_lancer": "15/06/26"
+          "a_lancer": "15/06/26",
+          "en_cours": "15/06/26"
         }
       }
     },
@@ -467,6 +468,11 @@
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : a_lancer",
+      "time": "15/06 10:26"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : en_cours",
       "time": "15/06 10:26"
     }
   ]
