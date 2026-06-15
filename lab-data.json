@@ -163,7 +163,21 @@
   ],
   "marches": [],
   "echantillons": [],
-  "techniciens": [],
+  "techniciens": [
+    {
+      "id": 1781508237179,
+      "prenom": "Fabien",
+      "nom": "VARY",
+      "role": "Technicien CQ",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "pH"
+      ],
+      "date": "2021-11-20",
+      "statut": "actif"
+    }
+  ],
   "commandesStatut": {
     "1781446866469": "en_attente"
   },
@@ -197,6 +211,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Xylocaïne 5% Naphazoline",
       "time": "15/06 09:22"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Fabien VARY",
+      "time": "15/06 09:23"
     }
   ]
 }
