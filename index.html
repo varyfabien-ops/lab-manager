@@ -344,16 +344,32 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <div style="overflow-x:auto"><table style="min-width:900px"><thead><tr>
-  <th style="width:160px">Produit</th>
-  <th style="width:110px">Lot</th>
-  <th style="width:70px;text-align:center">Nb s-series</th>
-  <th style="width:100px">Marches</th>
-  <th style="width:100px">Date recep.</th>
-  <th style="width:160px">Analyse</th>
-  <th style="width:100px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:13px"></i><br>En cours</th>
-  <th style="width:100px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:13px"></i><br>Terminee</th>
-  <th style="width:100px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:13px"></i><br>Verifiee</th>
+      <div style="overflow-x:auto"><table style="min-width:960px;font-size:15px"><thead><tr>
+  <th style="width:170px">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:110px">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:70px;text-align:center">Nb<br>s-series</th>
+  <th style="width:100px">Marches<br>
+    <select class="filter-input" id="fech-marche" onchange="renderEchantillonsTable()">
+      <option value="">Tous</option>
+    </select>
+  </th>
+  <th style="width:100px">Date recep.<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
+  <th style="width:160px">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:110px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
+    <select class="filter-input" id="fech-encours" onchange="renderEchantillonsTable()" style="color:var(--text)">
+      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
+    </select>
+  </th>
+  <th style="width:110px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:14px"></i><br>Terminee<br>
+    <select class="filter-input" id="fech-terminee" onchange="renderEchantillonsTable()" style="color:var(--text)">
+      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
+    </select>
+  </th>
+  <th style="width:110px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:14px"></i><br>Verifiee<br>
+    <select class="filter-input" id="fech-verifiee" onchange="renderEchantillonsTable()" style="color:var(--text)">
+      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
+    </select>
+  </th>
   <th style="width:40px"></th>
 </tr></thead>
       <tbody id="ech-tbody"></tbody></table></div>
@@ -2151,7 +2167,49 @@ function saveEchantillon() {
 
 function renderEchantillonsTable() {
   const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
-  const echantillons = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q) || ((state.produitsEch||[]).find(p=>p.id===e.produitId)?.nom||'').toLowerCase().includes(q));
+  const fProduit = (document.getElementById('fech-produit')?.value||'').toLowerCase();
+  const fLot = (document.getElementById('fech-lot')?.value||'').toLowerCase();
+  const fMarche = document.getElementById('fech-marche')?.value||'';
+  const fDate = document.getElementById('fech-date')?.value||'';
+  const fAnalyse = (document.getElementById('fech-analyse')?.value||'').toLowerCase();
+  const fEnCours = document.getElementById('fech-encours')?.value||'';
+  const fTerminee = document.getElementById('fech-terminee')?.value||'';
+  const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
+
+  // Peupler le select marchés si vide
+  const marcheSelect = document.getElementById('fech-marche');
+  if (marcheSelect && marcheSelect.options.length <= 1) {
+    (state.marches||[]).forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = String(m.id); opt.textContent = m.nom;
+      marcheSelect.appendChild(opt);
+    });
+  }
+
+  let echantillons = (state.echantillons||[]).filter(e => {
+    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
+    if (fProduit && !(produit?.nom||'').toLowerCase().includes(fProduit)) return false;
+    if (fLot && !(e.lot||'').toLowerCase().includes(fLot)) return false;
+    if (fDate && e.date !== fDate) return false;
+    if (fMarche && !(e.marcheIds||[]).map(String).includes(fMarche)) return false;
+    if (fAnalyse) {
+      const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+      if (!analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse))) return false;
+    }
+    if (fEnCours || fTerminee || fVerifiee) {
+      const statuts = Object.values(e.analyseStatuts||{});
+      const hasEnCours = statuts.some(s=>s==='en_cours');
+      const hasTerminee = statuts.some(s=>s==='terminee');
+      const hasVerifiee = statuts.some(s=>s==='verifiee');
+      if (fEnCours==='oui' && !hasEnCours) return false;
+      if (fEnCours==='non' && hasEnCours) return false;
+      if (fTerminee==='oui' && !hasTerminee) return false;
+      if (fTerminee==='non' && hasTerminee) return false;
+      if (fVerifiee==='oui' && !hasVerifiee) return false;
+      if (fVerifiee==='non' && hasVerifiee) return false;
+    }
+    return true;
+  });
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
   if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>'; return; }
@@ -2232,6 +2290,12 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
   return '<span style="display:block;width:24px;height:2px;background:var(--border);margin:auto"></span>';
 }
 
+function resetFiltresEch() {
+  ['fech-produit','fech-lot','fech-analyse'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  ['fech-date','fech-marche','fech-encours','fech-terminee','fech-verifiee'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  renderEchantillonsTable();
+}
+
 function cycleAnalyseStatut(echId, analyseId) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
@@ -2259,6 +2323,7 @@ function cycleAnalyseStatut(echId, analyseId) {
 }
 
 window.cycleAnalyseStatut = cycleAnalyseStatut;
+window.resetFiltresEch = resetFiltresEch;
 window.statutCell = statutCell;
 window.statutIcon = statutIcon;
 
@@ -2723,6 +2788,7 @@ window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.getMarcheAnalyses = getMarcheAnalyses;
 window.populateAnalysesChecks = populateAnalysesChecks;
 window.cycleAnalyseStatut = cycleAnalyseStatut;
+window.resetFiltresEch = resetFiltresEch;
 window.statutIcon = statutIcon;
 
 </script>
