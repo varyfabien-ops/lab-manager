@@ -21,6 +21,17 @@
       "duree": "",
       "code": "TCC0015-PM",
       "description": "Préparation de la Phase Mobile selon TCC0015"
+    },
+    {
+      "id": 1781508652926,
+      "nom": "TCC0015",
+      "habilitations": [
+        "HPLC",
+        "Volume"
+      ],
+      "duree": "6h",
+      "code": "TCC0015",
+      "description": "Dosage Lidocaïne / PHBM / Naphazoline / Impuretés selon TCC0015"
     }
   ],
   "reactifs": [],
@@ -236,6 +247,11 @@
       "icon": "calendar-plus",
       "text": "Nouvelle analyse planifiee : TCC0015 (Phase Mobile)",
       "time": "15/06 09:29"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : TCC0015",
+      "time": "15/06 09:30"
     }
   ]
 }
