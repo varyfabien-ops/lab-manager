@@ -290,7 +290,12 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "terminee"
+        "1781508652926": "verifiee"
+      },
+      "analyseStatutsInfo": {
+        "1781508652926": {
+          "verifiee": "15/06/26"
+        }
       }
     },
     {
@@ -452,6 +457,11 @@
       "icon": "package",
       "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
       "time": "15/06 10:19"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : verifiee",
+      "time": "15/06 10:26"
     }
   ]
 }
