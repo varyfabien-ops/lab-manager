@@ -180,6 +180,15 @@
       "code": "Na5",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1781509248907,
+      "nom": "Xylocaïne Nébuliseur",
+      "forme": "",
+      "dosage": "",
+      "code": "Ne",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -265,6 +274,11 @@
       "icon": "world",
       "text": "Marche ajoute : France",
       "time": "15/06 09:32"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Xylocaïne Nébuliseur",
+      "time": "15/06 09:40"
     }
   ]
 }
