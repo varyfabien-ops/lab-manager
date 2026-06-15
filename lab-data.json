@@ -224,6 +224,13 @@
       "code": "FR",
       "analyses": [],
       "note": ""
+    },
+    {
+      "id": 1781509571572,
+      "nom": "Canada",
+      "code": "CA",
+      "analyses": [],
+      "note": ""
     }
   ],
   "echantillons": [],
@@ -320,6 +327,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : pH",
       "time": "15/06 09:42"
+    },
+    {
+      "icon": "world",
+      "text": "Marche ajoute : Canada",
+      "time": "15/06 09:46"
     }
   ]
 }
