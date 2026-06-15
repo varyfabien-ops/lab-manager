@@ -29,6 +29,9 @@
         "HPLC",
         "Volume"
       ],
+      "produitsIds": [
+        1781508169429
+      ],
       "duree": "6h",
       "code": "TCC0015",
       "description": "Dosage Lidocaïne / PHBM / Naphazoline / Impuretés selon TCC0015"
@@ -292,6 +295,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Lipiodol",
+      "time": "15/06 09:41"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : TCC0015",
       "time": "15/06 09:41"
     }
   ]
