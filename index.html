@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v4 — Physico-Chimie</title>
+<title>LabManager v5 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -152,7 +152,6 @@
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie</span></div>
   <div class="header-right">
@@ -165,7 +164,6 @@
     <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> Export</button>
   </div>
 </header>
-
 <div class="layout">
 <aside>
   <div class="nav-section">
@@ -192,7 +190,6 @@
     <div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
   </div>
 </aside>
-
 <main>
 
 <div class="page active" id="page-dashboard">
@@ -398,7 +395,8 @@
 </div>
 
 </main>
-
+</div>
+<div class="toast-container" id="toast-container"></div>
 </div>
 
 <div class="toast-container" id="toast-container"></div>
@@ -565,37 +563,49 @@
 
 <!-- MODAL ECHANTILLON WIZARD -->
 <div class="modal-overlay" id="modal-echantillon">
-  <div class="modal" style="width:640px">
+  <div class="modal" style="width:660px">
     <div class="modal-header">
       <i class="ti ti-package" style="font-size:18px;color:var(--cyan)"></i>
       <h3>Reception d'un echantillon</h3>
       <button class="close-btn" onclick="closeModal('modal-echantillon')"><i class="ti ti-x"></i></button>
     </div>
-    <!-- Barre de progression -->
     <div style="padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg3)">
       <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-        <span id="wizard-step-label" style="font-size:12px;font-weight:600;color:var(--cyan)">Etape 1 / 6</span>
+        <span id="wizard-step-label" style="font-size:12px;font-weight:600;color:var(--cyan)">Etape 1 / 7</span>
         <span id="wizard-step-name" style="font-size:12px;color:var(--text2)">Produit</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="wizard-progress" style="width:16%"></div></div>
+      <div class="progress-bar"><div class="progress-fill" id="wizard-progress" style="width:14%"></div></div>
+      <div style="display:flex;gap:4px;margin-top:8px">
+        <div id="wdot-1" style="flex:1;height:3px;border-radius:2px;background:var(--cyan)"></div>
+        <div id="wdot-2" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
+        <div id="wdot-3" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
+        <div id="wdot-4" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
+        <div id="wdot-5" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
+        <div id="wdot-6" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
+        <div id="wdot-7" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
+      </div>
     </div>
-    <div class="modal-body" style="min-height:300px">
+    <div class="modal-body" style="min-height:320px;max-height:60vh;overflow-y:auto">
 
       <!-- ETAPE 1 : Produit -->
       <div id="wstep-1">
-        <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Selectionnez le produit a analyser</div>
-        <div class="form-group" style="margin-bottom:16px">
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le produit a analyser</div>
+        <div class="form-group" style="margin-bottom:14px">
           <label>Produit *</label>
           <select id="w-produit" style="font-size:14px;padding:10px" onchange="wizardUpdateProduit()">
             <option value="">— Choisir un produit —</option>
           </select>
         </div>
-        <div id="w-produit-info" style="display:none;background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:10px 12px;font-size:12px;color:var(--text2)"></div>
+        <div id="w-produit-info" style="display:none;background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:10px 12px;font-size:12px"></div>
+        <div id="w-produit-analyses-preview" style="display:none;margin-top:10px;background:var(--bg3);border-radius:var(--radius);padding:10px 12px">
+          <div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Analyses liees a ce produit</div>
+          <div id="w-produit-analyses-list" style="display:flex;flex-wrap:wrap;gap:4px"></div>
+        </div>
       </div>
 
       <!-- ETAPE 2 : Lot -->
       <div id="wstep-2" style="display:none">
-        <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Renseignez le numero de lot</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Renseignez le numero de lot</div>
         <div class="form-group" style="margin-bottom:14px">
           <label>Numero de lot *</label>
           <input id="w-lot" placeholder="Ex: LOT-2024-001" style="font-size:14px;padding:10px">
@@ -608,18 +618,18 @@
 
       <!-- ETAPE 3 : PIF / STAB -->
       <div id="wstep-3" style="display:none">
-        <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Selectionnez le type d'analyse</div>
-        <div style="display:flex;gap:12px;margin-bottom:20px">
-          <label style="flex:1;cursor:pointer">
-            <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s" onclick="toggleTypeCard('pif')">
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le type d'analyse</div>
+        <div style="display:flex;gap:12px;margin-bottom:16px">
+          <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('pif')">
+            <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-flask" style="font-size:28px;color:var(--blue);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">PIF</div>
               <div style="font-size:11px;color:var(--text2);margin-top:4px">Controle de routine</div>
               <input type="checkbox" id="w-type-pif" style="display:none">
             </div>
           </label>
-          <label style="flex:1;cursor:pointer">
-            <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s" onclick="toggleTypeCard('stab')">
+          <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('stab')">
+            <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-thermometer" style="font-size:28px;color:var(--purple);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">STABILITE</div>
               <div style="font-size:11px;color:var(--text2);margin-top:4px">Suivi dans le temps</div>
@@ -627,26 +637,19 @@
             </div>
           </label>
         </div>
-        <!-- Options STAB -->
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
-            <div class="form-group">
-              <label>Echeance</label>
-              <input type="date" id="w-stab-echeance">
-            </div>
-            <div class="form-group">
-              <label>Temperatures (separees par virgule)</label>
-              <input id="w-stab-temps" placeholder="Ex: 5°C, 25°C, 40°C">
-            </div>
+            <div class="form-group"><label>Echeance</label><input type="date" id="w-stab-echeance"></div>
+            <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
           </div>
         </div>
       </div>
 
       <!-- ETAPE 4 : Sous-series -->
       <div id="wstep-4" style="display:none">
-        <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Combien de sous-series pour ce lot ?</div>
-        <div class="form-group" style="margin-bottom:16px">
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Combien de sous-series pour ce lot ?</div>
+        <div class="form-group" style="margin-bottom:14px">
           <label>Nombre de sous-series *</label>
           <input type="number" id="w-nb-series" value="1" min="1" max="26" style="font-size:14px;padding:10px" oninput="previewSousSeries()">
         </div>
@@ -655,13 +658,22 @@
 
       <!-- ETAPE 5 : Marches -->
       <div id="wstep-5" style="display:none">
-        <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Selectionnez le ou les marches cibles</div>
-        <div id="w-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto"></div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le ou les marches cibles <span style="color:var(--text3)">(etiquetage uniquement)</span></div>
+        <div id="w-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto"></div>
       </div>
 
-      <!-- ETAPE 6 : Recap -->
+      <!-- ETAPE 6 : Analyses a cocher -->
       <div id="wstep-6" style="display:none">
-        <div style="margin-bottom:16px;font-size:13px;font-weight:600;color:var(--text)">Recapitulatif de la reception</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Cochez les analyses a realiser pour cet echantillon</div>
+        <div id="w-analyses-select" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto"></div>
+        <div id="w-no-analyses" style="display:none;color:var(--text3);font-size:12px;padding:12px;background:var(--bg3);border-radius:var(--radius)">
+          Aucune analyse liee a ce produit. Allez dans Planification > Catalogue pour ajouter des analyses et les lier a ce produit.
+        </div>
+      </div>
+
+      <!-- ETAPE 7 : Recap -->
+      <div id="wstep-7" style="display:none">
+        <div style="margin-bottom:14px;font-size:13px;font-weight:600;color:var(--text)">Recapitulatif de la reception</div>
         <div id="w-recap" style="display:flex;flex-direction:column;gap:10px"></div>
       </div>
 
@@ -674,20 +686,20 @@
     </div>
   </div>
 </div>
+
+>
 <!-- MODAL HABILITATION -->
 <div class="modal-overlay" id="modal-hab">
   <div class="modal">
     <div class="modal-header"><i class="ti ti-certificate" style="font-size:18px;color:var(--cyan)"></i><h3>Ajouter un technicien</h3><button class="close-btn" onclick="closeModal('modal-hab')"><i class="ti ti-x"></i></button></div>
-    <div class="modal-body">
-      <div class="form-grid">
-        <div class="form-group"><label>Prenom *</label><input id="h-prenom" placeholder="Ex: Marie"></div>
-        <div class="form-group"><label>Nom *</label><input id="h-nom" placeholder="Ex: Dupont"></div>
-        <div class="form-group full"><label>Poste / Role</label><input id="h-role" placeholder="Ex: Technicienne HPLC senior"></div>
-        <div class="form-group full"><label>Habilitations (separees par des virgules)</label><textarea id="h-habs" placeholder="Ex: HPLC, GC, Karl Fischer, pH-metrie, Dissolution"></textarea></div>
-        <div class="form-group"><label>Date d'entree</label><input type="date" id="h-date"></div>
-        <div class="form-group"><label>Statut</label><select id="h-statut"><option value="actif">Actif</option><option value="formation">En formation</option><option value="inactif">Inactif</option></select></div>
-      </div>
-    </div>
+    <div class="modal-body"><div class="form-grid">
+      <div class="form-group"><label>Prenom *</label><input id="h-prenom" placeholder="Ex: Marie"></div>
+      <div class="form-group"><label>Nom *</label><input id="h-nom" placeholder="Ex: Dupont"></div>
+      <div class="form-group full"><label>Poste / Role</label><input id="h-role" placeholder="Ex: Technicienne HPLC senior"></div>
+      <div class="form-group full"><label>Habilitations (separees par des virgules)</label><textarea id="h-habs" placeholder="Ex: HPLC, GC, Karl Fischer"></textarea></div>
+      <div class="form-group"><label>Date d'entree</label><input type="date" id="h-date"></div>
+      <div class="form-group"><label>Statut</label><select id="h-statut"><option value="actif">Actif</option><option value="formation">En formation</option><option value="inactif">Inactif</option></select></div>
+    </div></div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-hab')">Annuler</button><button class="btn btn-primary" onclick="saveHabilitation()"><i class="ti ti-check"></i> Enregistrer</button></div>
   </div>
 </div>
@@ -697,12 +709,12 @@
   <div class="modal">
     <div class="modal-header"><i class="ti ti-brand-github" style="font-size:20px;color:var(--cyan)"></i><h3>Configuration GitHub</h3><button class="close-btn" onclick="closeModal('modal-github')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
-      <div class="info-box">Les donnees sont stockees dans un fichier <code>lab-data.json</code> sur votre depot GitHub. Creez un <strong>Personal Access Token</strong> avec la permission <code>repo</code> sur <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a>.</div>
+      <div class="info-box">Stockage des donnees dans <code>lab-data.json</code> sur votre depot GitHub. Creez un <strong>Personal Access Token</strong> avec la permission <code>repo</code> sur <a href="https://github.com/settings/tokens" target="_blank">github.com/settings/tokens</a>.</div>
       <div class="form-grid">
         <div class="form-group full"><label>Token GitHub (PAT)</label><input type="password" id="gh-token" placeholder="github_pat_xxxxxxxxxxxxxxxxxxxx"></div>
         <div class="form-group"><label>Proprietaire du depot</label><input id="gh-owner" placeholder="Ex: mon-labo"></div>
         <div class="form-group"><label>Nom du depot</label><input id="gh-repo" placeholder="Ex: lab-data"></div>
-        <div class="form-group full"><label>Chemin du fichier</label><input id="gh-path" placeholder="lab-data.json" value="lab-data.json"></div>
+        <div class="form-group full"><label>Chemin du fichier</label><input id="gh-path" value="lab-data.json"></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -713,8 +725,19 @@
   </div>
 </div>
 
-
 <script>
+
+function populateProduitsAnalyseCheck(selectedIds) {
+  const el = document.getElementById('a-produits-check'); if(!el) return;
+  const prods = state.produitsEch||[];
+  if (!prods.length) { el.innerHTML='<span style="font-size:12px;color:var(--text3)">Aucun produit defini</span>'; return; }
+  el.innerHTML = prods.map(p => {
+    const checked = selectedIds && selectedIds.includes(p.id) ? 'checked' : '';
+    return `<label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:4px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:12px">
+      <input type="checkbox" value="${p.id}" ${checked}>${p.nom}${p.code?' <code style="font-size:10px">'+p.code+'</code>':''}
+    </label>`;
+  }).join('');
+}
 
 // ============================================================
 // STATE
@@ -1022,29 +1045,12 @@ function goToPlanning(view) {
   if (view === 'catalogue') renderCatalogue();
 }
 
-function populateProduitsAnalyseCheck(selectedIds) {
-  const el = document.getElementById('a-produits-check'); if(!el) return;
-  const prods = state.produitsEch||[];
-  if (!prods.length) {
-    el.innerHTML = '<span style="font-size:12px;color:var(--text3)">Aucun produit defini — allez dans Echantillons > Produits</span>';
-    return;
-  }
-  el.innerHTML = prods.map(p => {
-    const checked = selectedIds.includes(p.id) ? 'checked' : '';
-    return `<label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:4px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:12px">
-      <input type="checkbox" value="${p.id}" ${checked}>
-      ${p.nom}${p.code?' <code style="font-size:10px">'+p.code+'</code>':''}
-    </label>`;
-  }).join('');
-}
-
 function saveAnalyse() {
   const nom = document.getElementById('a-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.catalogue) state.catalogue = [];
   const habs = document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
-  const produits = Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value));
-  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds: produits, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
+  const entry = { id: editingId||Date.now(), nom, habilitations: habs, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
   if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
   editingId = null;
@@ -1061,17 +1067,13 @@ function renderCatalogue() {
   const tbody = document.getElementById('catalogue-tbody');
   if (!tbody) return;
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
-  tbody.innerHTML = rows.map(a => {
-    const prods = (a.produitsIds||[]).map(id=>(state.produitsEch||[]).find(p=>p.id===id)).filter(Boolean);
-    return `<tr>
-      <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
-      <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
-      <td>${prods.length ? prods.map(p=>'<span class="badge badge-blue" style="font-size:10px">'+p.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:11px">Tous produits</span>'}</td>
-      <td>${a.duree||'—'}</td>
-      <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
-      <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
-    </tr>`;
-  }).join('');
+  tbody.innerHTML = rows.map(a => `<tr>
+    <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
+    <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
+    <td>${a.duree||'—'}</td>
+    <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
+    <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
+  </tr>`).join('');
 }
 
 function editAnalyse(id) {
@@ -1082,9 +1084,8 @@ function editAnalyse(id) {
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
   document.getElementById('a-desc').value = a.description||'';
-  const at=document.getElementById('modal-analyse-title'); if(at) at.textContent = 'Modifier l\'analyse';
+  document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
   openModal('modal-analyse');
-  setTimeout(() => populateProduitsAnalyseCheck(a.produitsIds||[]), 50);
 }
 
 function deleteAnalyse(id) {
@@ -1608,59 +1609,73 @@ function expiryStatus(expiry) {
 
 
 // ============================================================
-// WIZARD ECHANTILLON
+// WIZARD ECHANTILLON - 7 ETAPES
 // ============================================================
 let wizardStep = 1;
-const WIZARD_STEPS = 6;
-const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Recapitulatif'];
+const WIZARD_TOTAL = 7;
+const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Analyses','Recapitulatif'];
 
 function openWizard() {
   wizardStep = 1;
-  // Reset
-  ['w-produit','w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-  document.getElementById('w-nb-series').value = 1;
-  document.getElementById('w-date').value = new Date().toISOString().slice(0,10);
-  document.getElementById('w-type-pif').checked = false;
-  document.getElementById('w-type-stab').checked = false;
-  document.getElementById('w-pif-card').style.border = '2px solid var(--border)';
-  document.getElementById('w-stab-card').style.border = '2px solid var(--border)';
-  document.getElementById('w-stab-options').style.display = 'none';
-  document.getElementById('w-produit-info').style.display = 'none';
-  // Populate selects
-  populateProduitEchSelect();
+  ['w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  const nb = document.getElementById('w-nb-series'); if(nb) nb.value=1;
+  const dt = document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
+  const wpif = document.getElementById('w-type-pif'); if(wpif) wpif.checked=false;
+  const wstab = document.getElementById('w-type-stab'); if(wstab) wstab.checked=false;
+  const pifCard = document.getElementById('w-pif-card');
+  const stabCard = document.getElementById('w-stab-card');
+  if(pifCard) { pifCard.style.border='2px solid var(--border)'; pifCard.style.background=''; }
+  if(stabCard) { stabCard.style.border='2px solid var(--border)'; stabCard.style.background=''; }
+  const stabOpts = document.getElementById('w-stab-options');
+  if(stabOpts) stabOpts.style.display='none';
+  const prodInfo = document.getElementById('w-produit-info');
+  if(prodInfo) prodInfo.style.display='none';
+  const prodPrev = document.getElementById('w-produit-analyses-preview');
+  if(prodPrev) prodPrev.style.display='none';
+  // Populate produit select
   const sel = document.getElementById('w-produit');
-  if (sel && document.getElementById('e-produit')) sel.innerHTML = document.getElementById('e-produit').innerHTML;
-  else if (sel) {
+  if(sel) {
     sel.innerHTML = '<option value="">— Choisir un produit —</option>' +
       (state.produitsEch||[]).map(p=>`<option value="${p.id}">${p.nom}${p.code?' ('+p.code+')':''}</option>`).join('');
+    sel.value = '';
   }
   wizardRender();
   openModal('modal-echantillon');
 }
 
 function wizardRender() {
-  for (let i=1; i<=WIZARD_STEPS; i++) {
+  for (let i=1; i<=WIZARD_TOTAL; i++) {
     const el = document.getElementById('wstep-'+i);
     if (el) el.style.display = i===wizardStep ? 'block' : 'none';
   }
-  document.getElementById('wizard-step-label').textContent = `Etape ${wizardStep} / ${WIZARD_STEPS}`;
-  document.getElementById('wizard-step-name').textContent = WIZARD_NAMES[wizardStep-1];
-  document.getElementById('wizard-progress').style.width = Math.round(wizardStep/WIZARD_STEPS*100)+'%';
-  document.getElementById('wizard-btn-prev').style.display = wizardStep > 1 ? 'flex' : 'none';
-  const nextBtn = document.getElementById('wizard-btn-next');
-  if (wizardStep === WIZARD_STEPS) {
-    nextBtn.innerHTML = '<i class="ti ti-check"></i> Confirmer la reception';
-  } else {
-    nextBtn.innerHTML = 'Suivant <i class="ti ti-arrow-right"></i>';
+  const lbl = document.getElementById('wizard-step-label');
+  const nm = document.getElementById('wizard-step-name');
+  const prog = document.getElementById('wizard-progress');
+  if(lbl) lbl.textContent = `Etape ${wizardStep} / ${WIZARD_TOTAL}`;
+  if(nm) nm.textContent = WIZARD_NAMES[wizardStep-1];
+  if(prog) prog.style.width = Math.round(wizardStep/WIZARD_TOTAL*100)+'%';
+  // Dots
+  for(let i=1; i<=WIZARD_TOTAL; i++) {
+    const dot = document.getElementById('wdot-'+i);
+    if(dot) dot.style.background = i<=wizardStep ? 'var(--cyan)' : 'var(--border)';
   }
-  if (wizardStep === 4) previewSousSeries();
-  if (wizardStep === 5) wizardLoadMarches();
-  if (wizardStep === 6) wizardRecap();
+  const prev = document.getElementById('wizard-btn-prev');
+  if(prev) prev.style.display = wizardStep>1 ? 'flex' : 'none';
+  const next = document.getElementById('wizard-btn-next');
+  if(next) {
+    next.innerHTML = wizardStep===WIZARD_TOTAL
+      ? '<i class="ti ti-check"></i> Confirmer la reception'
+      : 'Suivant <i class="ti ti-arrow-right"></i>';
+  }
+  if(wizardStep===4) previewSousSeries();
+  if(wizardStep===5) wizardLoadMarches();
+  if(wizardStep===6) wizardLoadAnalyses();
+  if(wizardStep===7) wizardRecap();
 }
 
 function wizardNext() {
   if (!wizardValidate()) return;
-  if (wizardStep === WIZARD_STEPS) { wizardConfirm(); return; }
+  if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
   wizardStep++;
   wizardRender();
 }
@@ -1670,16 +1685,16 @@ function wizardPrev() {
 }
 
 function wizardValidate() {
-  if (wizardStep === 1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
-  if (wizardStep === 2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
-  if (wizardStep === 3) {
-    const pif = document.getElementById('w-type-pif').checked;
-    const stab = document.getElementById('w-type-stab').checked;
-    if (!pif && !stab) { toast('Selectionnez PIF et/ou STABILITE', 'error'); return false; }
+  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
+  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
+  if (wizardStep===3) {
+    if (!document.getElementById('w-type-pif').checked && !document.getElementById('w-type-stab').checked) {
+      toast('Selectionnez PIF et/ou STABILITE', 'error'); return false;
+    }
   }
-  if (wizardStep === 5) {
-    const checked = document.querySelectorAll('#w-marches-check input[type="checkbox"]:checked');
-    if (!checked.length) { toast('Selectionnez au moins un marche', 'error'); return false; }
+  if (wizardStep===6) {
+    const checked = document.querySelectorAll('#w-analyses-select input:checked');
+    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
   }
   return true;
 }
@@ -1688,216 +1703,185 @@ function wizardUpdateProduit() {
   const id = parseInt(document.getElementById('w-produit').value);
   const p = (state.produitsEch||[]).find(x=>x.id===id);
   const info = document.getElementById('w-produit-info');
+  const prev = document.getElementById('w-produit-analyses-preview');
+  const list = document.getElementById('w-produit-analyses-list');
   if (p) {
-    info.style.display = 'block';
-    info.innerHTML = `<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`;
+    if(info) { info.style.display='block'; info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`; }
+    // Afficher analyses liees
+    const analyses = (state.catalogue||[]).filter(a => !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(id));
+    if(prev) prev.style.display = analyses.length ? 'block' : 'none';
+    if(list) list.innerHTML = analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join('');
   } else {
-    info.style.display = 'none';
+    if(info) info.style.display='none';
+    if(prev) prev.style.display='none';
   }
 }
 
 function toggleTypeCard(type) {
   const cb = document.getElementById('w-type-'+type);
+  if(!cb) return;
   cb.checked = !cb.checked;
   const card = document.getElementById('w-'+type+'-card');
-  if (type === 'pif') {
+  if(!card) return;
+  if (type==='pif') {
     card.style.border = cb.checked ? '2px solid var(--blue)' : '2px solid var(--border)';
     card.style.background = cb.checked ? 'var(--blue-dim)' : '';
   } else {
     card.style.border = cb.checked ? '2px solid var(--purple)' : '2px solid var(--border)';
     card.style.background = cb.checked ? 'var(--purple-dim)' : '';
-    document.getElementById('w-stab-options').style.display = cb.checked ? 'block' : 'none';
+    const opts = document.getElementById('w-stab-options');
+    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
   }
 }
 
 function previewSousSeries() {
-  const nb = parseInt(document.getElementById('w-nb-series').value)||1;
-  const lot = document.getElementById('w-lot').value || 'LOT';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const lot = document.getElementById('w-lot')?.value || 'LOT';
   const preview = document.getElementById('w-series-preview');
   if (!preview) return;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  preview.innerHTML = Array.from({length: Math.min(nb,26)}, (_,i) =>
+  preview.innerHTML = Array.from({length:Math.min(nb,26)},(_,i)=>
     `<span class="badge badge-cyan">${lot}-${letters[i]}</span>`
   ).join('');
 }
 
 function wizardLoadMarches() {
-  const el = document.getElementById('w-marches-check');
-  const pif = document.getElementById('w-type-pif').checked;
-  const stab = document.getElementById('w-type-stab').checked;
+  const el = document.getElementById('w-marches-check'); if(!el) return;
   const marches = state.marches||[];
-  if (!marches.length) { el.innerHTML='<div style="color:var(--text3);font-size:12px">Aucun marche defini. Allez dans Echantillons > Marches pour en creer.</div>'; return; }
-  el.innerHTML = marches.map(m => {
-    const analyses = (m.analyses||[]).filter(ao => {
-      if (pif && stab) return ao.pif || ao.stab;
-      if (pif) return ao.pif;
-      if (stab) return ao.stab;
-      return true;
-    });
-    return `<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
-      <input type="checkbox" value="${m.id}" style="margin-top:3px;flex-shrink:0">
+  if (!marches.length) {
+    el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marche defini. Allez dans Echantillons > Marches.</div>';
+    return;
+  }
+  el.innerHTML = marches.map(m => `
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${m.id}" style="flex-shrink:0">
       <div>
         <div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>
-        <div style="font-size:11px;color:var(--text2);margin-top:3px">${analyses.length} analyse${analyses.length>1?'s':''} applicables</div>
-        <div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:4px">${analyses.slice(0,4).map(ao=>{
-          const a=(state.catalogue||[]).find(x=>x.id===ao.id);
-          if(!a) return '';
-          const tags=(ao.pif?'<span style="font-size:9px;background:var(--blue-dim);color:var(--blue);padding:1px 3px;border-radius:2px">PIF</span>':'')+(ao.stab?'<span style="font-size:9px;background:var(--purple-dim);color:var(--purple);padding:1px 3px;border-radius:2px">STAB</span>':'');
-          return '<span class="badge badge-cyan" style="font-size:10px">'+a.nom+' '+tags+'</span>';
-        }).join('')}${analyses.length>4?'<span style="font-size:10px;color:var(--text3)">+'+( analyses.length-4)+' autres</span>':''}</div>
+        ${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}
       </div>
-    </label>`;
-  }).join('');
+    </label>`).join('');
+}
+
+function wizardLoadAnalyses() {
+  const el = document.getElementById('w-analyses-select');
+  const noA = document.getElementById('w-no-analyses');
+  if(!el) return;
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const pif = document.getElementById('w-type-pif')?.checked;
+  const stab = document.getElementById('w-type-stab')?.checked;
+  // Filtrer les analyses liees au produit
+  const analyses = (state.catalogue||[]).filter(a => {
+    if (!prodId) return true;
+    if (!a.produitsIds || a.produitsIds.length===0) return true;
+    return a.produitsIds.includes(prodId);
+  });
+  if (!analyses.length) {
+    el.innerHTML=''; el.style.display='none';
+    if(noA) noA.style.display='block';
+    return;
+  }
+  el.style.display='flex'; if(noA) noA.style.display='none';
+  el.innerHTML = analyses.map(a => `
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0">
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>
+        ${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}
+        ${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}
+      </div>
+      <div style="display:flex;gap:4px;flex-shrink:0">
+        ${pif?`<span class="badge badge-blue" style="font-size:10px">PIF</span>`:''}
+        ${stab?`<span class="badge badge-purple" style="font-size:10px">STAB</span>`:''}
+      </div>
+    </label>`).join('');
 }
 
 function wizardRecap() {
-  const prodId = parseInt(document.getElementById('w-produit').value);
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
   const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot = document.getElementById('w-lot').value;
-  const date = document.getElementById('w-date').value;
-  const pif = document.getElementById('w-type-pif').checked;
-  const stab = document.getElementById('w-type-stab').checked;
-  const echeance = document.getElementById('w-stab-echeance').value;
-  const temps = document.getElementById('w-stab-temps').value;
-  const nb = parseInt(document.getElementById('w-nb-series').value)||1;
+  const lot = document.getElementById('w-lot')?.value||'';
+  const date = document.getElementById('w-date')?.value||'';
+  const pif = document.getElementById('w-type-pif')?.checked;
+  const stab = document.getElementById('w-type-stab')?.checked;
+  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const temps = document.getElementById('w-stab-temps')?.value||'';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-
-  // Calculer les analyses
-  const analysesSet = new Map();
-  const prodId2 = parseInt(document.getElementById('w-produit').value);
-  marches.forEach(m => {
-    (m.analyses||[]).forEach(ao => {
-      if (!((pif && ao.pif) || (stab && ao.stab))) return;
-      if (!analysesSet.has(ao.id)) {
-        const a = (state.catalogue||[]).find(x=>x.id===ao.id);
-        if (!a) return;
-        // Filtre par produit si l'analyse a des produits definis
-        if (a.produitsIds && a.produitsIds.length > 0 && prodId2) {
-          if (!a.produitsIds.includes(prodId2)) return;
-        }
-        analysesSet.set(ao.id, {...a, pif: ao.pif, stab: ao.stab});
-      }
-    });
-  });
-  const analyses = Array.from(analysesSet.values());
-
+  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
+  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap = document.getElementById('w-recap');
+  if(!recap) return;
   recap.innerHTML = `
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Produit</div>
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div>
       <div style="font-weight:600">${prod.nom||'—'}</div>
       ${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}
     </div>
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Lot & Reception</div>
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Reception</div>
       <div style="font-weight:600">${lot}</div>
-      <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'Date non renseignee'}</div>
+      <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
     </div>
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
       <div style="display:flex;gap:6px;margin-bottom:6px">
-        ${pif?'<span class="badge badge-blue"><i class="ti ti-flask" style="font-size:10px"></i> PIF</span>':''}
-        ${stab?'<span class="badge badge-purple"><i class="ti ti-thermometer" style="font-size:10px"></i> STABILITE</span>':''}
+        ${pif?'<span class="badge badge-blue">PIF</span>':''}
+        ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
       </div>
       ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
       ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
     </div>
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+    ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div>
-    </div>
+    </div>`:''}
     <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} a effectuer (x${nb} sous-serie${nb>1?'s':''})</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>{
-        const tags=(a.pif?'<span style="font-size:9px;background:var(--blue-dim);color:var(--blue);padding:1px 3px;border-radius:2px">PIF</span>':'')+(a.stab?'<span style="font-size:9px;background:var(--purple-dim);color:var(--purple);padding:1px 3px;border-radius:2px">STAB</span>':'');
-        return `<span class="badge badge-cyan">${a.nom} ${tags}</span>`;
-      }).join('')}</div>
-    </div>
-  `;
+      <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
+        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${nb} sous-serie${nb>1?'s':''}
+        = ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div>
+    </div>`;
 }
 
 function wizardConfirm() {
-  const prodId = parseInt(document.getElementById('w-produit').value);
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
   const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot = document.getElementById('w-lot').value.trim();
-  const date = document.getElementById('w-date').value;
-  const pif = document.getElementById('w-type-pif').checked;
-  const stab = document.getElementById('w-type-stab').checked;
-  const echeance = document.getElementById('w-stab-echeance').value;
-  const temps = document.getElementById('w-stab-temps').value;
-  const nb = parseInt(document.getElementById('w-nb-series').value)||1;
+  const lot = document.getElementById('w-lot')?.value.trim()||'';
+  const date = document.getElementById('w-date')?.value||'';
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const temps = document.getElementById('w-stab-temps')?.value||'';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-
-  // Calculer les analyses uniques
-  const analysesSet = new Map();
-  const prodId2 = parseInt(document.getElementById('w-produit').value);
-  marches.forEach(m => {
-    (m.analyses||[]).forEach(ao => {
-      if (!((pif && ao.pif) || (stab && ao.stab))) return;
-      if (!analysesSet.has(ao.id)) {
-        const a = (state.catalogue||[]).find(x=>x.id===ao.id);
-        if (!a) return;
-        // Filtre par produit si l'analyse a des produits definis
-        if (a.produitsIds && a.produitsIds.length > 0 && prodId2) {
-          if (!a.produitsIds.includes(prodId2)) return;
-        }
-        analysesSet.set(ao.id, {...a, pif: ao.pif, stab: ao.stab});
-      }
-    });
-  });
-  const analyses = Array.from(analysesSet.values());
-
+  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
+  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if (!state.echantillons) state.echantillons = [];
   if (!state.planning) state.planning = [];
-
-  // Creer les sous-series
-  const created = [];
   for (let i=0; i<nb; i++) {
     const code = `${lot}-${letters[i]}`;
-    const ech = {
-      id: Date.now()+i,
-      code,
-      produitId,
-      marcheIds,
-      analysesIds: analyses.map(a=>a.id),
-      typePIF: pif,
-      typeSTAB: stab,
-      stabEcheance: echeance,
-      stabTemps: temps,
-      lot,
-      date,
-      statut: 'recu',
-      note: ''
-    };
-    state.echantillons.push(ech);
-    created.push(code);
-
-    // Generer les analyses dans le planning
+    state.echantillons.push({
+      id: Date.now()+i, code, produitId: prodId, marcheIds,
+      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
+      stabEcheance: echeance, stabTemps: temps, lot, date, statut: 'recu', note: ''
+    });
     analyses.forEach(a => {
       state.planning.push({
-        id: Date.now()+Math.random(),
-        nom: a.nom,
-        echantillonCode: code,
-        date,
-        priorite: 'normale',
-        statut: 'planifie',
-        note: `Auto: ${code} | ${pif&&a.pif?'PIF':''}${stab&&a.stab?' STAB':''}`
+        id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
+        date, priorite: 'normale', statut: 'planifie',
+        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
       });
     });
   }
-
   addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
   closeModal('modal-echantillon');
-  renderEchantillonsTable();
-  renderPlanningTable();
-  renderDashboard();
-  saveData();
-  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length} analyse${analyses.length>1?'s':''} dans le planning`, 'success');
+  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
+  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
 }
 
 // ============================================================
@@ -2086,7 +2070,7 @@ function deleteMarche(id) {
 
 // ── SELECTION MARCHE DANS MODAL ECHANTILLON ───────────────────
 function onProduitEchSelect() {
-  if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
+  populateMarcheChecks('e-marches-check', []);
   onMarcheEchChange();
 }
 
@@ -2368,33 +2352,30 @@ function formatDate(d) {
 // ============================================================
 function openModal(id) {
   if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
-  if (id === 'modal-analyse') {
-    if(!editingId) { const at=document.getElementById('modal-analyse-title'); if(at) at.textContent='Nouvelle analyse'; }
-    setTimeout(() => populateProduitsAnalyseCheck(editingId ? ((state.catalogue||[]).find(a=>a.id===editingId)||{}).produitsIds||[] : []), 50);
-  }
+  if (id === 'modal-analyse') { if(!editingId) document.getElementById('modal-analyse-title').textContent='Nouvelle analyse'; }
   if (id === 'modal-echantillon') {
     populateTechSelects();
     populateProduitEchSelect();
     if (!editingId) {
-      if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
+      populateMarcheChecks('e-marches-check', []);
       const prev = document.getElementById('e-analyses-preview');
       if (prev) prev.style.display = 'none';
-      const echTitle = document.getElementById('modal-ech-title'); if(echTitle) echTitle.textContent = 'Reception echantillon';
+      document.getElementById('modal-ech-title').textContent = 'Reception echantillon';
     }
   }
   if (id === 'modal-marche') {
     if (!editingId) {
       populateAnalysesChecks('m-analyses-check', []);
-      const mt=document.getElementById('modal-marche-title'); if(mt) mt.textContent='Nouveau marche';
+      document.getElementById('modal-marche-title').textContent = 'Nouveau marche';
     }
   }
   if (id === 'modal-produit-ech') {
-    if (!editingId) { const pet=document.getElementById('modal-produit-ech-title'); if(pet) pet.textContent='Nouveau produit'; }
+    if (!editingId) document.getElementById('modal-produit-ech-title').textContent = 'Nouveau produit';
   }
   if (id === 'modal-contenant') { populateProduitSelect(); }
   if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
-    const rt=document.getElementById('modal-reactif-title'); if(rt) rt.textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
+    document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
   }
   if (!editingId) {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
@@ -2558,8 +2539,10 @@ window.wizardUpdateProduit = wizardUpdateProduit;
 window.toggleTypeCard = toggleTypeCard;
 window.previewSousSeries = previewSousSeries;
 window.wizardConfirm = wizardConfirm;
-window.getMarcheAnalyses = getMarcheAnalyses;
+window.wizardLoadAnalyses = wizardLoadAnalyses;
 window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
+window.getMarcheAnalyses = getMarcheAnalyses;
+
 window.goToEch = goToEch;
 window.saveProduitEch = saveProduitEch;
 window.editProduitEch = editProduitEch;
@@ -2605,6 +2588,5 @@ function toast(msg, type='info') {
 }
 
 </script>
-
 </body>
 </html>
