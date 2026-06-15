@@ -1,5 +1,15 @@
 {
-  "planning": [],
+  "planning": [
+    {
+      "id": 1781508558161,
+      "nom": "TCC0015 (Phase Mobile)",
+      "technicien": "Fabien VARY",
+      "date": "2026-06-17",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": ""
+    }
+  ],
   "catalogue": [
     {
       "id": 1781448902884,
@@ -221,6 +231,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Méthanol HPLC Grade lot VBCN32443",
       "time": "15/06 09:25"
+    },
+    {
+      "icon": "calendar-plus",
+      "text": "Nouvelle analyse planifiee : TCC0015 (Phase Mobile)",
+      "time": "15/06 09:29"
     }
   ]
 }
