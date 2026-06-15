@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v5 — Physico-Chimie</title>
+<title>LabManager v6 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -409,6 +409,8 @@
 </div>
 <div class="toast-container" id="toast-container"></div>
 </div>
+<div class="toast-container" id="toast-container"></div>
+</div>
 
 <div class="toast-container" id="toast-container"></div>
 
@@ -735,7 +737,6 @@
     </div>
   </div>
 </div>
-
 <script>
 
 function populateProduitsAnalyseCheck(selectedIds) {
@@ -748,6 +749,314 @@ function populateProduitsAnalyseCheck(selectedIds) {
       <input type="checkbox" value="${p.id}" ${checked}>${p.nom}${p.code?' <code style="font-size:10px">'+p.code+'</code>':''}
     </label>`;
   }).join('');
+}
+
+function getMarcheAnalyses(containerId) {
+  const checks = document.querySelectorAll('#'+containerId+' .analyse-check:checked');
+  return Array.from(checks).map(cb => {
+    const id = parseInt(cb.dataset.id);
+    const pif = document.querySelector('#'+containerId+' .type-pif[data-id="'+id+'"]')?.checked || false;
+    const stab = document.querySelector('#'+containerId+' .type-stab[data-id="'+id+'"]')?.checked || false;
+    return { id, pif, stab };
+  });
+}
+
+function populateAnalysesChecks(containerId, selectedIds, selectedTypes) {
+  const el = document.getElementById(containerId); if(!el) return;
+  const catalogue = state.catalogue||[];
+  if (!catalogue.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucune analyse dans le catalogue</span>'; return; }
+  el.innerHTML = catalogue.map(a => {
+    const sel = selectedIds && selectedIds.find ? selectedIds.find(s => s.id === a.id || s === a.id) : null;
+    const selObj = sel && sel.id ? sel : null;
+    const checkedMain = selectedIds && (selectedIds.includes(a.id) || (selectedIds.some&&selectedIds.some(s=>s.id===a.id))) ? 'checked' : '';
+    const isPIF = selObj ? selObj.pif : true;
+    const isSTAB = selObj ? selObj.stab : false;
+    return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:4px">
+      <input type="checkbox" class="analyse-check" data-id="${a.id}" ${checkedMain} style="flex-shrink:0">
+      <span style="font-size:12px;flex:1">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</span>
+      <label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--blue);cursor:pointer">
+        <input type="checkbox" class="type-pif" data-id="${a.id}" ${isPIF?'checked':''}>PIF
+      </label>
+      <label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--purple);cursor:pointer">
+        <input type="checkbox" class="type-stab" data-id="${a.id}" ${isSTAB?'checked':''}>STAB
+      </label>
+    </div>`;
+  }).join('');
+}
+// ============================================================
+// WIZARD ECHANTILLON - 7 ETAPES
+// ============================================================
+let wizardStep = 1;
+const WIZARD_TOTAL = 7;
+const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Analyses','Recapitulatif'];
+
+function openWizard() {
+  wizardStep = 1;
+  ['w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  const nb = document.getElementById('w-nb-series'); if(nb) nb.value=1;
+  const dt = document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
+  const wpif = document.getElementById('w-type-pif'); if(wpif) wpif.checked=false;
+  const wstab = document.getElementById('w-type-stab'); if(wstab) wstab.checked=false;
+  const pifCard = document.getElementById('w-pif-card');
+  const stabCard = document.getElementById('w-stab-card');
+  if(pifCard) { pifCard.style.border='2px solid var(--border)'; pifCard.style.background=''; }
+  if(stabCard) { stabCard.style.border='2px solid var(--border)'; stabCard.style.background=''; }
+  const stabOpts = document.getElementById('w-stab-options');
+  if(stabOpts) stabOpts.style.display='none';
+  const prodInfo = document.getElementById('w-produit-info');
+  if(prodInfo) prodInfo.style.display='none';
+  const prodPrev = document.getElementById('w-produit-analyses-preview');
+  if(prodPrev) prodPrev.style.display='none';
+  // Populate produit select
+  const sel = document.getElementById('w-produit');
+  if(sel) {
+    sel.innerHTML = '<option value="">— Choisir un produit —</option>' +
+      (state.produitsEch||[]).map(p=>`<option value="${p.id}">${p.nom}${p.code?' ('+p.code+')':''}</option>`).join('');
+    sel.value = '';
+  }
+  wizardRender();
+  openModal('modal-echantillon');
+}
+
+function wizardRender() {
+  for (let i=1; i<=WIZARD_TOTAL; i++) {
+    const el = document.getElementById('wstep-'+i);
+    if (el) el.style.display = i===wizardStep ? 'block' : 'none';
+  }
+  const lbl = document.getElementById('wizard-step-label');
+  const nm = document.getElementById('wizard-step-name');
+  const prog = document.getElementById('wizard-progress');
+  if(lbl) lbl.textContent = `Etape ${wizardStep} / ${WIZARD_TOTAL}`;
+  if(nm) nm.textContent = WIZARD_NAMES[wizardStep-1];
+  if(prog) prog.style.width = Math.round(wizardStep/WIZARD_TOTAL*100)+'%';
+  // Dots
+  for(let i=1; i<=WIZARD_TOTAL; i++) {
+    const dot = document.getElementById('wdot-'+i);
+    if(dot) dot.style.background = i<=wizardStep ? 'var(--cyan)' : 'var(--border)';
+  }
+  const prev = document.getElementById('wizard-btn-prev');
+  if(prev) prev.style.display = wizardStep>1 ? 'flex' : 'none';
+  const next = document.getElementById('wizard-btn-next');
+  if(next) {
+    next.innerHTML = wizardStep===WIZARD_TOTAL
+      ? '<i class="ti ti-check"></i> Confirmer la reception'
+      : 'Suivant <i class="ti ti-arrow-right"></i>';
+  }
+  if(wizardStep===4) previewSousSeries();
+  if(wizardStep===5) wizardLoadMarches();
+  if(wizardStep===6) wizardLoadAnalyses();
+  if(wizardStep===7) wizardRecap();
+}
+
+function wizardNext() {
+  if (!wizardValidate()) return;
+  if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
+  wizardStep++;
+  wizardRender();
+}
+
+function wizardPrev() {
+  if (wizardStep > 1) { wizardStep--; wizardRender(); }
+}
+
+function wizardValidate() {
+  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
+  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
+  if (wizardStep===3) {
+    if (!document.getElementById('w-type-pif').checked && !document.getElementById('w-type-stab').checked) {
+      toast('Selectionnez PIF et/ou STABILITE', 'error'); return false;
+    }
+  }
+  if (wizardStep===6) {
+    const checked = document.querySelectorAll('#w-analyses-select input:checked');
+    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
+  }
+  return true;
+}
+
+function wizardUpdateProduit() {
+  const id = parseInt(document.getElementById('w-produit').value);
+  const p = (state.produitsEch||[]).find(x=>x.id===id);
+  const info = document.getElementById('w-produit-info');
+  const prev = document.getElementById('w-produit-analyses-preview');
+  const list = document.getElementById('w-produit-analyses-list');
+  if (p) {
+    if(info) { info.style.display='block'; info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`; }
+    // Afficher analyses liees
+    const analyses = (state.catalogue||[]).filter(a => !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(id));
+    if(prev) prev.style.display = analyses.length ? 'block' : 'none';
+    if(list) list.innerHTML = analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join('');
+  } else {
+    if(info) info.style.display='none';
+    if(prev) prev.style.display='none';
+  }
+}
+
+function toggleTypeCard(type) {
+  const cb = document.getElementById('w-type-'+type);
+  if(!cb) return;
+  cb.checked = !cb.checked;
+  const card = document.getElementById('w-'+type+'-card');
+  if(!card) return;
+  if (type==='pif') {
+    card.style.border = cb.checked ? '2px solid var(--blue)' : '2px solid var(--border)';
+    card.style.background = cb.checked ? 'var(--blue-dim)' : '';
+  } else {
+    card.style.border = cb.checked ? '2px solid var(--purple)' : '2px solid var(--border)';
+    card.style.background = cb.checked ? 'var(--purple-dim)' : '';
+    const opts = document.getElementById('w-stab-options');
+    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
+  }
+}
+
+function previewSousSeries() {
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const lot = document.getElementById('w-lot')?.value || 'LOT';
+  const preview = document.getElementById('w-series-preview');
+  if (!preview) return;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  preview.innerHTML = Array.from({length:Math.min(nb,26)},(_,i)=>
+    `<span class="badge badge-cyan">${lot}-${letters[i]}</span>`
+  ).join('');
+}
+
+function wizardLoadMarches() {
+  const el = document.getElementById('w-marches-check'); if(!el) return;
+  const marches = state.marches||[];
+  if (!marches.length) {
+    el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marche defini. Allez dans Echantillons > Marches.</div>';
+    return;
+  }
+  el.innerHTML = marches.map(m => `
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${m.id}" style="flex-shrink:0">
+      <div>
+        <div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>
+        ${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}
+      </div>
+    </label>`).join('');
+}
+
+function wizardLoadAnalyses() {
+  const el = document.getElementById('w-analyses-select');
+  const noA = document.getElementById('w-no-analyses');
+  if(!el) return;
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const pif = document.getElementById('w-type-pif')?.checked;
+  const stab = document.getElementById('w-type-stab')?.checked;
+  // Filtrer les analyses liees au produit
+  const analyses = (state.catalogue||[]).filter(a => {
+    if (!prodId) return true;
+    if (!a.produitsIds || a.produitsIds.length===0) return true;
+    return a.produitsIds.includes(prodId);
+  });
+  if (!analyses.length) {
+    el.innerHTML=''; el.style.display='none';
+    if(noA) noA.style.display='block';
+    return;
+  }
+  el.style.display='flex'; if(noA) noA.style.display='none';
+  el.innerHTML = analyses.map(a => `
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0">
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>
+        ${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}
+        ${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}
+      </div>
+      <div style="display:flex;gap:4px;flex-shrink:0">
+        ${pif?`<span class="badge badge-blue" style="font-size:10px">PIF</span>`:''}
+        ${stab?`<span class="badge badge-purple" style="font-size:10px">STAB</span>`:''}
+      </div>
+    </label>`).join('');
+}
+
+function wizardRecap() {
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
+  const lot = document.getElementById('w-lot')?.value||'';
+  const date = document.getElementById('w-date')?.value||'';
+  const pif = document.getElementById('w-type-pif')?.checked;
+  const stab = document.getElementById('w-type-stab')?.checked;
+  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const temps = document.getElementById('w-stab-temps')?.value||'';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
+  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
+  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  const recap = document.getElementById('w-recap');
+  if(!recap) return;
+  recap.innerHTML = `
+    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div>
+      <div style="font-weight:600">${prod.nom||'—'}</div>
+      ${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Reception</div>
+      <div style="font-weight:600">${lot}</div>
+      <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
+      <div style="display:flex;gap:6px;margin-bottom:6px">
+        ${pif?'<span class="badge badge-blue">PIF</span>':''}
+        ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
+      </div>
+      ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
+      ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
+    </div>
+    ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div>
+    </div>`:''}
+    <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
+        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${nb} sous-serie${nb>1?'s':''}
+        = ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div>
+    </div>`;
+}
+
+function wizardConfirm() {
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
+  const lot = document.getElementById('w-lot')?.value.trim()||'';
+  const date = document.getElementById('w-date')?.value||'';
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const temps = document.getElementById('w-stab-temps')?.value||'';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
+  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  if (!state.echantillons) state.echantillons = [];
+  if (!state.planning) state.planning = [];
+  for (let i=0; i<nb; i++) {
+    const code = `${lot}-${letters[i]}`;
+    state.echantillons.push({
+      id: Date.now()+i, code, produitId: prodId, marcheIds,
+      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
+      stabEcheance: echeance, stabTemps: temps, lot, date, statut: 'recu', note: ''
+    });
+    analyses.forEach(a => {
+      state.planning.push({
+        id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
+        date, priorite: 'normale', statut: 'planifie',
+        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
+      });
+    });
+  }
+  addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
+  closeModal('modal-echantillon');
+  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
+  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
 }
 
 // ============================================================
@@ -1620,282 +1929,6 @@ function expiryStatus(expiry) {
 
 
 // ============================================================
-// WIZARD ECHANTILLON - 7 ETAPES
-// ============================================================
-let wizardStep = 1;
-const WIZARD_TOTAL = 7;
-const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Analyses','Recapitulatif'];
-
-function openWizard() {
-  wizardStep = 1;
-  ['w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-  const nb = document.getElementById('w-nb-series'); if(nb) nb.value=1;
-  const dt = document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
-  const wpif = document.getElementById('w-type-pif'); if(wpif) wpif.checked=false;
-  const wstab = document.getElementById('w-type-stab'); if(wstab) wstab.checked=false;
-  const pifCard = document.getElementById('w-pif-card');
-  const stabCard = document.getElementById('w-stab-card');
-  if(pifCard) { pifCard.style.border='2px solid var(--border)'; pifCard.style.background=''; }
-  if(stabCard) { stabCard.style.border='2px solid var(--border)'; stabCard.style.background=''; }
-  const stabOpts = document.getElementById('w-stab-options');
-  if(stabOpts) stabOpts.style.display='none';
-  const prodInfo = document.getElementById('w-produit-info');
-  if(prodInfo) prodInfo.style.display='none';
-  const prodPrev = document.getElementById('w-produit-analyses-preview');
-  if(prodPrev) prodPrev.style.display='none';
-  // Populate produit select
-  const sel = document.getElementById('w-produit');
-  if(sel) {
-    sel.innerHTML = '<option value="">— Choisir un produit —</option>' +
-      (state.produitsEch||[]).map(p=>`<option value="${p.id}">${p.nom}${p.code?' ('+p.code+')':''}</option>`).join('');
-    sel.value = '';
-  }
-  wizardRender();
-  openModal('modal-echantillon');
-}
-
-function wizardRender() {
-  for (let i=1; i<=WIZARD_TOTAL; i++) {
-    const el = document.getElementById('wstep-'+i);
-    if (el) el.style.display = i===wizardStep ? 'block' : 'none';
-  }
-  const lbl = document.getElementById('wizard-step-label');
-  const nm = document.getElementById('wizard-step-name');
-  const prog = document.getElementById('wizard-progress');
-  if(lbl) lbl.textContent = `Etape ${wizardStep} / ${WIZARD_TOTAL}`;
-  if(nm) nm.textContent = WIZARD_NAMES[wizardStep-1];
-  if(prog) prog.style.width = Math.round(wizardStep/WIZARD_TOTAL*100)+'%';
-  // Dots
-  for(let i=1; i<=WIZARD_TOTAL; i++) {
-    const dot = document.getElementById('wdot-'+i);
-    if(dot) dot.style.background = i<=wizardStep ? 'var(--cyan)' : 'var(--border)';
-  }
-  const prev = document.getElementById('wizard-btn-prev');
-  if(prev) prev.style.display = wizardStep>1 ? 'flex' : 'none';
-  const next = document.getElementById('wizard-btn-next');
-  if(next) {
-    next.innerHTML = wizardStep===WIZARD_TOTAL
-      ? '<i class="ti ti-check"></i> Confirmer la reception'
-      : 'Suivant <i class="ti ti-arrow-right"></i>';
-  }
-  if(wizardStep===4) previewSousSeries();
-  if(wizardStep===5) wizardLoadMarches();
-  if(wizardStep===6) wizardLoadAnalyses();
-  if(wizardStep===7) wizardRecap();
-}
-
-function wizardNext() {
-  if (!wizardValidate()) return;
-  if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
-  wizardStep++;
-  wizardRender();
-}
-
-function wizardPrev() {
-  if (wizardStep > 1) { wizardStep--; wizardRender(); }
-}
-
-function wizardValidate() {
-  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
-  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
-  if (wizardStep===3) {
-    if (!document.getElementById('w-type-pif').checked && !document.getElementById('w-type-stab').checked) {
-      toast('Selectionnez PIF et/ou STABILITE', 'error'); return false;
-    }
-  }
-  if (wizardStep===6) {
-    const checked = document.querySelectorAll('#w-analyses-select input:checked');
-    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
-  }
-  return true;
-}
-
-function wizardUpdateProduit() {
-  const id = parseInt(document.getElementById('w-produit').value);
-  const p = (state.produitsEch||[]).find(x=>x.id===id);
-  const info = document.getElementById('w-produit-info');
-  const prev = document.getElementById('w-produit-analyses-preview');
-  const list = document.getElementById('w-produit-analyses-list');
-  if (p) {
-    if(info) { info.style.display='block'; info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`; }
-    // Afficher analyses liees
-    const analyses = (state.catalogue||[]).filter(a => !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(id));
-    if(prev) prev.style.display = analyses.length ? 'block' : 'none';
-    if(list) list.innerHTML = analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join('');
-  } else {
-    if(info) info.style.display='none';
-    if(prev) prev.style.display='none';
-  }
-}
-
-function toggleTypeCard(type) {
-  const cb = document.getElementById('w-type-'+type);
-  if(!cb) return;
-  cb.checked = !cb.checked;
-  const card = document.getElementById('w-'+type+'-card');
-  if(!card) return;
-  if (type==='pif') {
-    card.style.border = cb.checked ? '2px solid var(--blue)' : '2px solid var(--border)';
-    card.style.background = cb.checked ? 'var(--blue-dim)' : '';
-  } else {
-    card.style.border = cb.checked ? '2px solid var(--purple)' : '2px solid var(--border)';
-    card.style.background = cb.checked ? 'var(--purple-dim)' : '';
-    const opts = document.getElementById('w-stab-options');
-    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
-  }
-}
-
-function previewSousSeries() {
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-  const lot = document.getElementById('w-lot')?.value || 'LOT';
-  const preview = document.getElementById('w-series-preview');
-  if (!preview) return;
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  preview.innerHTML = Array.from({length:Math.min(nb,26)},(_,i)=>
-    `<span class="badge badge-cyan">${lot}-${letters[i]}</span>`
-  ).join('');
-}
-
-function wizardLoadMarches() {
-  const el = document.getElementById('w-marches-check'); if(!el) return;
-  const marches = state.marches||[];
-  if (!marches.length) {
-    el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marche defini. Allez dans Echantillons > Marches.</div>';
-    return;
-  }
-  el.innerHTML = marches.map(m => `
-    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
-      <input type="checkbox" value="${m.id}" style="flex-shrink:0">
-      <div>
-        <div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>
-        ${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}
-      </div>
-    </label>`).join('');
-}
-
-function wizardLoadAnalyses() {
-  const el = document.getElementById('w-analyses-select');
-  const noA = document.getElementById('w-no-analyses');
-  if(!el) return;
-  const prodId = parseInt(document.getElementById('w-produit')?.value);
-  const pif = document.getElementById('w-type-pif')?.checked;
-  const stab = document.getElementById('w-type-stab')?.checked;
-  // Filtrer les analyses liees au produit
-  const analyses = (state.catalogue||[]).filter(a => {
-    if (!prodId) return true;
-    if (!a.produitsIds || a.produitsIds.length===0) return true;
-    return a.produitsIds.includes(prodId);
-  });
-  if (!analyses.length) {
-    el.innerHTML=''; el.style.display='none';
-    if(noA) noA.style.display='block';
-    return;
-  }
-  el.style.display='flex'; if(noA) noA.style.display='none';
-  el.innerHTML = analyses.map(a => `
-    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
-      <input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0">
-      <div style="flex:1">
-        <div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>
-        ${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}
-        ${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}
-      </div>
-      <div style="display:flex;gap:4px;flex-shrink:0">
-        ${pif?`<span class="badge badge-blue" style="font-size:10px">PIF</span>`:''}
-        ${stab?`<span class="badge badge-purple" style="font-size:10px">STAB</span>`:''}
-      </div>
-    </label>`).join('');
-}
-
-function wizardRecap() {
-  const prodId = parseInt(document.getElementById('w-produit')?.value);
-  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot = document.getElementById('w-lot')?.value||'';
-  const date = document.getElementById('w-date')?.value||'';
-  const pif = document.getElementById('w-type-pif')?.checked;
-  const stab = document.getElementById('w-type-stab')?.checked;
-  const echeance = document.getElementById('w-stab-echeance')?.value||'';
-  const temps = document.getElementById('w-stab-temps')?.value||'';
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
-  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  const recap = document.getElementById('w-recap');
-  if(!recap) return;
-  recap.innerHTML = `
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div>
-      <div style="font-weight:600">${prod.nom||'—'}</div>
-      ${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}
-    </div>
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Reception</div>
-      <div style="font-weight:600">${lot}</div>
-      <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
-    </div>
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
-      <div style="display:flex;gap:6px;margin-bottom:6px">
-        ${pif?'<span class="badge badge-blue">PIF</span>':''}
-        ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
-      </div>
-      ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
-      ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
-      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
-    </div>
-    ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div>
-    </div>`:''}
-    <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
-        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${nb} sous-serie${nb>1?'s':''}
-        = ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div>
-    </div>`;
-}
-
-function wizardConfirm() {
-  const prodId = parseInt(document.getElementById('w-produit')?.value);
-  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot = document.getElementById('w-lot')?.value.trim()||'';
-  const date = document.getElementById('w-date')?.value||'';
-  const pif = document.getElementById('w-type-pif')?.checked||false;
-  const stab = document.getElementById('w-type-stab')?.checked||false;
-  const echeance = document.getElementById('w-stab-echeance')?.value||'';
-  const temps = document.getElementById('w-stab-temps')?.value||'';
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
-  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  if (!state.echantillons) state.echantillons = [];
-  if (!state.planning) state.planning = [];
-  for (let i=0; i<nb; i++) {
-    const code = `${lot}-${letters[i]}`;
-    state.echantillons.push({
-      id: Date.now()+i, code, produitId: prodId, marcheIds,
-      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
-      stabEcheance: echeance, stabTemps: temps, lot, date, statut: 'recu', note: ''
-    });
-    analyses.forEach(a => {
-      state.planning.push({
-        id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
-        date, priorite: 'normale', statut: 'planifie',
-        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
-      });
-    });
-  }
-  addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
-  closeModal('modal-echantillon');
-  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
-  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
-}
-
-// ============================================================
 // ECHANTILLONS - PRODUITS ECH + MARCHES
 // ============================================================
 let echMenuOpen = false;
@@ -2228,9 +2261,412 @@ function cycleAnalyseStatut(echId, analyseId) {
 window.cycleAnalyseStatut = cycleAnalyseStatut;
 window.statutCell = statutCell;
 window.statutIcon = statutIcon;
-window.analyseStatutBtn = analyseStatutBtn;
-window.getMarcheAnalyses = getMarcheAnalyses;
 
+
+function editEchantillon(id) {
+  const e = state.echantillons.find(x=>x.id===id); if(!e) return;
+  editingId = id;
+  document.getElementById('e-id').value = e.code||'';
+  document.getElementById('e-nom').value = e.nom||'';
+  document.getElementById('e-origine').value = e.origine||'';
+  document.getElementById('e-date').value = e.date||'';
+  document.getElementById('e-analyse').value = e.analyse||'';
+  document.getElementById('e-tech').value = e.technicien||'';
+  document.getElementById('e-statut').value = e.statut||'recu';
+  document.getElementById('e-note').value = e.note||'';
+  openModal('modal-echantillon');
+}
+
+function deleteEchantillon(id) {
+  const e = state.echantillons.find(x=>x.id===id);
+  state.echantillons = state.echantillons.filter(x=>x.id!==id);
+  addActivity('trash','Echantillon supprime : '+(e?.code||''));
+  renderEchantillonsTable(); renderDashboard(); saveData();
+}
+
+
+// ============================================================
+// COMMANDES
+// ============================================================
+function getStockActif(produitId) {
+  return (state.contenants||[]).filter(c => {
+    const s = getStatutAuto(c);
+    return c.produitId === produitId && ['en_stock','ouvert'].includes(s);
+  }).length;
+}
+
+function getProduitsSousMin() {
+  return (state.produits||[]).filter(p => {
+    const min = parseInt(p.stockMin);
+    if (!min && min !== 0) return false;
+    return getStockActif(p.id) < min;
+  });
+}
+
+function renderCommandes() {
+  const produits = getProduitsSousMin();
+
+  // Badge sidebar
+  const badge = document.getElementById('badge-commandes');
+  if (badge) { badge.textContent = produits.length; badge.style.display = produits.length ? '' : 'none'; }
+
+  // Alertes visuelles
+  const alertBox = document.getElementById('commandes-alertes');
+  if (alertBox) {
+    if (!produits.length) {
+      alertBox.innerHTML = '<div style="background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--green)"><i class="ti ti-circle-check" style="font-size:20px"></i><div><strong>Tous les stocks sont OK</strong><br><span style="font-size:12px;opacity:0.8">Aucun produit en dessous du stock minimum</span></div></div>';
+    } else {
+      const urgents = produits.filter(p => getStockActif(p.id) === 0);
+      alertBox.innerHTML = `
+        ${urgents.length ? `<div style="background:var(--red-dim);border:1px solid var(--red);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--red);margin-bottom:10px"><i class="ti ti-urgent" style="font-size:20px"></i><div><strong>${urgents.length} produit${urgents.length>1?'s':''} en rupture de stock !</strong><br><span style="font-size:12px;opacity:0.8">${urgents.map(p=>p.nom).join(', ')}</span></div></div>` : ''}
+        <div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--amber)"><i class="ti ti-alert-triangle" style="font-size:20px"></i><div><strong>${produits.length} produit${produits.length>1?'s':''} sous le stock minimum</strong><br><span style="font-size:12px;opacity:0.8">Une commande est recommandee</span></div></div>`;
+    }
+  }
+
+  // Tableau
+  const tbody = document.getElementById('commandes-tbody');
+  if (!tbody) return;
+  if (!produits.length) {
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande a passer</p></div></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = produits.map(p => {
+    const stock = getStockActif(p.id);
+    const min = parseInt(p.stockMin)||0;
+    const urgent = stock === 0;
+    const cmdKey = 'cmd_statut_' + p.id;
+    const cmdStatut = (state.commandesStatut||{})[p.id] || 'a_commander';
+    const urgenceBadge = urgent
+      ? '<span class="badge badge-red"><i class="ti ti-urgent" style="font-size:10px"></i> Rupture</span>'
+      : '<span class="badge badge-amber"><i class="ti ti-alert-triangle" style="font-size:10px"></i> Alerte</span>';
+    const statutOptions = [
+      {v:'a_commander', l:'A commander'},
+      {v:'commandee', l:'Commandee'},
+      {v:'en_attente', l:'En attente livraison'},
+    ];
+    return `<tr style="${urgent?'background:var(--red-dim)':''}">
+      <td><strong>${p.nom}</strong>${p.localisation?'<br><span style="font-size:11px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
+      <td>${p.fournisseur||'-'}</td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'-'}</code></td>
+      <td style="text-align:center"><strong style="font-size:18px;color:${urgent?'var(--red)':'var(--amber)'}">${stock}</strong><br><span style="font-size:11px;color:var(--text3)">contenant${stock>1?'s':''}</span></td>
+      <td style="text-align:center"><strong>${min}</strong><br><span style="font-size:11px;color:var(--text3)">minimum</span></td>
+      <td style="text-align:center">${p.qteCmde?'<strong>'+p.qteCmde+'</strong>':'-'}</td>
+      <td>${urgenceBadge}</td>
+      <td>
+        <select style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;color:var(--text);font-size:12px;cursor:pointer" onchange="setCommandeStatut(${p.id}, this.value)">
+          ${statutOptions.map(o=>`<option value="${o.v}" ${cmdStatut===o.v?'selected':''}>${o.l}</option>`).join('')}
+        </select>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function setCommandeStatut(produitId, statut) {
+  if (!state.commandesStatut) state.commandesStatut = {};
+  state.commandesStatut[produitId] = statut;
+  addActivity('shopping-cart', 'Commande mise a jour : ' + ((state.produits||[]).find(p=>p.id===produitId)?.nom||''));
+  saveData();
+}
+
+function exportCommandes() {
+  const produits = getProduitsSousMin();
+  if (!produits.length) { toast('Aucune commande a exporter', 'info'); return; }
+  const headers = ['Produit','Fournisseur','Reference','Stock actuel','Stock minimum','Qte a commander','Urgence'];
+  const rows = produits.map(p => {
+    const stock = getStockActif(p.id);
+    return [p.nom, p.fournisseur||'', p.ref||'', stock, p.stockMin||'', p.qteCmde||'', stock===0?'Rupture':'Alerte'].join(';');
+  });
+  const csv = [headers.join(';'), ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'commandes-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  toast('Export CSV telecharge', 'success');
+}
+
+// ============================================================
+// HABILITATIONS
+// ============================================================
+function saveHabilitation() {
+  const prenom = document.getElementById('h-prenom').value.trim();
+  const nom = document.getElementById('h-nom').value.trim();
+  if (!prenom || !nom) { toast('Prenom et nom sont obligatoires', 'error'); return; }
+  const habs = document.getElementById('h-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const entry = { id: editingId||Date.now(), prenom, nom, role: document.getElementById('h-role').value, habilitations: habs, date: document.getElementById('h-date').value, statut: document.getElementById('h-statut').value };
+  if (editingId) { const i=state.techniciens.findIndex(x=>x.id===editingId); state.techniciens[i]=entry; addActivity('pencil','Technicien modifie : '+prenom+' '+nom); }
+  else { state.techniciens.push(entry); addActivity('certificate','Technicien ajoute : '+prenom+' '+nom); }
+  editingId = null;
+  closeModal('modal-hab');
+  renderTechniciens(); renderDashboard(); updateBadges(); populateTechSelects(); saveData();
+}
+
+function renderTechniciens() {
+  const grid = document.getElementById('tech-grid');
+  if (!state.techniciens.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-certificate"></i><p>Aucun technicien enregistre</p></div>`; return; }
+  const statutCls = { actif:'badge-green', formation:'badge-amber', inactif:'badge-gray' };
+  grid.innerHTML = state.techniciens.map(t => `
+    <div class="tech-card">
+      <div class="tech-card-header">
+        <div class="avatar">${t.prenom[0]}${t.nom[0]}</div>
+        <div>
+          <div class="tech-name">${t.prenom} ${t.nom}</div>
+          <div class="tech-role">${t.role||'Technicien'}</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:4px">
+          <button class="icon-btn" onclick="editTech(${t.id})"><i class="ti ti-pencil"></i></button>
+          <button class="icon-btn danger" onclick="deleteTech(${t.id})"><i class="ti ti-trash"></i></button>
+        </div>
+      </div>
+      <div style="margin-bottom:10px"><span class="badge ${statutCls[t.statut]||'badge-gray'}">${t.statut||'actif'}</span>${t.date?`<span style="font-size:11px;color:var(--text3);margin-left:8px"><i class="ti ti-calendar" style="font-size:11px"></i> depuis ${formatDate(t.date)}</span>`:''}</div>
+      <div class="hab-list">${(t.habilitations||[]).map(h=>`<span class="badge badge-cyan">${h}</span>`).join('')}</div>
+    </div>`).join('');
+  populateTechSelects();
+}
+
+function editTech(id) {
+  const t = state.techniciens.find(x=>x.id===id); if(!t) return;
+  editingId = id;
+  document.getElementById('h-prenom').value = t.prenom;
+  document.getElementById('h-nom').value = t.nom;
+  document.getElementById('h-role').value = t.role||'';
+  document.getElementById('h-habs').value = (t.habilitations||[]).join(', ');
+  document.getElementById('h-date').value = t.date||'';
+  document.getElementById('h-statut').value = t.statut||'actif';
+  openModal('modal-hab');
+}
+
+function deleteTech(id) {
+  const t = state.techniciens.find(x=>x.id===id);
+  state.techniciens = state.techniciens.filter(x=>x.id!==id);
+  addActivity('trash','Technicien supprime : '+(t?t.prenom+' '+t.nom:''));
+  renderTechniciens(); renderDashboard(); updateBadges(); saveData();
+}
+
+function populateTechSelects() {
+  ['p-tech','e-tech'].forEach(id => {
+    const sel = document.getElementById(id); if(!sel) return;
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif').map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
+    sel.value = cur;
+  });
+}
+
+// ============================================================
+// BADGES & UTILS
+// ============================================================
+function updateBadges() {
+  const critical = (state.contenants||[]).filter(c=>isContenantCritical(c) && c.statut !== 'archive' && c.statut !== 'retire').length;
+  const badge = document.getElementById('badge-reactifs');
+  if (badge) { badge.textContent = critical; badge.style.display = critical ? '' : 'none'; }
+  // Badge commandes
+  const nbCmd = getProduitsSousMin ? getProduitsSousMin().length : 0;
+  const badgeCmd = document.getElementById('badge-commandes');
+  if (badgeCmd) { badgeCmd.textContent = nbCmd; badgeCmd.style.display = nbCmd ? '' : 'none'; }
+}
+
+function prioriteBadge(p) {
+  const map = { normale:'badge-gray', haute:'badge-amber', urgente:'badge-red' };
+  const icons = { normale:'minus', haute:'arrow-up', urgente:'urgent' };
+  return `<span class="badge ${map[p]||'badge-gray'}"><i class="ti ti-${icons[p]||'minus'}" style="font-size:11px"></i> ${p||'normale'}</span>`;
+}
+
+function statutBadge(s) {
+  const map = { planifie:'badge-blue', en_cours:'badge-amber', termine:'badge-green', annule:'badge-gray' };
+  return `<span class="badge ${map[s]||'badge-gray'}">${(s||'').replace('_',' ')}</span>`;
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(id) {
+  if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
+  if (id === 'modal-analyse') { if(!editingId) document.getElementById('modal-analyse-title').textContent='Nouvelle analyse'; }
+  if (id === 'modal-echantillon') {
+    populateTechSelects();
+    populateProduitEchSelect();
+    if (!editingId) {
+      if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
+      const prev = document.getElementById('e-analyses-preview');
+      if (prev) prev.style.display = 'none';
+      const _et=document.getElementById('modal-ech-title'); if(_et) _et.textContent='Reception echantillon';
+    }
+  }
+  if (id === 'modal-marche') {
+    if (!editingId) {
+      populateAnalysesChecks('m-analyses-check', []);
+      document.getElementById('modal-marche-title').textContent = 'Nouveau marche';
+    }
+  }
+  if (id === 'modal-produit-ech') {
+    if (!editingId) document.getElementById('modal-produit-ech-title').textContent = 'Nouveau produit';
+  }
+  if (id === 'modal-contenant') { populateProduitSelect(); }
+  if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
+  if (id === 'modal-reactif') {
+    document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
+  }
+  if (!editingId) {
+    const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
+    inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
+    const sels = document.querySelectorAll('#'+id+' select');
+    sels.forEach(s => { if(s.options.length) s.selectedIndex = 0; });
+    if (id === 'modal-contenant') {
+      const nb = document.getElementById('c-nb'); if(nb) nb.value = 1;
+    }
+  }
+  const el = document.getElementById(id);
+  el.classList.add('open');
+  el.style.display = 'flex';
+}
+
+function closeModal(id) {
+  const el = document.getElementById(id);
+  el.classList.remove('open');
+  el.style.display = 'none';
+  editingId = null;
+}
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); });
+});
+
+// Expose all functions globally for onclick handlers
+window.openGithubConfig = openGithubConfig;
+window.showGithubConfig = showGithubConfig;
+window.saveGithubConfig = saveGithubConfig;
+window.testGithubConfig = testGithubConfig;
+window.syncNow = syncNow;
+window.exportData = exportData;
+window.goTo = goTo;
+window.changeMonth = changeMonth;
+window.quickAddPlanning = quickAddPlanning;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.savePlanning = savePlanning;
+window.editPlanning = editPlanning;
+window.deletePlanning = deletePlanning;
+window.saveProduit = saveProduit;
+window.editProduit = editProduit;
+window.deleteProduit = deleteProduit;
+window.saveContenant = saveContenant;
+window.editContenant = editContenant;
+window.deleteContenant = deleteContenant;
+window.fermerContenant = fermerContenant;
+window.addContenantForProduit = addContenantForProduit;
+window.ouvrirContenant = ouvrirContenant;
+window.confirmerOuverture = confirmerOuverture;
+window.afficherValiditeOuverture = afficherValiditeOuverture;
+window.computeValidite = computeValidite;
+window.getStatutAuto = getStatutAuto;
+window.populateProduitSelect = populateProduitSelect;
+window.populateTechSelects = populateTechSelects;
+window.renderReactifsTable = renderReactifsTable;
+window.renderProduitsAccordion = renderProduitsAccordion;
+window.renderPlanningTable = renderPlanningTable;
+window.renderEchantillonsTable = renderEchantillonsTable;
+window.renderTechniciens = renderTechniciens;
+window.renderDashboard = renderDashboard;
+window.renderCalendar = renderCalendar;
+window.updateBadges = updateBadges;
+window.expiryStatus = expiryStatus;
+window.statutContenantBadge = statutContenantBadge;
+window.calcValidite = calcValidite;
+window.toggleAccordion = toggleAccordion;
+
+// -- NAVIGATION REACTIFS --------------------------------------
+
+function toggleReactifsMenu(e) {
+  reactifsMenuOpen = !reactifsMenuOpen;
+  const menu = document.getElementById('reactifs-submenu');
+  const chevron = document.getElementById('reactifs-chevron');
+  if (menu) menu.style.display = reactifsMenuOpen ? 'block' : 'none';
+  if (chevron) chevron.style.transform = reactifsMenuOpen ? 'rotate(180deg)' : '';
+  if (reactifsMenuOpen) goToReactifs('contenants');
+}
+
+function goToReactifs(view) {
+  currentReactifsView = view;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-reactifs');
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('#reactifs-submenu .nav-sub').forEach(n => n.classList.remove('active'));
+  ['produits','contenants','archives'].forEach(v => {
+    const el = document.getElementById('reactifs-view-'+v);
+    if (el) el.style.display = 'none';
+  });
+  const target = document.getElementById('reactifs-view-'+view);
+  if (target) { target.style.display = 'block'; }
+  const subItems = document.querySelectorAll('#reactifs-submenu .nav-sub');
+  const labels = {produits:0, contenants:1, archives:2};
+  if (subItems[labels[view]]) subItems[labels[view]].classList.add('active');
+  if (view === 'produits') renderProduitsAccordion();
+  if (view === 'contenants') renderReactifsTable();
+  if (view === 'archives') renderArchivesTable();
+}
+
+function renderArchivesTable() {
+  if (!state.contenants) state.contenants = [];
+  const fProduit = (document.getElementById('fa-produit')?.value||'').toLowerCase();
+  const fLot = (document.getElementById('fa-lot')?.value||'').toLowerCase();
+  const fFourn = (document.getElementById('fa-fourn')?.value||'').toLowerCase();
+  const fStatut = document.getElementById('fa-statut')?.value||'';
+  const archives = state.contenants.filter(c => {
+    const s = getStatutAuto(c);
+    if (!['archive','retire','expire'].includes(s)) return false;
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
+    if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
+    if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
+    if (fStatut && s !== fStatut) return false;
+    return true;
+  });
+  const tbody = document.getElementById('archives-tbody');
+  if (!tbody) return;
+  if (!archives.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-archive"></i><p>Aucune archive</p></div></td></tr>'; return; }
+  tbody.innerHTML = archives.map(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const statAuto = getStatutAuto(c);
+    const expFab = expiryStatus(c.peremption);
+    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
+    return `<tr style="opacity:0.75">
+      <td style="font-size:12px"><strong>${p.nom||'-'}</strong></td>
+      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
+      <td style="font-size:12px">${p.fournisseur||'-'}</td>
+      <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
+      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'-'}</td>
+      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
+      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite):'-'}</td>
+      <td>${statutContenantBadge(statAuto)}</td>
+      <td><div class="actions" style="opacity:1">
+        <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr>`;
+  }).join('');
+}
+
+function resetFiltresArchives() {
+  ['fa-produit','fa-lot','fa-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  const sel=document.getElementById('fa-statut'); if(sel) sel.value='';
+  renderArchivesTable();
+}
+
+window.resetFiltres = resetFiltres;
+window.renderCommandes = renderCommandes;
+window.setCommandeStatut = setCommandeStatut;
+window.exportCommandes = exportCommandes;
+window.getProduitsSousMin = getProduitsSousMin;
+window.getStockActif = getStockActif;
+window.toggleReactifsMenu = toggleReactifsMenu;
+window.togglePlanningMenu = togglePlanningMenu;
+window.toggleEchMenu = toggleEchMenu;
 window.goToEch = goToEch;
 window.saveProduitEch = saveProduitEch;
 window.editProduitEch = editProduitEch;
@@ -2274,6 +2710,20 @@ function toast(msg, type='info') {
   document.getElementById('toast-container').appendChild(t);
   setTimeout(() => t.remove(), 3500);
 }
+
+window.openWizard = openWizard;
+window.wizardNext = wizardNext;
+window.wizardPrev = wizardPrev;
+window.wizardUpdateProduit = wizardUpdateProduit;
+window.toggleTypeCard = toggleTypeCard;
+window.previewSousSeries = previewSousSeries;
+window.wizardConfirm = wizardConfirm;
+window.wizardLoadAnalyses = wizardLoadAnalyses;
+window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
+window.getMarcheAnalyses = getMarcheAnalyses;
+window.populateAnalysesChecks = populateAnalysesChecks;
+window.cycleAnalyseStatut = cycleAnalyseStatut;
+window.statutIcon = statutIcon;
 
 </script>
 </body>
