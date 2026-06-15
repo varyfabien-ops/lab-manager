@@ -2050,7 +2050,7 @@ function deleteMarche(id) {
 
 // ── SELECTION MARCHE DANS MODAL ECHANTILLON ───────────────────
 function onProduitEchSelect() {
-  populateMarcheChecks('e-marches-check', []);
+  if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
   onMarcheEchChange();
 }
 
@@ -2332,30 +2332,30 @@ function formatDate(d) {
 // ============================================================
 function openModal(id) {
   if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
-  if (id === 'modal-analyse') { if(!editingId) document.getElementById('modal-analyse-title').textContent='Nouvelle analyse'; }
+  if (id === 'modal-analyse') { if(!editingId) { const at=document.getElementById('modal-analyse-title'); if(at) at.textContent='Nouvelle analyse'; } }
   if (id === 'modal-echantillon') {
     populateTechSelects();
     populateProduitEchSelect();
     if (!editingId) {
-      populateMarcheChecks('e-marches-check', []);
+      if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
       const prev = document.getElementById('e-analyses-preview');
       if (prev) prev.style.display = 'none';
-      document.getElementById('modal-ech-title').textContent = 'Reception echantillon';
+      const echTitle = document.getElementById('modal-ech-title'); if(echTitle) echTitle.textContent = 'Reception echantillon';
     }
   }
   if (id === 'modal-marche') {
     if (!editingId) {
       populateAnalysesChecks('m-analyses-check', []);
-      document.getElementById('modal-marche-title').textContent = 'Nouveau marche';
+      const mt=document.getElementById('modal-marche-title'); if(mt) mt.textContent='Nouveau marche';
     }
   }
   if (id === 'modal-produit-ech') {
-    if (!editingId) document.getElementById('modal-produit-ech-title').textContent = 'Nouveau produit';
+    if (!editingId) { const pet=document.getElementById('modal-produit-ech-title'); if(pet) pet.textContent='Nouveau produit'; }
   }
   if (id === 'modal-contenant') { populateProduitSelect(); }
   if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
-    document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
+    const rt=document.getElementById('modal-reactif-title'); if(rt) rt.textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
   }
   if (!editingId) {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
