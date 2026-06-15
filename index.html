@@ -344,7 +344,7 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <table><thead><tr><th>ID</th><th>Produit</th><th>Marches</th><th>Date reception</th><th>Analyses generees</th><th>Statut</th><th></th></tr></thead>
+      <table><thead><tr><th>Produit</th><th>Lot</th><th>Sous-serie</th><th>Analyse</th><th>Marches</th><th>Date reception</th><th>Statut analyse</th><th></th></tr></thead>
       <tbody id="ech-tbody"></tbody></table>
     </div>
   </div>
@@ -2107,25 +2107,80 @@ function saveEchantillon() {
 
 function renderEchantillonsTable() {
   const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
-  const rows = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q));
+  const echantillons = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q));
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
-  if (!rows.length) { tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
-  const statuts = { recu:'badge-blue', en_analyse:'badge-amber', termine:'badge-green', conforme:'badge-cyan', non_conforme:'badge-red' };
-  tbody.innerHTML = rows.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e => {
+  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
+  // Trier par date desc
+  echantillons.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const rows = [];
+  echantillons.forEach(e => {
     const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
     const marches = (e.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
     const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    return '<tr>'
-      +'<td><code style="font-size:12px;background:var(--bg3);padding:2px 8px;border-radius:4px;color:var(--cyan)">'+e.code+'</code>'+(e.lot?'<br><span style="font-size:11px;color:var(--text3)">Lot: '+e.lot+'</span>':'')+'</td>'
-      +'<td><strong>'+(produit?produit.nom:e.nom||'—')+'</strong>'+(produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+(produit.dosage?' '+produit.dosage:'')+'</span>':'')+'</td>'
-      +'<td>'+(marches.length?marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</td>'
-      +'<td>'+(e.date?formatDate(e.date):'—')+'</td>'
-      +'<td>'+(analyses.length?analyses.map(a=>'<span class="badge badge-cyan" style="font-size:10px">'+a.nom+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</td>'
-      +'<td><span class="badge '+(statuts[e.statut]||'badge-gray')+'">'+(e.statut||'').replace('_',' ')+'</span></td>'
-      +'<td><div class="actions"><button class="icon-btn" onclick="editEchantillon('+e.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon('+e.id+')"><i class="ti ti-trash"></i></button></div></td>'
-      +'</tr>';
-  }).join('');
+    if (!analyses.length) {
+      // Ligne sans analyse
+      rows.push(`<tr>
+        <td><strong>${produit?produit.nom:'—'}</strong>${produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+'</span>':''}</td>
+        <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:3px">${e.lot||'—'}</code></td>
+        <td><span class="badge badge-cyan">${e.code||'—'}</span></td>
+        <td><span style="color:var(--text3);font-size:12px">Aucune analyse</span></td>
+        <td>${marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—'}</td>
+        <td>${e.date?formatDate(e.date):'—'}</td>
+        <td>—</td>
+        <td><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
+      </tr>`);
+    } else {
+      analyses.forEach((a, ai) => {
+        const statKey = `${e.id}_${a.id}`;
+        const statut = (e.analyseStatuts||{})[a.id] || 'attente';
+        rows.push(`<tr>
+          ${ai===0 ? `<td rowspan="${analyses.length}" style="border-right:1px solid var(--border);vertical-align:middle"><strong>${produit?produit.nom:'—'}</strong>${produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+'</span>':''}</td>
+          <td rowspan="${analyses.length}" style="border-right:1px solid var(--border);vertical-align:middle"><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:3px">${e.lot||'—'}</code></td>
+          <td rowspan="${analyses.length}" style="border-right:1px solid var(--border);vertical-align:middle"><span class="badge badge-cyan">${e.code||'—'}</span></td>` : ''}
+          <td style="font-size:13px"><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px">'+a.code+'</code>':''}</td>
+          <td>${ai===0?marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—':''}</td>
+          <td>${ai===0?(e.date?formatDate(e.date):'—'):''}</td>
+          <td>${analyseStatutBtn(e.id, a.id, statut)}</td>
+          <td>${ai===0?`<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div>`:''}</td>
+        </tr>`);
+      });
+    }
+  });
+  tbody.innerHTML = rows.join('');
+}
+
+function analyseStatutBtn(echId, analyseId, statut) {
+  const statuts = {
+    attente:  { icon:'clock',        color:'var(--text3)',  label:'En attente', next:'lancee' },
+    lancee:   { icon:'player-play',  color:'var(--amber)',  label:'Lancee',     next:'terminee' },
+    terminee: { icon:'circle-check', color:'var(--blue)',   label:'Terminee',   next:'verifiee' },
+    verifiee: { icon:'rosette',      color:'var(--green)',  label:'Verifiee',   next:'attente' },
+  };
+  const s = statuts[statut] || statuts.attente;
+  return `<button class="icon-btn" onclick="cycleAnalyseStatut(${echId},${analyseId})" title="${s.label} — cliquer pour avancer" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-color:${s.color};color:${s.color};font-size:12px;font-weight:600">
+    <i class="ti ti-${s.icon}" style="font-size:15px"></i>${s.label}
+  </button>`;
+}
+
+function cycleAnalyseStatut(echId, analyseId) {
+  const order = ['attente','lancee','terminee','verifiee'];
+  const ech = (state.echantillons||[]).find(e=>e.id===echId);
+  if (!ech) return;
+  if (!ech.analyseStatuts) ech.analyseStatuts = {};
+  const cur = ech.analyseStatuts[analyseId] || 'attente';
+  const nextIdx = (order.indexOf(cur)+1) % order.length;
+  ech.analyseStatuts[analyseId] = order[nextIdx];
+  // Mettre à jour statut global echantillon
+  const allStatuts = Object.values(ech.analyseStatuts);
+  const ids = ech.analysesIds||[];
+  if (ids.every(id => (ech.analyseStatuts[id]||'attente')==='verifiee')) ech.statut = 'conforme';
+  else if (allStatuts.some(s=>s==='lancee'||s==='terminee')) ech.statut = 'en_analyse';
+  else ech.statut = 'recu';
+  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
+  addActivity('list-check', `${ech.code} — ${a?.nom||'analyse'} : ${order[nextIdx]}`);
+  renderEchantillonsTable();
+  saveData();
 }
 
 function editEchantillon(id) {
@@ -2541,6 +2596,8 @@ window.previewSousSeries = previewSousSeries;
 window.wizardConfirm = wizardConfirm;
 window.wizardLoadAnalyses = wizardLoadAnalyses;
 window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
+window.cycleAnalyseStatut = cycleAnalyseStatut;
+window.analyseStatutBtn = analyseStatutBtn;
 window.getMarcheAnalyses = getMarcheAnalyses;
 
 window.goToEch = goToEch;
