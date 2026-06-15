@@ -249,7 +249,7 @@
       <div class="table-card-header"><h3>Analyses referencees</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
       </div>
-      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations requises</th><th>Duree estimee</th><th>Description / Norme</th><th></th></tr></thead>
+      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations</th><th>Produits applicables</th><th>Duree</th><th>Description</th><th></th></tr></thead>
       <tbody id="catalogue-tbody"></tbody></table>
     </div>
   </div>
@@ -426,6 +426,10 @@
         <div class="form-group full"><label>Habilitations requises <span style="color:var(--text3);font-weight:400">(séparées par des virgules)</span></label><input id="a-habs" placeholder="Ex: HPLC, Dissolution, pH-métrie"></div>
         <div class="form-group"><label>Durée estimée</label><input id="a-duree" placeholder="Ex: 2h, 30min, 1 journée"></div>
         <div class="form-group"><label>Code / Référence</label><input id="a-code" placeholder="Ex: MO-HPLC-001"></div>
+        <div class="form-group full">
+          <label>Produits applicables <span style="color:var(--text3);font-weight:400">(cochez les produits concernés)</span></label>
+          <div id="a-produits-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:4px"></div>
+        </div>
         <div class="form-group full"><label>Description / Norme applicable</label><textarea id="a-desc" placeholder="Ex: Dosage par HPLC selon Ph.Eur. 2.2.29"></textarea></div>
       </div>
     </div>
@@ -1018,12 +1022,29 @@ function goToPlanning(view) {
   if (view === 'catalogue') renderCatalogue();
 }
 
+function populateProduitsAnalyseCheck(selectedIds) {
+  const el = document.getElementById('a-produits-check'); if(!el) return;
+  const prods = state.produitsEch||[];
+  if (!prods.length) {
+    el.innerHTML = '<span style="font-size:12px;color:var(--text3)">Aucun produit defini — allez dans Echantillons > Produits</span>';
+    return;
+  }
+  el.innerHTML = prods.map(p => {
+    const checked = selectedIds.includes(p.id) ? 'checked' : '';
+    return `<label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:4px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:12px">
+      <input type="checkbox" value="${p.id}" ${checked}>
+      ${p.nom}${p.code?' <code style="font-size:10px">'+p.code+'</code>':''}
+    </label>`;
+  }).join('');
+}
+
 function saveAnalyse() {
   const nom = document.getElementById('a-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.catalogue) state.catalogue = [];
   const habs = document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
-  const entry = { id: editingId||Date.now(), nom, habilitations: habs, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
+  const produits = Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value));
+  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds: produits, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
   if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
   editingId = null;
@@ -1040,13 +1061,17 @@ function renderCatalogue() {
   const tbody = document.getElementById('catalogue-tbody');
   if (!tbody) return;
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
-  tbody.innerHTML = rows.map(a => `<tr>
-    <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
-    <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
-    <td>${a.duree||'—'}</td>
-    <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
-    <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
-  </tr>`).join('');
+  tbody.innerHTML = rows.map(a => {
+    const prods = (a.produitsIds||[]).map(id=>(state.produitsEch||[]).find(p=>p.id===id)).filter(Boolean);
+    return `<tr>
+      <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
+      <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
+      <td>${prods.length ? prods.map(p=>'<span class="badge badge-blue" style="font-size:10px">'+p.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:11px">Tous produits</span>'}</td>
+      <td>${a.duree||'—'}</td>
+      <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
+      <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
+    </tr>`;
+  }).join('');
 }
 
 function editAnalyse(id) {
@@ -1057,8 +1082,9 @@ function editAnalyse(id) {
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
   document.getElementById('a-desc').value = a.description||'';
-  document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
+  const at=document.getElementById('modal-analyse-title'); if(at) at.textContent = 'Modifier l\'analyse';
   openModal('modal-analyse');
+  setTimeout(() => populateProduitsAnalyseCheck(a.produitsIds||[]), 50);
 }
 
 function deleteAnalyse(id) {
@@ -1740,13 +1766,18 @@ function wizardRecap() {
 
   // Calculer les analyses
   const analysesSet = new Map();
+  const prodId2 = parseInt(document.getElementById('w-produit').value);
   marches.forEach(m => {
     (m.analyses||[]).forEach(ao => {
-      if ((pif && ao.pif) || (stab && ao.stab)) {
-        if (!analysesSet.has(ao.id)) {
-          const a = (state.catalogue||[]).find(x=>x.id===ao.id);
-          if (a) analysesSet.set(ao.id, {...a, pif: ao.pif, stab: ao.stab});
+      if (!((pif && ao.pif) || (stab && ao.stab))) return;
+      if (!analysesSet.has(ao.id)) {
+        const a = (state.catalogue||[]).find(x=>x.id===ao.id);
+        if (!a) return;
+        // Filtre par produit si l'analyse a des produits definis
+        if (a.produitsIds && a.produitsIds.length > 0 && prodId2) {
+          if (!a.produitsIds.includes(prodId2)) return;
         }
+        analysesSet.set(ao.id, {...a, pif: ao.pif, stab: ao.stab});
       }
     });
   });
@@ -1804,13 +1835,18 @@ function wizardConfirm() {
 
   // Calculer les analyses uniques
   const analysesSet = new Map();
+  const prodId2 = parseInt(document.getElementById('w-produit').value);
   marches.forEach(m => {
     (m.analyses||[]).forEach(ao => {
-      if ((pif && ao.pif) || (stab && ao.stab)) {
-        if (!analysesSet.has(ao.id)) {
-          const a = (state.catalogue||[]).find(x=>x.id===ao.id);
-          if (a) analysesSet.set(ao.id, {...a, pif: ao.pif, stab: ao.stab});
+      if (!((pif && ao.pif) || (stab && ao.stab))) return;
+      if (!analysesSet.has(ao.id)) {
+        const a = (state.catalogue||[]).find(x=>x.id===ao.id);
+        if (!a) return;
+        // Filtre par produit si l'analyse a des produits definis
+        if (a.produitsIds && a.produitsIds.length > 0 && prodId2) {
+          if (!a.produitsIds.includes(prodId2)) return;
         }
+        analysesSet.set(ao.id, {...a, pif: ao.pif, stab: ao.stab});
       }
     });
   });
@@ -2332,7 +2368,10 @@ function formatDate(d) {
 // ============================================================
 function openModal(id) {
   if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
-  if (id === 'modal-analyse') { if(!editingId) { const at=document.getElementById('modal-analyse-title'); if(at) at.textContent='Nouvelle analyse'; } }
+  if (id === 'modal-analyse') {
+    if(!editingId) { const at=document.getElementById('modal-analyse-title'); if(at) at.textContent='Nouvelle analyse'; }
+    setTimeout(() => populateProduitsAnalyseCheck(editingId ? ((state.catalogue||[]).find(a=>a.id===editingId)||{}).produitsIds||[] : []), 50);
+  }
   if (id === 'modal-echantillon') {
     populateTechSelects();
     populateProduitEchSelect();
@@ -2520,6 +2559,7 @@ window.toggleTypeCard = toggleTypeCard;
 window.previewSousSeries = previewSousSeries;
 window.wizardConfirm = wizardConfirm;
 window.getMarcheAnalyses = getMarcheAnalyses;
+window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.goToEch = goToEch;
 window.saveProduitEch = saveProduitEch;
 window.editProduitEch = editProduitEch;
