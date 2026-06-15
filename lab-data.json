@@ -44,6 +44,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 9960001-A | PIF STAB"
+    },
+    {
+      "id": 1781512857183.959,
+      "nom": "pH",
+      "echantillonCode": "9960002-A",
+      "date": "2026-06-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960002-A |  STAB"
     }
   ],
   "catalogue": [
@@ -321,13 +330,35 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "en_cours"
+        "1781508652926": "verifiee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
-          "en_cours": "15/06/2026"
+          "en_cours": "15/06/2026",
+          "terminee": "15/06/2026",
+          "verifiee": "15/06/2026"
         }
       }
+    },
+    {
+      "id": 1781512857183,
+      "code": "9960002-A",
+      "produitId": 1781509248907,
+      "marcheIds": [
+        1781508724125,
+        1781509571572
+      ],
+      "analysesIds": [
+        1781509335357
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "5C",
+      "lot": "9960002",
+      "date": "2026-06-15",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -538,6 +569,21 @@
       "icon": "list-check",
       "text": "9960001-A — TCC0015 : en_cours",
       "time": "15/06 10:39"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960001-A — TCC0015 : terminee",
+      "time": "15/06 10:39"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960001-A — TCC0015 : verifiee",
+      "time": "15/06 10:39"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Xylocaïne Nébuliseur — 1 sous-serie — 1 analyse",
+      "time": "15/06 10:40"
     }
   ]
 }
