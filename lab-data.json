@@ -150,7 +150,17 @@
       "id": 1781449960257
     }
   ],
-  "produitsEch": [],
+  "produitsEch": [
+    {
+      "id": 1781508169429,
+      "nom": "Xylocaïne 5% Naphazoline",
+      "forme": "",
+      "dosage": "",
+      "code": "Na5",
+      "responsable": "",
+      "description": ""
+    }
+  ],
   "marches": [],
   "echantillons": [],
   "techniciens": [],
@@ -182,6 +192,11 @@
       "icon": "package",
       "text": "10x Méthanol HPLC Grade lot VBCN32443 receptionne(s)",
       "time": "14/06 17:12"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Xylocaïne 5% Naphazoline",
+      "time": "15/06 09:22"
     }
   ]
 }
