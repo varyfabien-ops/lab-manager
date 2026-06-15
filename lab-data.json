@@ -189,6 +189,15 @@
       "code": "Ne",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1781509266740,
+      "nom": "Lipiodol",
+      "forme": "",
+      "dosage": "",
+      "code": "LIP",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -279,6 +288,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Xylocaïne Nébuliseur",
       "time": "15/06 09:40"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Lipiodol",
+      "time": "15/06 09:41"
     }
   ]
 }
