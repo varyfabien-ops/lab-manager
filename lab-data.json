@@ -35,6 +35,20 @@
       "duree": "6h",
       "code": "TCC0015",
       "description": "Dosage Lidocaïne / PHBM / Naphazoline / Impuretés selon TCC0015"
+    },
+    {
+      "id": 1781509335357,
+      "nom": "pH",
+      "habilitations": [
+        "pH"
+      ],
+      "produitsIds": [
+        1781508169429,
+        1781509248907
+      ],
+      "duree": "",
+      "code": "",
+      "description": ""
     }
   ],
   "reactifs": [],
@@ -301,6 +315,11 @@
       "icon": "book",
       "text": "Analyse modifiee : TCC0015",
       "time": "15/06 09:41"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : pH",
+      "time": "15/06 09:42"
     }
   ]
 }
