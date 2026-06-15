@@ -269,10 +269,10 @@
       "stabTemps": "",
       "lot": "9960000",
       "date": "2026-06-15",
-      "statut": "recu",
+      "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "verifiee"
+        "1781508652926": "lancee"
       }
     }
   ],
@@ -393,6 +393,16 @@
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : verifiee",
+      "time": "15/06 10:10"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : attente",
+      "time": "15/06 10:10"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : lancee",
       "time": "15/06 10:10"
     }
   ]
