@@ -290,11 +290,11 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "terminee"
+        "1781508652926": "verifiee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
-          "verifiee": "15/06/26",
+          "verifiee": "15/06/2026",
           "a_lancer": "15/06/26",
           "en_cours": "15/06/2026",
           "terminee": "15/06/2026"
@@ -318,8 +318,16 @@
       "stabTemps": "",
       "lot": "9960001",
       "date": "2026-06-15",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781508652926": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781508652926": {
+          "en_cours": "15/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -519,6 +527,16 @@
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : terminee",
+      "time": "15/06 10:39"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : verifiee",
+      "time": "15/06 10:39"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960001-A — TCC0015 : en_cours",
       "time": "15/06 10:39"
     }
   ]
