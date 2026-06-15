@@ -8,6 +8,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": ""
+    },
+    {
+      "id": 1781510120638.0925,
+      "nom": "TCC0015",
+      "echantillonCode": "9960000-A",
+      "date": "2026-06-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960000-A | PIF"
+    },
+    {
+      "id": 1781510120638.6848,
+      "nom": "pH",
+      "echantillonCode": "9960000-A",
+      "date": "2026-06-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960000-A | PIF"
     }
   ],
   "catalogue": [
@@ -233,7 +251,28 @@
       "note": ""
     }
   ],
-  "echantillons": [],
+  "echantillons": [
+    {
+      "id": 1781510120638,
+      "code": "9960000-A",
+      "produitId": 1781508169429,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781508652926,
+        1781509335357
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "9960000",
+      "date": "2026-06-15",
+      "statut": "recu",
+      "note": ""
+    }
+  ],
   "techniciens": [
     {
       "id": 1781508237179,
@@ -332,6 +371,11 @@
       "icon": "world",
       "text": "Marche ajoute : Canada",
       "time": "15/06 09:46"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
+      "time": "15/06 09:55"
     }
   ]
 }
