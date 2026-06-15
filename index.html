@@ -344,18 +344,16 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <div style="overflow-x:auto"><table style="min-width:1000px"><thead><tr>
+      <div style="overflow-x:auto"><table style="min-width:900px"><thead><tr>
   <th style="width:160px">Produit</th>
-  <th style="width:100px">Lot</th>
-  <th style="width:80px">Nb s-series</th>
-  <th style="width:80px">Sous-serie</th>
-  <th style="width:140px">Analyse</th>
+  <th style="width:110px">Lot</th>
+  <th style="width:70px;text-align:center">Nb s-series</th>
   <th style="width:100px">Marches</th>
   <th style="width:100px">Date recep.</th>
-  <th style="width:90px;text-align:center;background:var(--amber-dim);color:var(--amber)"><i class="ti ti-player-play" style="font-size:13px"></i><br>A lancer</th>
-  <th style="width:90px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:13px"></i><br>En cours</th>
-  <th style="width:90px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:13px"></i><br>Terminee</th>
-  <th style="width:90px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:13px"></i><br>Verifiee</th>
+  <th style="width:160px">Analyse</th>
+  <th style="width:100px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:13px"></i><br>En cours</th>
+  <th style="width:100px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:13px"></i><br>Terminee</th>
+  <th style="width:100px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:13px"></i><br>Verifiee</th>
   <th style="width:40px"></th>
 </tr></thead>
       <tbody id="ech-tbody"></tbody></table></div>
@@ -2120,35 +2118,27 @@ function saveEchantillon() {
 
 function renderEchantillonsTable() {
   const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
-  // Grouper par lot
-  const echantillons = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q) || (e.produitId&&(state.produitsEch||[]).find(p=>p.id===e.produitId)?.nom.toLowerCase().includes(q)));
+  const echantillons = (state.echantillons||[]).filter(e => !q || (e.code||'').toLowerCase().includes(q) || (e.lot||'').toLowerCase().includes(q) || ((state.produitsEch||[]).find(p=>p.id===e.produitId)?.nom||'').toLowerCase().includes(q));
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
-  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="12"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>'; return; }
-  // Grouper par lot (meme lot = meme reception)
+  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>'; return; }
+  // Grouper par lot
   const lots = {};
-  echantillons.forEach(e => {
-    const key = e.lot||e.id;
-    if (!lots[key]) lots[key] = [];
-    lots[key].push(e);
-  });
+  echantillons.forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
   const rows = [];
-  Object.entries(lots).sort((a,b) => {
-    const da = a[1][0].date||''; const db = b[1][0].date||'';
-    return db.localeCompare(da);
-  }).forEach(([lotKey, sousSeries]) => {
+  Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, sousSeries]) => {
     const e0 = sousSeries[0];
     const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
     const marches = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
     const nbSeries = sousSeries.length;
     const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    const totalRows = Math.max(1, nbSeries * analyses.length);
+    const totalRows = Math.max(nbSeries, nbSeries * analyses.length);
 
     sousSeries.forEach((e, si) => {
       const sousSerieAnalyses = analyses.length ? analyses : [null];
       sousSerieAnalyses.forEach((a, ai) => {
-        const statut = a ? ((e.analyseStatuts||{})[a.id] || 'attente') : 'attente';
-        const statInfo = (e.analyseStatutsInfo||{})[a?.id] || {};
+        const statut = a ? ((e.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
+        const statInfo = a ? ((e.analyseStatutsInfo||{})[a.id] || {}) : {};
         const isFirstOfLot = si===0 && ai===0;
         const isFirstOfSerie = ai===0;
         rows.push(`<tr>
@@ -2161,22 +2151,17 @@ function renderEchantillonsTable() {
               <code style="font-size:12px;background:var(--bg3);padding:3px 8px;border-radius:4px">${e0.lot||'—'}</code>
             </td>
             <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
-              <span style="font-size:18px;font-weight:700;color:var(--cyan)">${nbSeries}</span>
-            </td>` : ''}
-          ${isFirstOfSerie ? `
-            <td rowspan="${sousSerieAnalyses.length}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
-              <span class="badge badge-cyan">${e.code||'—'}</span>
-            </td>` : ''}
-          <td style="font-size:12px">${a?`<strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px">'+a.code+'</code>':''}` : '<span style="color:var(--text3)">—</span>'}</td>
-          ${isFirstOfLot ? `
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border)">${marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join('<br>')||'—'}</td>
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);font-size:12px">${e0.date?formatDate(e0.date):'—'}</td>` : ''}
+              <span style="font-size:20px;font-weight:700;color:var(--cyan)">${nbSeries}</span>
+            </td>
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border)">${marches.map(m=>'<span class="badge badge-blue" style="display:block;margin-bottom:3px">'+m.nom+'</span>').join('')||'—'}</td>
+            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);font-size:12px">${e0.date?formatDate(e0.date):'—'}</td>
+          ` : ''}
+          <td style="font-size:12px;border-right:1px solid var(--border)">${a?`<strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px">'+a.code+'</code>':''}${si>0?'<br><span style="font-size:10px;color:var(--text3)">${e.code}</span>':''}` : '<span style="color:var(--text3)">—</span>'}</td>
           ${a ? `
-            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'a_lancer')}</td>
-            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'en_cours')}</td>
-            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'terminee')}</td>
-            <td style="text-align:center">${statutCell(e.id, a.id, statut, statInfo, 'verifiee')}</td>
-          ` : '<td colspan="4" style="text-align:center;color:var(--text3)">—</td>'}
+            <td style="text-align:center;border-right:1px solid var(--border)">${statutIcon(e.id, a.id, statut, statInfo, 'en_cours')}</td>
+            <td style="text-align:center;border-right:1px solid var(--border)">${statutIcon(e.id, a.id, statut, statInfo, 'terminee')}</td>
+            <td style="text-align:center;border-right:1px solid var(--border)">${statutIcon(e.id, a.id, statut, statInfo, 'verifiee')}</td>
+          ` : '<td colspan="3" style="text-align:center;color:var(--text3)">—</td>'}
           ${isFirstOfLot ? `<td rowspan="${totalRows}" style="vertical-align:middle"><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e0.id})"><i class="ti ti-trash"></i></button></div></td>` : ''}
         </tr>`);
       });
@@ -2185,61 +2170,53 @@ function renderEchantillonsTable() {
   tbody.innerHTML = rows.join('');
 }
 
-function statutCell(echId, analyseId, currentStatut, statInfo, cellType) {
+function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
   const curIdx = order.indexOf(currentStatut);
   const cellIdx = order.indexOf(cellType);
   const isDone = curIdx >= cellIdx && curIdx >= 0;
-  const isCurrent = currentStatut === cellType;
+  const isVerifiee = currentStatut === 'verifiee';
   const date = statInfo[cellType];
+  const colors = { en_cours:'var(--blue)', terminee:'var(--cyan)', verifiee:'var(--green)' };
+  const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
+  const c = colors[cellType];
+  const ic = icons[cellType];
+
   if (isDone) {
-    const colors = { a_lancer:'var(--amber)', en_cours:'var(--blue)', terminee:'var(--cyan)', verifiee:'var(--green)' };
-    const icons = { a_lancer:'player-play', en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
-    const c = colors[cellType]; const ic = icons[cellType];
-    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" title="${date?'Le '+date:''}" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%">
-      <i class="ti ti-${ic}" style="font-size:18px;color:${c}"></i>
-      ${date?`<span style="font-size:9px;color:${c}">${date}</span>`:''}
-    </button>`;
-  } else if (cellIdx === curIdx+1) {
-    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" title="Cliquer pour passer a cette etape" style="background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:6px;width:100%;opacity:0.3">
-      <i class="ti ti-arrow-right" style="font-size:16px;color:var(--text3)"></i>
+    // Icone pleine colorée + date
+    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px">
+      <i class="ti ti-${ic}" style="font-size:20px;color:${c}"></i>
+      ${date?`<span style="font-size:10px;font-weight:600;color:${c}">${date}</span>`:''}
+    </div>`;
+  } else if (cellIdx === curIdx+1 && !isVerifiee) {
+    // Prochaine etape : icone cliquable grisee
+    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" title="Cliquer pour passer a cette etape" style="background:none;border:2px dashed var(--border);border-radius:var(--radius);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%;transition:all 0.15s" onmouseover="this.style.borderColor='${c}';this.style.color='${c}'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">
+      <i class="ti ti-${ic}" style="font-size:18px;color:var(--text3)"></i>
+      <span style="font-size:9px;color:var(--text3)">Cliquer</span>
     </button>`;
   }
-  return '<span style="display:block;width:20px;height:2px;background:var(--border);margin:auto"></span>';
-}
-
-function analyseStatutBtn(echId, analyseId, statut) {
-  const statuts = {
-    attente:  { icon:'clock',        color:'var(--text3)',  label:'En attente', next:'lancee' },
-    lancee:   { icon:'player-play',  color:'var(--amber)',  label:'Lancee',     next:'terminee' },
-    terminee: { icon:'circle-check', color:'var(--blue)',   label:'Terminee',   next:'verifiee' },
-    verifiee: { icon:'rosette',      color:'var(--green)',  label:'Verifiee',   next:'attente' },
-  };
-  const s = statuts[statut] || statuts.attente;
-  return `<button class="icon-btn" onclick="cycleAnalyseStatut(${echId},${analyseId})" title="${s.label} — cliquer pour avancer" style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-color:${s.color};color:${s.color};font-size:12px;font-weight:600">
-    <i class="ti ti-${s.icon}" style="font-size:15px"></i>${s.label}
-  </button>`;
+  // Etape future : tiret
+  return '<span style="display:block;width:24px;height:2px;background:var(--border);margin:auto"></span>';
 }
 
 function cycleAnalyseStatut(echId, analyseId) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
-  // Chercher dans tous les echantillons du meme lot
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
   if (!ech) return;
   if (!ech.analyseStatuts) ech.analyseStatuts = {};
   if (!ech.analyseStatutsInfo) ech.analyseStatutsInfo = {};
   const cur = ech.analyseStatuts[analyseId] || 'a_lancer';
-  const curIdx = order.indexOf(cur);
-  const nextIdx = (curIdx+1) % order.length;
+  if (cur === 'verifiee') return; // Ne pas cycler apres verification
+  const nextIdx = order.indexOf(cur) + 1;
+  if (nextIdx >= order.length) return;
   const next = order[nextIdx];
   ech.analyseStatuts[analyseId] = next;
-  // Enregistrer la date de chaque etape
   if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
-  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'});
+  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
   ech.analyseStatutsInfo[analyseId][next] = today;
   // Statut global
   const ids = ech.analysesIds||[];
-  const allDone = ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
+  const allDone = ids.length && ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
   const anyStarted = ids.some(id=>{ const s=ech.analyseStatuts[id]||'a_lancer'; return s!=='a_lancer'; });
   ech.statut = allDone ? 'conforme' : anyStarted ? 'en_analyse' : 'recu';
   const a = (state.catalogue||[]).find(x=>x.id===analyseId);
@@ -2248,421 +2225,9 @@ function cycleAnalyseStatut(echId, analyseId) {
   saveData();
 }
 
-function editEchantillon(id) {
-  const e = state.echantillons.find(x=>x.id===id); if(!e) return;
-  editingId = id;
-  document.getElementById('e-id').value = e.code||'';
-  document.getElementById('e-nom').value = e.nom||'';
-  document.getElementById('e-origine').value = e.origine||'';
-  document.getElementById('e-date').value = e.date||'';
-  document.getElementById('e-analyse').value = e.analyse||'';
-  document.getElementById('e-tech').value = e.technicien||'';
-  document.getElementById('e-statut').value = e.statut||'recu';
-  document.getElementById('e-note').value = e.note||'';
-  openModal('modal-echantillon');
-}
-
-function deleteEchantillon(id) {
-  const e = state.echantillons.find(x=>x.id===id);
-  state.echantillons = state.echantillons.filter(x=>x.id!==id);
-  addActivity('trash','Echantillon supprime : '+(e?.code||''));
-  renderEchantillonsTable(); renderDashboard(); saveData();
-}
-
-
-// ============================================================
-// COMMANDES
-// ============================================================
-function getStockActif(produitId) {
-  return (state.contenants||[]).filter(c => {
-    const s = getStatutAuto(c);
-    return c.produitId === produitId && ['en_stock','ouvert'].includes(s);
-  }).length;
-}
-
-function getProduitsSousMin() {
-  return (state.produits||[]).filter(p => {
-    const min = parseInt(p.stockMin);
-    if (!min && min !== 0) return false;
-    return getStockActif(p.id) < min;
-  });
-}
-
-function renderCommandes() {
-  const produits = getProduitsSousMin();
-
-  // Badge sidebar
-  const badge = document.getElementById('badge-commandes');
-  if (badge) { badge.textContent = produits.length; badge.style.display = produits.length ? '' : 'none'; }
-
-  // Alertes visuelles
-  const alertBox = document.getElementById('commandes-alertes');
-  if (alertBox) {
-    if (!produits.length) {
-      alertBox.innerHTML = '<div style="background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--green)"><i class="ti ti-circle-check" style="font-size:20px"></i><div><strong>Tous les stocks sont OK</strong><br><span style="font-size:12px;opacity:0.8">Aucun produit en dessous du stock minimum</span></div></div>';
-    } else {
-      const urgents = produits.filter(p => getStockActif(p.id) === 0);
-      alertBox.innerHTML = `
-        ${urgents.length ? `<div style="background:var(--red-dim);border:1px solid var(--red);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--red);margin-bottom:10px"><i class="ti ti-urgent" style="font-size:20px"></i><div><strong>${urgents.length} produit${urgents.length>1?'s':''} en rupture de stock !</strong><br><span style="font-size:12px;opacity:0.8">${urgents.map(p=>p.nom).join(', ')}</span></div></div>` : ''}
-        <div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius-lg);padding:14px 18px;display:flex;align-items:center;gap:10px;color:var(--amber)"><i class="ti ti-alert-triangle" style="font-size:20px"></i><div><strong>${produits.length} produit${produits.length>1?'s':''} sous le stock minimum</strong><br><span style="font-size:12px;opacity:0.8">Une commande est recommandee</span></div></div>`;
-    }
-  }
-
-  // Tableau
-  const tbody = document.getElementById('commandes-tbody');
-  if (!tbody) return;
-  if (!produits.length) {
-    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande a passer</p></div></td></tr>';
-    return;
-  }
-
-  tbody.innerHTML = produits.map(p => {
-    const stock = getStockActif(p.id);
-    const min = parseInt(p.stockMin)||0;
-    const urgent = stock === 0;
-    const cmdKey = 'cmd_statut_' + p.id;
-    const cmdStatut = (state.commandesStatut||{})[p.id] || 'a_commander';
-    const urgenceBadge = urgent
-      ? '<span class="badge badge-red"><i class="ti ti-urgent" style="font-size:10px"></i> Rupture</span>'
-      : '<span class="badge badge-amber"><i class="ti ti-alert-triangle" style="font-size:10px"></i> Alerte</span>';
-    const statutOptions = [
-      {v:'a_commander', l:'A commander'},
-      {v:'commandee', l:'Commandee'},
-      {v:'en_attente', l:'En attente livraison'},
-    ];
-    return `<tr style="${urgent?'background:var(--red-dim)':''}">
-      <td><strong>${p.nom}</strong>${p.localisation?'<br><span style="font-size:11px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
-      <td>${p.fournisseur||'-'}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'-'}</code></td>
-      <td style="text-align:center"><strong style="font-size:18px;color:${urgent?'var(--red)':'var(--amber)'}">${stock}</strong><br><span style="font-size:11px;color:var(--text3)">contenant${stock>1?'s':''}</span></td>
-      <td style="text-align:center"><strong>${min}</strong><br><span style="font-size:11px;color:var(--text3)">minimum</span></td>
-      <td style="text-align:center">${p.qteCmde?'<strong>'+p.qteCmde+'</strong>':'-'}</td>
-      <td>${urgenceBadge}</td>
-      <td>
-        <select style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;color:var(--text);font-size:12px;cursor:pointer" onchange="setCommandeStatut(${p.id}, this.value)">
-          ${statutOptions.map(o=>`<option value="${o.v}" ${cmdStatut===o.v?'selected':''}>${o.l}</option>`).join('')}
-        </select>
-      </td>
-    </tr>`;
-  }).join('');
-}
-
-function setCommandeStatut(produitId, statut) {
-  if (!state.commandesStatut) state.commandesStatut = {};
-  state.commandesStatut[produitId] = statut;
-  addActivity('shopping-cart', 'Commande mise a jour : ' + ((state.produits||[]).find(p=>p.id===produitId)?.nom||''));
-  saveData();
-}
-
-function exportCommandes() {
-  const produits = getProduitsSousMin();
-  if (!produits.length) { toast('Aucune commande a exporter', 'info'); return; }
-  const headers = ['Produit','Fournisseur','Reference','Stock actuel','Stock minimum','Qte a commander','Urgence'];
-  const rows = produits.map(p => {
-    const stock = getStockActif(p.id);
-    return [p.nom, p.fournisseur||'', p.ref||'', stock, p.stockMin||'', p.qteCmde||'', stock===0?'Rupture':'Alerte'].join(';');
-  });
-  const csv = [headers.join(';'), ...rows].join('\n');
-  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'commandes-' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  toast('Export CSV telecharge', 'success');
-}
-
-// ============================================================
-// HABILITATIONS
-// ============================================================
-function saveHabilitation() {
-  const prenom = document.getElementById('h-prenom').value.trim();
-  const nom = document.getElementById('h-nom').value.trim();
-  if (!prenom || !nom) { toast('Prenom et nom sont obligatoires', 'error'); return; }
-  const habs = document.getElementById('h-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
-  const entry = { id: editingId||Date.now(), prenom, nom, role: document.getElementById('h-role').value, habilitations: habs, date: document.getElementById('h-date').value, statut: document.getElementById('h-statut').value };
-  if (editingId) { const i=state.techniciens.findIndex(x=>x.id===editingId); state.techniciens[i]=entry; addActivity('pencil','Technicien modifie : '+prenom+' '+nom); }
-  else { state.techniciens.push(entry); addActivity('certificate','Technicien ajoute : '+prenom+' '+nom); }
-  editingId = null;
-  closeModal('modal-hab');
-  renderTechniciens(); renderDashboard(); updateBadges(); populateTechSelects(); saveData();
-}
-
-function renderTechniciens() {
-  const grid = document.getElementById('tech-grid');
-  if (!state.techniciens.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-certificate"></i><p>Aucun technicien enregistre</p></div>`; return; }
-  const statutCls = { actif:'badge-green', formation:'badge-amber', inactif:'badge-gray' };
-  grid.innerHTML = state.techniciens.map(t => `
-    <div class="tech-card">
-      <div class="tech-card-header">
-        <div class="avatar">${t.prenom[0]}${t.nom[0]}</div>
-        <div>
-          <div class="tech-name">${t.prenom} ${t.nom}</div>
-          <div class="tech-role">${t.role||'Technicien'}</div>
-        </div>
-        <div style="margin-left:auto;display:flex;gap:4px">
-          <button class="icon-btn" onclick="editTech(${t.id})"><i class="ti ti-pencil"></i></button>
-          <button class="icon-btn danger" onclick="deleteTech(${t.id})"><i class="ti ti-trash"></i></button>
-        </div>
-      </div>
-      <div style="margin-bottom:10px"><span class="badge ${statutCls[t.statut]||'badge-gray'}">${t.statut||'actif'}</span>${t.date?`<span style="font-size:11px;color:var(--text3);margin-left:8px"><i class="ti ti-calendar" style="font-size:11px"></i> depuis ${formatDate(t.date)}</span>`:''}</div>
-      <div class="hab-list">${(t.habilitations||[]).map(h=>`<span class="badge badge-cyan">${h}</span>`).join('')}</div>
-    </div>`).join('');
-  populateTechSelects();
-}
-
-function editTech(id) {
-  const t = state.techniciens.find(x=>x.id===id); if(!t) return;
-  editingId = id;
-  document.getElementById('h-prenom').value = t.prenom;
-  document.getElementById('h-nom').value = t.nom;
-  document.getElementById('h-role').value = t.role||'';
-  document.getElementById('h-habs').value = (t.habilitations||[]).join(', ');
-  document.getElementById('h-date').value = t.date||'';
-  document.getElementById('h-statut').value = t.statut||'actif';
-  openModal('modal-hab');
-}
-
-function deleteTech(id) {
-  const t = state.techniciens.find(x=>x.id===id);
-  state.techniciens = state.techniciens.filter(x=>x.id!==id);
-  addActivity('trash','Technicien supprime : '+(t?t.prenom+' '+t.nom:''));
-  renderTechniciens(); renderDashboard(); updateBadges(); saveData();
-}
-
-function populateTechSelects() {
-  ['p-tech','e-tech'].forEach(id => {
-    const sel = document.getElementById(id); if(!sel) return;
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif').map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
-    sel.value = cur;
-  });
-}
-
-// ============================================================
-// BADGES & UTILS
-// ============================================================
-function updateBadges() {
-  const critical = (state.contenants||[]).filter(c=>isContenantCritical(c) && c.statut !== 'archive' && c.statut !== 'retire').length;
-  const badge = document.getElementById('badge-reactifs');
-  if (badge) { badge.textContent = critical; badge.style.display = critical ? '' : 'none'; }
-  // Badge commandes
-  const nbCmd = getProduitsSousMin ? getProduitsSousMin().length : 0;
-  const badgeCmd = document.getElementById('badge-commandes');
-  if (badgeCmd) { badgeCmd.textContent = nbCmd; badgeCmd.style.display = nbCmd ? '' : 'none'; }
-}
-
-function prioriteBadge(p) {
-  const map = { normale:'badge-gray', haute:'badge-amber', urgente:'badge-red' };
-  const icons = { normale:'minus', haute:'arrow-up', urgente:'urgent' };
-  return `<span class="badge ${map[p]||'badge-gray'}"><i class="ti ti-${icons[p]||'minus'}" style="font-size:11px"></i> ${p||'normale'}</span>`;
-}
-
-function statutBadge(s) {
-  const map = { planifie:'badge-blue', en_cours:'badge-amber', termine:'badge-green', annule:'badge-gray' };
-  return `<span class="badge ${map[s]||'badge-gray'}">${(s||'').replace('_',' ')}</span>`;
-}
-
-function formatDate(d) {
-  if (!d) return '-';
-  return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-}
-
-// ============================================================
-// MODAL
-// ============================================================
-function openModal(id) {
-  if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
-  if (id === 'modal-analyse') { if(!editingId) document.getElementById('modal-analyse-title').textContent='Nouvelle analyse'; }
-  if (id === 'modal-echantillon') {
-    populateTechSelects();
-    populateProduitEchSelect();
-    if (!editingId) {
-      if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
-      const prev = document.getElementById('e-analyses-preview');
-      if (prev) prev.style.display = 'none';
-      const _et=document.getElementById('modal-ech-title'); if(_et) _et.textContent='Reception echantillon';
-    }
-  }
-  if (id === 'modal-marche') {
-    if (!editingId) {
-      populateAnalysesChecks('m-analyses-check', []);
-      document.getElementById('modal-marche-title').textContent = 'Nouveau marche';
-    }
-  }
-  if (id === 'modal-produit-ech') {
-    if (!editingId) document.getElementById('modal-produit-ech-title').textContent = 'Nouveau produit';
-  }
-  if (id === 'modal-contenant') { populateProduitSelect(); }
-  if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
-  if (id === 'modal-reactif') {
-    document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
-  }
-  if (!editingId) {
-    const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
-    inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
-    const sels = document.querySelectorAll('#'+id+' select');
-    sels.forEach(s => { if(s.options.length) s.selectedIndex = 0; });
-    if (id === 'modal-contenant') {
-      const nb = document.getElementById('c-nb'); if(nb) nb.value = 1;
-    }
-  }
-  const el = document.getElementById(id);
-  el.classList.add('open');
-  el.style.display = 'flex';
-}
-
-function closeModal(id) {
-  const el = document.getElementById(id);
-  el.classList.remove('open');
-  el.style.display = 'none';
-  editingId = null;
-}
-
-document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); });
-});
-
-// Expose all functions globally for onclick handlers
-window.openGithubConfig = openGithubConfig;
-window.showGithubConfig = showGithubConfig;
-window.saveGithubConfig = saveGithubConfig;
-window.testGithubConfig = testGithubConfig;
-window.syncNow = syncNow;
-window.exportData = exportData;
-window.goTo = goTo;
-window.changeMonth = changeMonth;
-window.quickAddPlanning = quickAddPlanning;
-window.openModal = openModal;
-window.closeModal = closeModal;
-window.savePlanning = savePlanning;
-window.editPlanning = editPlanning;
-window.deletePlanning = deletePlanning;
-window.saveProduit = saveProduit;
-window.editProduit = editProduit;
-window.deleteProduit = deleteProduit;
-window.saveContenant = saveContenant;
-window.editContenant = editContenant;
-window.deleteContenant = deleteContenant;
-window.fermerContenant = fermerContenant;
-window.addContenantForProduit = addContenantForProduit;
-window.ouvrirContenant = ouvrirContenant;
-window.confirmerOuverture = confirmerOuverture;
-window.afficherValiditeOuverture = afficherValiditeOuverture;
-window.computeValidite = computeValidite;
-window.getStatutAuto = getStatutAuto;
-window.populateProduitSelect = populateProduitSelect;
-window.populateTechSelects = populateTechSelects;
-window.renderReactifsTable = renderReactifsTable;
-window.renderProduitsAccordion = renderProduitsAccordion;
-window.renderPlanningTable = renderPlanningTable;
-window.renderEchantillonsTable = renderEchantillonsTable;
-window.renderTechniciens = renderTechniciens;
-window.renderDashboard = renderDashboard;
-window.renderCalendar = renderCalendar;
-window.updateBadges = updateBadges;
-window.expiryStatus = expiryStatus;
-window.statutContenantBadge = statutContenantBadge;
-window.calcValidite = calcValidite;
-window.toggleAccordion = toggleAccordion;
-
-// -- NAVIGATION REACTIFS --------------------------------------
-
-function toggleReactifsMenu(e) {
-  reactifsMenuOpen = !reactifsMenuOpen;
-  const menu = document.getElementById('reactifs-submenu');
-  const chevron = document.getElementById('reactifs-chevron');
-  if (menu) menu.style.display = reactifsMenuOpen ? 'block' : 'none';
-  if (chevron) chevron.style.transform = reactifsMenuOpen ? 'rotate(180deg)' : '';
-  if (reactifsMenuOpen) goToReactifs('contenants');
-}
-
-function goToReactifs(view) {
-  currentReactifsView = view;
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const page = document.getElementById('page-reactifs');
-  if (page) page.classList.add('active');
-  document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('#reactifs-submenu .nav-sub').forEach(n => n.classList.remove('active'));
-  ['produits','contenants','archives'].forEach(v => {
-    const el = document.getElementById('reactifs-view-'+v);
-    if (el) el.style.display = 'none';
-  });
-  const target = document.getElementById('reactifs-view-'+view);
-  if (target) { target.style.display = 'block'; }
-  const subItems = document.querySelectorAll('#reactifs-submenu .nav-sub');
-  const labels = {produits:0, contenants:1, archives:2};
-  if (subItems[labels[view]]) subItems[labels[view]].classList.add('active');
-  if (view === 'produits') renderProduitsAccordion();
-  if (view === 'contenants') renderReactifsTable();
-  if (view === 'archives') renderArchivesTable();
-}
-
-function renderArchivesTable() {
-  if (!state.contenants) state.contenants = [];
-  const fProduit = (document.getElementById('fa-produit')?.value||'').toLowerCase();
-  const fLot = (document.getElementById('fa-lot')?.value||'').toLowerCase();
-  const fFourn = (document.getElementById('fa-fourn')?.value||'').toLowerCase();
-  const fStatut = document.getElementById('fa-statut')?.value||'';
-  const archives = state.contenants.filter(c => {
-    const s = getStatutAuto(c);
-    if (!['archive','retire','expire'].includes(s)) return false;
-    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
-    if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
-    if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
-    if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
-    if (fStatut && s !== fStatut) return false;
-    return true;
-  });
-  const tbody = document.getElementById('archives-tbody');
-  if (!tbody) return;
-  if (!archives.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-archive"></i><p>Aucune archive</p></div></td></tr>'; return; }
-  tbody.innerHTML = archives.map(c => {
-    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
-    const statAuto = getStatutAuto(c);
-    const expFab = expiryStatus(c.peremption);
-    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
-    return `<tr style="opacity:0.75">
-      <td style="font-size:12px"><strong>${p.nom||'-'}</strong></td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
-      <td style="font-size:12px">${p.fournisseur||'-'}</td>
-      <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
-      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'-'}</td>
-      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
-      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite):'-'}</td>
-      <td>${statutContenantBadge(statAuto)}</td>
-      <td><div class="actions" style="opacity:1">
-        <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
-      </div></td>
-    </tr>`;
-  }).join('');
-}
-
-function resetFiltresArchives() {
-  ['fa-produit','fa-lot','fa-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
-  const sel=document.getElementById('fa-statut'); if(sel) sel.value='';
-  renderArchivesTable();
-}
-
-window.resetFiltres = resetFiltres;
-window.renderCommandes = renderCommandes;
-window.setCommandeStatut = setCommandeStatut;
-window.exportCommandes = exportCommandes;
-window.getProduitsSousMin = getProduitsSousMin;
-window.getStockActif = getStockActif;
-window.toggleReactifsMenu = toggleReactifsMenu;
-window.togglePlanningMenu = togglePlanningMenu;
-window.toggleEchMenu = toggleEchMenu;
-window.openWizard = openWizard;
-window.wizardNext = wizardNext;
-window.wizardPrev = wizardPrev;
-window.wizardUpdateProduit = wizardUpdateProduit;
-window.toggleTypeCard = toggleTypeCard;
-window.previewSousSeries = previewSousSeries;
-window.wizardConfirm = wizardConfirm;
-window.wizardLoadAnalyses = wizardLoadAnalyses;
-window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.cycleAnalyseStatut = cycleAnalyseStatut;
 window.statutCell = statutCell;
+window.statutIcon = statutIcon;
 window.analyseStatutBtn = analyseStatutBtn;
 window.getMarcheAnalyses = getMarcheAnalyses;
 
