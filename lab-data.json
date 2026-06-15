@@ -290,14 +290,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "en_cours"
+        "1781508652926": "terminee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
           "verifiee": "15/06/26",
           "a_lancer": "15/06/26",
           "en_cours": "15/06/2026",
-          "terminee": "15/06/26"
+          "terminee": "15/06/2026"
         }
       }
     },
@@ -514,6 +514,11 @@
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : en_cours",
+      "time": "15/06 10:39"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : terminee",
       "time": "15/06 10:39"
     }
   ]
