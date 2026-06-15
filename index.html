@@ -2070,7 +2070,7 @@ function deleteMarche(id) {
 
 // ── SELECTION MARCHE DANS MODAL ECHANTILLON ───────────────────
 function onProduitEchSelect() {
-  populateMarcheChecks('e-marches-check', []);
+  if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
   onMarcheEchChange();
 }
 
@@ -2357,10 +2357,10 @@ function openModal(id) {
     populateTechSelects();
     populateProduitEchSelect();
     if (!editingId) {
-      populateMarcheChecks('e-marches-check', []);
+      if(document.getElementById('e-marches-check')) populateMarcheChecks('e-marches-check', []);
       const prev = document.getElementById('e-analyses-preview');
       if (prev) prev.style.display = 'none';
-      document.getElementById('modal-ech-title').textContent = 'Reception echantillon';
+      const _et=document.getElementById('modal-ech-title'); if(_et) _et.textContent='Reception echantillon';
     }
   }
   if (id === 'modal-marche') {
