@@ -290,7 +290,7 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "en_cours"
+        "1781508652926": "terminee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
@@ -494,6 +494,11 @@
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : en_cours",
+      "time": "15/06 10:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — TCC0015 : terminee",
       "time": "15/06 10:27"
     }
   ]
