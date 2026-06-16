@@ -1119,7 +1119,7 @@ function wizardRecap() {
       </div>
       ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
       ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
-      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${nb===1?lot:lot+'-'+(i+1)}</span>`).join('')}</div>
     </div>
     ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
@@ -1144,14 +1144,13 @@ function wizardConfirm() {
   const echeance = document.getElementById('w-stab-echeance')?.value||'';
   const temps = document.getElementById('w-stab-temps')?.value||'';
   const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
   const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if (!state.echantillons) state.echantillons = [];
   if (!state.planning) state.planning = [];
   for (let i=0; i<nb; i++) {
-    const code = `${lot}-${letters[i]}`;
+    const code = nb===1 ? lot : `${lot}-${i+1}`;
     state.echantillons.push({
       id: Date.now()+i, code, produitId: prodId, marcheIds,
       analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
@@ -1193,6 +1192,129 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
     </button>`;
   }
   return '<span style="display:block;width:24px;height:2px;background:var(--border);margin:auto"></span>';
+}
+
+function resetFiltresEch() {
+  ['fech-produit','fech-lot','fech-analyse'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  ['fech-date','fech-marche','fech-encours','fech-terminee','fech-verifiee'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  renderEchantillonsTable();
+}
+
+function cycleAnalyseStatut(echId, analyseId) {
+  const order = ['a_lancer','en_cours','terminee','verifiee'];
+  const ech = (state.echantillons||[]).find(e=>e.id===echId);
+  if (!ech) return;
+  if (!ech.analyseStatuts) ech.analyseStatuts = {};
+  if (!ech.analyseStatutsInfo) ech.analyseStatutsInfo = {};
+  const cur = ech.analyseStatuts[analyseId] || 'a_lancer';
+  if (cur === 'verifiee') return;
+  const nextIdx = order.indexOf(cur) + 1;
+  if (nextIdx >= order.length) return;
+  const next = order[nextIdx];
+  ech.analyseStatuts[analyseId] = next;
+  if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
+  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  ech.analyseStatutsInfo[analyseId][next] = today;
+  const ids = ech.analysesIds||[];
+  const allDone = ids.length && ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
+  const anyStarted = ids.some(id=>{ const s=ech.analyseStatuts[id]||'a_lancer'; return s!=='a_lancer'; });
+  ech.statut = allDone ? 'conforme' : anyStarted ? 'en_analyse' : 'recu';
+  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
+  addActivity('list-check', `${ech.code} — ${a?.nom||'analyse'} : ${next}`);
+  renderEchantillonsTable();
+  saveData();
+}
+
+function renderEchantillonsTable() {
+  const fProduit = (document.getElementById('fech-produit')?.value||'').toLowerCase();
+  const fLot = (document.getElementById('fech-lot')?.value||'').toLowerCase();
+  const fMarche = document.getElementById('fech-marche')?.value||'';
+  const fDate = document.getElementById('fech-date')?.value||'';
+  const fAnalyse = (document.getElementById('fech-analyse')?.value||'').toLowerCase();
+  const fEnCours = document.getElementById('fech-encours')?.value||'';
+  const fTerminee = document.getElementById('fech-terminee')?.value||'';
+  const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
+  const marcheSelect = document.getElementById('fech-marche');
+  if (marcheSelect && marcheSelect.options.length <= 1) {
+    (state.marches||[]).forEach(m => {
+      const opt = document.createElement('option');
+      opt.value = String(m.id); opt.textContent = m.nom;
+      marcheSelect.appendChild(opt);
+    });
+  }
+  let echantillons = (state.echantillons||[]).filter(e => {
+    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
+    if (fProduit && !(produit?.nom||'').toLowerCase().includes(fProduit)) return false;
+    if (fLot && !(e.lot||'').toLowerCase().includes(fLot)) return false;
+    if (fDate && e.date !== fDate) return false;
+    if (fMarche && !(e.marcheIds||[]).map(String).includes(fMarche)) return false;
+    if (fAnalyse) {
+      const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+      if (!analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse))) return false;
+    }
+    if (fEnCours || fTerminee || fVerifiee) {
+      const statuts = Object.values(e.analyseStatuts||{});
+      if (fEnCours==='oui' && !statuts.some(s=>s==='en_cours')) return false;
+      if (fEnCours==='non' && statuts.some(s=>s==='en_cours')) return false;
+      if (fTerminee==='oui' && !statuts.some(s=>s==='terminee')) return false;
+      if (fTerminee==='non' && statuts.some(s=>s==='terminee')) return false;
+      if (fVerifiee==='oui' && !statuts.some(s=>s==='verifiee')) return false;
+      if (fVerifiee==='non' && statuts.some(s=>s==='verifiee')) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.getElementById('ech-tbody');
+  if (!tbody) return;
+  if (!echantillons.length) {
+    tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>';
+    return;
+  }
+
+  // Trier par date desc
+  echantillons.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+
+  // Grouper par lot
+  const lots = {};
+  echantillons.forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
+
+  const TD = 'style="font-size:14px;padding:10px 14px;vertical-align:middle"';
+  const rows = [];
+
+  Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, sousSeries]) => {
+    const e0 = sousSeries[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const marchesList = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const nbSeries = sousSeries.length;
+    const prodNom = produit ? produit.nom : '—';
+    const prodForme = produit && produit.forme ? produit.forme+(produit.dosage?' '+produit.dosage:'') : '';
+    const marchesHtml = marchesList.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
+    const dateRecp = e0.date ? formatDate(e0.date) : '—';
+
+    sousSeries.forEach((e, si) => {
+      const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+      const toShow = analyses.length ? analyses : [null];
+      toShow.forEach((a, ai) => {
+        const statut = a ? ((e.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
+        const statInfo = a ? ((e.analyseStatutsInfo||{})[a.id] || {}) : {};
+        rows.push(`<tr style="border-bottom:1px solid var(--border)">
+          <td ${TD}><strong>${prodNom}</strong>${prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':''}</td>
+          <td ${TD}><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">${e0.lot||'—'}</code></td>
+          <td ${TD} style="text-align:center;font-size:14px"><strong>${nbSeries}</strong></td>
+          <td ${TD}>${marchesHtml}</td>
+          <td ${TD}>${dateRecp}</td>
+          <td ${TD}><strong style="font-size:14px">${a?a.nom:'—'}</strong>${a&&a.code?'<br><code style="font-size:12px">'+a.code+'</code>':''}<br><span style="font-size:12px;color:var(--text3)">${e.code}</span></td>
+          ${a ? `
+            <td style="text-align:center;padding:8px">${statutIcon(e.id,a.id,statut,statInfo,'en_cours')}</td>
+            <td style="text-align:center;padding:8px">${statutIcon(e.id,a.id,statut,statInfo,'terminee')}</td>
+            <td style="text-align:center;padding:8px">${statutIcon(e.id,a.id,statut,statInfo,'verifiee')}</td>
+          ` : '<td colspan="3" style="text-align:center;color:var(--text3)">—</td>'}
+          <td style="padding:8px"><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
+        </tr>`);
+      });
+    });
+  });
+  tbody.innerHTML = rows.join('');
 }
 
 function resetFiltresEch() {
