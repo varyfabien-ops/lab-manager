@@ -53,6 +53,60 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 9960002-A |  STAB"
+    },
+    {
+      "id": 1781602519100.9797,
+      "nom": "TCC0015",
+      "echantillonCode": "9960003-A",
+      "date": "2026-06-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960003-A | PIF STAB"
+    },
+    {
+      "id": 1781602519100.2793,
+      "nom": "pH",
+      "echantillonCode": "9960003-A",
+      "date": "2026-06-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960003-A | PIF STAB"
+    },
+    {
+      "id": 1781602519100.424,
+      "nom": "TCC0015",
+      "echantillonCode": "9960003-B",
+      "date": "2026-06-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960003-B | PIF STAB"
+    },
+    {
+      "id": 1781602519100.862,
+      "nom": "pH",
+      "echantillonCode": "9960003-B",
+      "date": "2026-06-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960003-B | PIF STAB"
+    },
+    {
+      "id": 1781602519100.8645,
+      "nom": "TCC0015",
+      "echantillonCode": "9960003-C",
+      "date": "2026-06-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960003-C | PIF STAB"
+    },
+    {
+      "id": 1781602519100.941,
+      "nom": "pH",
+      "echantillonCode": "9960003-C",
+      "date": "2026-06-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960003-C | PIF STAB"
     }
   ],
   "catalogue": [
@@ -96,6 +150,7 @@
       "description": ""
     }
   ],
+  "stabilites": [],
   "reactifs": [],
   "produits": [
     {
@@ -359,6 +414,66 @@
       "date": "2026-06-15",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781602519100,
+      "code": "9960003-A",
+      "produitId": 1781508169429,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781508652926,
+        1781509335357
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "9960003",
+      "date": "2026-06-16",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781602519101,
+      "code": "9960003-B",
+      "produitId": 1781508169429,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781508652926,
+        1781509335357
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "9960003",
+      "date": "2026-06-16",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781602519102,
+      "code": "9960003-C",
+      "produitId": 1781508169429,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781508652926,
+        1781509335357
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "9960003",
+      "date": "2026-06-16",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -584,6 +699,11 @@
       "icon": "package",
       "text": "Reception: Xylocaïne Nébuliseur — 1 sous-serie — 1 analyse",
       "time": "15/06 10:40"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Xylocaïne 5% Naphazoline — 3 sous-series — 2 analyses",
+      "time": "16/06 11:35"
     }
   ]
 }
