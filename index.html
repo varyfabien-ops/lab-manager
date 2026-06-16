@@ -344,28 +344,28 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <div style="overflow-x:auto"><table style="min-width:960px;font-size:15px"><thead><tr>
+      <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px"><thead><tr>
   <th style="width:170px">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:110px">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:70px;text-align:center">Nb<br>s-series</th>
-  <th style="width:100px">Marches<br>
+  <th style="width:120px">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:80px;text-align:center">Nb s-series</th>
+  <th style="width:110px">Marches<br>
     <select class="filter-input" id="fech-marche" onchange="renderEchantillonsTable()">
       <option value="">Tous</option>
     </select>
   </th>
-  <th style="width:100px">Date recep.<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
-  <th style="width:160px">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:110px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
+  <th style="width:120px">Date de reception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
+  <th style="width:170px">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:120px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
     <select class="filter-input" id="fech-encours" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
     </select>
   </th>
-  <th style="width:110px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:14px"></i><br>Terminee<br>
+  <th style="width:120px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:14px"></i><br>Terminee<br>
     <select class="filter-input" id="fech-terminee" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
     </select>
   </th>
-  <th style="width:110px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:14px"></i><br>Verifiee<br>
+  <th style="width:120px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:14px"></i><br>Verifiee<br>
     <select class="filter-input" id="fech-verifiee" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
     </select>
@@ -2166,7 +2166,6 @@ function saveEchantillon() {
 }
 
 function renderEchantillonsTable() {
-  const q = (document.getElementById('search-ech')?.value||'').toLowerCase();
   const fProduit = (document.getElementById('fech-produit')?.value||'').toLowerCase();
   const fLot = (document.getElementById('fech-lot')?.value||'').toLowerCase();
   const fMarche = document.getElementById('fech-marche')?.value||'';
@@ -2176,7 +2175,6 @@ function renderEchantillonsTable() {
   const fTerminee = document.getElementById('fech-terminee')?.value||'';
   const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
 
-  // Peupler le select marchés si vide
   const marcheSelect = document.getElementById('fech-marche');
   if (marcheSelect && marcheSelect.options.length <= 1) {
     (state.marches||[]).forEach(m => {
@@ -2210,84 +2208,48 @@ function renderEchantillonsTable() {
     }
     return true;
   });
+
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
-  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon enregistre</p></div></td></tr>'; return; }
+  if (!echantillons.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
+
   // Grouper par lot
   const lots = {};
   echantillons.forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
+
   const rows = [];
   Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, sousSeries]) => {
     const e0 = sousSeries[0];
     const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
     const marches = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
     const nbSeries = sousSeries.length;
-    const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    const totalRows = Math.max(nbSeries, nbSeries * analyses.length);
 
+    // Une ligne par (sous-serie x analyse)
     sousSeries.forEach((e, si) => {
-      const sousSerieAnalyses = analyses.length ? analyses : [null];
-      sousSerieAnalyses.forEach((a, ai) => {
+      const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+      const toShow = analyses.length ? analyses : [null];
+      toShow.forEach((a, ai) => {
         const statut = a ? ((e.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
         const statInfo = a ? ((e.analyseStatutsInfo||{})[a.id] || {}) : {};
-        const isFirstOfLot = si===0 && ai===0;
-        const isFirstOfSerie = ai===0;
-        rows.push(`<tr>
-          ${isFirstOfLot ? `
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border)">
-              <strong style="font-size:13px">${produit?produit.nom:'—'}</strong>
-              ${produit&&produit.forme?'<br><span style="font-size:11px;color:var(--text2)">'+produit.forme+'</span>':''}
-            </td>
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
-              <code style="font-size:12px;background:var(--bg3);padding:3px 8px;border-radius:4px">${e0.lot||'—'}</code>
-            </td>
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);text-align:center">
-              <span style="font-size:20px;font-weight:700;color:var(--cyan)">${nbSeries}</span>
-            </td>
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border)">${marches.map(m=>'<span class="badge badge-blue" style="display:block;margin-bottom:3px">'+m.nom+'</span>').join('')||'—'}</td>
-            <td rowspan="${totalRows}" style="vertical-align:middle;border-right:1px solid var(--border);font-size:12px">${e0.date?formatDate(e0.date):'—'}</td>
-          ` : ''}
-          <td style="font-size:12px;border-right:1px solid var(--border)">${a?`<strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px">'+a.code+'</code>':''}${si>0?'<br><span style="font-size:10px;color:var(--text3)">${e.code}</span>':''}` : '<span style="color:var(--text3)">—</span>'}</td>
+        const isFirst = si===0 && ai===0;
+        rows.push(`<tr style="border-bottom:1px solid var(--border)">
+          <td style="font-size:15px">${isFirst ? `<strong>${produit?produit.nom:'—'}</strong>${produit&&produit.forme?'<br><span style="font-size:12px;color:var(--text2)">'+produit.forme+'</span>':''}` : ''}</td>
+          <td style="font-size:15px">${isFirst ? `<code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">${e0.lot||'—'}</code>` : ''}</td>
+          <td style="text-align:center;font-size:15px">${isFirst ? `<span style="font-size:20px;font-weight:700;color:var(--cyan)">${nbSeries}</span>` : ''}</td>
+          <td style="font-size:14px">${isFirst ? marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join('<br>')||'—' : ''}</td>
+          <td style="font-size:14px">${isFirst ? (e0.date?formatDate(e0.date):'—') : ''}</td>
+          <td style="font-size:15px">${a ? `<strong>${a.nom}</strong>${a.code?'<br><code style="font-size:12px">'+a.code+'</code>':''}<br><span style="font-size:11px;color:var(--text3)">${e.code}</span>` : '<span style="color:var(--text3)">—</span>'}</td>
           ${a ? `
-            <td style="text-align:center;border-right:1px solid var(--border)">${statutIcon(e.id, a.id, statut, statInfo, 'en_cours')}</td>
-            <td style="text-align:center;border-right:1px solid var(--border)">${statutIcon(e.id, a.id, statut, statInfo, 'terminee')}</td>
-            <td style="text-align:center;border-right:1px solid var(--border)">${statutIcon(e.id, a.id, statut, statInfo, 'verifiee')}</td>
+            <td style="text-align:center">${statutIcon(e.id, a.id, statut, statInfo, 'en_cours')}</td>
+            <td style="text-align:center">${statutIcon(e.id, a.id, statut, statInfo, 'terminee')}</td>
+            <td style="text-align:center">${statutIcon(e.id, a.id, statut, statInfo, 'verifiee')}</td>
           ` : '<td colspan="3" style="text-align:center;color:var(--text3)">—</td>'}
-          ${isFirstOfLot ? `<td rowspan="${totalRows}" style="vertical-align:middle"><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e0.id})"><i class="ti ti-trash"></i></button></div></td>` : ''}
+          <td>${isFirst ? `<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e0.id})"><i class="ti ti-trash"></i></button></div>` : ''}</td>
         </tr>`);
       });
     });
   });
   tbody.innerHTML = rows.join('');
-}
-
-function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
-  const order = ['a_lancer','en_cours','terminee','verifiee'];
-  const curIdx = order.indexOf(currentStatut);
-  const cellIdx = order.indexOf(cellType);
-  const isDone = curIdx >= cellIdx && curIdx >= 0;
-  const isVerifiee = currentStatut === 'verifiee';
-  const date = statInfo[cellType];
-  const colors = { en_cours:'var(--blue)', terminee:'var(--cyan)', verifiee:'var(--green)' };
-  const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
-  const c = colors[cellType];
-  const ic = icons[cellType];
-
-  if (isDone) {
-    // Icone pleine colorée + date
-    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px">
-      <i class="ti ti-${ic}" style="font-size:20px;color:${c}"></i>
-      ${date?`<span style="font-size:10px;font-weight:600;color:${c}">${date}</span>`:''}
-    </div>`;
-  } else if (cellIdx === curIdx+1 && !isVerifiee) {
-    // Prochaine etape : icone cliquable grisee
-    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" title="Cliquer pour passer a cette etape" style="background:none;border:2px dashed var(--border);border-radius:var(--radius);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%;transition:all 0.15s" onmouseover="this.style.borderColor='${c}';this.style.color='${c}'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)'">
-      <i class="ti ti-${ic}" style="font-size:18px;color:var(--text3)"></i>
-      <span style="font-size:9px;color:var(--text3)">Cliquer</span>
-    </button>`;
-  }
-  // Etape future : tiret
-  return '<span style="display:block;width:24px;height:2px;background:var(--border);margin:auto"></span>';
 }
 
 function resetFiltresEch() {
