@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v8 — Physico-Chimie</title>
+<title>LabManager v9 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -155,42 +155,24 @@
 <header>
   <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie</span></div>
   <div class="header-right">
-    <button class="btn" onclick="openGithubConfig()" style="gap:8px">
-      <div class="sync-dot" id="sync-dot"></div>
-      <i class="ti ti-brand-github"></i>
-      <span id="sync-label">Non configure</span>
-    </button>
+    <button class="btn" onclick="openGithubConfig()" style="gap:8px"><div class="sync-dot" id="sync-dot"></div><i class="ti ti-brand-github"></i><span id="sync-label">Non configure</span></button>
     <button class="btn" onclick="syncNow()"><i class="ti ti-refresh"></i> Sync</button>
     <button class="btn" onclick="exportData()"><i class="ti ti-download"></i> Export</button>
   </div>
 </header>
 <div class="layout">
-<aside>
-  <div class="nav-section">
-    <div class="nav-label">Navigation</div>
-    <div class="nav-item active" onclick="goTo('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
-    <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-    <div id="planning-submenu" style="display:none">
-      <div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div>
-      <div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div>
-    </div>
-    <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-    <div id="reactifs-submenu" style="display:none">
-      <div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div>
-      <div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div>
-      <div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div>
-    </div>
-    <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-    <div id="ech-submenu" style="display:none">
-      <div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div>
-      <div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div>
-      <div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div>
-    </div>
-    <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
-    <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
-    <div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
-  </div>
-</aside>
+<aside><div class="nav-section"><div class="nav-label">Navigation</div>
+<div class="nav-item active" onclick="goTo('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
+<div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+<div id="planning-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div><div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div></div>
+<div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
+<div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
+<div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div></div>
+<div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
+<div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
+<div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+</div></aside>
 <main>
 
 <div class="page active" id="page-dashboard">
@@ -456,6 +438,8 @@
 </div>
 
 </main>
+</div>
+<div class="toast-container" id="toast-container"></div>
 </div>
 <div class="toast-container" id="toast-container"></div>
 </div>
@@ -856,281 +840,6 @@
   </div>
 </div>
 <script>
-
-function populateProduitsAnalyseCheck(selectedIds) {
-  const el = document.getElementById('a-produits-check'); if(!el) return;
-  const prods = state.produitsEch||[];
-  if (!prods.length) { el.innerHTML='<span style="font-size:12px;color:var(--text3)">Aucun produit defini</span>'; return; }
-  el.innerHTML = prods.map(p => {
-    const checked = selectedIds && selectedIds.includes(p.id) ? 'checked' : '';
-    return `<label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:4px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:12px">
-      <input type="checkbox" value="${p.id}" ${checked}>${p.nom}${p.code?' <code style="font-size:10px">'+p.code+'</code>':''}
-    </label>`;
-  }).join('');
-}
-
-function getMarcheAnalyses(containerId) {
-  const checks = document.querySelectorAll('#'+containerId+' .analyse-check:checked');
-  return Array.from(checks).map(cb => {
-    const id = parseInt(cb.dataset.id);
-    const pif = document.querySelector('#'+containerId+' .type-pif[data-id="'+id+'"]')?.checked||false;
-    const stab = document.querySelector('#'+containerId+' .type-stab[data-id="'+id+'"]')?.checked||false;
-    return {id,pif,stab};
-  });
-}
-
-function populateAnalysesChecks(containerId, selectedIds, selectedTypes) {
-  const el = document.getElementById(containerId); if(!el) return;
-  const catalogue = state.catalogue||[];
-  if (!catalogue.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucune analyse dans le catalogue</span>'; return; }
-  el.innerHTML = catalogue.map(a => {
-    const sel = selectedIds && selectedIds.find ? selectedIds.find(s=>s.id===a.id||s===a.id) : null;
-    const selObj = sel && sel.id ? sel : null;
-    const checkedMain = selectedIds && (selectedIds.includes(a.id)||(selectedIds.some&&selectedIds.some(s=>s.id===a.id))) ? 'checked' : '';
-    const isPIF = selObj ? selObj.pif : true;
-    const isSTAB = selObj ? selObj.stab : false;
-    return `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:4px">
-      <input type="checkbox" class="analyse-check" data-id="${a.id}" ${checkedMain} style="flex-shrink:0">
-      <span style="font-size:12px;flex:1">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</span>
-      <label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--blue);cursor:pointer"><input type="checkbox" class="type-pif" data-id="${a.id}" ${isPIF?'checked':''}>PIF</label>
-      <label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--purple);cursor:pointer"><input type="checkbox" class="type-stab" data-id="${a.id}" ${isSTAB?'checked':''}>STAB</label>
-    </div>`;
-  }).join('');
-}
-
-function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
-  const order = ['a_lancer','en_cours','terminee','verifiee'];
-  const curIdx = order.indexOf(currentStatut);
-  const cellIdx = order.indexOf(cellType);
-  const isDone = curIdx >= cellIdx && curIdx >= 0;
-  const isVerifiee = currentStatut === 'verifiee';
-  const date = statInfo[cellType];
-  const colors = { en_cours:'#0550ae', terminee:'#0d7c75', verifiee:'#1a7f37' };
-  const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
-  const c = colors[cellType]||'#888'; const ic = icons[cellType]||'circle';
-  if (isDone) {
-    const d = date ? `<span style="font-size:10px;font-weight:600;color:${c}">${date}</span>` : '';
-    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-${ic}" style="font-size:20px;color:${c}"></i>${d}</div>`;
-  } else if (cellIdx === curIdx+1 && !isVerifiee) {
-    return `<button onclick="cycleAnalyseStatut(${echId},${analyseId})" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%;transition:border-color 0.15s"><i class="ti ti-${ic}" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>`;
-  }
-  return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
-}
-
-function resetFiltresEch() {
-  ['fech-produit','fech-lot','fech-analyse'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  ['fech-date','fech-marche','fech-encours','fech-terminee','fech-verifiee'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  renderEchantillonsTable();
-}
-
-function cycleAnalyseStatut(echId, analyseId) {
-  const order = ['a_lancer','en_cours','terminee','verifiee'];
-  const ech = (state.echantillons||[]).find(e=>e.id===echId);
-  if (!ech) return;
-  if (!ech.analyseStatuts) ech.analyseStatuts = {};
-  if (!ech.analyseStatutsInfo) ech.analyseStatutsInfo = {};
-  const cur = ech.analyseStatuts[analyseId] || 'a_lancer';
-  if (cur === 'verifiee') return;
-  const nextIdx = order.indexOf(cur) + 1;
-  if (nextIdx >= order.length) return;
-  const next = order[nextIdx];
-  ech.analyseStatuts[analyseId] = next;
-  if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
-  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  ech.analyseStatutsInfo[analyseId][next] = today;
-  const ids = ech.analysesIds||[];
-  const allDone = ids.length && ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
-  const anyStarted = ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';});
-  ech.statut = allDone?'conforme':anyStarted?'en_analyse':'recu';
-  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
-  addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next);
-  renderEchantillonsTable();
-  saveData();
-}
-
-// STABILITES
-let activeStabId = null;
-let editingTpIdx = null;
-
-function renderStabilites() {
-  const q = (document.getElementById('search-stab')?.value||'').toLowerCase();
-  const stabs = (state.stabilites||[]).filter(s=>!q||(s.num||'').toLowerCase().includes(q)||(s.produits||'').toLowerCase().includes(q));
-  const tbody = document.getElementById('stab-tbody');
-  if (!tbody) return;
-  if (!stabs.length) { tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude de stabilite</p></div></td></tr>'; return; }
-  const sb = {en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
-  tbody.innerHTML = stabs.map(s=>`<tr>
-    <td><strong>${s.num||'—'}</strong></td>
-    <td style="font-size:13px">${s.produits||'—'}</td>
-    <td style="font-size:12px;color:var(--text2)">${s.lots||'—'}</td>
-    <td style="font-size:12px">${s.temperatures||'—'}</td>
-    <td>${s.echeance?formatDate(s.echeance):'—'}</td>
-    <td>${s.responsable||'—'}</td>
-    <td><span class="badge ${sb[s.statut]||'badge-gray'}">${s.statut||'—'}</span></td>
-    <td><div class="actions" style="opacity:1">
-      <button class="icon-btn" onclick="openStabDetail(${s.id})" title="Voir"><i class="ti ti-eye"></i></button>
-      <button class="icon-btn" onclick="editStabilite(${s.id})"><i class="ti ti-pencil"></i></button>
-      <button class="icon-btn danger" onclick="deleteStabilite(${s.id})"><i class="ti ti-trash"></i></button>
-    </div></td>
-  </tr>`).join('');
-}
-
-function saveStabilite() {
-  const num = document.getElementById('stab-num').value.trim();
-  if (!num) { toast('Le numero est obligatoire','error'); return; }
-  if (!state.stabilites) state.stabilites = [];
-  const analyses = document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
-  const entry = { id:editingId||Date.now(), num, produits:document.getElementById('stab-produits').value, lots:document.getElementById('stab-lots').value, temperatures:document.getElementById('stab-temps').value, echeance:document.getElementById('stab-echeance').value, debut:document.getElementById('stab-debut').value, responsable:document.getElementById('stab-resp').value, statut:document.getElementById('stab-statut').value, analyses, observations:document.getElementById('stab-obs').value, timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[] };
-  if (editingId) { const i=state.stabilites.findIndex(s=>s.id===editingId); state.stabilites[i]=entry; }
-  else { state.stabilites.push(entry); }
-  editingId=null; closeModal('modal-stab'); renderStabilites(); saveData(); toast('Etude enregistree','success');
-}
-
-function editStabilite(id) {
-  const s=(state.stabilites||[]).find(x=>x.id===id); if(!s) return;
-  editingId=id;
-  document.getElementById('stab-num').value=s.num||'';
-  document.getElementById('stab-resp').value=s.responsable||'';
-  document.getElementById('stab-produits').value=s.produits||'';
-  document.getElementById('stab-lots').value=s.lots||'';
-  document.getElementById('stab-temps').value=s.temperatures||'';
-  document.getElementById('stab-echeance').value=s.echeance||'';
-  document.getElementById('stab-debut').value=s.debut||'';
-  document.getElementById('stab-statut').value=s.statut||'en_cours';
-  document.getElementById('stab-analyses').value=(s.analyses||[]).join(', ');
-  document.getElementById('stab-obs').value=s.observations||'';
-  const t=document.getElementById('modal-stab-title'); if(t) t.textContent='Modifier';
-  openModal('modal-stab');
-}
-
-function deleteStabilite(id) {
-  const s=(state.stabilites||[]).find(x=>x.id===id);
-  state.stabilites=(state.stabilites||[]).filter(x=>x.id!==id);
-  if(activeStabId===id) closeStabDetail();
-  addActivity('trash','Stabilite supprimee: '+(s?.num||''));
-  renderStabilites(); saveData();
-}
-
-function openStabDetail(id) {
-  activeStabId=id;
-  const s=(state.stabilites||[]).find(x=>x.id===id); if(!s) return;
-  document.getElementById('stab-detail').style.display='block';
-  document.getElementById('stab-detail-title').textContent=s.num+' — '+s.produits;
-  renderStabDetail(s);
-}
-
-function closeStabDetail() {
-  activeStabId=null;
-  const el=document.getElementById('stab-detail'); if(el) el.style.display='none';
-}
-
-function renderStabDetail(s) {
-  const tps=s.timepoints||[]; const analyses=s.analyses||[];
-  let h=`<div style="background:var(--bg3);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;font-size:13px">
-    <div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Produit(s)</span><br><strong>${s.produits||'—'}</strong></div>
-    <div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s)</span><br><strong>${s.lots||'—'}</strong></div>
-    <div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>${s.temperatures||'—'}</strong></div>
-    <div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>${s.debut?formatDate(s.debut):'—'}</strong></div>
-    <div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>${s.echeance?formatDate(s.echeance):'—'}</strong></div>
-    <div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Responsable</span><br><strong>${s.responsable||'—'}</strong></div>
-  </div>`;
-  if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint. Cliquez sur "Ajouter timepoint".</p></div>';}
-  else{
-    h+='<div style="overflow-x:auto"><table style="min-width:600px;font-size:14px"><thead><tr><th style="width:160px">Analyse</th>';
-    tps.forEach((tp,ti)=>{h+=`<th style="text-align:center;min-width:130px">${tp.label}<br><span style="font-size:11px;color:var(--text3);font-weight:400">${tp.date?formatDate(tp.date):''}</span><div style="display:flex;gap:4px;justify-content:center;margin-top:4px"><button class="icon-btn" onclick="editTimepoint(${ti})" style="padding:2px 4px"><i class="ti ti-pencil" style="font-size:12px"></i></button><button class="icon-btn danger" onclick="deleteTimepoint(${ti})" style="padding:2px 4px"><i class="ti ti-trash" style="font-size:12px"></i></button></div></th>`;});
-    h+='</tr></thead><tbody>';
-    analyses.forEach(a=>{
-      h+=`<tr><td><strong>${a}</strong></td>`;
-      tps.forEach((tp,ti)=>{
-        const res=(tp.resultats||{})[a]||'';
-        h+=`<td style="text-align:center;padding:8px"><div onclick="editTimepointResult(${ti},'${a.replace(/'/g,"\'")}')" style="cursor:pointer;min-height:32px;padding:4px 8px;border-radius:var(--radius);border:1px dashed var(--border);font-size:13px;color:${res?'var(--text)':'var(--text3)'}">${res||'—'}</div></td>`;
-      });
-      h+='</tr>';
-    });
-    h+='</tbody></table></div>';
-  }
-  if(s.observations) h+=`<div style="margin-top:16px;background:var(--bg3);border-radius:var(--radius);padding:12px;font-size:13px"><strong>Observations :</strong> ${s.observations}</div>`;
-  document.getElementById('stab-detail-content').innerHTML=h;
-}
-
-function openAddTimepoint() {
-  if(!activeStabId) return;
-  editingTpIdx=null;
-  const s=(state.stabilites||[]).find(x=>x.id===activeStabId); if(!s) return;
-  document.getElementById('tp-label').value='';
-  document.getElementById('tp-date').value='';
-  const t=document.getElementById('modal-tp-title'); if(t) t.textContent='Ajouter un timepoint';
-  populateTimepointFields(s,{});
-  openModal('modal-timepoint');
-}
-
-function editTimepoint(idx) {
-  if(!activeStabId) return;
-  const s=(state.stabilites||[]).find(x=>x.id===activeStabId); if(!s) return;
-  const tp=s.timepoints[idx]; if(!tp) return;
-  editingTpIdx=idx;
-  document.getElementById('tp-label').value=tp.label||'';
-  document.getElementById('tp-date').value=tp.date||'';
-  populateTimepointFields(s,tp.resultats||{});
-  openModal('modal-timepoint');
-}
-
-function populateTimepointFields(s,resultats) {
-  const el=document.getElementById('tp-analyses-fields'); if(!el) return;
-  el.innerHTML=(s.analyses||[]).map(a=>`<div style="display:flex;align-items:center;gap:10px"><label style="min-width:160px;font-size:13px;font-weight:600">${a}</label><input data-analyse="${a}" value="${(resultats[a]||'').replace(/"/g,'&quot;')}" placeholder="Resultat / commentaire" style="flex:1"></div>`).join('');
-}
-
-function saveTimepoint() {
-  const label=document.getElementById('tp-label').value.trim();
-  if(!label){toast('Le timepoint est obligatoire','error');return;}
-  const s=(state.stabilites||[]).find(x=>x.id===activeStabId); if(!s) return;
-  if(!s.timepoints) s.timepoints=[];
-  const resultats={};
-  document.querySelectorAll('#tp-analyses-fields input[data-analyse]').forEach(inp=>{resultats[inp.dataset.analyse]=inp.value;});
-  const tp={label,date:document.getElementById('tp-date').value,resultats};
-  if(editingTpIdx!==null){s.timepoints[editingTpIdx]=tp;}else{s.timepoints.push(tp);}
-  editingTpIdx=null; closeModal('modal-timepoint'); renderStabDetail(s); saveData(); toast('Timepoint enregistre','success');
-}
-
-function deleteTimepoint(idx) {
-  const s=(state.stabilites||[]).find(x=>x.id===activeStabId); if(!s) return;
-  s.timepoints.splice(idx,1); renderStabDetail(s); saveData();
-}
-
-function editTimepointResult(tpIdx,analyse) {
-  const s=(state.stabilites||[]).find(x=>x.id===activeStabId); if(!s) return;
-  const tp=s.timepoints[tpIdx]; if(!tp) return;
-  const cur=(tp.resultats||{})[analyse]||'';
-  const val=prompt('Resultat pour "'+analyse+'" — '+tp.label+':',cur);
-  if(val===null) return;
-  if(!tp.resultats) tp.resultats={};
-  tp.resultats[analyse]=val;
-  renderStabDetail(s); saveData();
-}
-
-function exportStabWord() {
-  const s=(state.stabilites||[]).find(x=>x.id===activeStabId); if(!s) return;
-  const tps=s.timepoints||[]; const analyses=s.analyses||[];
-  let content='RAPPORT DE STABILITE\n\n';
-  content+='N Etude : '+s.num+'\n';
-  content+='Produit(s) : '+s.produits+'\n';
-  content+='Lot(s) : '+s.lots+'\n';
-  content+='Temperatures : '+s.temperatures+'\n';
-  content+='Debut : '+(s.debut?formatDate(s.debut):'—')+'\n';
-  content+='Echeance : '+(s.echeance?formatDate(s.echeance):'—')+'\n';
-  content+='Responsable : '+s.responsable+'\n';
-  content+='Statut : '+s.statut+'\n\n';
-  if(s.observations) content+='Observations : '+s.observations+'\n\n';
-  content+='RESULTATS\n\n';
-  if(tps.length){
-    content+=['Analyse',...tps.map(t=>t.label+(t.date?' ('+formatDate(t.date)+')':''))].join('\t')+'\n';
-    analyses.forEach(a=>{content+=[a,...tps.map(tp=>(tp.resultats||{})[a]||'—')].join('\t')+'\n';});
-  }
-  const blob=new Blob(['\ufeff'+content],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement('a'); link.href=url; link.download=s.num+'-stabilite.txt'; link.click();
-  toast('Rapport exporte','success');
-}
 // ============================================================
 // WIZARD ECHANTILLON - 7 ETAPES
 // ============================================================
@@ -1406,6 +1115,218 @@ function wizardConfirm() {
   renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
   toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
 }
+
+
+function populateProduitsAnalyseCheck(selectedIds) {
+  const el = document.getElementById('a-produits-check'); if(!el) return;
+  const prods = state.produitsEch||[];
+  if (!prods.length) { el.innerHTML='<span style="font-size:12px;color:var(--text3)">Aucun produit defini</span>'; return; }
+  el.innerHTML = prods.map(p => {
+    const checked = selectedIds && selectedIds.includes(p.id) ? 'checked' : '';
+    return '<label style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:4px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:12px"><input type="checkbox" value="'+p.id+'" '+checked+'>'+p.nom+(p.code?' <code style="font-size:10px">'+p.code+'</code>':'')+'</label>';
+  }).join('');
+}
+
+function getMarcheAnalyses(containerId) {
+  const checks = document.querySelectorAll('#'+containerId+' .analyse-check:checked');
+  return Array.from(checks).map(cb => { const id=parseInt(cb.dataset.id); const pif=document.querySelector('#'+containerId+' .type-pif[data-id="'+id+'"]')?.checked||false; const stab=document.querySelector('#'+containerId+' .type-stab[data-id="'+id+'"]')?.checked||false; return {id,pif,stab}; });
+}
+
+function populateAnalysesChecks(containerId, selectedIds, selectedTypes) {
+  const el = document.getElementById(containerId); if(!el) return;
+  const catalogue = state.catalogue||[];
+  if (!catalogue.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucune analyse</span>'; return; }
+  el.innerHTML = catalogue.map(a => {
+    const sel = selectedIds && selectedIds.find ? selectedIds.find(s=>s.id===a.id||s===a.id) : null;
+    const selObj = sel && sel.id ? sel : null;
+    const checkedMain = selectedIds && (selectedIds.includes(a.id)||(selectedIds.some&&selectedIds.some(s=>s.id===a.id))) ? 'checked' : '';
+    const isPIF = selObj ? selObj.pif : true; const isSTAB = selObj ? selObj.stab : false;
+    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:4px"><input type="checkbox" class="analyse-check" data-id="'+a.id+'" '+checkedMain+' style="flex-shrink:0"><span style="font-size:12px;flex:1">'+a.nom+(a.code?' <code style="font-size:10px">'+a.code+'</code>':'')+'</span><label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--blue);cursor:pointer"><input type="checkbox" class="type-pif" data-id="'+a.id+'" '+(isPIF?'checked':'')+'>PIF</label><label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--purple);cursor:pointer"><input type="checkbox" class="type-stab" data-id="'+a.id+'" '+(isSTAB?'checked':'')+'>STAB</label></div>';
+  }).join('');
+}
+
+function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
+  const order = ['a_lancer','en_cours','terminee','verifiee'];
+  const curIdx = order.indexOf(currentStatut);
+  const cellIdx = order.indexOf(cellType);
+  const isDone = curIdx >= cellIdx && curIdx >= 0;
+  const isVerifiee = currentStatut === 'verifiee';
+  const date = statInfo[cellType];
+  const colors = { en_cours:'#0550ae', terminee:'#0d7c75', verifiee:'#1a7f37' };
+  const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
+  const c = colors[cellType]||'#888'; const ic = icons[cellType]||'circle';
+  if (isDone) {
+    const d = date ? '<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>' : '';
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
+  } else if (cellIdx === curIdx+1 && !isVerifiee) {
+    return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>';
+  }
+  return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
+}
+
+function resetFiltresEch() {
+  ['fech-produit','fech-lot','fech-analyse'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['fech-date','fech-marche','fech-encours','fech-terminee','fech-verifiee'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  renderEchantillonsTable();
+}
+
+function cycleAnalyseStatut(echId, analyseId) {
+  const order = ['a_lancer','en_cours','terminee','verifiee'];
+  const ech = (state.echantillons||[]).find(e=>e.id===echId);
+  if (!ech) return;
+  if (!ech.analyseStatuts) ech.analyseStatuts = {};
+  if (!ech.analyseStatutsInfo) ech.analyseStatutsInfo = {};
+  const cur = ech.analyseStatuts[analyseId] || 'a_lancer';
+  if (cur === 'verifiee') return;
+  const nextIdx = order.indexOf(cur) + 1;
+  if (nextIdx >= order.length) return;
+  const next = order[nextIdx];
+  ech.analyseStatuts[analyseId] = next;
+  if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
+  ech.analyseStatutsInfo[analyseId][next] = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const ids = ech.analysesIds||[];
+  const allDone = ids.length && ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
+  const anyStarted = ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';});
+  ech.statut = allDone?'conforme':anyStarted?'en_analyse':'recu';
+  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
+  addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next);
+  renderEchantillonsTable(); saveData();
+}
+
+let activeStabId = null;
+let editingTpIdx = null;
+
+function renderStabilites() {
+  const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
+  const stabs=(state.stabilites||[]).filter(s=>!q||(s.num||'').toLowerCase().includes(q)||(s.produits||'').toLowerCase().includes(q));
+  const tbody=document.getElementById('stab-tbody'); if(!tbody) return;
+  if(!stabs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude</p></div></td></tr>';return;}
+  const sb={en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
+  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance?formatDate(s.echeance):'—')+'</td><td>'+(s.responsable||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
+}
+
+function saveStabilite() {
+  const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
+  if(!state.stabilites) state.stabilites=[];
+  const analyses=document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
+  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:document.getElementById('stab-echeance').value,debut:document.getElementById('stab-debut').value,responsable:document.getElementById('stab-resp').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
+  if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
+  editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
+}
+
+function editStabilite(id) {
+  const s=(state.stabilites||[]).find(x=>x.id===id);if(!s)return;editingId=id;
+  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-resp').value=s.responsable||'';document.getElementById('stab-produits').value=s.produits||'';document.getElementById('stab-lots').value=s.lots||'';document.getElementById('stab-temps').value=s.temperatures||'';document.getElementById('stab-echeance').value=s.echeance||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-analyses').value=(s.analyses||[]).join(', ');document.getElementById('stab-obs').value=s.observations||'';
+  const t=document.getElementById('modal-stab-title');if(t)t.textContent='Modifier';openModal('modal-stab');
+}
+
+function deleteStabilite(id) {
+  const s=(state.stabilites||[]).find(x=>x.id===id);state.stabilites=(state.stabilites||[]).filter(x=>x.id!==id);if(activeStabId===id)closeStabDetail();addActivity('trash','Stab: '+(s?.num||''));renderStabilites();saveData();
+}
+
+function openStabDetail(id) {
+  activeStabId=id;const s=(state.stabilites||[]).find(x=>x.id===id);if(!s)return;
+  document.getElementById('stab-detail').style.display='block';
+  document.getElementById('stab-detail-title').textContent=s.num+' — '+s.produits;
+  renderStabDetail(s);
+}
+
+function closeStabDetail() {
+  activeStabId=null;const el=document.getElementById('stab-detail');if(el)el.style.display='none';
+}
+
+function renderStabDetail(s) {
+  const tps=s.timepoints||[];const analyses=s.analyses||[];
+  let h='<div style="background:var(--bg3);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;font-size:13px">'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Produit(s)</span><br><strong>'+s.produits+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s)</span><br><strong>'+s.lots+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance?formatDate(s.echeance):'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Responsable</span><br><strong>'+(s.responsable||'—')+'</strong></div>'
+    +'</div>';
+  if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
+  else{
+    h+='<div style="overflow-x:auto"><table style="min-width:600px;font-size:14px"><thead><tr><th style="width:160px">Analyse</th>';
+    tps.forEach(function(tp,ti){h+='<th style="text-align:center;min-width:130px">'+tp.label+'<br><span style="font-size:11px;color:var(--text3);font-weight:400">'+(tp.date?formatDate(tp.date):'')+'</span><div style="display:flex;gap:4px;justify-content:center;margin-top:4px"><button class="icon-btn" onclick="editTimepoint('+ti+')" style="padding:2px 4px"><i class="ti ti-pencil" style="font-size:12px"></i></button><button class="icon-btn danger" onclick="deleteTimepoint('+ti+')" style="padding:2px 4px"><i class="ti ti-trash" style="font-size:12px"></i></button></div></th>';});
+    h+='</tr></thead><tbody>';
+    analyses.forEach(function(a){
+      h+='<tr><td><strong>'+a+'</strong></td>';
+      tps.forEach(function(tp,ti){
+        const res=(tp.resultats||{})[a]||'';
+        const cell = document.createElement('td');
+        cell.style.cssText='text-align:center;padding:8px';
+        const div = document.createElement('div');
+        div.onclick = (function(tpIdx,an){return function(){editTimepointResult(tpIdx,an);};})(ti,a);
+        div.style.cssText='cursor:pointer;min-height:32px;padding:4px 8px;border-radius:8px;border:1px dashed #ddd;font-size:13px;color:'+(res?'#1a2233':'#8896a8');
+        div.textContent = res||'—';
+        cell.appendChild(div);
+        const tempRow = document.createElement('tr'); tempRow.appendChild(cell);
+        h += tempRow.innerHTML;
+      });
+      h+='</tr>';
+    });
+    h+='</tbody></table></div>';
+  }
+  if(s.observations)h+='<div style="margin-top:16px;background:var(--bg3);border-radius:var(--radius);padding:12px;font-size:13px"><strong>Observations :</strong> '+s.observations+'</div>';
+  document.getElementById('stab-detail-content').innerHTML=h;
+}
+
+function openAddTimepoint() {
+  if(!activeStabId)return;editingTpIdx=null;
+  const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
+  document.getElementById('tp-label').value='';document.getElementById('tp-date').value='';
+  const t=document.getElementById('modal-tp-title');if(t)t.textContent='Ajouter un timepoint';
+  populateTimepointFields(s,{});openModal('modal-timepoint');
+}
+
+function editTimepoint(idx) {
+  if(!activeStabId)return;const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
+  const tp=s.timepoints[idx];if(!tp)return;editingTpIdx=idx;
+  document.getElementById('tp-label').value=tp.label||'';document.getElementById('tp-date').value=tp.date||'';
+  populateTimepointFields(s,tp.resultats||{});openModal('modal-timepoint');
+}
+
+function populateTimepointFields(s,resultats) {
+  const el=document.getElementById('tp-analyses-fields');if(!el)return;
+  el.innerHTML=(s.analyses||[]).map(function(a){return '<div style="display:flex;align-items:center;gap:10px"><label style="min-width:160px;font-size:13px;font-weight:600">'+a+'</label><input data-analyse="'+a+'" value="'+((resultats[a]||'').replace(/"/g,'&quot;'))+'" placeholder="Resultat / commentaire" style="flex:1"></div>';}).join('');
+}
+
+function saveTimepoint() {
+  const label=document.getElementById('tp-label').value.trim();if(!label){toast('Timepoint obligatoire','error');return;}
+  const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
+  if(!s.timepoints)s.timepoints=[];
+  const resultats={};
+  document.querySelectorAll('#tp-analyses-fields input[data-analyse]').forEach(function(inp){resultats[inp.dataset.analyse]=inp.value;});
+  const tp={label,date:document.getElementById('tp-date').value,resultats};
+  if(editingTpIdx!==null){s.timepoints[editingTpIdx]=tp;}else{s.timepoints.push(tp);}
+  editingTpIdx=null;closeModal('modal-timepoint');renderStabDetail(s);saveData();toast('Timepoint enregistre','success');
+}
+
+function deleteTimepoint(idx) {
+  const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;s.timepoints.splice(idx,1);renderStabDetail(s);saveData();
+}
+
+function editTimepointResult(tpIdx,analyse) {
+  const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
+  const tp=s.timepoints[tpIdx];if(!tp)return;
+  const cur=(tp.resultats||{})[analyse]||'';
+  const val=prompt('Resultat pour "'+analyse+'" — '+tp.label+':',cur);
+  if(val===null)return;if(!tp.resultats)tp.resultats={};tp.resultats[analyse]=val;renderStabDetail(s);saveData();
+}
+
+function exportStabWord() {
+  const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
+  const tps=s.timepoints||[];const analyses=s.analyses||[];
+  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nEcheance : '+(s.echeance?formatDate(s.echeance):'—')+'\nResponsable : '+(s.responsable||'—')+'\nStatut : '+s.statut+'\n\n';
+  if(s.observations)c+='Observations : '+s.observations+'\n\n';
+  c+='RESULTATS\n\n';
+  if(tps.length){c+=['Analyse',...tps.map(t=>t.label+(t.date?' ('+formatDate(t.date)+')':''))].join('\t')+'\n';analyses.forEach(a=>{c+=[a,...tps.map(t=>(t.resultats||{})[a]||'—')].join('\t')+'\n';});}
+  const blob=new Blob(['\ufeff'+c],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=s.num+'-stabilite.txt';link.click();
+  toast('Rapport exporte','success');
+}
+
 
 // ============================================================
 // STATE
@@ -2509,7 +2430,6 @@ function renderEchantillonsTable() {
   const fEnCours = document.getElementById('fech-encours')?.value||'';
   const fTerminee = document.getElementById('fech-terminee')?.value||'';
   const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
-
   const marcheSelect = document.getElementById('fech-marche');
   if (marcheSelect && marcheSelect.options.length <= 1) {
     (state.marches||[]).forEach(m => {
@@ -2518,84 +2438,58 @@ function renderEchantillonsTable() {
       marcheSelect.appendChild(opt);
     });
   }
-
-  let echantillons = (state.echantillons||[]).filter(e => {
-    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
-    if (fProduit && !(produit?.nom||'').toLowerCase().includes(fProduit)) return false;
-    if (fLot && !(e.lot||'').toLowerCase().includes(fLot)) return false;
-    if (fDate && e.date !== fDate) return false;
-    if (fMarche && !(e.marcheIds||[]).map(String).includes(fMarche)) return false;
-    if (fAnalyse) {
-      const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-      if (!analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse))) return false;
-    }
-    if (fEnCours || fTerminee || fVerifiee) {
-      const statuts = Object.values(e.analyseStatuts||{});
-      if (fEnCours==='oui' && !statuts.some(s=>s==='en_cours')) return false;
-      if (fEnCours==='non' && statuts.some(s=>s==='en_cours')) return false;
-      if (fTerminee==='oui' && !statuts.some(s=>s==='terminee')) return false;
-      if (fTerminee==='non' && statuts.some(s=>s==='terminee')) return false;
-      if (fVerifiee==='oui' && !statuts.some(s=>s==='verifiee')) return false;
-      if (fVerifiee==='non' && statuts.some(s=>s==='verifiee')) return false;
-    }
-    return true;
-  });
-
+  const lots = {};
+  (state.echantillons||[]).forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
-  if (!echantillons.length) {
-    tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>';
-    return;
-  }
-
-  echantillons.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-
-  // Grouper par lot pour connaitre nbSeries
-  const lots = {};
-  echantillons.forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
-
   const TD = 'style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border)"';
   const rows = [];
-
   Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, sousSeries]) => {
-    const nbSeries = sousSeries.length;
     const e0 = sousSeries[0];
     const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
     const prodNom = produit ? produit.nom : '—';
-    const prodForme = produit && produit.forme ? produit.forme+(produit.dosage?' '+produit.dosage:'') : '';
-    const marchesHtml = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean).map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
+    const prodForme = produit&&produit.forme ? produit.forme+(produit.dosage?' '+produit.dosage:'') : '';
+    const marchesList = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const marchesHtml = marchesList.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
     const dateRecp = e0.date ? formatDate(e0.date) : '—';
     const lotCode = e0.lot||'—';
-
-    sousSeries.forEach((e, si) => {
-      const analyses = (e.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-      const toShow = analyses.length ? analyses : [null];
-      toShow.forEach((a, ai) => {
-        const statut = a ? ((e.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
-        const statInfo = a ? ((e.analyseStatutsInfo||{})[a.id] || {}) : {};
-        // Separateur visuel entre lots
-        const borderTop = si===0 && ai===0 ? 'border-top:2px solid var(--cyan);' : '';
-        rows.push(`<tr style="${borderTop}">
-          <td ${TD}><strong style="font-size:15px">${prodNom}</strong>${prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':''}</td>
-          <td ${TD}><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">${lotCode}</code></td>
-          <td ${TD} style="text-align:center;font-size:15px"><strong>${nbSeries}</strong></td>
-          <td ${TD}>${marchesHtml}</td>
-          <td ${TD} style="font-size:14px">${dateRecp}</td>
-          <td ${TD}>
-            <strong style="font-size:14px">${a?a.nom:'—'}</strong>
-            ${a&&a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':''}
-            <br><span style="font-size:12px;color:var(--cyan)">${e.code}</span>
-          </td>
-          ${a ? `
-            <td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">${statutIcon(e.id,a.id,statut,statInfo,'en_cours')}</td>
-            <td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">${statutIcon(e.id,a.id,statut,statInfo,'terminee')}</td>
-            <td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">${statutIcon(e.id,a.id,statut,statInfo,'verifiee')}</td>
-          ` : '<td colspan="3" style="text-align:center;color:var(--text3);border-bottom:1px solid var(--border)">—</td>'}
-          <td style="padding:8px;border-bottom:1px solid var(--border)"><div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon(${e.id})"><i class="ti ti-trash"></i></button></div></td>
-        </tr>`);
-      });
+    const nbSeries = sousSeries.length;
+    const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    if (fProduit && !prodNom.toLowerCase().includes(fProduit)) return;
+    if (fLot && !lotCode.toLowerCase().includes(fLot)) return;
+    if (fDate && e0.date !== fDate) return;
+    if (fMarche && !(e0.marcheIds||[]).map(String).includes(fMarche)) return;
+    if (fAnalyse && !analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse))) return;
+    if (fEnCours || fTerminee || fVerifiee) {
+      const statuts = Object.values(e0.analyseStatuts||{});
+      if (fEnCours==='oui' && !statuts.some(s=>s==='en_cours')) return;
+      if (fEnCours==='non' && statuts.some(s=>s==='en_cours')) return;
+      if (fTerminee==='oui' && !statuts.some(s=>s==='terminee')) return;
+      if (fTerminee==='non' && statuts.some(s=>s==='terminee')) return;
+      if (fVerifiee==='oui' && !statuts.some(s=>s==='verifiee')) return;
+      if (fVerifiee==='non' && statuts.some(s=>s==='verifiee')) return;
+    }
+    const toShow = analyses.length ? analyses : [null];
+    toShow.forEach((a, ai) => {
+      const statut = a ? ((e0.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
+      const statInfo = a ? ((e0.analyseStatutsInfo||{})[a.id] || {}) : {};
+      rows.push('<tr style="'+(ai===0?'border-top:2px solid var(--cyan3);':'')+'">'+
+        '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+
+        '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
+        '<td '+TD+' style="text-align:center"><strong style="font-size:16px;color:var(--cyan)">'+nbSeries+'</strong></td>'+
+        '<td '+TD+'>'+marchesHtml+'</td>'+
+        '<td '+TD+'>'+dateRecp+'</td>'+
+        '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':''):'—')+'</td>'+
+        (a?
+          '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td>'+
+          '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td>'+
+          '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>'
+          :'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
+        '<td style="padding:8px;border-bottom:1px solid var(--border)">'+(ai===0?'<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>':'')+'</td>'+
+      '</tr>');
     });
   });
+  if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
   tbody.innerHTML = rows.join('');
 }
 
@@ -2823,7 +2717,14 @@ function formatDate(d) {
 // ============================================================
 function openModal(id) {
   if (id === 'modal-planning') { populateTechSelects(); populateCatalogueSelect(); if(!editingId){ const h=document.getElementById('p-habs-info'); if(h) h.style.display='none'; const sel=document.getElementById('p-catalogue'); if(sel) sel.value=''; } }
-  if (id === 'modal-analyse') { if(!editingId) document.getElementById('modal-analyse-title').textContent='Nouvelle analyse'; }
+  if (id === 'modal-analyse') {
+    if(!editingId) {
+      const at=document.getElementById('modal-analyse-title');
+      if(at) at.textContent='Nouvelle analyse';
+    }
+    const selIds = editingId ? ((state.catalogue||[]).find(a=>a.id===editingId)||{}).produitsIds||[] : [];
+    setTimeout(() => populateProduitsAnalyseCheck(selIds), 50);
+  }
   if (id === 'modal-echantillon') {
     populateTechSelects();
     populateProduitEchSelect();
@@ -3058,6 +2959,7 @@ window.wizardLoadAnalyses = wizardLoadAnalyses;
 window.cycleAnalyseStatut = cycleAnalyseStatut;
 window.statutIcon = statutIcon;
 window.resetFiltresEch = resetFiltresEch;
+window.renderEchantillonsTable = renderEchantillonsTable;
 window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.getMarcheAnalyses = getMarcheAnalyses;
 window.populateAnalysesChecks = populateAnalysesChecks;
@@ -3073,7 +2975,6 @@ window.saveTimepoint = saveTimepoint;
 window.deleteTimepoint = deleteTimepoint;
 window.editTimepointResult = editTimepointResult;
 window.exportStabWord = exportStabWord;
-window.renderEchantillonsTable = renderEchantillonsTable;
 
 </script>
 </body>
