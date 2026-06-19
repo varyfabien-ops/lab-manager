@@ -170,6 +170,16 @@
       "duree": "",
       "code": "TCC0044",
       "description": ""
+    },
+    {
+      "id": 1781852984224,
+      "nom": "Osmolalité",
+      "habilitations": [
+        "Osmolalité"
+      ],
+      "duree": "",
+      "code": "OSMO",
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -750,6 +760,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0044",
       "time": "19/06 09:00"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : Osmolalité",
+      "time": "19/06 09:09"
     }
   ]
 }
