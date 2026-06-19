@@ -148,6 +148,16 @@
       "duree": "",
       "code": "",
       "description": ""
+    },
+    {
+      "id": 1781852405020,
+      "nom": "L*a*b",
+      "habilitations": [
+        "UV"
+      ],
+      "duree": "",
+      "code": "",
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -718,6 +728,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Setmelanotide 10 mg/mL",
       "time": "19/06 08:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : L*a*b",
+      "time": "19/06 09:00"
     }
   ]
 }
