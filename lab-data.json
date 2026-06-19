@@ -392,6 +392,13 @@
       "code": "CA",
       "analyses": [],
       "note": ""
+    },
+    {
+      "id": 1781853985902,
+      "nom": "USA",
+      "code": "US",
+      "analyses": [],
+      "note": ""
     }
   ],
   "echantillons": [
@@ -585,11 +592,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "shopping-cart",
-      "text": "Commande mise a jour : Méthanol HPLC Grade",
-      "time": "14/06 16:23"
-    },
     {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
@@ -834,6 +836,11 @@
       "icon": "list-check",
       "text": "AAAAAAA-A — TCC0044 : en_cours",
       "time": "19/06 09:18"
+    },
+    {
+      "icon": "world",
+      "text": "Marche ajoute : USA",
+      "time": "19/06 09:26"
     }
   ]
 }
