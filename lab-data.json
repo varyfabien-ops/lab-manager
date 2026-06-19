@@ -155,9 +155,6 @@
         "HPLC",
         "Volume"
       ],
-      "produitsIds": [
-        1781508169429
-      ],
       "duree": "6h",
       "code": "TCC0015",
       "description": "Dosage Lidocaïne / PHBM / Naphazoline / Impuretés selon TCC0015"
@@ -818,6 +815,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 3 analyses",
       "time": "19/06 09:10"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : TCC0015",
+      "time": "19/06 09:12"
     }
   ]
 }
