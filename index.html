@@ -327,17 +327,13 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px"><thead><tr>
-  <th style="width:170px">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:120px">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+      <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
+  <th style="width:170px;text-align:center">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:120px;text-align:center">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:80px;text-align:center">Nb s-series</th>
-  <th style="width:110px">Marches<br>
-    <select class="filter-input" id="fech-marche" onchange="renderEchantillonsTable()">
-      <option value="">Tous</option>
-    </select>
-  </th>
-  <th style="width:120px">Date de reception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
-  <th style="width:170px">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:110px;text-align:center">Marches</th>
+  <th style="width:120px;text-align:center">Date de reception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
+  <th style="width:170px;text-align:center">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
     <select class="filter-input" id="fech-encours" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
@@ -1166,7 +1162,7 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
 
 function resetFiltresEch() {
   ['fech-produit','fech-lot','fech-analyse'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  ['fech-date','fech-marche','fech-encours','fech-terminee','fech-verifiee'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['fech-date','fech-encours','fech-terminee','fech-verifiee'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   renderEchantillonsTable();
 }
 
@@ -2424,25 +2420,18 @@ function saveEchantillon() {
 function renderEchantillonsTable() {
   const fProduit = (document.getElementById('fech-produit')?.value||'').toLowerCase();
   const fLot = (document.getElementById('fech-lot')?.value||'').toLowerCase();
-  const fMarche = document.getElementById('fech-marche')?.value||'';
+
   const fDate = document.getElementById('fech-date')?.value||'';
   const fAnalyse = (document.getElementById('fech-analyse')?.value||'').toLowerCase();
   const fEnCours = document.getElementById('fech-encours')?.value||'';
   const fTerminee = document.getElementById('fech-terminee')?.value||'';
   const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
-  const marcheSelect = document.getElementById('fech-marche');
-  if (marcheSelect && marcheSelect.options.length <= 1) {
-    (state.marches||[]).forEach(m => {
-      const opt = document.createElement('option');
-      opt.value = String(m.id); opt.textContent = m.nom;
-      marcheSelect.appendChild(opt);
-    });
-  }
+
   const lots = {};
   (state.echantillons||[]).forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
-  const TD = 'style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border)"';
+  const TD = 'style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border);text-align:center"';
   const rows = [];
   Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, sousSeries]) => {
     const e0 = sousSeries[0];
@@ -2458,7 +2447,7 @@ function renderEchantillonsTable() {
     if (fProduit && !prodNom.toLowerCase().includes(fProduit)) return;
     if (fLot && !lotCode.toLowerCase().includes(fLot)) return;
     if (fDate && e0.date !== fDate) return;
-    if (fMarche && !(e0.marcheIds||[]).map(String).includes(fMarche)) return;
+
     if (fAnalyse && !analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse))) return;
     if (fEnCours || fTerminee || fVerifiee) {
       const statuts = Object.values(e0.analyseStatuts||{});
@@ -2469,7 +2458,12 @@ function renderEchantillonsTable() {
       if (fVerifiee==='oui' && !statuts.some(s=>s==='verifiee')) return;
       if (fVerifiee==='non' && statuts.some(s=>s==='verifiee')) return;
     }
-    const toShow = analyses.length ? analyses : [null];
+    const toShow = (analyses.length ? analyses : [null]).filter(a => {
+      if (!fAnalyse) return true;
+      if (!a) return false;
+      return (a.nom||'').toLowerCase().includes(fAnalyse);
+    });
+    if (!toShow.length) return;
     toShow.forEach((a, ai) => {
       const statut = a ? ((e0.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
       const statInfo = a ? ((e0.analyseStatutsInfo||{})[a.id] || {}) : {};
