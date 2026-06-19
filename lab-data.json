@@ -158,6 +158,18 @@
       "duree": "",
       "code": "",
       "description": ""
+    },
+    {
+      "id": 1781852438719,
+      "nom": "TCC0044",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Volume"
+      ],
+      "duree": "",
+      "code": "TCC0044",
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -732,6 +744,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : L*a*b",
+      "time": "19/06 09:00"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : TCC0044",
       "time": "19/06 09:00"
     }
   ]
