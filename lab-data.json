@@ -554,8 +554,16 @@
       "stabTemps": "",
       "lot": "AAAAAAA",
       "date": "2026-06-19",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852438719": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852438719": {
+          "en_cours": "19/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -577,11 +585,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Méthanol HPLC Grade",
-      "time": "14/06 16:21"
-    },
     {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
@@ -826,6 +829,11 @@
       "icon": "book",
       "text": "Analyse modifiee : pH",
       "time": "19/06 09:12"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — TCC0044 : en_cours",
+      "time": "19/06 09:18"
     }
   ]
 }
