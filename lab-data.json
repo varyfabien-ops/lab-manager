@@ -315,6 +315,15 @@
       "code": "LIP",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1781852369953,
+      "nom": "Setmelanotide 10 mg/mL",
+      "forme": "",
+      "dosage": "10 mg/mL",
+      "code": "SET",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -704,6 +713,11 @@
       "icon": "package",
       "text": "Reception: Xylocaïne 5% Naphazoline — 3 sous-series — 2 analyses",
       "time": "16/06 11:35"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Setmelanotide 10 mg/mL",
+      "time": "19/06 08:59"
     }
   ]
 }
