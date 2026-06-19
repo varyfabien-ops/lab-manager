@@ -165,10 +165,6 @@
       "habilitations": [
         "pH"
       ],
-      "produitsIds": [
-        1781508169429,
-        1781509248907
-      ],
       "duree": "",
       "code": "",
       "description": ""
@@ -824,6 +820,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiee : TCC0015 (Phase Mobile)",
+      "time": "19/06 09:12"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : pH",
       "time": "19/06 09:12"
     }
   ]
