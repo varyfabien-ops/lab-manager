@@ -190,9 +190,16 @@
     <div class="stat-card amber"><div class="label"><i class="ti ti-alert-triangle"></i>Reactifs critiques</div><div class="value" id="stat-reactifs">0</div><div class="sub">stock faible ou expirant</div></div>
     <div class="stat-card purple"><div class="label"><i class="ti ti-certificate"></i>Techniciens</div><div class="value" id="stat-techs">0</div><div class="sub">habilites actifs</div></div>
   </div>
+  <!-- Graphique barres analyses par statut -->
   <div class="table-card">
-    <div class="table-card-header"><h3><i class="ti ti-clock" style="margin-right:6px;color:var(--cyan)"></i>Activite recente</h3></div>
-    <div id="activity-log" style="padding:12px 18px;max-height:300px;overflow-y:auto;"></div>
+    <div class="table-card-header">
+      <h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Analyses par statut</h3>
+      <div class="spacer"></div>
+      <span style="font-size:12px;color:var(--text3)" id="chart-total-label"></span>
+    </div>
+    <div style="padding:24px 28px" id="chart-container">
+      <div id="chart-bars" style="display:flex;flex-direction:column;gap:14px"></div>
+    </div>
   </div>
 </div>
 
@@ -1397,6 +1404,7 @@ function renderAll() {
   updateBadges();
   renderCommandes();
   renderStabilites();
+  renderAuditTrail();
   // Initialiser les sous-vues sans changer la page active
   // Reactifs : afficher contenants par defaut
   ['produits','contenants','archives'].forEach(v => {
@@ -1433,6 +1441,7 @@ function goTo(page, el) {
   if (el) el.classList.add('active');
   if (page === 'commandes') renderCommandes();
   if (page === 'stabilites') renderStabilites();
+  if (page === 'audit') renderAuditTrail();
   if (page === 'habilitations') renderTechniciens();
   if (page === 'dashboard') renderDashboard();
 }
@@ -1570,6 +1579,128 @@ function exportData() {
 // ============================================================
 // DASHBOARD
 // ============================================================
+
+// ============================================================
+// GRAPHIQUE DASHBOARD
+// ============================================================
+function renderDashboardChart() {
+  // Calculer les statuts de toutes les analyses
+  const statuts = { a_lancer: 0, en_cours: 0, terminee: 0, verifiee: 0 };
+  const produitCounts = {};
+
+  (state.echantillons||[]).forEach(e => {
+    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
+    const prodNom = produit ? produit.nom : 'Inconnu';
+    const analyses = (e.analysesIds||[]);
+    analyses.forEach(aid => {
+      const s = (e.analyseStatuts||{})[aid] || 'a_lancer';
+      statuts[s] = (statuts[s]||0) + 1;
+      if (!produitCounts[prodNom]) produitCounts[prodNom] = { a_lancer:0, en_cours:0, terminee:0, verifiee:0 };
+      produitCounts[prodNom][s] = (produitCounts[prodNom][s]||0) + 1;
+    });
+  });
+
+  const total = Object.values(statuts).reduce((a,b)=>a+b, 0);
+  const labelEl = document.getElementById('chart-total-label');
+  if (labelEl) labelEl.textContent = total + ' analyse' + (total>1?'s':'') + ' au total';
+
+  const bars = document.getElementById('chart-bars');
+  if (!bars) return;
+
+  if (total === 0) {
+    bars.innerHTML = '<div class="empty-state"><i class="ti ti-chart-bar"></i><p>Aucune analyse enregistree</p></div>';
+    return;
+  }
+
+  const config = [
+    { key: 'a_lancer',  label: 'A lancer',  color: '#8896a8', bg: 'rgba(136,150,168,0.12)' },
+    { key: 'en_cours',  label: 'En cours',   color: '#0550ae', bg: 'rgba(5,80,174,0.12)' },
+    { key: 'terminee',  label: 'Terminee',   color: '#0d7c75', bg: 'rgba(13,124,117,0.12)' },
+    { key: 'verifiee',  label: 'Verifiee',   color: '#1a7f37', bg: 'rgba(26,127,55,0.12)' },
+  ];
+
+  const maxVal = Math.max(...Object.values(statuts), 1);
+
+  // Barres globales
+  let html = '<div style="margin-bottom:24px"><div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">Vue globale</div>';
+  config.forEach(c => {
+    const val = statuts[c.key] || 0;
+    const pct = Math.round(val/maxVal*100);
+    const pctTotal = total ? Math.round(val/total*100) : 0;
+    html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">'
+      + '<div style="width:100px;font-size:13px;font-weight:600;color:'+c.color+';flex-shrink:0">'+c.label+'</div>'
+      + '<div style="flex:1;background:'+c.bg+';border-radius:6px;height:28px;overflow:hidden;position:relative">'
+      +   '<div style="height:100%;width:'+pct+'%;background:'+c.color+';border-radius:6px;transition:width 0.6s ease;display:flex;align-items:center;padding-left:10px">'
+      +     (pct > 15 ? '<span style="font-size:12px;font-weight:700;color:#fff">'+val+'</span>' : '')
+      +   '</div>'
+      + '</div>'
+      + '<div style="width:60px;text-align:right;font-size:13px;font-weight:600;color:'+c.color+'">'+val+' <span style="font-size:11px;color:var(--text3)">('+pctTotal+'%)</span></div>'
+      + '</div>';
+  });
+  html += '</div>';
+
+  // Barres par produit
+  const produits = Object.entries(produitCounts).sort((a,b)=>b[1].verifiee-a[1].verifiee);
+  if (produits.length > 1) {
+    html += '<div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px">Par produit</div>';
+    produits.forEach(([nom, counts]) => {
+      const tot = Object.values(counts).reduce((a,b)=>a+b,0);
+      html += '<div style="margin-bottom:10px">'
+        + '<div style="font-size:13px;font-weight:600;margin-bottom:4px">'+nom+' <span style="font-size:11px;color:var(--text3);">('+tot+' analyses)</span></div>'
+        + '<div style="display:flex;height:20px;border-radius:6px;overflow:hidden;gap:1px">';
+      config.forEach(c => {
+        const val = counts[c.key]||0;
+        const pct = Math.round(val/tot*100);
+        if (pct > 0) html += '<div style="width:'+pct+'%;background:'+c.color+';display:flex;align-items:center;justify-content:center" title="'+c.label+' : '+val+'">'
+          + (pct > 8 ? '<span style="font-size:10px;font-weight:700;color:#fff">'+val+'</span>' : '')
+          + '</div>';
+      });
+      html += '</div></div>';
+    });
+  }
+
+  bars.innerHTML = html;
+}
+
+// ============================================================
+// AUDIT TRAIL
+// ============================================================
+function renderAuditTrail() {
+  const log = document.getElementById('audit-log');
+  if (!log) return;
+  const activity = (state.activity||[]).slice().reverse();
+  if (!activity.length) {
+    log.innerHTML = '<div class="empty-state"><i class="ti ti-history"></i><p>Aucune activite enregistree</p></div>';
+    return;
+  }
+  const icons = {
+    'pencil':'ti-pencil', 'flask-2':'ti-flask-2', 'package':'ti-package',
+    'trash':'ti-trash', 'book':'ti-book', 'certificate':'ti-certificate',
+    'list-check':'ti-list-check', 'lock-open':'ti-lock-open', 'lock':'ti-lock',
+    'chart-line':'ti-chart-line', 'world':'ti-world', 'pill':'ti-pill',
+    'shopping-cart':'ti-shopping-cart', 'history':'ti-history'
+  };
+  log.innerHTML = activity.map(a => {
+    const ic = icons[a.icon] || 'ti-point';
+    return '<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">'
+      + '<i class="ti '+ic+'" style="font-size:16px;color:var(--cyan);flex-shrink:0;width:20px"></i>'
+      + '<span style="flex:1;font-size:14px">'+a.text+'</span>'
+      + '<span style="font-size:12px;color:var(--text3);white-space:nowrap">'+a.time+'</span>'
+      + '</div>';
+  }).join('');
+}
+
+function exportAudit() {
+  const activity = (state.activity||[]).slice().reverse();
+  if (!activity.length) { toast('Aucune activite', 'info'); return; }
+  const lines = ['Date	Action'];
+  activity.forEach(a => lines.push(a.time+'	'+a.text));
+  const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a'); link.href=url; link.download='audit-trail.txt'; link.click();
+  toast('Audit exporte','success');
+}
+
 function renderDashboard() {
   const today = new Date();
   const weekStart = new Date(today); weekStart.setDate(today.getDate() - today.getDay() + 1);
@@ -1581,15 +1712,7 @@ function renderDashboard() {
   const critical = (state.contenants||[]).filter(c => isContenantCritical(c) && c.statut !== 'archive' && c.statut !== 'retire');
   document.getElementById('stat-reactifs').textContent = critical.length;
   document.getElementById('stat-techs').textContent = state.techniciens.filter(t => t.statut === 'actif').length;
-  const log = document.getElementById('activity-log');
-  if (!state.activity.length) { log.innerHTML = '<div class="empty-state"><i class="ti ti-clock"></i><p>Aucune activite recente</p></div>'; return; }
-  log.innerHTML = state.activity.slice(-20).reverse().map(a =>
-    `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--border)">
-      <i class="ti ti-${a.icon}" style="font-size:16px;color:var(--cyan);flex-shrink:0"></i>
-      <span style="flex:1;font-size:13px">${a.text}</span>
-      <span style="font-size:11px;color:var(--text3)">${a.time}</span>
-    </div>`
-  ).join('');
+  renderDashboardChart();
 }
 
 function addActivity(icon, text) {
@@ -2969,6 +3092,9 @@ window.saveTimepoint = saveTimepoint;
 window.deleteTimepoint = deleteTimepoint;
 window.editTimepointResult = editTimepointResult;
 window.exportStabWord = exportStabWord;
+window.renderAuditTrail = renderAuditTrail;
+window.exportAudit = exportAudit;
+window.renderDashboardChart = renderDashboardChart;
 
 </script>
 </body>
