@@ -3141,96 +3141,7 @@ function saveEchantillon() {
   renderEchantillonsTable(); renderDashboard(); saveData();
 }
 
-function renderEchantillonsTable() {
-  const fProduit = (document.getElementById('fech-produit')?.value||'').toLowerCase();
-  const fLot = (document.getElementById('fech-lot')?.value||'').toLowerCase();
 
-  const fDate = document.getElementById('fech-date')?.value||'';
-  const fAnalyse = (document.getElementById('fech-analyse')?.value||'').toLowerCase();
-  const fEnCours = document.getElementById('fech-encours')?.value||'';
-  const fTerminee = document.getElementById('fech-terminee')?.value||'';
-  const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
-
-  const lots = {};
-  (state.echantillons||[]).filter(e=>e.statut!=='approuve'&&e.statut!=='archive').forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
-  const tbody = document.getElementById('ech-tbody');
-  if (!tbody) return;
-  const TD = 'style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border);text-align:center"';
-  const rows = [];
-  Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, sousSeries]) => {
-    const e0 = sousSeries[0];
-    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
-    const prodNom = produit ? produit.nom : '—';
-    const prodForme = produit&&produit.forme ? produit.forme+(produit.dosage?' '+produit.dosage:'') : '';
-    const marchesList = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
-    const marchesHtml = marchesList.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
-    const dateRecp = e0.date ? formatDate(e0.date) : '—';
-    const lotCode = e0.lot||'—';
-    const nbSeries = sousSeries.length;
-    const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    if (fProduit && !prodNom.toLowerCase().includes(fProduit)) return;
-    if (fLot && !lotCode.toLowerCase().includes(fLot)) return;
-    if (fDate && e0.date !== fDate) return;
-
-    if (fAnalyse && !analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse))) return;
-    if (fEnCours || fTerminee || fVerifiee) {
-      const statuts = Object.values(e0.analyseStatuts||{});
-      if (fEnCours==='oui' && !statuts.some(s=>s==='en_cours')) return;
-      if (fEnCours==='non' && statuts.some(s=>s==='en_cours')) return;
-      if (fTerminee==='oui' && !statuts.some(s=>s==='terminee')) return;
-      if (fTerminee==='non' && statuts.some(s=>s==='terminee')) return;
-      if (fVerifiee==='oui' && !statuts.some(s=>s==='verifiee')) return;
-      if (fVerifiee==='non' && statuts.some(s=>s==='verifiee')) return;
-    }
-    const toShow = (analyses.length ? analyses : [null]).filter(a => {
-      if (!fAnalyse) return true;
-      if (!a) return false;
-      return (a.nom||'').toLowerCase().includes(fAnalyse);
-    });
-    if (!toShow.length) return;
-    toShow.forEach((a, ai) => {
-      const statut = a ? ((e0.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
-      const statInfo = a ? ((e0.analyseStatutsInfo||{})[a.id] || {}) : {};
-      const allVerif2 = analyses.length > 0 && analyses.every(a2 => (e0.analyseStatuts||{})[a2.id] === 'verifiee');
-      const isApproved2 = e0.statut === 'approuve';
-      const rowBg = (allVerif2 || isApproved2) ? 'background:rgba(26,127,55,0.07);' : '';
-      const borderT = ai===0 ? 'border-top:2px solid var(--cyan3);' : '';
-      rows.push('<tr style="'+borderT+rowBg+'">'+
-        '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+
-        '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
-        '<td '+TD+' style="text-align:center"><strong style="font-size:16px;color:var(--cyan)">'+nbSeries+'</strong></td>'+
-        '<td '+TD+'>'+marchesHtml+'</td>'+
-        '<td '+TD+'>'+dateRecp+'</td>'+
-        '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':''):'—')+'</td>'+
-        (a?
-          '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td>'+
-          '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td>'+
-          '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>'
-          :'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
-        (ai===0?(()=>{
-          const allVerified = analyses.length > 0 && analyses.every(a2 => (e0.analyseStatuts||{})[a2.id] === 'verifiee');
-          const isApproved = e0.statut === 'approuve';
-          const rowspan = toShow.length;
-          let content = '';
-          if (isApproved) {
-            content = '<span class="badge badge-green" style="font-size:12px;padding:6px 12px;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-rosette" style="font-size:14px"></i> Approuve</span>';
-          } else if (allVerified) {
-            content = '<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px;gap:6px"><i class="ti ti-check"></i> Approuver</button>';
-          } else {
-            content = '<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
-          }
-          return '<td rowspan="'+rowspan+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';
-        })():'')
-      +'</tr>');
-    });
-  });
-  if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
-  tbody.innerHTML = rows.join('');
-  // Branche les boutons Approuver générés dynamiquement
-  tbody.querySelectorAll('.approuver-btn').forEach(btn => {
-    btn.addEventListener('click', () => approuverLot(btn.dataset.lot));
-  });
-}
 
 function editEchantillon(id) {
   const e = state.echantillons.find(x=>x.id===id); if(!e) return;
@@ -3986,32 +3897,7 @@ function getEcheanceConditionDisplay(e0){
   return parts.length ? parts.join('<br>') : '<span style="color:var(--text3);font-size:12px">—</span>';
 }
 
-renderEchantillonsTable = function(){
-  const tbody=document.getElementById('ech-tbody'); if(!tbody)return;
-  const q=(document.getElementById('search-ech')?.value||'').toLowerCase();
-  const fProduit=(document.getElementById('fech-produit')?.value||'').toLowerCase(); const fLot=(document.getElementById('fech-lot')?.value||'').toLowerCase(); const fDate=document.getElementById('fech-date')?.value||''; const fAnalyse=(document.getElementById('fech-analyse')?.value||'').toLowerCase(); const fEnCours=document.getElementById('fech-encours')?.value||''; const fTerminee=document.getElementById('fech-terminee')?.value||''; const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
-  const lots={}; (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve').forEach(e=>{const k=e.lot||String(e.id); if(!lots[k])lots[k]=[]; lots[k].push(e);});
-  const rows=[]; const TD='style="font-size:14px;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle"';
-  Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, group])=>{
-    const e0=group[0]; const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId)||{}; const prodNom=produit.nom||'—'; const prodForme=[produit.forme,produit.dosage].filter(Boolean).join(' '); const lotCode=e0.lot||lotKey;
-    if(q && !(prodNom+' '+lotCode+' '+typeBadgesForEntry(e0)).toLowerCase().includes(q))return;
-    if(fProduit && !prodNom.toLowerCase().includes(fProduit))return;
-    if(fLot && !lotCode.toLowerCase().includes(fLot))return;
-    if(fDate && e0.date!==fDate)return;
-    if(fEnCours||fTerminee||fVerifiee){ const statuts=Object.values(e0.analyseStatuts||{}); if(fEnCours==='oui'&&!statuts.some(s=>s==='en_cours'))return; if(fEnCours==='non'&&statuts.some(s=>s==='en_cours'))return; if(fTerminee==='oui'&&!statuts.some(s=>s==='terminee'))return; if(fTerminee==='non'&&statuts.some(s=>s==='terminee'))return; if(fVerifiee==='oui'&&!statuts.some(s=>s==='verifiee'))return; if(fVerifiee==='non'&&statuts.some(s=>s==='verifiee'))return; }
-    const analyses=(e0.analysesIds||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean).filter(a=>!fAnalyse||a.nom.toLowerCase().includes(fAnalyse));
-    const toShow=analyses.length?analyses:[null];
-    toShow.forEach((a,ai)=>{
-      const statut=a?(e0.analyseStatuts||{})[a.id]||'a_lancer':null; const statInfo=a?(e0.analyseStatutsInfo||{})[a.id]||{}:{};
-      const allVerif=analyses.length&&analyses.every(a2=>(e0.analyseStatuts||{})[a2.id]==='verifiee'); const isApproved=e0.statut==='approuve';
-      const rowBg=(allVerif||isApproved)?'background:rgba(26,127,55,0.07);':''; const borderT=ai===0?'border-top:2px solid '+typeColorForEntry(e0)+';':'';
-      const r=a?(e0.analyseResultats||{})[a.id]:null;
-      rows.push('<tr style="'+borderT+rowBg+'"><td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'<br><span style="display:inline-flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+typeBadgesForEntry(e0)+'</span></td><td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td><td '+TD+' style="text-align:center">'+getLotSousSerieContenantDisplay(e0,group)+'</td><td '+TD+'>'+getMarcheDisplay(e0)+'</td><td '+TD+'>'+getEcheanceConditionDisplay(e0)+'</td><td '+TD+'>'+(e0.date?formatDate(e0.date):'—')+'</td><td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':''):'—')+'</td>'+(a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+(ai===0?(()=>{const rowspan=toShow.length;let content=''; if(isApproved){content='<span class="badge badge-green" style="font-size:12px;padding:6px 12px"><i class="ti ti-rosette"></i> Approuvé</span>';} else if(allVerif){content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px"><i class="ti ti-check"></i> Approuver</button>';} else {content='<div class="actions" style="opacity:1"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';} return '<td rowspan="'+rowspan+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';})():'')+'</tr>');
-    });
-  });
-  if(!rows.length){ tbody.innerHTML='<tr><td colspan="11"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon</p></div></td></tr>'; return; }
-  tbody.innerHTML=rows.join(''); tbody.querySelectorAll('.approuver-btn').forEach(btn=>btn.addEventListener('click',()=>approuverLot(btn.dataset.lot)));
-};
+;
 
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
@@ -4063,7 +3949,7 @@ function renderEchantillonsTableAlignedV105(){
   const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
 
   const lots={};
-  (state.echantillons||[]).filter(e=>e.statut!=='archive').forEach(e=>{
+  (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve').forEach(e=>{
     const k=e.lot||String(e.id);
     if(!lots[k]) lots[k]=[];
     lots[k].push(e);
