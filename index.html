@@ -840,7 +840,22 @@
         <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Xylocaine 5%, Paracetamol 500mg"></div>
         <div class="form-group full"><label>Lot(s)</label><input id="stab-lots" placeholder="Ex: LOT-001, LOT-002"></div>
         <div class="form-group"><label>Temperatures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
-        <div class="form-group"><label>Echeance</label><input type="date" id="stab-echeance"></div>
+        <div class="form-group">
+          <label>Échéance</label>
+          <select id="stab-echeance">
+            <option value="">— Sélectionner —</option>
+            <option value="T0">T0</option>
+            <option value="T1M">T1M</option>
+            <option value="T2M">T2M</option>
+            <option value="T3M">T3M</option>
+            <option value="T6M">T6M</option>
+            <option value="T9M">T9M</option>
+            <option value="T12M">T12M</option>
+            <option value="T18M">T18M</option>
+            <option value="T24M">T24M</option>
+            <option value="T36M">T36M</option>
+          </select>
+        </div>
         <div class="form-group"><label>Date de debut</label><input type="date" id="stab-debut"></div>
         <div class="form-group"><label>Statut</label>
           <select id="stab-statut">
@@ -1423,6 +1438,8 @@ let _resultatAnalyseId = null;
 function ouvrirModalResultat(echId, analyseId) {
   _resultatEchId = echId;
   _resultatAnalyseId = analyseId;
+  echId = parseInt(echId); analyseId = parseInt(analyseId);
+  echId = parseInt(echId); analyseId = parseInt(analyseId);
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
   const a = (state.catalogue||[]).find(x=>x.id===analyseId);
   if (!ech || !a) return;
@@ -1468,8 +1485,9 @@ function selectConformite(val) {
 }
 
 function sauvegarderResultat() {
-  const ech = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
-  const a = (state.catalogue||[]).find(x=>x.id===_resultatAnalyseId);
+  const echId2 = parseInt(_resultatEchId); const anId2 = parseInt(_resultatAnalyseId);
+  const ech = (state.echantillons||[]).find(e=>e.id===echId2);
+  const a = (state.catalogue||[]).find(x=>x.id===anId2);
   if (!ech || !a) return;
   const type = a.typeResultat||'texte';
   let valeur = '';
@@ -1480,15 +1498,15 @@ function sauvegarderResultat() {
   const commentaire = document.getElementById('resultat-commentaire').value;
   const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
   if (!ech.resultats) ech.resultats = {};
-  ech.resultats[_resultatAnalyseId] = { valeur, commentaire, date, unite: a.unite||'' };
+  ech.resultats[anId2] = { valeur, commentaire, date, unite: a.unite||'' };
   closeModal('modal-resultat');
   // Avancer automatiquement le statut à "terminee"
   if ((ech.analyseStatuts||{})[_resultatAnalyseId] !== 'verifiee') {
     ech.analyseStatuts = ech.analyseStatuts||{};
-    ech.analyseStatuts[_resultatAnalyseId] = 'terminee';
+    ech.analyseStatuts[anId2] = 'terminee';
     ech.analyseStatutsInfo = ech.analyseStatutsInfo||{};
-    ech.analyseStatutsInfo[_resultatAnalyseId] = ech.analyseStatutsInfo[_resultatAnalyseId]||{};
-    ech.analyseStatutsInfo[_resultatAnalyseId]['terminee'] = date;
+    ech.analyseStatutsInfo[anId2] = ech.analyseStatutsInfo[anId2]||{};
+    ech.analyseStatutsInfo[anId2]['terminee'] = date;
   }
   addActivity('clipboard-check', (a.nom||'') + ' : ' + valeur + (a.unite?' '+a.unite:'') + ' — lot ' + (ech.lot||''));
   renderEchantillonsTable();
@@ -1498,6 +1516,7 @@ function sauvegarderResultat() {
 
 function cycleAnalyseStatut(echId, analyseId) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
+  echId = parseInt(echId); analyseId = parseInt(analyseId);
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
   if (!ech) return;
   if (!ech.analyseStatuts) ech.analyseStatuts = {};
@@ -1620,7 +1639,7 @@ function renderStabilites() {
   const tbody=document.getElementById('stab-tbody'); if(!tbody) return;
   if(!stabs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude</p></div></td></tr>';return;}
   const sb={en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
-  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance?formatDate(s.echeance):'—')+'</td><td>'+(s.responsable||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
+  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance||'—')+'</td><td>'+(s.responsable||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
 }
 
 function saveStabilite() {
@@ -1660,7 +1679,7 @@ function renderStabDetail(s) {
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s)</span><br><strong>'+s.lots+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
-    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance?formatDate(s.echeance):'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Responsable</span><br><strong>'+(s.responsable||'—')+'</strong></div>'
     +'</div>';
   if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
@@ -1736,7 +1755,7 @@ function editTimepointResult(tpIdx,analyse) {
 function exportStabWord() {
   const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
   const tps=s.timepoints||[];const analyses=s.analyses||[];
-  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nEcheance : '+(s.echeance?formatDate(s.echeance):'—')+'\nResponsable : '+(s.responsable||'—')+'\nStatut : '+s.statut+'\n\n';
+  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nEcheance : '+(s.echeance||'—')+'\nResponsable : '+(s.responsable||'—')+'\nStatut : '+s.statut+'\n\n';
   if(s.observations)c+='Observations : '+s.observations+'\n\n';
   c+='RESULTATS\n\n';
   if(tps.length){c+=['Analyse',...tps.map(t=>t.label+(t.date?' ('+formatDate(t.date)+')':''))].join('\t')+'\n';analyses.forEach(a=>{c+=[a,...tps.map(t=>(t.resultats||{})[a]||'—')].join('\t')+'\n';});}
@@ -3922,7 +3941,7 @@ renderEchantillonsTable = function(){
   const tbody=document.getElementById('ech-tbody'); if(!tbody)return;
   const q=(document.getElementById('search-ech')?.value||'').toLowerCase();
   const fProduit=(document.getElementById('fech-produit')?.value||'').toLowerCase(); const fLot=(document.getElementById('fech-lot')?.value||'').toLowerCase(); const fDate=document.getElementById('fech-date')?.value||''; const fAnalyse=(document.getElementById('fech-analyse')?.value||'').toLowerCase(); const fEnCours=document.getElementById('fech-encours')?.value||''; const fTerminee=document.getElementById('fech-terminee')?.value||''; const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
-  const lots={}; (state.echantillons||[]).filter(e=>e.statut!=='archive').forEach(e=>{const k=e.lot||String(e.id); if(!lots[k])lots[k]=[]; lots[k].push(e);});
+  const lots={}; (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve').forEach(e=>{const k=e.lot||String(e.id); if(!lots[k])lots[k]=[]; lots[k].push(e);});
   const rows=[]; const TD='style="font-size:14px;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle"';
   Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, group])=>{
     const e0=group[0]; const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId)||{}; const prodNom=produit.nom||'—'; const prodForme=[produit.forme,produit.dosage].filter(Boolean).join(' '); const lotCode=e0.lot||lotKey;
