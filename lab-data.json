@@ -864,8 +864,16 @@
       "stabTemps": "",
       "lot": "BBBBBB",
       "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781509335357": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781509335357": {
+          "en_cours": "20/06/2026"
+        }
+      }
     },
     {
       "id": 1781961438896,
@@ -1021,11 +1029,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : Osmolalité",
-      "time": "19/06 09:09"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 3 analyses",
@@ -1269,6 +1272,11 @@
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 2 analyses",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — pH : en_cours",
       "time": "20/06 16:34"
     }
   ]
