@@ -134,6 +134,60 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA-A | PIF"
+    },
+    {
+      "id": 1781960722999.4263,
+      "nom": "pH",
+      "echantillonCode": "BBBBBB-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB-A | PIF"
+    },
+    {
+      "id": 1781960722999.4268,
+      "nom": "L*a*b",
+      "echantillonCode": "BBBBBB-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB-A | PIF"
+    },
+    {
+      "id": 1781960722999.6396,
+      "nom": "TCC0044",
+      "echantillonCode": "BBBBBB-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB-A | PIF"
+    },
+    {
+      "id": 1781960722999.1575,
+      "nom": "Osmolalité",
+      "echantillonCode": "BBBBBB-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB-A | PIF"
+    },
+    {
+      "id": 1781960722999.5657,
+      "nom": "TCC0065",
+      "echantillonCode": "BBBBBB-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB-A | PIF"
+    },
+    {
+      "id": 1781960722999.7368,
+      "nom": "Volume Extractible",
+      "echantillonCode": "BBBBBB-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB-A | PIF"
     }
   ],
   "catalogue": [
@@ -619,6 +673,30 @@
           "terminee": "20/06/2026"
         }
       }
+    },
+    {
+      "id": 1781960722999,
+      "code": "BBBBBB-A",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781509335357,
+        1781852405020,
+        1781852438719,
+        1781852984224,
+        1781959632897,
+        1781959743113
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "BBBBBB",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -639,12 +717,8 @@
   "commandesStatut": {
     "1781446866469": "en_attente"
   },
+  "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : terminee",
-      "time": "15/06 10:10"
-    },
     {
       "icon": "package",
       "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
@@ -889,6 +963,11 @@
       "icon": "world",
       "text": "Marche ajoute : Global",
       "time": "20/06 14:50"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 6 analyses",
+      "time": "20/06 15:05"
     }
   ]
 }
