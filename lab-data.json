@@ -985,41 +985,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781965500211,
-      "code": "dddddd-C",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781959829280
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852984224
-      ],
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "SPQAAAA",
-      "refPTC": "PTC567",
-      "stabEcheance": "T0",
-      "stabTemps": "",
-      "lot": "dddddd",
-      "date": "2026-06-20",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781852405020": "en_cours",
-        "1781852984224": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781852405020": {
-          "en_cours": "20/06/2026"
-        },
-        "1781852984224": {
-          "en_cours": "20/06/2026"
-        }
-      }
-    },
-    {
       "id": 1781966054950,
       "code": "vvvv-A",
       "produitId": 1781852369953,
@@ -1152,11 +1117,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-A — L*a*b : verifiee",
-      "time": "20/06 15:16"
-    },
     {
       "icon": "list-check",
       "text": "AAAAAAA-A — TCC0044 : verifiee",
@@ -1400,6 +1360,11 @@
     {
       "icon": "list-check",
       "text": "dddddd-C — Osmolalité : en_cours",
+      "time": "20/06 18:54"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : dddddd-C",
       "time": "20/06 18:54"
     }
   ]
