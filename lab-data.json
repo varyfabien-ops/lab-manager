@@ -992,8 +992,16 @@
       "stabTemps": "",
       "lot": "dddddd",
       "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852405020": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852405020": {
+          "en_cours": "20/06/2026"
+        }
+      }
     },
     {
       "id": 1781965500211,
@@ -1122,11 +1130,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960000 (Xylocaïne 5% Naphazoline)",
-      "time": "20/06 15:10"
-    },
     {
       "icon": "list-check",
       "text": "AAAAAAA-A — L*a*b : en_cours",
@@ -1371,6 +1374,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : dddddd-A",
       "time": "20/06 18:32"
+    },
+    {
+      "icon": "list-check",
+      "text": "dddddd-B — L*a*b : en_cours",
+      "time": "20/06 18:36"
     }
   ]
 }
