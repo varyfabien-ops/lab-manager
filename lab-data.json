@@ -1261,8 +1261,16 @@
       "stabTemps": "",
       "lot": "DFRG",
       "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781975394472": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781975394472": {
+          "en_cours": "20/06/2026"
+        }
+      }
     },
     {
       "id": 1781975427608,
@@ -1393,11 +1401,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 2 analyses",
-      "time": "20/06 16:34"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB-A — pH : en_cours",
@@ -1641,6 +1644,11 @@
     {
       "icon": "package",
       "text": "Réception: Bupivacaïne HCl — 7 entrée(s) — 1 analyse(s)",
+      "time": "20/06 19:10"
+    },
+    {
+      "icon": "list-check",
+      "text": "DFRG-C1 — Identification IR : en_cours",
       "time": "20/06 19:10"
     }
   ]
