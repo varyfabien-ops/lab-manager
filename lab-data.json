@@ -359,6 +359,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: YYYYYYY-C | PIF"
+    },
+    {
+      "id": 1781973479611.2861,
+      "nom": "TCC0044",
+      "echantillonCode": "AAAAAAA-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-A |  STAB"
     }
   ],
   "catalogue": [
@@ -1111,6 +1120,23 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781973479611,
+      "code": "AAAAAAA-A",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852438719
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "5C",
+      "lot": "AAAAAAA",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1133,11 +1159,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-A — Osmolalité : en_cours",
-      "time": "20/06 15:16"
-    },
     {
       "icon": "list-check",
       "text": "9960003-A — TCC0015 : en_cours",
@@ -1381,6 +1402,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0044",
+      "time": "20/06 18:37"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
       "time": "20/06 18:37"
     }
   ]
