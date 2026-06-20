@@ -544,9 +544,6 @@
       ],
       "duree": "",
       "code": "",
-      "produitsIds": [
-        1781975343839
-      ],
       "description": ""
     }
   ],
@@ -1420,11 +1417,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB-A — Volume Extractible : terminee",
-      "time": "20/06 16:34"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB-A — TCC0065 : terminee",
       "time": "20/06 16:34"
     },
@@ -1667,6 +1659,11 @@
       "icon": "list-check",
       "text": "AAAAAAA-A — TCC0044 : en_cours",
       "time": "20/06 21:48"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : Identification IR",
+      "time": "20/06 21:49"
     }
   ]
 }
