@@ -1224,8 +1224,16 @@
       "stabTemps": "5C",
       "lot": "AAAAAAA",
       "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852438719": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852438719": {
+          "en_cours": "20/06/2026"
+        }
+      }
     },
     {
       "id": 1781974565277,
@@ -1410,11 +1418,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB-A — Volume Extractible : en_cours",
-      "time": "20/06 16:34"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB-A — Volume Extractible : terminee",
@@ -1659,6 +1662,11 @@
       "icon": "book",
       "text": "Analyse modifiee : L*a*b",
       "time": "20/06 21:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — TCC0044 : en_cours",
+      "time": "20/06 21:48"
     }
   ]
 }
