@@ -527,6 +527,9 @@
       "habilitations": [],
       "duree": "",
       "code": "",
+      "produitsIds": [
+        1781852369953
+      ],
       "description": ""
     },
     {
@@ -1405,11 +1408,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB-A — pH : verifiee",
-      "time": "20/06 16:34"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB-A — L*a*b : en_cours",
       "time": "20/06 16:34"
     },
@@ -1652,6 +1650,11 @@
       "icon": "rosette",
       "text": "Lot libere : vvvv (Setmelanotide 10 mg/mL)",
       "time": "20/06 20:39"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Volume Extractible",
+      "time": "20/06 20:42"
     }
   ]
 }
