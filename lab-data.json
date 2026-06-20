@@ -487,9 +487,6 @@
       ],
       "duree": "",
       "code": "",
-      "produitsIds": [
-        1781852369953
-      ],
       "description": ""
     },
     {
@@ -1214,6 +1211,23 @@
       "note": ""
     },
     {
+      "id": 1781973479611,
+      "code": "AAAAAAA-A",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852438719
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "stabEcheance": "",
+      "stabTemps": "5C",
+      "lot": "AAAAAAA",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
       "id": 1781974565277,
       "code": "TEST-A",
       "produitId": 1781508169429,
@@ -1642,9 +1656,9 @@
       "time": "20/06 20:44"
     },
     {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-A",
-      "time": "20/06 20:45"
+      "icon": "book",
+      "text": "Analyse modifiee : L*a*b",
+      "time": "20/06 21:35"
     }
   ]
 }
