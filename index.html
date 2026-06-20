@@ -421,7 +421,7 @@
     </div>
     <table><thead><tr>
       <th>N Etude</th><th>Produit(s)</th><th>Lot(s)</th><th>Temperatures</th>
-      <th>Echeance</th><th>Responsable</th><th>Statut</th><th></th>
+      <th>Timepoints prevus</th><th>Responsable</th><th>Statut</th><th></th>
     </tr></thead>
     <tbody id="stab-tbody"></tbody></table>
   </div>
@@ -741,7 +741,7 @@
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
-            <div class="form-group"><label>Echeance</label><input type="date" id="w-stab-echeance"></div>
+            <div class="form-group"><label>Timepoint(s)</label><input id="w-stab-echeance" list="stab-timepoints-list" placeholder="Ex: T3M, T6M, T12M"></div>
             <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
           </div>
         </div>
@@ -804,7 +804,7 @@
         <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Xylocaine 5%, Paracetamol 500mg"></div>
         <div class="form-group full"><label>Lot(s)</label><input id="stab-lots" placeholder="Ex: LOT-001, LOT-002"></div>
         <div class="form-group"><label>Temperatures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
-        <div class="form-group"><label>Echeance</label><input type="date" id="stab-echeance"></div>
+        <div class="form-group"><label>Timepoint(s) prevu(s)</label><input id="stab-echeance" list="stab-timepoints-list" placeholder="Ex: T0, T3M, T6M, T12M"></div>
         <div class="form-group"><label>Date de debut</label><input type="date" id="stab-debut"></div>
         <div class="form-group"><label>Statut</label>
           <select id="stab-statut">
@@ -838,7 +838,7 @@
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>Timepoint *</label><input id="tp-label" placeholder="Ex: T0, T3 mois, T6 mois..."></div>
+        <div class="form-group"><label>Timepoint *</label><input id="tp-label" list="stab-timepoints-list" placeholder="Ex: T0, T3M, T6M..."></div>
         <div class="form-group"><label>Date de realisation</label><input type="date" id="tp-date"></div>
         <div class="form-group full" id="tp-analyses-container">
           <label>Resultats par analyse</label>
@@ -1108,7 +1108,7 @@ function wizardRecap() {
   const date = document.getElementById('w-date')?.value||'';
   const pif = document.getElementById('w-type-pif')?.checked;
   const stab = document.getElementById('w-type-stab')?.checked;
-  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const echeance = formatStabTimepoints(document.getElementById('w-stab-echeance')?.value||'');
   const temps = document.getElementById('w-stab-temps')?.value||'';
   const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -1135,7 +1135,7 @@ function wizardRecap() {
         ${pif?'<span class="badge badge-blue">PIF</span>':''}
         ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
       </div>
-      ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
+      ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Timepoint(s) : ${formatStabTimepoints(echeance)}</div>`:''}
       ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
     </div>
@@ -1159,7 +1159,7 @@ function wizardConfirm() {
   const date = document.getElementById('w-date')?.value||'';
   const pif = document.getElementById('w-type-pif')?.checked||false;
   const stab = document.getElementById('w-type-stab')?.checked||false;
-  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const echeance = formatStabTimepoints(document.getElementById('w-stab-echeance')?.value||'');
   const temps = document.getElementById('w-stab-temps')?.value||'';
   const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -1352,20 +1352,33 @@ function cycleAnalyseStatut(echId, analyseId) {
 let activeStabId = null;
 let editingTpIdx = null;
 
+
+function formatStabTimepoints(value) {
+  if(!value) return '—';
+  const raw=String(value).trim();
+  // Ancienne compatibilite : si une ancienne etude contient encore une date YYYY-MM-DD, on l'affiche comme date.
+  if(/^\d{4}-\d{2}-\d{2}$/.test(raw)) return formatDate(raw);
+  return raw
+    .split(',')
+    .map(v=>v.trim().toUpperCase().replace(/\s+/g,''))
+    .filter(Boolean)
+    .join(', ');
+}
+
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
   const stabs=(state.stabilites||[]).filter(s=>!q||(s.num||'').toLowerCase().includes(q)||(s.produits||'').toLowerCase().includes(q));
   const tbody=document.getElementById('stab-tbody'); if(!tbody) return;
   if(!stabs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude</p></div></td></tr>';return;}
   const sb={en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
-  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance?formatDate(s.echeance):'—')+'</td><td>'+(s.responsable||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
+  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance?formatStabTimepoints(s.echeance):'—')+'</td><td>'+(s.responsable||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
 }
 
 function saveStabilite() {
   const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
   if(!state.stabilites) state.stabilites=[];
   const analyses=document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
-  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:document.getElementById('stab-echeance').value,debut:document.getElementById('stab-debut').value,responsable:document.getElementById('stab-resp').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
+  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:formatStabTimepoints(document.getElementById('stab-echeance').value),debut:document.getElementById('stab-debut').value,responsable:document.getElementById('stab-resp').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
   if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
   editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
 }
@@ -1398,7 +1411,7 @@ function renderStabDetail(s) {
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s)</span><br><strong>'+s.lots+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
-    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance?formatDate(s.echeance):'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Timepoints prevus</span><br><strong>'+(s.echeance?formatStabTimepoints(s.echeance):'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Responsable</span><br><strong>'+(s.responsable||'—')+'</strong></div>'
     +'</div>';
   if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
@@ -1671,16 +1684,48 @@ function openGithubConfig() {
   openModal('modal-github');
 }
 
+async function githubRequest(url, options = {}) {
+  const r = await fetch(url, options);
+  let payload = null;
+  try { payload = await r.clone().json(); } catch (_) {}
+  if (!r.ok) {
+    const msg = payload?.message ? `HTTP ${r.status} - ${payload.message}` : `HTTP ${r.status}`;
+    const err = new Error(msg);
+    err.status = r.status;
+    err.payload = payload;
+    throw err;
+  }
+  return payload || await r.json();
+}
+
+function githubHeaders() {
+  return {
+    Authorization: `token ${githubConfig.token}`,
+    Accept: 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json'
+  };
+}
+
+function githubContentUrl() {
+  const path = encodeURIComponent(githubConfig.path || 'lab-data.json').replace(/%2F/g, '/');
+  return `https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${path}`;
+}
+
+async function getRemoteSha() {
+  try {
+    const d = await githubRequest(githubContentUrl(), { headers: githubHeaders() });
+    return d.sha || null;
+  } catch (e) {
+    if (e.status === 404) return null;
+    throw e;
+  }
+}
+
 async function loadData() {
   if (!githubConfig) return;
   setSyncStatus('syncing', 'Chargement...');
   try {
-    const r = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
-      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
-    });
-    if (r.status === 404) { setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`); return; }
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
+    const data = await githubRequest(githubContentUrl(), { headers: githubHeaders() });
     const b64 = data.content.replace(/\n/g,'');
     const binStr2 = atob(b64);
     const bytes2 = new Uint8Array(binStr2.length);
@@ -1690,33 +1735,63 @@ async function loadData() {
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Donnees synchronisees', 'success');
-  } catch(e) { setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); }
+  } catch(e) {
+    if (e.status === 404) { setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`); return; }
+    setSyncStatus('error', 'Erreur sync');
+    toast('Erreur chargement : ' + e.message, 'error');
+  }
 }
+
+let saveQueue = Promise.resolve();
+let saveInProgress = false;
+let pendingSave = false;
 
 async function saveData() {
   if (!githubConfig) { toast('Configurez GitHub d\'abord', 'info'); return; }
+  pendingSave = true;
+  saveQueue = saveQueue.then(processSaveQueue).catch(e => {
+    setSyncStatus('error', 'Erreur sauvegarde');
+    toast('Erreur sauvegarde : ' + e.message, 'error');
+  });
+  return saveQueue;
+}
+
+async function processSaveQueue() {
+  if (saveInProgress || !pendingSave) return;
+  saveInProgress = true;
+  pendingSave = false;
   setSyncStatus('syncing', 'Sauvegarde...');
   try {
-    let sha = null;
-    const rGet = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
-      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
-    });
-    if (rGet.ok) { const d = await rGet.json(); sha = d.sha; }
-    const json = JSON.stringify(state, null, 2);
-    const bytes = new TextEncoder().encode(json);
-    const binStr = Array.from(bytes).map(b => String.fromCharCode(b)).join('');
-    const content = btoa(binStr);
-    const body = { message: 'LabManager: mise a jour donnees', content };
-    if (sha) body.sha = sha;
-    const rPut = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
-      method: 'PUT',
-      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    if (!rPut.ok) throw new Error('HTTP ' + rPut.status);
+    await saveDataOnce();
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     toast('Sauvegarde sur GitHub', 'success');
-  } catch(e) { setSyncStatus('error', 'Erreur sauvegarde'); toast('Erreur sauvegarde : ' + e.message, 'error'); }
+  } finally {
+    saveInProgress = false;
+    if (pendingSave) await processSaveQueue();
+  }
+}
+
+async function saveDataOnce(retry = true) {
+  const sha = await getRemoteSha();
+  const json = JSON.stringify(state, null, 2);
+  const bytes = new TextEncoder().encode(json);
+  const binStr = Array.from(bytes).map(b => String.fromCharCode(b)).join('');
+  const content = btoa(binStr);
+  const body = { message: 'LabManager: mise a jour donnees', content };
+  if (sha) body.sha = sha;
+  try {
+    await githubRequest(githubContentUrl(), {
+      method: 'PUT',
+      headers: githubHeaders(),
+      body: JSON.stringify(body)
+    });
+  } catch (e) {
+    if (retry && e.status === 409) {
+      await new Promise(resolve => setTimeout(resolve, 600));
+      return saveDataOnce(false);
+    }
+    throw e;
+  }
 }
 
 async function syncNow() { await loadData(); }
