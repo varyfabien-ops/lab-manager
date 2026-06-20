@@ -1020,7 +1020,7 @@
       "note": "",
       "analyseStatuts": {
         "1781852405020": "verifiee",
-        "1781852984224": "en_cours"
+        "1781852984224": "terminee"
       },
       "analyseStatutsInfo": {
         "1781852405020": {
@@ -1029,12 +1029,19 @@
           "verifiee": "20/06/2026"
         },
         "1781852984224": {
-          "en_cours": "20/06/2026"
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026"
         }
       },
       "resultats": {
         "1781852405020": {
           "valeur": "10",
+          "commentaire": "",
+          "date": "20/06/2026",
+          "unite": ""
+        },
+        "1781852984224": {
+          "valeur": "310",
           "commentaire": "",
           "date": "20/06/2026",
           "unite": ""
@@ -1175,11 +1182,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Lipiodol — STAB — 5C — T3M — 1 analyse",
-      "time": "20/06 15:23"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiee : TCC0015",
@@ -1424,6 +1426,11 @@
       "icon": "list-check",
       "text": "vvvv-A — L*a*b : verifiee",
       "time": "20/06 19:07"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Osmolalité : 310 — lot vvvv",
+      "time": "20/06 19:08"
     }
   ]
 }
