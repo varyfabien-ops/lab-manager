@@ -465,6 +465,19 @@
       "duree": "",
       "code": "",
       "description": ""
+    },
+    {
+      "id": 1781975394472,
+      "nom": "Identification IR",
+      "habilitations": [
+        "IR"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1781975343839
+      ],
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -1192,11 +1205,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiee : TCC0015 (Phase Mobile)",
-      "time": "20/06 15:24"
-    },
-    {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 2 analyses",
       "time": "20/06 16:25"
@@ -1439,6 +1447,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Bupivacaïne HCl",
+      "time": "20/06 19:09"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Identification IR",
       "time": "20/06 19:09"
     }
   ]
