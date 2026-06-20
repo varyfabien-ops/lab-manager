@@ -1101,7 +1101,7 @@
       "stabTemps": "",
       "lot": "vvvv",
       "date": "2026-06-20",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781852405020": "verifiee",
@@ -1132,7 +1132,8 @@
           "date": "20/06/2026",
           "unite": ""
         }
-      }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781966194217,
@@ -1404,11 +1405,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB-A — pH : terminee",
-      "time": "20/06 16:34"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB-A — pH : verifiee",
       "time": "20/06 16:34"
     },
@@ -1650,6 +1646,11 @@
     {
       "icon": "list-check",
       "text": "vvvv-A — Osmolalité : verifiee",
+      "time": "20/06 20:39"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : vvvv (Setmelanotide 10 mg/mL)",
       "time": "20/06 20:39"
     }
   ]
