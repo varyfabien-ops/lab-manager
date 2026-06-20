@@ -1007,10 +1007,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852405020": "en_cours"
+        "1781852405020": "en_cours",
+        "1781852984224": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781852405020": {
+          "en_cours": "20/06/2026"
+        },
+        "1781852984224": {
           "en_cours": "20/06/2026"
         }
       }
@@ -1159,11 +1163,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960003-A — TCC0015 : en_cours",
-      "time": "20/06 15:16"
-    },
     {
       "icon": "list-check",
       "text": "9960003-A — pH : en_cours",
@@ -1408,6 +1407,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
       "time": "20/06 18:37"
+    },
+    {
+      "icon": "list-check",
+      "text": "dddddd-B — Osmolalité : en_cours",
+      "time": "20/06 18:45"
     }
   ]
 }
