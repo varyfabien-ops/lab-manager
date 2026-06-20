@@ -419,11 +419,11 @@
       "stabTemps": "",
       "lot": "9960000",
       "date": "2026-06-15",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "analyseStatuts": {
         "1781508652926": "verifiee",
-        "1781509335357": "terminee"
+        "1781509335357": "verifiee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
@@ -434,7 +434,8 @@
         },
         "1781509335357": {
           "en_cours": "20/06/2026",
-          "terminee": "20/06/2026"
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         }
       }
     },
@@ -615,11 +616,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
-      "time": "15/06 09:55"
-    },
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : lancee",
@@ -864,6 +860,11 @@
       "icon": "rosette",
       "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
       "time": "20/06 13:09"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — pH : verifiee",
+      "time": "20/06 13:15"
     }
   ]
 }
