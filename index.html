@@ -2901,6 +2901,10 @@ function renderEchantillonsTable() {
   });
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
   tbody.innerHTML = rows.join('');
+  // Branche les boutons Approuver générés dynamiquement
+  tbody.querySelectorAll('.approuver-btn').forEach(btn => {
+    btn.addEventListener('click', () => approuverLot(btn.dataset.lot));
+  });
 }
 
 function editEchantillon(id) {
