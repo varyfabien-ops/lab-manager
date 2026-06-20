@@ -339,8 +339,8 @@
       <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
   <th style="width:170px;text-align:center">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:80px;text-align:center">Nb s-series</th>
-  <th style="width:110px;text-align:center">Marches</th>
+  <th style="width:120px;text-align:center">Conditions / séries / contenants</th>
+  <th style="width:130px;text-align:center">Marchés / échéances</th>
   <th style="width:120px;text-align:center">Date de reception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
   <th style="width:170px;text-align:center">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
@@ -398,7 +398,7 @@
     <div class="table-card">
       <div class="table-card-header"><h3>Lots approuves</h3></div>
       <table><thead><tr>
-        <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
+        <th>Produit</th><th>Lot</th><th>Conditions / séries / contenants</th><th>Marchés / échéances</th>
         <th>Date reception</th><th>Date approbation</th><th>Analyses</th><th></th>
       </tr></thead>
       <tbody id="liberes-tbody"></tbody></table>
@@ -749,7 +749,7 @@
 
       <!-- ETAPE 4 : Sous-series -->
       <div id="wstep-4" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Combien de sous-series pour ce lot ?</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Combien de sous-series PIF pour ce lot ?</div>
         <div class="form-group" style="margin-bottom:14px">
           <label>Nombre de sous-series *</label>
           <input type="number" id="w-nb-series" value="1" min="1" max="26" style="font-size:14px;padding:10px" oninput="previewSousSeries()">
@@ -920,6 +920,56 @@ let wizardStep = 1;
 const WIZARD_TOTAL = 7;
 const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Analyses','Recapitulatif'];
 
+function wizardIsStabOnly() {
+  return document.getElementById('w-type-stab')?.checked && !document.getElementById('w-type-pif')?.checked;
+}
+function wizardIsPifSelected() {
+  return document.getElementById('w-type-pif')?.checked;
+}
+function wizardLabelNature() {
+  if (wizardIsStabOnly()) return 'condition';
+  return 'sous-serie';
+}
+function wizardStepVisible(step) {
+  if (wizardIsStabOnly() && (step === 4 || step === 5)) return false;
+  return true;
+}
+function wizardNextStep(from) {
+  let n = from + 1;
+  while (n <= WIZARD_TOTAL && !wizardStepVisible(n)) n++;
+  return n;
+}
+function wizardPrevStep(from) {
+  let n = from - 1;
+  while (n >= 1 && !wizardStepVisible(n)) n--;
+  return n;
+}
+function formatEchantillonMode(e) {
+  if (e?.typeSTAB && !e?.typePIF) return 'STAB';
+  if (e?.typePIF && e?.typeSTAB) return 'PIF + STAB';
+  if (e?.typeMP) return 'MP';
+  return 'PIF';
+}
+function getLotNatureDisplay(e0, group) {
+  const count = group?.length || 1;
+  if (e0?.typeSTAB && !e0?.typePIF) {
+    const cond = (e0.stabTemps || '').trim();
+    return cond
+      ? cond.split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-purple" style="font-size:11px">'+x+'</span>').join(' ')
+      : '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
+  }
+  if (e0?.typeMP) return '<strong style="font-size:16px;color:var(--cyan)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>';
+  return '<strong style="font-size:16px;color:var(--cyan)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">série'+(count>1?'s':'')+'</span>';
+}
+function getLotMarcheDisplay(e0) {
+  if (e0?.typeSTAB && !e0?.typePIF) {
+    const tp = formatStabTimepoints(e0.stabEcheance || '');
+    return tp ? tp.split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-purple" style="font-size:11px">'+x+'</span>').join(' ') : '—';
+  }
+  const marchesList = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+  return marchesList.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
+}
+
 function openWizard() {
   wizardStep = 1;
   ['w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
@@ -981,21 +1031,24 @@ function wizardRender() {
 function wizardNext() {
   if (!wizardValidate()) return;
   if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
-  wizardStep++;
+  wizardStep = wizardNextStep(wizardStep);
   wizardRender();
 }
 
 function wizardPrev() {
-  if (wizardStep > 1) { wizardStep--; wizardRender(); }
+  const prev = wizardPrevStep(wizardStep);
+  if (prev >= 1) { wizardStep = prev; wizardRender(); }
 }
 
 function wizardValidate() {
   if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
   if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
   if (wizardStep===3) {
-    if (!document.getElementById('w-type-pif').checked && !document.getElementById('w-type-stab').checked) {
-      toast('Selectionnez PIF et/ou STABILITE', 'error'); return false;
-    }
+    const pif = document.getElementById('w-type-pif').checked;
+    const stab = document.getElementById('w-type-stab').checked;
+    if (!pif && !stab) { toast('Selectionnez PIF et/ou STABILITE', 'error'); return false; }
+    if (stab && !document.getElementById('w-stab-echeance').value.trim()) { toast('Renseignez au moins un timepoint STAB', 'error'); return false; }
+    if (stab && !document.getElementById('w-stab-temps').value.trim()) { toast('Renseignez au moins une condition STAB', 'error'); return false; }
   }
   if (wizardStep===6) {
     const checked = document.querySelectorAll('#w-analyses-select input:checked');
@@ -1130,23 +1183,23 @@ function wizardRecap() {
       <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
     </div>
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & conditions / series</div>
       <div style="display:flex;gap:6px;margin-bottom:6px">
         ${pif?'<span class="badge badge-blue">PIF</span>':''}
         ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
       </div>
       ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Timepoint(s) : ${formatStabTimepoints(echeance)}</div>`:''}
       ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
-      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
+      ${pif?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>`:''}
     </div>
-    ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+    ${pif&&marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div>
     </div>`:''}
     <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
-        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${nb} sous-serie${nb>1?'s':''}
-        = ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning
+        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''}${pif ? ` x ${nb} sous-serie${nb>1?'s':''}` : ''}
+        = ${analyses.length*(pif?nb:1)} entree${analyses.length*(pif?nb:1)>1?'s':''} dans le planning
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div>
     </div>`;
@@ -1161,15 +1214,16 @@ function wizardConfirm() {
   const stab = document.getElementById('w-type-stab')?.checked||false;
   const echeance = formatStabTimepoints(document.getElementById('w-stab-echeance')?.value||'');
   const temps = document.getElementById('w-stab-temps')?.value||'';
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const nbPif = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const nb = (stab && !pif) ? 1 : nbPif;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marcheIds = pif ? Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value)) : [];
   const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
   const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if (!state.echantillons) state.echantillons = [];
   if (!state.planning) state.planning = [];
   for (let i=0; i<nb; i++) {
-    const code = `${lot}-${letters[i]}`;
+    const code = pif ? `${lot}-${letters[i]}` : lot;
     state.echantillons.push({
       id: Date.now()+i, code, produitId: prodId, marcheIds,
       analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
@@ -1179,14 +1233,15 @@ function wizardConfirm() {
       state.planning.push({
         id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
         date, priorite: 'normale', statut: 'planifie',
-        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
+        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}${stab&&echeance?' | TP: '+echeance:''}${stab&&temps?' | Conditions: '+temps:''}`
       });
     });
   }
-  addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
+  const nature = (stab && !pif) ? `STAB — ${temps||'conditions'} — ${echeance||'timepoints'}` : `${nb} sous-serie${nb>1?'s':''}`;
+  addActivity('package', `Reception: ${prod.nom||lot} — ${nature} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
   closeModal('modal-echantillon');
   renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
-  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
+  toast(`${stab&&!pif?'Stabilite creee':'Sous-series creees'} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
 }
 
 
@@ -1487,7 +1542,7 @@ function editTimepointResult(tpIdx,analyse) {
 function exportStabWord() {
   const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
   const tps=s.timepoints||[];const analyses=s.analyses||[];
-  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nEcheance : '+(s.echeance?formatDate(s.echeance):'—')+'\nResponsable : '+(s.responsable||'—')+'\nStatut : '+s.statut+'\n\n';
+  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nTimepoints prevus : '+(s.echeance?formatStabTimepoints(s.echeance):'—')+'\nResponsable : '+(s.responsable||'—')+'\nStatut : '+s.statut+'\n\n';
   if(s.observations)c+='Observations : '+s.observations+'\n\n';
   c+='RESULTATS\n\n';
   if(tps.length){c+=['Analyse',...tps.map(t=>t.label+(t.date?' ('+formatDate(t.date)+')':''))].join('\t')+'\n';analyses.forEach(a=>{c+=[a,...tps.map(t=>(t.resultats||{})[a]||'—')].join('\t')+'\n';});}
@@ -2912,11 +2967,11 @@ function renderEchantillonsTable() {
     const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
     const prodNom = produit ? produit.nom : '—';
     const prodForme = produit&&produit.forme ? produit.forme+(produit.dosage?' '+produit.dosage:'') : '';
-    const marchesList = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
-    const marchesHtml = marchesList.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
+    const marchesHtml = getLotMarcheDisplay(e0);
     const dateRecp = e0.date ? formatDate(e0.date) : '—';
     const lotCode = e0.lot||'—';
     const nbSeries = sousSeries.length;
+    const natureHtml = getLotNatureDisplay(e0, sousSeries);
     const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
     if (fProduit && !prodNom.toLowerCase().includes(fProduit)) return;
     if (fLot && !lotCode.toLowerCase().includes(fLot)) return;
@@ -2948,7 +3003,7 @@ function renderEchantillonsTable() {
       rows.push('<tr style="'+borderT+rowBg+'">'+
         '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+
         '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
-        '<td '+TD+' style="text-align:center"><strong style="font-size:16px;color:var(--cyan)">'+nbSeries+'</strong></td>'+
+        '<td '+TD+' style="text-align:center">'+natureHtml+'</td>'+
         '<td '+TD+'>'+marchesHtml+'</td>'+
         '<td '+TD+'>'+dateRecp+'</td>'+
         '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':''):'—')+'</td>'+
