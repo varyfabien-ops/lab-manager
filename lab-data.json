@@ -641,6 +641,15 @@
       "code": "SET",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1781975343839,
+      "nom": "Bupivacaïne HCl",
+      "forme": "Matière Première",
+      "dosage": "",
+      "code": "",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -1184,11 +1193,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiee : TCC0015",
-      "time": "20/06 15:24"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiee : TCC0015 (Phase Mobile)",
       "time": "20/06 15:24"
     },
@@ -1431,6 +1435,11 @@
       "icon": "clipboard-check",
       "text": "Osmolalité : 310 — lot vvvv",
       "time": "20/06 19:08"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Bupivacaïne HCl",
+      "time": "20/06 19:09"
     }
   ]
 }
