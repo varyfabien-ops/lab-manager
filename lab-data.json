@@ -305,6 +305,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: dddddd-C | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781966054950.3237,
+      "nom": "L*a*b",
+      "echantillonCode": "vvvv-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: vvvv-A | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781966054950.2354,
+      "nom": "Osmolalité",
+      "echantillonCode": "vvvv-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: vvvv-A | PIF STAB | SPQ SPQAAAA | PTC PTC567"
     }
   ],
   "catalogue": [
@@ -958,6 +976,29 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781966054950,
+      "code": "vvvv-A",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852984224
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "SPQAAAA",
+      "refPTC": "PTC567",
+      "stabEcheance": "T0",
+      "stabTemps": "",
+      "lot": "vvvv",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -980,11 +1021,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : TCC0044",
-      "time": "19/06 09:00"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : Osmolalité",
@@ -1229,6 +1265,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 2 analyses",
       "time": "20/06 16:25"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 2 analyses",
+      "time": "20/06 16:34"
     }
   ]
 }
