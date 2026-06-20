@@ -492,7 +492,7 @@
       "stabTemps": "5C",
       "lot": "9960002",
       "date": "2026-06-15",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781509335357": "verifiee"
@@ -503,7 +503,8 @@
           "terminee": "20/06/2026",
           "verifiee": "20/06/2026"
         }
-      }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781602519100,
@@ -614,21 +615,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiee : TCC0015",
-      "time": "15/06 09:41"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : pH",
-      "time": "15/06 09:42"
-    },
-    {
-      "icon": "world",
-      "text": "Marche ajoute : Canada",
-      "time": "15/06 09:46"
-    },
     {
       "icon": "package",
       "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
@@ -862,6 +848,21 @@
     {
       "icon": "rosette",
       "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
+      "time": "20/06 13:09"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
+      "time": "20/06 13:09"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
+      "time": "20/06 13:09"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
       "time": "20/06 13:09"
     }
   ]
