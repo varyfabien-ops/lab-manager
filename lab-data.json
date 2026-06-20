@@ -415,6 +415,13 @@
       "code": "US",
       "analyses": [],
       "note": ""
+    },
+    {
+      "id": 1781959829280,
+      "nom": "Global",
+      "code": "G",
+      "analyses": [],
+      "note": ""
     }
   ],
   "echantillons": [
@@ -633,11 +640,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : lancee",
-      "time": "15/06 10:10"
-    },
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : terminee",
@@ -882,6 +884,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : Volume Extractible",
       "time": "20/06 14:49"
+    },
+    {
+      "icon": "world",
+      "text": "Marche ajoute : Global",
+      "time": "20/06 14:50"
     }
   ]
 }
