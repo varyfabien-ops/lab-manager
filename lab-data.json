@@ -858,11 +858,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pill",
-      "text": "Produit ajoute : Setmelanotide 10 mg/mL",
-      "time": "19/06 08:59"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : L*a*b",
       "time": "19/06 09:00"
@@ -1105,6 +1100,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiee : TCC0015",
+      "time": "20/06 15:24"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : TCC0015 (Phase Mobile)",
       "time": "20/06 15:24"
     }
   ]
