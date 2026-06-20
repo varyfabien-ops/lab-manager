@@ -480,8 +480,16 @@
       "stabTemps": "5C",
       "lot": "9960002",
       "date": "2026-06-15",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781509335357": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781509335357": {
+          "en_cours": "20/06/2026"
+        }
+      }
     },
     {
       "id": 1781602519100,
@@ -592,11 +600,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "shopping-cart",
-      "text": "Commande mise a jour : Méthanol HPLC Grade",
-      "time": "14/06 16:23"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0015 (Phase Mobile)",
@@ -841,6 +844,11 @@
       "icon": "world",
       "text": "Marche ajoute : USA",
       "time": "19/06 09:26"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960002-A — pH : en_cours",
+      "time": "20/06 12:51"
     }
   ]
 }
