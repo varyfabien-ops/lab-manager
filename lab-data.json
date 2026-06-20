@@ -377,6 +377,69 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST-A | PIF STAB  | T0 | 5C, 25C"
+    },
+    {
+      "id": 1781975427607.5593,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C1",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C1 | MP "
+    },
+    {
+      "id": 1781975427607.4526,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C2",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C2 | MP "
+    },
+    {
+      "id": 1781975427607.747,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C3",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C3 | MP "
+    },
+    {
+      "id": 1781975427607.0461,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C4",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C4 | MP "
+    },
+    {
+      "id": 1781975427607.684,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C5",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C5 | MP "
+    },
+    {
+      "id": 1781975427607.71,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C6",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C6 | MP "
+    },
+    {
+      "id": 1781975427607.4512,
+      "nom": "Identification IR",
+      "echantillonCode": "DFRG-C7",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: DFRG-C7 | MP "
     }
   ],
   "catalogue": [
@@ -1182,6 +1245,132 @@
           "en_cours": "20/06/2026"
         }
       }
+    },
+    {
+      "id": 1781975427606,
+      "code": "DFRG-C1",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781975427608,
+      "code": "DFRG-C2",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781975427609,
+      "code": "DFRG-C3",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781975427610,
+      "code": "DFRG-C4",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781975427611,
+      "code": "DFRG-C5",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781975427612,
+      "code": "DFRG-C6",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781975427613,
+      "code": "DFRG-C7",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "DFRG",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1204,11 +1393,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 2 analyses",
-      "time": "20/06 16:25"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 2 analyses",
@@ -1453,6 +1637,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Identification IR",
       "time": "20/06 19:09"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Bupivacaïne HCl — 7 entrée(s) — 1 analyse(s)",
+      "time": "20/06 19:10"
     }
   ]
 }
