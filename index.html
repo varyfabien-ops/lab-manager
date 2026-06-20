@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v9 — Physico-Chimie</title>
+<title>LabManager v10 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -153,7 +153,7 @@
 </head>
 <body>
 <header>
-  <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie</span></div>
+  <div class="logo"><i class="ti ti-flask"></i>LabManager <span>/ Physico-Chimie · V10</span></div>
   <div class="header-right">
     <button class="btn" onclick="openGithubConfig()" style="gap:8px"><div class="sync-dot" id="sync-dot"></div><i class="ti ti-brand-github"></i><span id="sync-label">Non configure</span></button>
     <button class="btn" onclick="syncNow()"><i class="ti ti-refresh"></i> Sync</button>
@@ -170,6 +170,8 @@
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
+<div class="nav-item" onclick="goTo('enregistrements',this)"><i class="ti ti-file-description"></i> Enregistrements <span class="nav-badge amber" id="badge-enregistrements" style="display:none">0</span></div>
+<div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
 <div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
 </div></aside>
@@ -435,6 +437,33 @@
       <div id="stab-detail-content" style="padding:20px"></div>
     </div>
   </div>
+</div>
+
+
+<div class="page" id="page-enregistrements">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Enregistrements</h1><p>Documents, formulaires et suivis qualité du laboratoire</p></div>
+    <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-enregistrement')"><i class="ti ti-plus"></i> Nouvel enregistrement</button></div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card cyan"><div class="label"><i class="ti ti-file-description"></i>Documents actifs</div><div class="value" id="stat-rec-actifs">0</div><div class="sub">utilisables au labo</div></div>
+    <div class="stat-card amber"><div class="label"><i class="ti ti-clock-exclamation"></i>Revues proches</div><div class="value" id="stat-rec-revue">0</div><div class="sub">dans les 30 jours</div></div>
+    <div class="stat-card red"><div class="label"><i class="ti ti-alert-triangle"></i>En retard</div><div class="value" id="stat-rec-retard">0</div><div class="sub">revue dépassée</div></div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><h3>Liste des enregistrements</h3><div class="spacer"></div>
+      <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-enregistrements" placeholder="Rechercher..." oninput="renderEnregistrements()"></div>
+    </div>
+    <div style="overflow-x:auto"><table style="min-width:980px"><thead><tr><th>Code</th><th>Titre</th><th>Type</th><th>Révision</th><th>Responsable</th><th>Date</th><th>Prochaine revue</th><th>Statut</th><th></th></tr></thead><tbody id="enregistrements-tbody"></tbody></table></div>
+  </div>
+</div>
+
+<div class="page" id="page-audit">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Journal d'activité</h1><p>Traçabilité des principales actions réalisées dans LabManager</p></div>
+    <div class="page-header-actions"><button class="btn" onclick="exportAudit()"><i class="ti ti-download"></i> Exporter</button></div>
+  </div>
+  <div class="table-card"><div class="table-card-header"><h3>Historique récent</h3></div><div id="audit-log" style="padding:12px 20px"></div></div>
 </div>
 
 <div class="page" id="page-commandes">
@@ -837,6 +866,29 @@
       <div class="form-group"><label>Statut</label><select id="h-statut"><option value="actif">Actif</option><option value="formation">En formation</option><option value="inactif">Inactif</option></select></div>
     </div></div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-hab')">Annuler</button><button class="btn btn-primary" onclick="saveHabilitation()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+
+<!-- MODAL ENREGISTREMENT -->
+<div class="modal-overlay" id="modal-enregistrement">
+  <div class="modal" style="width:620px">
+    <div class="modal-header"><i class="ti ti-file-description" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-enregistrement-title">Nouvel enregistrement</h3><button class="close-btn" onclick="closeModal('modal-enregistrement')"><i class="ti ti-x"></i></button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Code document *</label><input id="rec-code" placeholder="Ex: F-PC-001"></div>
+        <div class="form-group"><label>Révision</label><input id="rec-revision" placeholder="Ex: V1, V2..."></div>
+        <div class="form-group full"><label>Titre *</label><input id="rec-titre" placeholder="Ex: Suivi température enceinte"></div>
+        <div class="form-group"><label>Type</label><select id="rec-type"><option value="Formulaire">Formulaire</option><option value="Mode opératoire">Mode opératoire</option><option value="Procédure">Procédure</option><option value="Registre">Registre</option><option value="Rapport">Rapport</option></select></div>
+        <div class="form-group"><label>Responsable</label><input id="rec-responsable" placeholder="Ex: Fabien VARY"></div>
+        <div class="form-group"><label>Date de création / application</label><input type="date" id="rec-date"></div>
+        <div class="form-group"><label>Prochaine revue</label><input type="date" id="rec-revue"></div>
+        <div class="form-group"><label>Statut</label><select id="rec-statut"><option value="actif">Actif</option><option value="a_reviser">À réviser</option><option value="obsolete">Obsolète</option><option value="brouillon">Brouillon</option></select></div>
+        <div class="form-group full"><label>Lien / emplacement fichier</label><input id="rec-lien" placeholder="Ex: SharePoint, dossier réseau, chemin PDF..."></div>
+        <div class="form-group full"><label>Commentaire</label><textarea id="rec-note" placeholder="Informations complémentaires, modifications, usage..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-enregistrement')">Annuler</button><button class="btn btn-primary" onclick="saveEnregistrement()"><i class="ti ti-check"></i> Enregistrer</button></div>
   </div>
 </div>
 
@@ -1444,6 +1496,7 @@ let state = {
   echantillons: [],
   techniciens: [],
   commandesStatut: {},
+  enregistrements: [],
   activity: []
 };
 let reactifsMenuOpen = false;
@@ -1502,6 +1555,8 @@ function renderAll() {
   renderMarches();
   populateProduitEchSelect();
   renderTechniciens();
+  renderEnregistrements();
+  renderAuditTrail();
   updateBadges();
   renderCommandes();
   updateBadgeLiberes();
@@ -1544,6 +1599,7 @@ function goTo(page, el) {
   if (page === 'commandes') renderCommandes();
   if (page === 'stabilites') renderStabilites();
   if (page === 'audit') renderAuditTrail();
+  if (page === 'enregistrements') renderEnregistrements();
   if (page === 'habilitations') renderTechniciens();
   if (page === 'dashboard') renderDashboard();
 }
@@ -1630,7 +1686,7 @@ async function loadData() {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, activity: decoded.activity||[] };
+    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Donnees synchronisees', 'success');
@@ -1764,6 +1820,123 @@ function renderDashboardChart() {
   bars.innerHTML = html;
 }
 
+
+// ============================================================
+// ENREGISTREMENTS QUALITE
+// ============================================================
+function recordReviewStatus(r) {
+  if (!r || !r.revue) return 'none';
+  const today = new Date(); today.setHours(0,0,0,0);
+  const d = new Date(r.revue + 'T12:00:00');
+  const diff = Math.ceil((d - today) / 86400000);
+  if (diff < 0) return 'late';
+  if (diff <= 30) return 'soon';
+  return 'ok';
+}
+
+function isRecordDue(r) {
+  const st = recordReviewStatus(r);
+  return st === 'late' || st === 'soon' || r.statut === 'a_reviser';
+}
+
+function recordStatusBadge(r) {
+  const s = r.statut || 'actif';
+  const labels = {actif:'Actif', a_reviser:'À réviser', obsolete:'Obsolète', brouillon:'Brouillon'};
+  const classes = {actif:'badge-green', a_reviser:'badge-amber', obsolete:'badge-gray', brouillon:'badge-blue'};
+  return `<span class="badge ${classes[s]||'badge-gray'}">${labels[s]||s}</span>`;
+}
+
+function reviewBadge(r) {
+  if (!r.revue) return '<span class="badge badge-gray">Non définie</span>';
+  const st = recordReviewStatus(r);
+  if (st === 'late') return '<span class="badge badge-red">En retard</span>';
+  if (st === 'soon') return '<span class="badge badge-amber">À venir</span>';
+  return '<span class="badge badge-green">OK</span>';
+}
+
+function renderEnregistrements() {
+  const tbody = document.getElementById('enregistrements-tbody');
+  if (!tbody) return;
+  const q = (document.getElementById('search-enregistrements')?.value || '').toLowerCase();
+  const list = (state.enregistrements||[]).filter(r => [r.code,r.titre,r.type,r.responsable,r.revision].join(' ').toLowerCase().includes(q));
+  const actifs = (state.enregistrements||[]).filter(r => r.statut === 'actif').length;
+  const revue = (state.enregistrements||[]).filter(r => recordReviewStatus(r)==='soon').length;
+  const retard = (state.enregistrements||[]).filter(r => recordReviewStatus(r)==='late').length;
+  if (document.getElementById('stat-rec-actifs')) document.getElementById('stat-rec-actifs').textContent = actifs;
+  if (document.getElementById('stat-rec-revue')) document.getElementById('stat-rec-revue').textContent = revue;
+  if (document.getElementById('stat-rec-retard')) document.getElementById('stat-rec-retard').textContent = retard;
+  if (!list.length) {
+    tbody.innerHTML = '<tr><td colspan="9"><div class="empty-state"><i class="ti ti-file-description"></i><p>Aucun enregistrement</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = list.sort((a,b)=>(a.code||'').localeCompare(b.code||'')).map(r => `
+    <tr>
+      <td><strong>${r.code||'-'}</strong></td>
+      <td>${r.lien ? `<a href="${r.lien}" target="_blank" style="color:var(--cyan);text-decoration:none">${r.titre||'-'}</a>` : (r.titre||'-')} ${r.note?`<div style="font-size:11px;color:var(--text3);margin-top:2px">${r.note}</div>`:''}</td>
+      <td>${r.type||'-'}</td>
+      <td>${r.revision||'-'}</td>
+      <td>${r.responsable||'-'}</td>
+      <td>${r.date?formatDate(r.date):'-'}</td>
+      <td>${r.revue?formatDate(r.revue):'-'}<br>${reviewBadge(r)}</td>
+      <td>${recordStatusBadge(r)}</td>
+      <td><div class="actions"><button class="icon-btn" onclick="editEnregistrement(${r.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEnregistrement(${r.id})"><i class="ti ti-trash"></i></button></div></td>
+    </tr>`).join('');
+}
+
+function saveEnregistrement() {
+  const code = document.getElementById('rec-code').value.trim();
+  const titre = document.getElementById('rec-titre').value.trim();
+  if (!code || !titre) { toast('Code et titre obligatoires', 'error'); return; }
+  const rec = {
+    code, titre,
+    revision: document.getElementById('rec-revision').value.trim(),
+    type: document.getElementById('rec-type').value,
+    responsable: document.getElementById('rec-responsable').value.trim(),
+    date: document.getElementById('rec-date').value,
+    revue: document.getElementById('rec-revue').value,
+    statut: document.getElementById('rec-statut').value,
+    lien: document.getElementById('rec-lien').value.trim(),
+    note: document.getElementById('rec-note').value.trim()
+  };
+  if (editingId) {
+    const i = state.enregistrements.findIndex(x=>x.id===editingId);
+    if (i>=0) state.enregistrements[i] = {...state.enregistrements[i], ...rec};
+    addActivity('file-description','Enregistrement modifié : '+code+' - '+titre);
+  } else {
+    rec.id = Date.now();
+    state.enregistrements.push(rec);
+    addActivity('file-description','Nouvel enregistrement : '+code+' - '+titre);
+  }
+  closeModal('modal-enregistrement');
+  renderEnregistrements(); renderAuditTrail(); updateBadges(); saveData();
+  toast('Enregistrement sauvegardé', 'success');
+}
+
+function editEnregistrement(id) {
+  const r = (state.enregistrements||[]).find(x=>x.id===id); if(!r) return;
+  editingId = id;
+  document.getElementById('modal-enregistrement-title').textContent = 'Modifier un enregistrement';
+  document.getElementById('rec-code').value = r.code||'';
+  document.getElementById('rec-titre').value = r.titre||'';
+  document.getElementById('rec-revision').value = r.revision||'';
+  document.getElementById('rec-type').value = r.type||'Formulaire';
+  document.getElementById('rec-responsable').value = r.responsable||'';
+  document.getElementById('rec-date').value = r.date||'';
+  document.getElementById('rec-revue').value = r.revue||'';
+  document.getElementById('rec-statut').value = r.statut||'actif';
+  document.getElementById('rec-lien').value = r.lien||'';
+  document.getElementById('rec-note').value = r.note||'';
+  openModal('modal-enregistrement');
+}
+
+function deleteEnregistrement(id) {
+  const r = (state.enregistrements||[]).find(x=>x.id===id);
+  if (!confirm('Supprimer cet enregistrement ?')) return;
+  state.enregistrements = (state.enregistrements||[]).filter(x=>x.id!==id);
+  addActivity('trash','Enregistrement supprimé : '+(r?r.code:''));
+  renderEnregistrements(); renderAuditTrail(); updateBadges(); saveData();
+}
+
 // ============================================================
 // AUDIT TRAIL
 // ============================================================
@@ -1780,7 +1953,7 @@ function renderAuditTrail() {
     'trash':'ti-trash', 'book':'ti-book', 'certificate':'ti-certificate',
     'list-check':'ti-list-check', 'lock-open':'ti-lock-open', 'lock':'ti-lock',
     'chart-line':'ti-chart-line', 'world':'ti-world', 'pill':'ti-pill',
-    'shopping-cart':'ti-shopping-cart', 'history':'ti-history'
+    'shopping-cart':'ti-shopping-cart', 'history':'ti-history', 'file-description':'ti-file-description'
   };
   log.innerHTML = activity.map(a => {
     const ic = icons[a.icon] || 'ti-point';
@@ -2931,6 +3104,9 @@ function updateBadges() {
   const nbCmd = getProduitsSousMin ? getProduitsSousMin().length : 0;
   const badgeCmd = document.getElementById('badge-commandes');
   if (badgeCmd) { badgeCmd.textContent = nbCmd; badgeCmd.style.display = nbCmd ? '' : 'none'; }
+  const recDue = (state.enregistrements||[]).filter(r=>isRecordDue(r)).length;
+  const badgeRec = document.getElementById('badge-enregistrements');
+  if (badgeRec) { badgeRec.textContent = recDue; badgeRec.style.display = recDue ? '' : 'none'; }
 }
 
 function prioriteBadge(p) {
@@ -2985,6 +3161,10 @@ function openModal(id) {
   if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
     document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
+  }
+  if (id === 'modal-enregistrement' && !editingId) {
+    const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
+    const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
   if (!editingId) {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
@@ -3222,6 +3402,10 @@ window.saveTimepoint = saveTimepoint;
 window.deleteTimepoint = deleteTimepoint;
 window.editTimepointResult = editTimepointResult;
 window.exportStabWord = exportStabWord;
+window.renderEnregistrements = renderEnregistrements;
+window.saveEnregistrement = saveEnregistrement;
+window.editEnregistrement = editEnregistrement;
+window.deleteEnregistrement = deleteEnregistrement;
 window.renderAuditTrail = renderAuditTrail;
 window.exportAudit = exportAudit;
 window.renderDashboardChart = renderDashboardChart;
