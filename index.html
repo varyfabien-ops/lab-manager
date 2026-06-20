@@ -19,6 +19,7 @@
     --red: #cf222e; --red-dim: rgba(207,34,46,0.10);
     --blue: #0550ae; --blue-dim: rgba(5,80,174,0.10);
     --purple: #6639ba; --purple-dim: rgba(102,57,186,0.10);
+    --yellow: #b77900; --yellow-dim: rgba(183,121,0,0.14);
     --radius: 8px; --radius-lg: 12px; --sidebar-w: 220px; --header-h: 56px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,6 +89,7 @@
   .badge-blue { background: var(--blue-dim); color: var(--blue); }
   .badge-cyan { background: var(--cyan-dim); color: var(--cyan); }
   .badge-purple { background: var(--purple-dim); color: var(--purple); }
+  .badge-yellow { background: var(--yellow-dim); color: var(--yellow); }
   .badge-gray { background: var(--bg4); color: var(--text2); }
   td .actions { display: flex; gap: 6px; opacity: 0; transition: opacity 0.15s; }
   tr:hover .actions { opacity: 1; }
@@ -336,11 +338,11 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <div style="overflow-x:auto"><table style="min-width:1250px;font-size:15px;text-align:center"><thead><tr>
+      <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
   <th style="width:170px;text-align:center">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center">Sous-Série / Contenant</th>
-  <th style="width:120px;text-align:center">Marché</th>
+  <th style="width:110px;text-align:center">Marché</th>
   <th style="width:150px;text-align:center">Échéance / Condition</th>
   <th style="width:120px;text-align:center">Date de reception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
   <th style="width:170px;text-align:center">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
@@ -738,30 +740,22 @@
               <input type="checkbox" id="w-type-stab" style="display:none">
             </div>
           </label>
-          <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('mp')">
-            <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-box" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:14px">MP</div>
-              <div style="font-size:11px;color:var(--text2);margin-top:4px">Matière première</div>
-              <input type="checkbox" id="w-type-mp" style="display:none">
-            </div>
-          </label>
         </div>
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
-            <div class="form-group"><label>Échéance(s) / timepoint(s)</label><input id="w-stab-echeance" placeholder="Ex: T0, T3M, T6M, T12M"></div>
-            <div class="form-group"><label>Condition(s)</label><input id="w-stab-temps" placeholder="Ex: 25°C/60%HR, 40°C/75%HR"></div>
+            <div class="form-group"><label>Echeance</label><input type="date" id="w-stab-echeance"></div>
+            <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
           </div>
         </div>
       </div>
 
       <!-- ETAPE 4 : Sous-series -->
       <div id="wstep-4" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)" id="w-step4-help">Combien de sous-séries PIF pour ce lot ?</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Combien de sous-series pour ce lot ?</div>
         <div class="form-group" style="margin-bottom:14px">
-          <label id="w-nb-label">Nombre de sous-séries *</label>
-          <input type="number" id="w-nb-series" value="1" min="1" max="100" style="font-size:14px;padding:10px" oninput="previewSousSeries()">
+          <label>Nombre de sous-series *</label>
+          <input type="number" id="w-nb-series" value="1" min="1" max="26" style="font-size:14px;padding:10px" oninput="previewSousSeries()">
         </div>
         <div id="w-series-preview" style="background:var(--bg3);border-radius:var(--radius);padding:12px;display:flex;flex-wrap:wrap;gap:6px"></div>
       </div>
@@ -2910,10 +2904,6 @@ function renderEchantillonsTable() {
   });
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
   tbody.innerHTML = rows.join('');
-  // Branche les boutons Approuver générés dynamiquement
-  tbody.querySelectorAll('.approuver-btn').forEach(btn => {
-    btn.addEventListener('click', () => approuverLot(btn.dataset.lot));
-  });
 }
 
 function editEchantillon(id) {
@@ -3424,160 +3414,228 @@ window.exportAudit = exportAudit;
 window.renderDashboardChart = renderDashboardChart;
 
 
-// ============================================================
-// PATCH V10.4 - Colonnes réception + PIF/STAB/MP + T0 auto
-// ============================================================
-function wizardIsPifSelected(){return !!document.getElementById('w-type-pif')?.checked;}
-function wizardIsStabSelected(){return !!document.getElementById('w-type-stab')?.checked;}
-function wizardIsMpSelected(){return !!document.getElementById('w-type-mp')?.checked;}
-function wizardIsStabOnly(){return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected();}
-function wizardIsPifStab(){return wizardIsPifSelected() && wizardIsStabSelected() && !wizardIsMpSelected();}
-function normalizeStabTimepoints(raw){
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected();
-  if(!stab) return '';
-  let vals=String(raw||'').split(',').map(x=>x.trim().toUpperCase()).filter(Boolean);
-  if(pif && !vals.includes('T0')) vals.unshift('T0');
-  return vals.join(', ');
-}
 
-function toggleTypeCard(type) {
-  const cb=document.getElementById('w-type-'+type); if(!cb) return;
-  cb.checked=!cb.checked;
-  if(type==='mp' && cb.checked){ ['pif','stab'].forEach(t=>{const x=document.getElementById('w-type-'+t); if(x)x.checked=false;}); }
-  if((type==='pif'||type==='stab') && cb.checked){ const mp=document.getElementById('w-type-mp'); if(mp)mp.checked=false; }
-  ['pif','stab','mp'].forEach(t=>{
-    const checked=!!document.getElementById('w-type-'+t)?.checked;
-    const card=document.getElementById('w-'+t+'-card'); if(!card) return;
-    const color=t==='pif'?'var(--blue)':(t==='stab'?'var(--purple)':'var(--green)');
-    const bg=t==='pif'?'var(--blue-dim)':(t==='stab'?'var(--purple-dim)':'var(--green-dim)');
-    card.style.border=checked?'2px solid '+color:'2px solid var(--border)';
-    card.style.background=checked?bg:'';
-  });
-  const opts=document.getElementById('w-stab-options'); if(opts) opts.style.display=wizardIsStabSelected()?'block':'none';
-  previewSousSeries();
+// ============================================================
+// CORRECTIFS V10.4 — Couleurs PIF/MP/STAB + analyses par produit + résultats
+// ============================================================
+function ensureMpCardInWizard() {
+  if (document.getElementById('w-type-mp')) return;
+  const stabCard = document.getElementById('w-stab-card');
+  const row = stabCard ? stabCard.parentElement?.parentElement : null;
+  if (!row) return;
+  const label = document.createElement('label');
+  label.style.cssText = 'flex:1;cursor:pointer';
+  label.setAttribute('onclick', "toggleTypeCard('mp')");
+  label.innerHTML = '<div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s"><i class="ti ti-leaf" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i><div style="font-weight:600;font-size:14px">MP</div><div style="font-size:11px;color:var(--text2);margin-top:4px">Matière première</div><input type="checkbox" id="w-type-mp" style="display:none"></div>';
+  row.appendChild(label);
 }
-
-function wizardValidate() {
-  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Sélectionnez un produit', 'error'); return false; }
-  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numéro de lot', 'error'); return false; }
-  if (wizardStep===3 && !wizardIsPifSelected() && !wizardIsStabSelected() && !wizardIsMpSelected()) { toast('Sélectionnez PIF, STABILITÉ ou MP', 'error'); return false; }
-  if (wizardStep===6) { const checked=document.querySelectorAll('#w-analyses-select input:checked'); if(!checked.length){ toast('Cochez au moins une analyse', 'error'); return false; } }
+function wizardIsPifSelected(){ return !!document.getElementById('w-type-pif')?.checked; }
+function wizardIsStabSelected(){ return !!document.getElementById('w-type-stab')?.checked; }
+function wizardIsMpSelected(){ return !!document.getElementById('w-type-mp')?.checked; }
+function wizardIsStabOnly(){ return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected(); }
+function typeBadgesForEntry(e){
+  let h='';
+  if(e?.typePIF) h += '<span class="badge badge-yellow" style="font-size:11px">PIF</span> ';
+  if(e?.typeMP) h += '<span class="badge badge-green" style="font-size:11px">MP</span> ';
+  if(e?.typeSTAB) h += '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
+  return h || '<span class="badge badge-gray">—</span>';
+}
+function typeColorForEntry(e){
+  if(e?.typeSTAB && !e?.typePIF && !e?.typeMP) return 'var(--purple)';
+  if(e?.typeMP) return 'var(--green)';
+  if(e?.typePIF) return 'var(--yellow)';
+  return 'var(--cyan)';
+}
+function normalizeStabTimepoints(v){
+  const raw = String(v||'').trim();
+  if(!raw) return '';
+  return raw.split(/[;,]/).map(x=>x.trim().toUpperCase().replace(/\s+/g,'')).filter(Boolean).join(', ');
+}
+function getAnalysesForProduct(prodId){
+  prodId = parseInt(prodId);
+  if(!prodId) return [];
+  return (state.catalogue||[]).filter(a => Array.isArray(a.produitsIds) && a.produitsIds.includes(prodId));
+}
+function getProductNamesForAnalyse(a){
+  const ids = Array.isArray(a?.produitsIds) ? a.produitsIds : [];
+  return ids.map(id => (state.produitsEch||[]).find(p=>p.id===id)).filter(Boolean).map(p=>p.nom);
+}
+const __openWizard_v104 = typeof openWizard === 'function' ? openWizard : null;
+openWizard = function(){
+  ensureMpCardInWizard();
+  if(__openWizard_v104) __openWizard_v104();
+  ensureMpCardInWizard();
+  const mp = document.getElementById('w-type-mp'); if(mp) mp.checked=false;
+  const mpCard=document.getElementById('w-mp-card'); if(mpCard){ mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
+};
+toggleTypeCard = function(type) {
+  ensureMpCardInWizard();
+  const cb = document.getElementById('w-type-'+type);
+  if(!cb) return;
+  cb.checked = !cb.checked;
+  const card = document.getElementById('w-'+type+'-card');
+  const map = { pif: ['var(--yellow)', 'var(--yellow-dim)'], stab: ['var(--purple)', 'var(--purple-dim)'], mp: ['var(--green)', 'var(--green-dim)'] };
+  const m = map[type] || ['var(--cyan)','var(--cyan-dim)'];
+  if(card){ card.style.border = cb.checked ? '2px solid '+m[0] : '2px solid var(--border)'; card.style.background = cb.checked ? m[1] : ''; }
+  const opts = document.getElementById('w-stab-options');
+  if(opts) opts.style.display = wizardIsStabSelected() ? 'block' : 'none';
+  if (wizardStep===4) previewSousSeries();
+  if (wizardStep===5) wizardLoadMarches();
+  if (wizardStep===6) wizardLoadAnalyses();
+};
+wizardValidate = function(){
+  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
+  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
+  if (wizardStep===3 && !wizardIsPifSelected() && !wizardIsStabSelected() && !wizardIsMpSelected()) { toast('Selectionnez PIF, STAB et/ou MP', 'error'); return false; }
+  if (wizardStep===6 && !document.querySelectorAll('#w-analyses-select input:checked').length) { toast('Cochez au moins une analyse', 'error'); return false; }
   return true;
-}
-
-function previewSousSeries() {
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1;
-  const lot=document.getElementById('w-lot')?.value||'LOT';
-  const preview=document.getElementById('w-series-preview'); if(!preview) return;
-  const help=document.getElementById('w-step4-help');
-  const lab=document.getElementById('w-nb-label');
-  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if(wizardIsStabOnly()){
-    if(help) help.textContent='Stabilité seule : pas de sous-série ni de marché à renseigner.';
-    if(lab) lab.textContent='Nombre non utilisé pour STAB seule';
-    preview.innerHTML='<span class="badge badge-purple">STAB</span>';
-    return;
-  }
-  if(wizardIsMpSelected()){
-    if(help) help.textContent='Combien de contenants MP sont reçus ?';
-    if(lab) lab.textContent='Nombre de contenants *';
-    preview.innerHTML=Array.from({length:Math.min(nb,100)},(_,i)=>`<span class="badge badge-green">Contenant ${i+1}</span>`).join('');
-    return;
-  }
-  if(help) help.textContent='Combien de sous-séries PIF pour ce lot ?';
-  if(lab) lab.textContent='Nombre de sous-séries *';
-  preview.innerHTML=Array.from({length:Math.min(nb,26)},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('');
-}
-
-function wizardLoadMarches(){
-  const el=document.getElementById('w-marches-check'); if(!el) return;
-  if(wizardIsStabOnly() || wizardIsMpSelected()){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Non demandé pour ce type d’enregistrement.</div>'; return; }
+};
+wizardUpdateProduit = function(){
+  const id = parseInt(document.getElementById('w-produit')?.value);
+  const p = (state.produitsEch||[]).find(x=>x.id===id);
+  const info=document.getElementById('w-produit-info'), prev=document.getElementById('w-produit-analyses-preview'), list=document.getElementById('w-produit-analyses-list');
+  if(!p){ if(info)info.style.display='none'; if(prev)prev.style.display='none'; return; }
+  if(info){ info.style.display='block'; info.innerHTML = '<strong>'+p.nom+'</strong>'+(p.forme?' — '+p.forme:'')+(p.dosage?' '+p.dosage:'')+(p.code?' <code>'+p.code+'</code>':''); }
+  const analyses = getAnalysesForProduct(id);
+  if(prev) prev.style.display = analyses.length ? 'block' : 'none';
+  if(list) list.innerHTML = analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join('');
+};
+previewSousSeries = function(){
+  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1, lot=document.getElementById('w-lot')?.value||'LOT', preview=document.getElementById('w-series-preview'); if(!preview)return;
+  const lab=document.querySelector('#wstep-4 label'); const help=document.querySelector('#wstep-4 > div'); const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if(wizardIsStabOnly()){ if(help) help.textContent='Pas de sous-série ni de marché pour une STAB seule.'; if(lab) lab.textContent='Non applicable'; preview.innerHTML='<span class="badge badge-purple">STAB seule</span>'; return; }
+  if(wizardIsMpSelected() && !wizardIsPifSelected()){ if(help) help.textContent='Combien de contenants MP sont reçus ?'; if(lab) lab.textContent='Nombre de contenants *'; preview.innerHTML=Array.from({length:Math.min(nb,100)},(_,i)=>'<span class="badge badge-green">Contenant '+(i+1)+'</span>').join(''); return; }
+  if(help) help.textContent='Combien de sous-séries PIF pour ce lot ?'; if(lab) lab.textContent='Nombre de sous-séries *';
+  preview.innerHTML=Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-yellow">'+lot+'-'+letters[i]+'</span>').join('');
+};
+wizardLoadMarches = function(){
+  const el=document.getElementById('w-marches-check'); if(!el)return;
+  if(wizardIsStabOnly() || (wizardIsMpSelected() && !wizardIsPifSelected())){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Non demandé pour ce type d’enregistrement.</div>'; return; }
   const marches=state.marches||[];
   if(!marches.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marché défini. Allez dans Échantillons > Marchés.</div>'; return; }
-  el.innerHTML=marches.map(m=>`<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="${m.id}" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}</div></label>`).join('');
-}
-
-function wizardLoadAnalyses(){
-  const el=document.getElementById('w-analyses-select'); const noA=document.getElementById('w-no-analyses'); if(!el)return;
-  const prodId=parseInt(document.getElementById('w-produit')?.value);
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const analyses=(state.catalogue||[]).filter(a=>!prodId||!a.produitsIds||a.produitsIds.length===0||a.produitsIds.includes(prodId));
-  if(!analyses.length){el.innerHTML='';el.style.display='none';if(noA)noA.style.display='block';return;}
+  el.innerHTML=marches.map(m=>'<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</div>'+(m.note?'<div style="font-size:11px;color:var(--text2)">'+m.note+'</div>':'')+'</div></label>').join('');
+};
+wizardLoadAnalyses = function(){
+  const el=document.getElementById('w-analyses-select'), noA=document.getElementById('w-no-analyses'); if(!el)return;
+  const prodId=parseInt(document.getElementById('w-produit')?.value), analyses=getAnalysesForProduct(prodId);
+  if(!analyses.length){ el.innerHTML=''; el.style.display='none'; if(noA){ noA.style.display='block'; noA.textContent='Aucune analyse liée à ce produit. Créez d’abord l’analyse dans Planification > Catalogue et cochez ce produit.'; } return; }
   el.style.display='flex'; if(noA)noA.style.display='none';
-  el.innerHTML=analyses.map(a=>`<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0"><div style="flex:1"><div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}</div><div style="display:flex;gap:4px;flex-shrink:0">${pif?'<span class="badge badge-blue" style="font-size:10px">PIF</span>':''}${stab?'<span class="badge badge-purple" style="font-size:10px">STAB</span>':''}${mp?'<span class="badge badge-green" style="font-size:10px">MP</span>':''}</div></label>`).join('');
-}
+  el.innerHTML=analyses.map(a=>'<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+a.id+'" style="margin-top:2px;flex-shrink:0"><div style="flex:1"><div style="font-weight:600;font-size:13px">'+a.nom+(a.code?' <code style="font-size:10px">'+a.code+'</code>':'')+'</div>'+(a.habilitations&&a.habilitations.length?'<div style="margin-top:3px">'+a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')+'</div>':'')+(a.duree?'<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> '+a.duree+'</div>':'')+'</div><div style="display:flex;gap:4px;flex-shrink:0">'+(wizardIsPifSelected()?'<span class="badge badge-yellow" style="font-size:10px">PIF</span>':'')+(wizardIsMpSelected()?'<span class="badge badge-green" style="font-size:10px">MP</span>':'')+(wizardIsStabSelected()?'<span class="badge badge-purple" style="font-size:10px">STAB</span>':'')+'</div></label>').join('');
+};
+saveAnalyse = function(){
+  const nom=document.getElementById('a-nom').value.trim(); if(!nom){ toast('Le nom est obligatoire','error'); return; }
+  if(!state.catalogue) state.catalogue=[];
+  const habs=document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const produitsIds=Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value)).filter(Boolean);
+  if(!produitsIds.length){ toast('Coche au moins un produit pour cette analyse','error'); return; }
+  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:document.getElementById('a-duree').value, code:document.getElementById('a-code').value, produitsIds, description:document.getElementById('a-desc').value};
+  if(editingId){ const i=state.catalogue.findIndex(x=>x.id===editingId); if(i>=0) state.catalogue[i]=entry; addActivity('book','Analyse modifiée : '+nom); } else { state.catalogue.push(entry); addActivity('book','Analyse ajoutée au catalogue : '+nom); }
+  editingId=null; closeModal('modal-analyse'); renderCatalogue(); populateCatalogueSelect(); saveData(); toast('Analyse enregistrée','success');
+};
+renderCatalogue = function(){
+  const q=(document.getElementById('search-catalogue')?.value||'').toLowerCase();
+  const rows=(state.catalogue||[]).filter(a=>!q||a.nom.toLowerCase().includes(q)||(a.code||'').toLowerCase().includes(q)||getProductNamesForAnalyse(a).join(' ').toLowerCase().includes(q));
+  const tbody=document.getElementById('catalogue-tbody'); if(!tbody)return;
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
+  tbody.innerHTML=rows.map(a=>{ const prods=getProductNamesForAnalyse(a); return '<tr><td><strong>'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':'')+'</td><td>'+(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')+'</td><td>'+(prods.length?prods.map(p=>'<span class="badge badge-green">'+p+'</span>').join(' '):'<span class="badge badge-red">Aucun produit</span>')+'</td><td>'+ (a.duree||'—') +'</td><td style="font-size:12px;color:var(--text2)">'+(a.description||'—')+'</td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editAnalyse('+a.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse('+a.id+')"><i class="ti ti-trash"></i></button></div></td></tr>'; }).join('');
+};
+editAnalyse = function(id){
+  const a=(state.catalogue||[]).find(x=>x.id===id); if(!a)return; editingId=id;
+  document.getElementById('modal-analyse-title').textContent='Modifier une analyse'; document.getElementById('a-nom').value=a.nom||''; document.getElementById('a-habs').value=(a.habilitations||[]).join(', '); document.getElementById('a-duree').value=a.duree||''; document.getElementById('a-code').value=a.code||''; document.getElementById('a-desc').value=a.description||'';
+  openModal('modal-analyse'); setTimeout(()=>populateProduitsAnalyseCheck(a.produitsIds||[]),60);
+};
+function getLotSousSerieContenantDisplay(e0, group){ const count=group?.length||1; if(e0?.typeMP && !e0?.typePIF) return '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>'; if(e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) return '<span class="badge badge-purple" style="font-size:11px">Non applicable</span>'; return '<strong style="font-size:16px;color:var(--yellow)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">sous-série'+(count>1?'s':'')+'</span>'; }
+function getMarcheDisplay(e0){ if(e0?.typeSTAB && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>'; if(e0?.typeMP && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>'; const marches=(e0.marcheIds||[]).map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean); return marches.length?marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' '):'<span style="color:var(--text3);font-size:12px">—</span>'; }
+function getEcheanceConditionDisplay(e0){ const parts=[]; if(e0?.typeSTAB && e0?.stabEcheance) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabEcheance+'</span>'); if(e0?.typeSTAB && e0?.stabTemps) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabTemps+'</span>'); return parts.length?parts.join('<br>'):'<span style="color:var(--text3);font-size:12px">—</span>'; }
+// Wizard confirm / recap minimal: keep original except colors and product filter. Existing confirm already stores MP when present.
+const __wizardConfirm_v104 = wizardConfirm;
+wizardConfirm = function(){
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected();
+  const echInput=document.getElementById('w-stab-echeance'); if(echInput && pif && stab && !String(echInput.value||'').toUpperCase().includes('T0')) echInput.value='T0'+(echInput.value?', '+echInput.value:'');
+  return __wizardConfirm_v104();
+};
+const __renderEchantillonsTable_v104 = renderEchantillonsTable;
+renderEchantillonsTable = function(){
+  __renderEchantillonsTable_v104();
+  document.querySelectorAll('#ech-tbody .badge-blue').forEach(b=>{ if(b.textContent.trim()==='PIF'){ b.classList.remove('badge-blue'); b.classList.add('badge-yellow'); } });
+};
+statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
+  const order=['a_lancer','en_cours','terminee','verifiee'], curIdx=order.indexOf(currentStatut), cellIdx=order.indexOf(cellType), isDone=curIdx>=cellIdx&&curIdx>=0, date=statInfo[cellType];
+  const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}, icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}, c=colors[cellType]||'#888', ic=icons[cellType]||'circle';
+  if(isDone){ const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':''; if(cellType==='terminee') return '<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'<span style="font-size:9px;color:'+c+'">Résultat</span></button>'; return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>'; }
+  if(cellIdx===curIdx+1 && currentStatut!=='verifiee') return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>';
+  return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
+};
+cycleAnalyseStatut = function(echId, analyseId){
+  const order=['a_lancer','en_cours','terminee','verifiee'], ech=(state.echantillons||[]).find(e=>e.id===echId); if(!ech)return;
+  if(!ech.analyseStatuts)ech.analyseStatuts={}; if(!ech.analyseStatutsInfo)ech.analyseStatutsInfo={};
+  const cur=ech.analyseStatuts[analyseId]||'a_lancer', next=order[order.indexOf(cur)+1]; if(!next||cur==='verifiee')return;
+  if(next==='terminee'){ openAnalyseResultat(echId,analyseId); return; }
+  ech.analyseStatuts[analyseId]=next; if(!ech.analyseStatutsInfo[analyseId])ech.analyseStatutsInfo[analyseId]={}; ech.analyseStatutsInfo[analyseId][next]=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const ids=ech.analysesIds||[], allDone=ids.length&&ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee'), anyStarted=ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';}); ech.statut=allDone?'conforme':anyStarted?'en_analyse':'recu';
+  const a=(state.catalogue||[]).find(x=>x.id===analyseId); addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next); renderEchantillonsTable(); saveData();
+};
+window.openAnalyseResultat = openAnalyseResultat; window.saveAnalyseResultat = saveAnalyseResultat; window.saveAnalyse=saveAnalyse; window.renderCatalogue=renderCatalogue; window.editAnalyse=editAnalyse; window.openWizard=openWizard; window.toggleTypeCard=toggleTypeCard; window.wizardLoadAnalyses=wizardLoadAnalyses; window.cycleAnalyseStatut=cycleAnalyseStatut; window.statutIcon=statutIcon; window.renderEchantillonsTable=renderEchantillonsTable;
 
-function wizardRecap(){
+// ============================================================
+// CORRECTIFS V10.5 — rendu complet colonnes + création PIF/STAB/MP
+// ============================================================
+wizardRecap = function(){
   const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=(stab&&!pif&&!mp)?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||mp)?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=wizardIsStabOnly()?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
-  const seriesHtml=wizardIsStabOnly()?'<span class="badge badge-purple">STAB</span>':Array.from({length:entryCount},(_,i)=>`<span class="badge ${mp?'badge-green':'badge-cyan'}">${mp?'Contenant '+(i+1):lot+'-'+letters[i]}</span>`).join('');
-  recap.innerHTML=`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">${prod.nom||'—'}</div>${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}</div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">${lot}</div><div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">${pif?'<span class="badge badge-blue">PIF</span>':''}${stab?'<span class="badge badge-purple">STABILITÉ</span>':''}${mp?'<span class="badge badge-green">MP</span>':''}</div>${stab?`<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>${echeance||'—'}</strong></div>`:''}${stab&&condition?`<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>${condition}</strong></div>`:''}<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${seriesHtml}</div></div>${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div><div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div></div>`:''}<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'étude':'sous-série')}${entryCount>1?'s':''} = ${analyses.length*entryCount} entrée${analyses.length*entryCount>1?'s':''} dans le planning</div><div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div></div>`;
-}
-
-function wizardConfirm(){
+  const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
+  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">Non applicable</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
+  const stabEch=(pif&&stab)?('T0'+(echeance?', '+echeance:'')):echeance;
+  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(stabEch||'—')+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
+  recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div>'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join(' ')+'</div>';
+};
+wizardConfirm = function(){
   const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=(stab&&!pif&&!mp)?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||mp)?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=wizardIsStabOnly()?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
+  const stabEcheance=(pif&&stab)?('T0'+(echeance?', '+echeance:'')):echeance;
   for(let i=0;i<entryCount;i++){
-    const code=mp?`${lot}-C${i+1}`:(wizardIsStabOnly()?lot:`${lot}-${letters[i]}`);
-    state.echantillons.push({id:Date.now()+i,code,produitId:prodId,marcheIds,analysesIds:analyseIds,typePIF:pif,typeSTAB:stab,typeMP:mp,stabEcheance:echeance,stabTemps:condition,lot,date,statut:'recu',note:''});
-    analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(),nom:a.nom,echantillonCode:code,date,priorite:'normale',statut:'planifie',note:`Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}${mp?' MP':''}${stab&&echeance?' | '+echeance:''}${stab&&condition?' | '+condition:''}`}));
+    const code=(mp&&!pif)?(lot+'-C'+(i+1)):(wizardIsStabOnly()?lot:(lot+'-'+letters[i]));
+    state.echantillons.push({id:Date.now()+i,code,produitId:prodId,marcheIds,analysesIds:analyseIds,typePIF:pif,typeSTAB:stab,typeMP:mp,stabEcheance,stabTemps:condition,lot,date,statut:'recu',note:''});
+    analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(),nom:a.nom,echantillonCode:code,date,priorite:'normale',statut:'planifie',note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')+(stabEcheance?' | '+stabEcheance:'')+(condition?' | '+condition:'')}));
   }
-  addActivity('package',`Réception: ${prod.nom||lot} — ${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'étude':'sous-série')}${entryCount>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
-  closeModal('modal-echantillon'); renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
-  toast(`${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'étude':'sous-série')}${entryCount>1?'s':''} créé${entryCount>1?'s':''}`,'success');
-}
-
-function getLotSousSerieContenantDisplay(e0, group){
-  const count=group?.length||1;
-  if(e0?.typeMP) return '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>';
-  if(e0?.typeSTAB && !e0?.typePIF) return '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
-  return '<strong style="font-size:16px;color:var(--cyan)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">sous-série'+(count>1?'s':'')+'</span>';
-}
-function getLotMarcheDisplay(e0){
-  const marches=(e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
-  if(!marches.length) return e0?.typeMP?'<span class="badge badge-green">MP</span>':'—';
-  return marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ');
-}
-function getLotEcheanceConditionDisplay(e0){
-  if(!e0?.typeSTAB) return '—';
-  const echeances=String(e0.stabEcheance||'').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-purple">'+x+'</span>').join(' ');
-  const conditions=String(e0.stabTemps||'').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-amber" style="font-size:11px">'+x+'</span>').join(' ');
-  return (echeances||'—')+(conditions?'<br>'+conditions:'');
-}
-
-function renderEchantillonsTable(){
-  const fProduit=(document.getElementById('fech-produit')?.value||'').toLowerCase(); const fLot=(document.getElementById('fech-lot')?.value||'').toLowerCase(); const fDate=document.getElementById('fech-date')?.value||''; const fAnalyse=(document.getElementById('fech-analyse')?.value||'').toLowerCase(); const fEnCours=document.getElementById('fech-encours')?.value||''; const fTerminee=document.getElementById('fech-terminee')?.value||''; const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
-  const lots={}; (state.echantillons||[]).filter(e=>e.statut!=='approuve'&&e.statut!=='archive').forEach(e=>{const k=e.lot||String(e.id); if(!lots[k])lots[k]=[]; lots[k].push(e);});
-  const tbody=document.getElementById('ech-tbody'); if(!tbody)return; const TD='style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border);text-align:center"'; const rows=[];
+  addActivity('package','Réception: '+(prod.nom||lot)+' — '+entryCount+' entrée(s) — '+analyses.length+' analyse(s)');
+  closeModal('modal-echantillon'); renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData(); toast(entryCount+' entrée(s) créée(s)','success');
+};
+renderEchantillonsTable = function(){
+  const tbody=document.getElementById('ech-tbody'); if(!tbody)return;
+  const q=(document.getElementById('search-ech')?.value||'').toLowerCase();
+  const fProduit=(document.getElementById('fech-produit')?.value||'').toLowerCase(), fLot=(document.getElementById('fech-lot')?.value||'').toLowerCase(), fDate=document.getElementById('fech-date')?.value||'', fAnalyse=(document.getElementById('fech-analyse')?.value||'').toLowerCase(), fEnCours=document.getElementById('fech-encours')?.value||'', fTerminee=document.getElementById('fech-terminee')?.value||'', fVerifiee=document.getElementById('fech-verifiee')?.value||'';
+  const lots={}; (state.echantillons||[]).filter(e=>e.statut!=='archive').forEach(e=>{const k=e.lot||String(e.id); if(!lots[k])lots[k]=[]; lots[k].push(e);});
+  const rows=[]; const TD='style="font-size:14px;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:middle"';
   Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, group])=>{
-    const e0=group[0]; const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId); const prodNom=produit?produit.nom:'—'; const prodForme=produit&&produit.forme?produit.forme+(produit.dosage?' '+produit.dosage:''):''; const lotCode=e0.lot||'—'; const analyses=(e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    if(fProduit && !prodNom.toLowerCase().includes(fProduit))return; if(fLot && !lotCode.toLowerCase().includes(fLot))return; if(fDate && e0.date!==fDate)return; if(fAnalyse && !analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse)))return;
+    const e0=group[0], produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId)||{}, prodNom=produit.nom||'—', prodForme=[produit.forme,produit.dosage].filter(Boolean).join(' '), lotCode=e0.lot||lotKey;
+    if(q && !(prodNom+' '+lotCode).toLowerCase().includes(q))return; if(fProduit&&!prodNom.toLowerCase().includes(fProduit))return; if(fLot&&!lotCode.toLowerCase().includes(fLot))return; if(fDate&&e0.date!==fDate)return;
     if(fEnCours||fTerminee||fVerifiee){ const statuts=Object.values(e0.analyseStatuts||{}); if(fEnCours==='oui'&&!statuts.some(s=>s==='en_cours'))return; if(fEnCours==='non'&&statuts.some(s=>s==='en_cours'))return; if(fTerminee==='oui'&&!statuts.some(s=>s==='terminee'))return; if(fTerminee==='non'&&statuts.some(s=>s==='terminee'))return; if(fVerifiee==='oui'&&!statuts.some(s=>s==='verifiee'))return; if(fVerifiee==='non'&&statuts.some(s=>s==='verifiee'))return; }
-    const toShow=(analyses.length?analyses:[null]).filter(a=>!fAnalyse||(a&&(a.nom||'').toLowerCase().includes(fAnalyse))); if(!toShow.length)return;
-    const sousHtml=getLotSousSerieContenantDisplay(e0,group); const marcheHtml=getLotMarcheDisplay(e0); const ecHtml=getLotEcheanceConditionDisplay(e0); const dateRecp=e0.date?formatDate(e0.date):'—';
-    toShow.forEach((a,ai)=>{ const statut=a?((e0.analyseStatuts||{})[a.id]||'a_lancer'):'a_lancer'; const statInfo=a?((e0.analyseStatutsInfo||{})[a.id]||{}):{}; const allVerif=analyses.length>0&&analyses.every(a2=>(e0.analyseStatuts||{})[a2.id]==='verifiee'); const isApproved=e0.statut==='approuve'; const rowBg=(allVerif||isApproved)?'background:rgba(26,127,55,0.07);':''; const borderT=ai===0?'border-top:2px solid var(--cyan3);':'';
-      rows.push('<tr style="'+borderT+rowBg+'">'+'<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+'<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+'<td '+TD+'>'+sousHtml+'</td>'+'<td '+TD+'>'+marcheHtml+'</td>'+'<td '+TD+'>'+ecHtml+'</td>'+'<td '+TD+'>'+dateRecp+'</td>'+'<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(function(){const r=(e0.analyseResultats||{})[a.id];return r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':'';})():'—')+'</td>'+(a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+(ai===0?(()=>{const rowspan=toShow.length; let content=''; if(isApproved){content='<span class="badge badge-green" style="font-size:12px;padding:6px 12px;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-rosette" style="font-size:14px"></i> Approuvé</span>';} else if(allVerif){content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px;gap:6px"><i class="ti ti-check"></i> Approuver</button>';} else {content='<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';} return '<td rowspan="'+rowspan+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';})():'')+'</tr>');
+    const analyses=(e0.analysesIds||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean).filter(a=>!fAnalyse||a.nom.toLowerCase().includes(fAnalyse));
+    const toShow=analyses.length?analyses:[null];
+    toShow.forEach((a,ai)=>{
+      const statut=a?(e0.analyseStatuts||{})[a.id]||'a_lancer':null, statInfo=a?(e0.analyseStatutsInfo||{})[a.id]||{}:{}, r=a?(e0.analyseResultats||{})[a.id]:null;
+      const allVerif=analyses.length&&analyses.every(a2=>(e0.analyseStatuts||{})[a2.id]==='verifiee'), isApproved=e0.statut==='approuve', rowBg=(allVerif||isApproved)?'background:rgba(26,127,55,0.07);':'', borderT=ai===0?'border-top:2px solid '+typeColorForEntry(e0)+';':'';
+      rows.push('<tr style="'+borderT+rowBg+'"><td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'<br><span style="display:inline-flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+typeBadgesForEntry(e0)+'</span></td><td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td><td '+TD+' style="text-align:center">'+getLotSousSerieContenantDisplay(e0,group)+'</td><td '+TD+'>'+getMarcheDisplay(e0)+'</td><td '+TD+'>'+getEcheanceConditionDisplay(e0)+'</td><td '+TD+'>'+(e0.date?formatDate(e0.date):'—')+'</td><td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':''):'—')+'</td>'+(a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+(ai===0?(()=>{const rowspan=toShow.length;let content=''; if(isApproved){content='<span class="badge badge-green" style="font-size:12px;padding:6px 12px"><i class="ti ti-rosette"></i> Approuvé</span>';} else if(allVerif){content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px"><i class="ti ti-check"></i> Approuver</button>';} else {content='<div class="actions" style="opacity:1"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';} return '<td rowspan="'+rowspan+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';})():'')+'</tr>');
     });
   });
-  if(!rows.length){tbody.innerHTML='<tr><td colspan="11"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon</p></div></td></tr>'; return;}
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="11"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon</p></div></td></tr>'; return; }
   tbody.innerHTML=rows.join(''); tbody.querySelectorAll('.approuver-btn').forEach(btn=>btn.addEventListener('click',()=>approuverLot(btn.dataset.lot)));
-}
-
-window.wizardIsPifSelected=wizardIsPifSelected; window.wizardIsStabSelected=wizardIsStabSelected; window.wizardIsMpSelected=wizardIsMpSelected; window.toggleTypeCard=toggleTypeCard; window.previewSousSeries=previewSousSeries; window.wizardValidate=wizardValidate; window.wizardLoadMarches=wizardLoadMarches; window.wizardLoadAnalyses=wizardLoadAnalyses; window.wizardRecap=wizardRecap; window.wizardConfirm=wizardConfirm; window.getLotSousSerieContenantDisplay=getLotSousSerieContenantDisplay; window.getLotMarcheDisplay=getLotMarcheDisplay; window.getLotEcheanceConditionDisplay=getLotEcheanceConditionDisplay; window.renderEchantillonsTable=renderEchantillonsTable;
-
+};
+window.wizardRecap=wizardRecap; window.wizardConfirm=wizardConfirm; window.renderEchantillonsTable=renderEchantillonsTable;
 </script>
 </body>
 </html>
