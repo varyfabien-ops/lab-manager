@@ -251,6 +251,60 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: YYYYYYY |  STAB | TP: T3M | Conditions: 5C"
+    },
+    {
+      "id": 1781965500209.0784,
+      "nom": "L*a*b",
+      "echantillonCode": "dddddd-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: dddddd-A | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781965500209.1362,
+      "nom": "Osmolalité",
+      "echantillonCode": "dddddd-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: dddddd-A | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781965500209.4854,
+      "nom": "L*a*b",
+      "echantillonCode": "dddddd-B",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: dddddd-B | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781965500209.8835,
+      "nom": "Osmolalité",
+      "echantillonCode": "dddddd-B",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: dddddd-B | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781965500209.833,
+      "nom": "L*a*b",
+      "echantillonCode": "dddddd-C",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: dddddd-C | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781965500209.1907,
+      "nom": "Osmolalité",
+      "echantillonCode": "dddddd-C",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: dddddd-C | PIF STAB | SPQ SPQAAAA | PTC PTC567"
     }
   ],
   "catalogue": [
@@ -835,6 +889,75 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781965500209,
+      "code": "dddddd-A",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781959829280
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852984224
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "SPQAAAA",
+      "refPTC": "PTC567",
+      "stabEcheance": "T0",
+      "stabTemps": "",
+      "lot": "dddddd",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781965500210,
+      "code": "dddddd-B",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781959829280
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852984224
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "SPQAAAA",
+      "refPTC": "PTC567",
+      "stabEcheance": "T0",
+      "stabTemps": "",
+      "lot": "dddddd",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781965500211,
+      "code": "dddddd-C",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781959829280
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852984224
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "SPQAAAA",
+      "refPTC": "PTC567",
+      "stabEcheance": "T0",
+      "stabTemps": "",
+      "lot": "dddddd",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -857,11 +980,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : L*a*b",
-      "time": "19/06 09:00"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0044",
@@ -1106,6 +1224,11 @@
       "icon": "book",
       "text": "Analyse modifiee : TCC0015 (Phase Mobile)",
       "time": "20/06 15:24"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 2 analyses",
+      "time": "20/06 16:25"
     }
   ]
 }
