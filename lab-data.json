@@ -423,7 +423,7 @@
       "note": "",
       "analyseStatuts": {
         "1781508652926": "verifiee",
-        "1781509335357": "en_cours"
+        "1781509335357": "terminee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
@@ -433,7 +433,8 @@
           "terminee": "15/06/2026"
         },
         "1781509335357": {
-          "en_cours": "20/06/2026"
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026"
         }
       }
     },
@@ -612,11 +613,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : TCC0015",
-      "time": "15/06 09:30"
-    },
     {
       "icon": "world",
       "text": "Marche ajoute : France",
@@ -861,6 +857,11 @@
       "icon": "list-check",
       "text": "9960000-A — pH : en_cours",
       "time": "20/06 12:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — pH : terminee",
+      "time": "20/06 13:03"
     }
   ]
 }
