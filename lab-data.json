@@ -188,8 +188,8 @@
         "Volume"
       ],
       "duree": "",
-      "code": "TCC0044",
-      "description": ""
+      "code": "",
+      "description": "Dosage du RM493, des conservateurs et des impuretés"
     },
     {
       "id": 1781852984224,
@@ -627,11 +627,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9960000-A — TCC0015 : verifiee",
-      "time": "15/06 10:10"
-    },
-    {
-      "icon": "list-check",
       "text": "9960000-A — TCC0015 : attente",
       "time": "15/06 10:10"
     },
@@ -874,6 +869,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0065",
       "time": "20/06 14:47"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : TCC0044",
+      "time": "20/06 14:48"
     }
   ]
 }
