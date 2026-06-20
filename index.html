@@ -2604,7 +2604,11 @@ function renderEchantillonsTable() {
     toShow.forEach((a, ai) => {
       const statut = a ? ((e0.analyseStatuts||{})[a.id] || 'a_lancer') : 'a_lancer';
       const statInfo = a ? ((e0.analyseStatutsInfo||{})[a.id] || {}) : {};
-      rows.push('<tr style="'+(ai===0?'border-top:2px solid var(--cyan3);':'')+'">'+
+      const allVerif2 = analyses.length > 0 && analyses.every(a2 => (e0.analyseStatuts||{})[a2.id] === 'verifiee');
+      const isApproved2 = e0.statut === 'approuve';
+      const rowBg = (allVerif2 || isApproved2) ? 'background:rgba(26,127,55,0.07);' : '';
+      const borderT = ai===0 ? 'border-top:2px solid var(--cyan3);' : '';
+      rows.push('<tr style="'+borderT+rowBg+'">'+
         '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+
         '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
         '<td '+TD+' style="text-align:center"><strong style="font-size:16px;color:var(--cyan)">'+nbSeries+'</strong></td>'+
@@ -2616,24 +2620,27 @@ function renderEchantillonsTable() {
           '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td>'+
           '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>'
           :'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
-        '<td style="padding:8px;border-bottom:1px solid var(--border)">'+(ai===0?(()=>{
+        (ai===0?(()=>{
           const allVerified = analyses.length > 0 && analyses.every(a2 => (e0.analyseStatuts||{})[a2.id] === 'verifiee');
           const isApproved = e0.statut === 'approuve';
+          const rowspan = toShow.length;
+          let content = '';
           if (isApproved) {
-            return '<span class="badge badge-green" style="font-size:12px;padding:5px 10px"><i class="ti ti-rosette" style="font-size:13px"></i> Approuve</span>';
+            content = '<span class="badge badge-green" style="font-size:12px;padding:6px 12px;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-rosette" style="font-size:14px"></i> Approuve</span>';
           } else if (allVerified) {
             const btn = document.createElement('button');
             btn.className = 'btn btn-primary';
-            btn.style.cssText = 'font-size:12px;padding:5px 12px;gap:5px';
+            btn.style.cssText = 'font-size:13px;padding:8px 14px;gap:6px';
             btn.innerHTML = '<i class="ti ti-check"></i> Approuver';
             btn.onclick = (function(k){return function(){approuverLot(k);};})(lotKey);
             const tmp = document.createElement('div'); tmp.appendChild(btn);
-            return tmp.innerHTML;
+            content = tmp.innerHTML;
           } else {
-            return '<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
+            content = '<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
           }
-        })():'')+'</td>'+
-      '</tr>');
+          return '<td rowspan="'+rowspan+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';
+        })():'')
+      +'</tr>');
     });
   });
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
