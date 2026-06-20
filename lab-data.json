@@ -867,13 +867,17 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781509335357": "verifiee"
+        "1781509335357": "verifiee",
+        "1781852405020": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781509335357": {
           "en_cours": "20/06/2026",
           "terminee": "20/06/2026",
           "verifiee": "20/06/2026"
+        },
+        "1781852405020": {
+          "en_cours": "20/06/2026"
         }
       }
     },
@@ -1031,11 +1035,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiee : TCC0015 (Phase Mobile)",
-      "time": "19/06 09:12"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiee : pH",
@@ -1279,6 +1278,11 @@
     {
       "icon": "list-check",
       "text": "BBBBBB-A — pH : verifiee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — L*a*b : en_cours",
       "time": "20/06 16:34"
     }
   ]
