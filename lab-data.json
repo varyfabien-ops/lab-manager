@@ -667,7 +667,8 @@
       "note": "",
       "analyseStatuts": {
         "1781852438719": "terminee",
-        "1781852405020": "en_cours"
+        "1781852405020": "en_cours",
+        "1781852984224": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781852438719": {
@@ -675,6 +676,9 @@
           "terminee": "20/06/2026"
         },
         "1781852405020": {
+          "en_cours": "20/06/2026"
+        },
+        "1781852984224": {
           "en_cours": "20/06/2026"
         }
       }
@@ -724,11 +728,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : a_lancer",
-      "time": "15/06 10:26"
-    },
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : en_cours",
@@ -973,6 +972,11 @@
       "icon": "list-check",
       "text": "AAAAAAA-A — L*a*b : en_cours",
       "time": "20/06 15:11"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — Osmolalité : en_cours",
+      "time": "20/06 15:16"
     }
   ]
 }
