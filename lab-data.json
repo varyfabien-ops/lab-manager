@@ -323,6 +323,42 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: vvvv-A | PIF STAB | SPQ SPQAAAA | PTC PTC567"
+    },
+    {
+      "id": 1781966150484.5232,
+      "nom": "pH",
+      "echantillonCode": "9960000",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960000 |  STAB | T3M | 5C, 25C"
+    },
+    {
+      "id": 1781966194217.0022,
+      "nom": "L*a*b",
+      "echantillonCode": "YYYYYYY-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY-A | PIF"
+    },
+    {
+      "id": 1781966194217.3445,
+      "nom": "L*a*b",
+      "echantillonCode": "YYYYYYY-B",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY-B | PIF"
+    },
+    {
+      "id": 1781966194217.717,
+      "nom": "L*a*b",
+      "echantillonCode": "YYYYYYY-C",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY-C | PIF"
     }
   ],
   "catalogue": [
@@ -864,11 +900,15 @@
       "stabTemps": "",
       "lot": "BBBBBB",
       "date": "2026-06-20",
-      "statut": "en_analyse",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781509335357": "verifiee",
-        "1781852405020": "en_cours"
+        "1781852405020": "verifiee",
+        "1781852438719": "verifiee",
+        "1781852984224": "verifiee",
+        "1781959632897": "verifiee",
+        "1781959743113": "verifiee"
       },
       "analyseStatutsInfo": {
         "1781509335357": {
@@ -877,9 +917,32 @@
           "verifiee": "20/06/2026"
         },
         "1781852405020": {
-          "en_cours": "20/06/2026"
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        },
+        "1781852438719": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        },
+        "1781852984224": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        },
+        "1781959632897": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        },
+        "1781959743113": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         }
-      }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781961438896,
@@ -919,8 +982,19 @@
       "stabTemps": "5C",
       "lot": "YYYYYYY",
       "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "approuve",
+      "note": "",
+      "analyseStatuts": {
+        "1781508652926": "verifiee"
+      },
+      "analyseStatutsInfo": {
+        "1781508652926": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781965500209,
@@ -1013,6 +1087,84 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781966150484,
+      "code": "9960000",
+      "produitId": 1781509266740,
+      "marcheIds": [],
+      "analysesIds": [
+        1781509335357
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "stabEcheance": "T3M",
+      "stabTemps": "5C, 25C",
+      "lot": "9960000",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781966194217,
+      "code": "YYYYYYY-A",
+      "produitId": 1781509248907,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "YYYYYYY",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781966194218,
+      "code": "YYYYYYY-B",
+      "produitId": 1781509248907,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "YYYYYYY",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781966194219,
+      "code": "YYYYYYY-C",
+      "produitId": 1781509248907,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "YYYYYYY",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1035,111 +1187,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiee : pH",
-      "time": "19/06 09:12"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-A — TCC0044 : en_cours",
-      "time": "19/06 09:18"
-    },
-    {
-      "icon": "world",
-      "text": "Marche ajoute : USA",
-      "time": "19/06 09:26"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960002-A — pH : en_cours",
-      "time": "20/06 12:51"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960002-A — pH : terminee",
-      "time": "20/06 12:57"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960002-A — pH : verifiee",
-      "time": "20/06 12:57"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960001-A — pH : en_cours",
-      "time": "20/06 12:57"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960001-A — pH : terminee",
-      "time": "20/06 12:57"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960001-A — pH : verifiee",
-      "time": "20/06 12:57"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — pH : en_cours",
-      "time": "20/06 12:58"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — pH : terminee",
-      "time": "20/06 13:03"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
-      "time": "20/06 13:09"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
-      "time": "20/06 13:09"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
-      "time": "20/06 13:09"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
-      "time": "20/06 13:09"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
-      "time": "20/06 13:09"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libere : 9960002 (Xylocaïne Nébuliseur)",
-      "time": "20/06 13:09"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — pH : verifiee",
-      "time": "20/06 13:15"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-A — TCC0044 : terminee",
-      "time": "20/06 13:15"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : TCC0065",
-      "time": "20/06 14:47"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiee : TCC0044",
-      "time": "20/06 14:48"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : Volume Extractible",
@@ -1284,6 +1331,111 @@
       "icon": "list-check",
       "text": "BBBBBB-A — L*a*b : en_cours",
       "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — TCC0044 : en_cours",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — Osmolalité : en_cours",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — TCC0065 : en_cours",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — Volume Extractible : en_cours",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — Volume Extractible : terminee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — TCC0065 : terminee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — Osmolalité : terminee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — TCC0044 : terminee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — L*a*b : terminee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — L*a*b : verifiee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — TCC0044 : verifiee",
+      "time": "20/06 16:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — Osmolalité : verifiee",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — TCC0065 : verifiee",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-A — Volume Extractible : verifiee",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : BBBBBB (Setmelanotide 10 mg/mL)",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0015 : en_cours",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0015 : terminee",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0015 : verifiee",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : YYYYYYY (Lipiodol)",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol — 1 étude — 1 analyse",
+      "time": "20/06 16:35"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne Nébuliseur — 3 sous-séries — 1 analyse",
+      "time": "20/06 16:36"
     }
   ]
 }
