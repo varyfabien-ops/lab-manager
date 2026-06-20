@@ -973,29 +973,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781965500209,
-      "code": "dddddd-A",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781959829280
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852984224
-      ],
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "SPQAAAA",
-      "refPTC": "PTC567",
-      "stabEcheance": "T0",
-      "stabTemps": "",
-      "lot": "dddddd",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1781965500210,
       "code": "dddddd-B",
       "produitId": 1781852369953,
@@ -1145,11 +1122,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 6 analyses",
-      "time": "20/06 15:05"
-    },
     {
       "icon": "rosette",
       "text": "Lot libere : 9960000 (Xylocaïne 5% Naphazoline)",
@@ -1394,6 +1366,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : XXXXXX-A",
       "time": "20/06 18:30"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : dddddd-A",
+      "time": "20/06 18:32"
     }
   ]
 }
