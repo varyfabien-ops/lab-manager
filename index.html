@@ -175,6 +175,7 @@
 <div class="nav-item" onclick="goTo('enregistrements',this)"><i class="ti ti-file-description"></i> Enregistrements <span class="nav-badge amber" id="badge-enregistrements" style="display:none">0</span></div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
+    <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
 <div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
 </div></aside>
 <main>
@@ -553,17 +554,12 @@
           <label>Produits applicables <span style="color:var(--text3);font-weight:400">(cochez les produits concernés)</span></label>
           <div id="a-produits-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:4px"></div>
         </div>
-        <div class="form-group">
-          <label>Type de résultat</label>
-          <select id="a-type-resultat">
-            <option value="numerique">Numérique</option>
-            <option value="texte">Texte libre</option>
-            <option value="conforme">Conforme / Non-conforme</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Unité (optionnel)</label>
-          <input id="a-unite" placeholder="Ex: pH, mg/mL, %, UI/mL">
+        <div class="form-group full">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <label>Résultats à saisir</label>
+            <button type="button" class="btn" onclick="ajouterChampResultat()" style="font-size:12px;padding:4px 10px"><i class="ti ti-plus"></i> Ajouter un champ</button>
+          </div>
+          <div id="a-resultats-list" style="display:flex;flex-direction:column;gap:8px"></div>
         </div>
         <div class="form-group full"><label>Description / Norme applicable</label><textarea id="a-desc" placeholder="Ex: Dosage par HPLC selon Ph.Eur. 2.2.29"></textarea></div>
       </div>
@@ -2313,6 +2309,52 @@ function goToPlanning(view) {
   if (view === 'catalogue') renderCatalogue();
 }
 
+
+// ============================================================
+// GESTION DES CHAMPS DE RÉSULTATS D'ANALYSE
+// ============================================================
+
+function ajouterChampResultat(label='', type='numerique', unite='') {
+  const list = document.getElementById('a-resultats-list');
+  if (!list) return;
+  const idx = list.children.length;
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;align-items:center;gap:8px;background:var(--bg3);padding:10px;border-radius:var(--radius);border:1px solid var(--border)';
+  div.innerHTML = `
+    <input placeholder="Nom du champ (ex: Unité 1)" value="${label}" style="flex:2;font-size:13px" class="champ-label">
+    <select style="flex:1;font-size:13px" class="champ-type">
+      <option value="numerique" ${type==='numerique'?'selected':''}>Numérique</option>
+      <option value="texte" ${type==='texte'?'selected':''}>Texte libre</option>
+      <option value="conforme" ${type==='conforme'?'selected':''}>Conforme/NC</option>
+    </select>
+    <input placeholder="Unité (opt.)" value="${unite}" style="flex:1;font-size:13px" class="champ-unite">
+    <button type="button" onclick="this.parentElement.remove()" class="icon-btn danger"><i class="ti ti-trash"></i></button>
+  `;
+  list.appendChild(div);
+}
+
+function getChampResultats() {
+  const list = document.getElementById('a-resultats-list');
+  if (!list) return [];
+  return Array.from(list.children).map(div => ({
+    label: div.querySelector('.champ-label')?.value?.trim() || '',
+    type: div.querySelector('.champ-type')?.value || 'numerique',
+    unite: div.querySelector('.champ-unite')?.value?.trim() || ''
+  })).filter(c => c.label);
+}
+
+function chargerChampResultats(champs) {
+  const list = document.getElementById('a-resultats-list');
+  if (!list) return;
+  list.innerHTML = '';
+  if (!champs || !champs.length) {
+    // Par défaut : 1 champ "Résultat"
+    ajouterChampResultat('Résultat', 'numerique', '');
+  } else {
+    champs.forEach(c => ajouterChampResultat(c.label, c.type, c.unite));
+  }
+}
+
 function saveAnalyse() {
   const nom = document.getElementById('a-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
@@ -2352,8 +2394,7 @@ function editAnalyse(id) {
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
   document.getElementById('a-desc').value = a.description||'';
-  const atr = document.getElementById('a-type-resultat'); if(atr) atr.value = a.typeResultat||'numerique';
-  const aun = document.getElementById('a-unite'); if(aun) aun.value = a.unite||'';
+
   document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
   openModal('modal-analyse');
 }
@@ -3424,7 +3465,11 @@ function openModal(id) {
       if(at) at.textContent='Nouvelle analyse';
     }
     const selIds = editingId ? ((state.catalogue||[]).find(a=>a.id===editingId)||{}).produitsIds||[] : [];
-    setTimeout(() => populateProduitsAnalyseCheck(selIds), 50);
+    const selA = editingId ? (state.catalogue||[]).find(a=>a.id===editingId) : null;
+    setTimeout(() => {
+      populateProduitsAnalyseCheck(selIds);
+      chargerChampResultats(selA?.champsResultats || null);
+    }, 50);
   }
   if (id === 'modal-echantillon') {
     populateTechSelects();
@@ -3515,6 +3560,8 @@ window.renderPlanningTable = renderPlanningTable;
 window.renderEchantillonsTable = renderEchantillonsTable;
 window.approuverLot = approuverLot;
 window.ouvrirModalResultat = ouvrirModalResultat;
+window.ajouterChampResultat = ajouterChampResultat;
+window.toggleConformiteChamp = toggleConformiteChamp;
 window.sauvegarderResultat = sauvegarderResultat;
 window.renderTendances = renderTendances;
 window.selectConformite = selectConformite;
@@ -3677,6 +3724,8 @@ window.resetFiltresEch = resetFiltresEch;
 window.renderEchantillonsTable = renderEchantillonsTable;
 window.approuverLot = approuverLot;
 window.ouvrirModalResultat = ouvrirModalResultat;
+window.ajouterChampResultat = ajouterChampResultat;
+window.toggleConformiteChamp = toggleConformiteChamp;
 window.sauvegarderResultat = sauvegarderResultat;
 window.renderTendances = renderTendances;
 window.selectConformite = selectConformite;
