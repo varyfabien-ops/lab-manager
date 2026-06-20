@@ -588,11 +588,12 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852438719": "en_cours"
+        "1781852438719": "terminee"
       },
       "analyseStatutsInfo": {
         "1781852438719": {
-          "en_cours": "19/06/2026"
+          "en_cours": "19/06/2026",
+          "terminee": "20/06/2026"
         }
       }
     }
@@ -616,11 +617,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : lancee",
-      "time": "15/06 10:10"
-    },
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : terminee",
@@ -864,6 +860,11 @@
     {
       "icon": "list-check",
       "text": "9960000-A — pH : verifiee",
+      "time": "20/06 13:15"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — TCC0044 : terminee",
       "time": "20/06 13:15"
     }
   ]
