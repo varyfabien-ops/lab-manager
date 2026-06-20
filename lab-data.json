@@ -666,12 +666,16 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852438719": "terminee"
+        "1781852438719": "terminee",
+        "1781852405020": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781852438719": {
           "en_cours": "19/06/2026",
           "terminee": "20/06/2026"
+        },
+        "1781852405020": {
+          "en_cours": "20/06/2026"
         }
       }
     },
@@ -720,11 +724,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : verifiee",
-      "time": "15/06 10:26"
-    },
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : a_lancer",
@@ -969,6 +968,11 @@
       "icon": "rosette",
       "text": "Lot libere : 9960000 (Xylocaïne 5% Naphazoline)",
       "time": "20/06 15:10"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — L*a*b : en_cours",
+      "time": "20/06 15:11"
     }
   ]
 }
