@@ -496,7 +496,7 @@
       "stabTemps": "",
       "lot": "9960000",
       "date": "2026-06-15",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781508652926": "verifiee",
@@ -514,7 +514,8 @@
           "terminee": "20/06/2026",
           "verifiee": "20/06/2026"
         }
-      }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781511540450,
@@ -719,11 +720,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Xylocaïne 5% Naphazoline — 1 sous-serie — 2 analyses",
-      "time": "15/06 10:19"
-    },
     {
       "icon": "list-check",
       "text": "9960000-A — TCC0015 : verifiee",
@@ -968,6 +964,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 6 analyses",
       "time": "20/06 15:05"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960000 (Xylocaïne 5% Naphazoline)",
+      "time": "20/06 15:10"
     }
   ]
 }
