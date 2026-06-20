@@ -208,6 +208,14 @@
       "duree": "",
       "code": "",
       "description": "Dosage du MPEG"
+    },
+    {
+      "id": 1781959743113,
+      "nom": "Volume Extractible",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -627,11 +635,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9960000-A — TCC0015 : attente",
-      "time": "15/06 10:10"
-    },
-    {
-      "icon": "list-check",
       "text": "9960000-A — TCC0015 : lancee",
       "time": "15/06 10:10"
     },
@@ -874,6 +877,11 @@
       "icon": "book",
       "text": "Analyse modifiee : TCC0044",
       "time": "20/06 14:48"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : Volume Extractible",
+      "time": "20/06 14:49"
     }
   ]
 }
