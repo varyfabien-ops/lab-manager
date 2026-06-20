@@ -414,6 +414,9 @@
       ],
       "duree": "",
       "code": "",
+      "produitsIds": [
+        1781852369953
+      ],
       "description": "Dosage du RM493, des conservateurs et des impuretés"
     },
     {
@@ -1132,11 +1135,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA-A — L*a*b : en_cours",
-      "time": "20/06 15:11"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA-A — Osmolalité : en_cours",
       "time": "20/06 15:16"
     },
@@ -1379,6 +1377,11 @@
       "icon": "list-check",
       "text": "dddddd-B — L*a*b : en_cours",
       "time": "20/06 18:36"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044",
+      "time": "20/06 18:37"
     }
   ]
 }
