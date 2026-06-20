@@ -384,6 +384,24 @@
       <div id="marches-list" style="padding:0"></div>
     </div>
   </div>
+
+  <!-- SOUS-VUE LOTS LIBERES -->
+  <div id="ech-view-liberes" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Lots liberes</h1><p>Lots approuves et liberes au controle qualite</p></div>
+      <div class="page-header-actions">
+        <button class="btn" onclick="exportLotsLiberes()"><i class="ti ti-download"></i> Exporter</button>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Lots approuves</h3></div>
+      <table><thead><tr>
+        <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
+        <th>Date reception</th><th>Date approbation</th><th>Analyses</th><th></th>
+      </tr></thead>
+      <tbody id="liberes-tbody"></tbody></table>
+    </div>
+  </div>
 </div>
 
 <div class="page" id="page-stabilites">
@@ -418,25 +436,6 @@
     </div>
   </div>
 </div>
-
-  <!-- SOUS-VUE LOTS LIBERES -->
-  <div id="ech-view-liberes" style="display:none">
-    <div class="page-header">
-      <div class="page-header-text"><h1>Lots liberes</h1><p>Lots approuves et liberes au controle qualite</p></div>
-      <div class="page-header-actions">
-        <button class="btn" onclick="exportLotsLiberes()"><i class="ti ti-download"></i> Exporter</button>
-      </div>
-    </div>
-    <div class="table-card">
-      <div class="table-card-header"><h3>Lots approuves</h3></div>
-      <table><thead><tr>
-        <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
-        <th>Date reception</th><th>Date approbation</th><th>Analyses</th><th></th>
-      </tr></thead>
-      <tbody id="liberes-tbody"></tbody>
-    </table>
-    </div>
-  </div>
 
 <div class="page" id="page-commandes">
   <div class="page-header">
