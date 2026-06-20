@@ -422,7 +422,8 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781508652926": "verifiee"
+        "1781508652926": "verifiee",
+        "1781509335357": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
@@ -430,6 +431,9 @@
           "a_lancer": "15/06/26",
           "en_cours": "15/06/2026",
           "terminee": "15/06/2026"
+        },
+        "1781509335357": {
+          "en_cours": "20/06/2026"
         }
       }
     },
@@ -450,11 +454,11 @@
       "stabTemps": "",
       "lot": "9960001",
       "date": "2026-06-15",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "analyseStatuts": {
         "1781508652926": "verifiee",
-        "1781509335357": "en_cours"
+        "1781509335357": "verifiee"
       },
       "analyseStatutsInfo": {
         "1781508652926": {
@@ -463,7 +467,9 @@
           "verifiee": "15/06/2026"
         },
         "1781509335357": {
-          "en_cours": "20/06/2026"
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         }
       }
     },
@@ -606,21 +612,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Fabien VARY",
-      "time": "15/06 09:23"
-    },
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Méthanol HPLC Grade lot VBCN32443",
-      "time": "15/06 09:25"
-    },
-    {
-      "icon": "calendar-plus",
-      "text": "Nouvelle analyse planifiee : TCC0015 (Phase Mobile)",
-      "time": "15/06 09:29"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0015",
@@ -855,6 +846,21 @@
       "icon": "list-check",
       "text": "9960001-A — pH : en_cours",
       "time": "20/06 12:57"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960001-A — pH : terminee",
+      "time": "20/06 12:57"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960001-A — pH : verifiee",
+      "time": "20/06 12:57"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960000-A — pH : en_cours",
+      "time": "20/06 12:58"
     }
   ]
 }
