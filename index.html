@@ -461,6 +461,27 @@
   </div>
 </div>
 
+<div class="page" id="page-tendances">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Tendances</h1><p>Évolution des résultats d'analyses par produit</p></div>
+  </div>
+  <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+    <div class="form-group" style="min-width:200px">
+      <label>Produit</label>
+      <select id="tend-produit" onchange="renderTendances()" style="font-size:14px;padding:8px">
+        <option value="">— Tous les produits —</option>
+      </select>
+    </div>
+    <div class="form-group" style="min-width:200px">
+      <label>Analyse</label>
+      <select id="tend-analyse" onchange="renderTendances()" style="font-size:14px;padding:8px">
+        <option value="">— Toutes les analyses —</option>
+      </select>
+    </div>
+  </div>
+  <div id="tendances-container"></div>
+</div>
+
 <div class="page" id="page-audit">
   <div class="page-header">
     <div class="page-header-text"><h1>Journal d'activité</h1><p>Traçabilité des principales actions réalisées dans LabManager</p></div>
@@ -531,6 +552,18 @@
         <div class="form-group full">
           <label>Produits applicables <span style="color:var(--text3);font-weight:400">(cochez les produits concernés)</span></label>
           <div id="a-produits-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:4px"></div>
+        </div>
+        <div class="form-group">
+          <label>Type de résultat</label>
+          <select id="a-type-resultat">
+            <option value="numerique">Numérique</option>
+            <option value="texte">Texte libre</option>
+            <option value="conforme">Conforme / Non-conforme</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Unité (optionnel)</label>
+          <input id="a-unite" placeholder="Ex: pH, mg/mL, %, UI/mL">
         </div>
         <div class="form-group full"><label>Description / Norme applicable</label><textarea id="a-desc" placeholder="Ex: Dosage par HPLC selon Ph.Eur. 2.2.29"></textarea></div>
       </div>
@@ -892,6 +925,60 @@
       </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-enregistrement')">Annuler</button><button class="btn btn-primary" onclick="saveEnregistrement()"><i class="ti ti-check"></i> Enregistrer</button></div>
+  </div>
+</div>
+
+<!-- MODAL RÉSULTAT ANALYSE -->
+<div class="modal-overlay" id="modal-resultat">
+  <div class="modal" style="width:480px">
+    <div class="modal-header">
+      <i class="ti ti-clipboard-check" style="font-size:18px;color:var(--cyan)"></i>
+      <h3 id="modal-resultat-title">Saisir le résultat</h3>
+      <button class="close-btn" onclick="closeModal('modal-resultat')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:16px;font-size:13px;color:var(--text2)" id="modal-resultat-info"></div>
+      <!-- Numérique -->
+      <div id="resultat-numerique" style="display:none">
+        <div class="form-group">
+          <label id="resultat-unite-label">Valeur</label>
+          <input type="number" id="resultat-valeur" placeholder="Ex: 6.8" step="any" style="font-size:16px;padding:10px">
+        </div>
+      </div>
+      <!-- Texte libre -->
+      <div id="resultat-texte" style="display:none">
+        <div class="form-group">
+          <label>Résultat</label>
+          <textarea id="resultat-texte-val" placeholder="Saisir le résultat..." style="min-height:80px"></textarea>
+        </div>
+      </div>
+      <!-- Conforme / Non-conforme -->
+      <div id="resultat-conforme" style="display:none">
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <label style="flex:1;cursor:pointer" onclick="selectConformite('conforme')">
+            <div id="card-conforme" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+              <i class="ti ti-circle-check" style="font-size:32px;color:var(--green);display:block;margin-bottom:8px"></i>
+              <div style="font-weight:600;font-size:15px;color:var(--green)">Conforme</div>
+            </div>
+          </label>
+          <label style="flex:1;cursor:pointer" onclick="selectConformite('non-conforme')">
+            <div id="card-non-conforme" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+              <i class="ti ti-circle-x" style="font-size:32px;color:var(--red);display:block;margin-bottom:8px"></i>
+              <div style="font-weight:600;font-size:15px;color:var(--red)">Non conforme</div>
+            </div>
+          </label>
+        </div>
+        <input type="hidden" id="resultat-conformite-val">
+      </div>
+      <div class="form-group" style="margin-top:14px">
+        <label>Commentaire (optionnel)</label>
+        <textarea id="resultat-commentaire" placeholder="Observations, remarques..." style="min-height:60px"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-resultat')">Annuler</button>
+      <button class="btn btn-primary" onclick="sauvegarderResultat()"><i class="ti ti-check"></i> Enregistrer</button>
+    </div>
   </div>
 </div>
 
@@ -1329,6 +1416,86 @@ function exportLotsLiberes() {
   toast('Export OK','success');
 }
 
+
+let _resultatEchId = null;
+let _resultatAnalyseId = null;
+
+function ouvrirModalResultat(echId, analyseId) {
+  _resultatEchId = echId;
+  _resultatAnalyseId = analyseId;
+  const ech = (state.echantillons||[]).find(e=>e.id===echId);
+  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
+  if (!ech || !a) return;
+
+  // Titre et info
+  const t = document.getElementById('modal-resultat-title');
+  if(t) t.textContent = 'Résultat — ' + a.nom;
+  const info = document.getElementById('modal-resultat-info');
+  if(info) info.innerHTML = '<strong>' + (((state.produitsEch||[]).find(p=>p.id===ech.produitId))?.nom||'—') + '</strong> — Lot : <code>' + (ech.lot||'—') + '</code>';
+
+  // Afficher le bon champ selon le type
+  const type = a.typeResultat||'texte';
+  document.getElementById('resultat-numerique').style.display = type==='numerique' ? 'block' : 'none';
+  document.getElementById('resultat-texte').style.display = type==='texte' ? 'block' : 'none';
+  document.getElementById('resultat-conforme').style.display = type==='conforme' ? 'block' : 'none';
+
+  // Label unité
+  const ul = document.getElementById('resultat-unite-label');
+  if(ul) ul.textContent = 'Valeur' + (a.unite ? ' (' + a.unite + ')' : '');
+
+  // Pré-remplir si résultat existant
+  const existing = (ech.resultats||{})[analyseId];
+  document.getElementById('resultat-valeur').value = existing?.valeur||'';
+  document.getElementById('resultat-texte-val').value = existing?.valeur||'';
+  document.getElementById('resultat-conformite-val').value = existing?.valeur||'';
+  document.getElementById('resultat-commentaire').value = existing?.commentaire||'';
+
+  // Reset conformité cards
+  document.getElementById('card-conforme').style.border = '2px solid var(--border)';
+  document.getElementById('card-non-conforme').style.border = '2px solid var(--border)';
+  if (existing?.valeur === 'conforme') selectConformite('conforme');
+  if (existing?.valeur === 'non-conforme') selectConformite('non-conforme');
+
+  openModal('modal-resultat');
+}
+
+function selectConformite(val) {
+  document.getElementById('resultat-conformite-val').value = val;
+  document.getElementById('card-conforme').style.border = val==='conforme' ? '2px solid var(--green)' : '2px solid var(--border)';
+  document.getElementById('card-conforme').style.background = val==='conforme' ? 'var(--green-dim)' : '';
+  document.getElementById('card-non-conforme').style.border = val==='non-conforme' ? '2px solid var(--red)' : '2px solid var(--border)';
+  document.getElementById('card-non-conforme').style.background = val==='non-conforme' ? 'var(--red-dim)' : '';
+}
+
+function sauvegarderResultat() {
+  const ech = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
+  const a = (state.catalogue||[]).find(x=>x.id===_resultatAnalyseId);
+  if (!ech || !a) return;
+  const type = a.typeResultat||'texte';
+  let valeur = '';
+  if (type==='numerique') valeur = document.getElementById('resultat-valeur').value;
+  else if (type==='texte') valeur = document.getElementById('resultat-texte-val').value;
+  else valeur = document.getElementById('resultat-conformite-val').value;
+  if (!valeur && type !== 'texte') { toast('Veuillez saisir un résultat', 'error'); return; }
+  const commentaire = document.getElementById('resultat-commentaire').value;
+  const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  if (!ech.resultats) ech.resultats = {};
+  ech.resultats[_resultatAnalyseId] = { valeur, commentaire, date, unite: a.unite||'' };
+  closeModal('modal-resultat');
+  // Avancer automatiquement le statut à "terminee"
+  if ((ech.analyseStatuts||{})[_resultatAnalyseId] !== 'verifiee') {
+    ech.analyseStatuts = ech.analyseStatuts||{};
+    ech.analyseStatuts[_resultatAnalyseId] = 'terminee';
+    ech.analyseStatutsInfo = ech.analyseStatutsInfo||{};
+    ech.analyseStatutsInfo[_resultatAnalyseId] = ech.analyseStatutsInfo[_resultatAnalyseId]||{};
+    ech.analyseStatutsInfo[_resultatAnalyseId]['terminee'] = date;
+  }
+  addActivity('clipboard-check', (a.nom||'') + ' : ' + valeur + (a.unite?' '+a.unite:'') + ' — lot ' + (ech.lot||''));
+  renderEchantillonsTable();
+  saveData();
+  toast('Résultat enregistré', 'success');
+}
+
 function cycleAnalyseStatut(echId, analyseId) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
@@ -1340,6 +1507,11 @@ function cycleAnalyseStatut(echId, analyseId) {
   const nextIdx = order.indexOf(cur) + 1;
   if (nextIdx >= order.length) return;
   const next = order[nextIdx];
+  // Si on passe à "terminee", ouvrir le modal de saisie du résultat
+  if (next === 'terminee') {
+    ouvrirModalResultat(echId, analyseId);
+    return; // Le statut sera mis à jour dans sauvegarderResultat
+  }
   ech.analyseStatuts[analyseId] = next;
   if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
   ech.analyseStatutsInfo[analyseId][next] = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
@@ -1354,6 +1526,93 @@ function cycleAnalyseStatut(echId, analyseId) {
 
 let activeStabId = null;
 let editingTpIdx = null;
+
+
+function renderTendances() {
+  const selProduit = document.getElementById('tend-produit');
+  const selAnalyse = document.getElementById('tend-analyse');
+
+  // Peupler les selects
+  if (selProduit && selProduit.options.length <= 1) {
+    (state.produitsEch||[]).forEach(p => {
+      const o = document.createElement('option'); o.value=p.id; o.textContent=p.nom; selProduit.appendChild(o);
+    });
+  }
+  if (selAnalyse && selAnalyse.options.length <= 1) {
+    (state.catalogue||[]).filter(a=>a.typeResultat==='numerique').forEach(a => {
+      const o = document.createElement('option'); o.value=a.id; o.textContent=a.nom+(a.unite?' ('+a.unite+')':''); selAnalyse.appendChild(o);
+    });
+  }
+
+  const fProduit = parseInt(selProduit?.value)||0;
+  const fAnalyse = parseInt(selAnalyse?.value)||0;
+  const container = document.getElementById('tendances-container');
+  if (!container) return;
+
+  // Collecter les données
+  const data = {}; // { analyseId: { nom, unite, points: [{date, valeur, lot, produit}] } }
+  (state.echantillons||[]).forEach(e => {
+    if (fProduit && e.produitId !== fProduit) return;
+    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
+    Object.entries(e.resultats||{}).forEach(([aid, res]) => {
+      const aId = parseInt(aid);
+      if (fAnalyse && aId !== fAnalyse) return;
+      const a = (state.catalogue||[]).find(x=>x.id===aId);
+      if (!a || a.typeResultat !== 'numerique') return;
+      const valNum = parseFloat(res.valeur);
+      if (isNaN(valNum)) return;
+      if (!data[aId]) data[aId] = { nom: a.nom, unite: a.unite||'', points: [] };
+      data[aId].points.push({ date: res.date, valeur: valNum, lot: e.lot||'—', produit: produit?.nom||'—' });
+    });
+  });
+
+  if (!Object.keys(data).length) {
+    container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Aucun résultat numérique enregistré pour le moment.<br>Saisissez des résultats depuis la Réception des échantillons.</p></div>';
+    return;
+  }
+
+  // Générer un graphique SVG par analyse
+  container.innerHTML = Object.entries(data).map(([aId, d]) => {
+    const pts = d.points.sort((a,b)=>a.date?.localeCompare(b.date||'')||0);
+    if (pts.length < 1) return '';
+    const min = Math.min(...pts.map(p=>p.valeur));
+    const max = Math.max(...pts.map(p=>p.valeur));
+    const range = max - min || 1;
+    const W=600, H=180, pad=50, padR=20, padT=20, padB=40;
+    const gW = W-pad-padR, gH = H-padT-padB;
+    const x = (i) => pad + (pts.length>1 ? i/(pts.length-1)*gW : gW/2);
+    const y = (v) => padT + (1-(v-min)/range)*gH;
+    // Ligne
+    const pathD = pts.map((p,i)=>(i===0?'M':'L')+x(i).toFixed(1)+','+y(p.valeur).toFixed(1)).join(' ');
+    // Axe Y labels
+    const yLabels = [min, (min+max)/2, max].map(v=>
+      '<text x="'+(pad-6)+'" y="'+y(v).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">'+v.toFixed(2)+'</text>'
+    ).join('');
+    // Points et tooltips
+    const circles = pts.map((p,i)=>
+      '<circle cx="'+x(i).toFixed(1)+'" cy="'+y(p.valeur).toFixed(1)+'" r="4" fill="#0d7c75" stroke="#fff" stroke-width="2"><title>'+p.lot+' — '+p.date+' : '+p.valeur+' '+d.unite+'</title></circle>'
+    ).join('');
+    // Labels X (lots)
+    const xLabels = pts.map((p,i)=>
+      '<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+14)+'" text-anchor="middle" font-size="10" fill="#8896a8">'+p.lot+'</text>'
+    ).join('');
+    const mean = pts.reduce((s,p)=>s+p.valeur,0)/pts.length;
+    return '<div class="table-card" style="margin-bottom:20px;padding:20px">'
+      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">'
+      + '<h3 style="font-size:15px;font-weight:600">'+d.nom+(d.unite?' <span style="font-size:12px;color:var(--text3);font-weight:400">('+d.unite+')</span>':'')+'</h3>'
+      + '<span class="badge badge-cyan" style="margin-left:auto">'+pts.length+' mesure'+(pts.length>1?'s':'')+'</span>'
+      + '<span class="badge badge-gray">Moy: '+mean.toFixed(2)+(d.unite?' '+d.unite:'')+'</span>'
+      + '</div>'
+      + '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:'+W+'px;overflow:visible">'
+      + '<line x1="'+pad+'" y1="'+padT+'" x2="'+pad+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
+      + '<line x1="'+pad+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
+      + yLabels
+      + (pts.length>1?'<path d="'+pathD+'" fill="none" stroke="#0d7c75" stroke-width="2" stroke-linejoin="round"/>':'')
+      + '<line x1="'+pad+'" y1="'+y(mean).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(mean).toFixed(1)+'" stroke="#0d7c75" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>'
+      + circles + xLabels
+      + '</svg></div>';
+  }).join('');
+}
 
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
@@ -1601,6 +1860,7 @@ function goTo(page, el) {
   if (el) el.classList.add('active');
   if (page === 'commandes') renderCommandes();
   if (page === 'stabilites') renderStabilites();
+  if (page === 'tendances') renderTendances();
   if (page === 'audit') renderAuditTrail();
   if (page === 'enregistrements') renderEnregistrements();
   if (page === 'habilitations') renderTechniciens();
@@ -2073,6 +2333,8 @@ function editAnalyse(id) {
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
   document.getElementById('a-desc').value = a.description||'';
+  const atr = document.getElementById('a-type-resultat'); if(atr) atr.value = a.typeResultat||'numerique';
+  const aun = document.getElementById('a-unite'); if(aun) aun.value = a.unite||'';
   document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
   openModal('modal-analyse');
 }
@@ -3233,6 +3495,11 @@ window.renderProduitsAccordion = renderProduitsAccordion;
 window.renderPlanningTable = renderPlanningTable;
 window.renderEchantillonsTable = renderEchantillonsTable;
 window.approuverLot = approuverLot;
+window.ouvrirModalResultat = ouvrirModalResultat;
+window.sauvegarderResultat = sauvegarderResultat;
+window.renderTendances = renderTendances;
+window.selectConformite = selectConformite;
+window.selectConformite = selectConformite;
 window.renderLotsLiberes = renderLotsLiberes;
 window.updateBadgeLiberes = updateBadgeLiberes;
 window.archiverLot = archiverLot;
@@ -3390,6 +3657,11 @@ window.statutIcon = statutIcon;
 window.resetFiltresEch = resetFiltresEch;
 window.renderEchantillonsTable = renderEchantillonsTable;
 window.approuverLot = approuverLot;
+window.ouvrirModalResultat = ouvrirModalResultat;
+window.sauvegarderResultat = sauvegarderResultat;
+window.renderTendances = renderTendances;
+window.selectConformite = selectConformite;
+window.selectConformite = selectConformite;
 window.renderLotsLiberes = renderLotsLiberes;
 window.updateBadgeLiberes = updateBadgeLiberes;
 window.archiverLot = archiverLot;
