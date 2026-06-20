@@ -486,6 +486,9 @@
       ],
       "duree": "",
       "code": "",
+      "produitsIds": [
+        1781852369953
+      ],
       "description": ""
     },
     {
@@ -1411,11 +1414,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB-A — TCC0044 : en_cours",
-      "time": "20/06 16:34"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB-A — Osmolalité : en_cours",
       "time": "20/06 16:34"
     },
@@ -1657,6 +1655,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Osmolalité",
+      "time": "20/06 20:44"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : L*a*b",
       "time": "20/06 20:44"
     }
   ]
