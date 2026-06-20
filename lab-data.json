@@ -1019,13 +1019,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852405020": "terminee",
+        "1781852405020": "verifiee",
         "1781852984224": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781852405020": {
           "en_cours": "20/06/2026",
-          "terminee": "20/06/2026"
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         },
         "1781852984224": {
           "en_cours": "20/06/2026"
@@ -1174,11 +1175,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 6 analyses",
-      "time": "20/06 15:17"
-    },
     {
       "icon": "package",
       "text": "Reception: Lipiodol — STAB — 5C — T3M — 1 analyse",
@@ -1422,6 +1418,11 @@
     {
       "icon": "clipboard-check",
       "text": "L*a*b : 10 — lot vvvv",
+      "time": "20/06 19:07"
+    },
+    {
+      "icon": "list-check",
+      "text": "vvvv-A — L*a*b : verifiee",
       "time": "20/06 19:07"
     }
   ]
