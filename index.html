@@ -2718,13 +2718,7 @@ function renderEchantillonsTable() {
           if (isApproved) {
             content = '<span class="badge badge-green" style="font-size:12px;padding:6px 12px;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-rosette" style="font-size:14px"></i> Approuve</span>';
           } else if (allVerified) {
-            const btn = document.createElement('button');
-            btn.className = 'btn btn-primary';
-            btn.style.cssText = 'font-size:13px;padding:8px 14px;gap:6px';
-            btn.innerHTML = '<i class="ti ti-check"></i> Approuver';
-            btn.onclick = (function(k){return function(){approuverLot(k);};})(lotKey);
-            const tmp = document.createElement('div'); tmp.appendChild(btn);
-            content = tmp.innerHTML;
+            content = '<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px;gap:6px"><i class="ti ti-check"></i> Approuver</button>';
           } else {
             content = '<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
           }
@@ -2735,6 +2729,11 @@ function renderEchantillonsTable() {
   });
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
   tbody.innerHTML = rows.join('');
+  // Event delegation pour le bouton Approuver
+  tbody.addEventListener('click', function(ev) {
+    const btn = ev.target.closest('.approuver-btn');
+    if (btn) approuverLot(btn.dataset.lot);
+  }, {once: true});
 }
 
 function editEchantillon(id) {
