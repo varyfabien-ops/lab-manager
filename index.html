@@ -3973,11 +3973,12 @@ statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
 };
 
 cycleAnalyseStatut = function(echId, analyseId){
+  echId=parseInt(echId); analyseId=parseInt(analyseId);
   const order=['a_lancer','en_cours','terminee','verifiee']; const ech=(state.echantillons||[]).find(e=>e.id===echId); if(!ech)return;
   if(!ech.analyseStatuts)ech.analyseStatuts={}; if(!ech.analyseStatutsInfo)ech.analyseStatutsInfo={};
   const cur=ech.analyseStatuts[analyseId]||'a_lancer'; if(cur==='verifiee')return;
   const next=order[order.indexOf(cur)+1]; if(!next)return;
-  if(next==='terminee'){ openAnalyseResultat(echId,analyseId); return; }
+  if(next==='terminee'){ ouvrirModalResultat(echId,analyseId); return; }
   ech.analyseStatuts[analyseId]=next; if(!ech.analyseStatutsInfo[analyseId])ech.analyseStatutsInfo[analyseId]={}; ech.analyseStatutsInfo[analyseId][next]=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
   const ids=ech.analysesIds||[]; const allDone=ids.length&&ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee'); const anyStarted=ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';}); ech.statut=allDone?'conforme':anyStarted?'en_analyse':'recu';
   const a=(state.catalogue||[]).find(x=>x.id===analyseId); addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next); renderEchantillonsTable(); saveData();
