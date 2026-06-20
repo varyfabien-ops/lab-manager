@@ -755,18 +755,26 @@
         <div style="display:flex;gap:12px;margin-bottom:16px">
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('pif')">
             <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-flask" style="font-size:28px;color:var(--blue);display:block;margin-bottom:8px"></i>
+              <i class="ti ti-flask" style="font-size:28px;color:var(--amber);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">PIF</div>
-              <div style="font-size:11px;color:var(--text2);margin-top:4px">Controle de routine</div>
+              <div style="font-size:11px;color:var(--text2);margin-top:4px">Contrôle de routine</div>
               <input type="checkbox" id="w-type-pif" style="display:none">
             </div>
           </label>
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('stab')">
             <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-thermometer" style="font-size:28px;color:var(--purple);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:14px">STABILITE</div>
+              <div style="font-weight:600;font-size:14px">STABILITÉ</div>
               <div style="font-size:11px;color:var(--text2);margin-top:4px">Suivi dans le temps</div>
               <input type="checkbox" id="w-type-stab" style="display:none">
+            </div>
+          </label>
+          <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('mp')">
+            <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
+              <i class="ti ti-box" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
+              <div style="font-weight:600;font-size:14px">MP</div>
+              <div style="font-size:11px;color:var(--text2);margin-top:4px">Matière Première</div>
+              <input type="checkbox" id="w-type-mp" style="display:none">
             </div>
           </label>
         </div>
@@ -1028,10 +1036,16 @@ function openWizard() {
   const dt = document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
   const wpif = document.getElementById('w-type-pif'); if(wpif) wpif.checked=false;
   const wstab = document.getElementById('w-type-stab'); if(wstab) wstab.checked=false;
+  const wmp = document.getElementById('w-type-mp'); if(wmp) wmp.checked=false;
   const pifCard = document.getElementById('w-pif-card');
   const stabCard = document.getElementById('w-stab-card');
   if(pifCard) { pifCard.style.border='2px solid var(--border)'; pifCard.style.background=''; }
   if(stabCard) { stabCard.style.border='2px solid var(--border)'; stabCard.style.background=''; }
+  const mpCard = document.getElementById('w-mp-card');
+  if(mpCard) { mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
+  const mpOpts = document.getElementById('w-mp-options'); if(mpOpts) mpOpts.style.display='none';
+  const spq = document.getElementById('w-mp-spq'); if(spq) spq.value='';
+  const mpCont = document.getElementById('w-mp-contenants'); if(mpCont) mpCont.value='1';
   const stabOpts = document.getElementById('w-stab-options');
   if(stabOpts) stabOpts.style.display='none';
   const prodInfo = document.getElementById('w-produit-info');
@@ -1094,8 +1108,14 @@ function wizardValidate() {
   if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
   if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
   if (wizardStep===3) {
-    if (!document.getElementById('w-type-pif').checked && !document.getElementById('w-type-stab').checked) {
-      toast('Selectionnez PIF et/ou STABILITE', 'error'); return false;
+    const pif = document.getElementById('w-type-pif')?.checked;
+    const stab = document.getElementById('w-type-stab')?.checked;
+    const mp = document.getElementById('w-type-mp')?.checked;
+    if (!pif && !stab && !mp) {
+      toast('Sélectionnez au moins un type (PIF, STABILITÉ ou MP)', 'error'); return false;
+    }
+    if (mp && !document.getElementById('w-mp-spq')?.value?.trim()) {
+      toast('La référence SPQ est obligatoire pour une MP', 'error'); return false;
     }
   }
   if (wizardStep===6) {
@@ -1129,13 +1149,18 @@ function toggleTypeCard(type) {
   cb.checked = !cb.checked;
   const card = document.getElementById('w-'+type+'-card');
   if(!card) return;
-  if (type==='pif') {
-    card.style.border = cb.checked ? '2px solid var(--blue)' : '2px solid var(--border)';
-    card.style.background = cb.checked ? 'var(--blue-dim)' : '';
-  } else {
-    card.style.border = cb.checked ? '2px solid var(--purple)' : '2px solid var(--border)';
-    card.style.background = cb.checked ? 'var(--purple-dim)' : '';
+  const colors = { pif: 'var(--amber)', stab: 'var(--purple)', mp: 'var(--green)' };
+  const bgs = { pif: 'var(--amber-dim)', stab: 'var(--purple-dim)', mp: 'var(--green-dim)' };
+  const c = colors[type]||'var(--cyan)';
+  const bg = bgs[type]||'var(--cyan-dim)';
+  card.style.border = cb.checked ? '2px solid '+c : '2px solid var(--border)';
+  card.style.background = cb.checked ? bg : '';
+  if (type === 'stab') {
     const opts = document.getElementById('w-stab-options');
+    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
+  }
+  if (type === 'mp') {
+    const opts = document.getElementById('w-mp-options');
     if(opts) opts.style.display = cb.checked ? 'block' : 'none';
   }
 }
@@ -1233,9 +1258,12 @@ function wizardRecap() {
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
       <div style="display:flex;gap:6px;margin-bottom:6px">
-        ${pif?'<span class="badge badge-blue">PIF</span>':''}
-        ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
+        ${pif?'<span class="badge badge-amber">PIF</span>':''}
+        ${stab?'<span class="badge badge-purple">STABILITÉ</span>':''}
+        ${mp?'<span class="badge badge-green">MP</span>':''}
       </div>
+      ${mp&&mpSpq?'<div style="font-size:12px;color:var(--text2)">Réf. SPQ : '+mpSpq+'</div>':''}
+      ${mp?'<div style="font-size:12px;color:var(--text2)">Nb contenants : '+mpContenants+'</div>':''}
       ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
       ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
@@ -1260,8 +1288,11 @@ function wizardConfirm() {
   const date = document.getElementById('w-date')?.value||'';
   const pif = document.getElementById('w-type-pif')?.checked||false;
   const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
   const echeance = document.getElementById('w-stab-echeance')?.value||'';
   const temps = document.getElementById('w-stab-temps')?.value||'';
+  const mpSpq = document.getElementById('w-mp-spq')?.value||'';
+  const mpContenants = parseInt(document.getElementById('w-mp-contenants')?.value)||1;
   const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
@@ -1273,8 +1304,10 @@ function wizardConfirm() {
     const code = `${lot}-${letters[i]}`;
     state.echantillons.push({
       id: Date.now()+i, code, produitId: prodId, marcheIds,
-      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
-      stabEcheance: echeance, stabTemps: temps, lot, date, statut: 'recu', note: ''
+      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
+      stabEcheance: echeance, stabTemps: temps,
+      mpSpq, mpContenants,
+      lot, date, statut: 'recu', note: ''
     });
     analyses.forEach(a => {
       state.planning.push({
@@ -3689,7 +3722,7 @@ function wizardIsMpSelected(){ return !!document.getElementById('w-type-mp')?.ch
 function wizardIsStabOnly(){ return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected(); }
 function typeBadgesForEntry(e){
   let h='';
-  if(e?.typePIF) h += '<span class="badge badge-yellow" style="font-size:11px">PIF</span> ';
+  if(e?.typePIF) h += '<span class="badge badge-amber" style="font-size:11px">PIF</span> ';
   if(e?.typeMP) h += '<span class="badge badge-green" style="font-size:11px">MP</span> ';
   if(e?.typeSTAB) h += '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
   return h || '<span class="badge badge-gray">—</span>';
@@ -3894,6 +3927,8 @@ function getEcheanceConditionDisplay(e0){
   const parts=[];
   if(e0?.typeSTAB && e0?.stabEcheance) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabEcheance+'</span>');
   if(e0?.typeSTAB && e0?.stabTemps) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabTemps+'</span>');
+  if(e0?.typeMP && e0?.mpSpq) parts.push('<span class="badge badge-green" style="font-size:11px">SPQ: '+e0.mpSpq+'</span>');
+  if(e0?.typeMP && e0?.mpContenants) parts.push('<span style="font-size:11px;color:var(--green)">'+e0.mpContenants+' contenant'+(e0.mpContenants>1?'s':'')+'</span>');
   return parts.length ? parts.join('<br>') : '<span style="color:var(--text3);font-size:12px">—</span>';
 }
 
