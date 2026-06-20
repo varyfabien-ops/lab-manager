@@ -1004,8 +1004,16 @@
       "stabTemps": "",
       "lot": "dddddd",
       "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852405020": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852405020": {
+          "en_cours": "20/06/2026"
+        }
+      }
     },
     {
       "id": 1781966054950,
@@ -1140,11 +1148,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-A — Osmolalité : terminee",
-      "time": "20/06 15:16"
-    },
     {
       "icon": "list-check",
       "text": "AAAAAAA-A — L*a*b : terminee",
@@ -1388,6 +1391,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : dddddd-B",
+      "time": "20/06 18:54"
+    },
+    {
+      "icon": "list-check",
+      "text": "dddddd-C — L*a*b : en_cours",
       "time": "20/06 18:54"
     }
   ]
