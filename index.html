@@ -419,6 +419,25 @@
   </div>
 </div>
 
+  <!-- SOUS-VUE LOTS LIBERES -->
+  <div id="ech-view-liberes" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Lots liberes</h1><p>Lots approuves et liberes au controle qualite</p></div>
+      <div class="page-header-actions">
+        <button class="btn" onclick="exportLotsLiberes()"><i class="ti ti-download"></i> Exporter</button>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Lots approuves</h3></div>
+      <table><thead><tr>
+        <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
+        <th>Date reception</th><th>Date approbation</th><th>Analyses</th><th></th>
+      </tr></thead>
+      <tbody id="liberes-tbody"></tbody>
+    </table>
+    </div>
+  </div>
+
 <div class="page" id="page-commandes">
   <div class="page-header">
     <div class="page-header-text"><h1>Commandes a passer</h1><p>Produits en dessous du stock minimum</p></div>
@@ -1177,14 +1196,83 @@ function resetFiltresEch() {
 function approuverLot(lotKey) {
   const sousSeries = (state.echantillons||[]).filter(e => (e.lot||String(e.id)) === lotKey);
   if (!sousSeries.length) return;
-  sousSeries.forEach(e => { e.statut = 'approuve'; });
+  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  sousSeries.forEach(e => { e.statut = 'approuve'; e.dateApprobation = today; });
   const e0 = sousSeries[0];
   const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
-  addActivity('rosette', 'Lot approuve : '+(e0.lot||lotKey)+' ('+(produit?.nom||'—')+')');
+  addActivity('rosette', 'Lot libere : '+(e0.lot||lotKey)+' ('+(produit?.nom||'—')+')');
   renderEchantillonsTable();
+  renderLotsLiberes();
+  updateBadgeLiberes();
   renderDashboard();
   saveData();
-  toast('Lot approuve !', 'success');
+  toast('Lot approuve et libere !', 'success');
+}
+
+function renderLotsLiberes() {
+  const tbody = document.getElementById('liberes-tbody'); if(!tbody) return;
+  // Grouper les lots approuvés
+  const lots = {};
+  (state.echantillons||[]).filter(e=>e.statut==='approuve').forEach(e => {
+    const k = e.lot||String(e.id);
+    if (!lots[k]) lots[k] = [];
+    lots[k].push(e);
+  });
+  if (!Object.keys(lots).length) {
+    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-circle-check"></i><p>Aucun lot libere</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = Object.entries(lots).sort((a,b)=>(b[1][0].dateApprobation||'').localeCompare(a[1][0].dateApprobation||'')).map(([lotKey, ss]) => {
+    const e0 = ss[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const marches = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    return '<tr style="background:rgba(26,127,55,0.07)">'
+      +'<td style="font-size:14px;padding:10px 14px"><strong>'+(produit?produit.nom:'—')+'</strong>'+(produit&&produit.forme?'<br><span style="font-size:12px;color:var(--text2)">'+produit.forme+'</span>':'')+'</td>'
+      +'<td style="font-size:14px;padding:10px 14px;text-align:center"><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotKey+'</code></td>'
+      +'<td style="font-size:14px;padding:10px 14px;text-align:center"><strong style="color:var(--cyan)">'+ss.length+'</strong></td>'
+      +'<td style="font-size:14px;padding:10px 14px">'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</td>'
+      +'<td style="font-size:14px;padding:10px 14px">'+(e0.date?formatDate(e0.date):'—')+'</td>'
+      +'<td style="font-size:14px;padding:10px 14px"><span class="badge badge-green" style="font-size:12px">'+(e0.dateApprobation||'—')+'</span></td>'
+      +'<td style="font-size:13px;padding:10px 14px">'+analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join(' ')+'</td>'
+      +(()=>{const b=document.createElement('button');b.className='icon-btn danger';b.title='Archiver';b.innerHTML='<i class="ti ti-archive"></i>';b.onclick=(function(k){return function(){archiverLot(k);};})(lotKey);const t=document.createElement('td');t.style.padding='8px';t.appendChild(b);const d=document.createElement('tr');d.appendChild(t);return '<td style="padding:8px">'+t.innerHTML+'</td>';})()
+      +'</tr>';
+  }).join('');
+}
+
+function updateBadgeLiberes() {
+  const count = (state.echantillons||[]).filter(e=>e.statut==='approuve').length > 0
+    ? new Set((state.echantillons||[]).filter(e=>e.statut==='approuve').map(e=>e.lot||String(e.id))).size
+    : 0;
+  const badge = document.getElementById('badge-liberes');
+  if (badge) { badge.textContent = count; badge.style.display = count ? '' : 'none'; }
+}
+
+function archiverLot(lotKey) {
+  (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lotKey).forEach(e=>{ e.statut='archive'; });
+  addActivity('archive', 'Lot archive : '+lotKey);
+  renderLotsLiberes(); updateBadgeLiberes(); saveData();
+  toast('Lot archive', 'success');
+}
+
+function exportLotsLiberes() {
+  const lots = {};
+  (state.echantillons||[]).filter(e=>e.statut==='approuve').forEach(e => {
+    const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e);
+  });
+  if (!Object.keys(lots).length) { toast('Aucun lot libere','info'); return; }
+  const lines = ['Produit	Lot	Nb series	Marches	Date reception	Date approbation	Analyses'];
+  Object.entries(lots).forEach(([lotKey, ss]) => {
+    const e0=ss[0];
+    const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const marches=(e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const analyses=(e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    lines.push([(produit?.nom||'—'),lotKey,ss.length,marches.map(m=>m.nom).join(', '),(e0.date?formatDate(e0.date):'—'),(e0.dateApprobation||'—'),analyses.map(a=>a.nom).join(', ')].join('	'));
+  });
+  const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement('a'); link.href=url; link.download='lots-liberes.txt'; link.click();
+  toast('Export OK','success');
 }
 
 function cycleAnalyseStatut(echId, analyseId) {
@@ -1417,6 +1505,7 @@ function renderAll() {
   renderTechniciens();
   updateBadges();
   renderCommandes();
+  updateBadgeLiberes();
   renderStabilites();
   renderAuditTrail();
   // Initialiser les sous-vues sans changer la page active
@@ -1431,7 +1520,7 @@ function renderAll() {
     if (el) el.style.display = v === 'calendar' ? 'block' : 'none';
   });
   // Echantillons : afficher reception par defaut
-  ['reception','produits-ech','marches'].forEach(v => {
+  ['reception','produits-ech','marches','liberes'].forEach(v => {
     const el = document.getElementById('ech-view-'+v);
     if (el) el.style.display = v === 'reception' ? 'block' : 'none';
   });
@@ -2355,18 +2444,19 @@ function goToEch(view) {
   if (page) page.classList.add('active');
   document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
   document.querySelectorAll('#ech-submenu .nav-sub').forEach(n => n.classList.remove('active'));
-  ['reception','produits-ech','marches'].forEach(v => {
+  ['reception','produits-ech','marches','liberes'].forEach(v => {
     const el = document.getElementById('ech-view-'+v);
     if (el) el.style.display = 'none';
   });
   const target = document.getElementById('ech-view-'+view);
   if (target) { target.style.display = 'block'; }
   const subItems = document.querySelectorAll('#ech-submenu .nav-sub');
-  const idx2 = {reception:0, 'produits-ech':1, marches:2};
+  const idx2 = {reception:0, 'produits-ech':1, marches:2, liberes:3};
   if (subItems[idx2[view]]) subItems[idx2[view]].classList.add('active');
   if (view === 'reception') renderEchantillonsTable();
   if (view === 'produits-ech') renderProduitsEch();
   if (view === 'marches') renderMarches();
+  if (view === 'liberes') renderLotsLiberes();
 }
 
 function saveProduitEch() {
@@ -2565,7 +2655,7 @@ function renderEchantillonsTable() {
   const fVerifiee = document.getElementById('fech-verifiee')?.value||'';
 
   const lots = {};
-  (state.echantillons||[]).forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
+  (state.echantillons||[]).filter(e=>e.statut!=='approuve'&&e.statut!=='archive').forEach(e => { const k=e.lot||String(e.id); if(!lots[k]) lots[k]=[]; lots[k].push(e); });
   const tbody = document.getElementById('ech-tbody');
   if (!tbody) return;
   const TD = 'style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border);text-align:center"';
@@ -2963,6 +3053,10 @@ window.renderProduitsAccordion = renderProduitsAccordion;
 window.renderPlanningTable = renderPlanningTable;
 window.renderEchantillonsTable = renderEchantillonsTable;
 window.approuverLot = approuverLot;
+window.renderLotsLiberes = renderLotsLiberes;
+window.updateBadgeLiberes = updateBadgeLiberes;
+window.archiverLot = archiverLot;
+window.exportLotsLiberes = exportLotsLiberes;
 window.renderTechniciens = renderTechniciens;
 window.renderDashboard = renderDashboard;
 window.renderCalendar = renderCalendar;
@@ -3116,6 +3210,10 @@ window.statutIcon = statutIcon;
 window.resetFiltresEch = resetFiltresEch;
 window.renderEchantillonsTable = renderEchantillonsTable;
 window.approuverLot = approuverLot;
+window.renderLotsLiberes = renderLotsLiberes;
+window.updateBadgeLiberes = updateBadgeLiberes;
+window.archiverLot = archiverLot;
+window.exportLotsLiberes = exportLotsLiberes;
 window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.getMarcheAnalyses = getMarcheAnalyses;
 window.populateAnalysesChecks = populateAnalysesChecks;
