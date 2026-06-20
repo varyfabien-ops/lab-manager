@@ -401,6 +401,9 @@
       ],
       "duree": "",
       "code": "",
+      "produitsIds": [
+        1781508169429
+      ],
       "description": ""
     },
     {
@@ -1119,11 +1122,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA-A — Osmolalité : verifiee",
-      "time": "20/06 15:16"
-    },
-    {
-      "icon": "list-check",
       "text": "9960003-A — TCC0015 : verifiee",
       "time": "20/06 15:16"
     },
@@ -1366,6 +1364,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044",
       "time": "20/06 18:54"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : pH",
+      "time": "20/06 18:55"
     }
   ]
 }
