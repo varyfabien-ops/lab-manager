@@ -511,6 +511,9 @@
       ],
       "duree": "",
       "code": "OSMO",
+      "produitsIds": [
+        1781852369953
+      ],
       "description": ""
     },
     {
@@ -1408,11 +1411,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB-A — L*a*b : en_cours",
-      "time": "20/06 16:34"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB-A — TCC0044 : en_cours",
       "time": "20/06 16:34"
     },
@@ -1655,6 +1653,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractible",
       "time": "20/06 20:42"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Osmolalité",
+      "time": "20/06 20:44"
     }
   ]
 }
