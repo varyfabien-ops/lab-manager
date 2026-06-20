@@ -242,6 +242,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: XXXXXX-A |  STAB"
+    },
+    {
+      "id": 1781961801830.8208,
+      "nom": "TCC0015",
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY |  STAB | TP: T3M | Conditions: 5C"
     }
   ],
   "catalogue": [
@@ -809,6 +818,23 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781961801829,
+      "code": "YYYYYYY",
+      "produitId": 1781509266740,
+      "marcheIds": [],
+      "analysesIds": [
+        1781508652926
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "stabEcheance": "T3M",
+      "stabTemps": "5C",
+      "lot": "YYYYYYY",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -831,11 +857,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Xylocaïne Nébuliseur — 1 sous-serie — 1 analyse",
-      "time": "15/06 10:40"
-    },
     {
       "icon": "package",
       "text": "Reception: Xylocaïne 5% Naphazoline — 3 sous-series — 2 analyses",
@@ -1080,6 +1101,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 6 analyses",
       "time": "20/06 15:17"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Lipiodol — STAB — 5C — T3M — 1 analyse",
+      "time": "20/06 15:23"
     }
   ]
 }
