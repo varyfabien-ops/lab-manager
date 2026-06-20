@@ -368,6 +368,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA-A |  STAB"
+    },
+    {
+      "id": 1781974565277.5212,
+      "nom": "pH",
+      "echantillonCode": "TEST-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-A | PIF STAB  | T0 | 5C, 25C"
     }
   ],
   "catalogue": [
@@ -1098,6 +1107,26 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1781974565277,
+      "code": "TEST-A",
+      "produitId": 1781508169429,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781509335357
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "stabEcheance": "T0",
+      "stabTemps": "5C, 25C",
+      "lot": "TEST",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1120,11 +1149,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960003-A — TCC0015 : verifiee",
-      "time": "20/06 15:16"
-    },
     {
       "icon": "list-check",
       "text": "9960003-A — pH : verifiee",
@@ -1369,6 +1393,11 @@
       "icon": "book",
       "text": "Analyse modifiée : pH",
       "time": "20/06 18:55"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 5% Naphazoline — 1 entrée(s) — 1 analyse(s)",
+      "time": "20/06 18:56"
     }
   ]
 }
