@@ -188,6 +188,60 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: BBBBBB-A | PIF"
+    },
+    {
+      "id": 1781961438896.7812,
+      "nom": "pH",
+      "echantillonCode": "XXXXXX-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX-A |  STAB"
+    },
+    {
+      "id": 1781961438896.242,
+      "nom": "L*a*b",
+      "echantillonCode": "XXXXXX-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX-A |  STAB"
+    },
+    {
+      "id": 1781961438896.246,
+      "nom": "TCC0044",
+      "echantillonCode": "XXXXXX-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX-A |  STAB"
+    },
+    {
+      "id": 1781961438896.1106,
+      "nom": "Osmolalité",
+      "echantillonCode": "XXXXXX-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX-A |  STAB"
+    },
+    {
+      "id": 1781961438896.5376,
+      "nom": "TCC0065",
+      "echantillonCode": "XXXXXX-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX-A |  STAB"
+    },
+    {
+      "id": 1781961438896.93,
+      "nom": "Volume Extractible",
+      "echantillonCode": "XXXXXX-A",
+      "date": "2026-06-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX-A |  STAB"
     }
   ],
   "catalogue": [
@@ -602,8 +656,25 @@
       "stabTemps": "",
       "lot": "9960003",
       "date": "2026-06-16",
-      "statut": "recu",
-      "note": ""
+      "statut": "approuve",
+      "note": "",
+      "analyseStatuts": {
+        "1781508652926": "verifiee",
+        "1781509335357": "verifiee"
+      },
+      "analyseStatutsInfo": {
+        "1781508652926": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        },
+        "1781509335357": {
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
+        }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781602519101,
@@ -622,8 +693,9 @@
       "stabTemps": "",
       "lot": "9960003",
       "date": "2026-06-16",
-      "statut": "recu",
-      "note": ""
+      "statut": "approuve",
+      "note": "",
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781602519102,
@@ -642,8 +714,9 @@
       "stabTemps": "",
       "lot": "9960003",
       "date": "2026-06-16",
-      "statut": "recu",
-      "note": ""
+      "statut": "approuve",
+      "note": "",
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781853049925,
@@ -663,25 +736,31 @@
       "stabTemps": "",
       "lot": "AAAAAAA",
       "date": "2026-06-19",
-      "statut": "en_analyse",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
-        "1781852438719": "terminee",
-        "1781852405020": "en_cours",
-        "1781852984224": "en_cours"
+        "1781852438719": "verifiee",
+        "1781852405020": "verifiee",
+        "1781852984224": "verifiee"
       },
       "analyseStatutsInfo": {
         "1781852438719": {
           "en_cours": "19/06/2026",
-          "terminee": "20/06/2026"
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         },
         "1781852405020": {
-          "en_cours": "20/06/2026"
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         },
         "1781852984224": {
-          "en_cours": "20/06/2026"
+          "en_cours": "20/06/2026",
+          "terminee": "20/06/2026",
+          "verifiee": "20/06/2026"
         }
-      }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781960722999,
@@ -703,6 +782,30 @@
       "stabEcheance": "",
       "stabTemps": "",
       "lot": "BBBBBB",
+      "date": "2026-06-20",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1781961438896,
+      "code": "XXXXXX-A",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781508724125
+      ],
+      "analysesIds": [
+        1781509335357,
+        1781852405020,
+        1781852438719,
+        1781852984224,
+        1781959632897,
+        1781959743113
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "stabEcheance": "T3M",
+      "stabTemps": "5C",
+      "lot": "XXXXXX",
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
@@ -728,76 +831,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : en_cours",
-      "time": "15/06 10:26"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : terminee",
-      "time": "15/06 10:26"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : verifiee",
-      "time": "15/06 10:26"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : a_lancer",
-      "time": "15/06 10:26"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : en_cours",
-      "time": "15/06 10:27"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : terminee",
-      "time": "15/06 10:27"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : verifiee",
-      "time": "15/06 10:27"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : a_lancer",
-      "time": "15/06 10:27"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : en_cours",
-      "time": "15/06 10:39"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : terminee",
-      "time": "15/06 10:39"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960000-A — TCC0015 : verifiee",
-      "time": "15/06 10:39"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960001-A — TCC0015 : en_cours",
-      "time": "15/06 10:39"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960001-A — TCC0015 : terminee",
-      "time": "15/06 10:39"
-    },
-    {
-      "icon": "list-check",
-      "text": "9960001-A — TCC0015 : verifiee",
-      "time": "15/06 10:39"
-    },
     {
       "icon": "package",
       "text": "Reception: Xylocaïne Nébuliseur — 1 sous-serie — 1 analyse",
@@ -977,6 +1010,76 @@
       "icon": "list-check",
       "text": "AAAAAAA-A — Osmolalité : en_cours",
       "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960003-A — TCC0015 : en_cours",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960003-A — pH : en_cours",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960003-A — pH : terminee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960003-A — TCC0015 : terminee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — Osmolalité : terminee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — L*a*b : terminee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — L*a*b : verifiee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — TCC0044 : verifiee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-A — Osmolalité : verifiee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960003-A — TCC0015 : verifiee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "list-check",
+      "text": "9960003-A — pH : verifiee",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : AAAAAAA (Setmelanotide 10 mg/mL)",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960003 (Xylocaïne 5% Naphazoline)",
+      "time": "20/06 15:16"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 6 analyses",
+      "time": "20/06 15:17"
     }
   ]
 }
