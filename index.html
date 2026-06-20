@@ -1173,6 +1173,20 @@ function resetFiltresEch() {
   renderEchantillonsTable();
 }
 
+
+function approuverLot(lotKey) {
+  const sousSeries = (state.echantillons||[]).filter(e => (e.lot||String(e.id)) === lotKey);
+  if (!sousSeries.length) return;
+  sousSeries.forEach(e => { e.statut = 'approuve'; });
+  const e0 = sousSeries[0];
+  const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+  addActivity('rosette', 'Lot approuve : '+(e0.lot||lotKey)+' ('+(produit?.nom||'—')+')');
+  renderEchantillonsTable();
+  renderDashboard();
+  saveData();
+  toast('Lot approuve !', 'success');
+}
+
 function cycleAnalyseStatut(echId, analyseId) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
@@ -2602,7 +2616,23 @@ function renderEchantillonsTable() {
           '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td>'+
           '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>'
           :'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
-        '<td style="padding:8px;border-bottom:1px solid var(--border)">'+(ai===0?'<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>':'')+'</td>'+
+        '<td style="padding:8px;border-bottom:1px solid var(--border)">'+(ai===0?(()=>{
+          const allVerified = analyses.length > 0 && analyses.every(a2 => (e0.analyseStatuts||{})[a2.id] === 'verifiee');
+          const isApproved = e0.statut === 'approuve';
+          if (isApproved) {
+            return '<span class="badge badge-green" style="font-size:12px;padding:5px 10px"><i class="ti ti-rosette" style="font-size:13px"></i> Approuve</span>';
+          } else if (allVerified) {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-primary';
+            btn.style.cssText = 'font-size:12px;padding:5px 12px;gap:5px';
+            btn.innerHTML = '<i class="ti ti-check"></i> Approuver';
+            btn.onclick = (function(k){return function(){approuverLot(k);};})(lotKey);
+            const tmp = document.createElement('div'); tmp.appendChild(btn);
+            return tmp.innerHTML;
+          } else {
+            return '<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
+          }
+        })():'')+'</td>'+
       '</tr>');
     });
   });
@@ -2925,6 +2955,7 @@ window.renderReactifsTable = renderReactifsTable;
 window.renderProduitsAccordion = renderProduitsAccordion;
 window.renderPlanningTable = renderPlanningTable;
 window.renderEchantillonsTable = renderEchantillonsTable;
+window.approuverLot = approuverLot;
 window.renderTechniciens = renderTechniciens;
 window.renderDashboard = renderDashboard;
 window.renderCalendar = renderCalendar;
@@ -3077,6 +3108,7 @@ window.cycleAnalyseStatut = cycleAnalyseStatut;
 window.statutIcon = statutIcon;
 window.resetFiltresEch = resetFiltresEch;
 window.renderEchantillonsTable = renderEchantillonsTable;
+window.approuverLot = approuverLot;
 window.populateProduitsAnalyseCheck = populateProduitsAnalyseCheck;
 window.getMarcheAnalyses = getMarcheAnalyses;
 window.populateAnalysesChecks = populateAnalysesChecks;
