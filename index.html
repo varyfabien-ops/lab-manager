@@ -336,11 +336,12 @@
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
-      <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
+      <div style="overflow-x:auto"><table style="min-width:1250px;font-size:15px;text-align:center"><thead><tr>
   <th style="width:170px;text-align:center">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:110px;text-align:center">Conditions / séries / contenants</th>
-  <th style="width:130px;text-align:center">Marchés / échéances</th>
+  <th style="width:120px;text-align:center">Sous-Série / Contenant</th>
+  <th style="width:120px;text-align:center">Marché</th>
+  <th style="width:150px;text-align:center">Échéance / Condition</th>
   <th style="width:120px;text-align:center">Date de reception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
   <th style="width:170px;text-align:center">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
   <th style="width:120px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
@@ -421,7 +422,7 @@
     </div>
     <table><thead><tr>
       <th>N Etude</th><th>Produit(s)</th><th>Lot(s)</th><th>Temperatures</th>
-      <th>Timepoint(s)</th><th>Responsable</th><th>Statut</th><th></th>
+      <th>Echeance</th><th>Responsable</th><th>Statut</th><th></th>
     </tr></thead>
     <tbody id="stab-tbody"></tbody></table>
   </div>
@@ -717,9 +718,9 @@
         </div>
       </div>
 
-      <!-- ETAPE 3 : PIF / STAB / MP -->
+      <!-- ETAPE 3 : PIF / STAB -->
       <div id="wstep-3" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le type d'enregistrement</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le type d'analyse</div>
         <div style="display:flex;gap:12px;margin-bottom:16px">
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('pif')">
             <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
@@ -739,34 +740,27 @@
           </label>
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('mp')">
             <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-box-seam" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
+              <i class="ti ti-box" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">MP</div>
               <div style="font-size:11px;color:var(--text2);margin-top:4px">Matière première</div>
               <input type="checkbox" id="w-type-mp" style="display:none">
             </div>
           </label>
         </div>
-        <div id="w-reference-options" style="display:none;background:var(--cyan-dim2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px">
-          <div style="font-weight:600;font-size:12px;color:var(--cyan);margin-bottom:10px"><i class="ti ti-file-description"></i> Référence documentaire</div>
-          <div class="form-grid">
-            <div class="form-group" id="w-spq-group" style="display:none"><label>Référence SPQ *</label><input id="w-ref-spq" placeholder="Ex: SPQ-000123"></div>
-            <div class="form-group" id="w-ptc-group" style="display:none"><label>Référence PTC *</label><input id="w-ref-ptc" placeholder="Ex: PTC-000123"></div>
-          </div>
-        </div>
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
-            <div class="form-group"><label>Timepoint(s)</label><input id="w-stab-echeance" list="stab-timepoints-list" placeholder="Ex: T3M, T6M, T12M"></div>
-            <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
+            <div class="form-group"><label>Échéance(s) / timepoint(s)</label><input id="w-stab-echeance" placeholder="Ex: T0, T3M, T6M, T12M"></div>
+            <div class="form-group"><label>Condition(s)</label><input id="w-stab-temps" placeholder="Ex: 25°C/60%HR, 40°C/75%HR"></div>
           </div>
         </div>
       </div>
 
       <!-- ETAPE 4 : Sous-series -->
       <div id="wstep-4" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)"><span id="w-step4-help">Combien de sous-series PIF pour ce lot ?</span></div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)" id="w-step4-help">Combien de sous-séries PIF pour ce lot ?</div>
         <div class="form-group" style="margin-bottom:14px">
-          <label id="w-nb-label">Nombre de sous-series *</label>
+          <label id="w-nb-label">Nombre de sous-séries *</label>
           <input type="number" id="w-nb-series" value="1" min="1" max="100" style="font-size:14px;padding:10px" oninput="previewSousSeries()">
         </div>
         <div id="w-series-preview" style="background:var(--bg3);border-radius:var(--radius);padding:12px;display:flex;flex-wrap:wrap;gap:6px"></div>
@@ -803,26 +797,7 @@
   </div>
 </div>
 
-
-<!-- MODAL RESULTAT ANALYSE -->
-<div class="modal-overlay" id="modal-analyse-resultat">
-  <div class="modal" style="width:520px">
-    <div class="modal-header"><i class="ti ti-chart-dots" style="font-size:18px;color:var(--cyan)"></i><h3>Résultat d'analyse</h3><button class="close-btn" onclick="closeModal('modal-analyse-resultat')"><i class="ti ti-x"></i></button></div>
-    <div class="modal-body">
-      <input type="hidden" id="res-ech-id"><input type="hidden" id="res-analyse-id">
-      <div id="res-analyse-info" style="background:var(--bg3);border-radius:var(--radius);padding:10px 12px;margin-bottom:14px;font-size:13px;color:var(--text2)"></div>
-      <div class="form-grid">
-        <div class="form-group"><label>Résultat / valeur</label><input id="res-valeur" placeholder="Ex: 99.8"></div>
-        <div class="form-group"><label>Unité</label><input id="res-unite" placeholder="Ex: %, mg/mL, ppm"></div>
-        <div class="form-group"><label>Conformité</label><select id="res-conformite"><option value="conforme">Conforme</option><option value="non_conforme">Non conforme</option><option value="a_surveiller">À surveiller</option></select></div>
-        <div class="form-group"><label>Date résultat</label><input type="date" id="res-date"></div>
-        <div class="form-group full"><label>Commentaire / tendance</label><textarea id="res-commentaire" placeholder="Note utile pour suivre les tendances..."></textarea></div>
-      </div>
-    </div>
-    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-analyse-resultat')">Annuler</button><button class="btn btn-primary" onclick="saveAnalyseResultat()"><i class="ti ti-check"></i> Enregistrer le résultat</button></div>
-  </div>
-</div>
-
+>
 <!-- MODAL STABILITE -->
 <div class="modal-overlay" id="modal-stab">
   <div class="modal" style="width:620px">
@@ -838,7 +813,7 @@
         <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Xylocaine 5%, Paracetamol 500mg"></div>
         <div class="form-group full"><label>Lot(s)</label><input id="stab-lots" placeholder="Ex: LOT-001, LOT-002"></div>
         <div class="form-group"><label>Temperatures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
-        <div class="form-group"><label>Timepoint(s) prévu(s)</label><input id="stab-echeance" list="stab-timepoints-list" placeholder="Ex: T0, T3M, T6M, T12M"></div>
+        <div class="form-group"><label>Echeance</label><input type="date" id="stab-echeance"></div>
         <div class="form-group"><label>Date de debut</label><input type="date" id="stab-debut"></div>
         <div class="form-group"><label>Statut</label>
           <select id="stab-statut">
@@ -861,8 +836,6 @@
     </div>
   </div>
 </div>
-
-<datalist id="stab-timepoints-list"><option value="T0"><option value="T1M"><option value="T3M"><option value="T6M"><option value="T9M"><option value="T12M"><option value="T18M"><option value="T24M"><option value="T36M"></datalist>
 
 <!-- MODAL TIMEPOINT -->
 <div class="modal-overlay" id="modal-timepoint">
@@ -954,109 +927,277 @@
 // ============================================================
 let wizardStep = 1;
 const WIZARD_TOTAL = 7;
-const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB/MP','Séries / contenants','Marches','Analyses','Recapitulatif'];
-
-function wizardIsPifSelected(){return document.getElementById('w-type-pif')?.checked;}
-function wizardIsStabSelected(){return document.getElementById('w-type-stab')?.checked;}
-function wizardIsMpSelected(){return document.getElementById('w-type-mp')?.checked;}
-function wizardIsStabOnly(){return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected();}
-function wizardStepVisible(step){ if(wizardIsStabOnly() && (step===4||step===5)) return false; if(wizardIsMpSelected() && step===5) return false; return true; }
-function wizardNextStep(from){let n=from+1; while(n<=WIZARD_TOTAL&&!wizardStepVisible(n)) n++; return n;}
-function wizardPrevStep(from){let n=from-1; while(n>=1&&!wizardStepVisible(n)) n--; return n;}
-function updateWizardReferenceOptions(){
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const box=document.getElementById('w-reference-options'); if(box) box.style.display=(pif||stab||mp)?'block':'none';
-  const spq=document.getElementById('w-spq-group'); if(spq) spq.style.display=(pif||mp)?'flex':'none';
-  const ptc=document.getElementById('w-ptc-group'); if(ptc) ptc.style.display=stab?'flex':'none';
-}
-function formatStabTimepoints(value){ if(!value) return '—'; return String(value).split(',').map(v=>v.trim().toUpperCase().replace(/\s+/g,'')).filter(Boolean).join(', '); }
+const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Analyses','Recapitulatif'];
 
 function openWizard() {
   wizardStep = 1;
-  ['w-lot','w-stab-echeance','w-stab-temps','w-ref-spq','w-ref-ptc'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  ['w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
   const nb = document.getElementById('w-nb-series'); if(nb) nb.value=1;
   const dt = document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
-  ['pif','stab','mp'].forEach(t=>{const cb=document.getElementById('w-type-'+t); if(cb) cb.checked=false; const card=document.getElementById('w-'+t+'-card'); if(card){card.style.border='2px solid var(--border)';card.style.background='';}});
-  const stabOpts = document.getElementById('w-stab-options'); if(stabOpts) stabOpts.style.display='none';
-  updateWizardReferenceOptions();
-  const prodInfo = document.getElementById('w-produit-info'); if(prodInfo) prodInfo.style.display='none';
-  const prodPrev = document.getElementById('w-produit-analyses-preview'); if(prodPrev) prodPrev.style.display='none';
+  const wpif = document.getElementById('w-type-pif'); if(wpif) wpif.checked=false;
+  const wstab = document.getElementById('w-type-stab'); if(wstab) wstab.checked=false;
+  const pifCard = document.getElementById('w-pif-card');
+  const stabCard = document.getElementById('w-stab-card');
+  if(pifCard) { pifCard.style.border='2px solid var(--border)'; pifCard.style.background=''; }
+  if(stabCard) { stabCard.style.border='2px solid var(--border)'; stabCard.style.background=''; }
+  const stabOpts = document.getElementById('w-stab-options');
+  if(stabOpts) stabOpts.style.display='none';
+  const prodInfo = document.getElementById('w-produit-info');
+  if(prodInfo) prodInfo.style.display='none';
+  const prodPrev = document.getElementById('w-produit-analyses-preview');
+  if(prodPrev) prodPrev.style.display='none';
+  // Populate produit select
   const sel = document.getElementById('w-produit');
-  if(sel) { sel.innerHTML = '<option value="">— Choisir un produit —</option>' + (state.produitsEch||[]).map(p=>`<option value="${p.id}">${p.nom}${p.code?' ('+p.code+')':''}</option>`).join(''); sel.value = ''; }
-  wizardRender(); openModal('modal-echantillon');
+  if(sel) {
+    sel.innerHTML = '<option value="">— Choisir un produit —</option>' +
+      (state.produitsEch||[]).map(p=>`<option value="${p.id}">${p.nom}${p.code?' ('+p.code+')':''}</option>`).join('');
+    sel.value = '';
+  }
+  wizardRender();
+  openModal('modal-echantillon');
 }
 
 function wizardRender() {
-  for (let i=1; i<=WIZARD_TOTAL; i++) { const el = document.getElementById('wstep-'+i); if (el) el.style.display = i===wizardStep ? 'block' : 'none'; }
-  const lbl=document.getElementById('wizard-step-label'), nm=document.getElementById('wizard-step-name'), prog=document.getElementById('wizard-progress');
-  if(lbl) lbl.textContent=`Etape ${wizardStep} / ${WIZARD_TOTAL}`; if(nm) nm.textContent=WIZARD_NAMES[wizardStep-1]; if(prog) prog.style.width=Math.round(wizardStep/WIZARD_TOTAL*100)+'%';
-  for(let i=1;i<=WIZARD_TOTAL;i++){const dot=document.getElementById('wdot-'+i); if(dot) dot.style.background=i<=wizardStep?'var(--cyan)':'var(--border)';}
-  const prev=document.getElementById('wizard-btn-prev'); if(prev) prev.style.display=wizardStep>1?'flex':'none';
-  const next=document.getElementById('wizard-btn-next'); if(next) next.innerHTML=wizardStep===WIZARD_TOTAL?'<i class="ti ti-check"></i> Confirmer la reception':'Suivant <i class="ti ti-arrow-right"></i>';
-  if(wizardStep===4) previewSousSeries(); if(wizardStep===5) wizardLoadMarches(); if(wizardStep===6) wizardLoadAnalyses(); if(wizardStep===7) wizardRecap();
-}
-function wizardNext(){ if(!wizardValidate()) return; if(wizardStep===WIZARD_TOTAL){wizardConfirm();return;} wizardStep=wizardNextStep(wizardStep); wizardRender(); }
-function wizardPrev(){ if(wizardStep>1){ wizardStep=wizardPrevStep(wizardStep); wizardRender(); } }
-
-function wizardValidate(){
-  if(wizardStep===1 && !document.getElementById('w-produit').value){toast('Selectionnez un produit','error');return false;}
-  if(wizardStep===2 && !document.getElementById('w-lot').value.trim()){toast('Renseignez le numero de lot','error');return false;}
-  if(wizardStep===3){
-    if(!wizardIsPifSelected()&&!wizardIsStabSelected()&&!wizardIsMpSelected()){toast('Selectionnez PIF, STABILITE ou MP','error');return false;}
-    if((wizardIsPifSelected()||wizardIsMpSelected())&&!document.getElementById('w-ref-spq').value.trim()){toast('Renseignez la référence SPQ','error');return false;}
-    if(wizardIsStabSelected()&&!document.getElementById('w-ref-ptc').value.trim()){toast('Renseignez la référence PTC','error');return false;}
+  for (let i=1; i<=WIZARD_TOTAL; i++) {
+    const el = document.getElementById('wstep-'+i);
+    if (el) el.style.display = i===wizardStep ? 'block' : 'none';
   }
-  if(wizardStep===6){const checked=document.querySelectorAll('#w-analyses-select input:checked'); if(!checked.length){toast('Cochez au moins une analyse','error');return false;}}
+  const lbl = document.getElementById('wizard-step-label');
+  const nm = document.getElementById('wizard-step-name');
+  const prog = document.getElementById('wizard-progress');
+  if(lbl) lbl.textContent = `Etape ${wizardStep} / ${WIZARD_TOTAL}`;
+  if(nm) nm.textContent = WIZARD_NAMES[wizardStep-1];
+  if(prog) prog.style.width = Math.round(wizardStep/WIZARD_TOTAL*100)+'%';
+  // Dots
+  for(let i=1; i<=WIZARD_TOTAL; i++) {
+    const dot = document.getElementById('wdot-'+i);
+    if(dot) dot.style.background = i<=wizardStep ? 'var(--cyan)' : 'var(--border)';
+  }
+  const prev = document.getElementById('wizard-btn-prev');
+  if(prev) prev.style.display = wizardStep>1 ? 'flex' : 'none';
+  const next = document.getElementById('wizard-btn-next');
+  if(next) {
+    next.innerHTML = wizardStep===WIZARD_TOTAL
+      ? '<i class="ti ti-check"></i> Confirmer la reception'
+      : 'Suivant <i class="ti ti-arrow-right"></i>';
+  }
+  if(wizardStep===4) previewSousSeries();
+  if(wizardStep===5) wizardLoadMarches();
+  if(wizardStep===6) wizardLoadAnalyses();
+  if(wizardStep===7) wizardRecap();
+}
+
+function wizardNext() {
+  if (!wizardValidate()) return;
+  if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
+  wizardStep++;
+  wizardRender();
+}
+
+function wizardPrev() {
+  if (wizardStep > 1) { wizardStep--; wizardRender(); }
+}
+
+function wizardValidate() {
+  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
+  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
+  if (wizardStep===3) {
+    if (!document.getElementById('w-type-pif').checked && !document.getElementById('w-type-stab').checked) {
+      toast('Selectionnez PIF et/ou STABILITE', 'error'); return false;
+    }
+  }
+  if (wizardStep===6) {
+    const checked = document.querySelectorAll('#w-analyses-select input:checked');
+    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
+  }
   return true;
 }
 
-function wizardUpdateProduit(){
-  const id=parseInt(document.getElementById('w-produit').value); const p=(state.produitsEch||[]).find(x=>x.id===id); const info=document.getElementById('w-produit-info'); const prev=document.getElementById('w-produit-analyses-preview'); const list=document.getElementById('w-produit-analyses-list');
-  if(p){ if(info){info.style.display='block';info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`;} const analyses=(state.catalogue||[]).filter(a=>!a.produitsIds||a.produitsIds.length===0||a.produitsIds.includes(id)); if(prev) prev.style.display=analyses.length?'block':'none'; if(list) list.innerHTML=analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join(''); }
-  else { if(info) info.style.display='none'; if(prev) prev.style.display='none'; }
+function wizardUpdateProduit() {
+  const id = parseInt(document.getElementById('w-produit').value);
+  const p = (state.produitsEch||[]).find(x=>x.id===id);
+  const info = document.getElementById('w-produit-info');
+  const prev = document.getElementById('w-produit-analyses-preview');
+  const list = document.getElementById('w-produit-analyses-list');
+  if (p) {
+    if(info) { info.style.display='block'; info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`; }
+    // Afficher analyses liees
+    const analyses = (state.catalogue||[]).filter(a => !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(id));
+    if(prev) prev.style.display = analyses.length ? 'block' : 'none';
+    if(list) list.innerHTML = analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join('');
+  } else {
+    if(info) info.style.display='none';
+    if(prev) prev.style.display='none';
+  }
 }
 
-function toggleTypeCard(type){
-  const cb=document.getElementById('w-type-'+type); if(!cb) return; cb.checked=!cb.checked;
-  if(type==='mp'&&cb.checked){['pif','stab'].forEach(t=>{const x=document.getElementById('w-type-'+t); if(x)x.checked=false;});}
-  else if((type==='pif'||type==='stab')&&cb.checked){const mp=document.getElementById('w-type-mp'); if(mp)mp.checked=false;}
-  ['pif','stab','mp'].forEach(t=>{const checked=document.getElementById('w-type-'+t)?.checked; const card=document.getElementById('w-'+t+'-card'); if(!card)return; const color=t==='pif'?'var(--blue)':(t==='stab'?'var(--purple)':'var(--green)'); const bg=t==='pif'?'var(--blue-dim)':(t==='stab'?'var(--purple-dim)':'var(--green-dim)'); card.style.border=checked?'2px solid '+color:'2px solid var(--border)'; card.style.background=checked?bg:'';});
-  const opts=document.getElementById('w-stab-options'); if(opts) opts.style.display=wizardIsStabSelected()?'block':'none'; updateWizardReferenceOptions();
+function toggleTypeCard(type) {
+  const cb = document.getElementById('w-type-'+type);
+  if(!cb) return;
+  cb.checked = !cb.checked;
+  const card = document.getElementById('w-'+type+'-card');
+  if(!card) return;
+  if (type==='pif') {
+    card.style.border = cb.checked ? '2px solid var(--blue)' : '2px solid var(--border)';
+    card.style.background = cb.checked ? 'var(--blue-dim)' : '';
+  } else {
+    card.style.border = cb.checked ? '2px solid var(--purple)' : '2px solid var(--border)';
+    card.style.background = cb.checked ? 'var(--purple-dim)' : '';
+    const opts = document.getElementById('w-stab-options');
+    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
+  }
 }
 
-function previewSousSeries(){
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const lot=document.getElementById('w-lot')?.value||'LOT'; const preview=document.getElementById('w-series-preview'); if(!preview)return; const isMp=wizardIsMpSelected();
-  const help=document.getElementById('w-step4-help'); if(help) help.textContent=isMp?'Combien de contenants MP sont reçus ?':'Combien de sous-series PIF pour ce lot ?';
-  const lab=document.getElementById('w-nb-label'); if(lab) lab.textContent=isMp?'Nombre de contenants *':'Nombre de sous-series *';
-  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'; preview.innerHTML=Array.from({length:Math.min(nb,100)},(_,i)=>`<span class="badge ${isMp?'badge-green':'badge-cyan'}">${isMp?'Contenant '+(i+1):lot+'-'+letters[i]}</span>`).join('');
+function previewSousSeries() {
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const lot = document.getElementById('w-lot')?.value || 'LOT';
+  const preview = document.getElementById('w-series-preview');
+  if (!preview) return;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  preview.innerHTML = Array.from({length:Math.min(nb,26)},(_,i)=>
+    `<span class="badge badge-cyan">${lot}-${letters[i]}</span>`
+  ).join('');
 }
 
-function wizardLoadMarches(){
-  const el=document.getElementById('w-marches-check'); if(!el)return; const marches=state.marches||[];
-  if(!marches.length){el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marche defini. Allez dans Echantillons > Marches.</div>';return;}
-  el.innerHTML=marches.map(m=>`<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="${m.id}" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}</div></label>`).join('');
+function wizardLoadMarches() {
+  const el = document.getElementById('w-marches-check'); if(!el) return;
+  const marches = state.marches||[];
+  if (!marches.length) {
+    el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marche defini. Allez dans Echantillons > Marches.</div>';
+    return;
+  }
+  el.innerHTML = marches.map(m => `
+    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${m.id}" style="flex-shrink:0">
+      <div>
+        <div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>
+        ${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}
+      </div>
+    </label>`).join('');
 }
 
-function wizardLoadAnalyses(){
-  const el=document.getElementById('w-analyses-select'); const noA=document.getElementById('w-no-analyses'); if(!el)return; const prodId=parseInt(document.getElementById('w-produit')?.value); const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const analyses=(state.catalogue||[]).filter(a=>!prodId||!a.produitsIds||a.produitsIds.length===0||a.produitsIds.includes(prodId));
-  if(!analyses.length){el.innerHTML='';el.style.display='none';if(noA)noA.style.display='block';return;}
-  el.style.display='flex'; if(noA)noA.style.display='none';
-  el.innerHTML=analyses.map(a=>`<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0"><div style="flex:1"><div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}</div><div style="display:flex;gap:4px;flex-shrink:0">${pif?'<span class="badge badge-blue" style="font-size:10px">PIF</span>':''}${stab?'<span class="badge badge-purple" style="font-size:10px">STAB</span>':''}${mp?'<span class="badge badge-green" style="font-size:10px">MP</span>':''}</div></label>`).join('');
+function wizardLoadAnalyses() {
+  const el = document.getElementById('w-analyses-select');
+  const noA = document.getElementById('w-no-analyses');
+  if(!el) return;
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const pif = document.getElementById('w-type-pif')?.checked;
+  const stab = document.getElementById('w-type-stab')?.checked;
+  // Filtrer les analyses liees au produit
+  const analyses = (state.catalogue||[]).filter(a => {
+    if (!prodId) return true;
+    if (!a.produitsIds || a.produitsIds.length===0) return true;
+    return a.produitsIds.includes(prodId);
+  });
+  if (!analyses.length) {
+    el.innerHTML=''; el.style.display='none';
+    if(noA) noA.style.display='block';
+    return;
+  }
+  el.style.display='flex'; if(noA) noA.style.display='none';
+  el.innerHTML = analyses.map(a => `
+    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
+      <input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0">
+      <div style="flex:1">
+        <div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>
+        ${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}
+        ${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}
+      </div>
+      <div style="display:flex;gap:4px;flex-shrink:0">
+        ${pif?`<span class="badge badge-blue" style="font-size:10px">PIF</span>`:''}
+        ${stab?`<span class="badge badge-purple" style="font-size:10px">STAB</span>`:''}
+      </div>
+    </label>`).join('');
 }
 
-function wizardRecap(){
-  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{}; const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||''; const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected(); const refSpq=document.getElementById('w-ref-spq')?.value.trim()||'', refPtc=document.getElementById('w-ref-ptc')?.value.trim()||''; const echeance=formatStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const temps=document.getElementById('w-stab-temps')?.value||''; const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=(stab&&!pif&&!mp)?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'; const marcheIds=Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value)); const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean); const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean); const recap=document.getElementById('w-recap'); if(!recap)return;
-  recap.innerHTML=`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">${prod.nom||'—'}</div>${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}</div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Reception</div><div style="font-weight:600">${lot}</div><div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & références</div><div style="display:flex;gap:6px;margin-bottom:6px">${pif?'<span class="badge badge-blue">PIF</span>':''}${stab?'<span class="badge badge-purple">STABILITE</span>':''}${mp?'<span class="badge badge-green">MP</span>':''}</div>${refSpq?`<div style="font-size:12px;color:var(--text2)">SPQ : <strong>${refSpq}</strong></div>`:''}${refPtc?`<div style="font-size:12px;color:var(--text2)">PTC : <strong>${refPtc}</strong></div>`:''}${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Timepoint(s) : ${echeance}</div>`:''}${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Conditions : ${temps}</div>`:''}${!wizardIsStabOnly()?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge ${mp?'badge-green':'badge-cyan'}">${mp?'Contenant '+(i+1):lot+'-'+letters[i]}</span>`).join('')}</div>`:''}</div>${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div><div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div></div>`:''}<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'condition':'sous-serie')}${entryCount>1?'s':''} = ${analyses.length*entryCount} entree${analyses.length*entryCount>1?'s':''} dans le planning</div><div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div></div>`;
+function wizardRecap() {
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
+  const lot = document.getElementById('w-lot')?.value||'';
+  const date = document.getElementById('w-date')?.value||'';
+  const pif = document.getElementById('w-type-pif')?.checked;
+  const stab = document.getElementById('w-type-stab')?.checked;
+  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const temps = document.getElementById('w-stab-temps')?.value||'';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
+  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
+  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  const recap = document.getElementById('w-recap');
+  if(!recap) return;
+  recap.innerHTML = `
+    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div>
+      <div style="font-weight:600">${prod.nom||'—'}</div>
+      ${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Reception</div>
+      <div style="font-weight:600">${lot}</div>
+      <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
+      <div style="display:flex;gap:6px;margin-bottom:6px">
+        ${pif?'<span class="badge badge-blue">PIF</span>':''}
+        ${stab?'<span class="badge badge-purple">STABILITE</span>':''}
+      </div>
+      ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
+      ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
+    </div>
+    ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div>
+    </div>`:''}
+    <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
+      <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
+        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${nb} sous-serie${nb>1?'s':''}
+        = ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div>
+    </div>`;
 }
 
-function wizardConfirm(){
-  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{}; const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||''; const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected(); const refSpq=document.getElementById('w-ref-spq')?.value.trim()||'', refPtc=document.getElementById('w-ref-ptc')?.value.trim()||''; const echeance=formatStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const temps=document.getElementById('w-stab-temps')?.value||''; const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=(stab&&!pif&&!mp)?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ'; const marcheIds=wizardIsStabOnly()||mp?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value)); const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
-  for(let i=0;i<entryCount;i++){ const code=mp?`${lot}-C${i+1}`:(wizardIsStabOnly()?lot:`${lot}-${letters[i]}`); state.echantillons.push({id:Date.now()+i,code,produitId:prodId,marcheIds,analysesIds:analyseIds,typePIF:pif,typeSTAB:stab,typeMP:mp,refSPQ:refSpq,refPTC:refPtc,stabEcheance:echeance,stabTemps:temps,lot,date,statut:'recu',note:''}); analyses.forEach(a=>{state.planning.push({id:Date.now()+Math.random(),nom:a.nom,echantillonCode:code,date,priorite:'normale',statut:'planifie',note:`Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}${mp?' MP':''}${refSpq?' | SPQ '+refSpq:''}${refPtc?' | PTC '+refPtc:''}`});}); }
-  addActivity('package',`Reception: ${prod.nom||lot} — ${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'condition':'sous-serie')}${entryCount>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
-  closeModal('modal-echantillon'); renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData(); toast(`${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'condition':'sous-serie')}${entryCount>1?'s':''} créé${entryCount>1?'s':''} avec ${analyses.length*entryCount} entrée${analyses.length*entryCount>1?'s':''} dans le planning`,'success');
+function wizardConfirm() {
+  const prodId = parseInt(document.getElementById('w-produit')?.value);
+  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
+  const lot = document.getElementById('w-lot')?.value.trim()||'';
+  const date = document.getElementById('w-date')?.value||'';
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const echeance = document.getElementById('w-stab-echeance')?.value||'';
+  const temps = document.getElementById('w-stab-temps')?.value||'';
+  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
+  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  if (!state.echantillons) state.echantillons = [];
+  if (!state.planning) state.planning = [];
+  for (let i=0; i<nb; i++) {
+    const code = `${lot}-${letters[i]}`;
+    state.echantillons.push({
+      id: Date.now()+i, code, produitId: prodId, marcheIds,
+      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab,
+      stabEcheance: echeance, stabTemps: temps, lot, date, statut: 'recu', note: ''
+    });
+    analyses.forEach(a => {
+      state.planning.push({
+        id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
+        date, priorite: 'normale', statut: 'planifie',
+        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
+      });
+    });
+  }
+  addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
+  closeModal('modal-echantillon');
+  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
+  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
 }
+
 
 function populateProduitsAnalyseCheck(selectedIds) {
   const el = document.getElementById('a-produits-check'); if(!el) return;
@@ -1098,7 +1239,6 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
   const c = colors[cellType]||'#888'; const ic = icons[cellType]||'circle';
   if (isDone) {
     const d = date ? '<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>' : '';
-    if (cellType === 'terminee') return '<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'<span style="font-size:9px;color:'+c+'">Résultat</span></button>';
     return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
   } else if (cellIdx === curIdx+1 && !isVerifiee) {
     return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>';
@@ -1195,28 +1335,6 @@ function exportLotsLiberes() {
   toast('Export OK','success');
 }
 
-
-function openAnalyseResultat(echId, analyseId) {
-  const ech=(state.echantillons||[]).find(e=>e.id===echId); if(!ech)return;
-  const analyse=(state.catalogue||[]).find(a=>a.id===analyseId)||{};
-  document.getElementById('res-ech-id').value=echId; document.getElementById('res-analyse-id').value=analyseId;
-  const produit=(state.produitsEch||[]).find(p=>p.id===ech.produitId);
-  const info=document.getElementById('res-analyse-info'); if(info) info.innerHTML='<strong>'+(analyse.nom||'Analyse')+'</strong><br>'+(produit?.nom||'—')+' — lot <code>'+(ech.lot||ech.code||'—')+'</code>';
-  const r=(ech.analyseResultats||{})[analyseId]||{};
-  document.getElementById('res-valeur').value=r.valeur||''; document.getElementById('res-unite').value=r.unite||''; document.getElementById('res-conformite').value=r.conformite||'conforme'; document.getElementById('res-date').value=r.dateIso||new Date().toISOString().slice(0,10); document.getElementById('res-commentaire').value=r.commentaire||'';
-  openModal('modal-analyse-resultat');
-}
-function saveAnalyseResultat() {
-  const echId=parseInt(document.getElementById('res-ech-id').value), analyseId=parseInt(document.getElementById('res-analyse-id').value); const ech=(state.echantillons||[]).find(e=>e.id===echId); if(!ech)return;
-  if(!ech.analyseResultats) ech.analyseResultats={}; if(!ech.analyseStatuts) ech.analyseStatuts={}; if(!ech.analyseStatutsInfo) ech.analyseStatutsInfo={};
-  const dateIso=document.getElementById('res-date').value||new Date().toISOString().slice(0,10); const dateFr=formatDate(dateIso);
-  ech.analyseResultats[analyseId]={valeur:document.getElementById('res-valeur').value.trim(),unite:document.getElementById('res-unite').value.trim(),conformite:document.getElementById('res-conformite').value,dateIso,commentaire:document.getElementById('res-commentaire').value.trim()};
-  ech.analyseStatuts[analyseId]='terminee'; if(!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId]={}; ech.analyseStatutsInfo[analyseId].terminee=dateFr;
-  const ids=ech.analysesIds||[]; const anyStarted=ids.some(id=>{const st=ech.analyseStatuts[id]||'a_lancer'; return st!=='a_lancer';}); ech.statut=anyStarted?'en_analyse':'recu';
-  const a=(state.catalogue||[]).find(x=>x.id===analyseId); addActivity('chart-dots',ech.code+' — résultat saisi : '+(a?.nom||'analyse'));
-  closeModal('modal-analyse-resultat'); renderEchantillonsTable(); saveData(); toast('Résultat enregistré','success');
-}
-
 function cycleAnalyseStatut(echId, analyseId) {
   const order = ['a_lancer','en_cours','terminee','verifiee'];
   const ech = (state.echantillons||[]).find(e=>e.id===echId);
@@ -1228,7 +1346,6 @@ function cycleAnalyseStatut(echId, analyseId) {
   const nextIdx = order.indexOf(cur) + 1;
   if (nextIdx >= order.length) return;
   const next = order[nextIdx];
-  if (next === 'terminee') { openAnalyseResultat(echId, analyseId); return; }
   ech.analyseStatuts[analyseId] = next;
   if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
   ech.analyseStatutsInfo[analyseId][next] = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
@@ -1257,7 +1374,7 @@ function saveStabilite() {
   const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
   if(!state.stabilites) state.stabilites=[];
   const analyses=document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
-  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:formatStabTimepoints(document.getElementById('stab-echeance').value),debut:document.getElementById('stab-debut').value,responsable:document.getElementById('stab-resp').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
+  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:document.getElementById('stab-echeance').value,debut:document.getElementById('stab-debut').value,responsable:document.getElementById('stab-resp').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
   if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
   editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
 }
@@ -1290,7 +1407,7 @@ function renderStabDetail(s) {
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s)</span><br><strong>'+s.lots+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
-    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Timepoint(s)</span><br><strong>'+(s.echeance?formatStabTimepoints(s.echeance):'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance?formatDate(s.echeance):'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Responsable</span><br><strong>'+(s.responsable||'—')+'</strong></div>'
     +'</div>';
   if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
@@ -2696,23 +2813,6 @@ function onMarcheEchChange() {
 // ============================================================
 // ECHANTILLONS
 // ============================================================
-
-function getLotNatureDisplay(e0, group) {
-  const count = group?.length || 1;
-  if (e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) {
-    const cond=(e0.stabTemps||'').trim();
-    return cond ? cond.split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-purple" style="font-size:11px">'+x+'</span>').join(' ') : '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
-  }
-  if (e0?.typeMP) return '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>';
-  return '<strong style="font-size:16px;color:var(--cyan)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">série'+(count>1?'s':'')+'</span>';
-}
-function getLotMarcheDisplay(e0) {
-  if (e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) return (e0.stabEcheance||'—').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-purple">'+x+'</span>').join(' ')||'—';
-  const marches=(e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
-  if (!marches.length) return e0?.typeMP ? '<span class="badge badge-green">MP</span>' : '—';
-  return marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ');
-}
-
 function saveEchantillon() {
   const id = document.getElementById('e-id').value.trim();
   const nom = document.getElementById('e-nom').value.trim();
@@ -2746,11 +2846,11 @@ function renderEchantillonsTable() {
     const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
     const prodNom = produit ? produit.nom : '—';
     const prodForme = produit&&produit.forme ? produit.forme+(produit.dosage?' '+produit.dosage:'') : '';
-    const marchesHtml = getLotMarcheDisplay(e0);
+    const marchesList = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const marchesHtml = marchesList.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')||'—';
     const dateRecp = e0.date ? formatDate(e0.date) : '—';
     const lotCode = e0.lot||'—';
     const nbSeries = sousSeries.length;
-    const natureHtml = getLotNatureDisplay(e0, sousSeries);
     const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
     if (fProduit && !prodNom.toLowerCase().includes(fProduit)) return;
     if (fLot && !lotCode.toLowerCase().includes(fLot)) return;
@@ -2781,11 +2881,11 @@ function renderEchantillonsTable() {
       const borderT = ai===0 ? 'border-top:2px solid var(--cyan3);' : '';
       rows.push('<tr style="'+borderT+rowBg+'">'+
         '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+
-        '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code>'+(e0.refSPQ?'<br><span class="badge badge-cyan" style="font-size:10px;margin-top:4px">SPQ '+e0.refSPQ+'</span>':'')+(e0.refPTC?'<br><span class="badge badge-purple" style="font-size:10px;margin-top:4px">PTC '+e0.refPTC+'</span>':'')+'</td>'+
-        '<td '+TD+' style="text-align:center">'+natureHtml+'</td>'+
+        '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
+        '<td '+TD+' style="text-align:center"><strong style="font-size:16px;color:var(--cyan)">'+nbSeries+'</strong></td>'+
         '<td '+TD+'>'+marchesHtml+'</td>'+
         '<td '+TD+'>'+dateRecp+'</td>'+
-        '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(function(){const r=(e0.analyseResultats||{})[a.id];return r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':'';})():'—')+'</td>'+
+        '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':''):'—')+'</td>'+
         (a?
           '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td>'+
           '<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td>'+
@@ -2810,7 +2910,10 @@ function renderEchantillonsTable() {
   });
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="10"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun echantillon</p></div></td></tr>'; return; }
   tbody.innerHTML = rows.join('');
-  tbody.querySelectorAll('.approuver-btn').forEach(btn => btn.addEventListener('click', () => approuverLot(btn.dataset.lot)));
+  // Branche les boutons Approuver générés dynamiquement
+  tbody.querySelectorAll('.approuver-btn').forEach(btn => {
+    btn.addEventListener('click', () => approuverLot(btn.dataset.lot));
+  });
 }
 
 function editEchantillon(id) {
@@ -3135,8 +3238,6 @@ window.renderReactifsTable = renderReactifsTable;
 window.renderProduitsAccordion = renderProduitsAccordion;
 window.renderPlanningTable = renderPlanningTable;
 window.renderEchantillonsTable = renderEchantillonsTable;
-window.openAnalyseResultat = openAnalyseResultat;
-window.saveAnalyseResultat = saveAnalyseResultat;
 window.approuverLot = approuverLot;
 window.renderLotsLiberes = renderLotsLiberes;
 window.updateBadgeLiberes = updateBadgeLiberes;
@@ -3321,6 +3422,161 @@ window.deleteEnregistrement = deleteEnregistrement;
 window.renderAuditTrail = renderAuditTrail;
 window.exportAudit = exportAudit;
 window.renderDashboardChart = renderDashboardChart;
+
+
+// ============================================================
+// PATCH V10.4 - Colonnes réception + PIF/STAB/MP + T0 auto
+// ============================================================
+function wizardIsPifSelected(){return !!document.getElementById('w-type-pif')?.checked;}
+function wizardIsStabSelected(){return !!document.getElementById('w-type-stab')?.checked;}
+function wizardIsMpSelected(){return !!document.getElementById('w-type-mp')?.checked;}
+function wizardIsStabOnly(){return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected();}
+function wizardIsPifStab(){return wizardIsPifSelected() && wizardIsStabSelected() && !wizardIsMpSelected();}
+function normalizeStabTimepoints(raw){
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected();
+  if(!stab) return '';
+  let vals=String(raw||'').split(',').map(x=>x.trim().toUpperCase()).filter(Boolean);
+  if(pif && !vals.includes('T0')) vals.unshift('T0');
+  return vals.join(', ');
+}
+
+function toggleTypeCard(type) {
+  const cb=document.getElementById('w-type-'+type); if(!cb) return;
+  cb.checked=!cb.checked;
+  if(type==='mp' && cb.checked){ ['pif','stab'].forEach(t=>{const x=document.getElementById('w-type-'+t); if(x)x.checked=false;}); }
+  if((type==='pif'||type==='stab') && cb.checked){ const mp=document.getElementById('w-type-mp'); if(mp)mp.checked=false; }
+  ['pif','stab','mp'].forEach(t=>{
+    const checked=!!document.getElementById('w-type-'+t)?.checked;
+    const card=document.getElementById('w-'+t+'-card'); if(!card) return;
+    const color=t==='pif'?'var(--blue)':(t==='stab'?'var(--purple)':'var(--green)');
+    const bg=t==='pif'?'var(--blue-dim)':(t==='stab'?'var(--purple-dim)':'var(--green-dim)');
+    card.style.border=checked?'2px solid '+color:'2px solid var(--border)';
+    card.style.background=checked?bg:'';
+  });
+  const opts=document.getElementById('w-stab-options'); if(opts) opts.style.display=wizardIsStabSelected()?'block':'none';
+  previewSousSeries();
+}
+
+function wizardValidate() {
+  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Sélectionnez un produit', 'error'); return false; }
+  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numéro de lot', 'error'); return false; }
+  if (wizardStep===3 && !wizardIsPifSelected() && !wizardIsStabSelected() && !wizardIsMpSelected()) { toast('Sélectionnez PIF, STABILITÉ ou MP', 'error'); return false; }
+  if (wizardStep===6) { const checked=document.querySelectorAll('#w-analyses-select input:checked'); if(!checked.length){ toast('Cochez au moins une analyse', 'error'); return false; } }
+  return true;
+}
+
+function previewSousSeries() {
+  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const lot=document.getElementById('w-lot')?.value||'LOT';
+  const preview=document.getElementById('w-series-preview'); if(!preview) return;
+  const help=document.getElementById('w-step4-help');
+  const lab=document.getElementById('w-nb-label');
+  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if(wizardIsStabOnly()){
+    if(help) help.textContent='Stabilité seule : pas de sous-série ni de marché à renseigner.';
+    if(lab) lab.textContent='Nombre non utilisé pour STAB seule';
+    preview.innerHTML='<span class="badge badge-purple">STAB</span>';
+    return;
+  }
+  if(wizardIsMpSelected()){
+    if(help) help.textContent='Combien de contenants MP sont reçus ?';
+    if(lab) lab.textContent='Nombre de contenants *';
+    preview.innerHTML=Array.from({length:Math.min(nb,100)},(_,i)=>`<span class="badge badge-green">Contenant ${i+1}</span>`).join('');
+    return;
+  }
+  if(help) help.textContent='Combien de sous-séries PIF pour ce lot ?';
+  if(lab) lab.textContent='Nombre de sous-séries *';
+  preview.innerHTML=Array.from({length:Math.min(nb,26)},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('');
+}
+
+function wizardLoadMarches(){
+  const el=document.getElementById('w-marches-check'); if(!el) return;
+  if(wizardIsStabOnly() || wizardIsMpSelected()){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Non demandé pour ce type d’enregistrement.</div>'; return; }
+  const marches=state.marches||[];
+  if(!marches.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marché défini. Allez dans Échantillons > Marchés.</div>'; return; }
+  el.innerHTML=marches.map(m=>`<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="${m.id}" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">${m.nom}${m.code?' <span class="badge badge-blue">'+m.code+'</span>':''}</div>${m.note?`<div style="font-size:11px;color:var(--text2)">${m.note}</div>`:''}</div></label>`).join('');
+}
+
+function wizardLoadAnalyses(){
+  const el=document.getElementById('w-analyses-select'); const noA=document.getElementById('w-no-analyses'); if(!el)return;
+  const prodId=parseInt(document.getElementById('w-produit')?.value);
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const analyses=(state.catalogue||[]).filter(a=>!prodId||!a.produitsIds||a.produitsIds.length===0||a.produitsIds.includes(prodId));
+  if(!analyses.length){el.innerHTML='';el.style.display='none';if(noA)noA.style.display='block';return;}
+  el.style.display='flex'; if(noA)noA.style.display='none';
+  el.innerHTML=analyses.map(a=>`<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0"><div style="flex:1"><div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}</div><div style="display:flex;gap:4px;flex-shrink:0">${pif?'<span class="badge badge-blue" style="font-size:10px">PIF</span>':''}${stab?'<span class="badge badge-purple" style="font-size:10px">STAB</span>':''}${mp?'<span class="badge badge-green" style="font-size:10px">MP</span>':''}</div></label>`).join('');
+}
+
+function wizardRecap(){
+  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
+  const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
+  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=(stab&&!pif&&!mp)?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds=(wizardIsStabOnly()||mp)?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
+  const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  const recap=document.getElementById('w-recap'); if(!recap)return;
+  const seriesHtml=wizardIsStabOnly()?'<span class="badge badge-purple">STAB</span>':Array.from({length:entryCount},(_,i)=>`<span class="badge ${mp?'badge-green':'badge-cyan'}">${mp?'Contenant '+(i+1):lot+'-'+letters[i]}</span>`).join('');
+  recap.innerHTML=`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">${prod.nom||'—'}</div>${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}</div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">${lot}</div><div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">${pif?'<span class="badge badge-blue">PIF</span>':''}${stab?'<span class="badge badge-purple">STABILITÉ</span>':''}${mp?'<span class="badge badge-green">MP</span>':''}</div>${stab?`<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>${echeance||'—'}</strong></div>`:''}${stab&&condition?`<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>${condition}</strong></div>`:''}<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${seriesHtml}</div></div>${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div><div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div></div>`:''}<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'étude':'sous-série')}${entryCount>1?'s':''} = ${analyses.length*entryCount} entrée${analyses.length*entryCount>1?'s':''} dans le planning</div><div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div></div>`;
+}
+
+function wizardConfirm(){
+  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
+  const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
+  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=(stab&&!pif&&!mp)?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const marcheIds=(wizardIsStabOnly()||mp)?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+  if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
+  for(let i=0;i<entryCount;i++){
+    const code=mp?`${lot}-C${i+1}`:(wizardIsStabOnly()?lot:`${lot}-${letters[i]}`);
+    state.echantillons.push({id:Date.now()+i,code,produitId:prodId,marcheIds,analysesIds:analyseIds,typePIF:pif,typeSTAB:stab,typeMP:mp,stabEcheance:echeance,stabTemps:condition,lot,date,statut:'recu',note:''});
+    analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(),nom:a.nom,echantillonCode:code,date,priorite:'normale',statut:'planifie',note:`Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}${mp?' MP':''}${stab&&echeance?' | '+echeance:''}${stab&&condition?' | '+condition:''}`}));
+  }
+  addActivity('package',`Réception: ${prod.nom||lot} — ${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'étude':'sous-série')}${entryCount>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
+  closeModal('modal-echantillon'); renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
+  toast(`${entryCount} ${mp?'contenant':(wizardIsStabOnly()?'étude':'sous-série')}${entryCount>1?'s':''} créé${entryCount>1?'s':''}`,'success');
+}
+
+function getLotSousSerieContenantDisplay(e0, group){
+  const count=group?.length||1;
+  if(e0?.typeMP) return '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>';
+  if(e0?.typeSTAB && !e0?.typePIF) return '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
+  return '<strong style="font-size:16px;color:var(--cyan)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">sous-série'+(count>1?'s':'')+'</span>';
+}
+function getLotMarcheDisplay(e0){
+  const marches=(e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+  if(!marches.length) return e0?.typeMP?'<span class="badge badge-green">MP</span>':'—';
+  return marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ');
+}
+function getLotEcheanceConditionDisplay(e0){
+  if(!e0?.typeSTAB) return '—';
+  const echeances=String(e0.stabEcheance||'').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-purple">'+x+'</span>').join(' ');
+  const conditions=String(e0.stabTemps||'').split(',').map(x=>x.trim()).filter(Boolean).map(x=>'<span class="badge badge-amber" style="font-size:11px">'+x+'</span>').join(' ');
+  return (echeances||'—')+(conditions?'<br>'+conditions:'');
+}
+
+function renderEchantillonsTable(){
+  const fProduit=(document.getElementById('fech-produit')?.value||'').toLowerCase(); const fLot=(document.getElementById('fech-lot')?.value||'').toLowerCase(); const fDate=document.getElementById('fech-date')?.value||''; const fAnalyse=(document.getElementById('fech-analyse')?.value||'').toLowerCase(); const fEnCours=document.getElementById('fech-encours')?.value||''; const fTerminee=document.getElementById('fech-terminee')?.value||''; const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
+  const lots={}; (state.echantillons||[]).filter(e=>e.statut!=='approuve'&&e.statut!=='archive').forEach(e=>{const k=e.lot||String(e.id); if(!lots[k])lots[k]=[]; lots[k].push(e);});
+  const tbody=document.getElementById('ech-tbody'); if(!tbody)return; const TD='style="font-size:14px;padding:10px 14px;vertical-align:middle;border-bottom:1px solid var(--border);text-align:center"'; const rows=[];
+  Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, group])=>{
+    const e0=group[0]; const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId); const prodNom=produit?produit.nom:'—'; const prodForme=produit&&produit.forme?produit.forme+(produit.dosage?' '+produit.dosage:''):''; const lotCode=e0.lot||'—'; const analyses=(e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    if(fProduit && !prodNom.toLowerCase().includes(fProduit))return; if(fLot && !lotCode.toLowerCase().includes(fLot))return; if(fDate && e0.date!==fDate)return; if(fAnalyse && !analyses.some(a=>(a.nom||'').toLowerCase().includes(fAnalyse)))return;
+    if(fEnCours||fTerminee||fVerifiee){ const statuts=Object.values(e0.analyseStatuts||{}); if(fEnCours==='oui'&&!statuts.some(s=>s==='en_cours'))return; if(fEnCours==='non'&&statuts.some(s=>s==='en_cours'))return; if(fTerminee==='oui'&&!statuts.some(s=>s==='terminee'))return; if(fTerminee==='non'&&statuts.some(s=>s==='terminee'))return; if(fVerifiee==='oui'&&!statuts.some(s=>s==='verifiee'))return; if(fVerifiee==='non'&&statuts.some(s=>s==='verifiee'))return; }
+    const toShow=(analyses.length?analyses:[null]).filter(a=>!fAnalyse||(a&&(a.nom||'').toLowerCase().includes(fAnalyse))); if(!toShow.length)return;
+    const sousHtml=getLotSousSerieContenantDisplay(e0,group); const marcheHtml=getLotMarcheDisplay(e0); const ecHtml=getLotEcheanceConditionDisplay(e0); const dateRecp=e0.date?formatDate(e0.date):'—';
+    toShow.forEach((a,ai)=>{ const statut=a?((e0.analyseStatuts||{})[a.id]||'a_lancer'):'a_lancer'; const statInfo=a?((e0.analyseStatutsInfo||{})[a.id]||{}):{}; const allVerif=analyses.length>0&&analyses.every(a2=>(e0.analyseStatuts||{})[a2.id]==='verifiee'); const isApproved=e0.statut==='approuve'; const rowBg=(allVerif||isApproved)?'background:rgba(26,127,55,0.07);':''; const borderT=ai===0?'border-top:2px solid var(--cyan3);':'';
+      rows.push('<tr style="'+borderT+rowBg+'">'+'<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+'<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+'<td '+TD+'>'+sousHtml+'</td>'+'<td '+TD+'>'+marcheHtml+'</td>'+'<td '+TD+'>'+ecHtml+'</td>'+'<td '+TD+'>'+dateRecp+'</td>'+'<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(function(){const r=(e0.analyseResultats||{})[a.id];return r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':'';})():'—')+'</td>'+(a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+(ai===0?(()=>{const rowspan=toShow.length; let content=''; if(isApproved){content='<span class="badge badge-green" style="font-size:12px;padding:6px 12px;display:inline-flex;align-items:center;gap:5px"><i class="ti ti-rosette" style="font-size:14px"></i> Approuvé</span>';} else if(allVerif){content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px;gap:6px"><i class="ti ti-check"></i> Approuver</button>';} else {content='<div class="actions"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';} return '<td rowspan="'+rowspan+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';})():'')+'</tr>');
+    });
+  });
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="11"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon</p></div></td></tr>'; return;}
+  tbody.innerHTML=rows.join(''); tbody.querySelectorAll('.approuver-btn').forEach(btn=>btn.addEventListener('click',()=>approuverLot(btn.dataset.lot)));
+}
+
+window.wizardIsPifSelected=wizardIsPifSelected; window.wizardIsStabSelected=wizardIsStabSelected; window.wizardIsMpSelected=wizardIsMpSelected; window.toggleTypeCard=toggleTypeCard; window.previewSousSeries=previewSousSeries; window.wizardValidate=wizardValidate; window.wizardLoadMarches=wizardLoadMarches; window.wizardLoadAnalyses=wizardLoadAnalyses; window.wizardRecap=wizardRecap; window.wizardConfirm=wizardConfirm; window.getLotSousSerieContenantDisplay=getLotSousSerieContenantDisplay; window.getLotMarcheDisplay=getLotMarcheDisplay; window.getLotEcheanceConditionDisplay=getLotEcheanceConditionDisplay; window.renderEchantillonsTable=renderEchantillonsTable;
 
 </script>
 </body>
