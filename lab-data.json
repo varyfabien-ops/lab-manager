@@ -1089,24 +1089,6 @@
       "note": ""
     },
     {
-      "id": 1781966150484,
-      "code": "9960000",
-      "produitId": 1781509266740,
-      "marcheIds": [],
-      "analysesIds": [
-        1781509335357
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "stabEcheance": "T3M",
-      "stabTemps": "5C, 25C",
-      "lot": "9960000",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1781966194217,
       "code": "YYYYYYY-A",
       "produitId": 1781509248907,
@@ -1187,11 +1169,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : Volume Extractible",
-      "time": "20/06 14:49"
-    },
     {
       "icon": "world",
       "text": "Marche ajoute : Global",
@@ -1436,6 +1413,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne Nébuliseur — 3 sous-séries — 1 analyse",
       "time": "20/06 16:36"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : 9960000",
+      "time": "20/06 18:30"
     }
   ]
 }
