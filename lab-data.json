@@ -1261,24 +1261,6 @@
       }
     },
     {
-      "id": 1781975427610,
-      "code": "DFRG-C4",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "DFRG",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1781975427611,
       "code": "DFRG-C5",
       "produitId": 1781975343839,
@@ -1353,11 +1335,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB-A — L*a*b : terminee",
-      "time": "20/06 16:34"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB-A — L*a*b : verifiee",
@@ -1601,6 +1578,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C3",
+      "time": "20/06 21:56"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : DFRG-C4",
       "time": "20/06 21:56"
     }
   ]
