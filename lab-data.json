@@ -455,7 +455,7 @@
       "stabTemps": "",
       "lot": "9960001",
       "date": "2026-06-15",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781508652926": "verifiee",
@@ -472,7 +472,8 @@
           "terminee": "20/06/2026",
           "verifiee": "20/06/2026"
         }
-      }
+      },
+      "dateApprobation": "20/06/2026"
     },
     {
       "id": 1781512857183,
@@ -613,21 +614,6 @@
     "1781446866469": "en_attente"
   },
   "activity": [
-    {
-      "icon": "world",
-      "text": "Marche ajoute : France",
-      "time": "15/06 09:32"
-    },
-    {
-      "icon": "pill",
-      "text": "Produit ajoute : Xylocaïne Nébuliseur",
-      "time": "15/06 09:40"
-    },
-    {
-      "icon": "pill",
-      "text": "Produit ajoute : Lipiodol",
-      "time": "15/06 09:41"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiee : TCC0015",
@@ -862,6 +848,21 @@
       "icon": "list-check",
       "text": "9960000-A — pH : terminee",
       "time": "20/06 13:03"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
+      "time": "20/06 13:09"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
+      "time": "20/06 13:09"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot libere : 9960001 (Xylocaïne 5% Naphazoline)",
+      "time": "20/06 13:09"
     }
   ]
 }
