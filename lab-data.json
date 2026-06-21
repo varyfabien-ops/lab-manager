@@ -1187,30 +1187,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1782029069271,
-      "code": "TEST-B",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1782029069272,
       "code": "TEST-C",
       "produitId": 1781852369953,
@@ -1255,11 +1231,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "dddddd-B — Osmolalité : en_cours",
-      "time": "20/06 18:45"
-    },
     {
       "icon": "list-check",
       "text": "vvvv-A — L*a*b : en_cours",
@@ -1504,6 +1475,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : TEST-A",
       "time": "21/06 10:10"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : TEST-B",
+      "time": "21/06 10:13"
     }
   ]
 }
