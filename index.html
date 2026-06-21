@@ -1445,8 +1445,9 @@ function wizardConfirm() {
   const pifSpqVal = document.getElementById('w-pif-spq')?.value||'';
   const stabPtcVal = document.getElementById('w-stab-ptc')?.value||'';
   // Créer UNE SEULE entrée par lot (nb et mpContenants sont des infos)
+  const code = lot; // le code de l'entrée = le numéro de lot
   state.echantillons.push({
-    id: Date.now(), code: lot, produitId: prodId, marcheIds,
+    id: Date.now(), code, produitId: prodId, marcheIds,
     analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
     pifSpq: pifSpqVal, stabEcheance: echeance, stabPtc: stabPtcVal, stabTemps: temps,
     mpSpq, mpContenants, nbSeries: nb,
