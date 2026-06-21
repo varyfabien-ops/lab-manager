@@ -521,6 +521,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | PIF"
+    },
+    {
+      "id": 1782043663178.587,
+      "nom": "Identification IR",
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY | "
     }
   ],
   "catalogue": [
@@ -1412,6 +1421,29 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782043663178,
+      "code": "YYYYYYY",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "pifSpq": "",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "SPQXXXX-3",
+      "mpContenants": 30,
+      "nbSeries": 1,
+      "lot": "YYYYYYY",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1434,11 +1466,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Identification IR",
-      "time": "20/06 19:09"
-    },
     {
       "icon": "package",
       "text": "Réception: Bupivacaïne HCl — 7 entrée(s) — 1 analyse(s)",
@@ -1683,6 +1710,11 @@
       "icon": "clipboard-check",
       "text": "L*a*b :  — lot AAAAAAA",
       "time": "21/06 13:58"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
+      "time": "21/06 14:07"
     }
   ]
 }
