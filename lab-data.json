@@ -1140,34 +1140,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781966194217,
-      "code": "YYYYYYY-A",
-      "produitId": 1781509248907,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "YYYYYYY",
-      "date": "2026-06-20",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781852405020": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781852405020": {
-          "en_cours": "20/06/2026"
-        }
-      }
-    },
-    {
       "id": 1781966194218,
       "code": "YYYYYYY-B",
       "produitId": 1781509248907,
@@ -1335,11 +1307,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB-A — L*a*b : verifiee",
-      "time": "20/06 16:34"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB-A — TCC0044 : verifiee",
@@ -1584,6 +1551,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C4",
       "time": "20/06 21:56"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : YYYYYYY-A",
+      "time": "21/06 09:35"
     }
   ]
 }
