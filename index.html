@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v31 — Physico-Chimie</title>
+<title>LabManager v34 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -808,6 +808,18 @@
             <div class="form-group"><label>Nombre de contenants</label><input type="number" id="w-mp-contenants" min="1" value="1"></div>
           </div>
         </div>
+      <div id="w-ref-options" style="display:none;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px">
+        <div style="font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px"><i class="ti ti-file-text"></i> Références documentaires</div>
+        <div class="form-grid">
+          <div class="form-group" id="w-ref-spq-wrap"><label>Référence SPQ * <span style="color:var(--text3);font-weight:400">(PIF / MP)</span></label><input id="w-ref-spq" placeholder="Ex: SPQ-XXX"></div>
+          <div class="form-group" id="w-ref-ptc-wrap"><label>Référence PTC * <span style="color:var(--text3);font-weight:400">(STAB)</span></label><input id="w-ref-ptc" placeholder="Ex: PTC-XXX"></div>
+        </div>
+        <div class="form-group" id="w-ref-marches-wrap" style="display:none;margin-top:10px">
+          <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
+          <div id="w-ref-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
+        </div>
+      </div>
+
       <!-- ETAPE 4 : Analyses -->
       <div id="wstep-4" style="display:none">
         <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Cochez les analyses a realiser pour cet echantillon</div>
@@ -4119,7 +4131,22 @@ toggleTypeCard = function(type) {
   if(pifOpts) pifOpts.style.display = wizardIsPifSelected() ? 'block' : 'none';
   const mpOpts = document.getElementById('w-mp-options');
   if(mpOpts) mpOpts.style.display = wizardIsMpSelected() ? 'block' : 'none';
-  if(wizardIsPifSelected()) populatePIFMarches();
+  if(wizardIsPifSelected()) {
+    populatePIFMarches();
+    // Peupler aussi w-ref-marches-check
+    const marchesEl=document.getElementById('w-ref-marches-check');
+    const marchesWrap=document.getElementById('w-ref-marches-wrap');
+    if(marchesWrap) marchesWrap.style.display='block';
+    if(marchesEl) {
+      const marches=state.marches||[];
+      marchesEl.innerHTML=marches.length
+        ? marches.map(m=>'<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</span></label>').join('')
+        : '<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>';
+    }
+  } else {
+    const marchesWrap=document.getElementById('w-ref-marches-wrap');
+    if(marchesWrap) marchesWrap.style.display='none';
+  }
   if (wizardStep===4) wizardLoadAnalyses();
   if (wizardStep===5) wizardRecap();
 };
@@ -4479,14 +4506,7 @@ function ensureRefsAndTimepointsV106(){
     dl.innerHTML=['T0','T1M','T3M','T6M','T9M','T12M','T18M','T24M','T36M'].map(x=>'<option value="'+x+'">').join('');
     document.body.appendChild(dl);
   }
-  if(!document.getElementById('w-ref-options')){
-    const host=document.getElementById('wstep-3');
-    const box=document.createElement('div');
-    box.id='w-ref-options';
-    box.style.cssText='display:none;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px';
-    box.innerHTML='<div style="font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px"><i class="ti ti-file-text"></i> Références documentaires</div><div class="form-grid"><div class="form-group" id="w-ref-spq-wrap"><label>Référence SPQ * <span style="color:var(--text3);font-weight:400">(PIF / MP)</span></label><input id="w-ref-spq" placeholder="Ex: SPQ-XXX"></div><div class="form-group" id="w-ref-ptc-wrap"><label>Référence PTC * <span style="color:var(--text3);font-weight:400">(STAB)</span></label><input id="w-ref-ptc" placeholder="Ex: PTC-XXX"></div></div><div class="form-group" id="w-ref-marches-wrap" style="display:none;margin-top:10px"><label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label><div id="w-ref-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div></div>';
-    if(host) host.appendChild(box);
-  }
+  // w-ref-options est maintenant dans le HTML statique
   updateRefVisibilityV106();
 }
 
@@ -4506,10 +4526,10 @@ function updateRefVisibilityV106(){
     marchesWrap.style.display=pif?'block':'none';
     if(pif) {
       const marchesEl=document.getElementById('w-ref-marches-check');
-      if(marchesEl && !marchesEl.children.length) {
+      if(marchesEl) {
         const marches=state.marches||[];
         marchesEl.innerHTML=marches.length
-          ? marches.map(m=>'<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class=\"badge badge-blue\">'+m.code+'</span>':'')+'</span></label>').join('')
+          ? marches.map(m=>'<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</span></label>').join('')
           : '<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>';
       }
     }
