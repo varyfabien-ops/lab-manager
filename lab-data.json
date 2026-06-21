@@ -1756,24 +1756,6 @@
       }
     },
     {
-      "id": 1782054906031,
-      "code": "AAAAAAA-2",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1782054906032,
       "code": "AAAAAAA-3",
       "produitId": 1781852369953,
@@ -1830,11 +1812,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-A — Identification IR : en_cours",
-      "time": "21/06 10:19"
-    },
     {
       "icon": "clipboard-check",
       "text": "Identification IR :  — lot TEST",
@@ -2078,6 +2055,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-1",
+      "time": "21/06 17:19"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : AAAAAAA-2",
       "time": "21/06 17:19"
     }
   ]
