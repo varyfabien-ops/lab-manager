@@ -1737,26 +1737,6 @@
           "unite": ""
         }
       }
-    },
-    {
-      "id": 1782055935472,
-      "code": "AAAAAAA",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1779,11 +1759,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clipboard-check",
-      "text": "L*a*b :  — lot AAAAAAA",
-      "time": "21/06 13:58"
-    },
     {
       "icon": "package",
       "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
@@ -2028,6 +2003,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:32"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : AAAAAAA",
+      "time": "21/06 17:35"
     }
   ]
 }
