@@ -557,6 +557,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST |  STAB"
+    },
+    {
+      "id": 1782044734891.1035,
+      "nom": "L*a*b",
+      "echantillonCode": "9960000",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9960000 | PIF STAB"
     }
   ],
   "catalogue": [
@@ -1502,6 +1511,31 @@
       "date": "2026-06-21",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782044734891,
+      "code": "9960000",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "pifSpq": "SPQXXXX-2",
+      "stabEcheance": "T0",
+      "stabPtc": "PTCXXXX-3",
+      "stabTemps": "",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "nbSeries": 1,
+      "lot": "9960000",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1524,11 +1558,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : L*a*b",
-      "time": "20/06 20:44"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : pH",
@@ -1773,6 +1802,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
       "time": "21/06 14:24"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
+      "time": "21/06 14:25"
     }
   ]
 }
