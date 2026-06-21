@@ -1845,75 +1845,6 @@
           "unite": ""
         }
       }
-    },
-    {
-      "id": 1782056238372,
-      "code": "AAAAAAA-1",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1782056238373,
-      "code": "AAAAAAA-2",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1782056238374,
-      "code": "AAAAAAA-3",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1936,11 +1867,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : YYYYYYY",
-      "time": "21/06 14:11"
-    },
     {
       "icon": "package",
       "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
@@ -2184,6 +2110,11 @@
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 3 entrée(s) — 4 analyse(s)",
+      "time": "21/06 17:37"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : AAAAAAA (3 entrees)",
       "time": "21/06 17:37"
     }
   ]
