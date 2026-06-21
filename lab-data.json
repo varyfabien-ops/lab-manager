@@ -1187,38 +1187,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1782029069270,
-      "code": "TEST-A",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781852405020": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781852405020": {
-          "en_cours": "21/06/2026"
-        }
-      }
-    },
-    {
       "id": 1782029069271,
       "code": "TEST-B",
       "produitId": 1781852369953,
@@ -1287,11 +1255,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
-      "time": "20/06 18:37"
-    },
     {
       "icon": "list-check",
       "text": "dddddd-B — Osmolalité : en_cours",
@@ -1536,6 +1499,11 @@
       "icon": "list-check",
       "text": "TEST-A — L*a*b : en_cours",
       "time": "21/06 10:06"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : TEST-A",
+      "time": "21/06 10:10"
     }
   ]
 }
