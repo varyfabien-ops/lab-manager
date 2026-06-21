@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v23 — Physico-Chimie</title>
+<title>LabManager v24 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -789,7 +789,7 @@
           <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Informations PIF</div>
           <div class="form-grid">
             <div class="form-group"><label>Référence SPQ *</label><input id="w-pif-spq" placeholder="Ex: SPQ-2024-001"></div>
-
+            <div class="form-group"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1"></div>
           </div>
 
           <div class="form-group">
@@ -1270,7 +1270,7 @@ function previewSousSeries() {
   if (!preview) return;
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   preview.innerHTML = Array.from({length:Math.min(nb,26)},(_,i)=>
-    `<span class="badge badge-cyan">${lot}-${letters[i]}</span>`
+    `<span class="badge badge-cyan">${lot}-${i+1}</span>`
   ).join('');
 }
 
@@ -1595,6 +1595,33 @@ function exportLotsLiberes() {
 let _resultatEchId = null;
 let _resultatAnalyseId = null;
 
+function renderChampsForEch(ech, a, ssIdx) {
+  const existing = (ech.resultats||{})[_resultatAnalyseId] || {};
+  const champs = a.champsResultats && a.champsResultats.length
+    ? a.champsResultats
+    : [{ label: 'Résultat', type: a.typeResultat||'texte', unite: a.unite||'' }];
+  return champs.map((c, i) => {
+    const key = 'ss'+ssIdx+'_champ'+i;
+    const val = (existing.sousSeries && existing.sousSeries[ssIdx] && existing.sousSeries[ssIdx][i]) ? existing.sousSeries[ssIdx][i].valeur : ((existing.champs && existing.champs[i]) ? existing.champs[i].valeur : '');
+    if (c.type === 'conforme') {
+      const isConf = val==='conforme', isNC = val==='non-conforme';
+      return '<div class="form-group" style="margin-bottom:10px">'
+        + '<label style="font-size:13px;font-weight:600">'+c.label+'</label>'
+        + '<div style="display:flex;gap:8px;margin-top:6px">'
+        + '<button type="button" onclick="toggleConformiteChamp(''+key+'','conforme')" id="conf-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isConf?'background:var(--green);color:#fff;border-color:var(--green)':'')+'"><i class="ti ti-circle-check"></i> Conforme</button>'
+        + '<button type="button" onclick="toggleConformiteChamp(''+key+'','non-conforme')" id="nc-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isNC?'background:var(--red);color:#fff;border-color:var(--red)':'')+'"><i class="ti ti-circle-x"></i> Non conforme</button>'
+        + '</div><input type="hidden" id="champ-val-'+key+'" value="'+val+'"></div>';
+    } else if (c.type === 'texte') {
+      return '<div class="form-group" style="margin-bottom:10px"><label style="font-size:13px;font-weight:600">'+c.label+'</label>'
+        + '<textarea id="champ-val-'+key+'" style="margin-top:6px" placeholder="Saisir...">'+val+'</textarea></div>';
+    } else {
+      return '<div class="form-group" style="margin-bottom:10px"><label style="font-size:13px;font-weight:600">'+c.label
+        +(c.unite?' <span style="font-size:11px;color:var(--text3);font-weight:400">('+c.unite+')</span>':'')+'</label>'
+        + '<input type="number" step="any" id="champ-val-'+key+'" value="'+val+'" placeholder="Ex: 6.8" style="margin-top:6px;font-size:15px;padding:10px"></div>';
+    }
+  }).join('');
+}
+
 function ouvrirModalResultat(echId, analyseId) {
   _resultatEchId = parseInt(echId);
   _resultatAnalyseId = parseInt(analyseId);
@@ -1602,53 +1629,41 @@ function ouvrirModalResultat(echId, analyseId) {
   const a = (state.catalogue||[]).find(x=>x.id===_resultatAnalyseId);
   if (!ech || !a) return;
 
+  // Trouver toutes les sous-séries du même lot (PIF avec plusieurs SS)
+  const sousSeries = (state.echantillons||[]).filter(e => e.lot === ech.lot && e.typePIF && !e.typeMP);
+  const isMultiSS = sousSeries.length > 1;
+
   const t = document.getElementById('modal-resultat-title');
   if(t) t.textContent = 'Résultat — ' + a.nom;
   const info = document.getElementById('modal-resultat-info');
   const prodNom = (state.produitsEch||[]).find(p=>p.id===ech.produitId)?.nom||'—';
-  if(info) info.innerHTML = '<strong>' + prodNom + '</strong> — Lot : <code>' + (ech.lot||'—') + '</code>';
+  if(info) info.innerHTML = '<strong>' + prodNom + '</strong> — Lot : <code>' + (ech.lot||'—') + '</code>'
+    + (isMultiSS ? ' <span class="badge badge-yellow" style="font-size:11px">'+sousSeries.length+' sous-séries</span>' : '');
 
-  const existing = (ech.resultats||{})[_resultatAnalyseId] || {};
-
-  // Utiliser les champsResultats si définis, sinon 1 champ par défaut
-  const champs = a.champsResultats && a.champsResultats.length
-    ? a.champsResultats
-    : [{ label: 'Résultat', type: a.typeResultat||'texte', unite: a.unite||'' }];
-
-  // Masquer les anciens champs fixes
   ['resultat-numerique','resultat-texte','resultat-conforme'].forEach(id => {
     const el = document.getElementById(id); if(el) el.style.display='none';
   });
 
-  // Générer les champs dynamiques dans resultat-numerique
   const container = document.getElementById('resultat-numerique');
   if (container) {
     container.style.display = 'block';
-    container.innerHTML = champs.map((c, i) => {
-      const val = (existing.champs && existing.champs[i]) ? existing.champs[i].valeur : '';
-      if (c.type === 'conforme') {
-        const isConf = val === 'conforme', isNC = val === 'non-conforme';
-        return '<div class="form-group" style="margin-bottom:12px">'
-          + '<label style="font-size:13px;font-weight:600">' + c.label + '</label>'
-          + '<div style="display:flex;gap:8px;margin-top:6px">'
-          + '<button type="button" data-idx="'+i+'" data-val="conforme" onclick="toggleConformiteChamp(+this.dataset.idx,this.dataset.val)" id="conf-btn-'+i+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isConf?'background:var(--green);color:#fff;border-color:var(--green)':'')+'"><i class="ti ti-circle-check"></i> Conforme</button>'
-          + '<button type="button" data-idx="'+i+'" data-val="non-conforme" onclick="toggleConformiteChamp(+this.dataset.idx,this.dataset.val)" id="nc-btn-'+i+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isNC?'background:var(--red);color:#fff;border-color:var(--red)':'')+'"><i class="ti ti-circle-x"></i> Non conforme</button>'
-          + '</div><input type="hidden" id="champ-val-'+i+'" value="'+val+'"></div>';
-      } else if (c.type === 'texte') {
-        return '<div class="form-group" style="margin-bottom:12px">'
-          + '<label style="font-size:13px;font-weight:600">' + c.label + '</label>'
-          + '<textarea id="champ-val-'+i+'" style="margin-top:6px" placeholder="Saisir...">' + val + '</textarea></div>';
-      } else {
-        return '<div class="form-group" style="margin-bottom:12px">'
-          + '<label style="font-size:13px;font-weight:600">' + c.label
-          + (c.unite ? ' <span style="font-size:11px;color:var(--text3);font-weight:400">('+c.unite+')</span>' : '')
-          + '</label>'
-          + '<input type="number" step="any" id="champ-val-'+i+'" value="'+val+'" placeholder="Ex: 6.8" style="margin-top:6px;font-size:15px;padding:10px"></div>';
-      }
-    }).join('');
+    if (isMultiSS) {
+      // Une section par sous-série
+      container.innerHTML = sousSeries.map((ss, ssIdx) => {
+        return '<div style="border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:var(--bg3)">'
+          + '<div style="font-size:12px;font-weight:600;color:var(--cyan);margin-bottom:8px"><i class="ti ti-test-pipe"></i> Sous-série ' + (ssIdx+1) + ' — <code style="font-size:11px">' + ss.code + '</code></div>'
+          + renderChampsForEch(ss, a, ssIdx)
+          + '</div>';
+      }).join('');
+      // Stocker les ids des sous-séries pour la sauvegarde
+      window._ssIds = sousSeries.map(ss => ss.id);
+    } else {
+      window._ssIds = null;
+      container.innerHTML = renderChampsForEch(ech, a, 0);
+    }
   }
 
-  document.getElementById('resultat-commentaire').value = existing.commentaire||'';
+  document.getElementById('resultat-commentaire').value = ((ech.resultats||{})[_resultatAnalyseId]?.commentaire)||'';
   openModal('modal-resultat');
 }
 
@@ -1671,31 +1686,57 @@ function selectConformite(val) {
   document.getElementById('card-non-conforme').style.background = val==='non-conforme' ? 'var(--red-dim)' : '';
 }
 
+function lireChampsFromDom(a, ssIdx) {
+  const champs = a.champsResultats && a.champsResultats.length
+    ? a.champsResultats
+    : [{ label: 'Résultat', type: a.typeResultat||'texte', unite: a.unite||'' }];
+  return champs.map((c, i) => {
+    const key = 'ss'+ssIdx+'_champ'+i;
+    const val = (document.getElementById('champ-val-'+key)||{}).value || '';
+    return { label: c.label, valeur: val, unite: c.unite||'' };
+  });
+}
+
 function sauvegarderResultat() {
   const echId2 = parseInt(_resultatEchId); const anId2 = parseInt(_resultatAnalyseId);
   const ech = (state.echantillons||[]).find(e=>e.id===echId2);
   const a = (state.catalogue||[]).find(x=>x.id===anId2);
   if (!ech || !a) return;
-  const type = a.typeResultat||'texte';
-  let valeur = '';
-  if (type==='numerique') valeur = document.getElementById('resultat-valeur').value;
-  else if (type==='texte') valeur = document.getElementById('resultat-texte-val').value;
-  else valeur = document.getElementById('resultat-conformite-val').value;
-  if (!valeur && type !== 'texte') { toast('Veuillez saisir un résultat', 'error'); return; }
   const commentaire = document.getElementById('resultat-commentaire').value;
   const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  if (!ech.resultats) ech.resultats = {};
-  ech.resultats[anId2] = { valeur, commentaire, date, unite: a.unite||'' };
-  closeModal('modal-resultat');
-  // Avancer automatiquement le statut à "terminee"
-  if ((ech.analyseStatuts||{})[_resultatAnalyseId] !== 'verifiee') {
-    ech.analyseStatuts = ech.analyseStatuts||{};
-    ech.analyseStatuts[anId2] = 'terminee';
-    ech.analyseStatutsInfo = ech.analyseStatutsInfo||{};
-    ech.analyseStatutsInfo[anId2] = ech.analyseStatutsInfo[anId2]||{};
-    ech.analyseStatutsInfo[anId2]['terminee'] = date;
+
+  if (window._ssIds && window._ssIds.length > 1) {
+    // Sauvegarde multi-sous-séries : une entrée par SS
+    window._ssIds.forEach((ssId, ssIdx) => {
+      const ssEch = (state.echantillons||[]).find(e=>e.id===ssId);
+      if (!ssEch) return;
+      if (!ssEch.resultats) ssEch.resultats = {};
+      const champs = lireChampsFromDom(a, ssIdx);
+      ssEch.resultats[anId2] = { champs, commentaire, date, unite: a.unite||'' };
+      if ((ssEch.analyseStatuts||{})[anId2] !== 'verifiee') {
+        ssEch.analyseStatuts = ssEch.analyseStatuts||{};
+        ssEch.analyseStatuts[anId2] = 'terminee';
+        ssEch.analyseStatutsInfo = ssEch.analyseStatutsInfo||{};
+        ssEch.analyseStatutsInfo[anId2] = ssEch.analyseStatutsInfo[anId2]||{};
+        ssEch.analyseStatutsInfo[anId2]['terminee'] = date;
+      }
+    });
+    addActivity('clipboard-check', (a.nom||'') + ' — ' + window._ssIds.length + ' sous-séries — lot ' + (ech.lot||''));
+  } else {
+    // Sauvegarde simple
+    const champs = lireChampsFromDom(a, 0);
+    if (!ech.resultats) ech.resultats = {};
+    ech.resultats[anId2] = { champs, commentaire, date, unite: a.unite||'' };
+    if ((ech.analyseStatuts||{})[anId2] !== 'verifiee') {
+      ech.analyseStatuts = ech.analyseStatuts||{};
+      ech.analyseStatuts[anId2] = 'terminee';
+      ech.analyseStatutsInfo = ech.analyseStatutsInfo||{};
+      ech.analyseStatutsInfo[anId2] = ech.analyseStatutsInfo[anId2]||{};
+      ech.analyseStatutsInfo[anId2]['terminee'] = date;
+    }
+    addActivity('clipboard-check', (a.nom||'') + ' — lot ' + (ech.lot||''));
   }
-  addActivity('clipboard-check', (a.nom||'') + ' : ' + valeur + (a.unite?' '+a.unite:'') + ' — lot ' + (ech.lot||''));
+  closeModal('modal-resultat');
   renderEchantillonsTable();
   saveData();
   toast('Résultat enregistré', 'success');
@@ -4145,7 +4186,7 @@ previewSousSeries = function(){
   }
   if(help) help.textContent='Combien de sous-séries PIF pour ce lot ?';
   if(lab) lab.textContent='Nombre de sous-séries *';
-  preview.innerHTML=Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-yellow">'+lot+'-'+letters[i]+'</span>').join('');
+  preview.innerHTML=Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-yellow">'+lot+'-'+(i+1)+'</span>').join('');
 };
 
 wizardLoadMarches = function(){
@@ -4204,13 +4245,13 @@ wizardRecap = function(){
   const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=wizardIsStabOnly()?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
-  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
+  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
   const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(pif&&stab?'T0'+(echeance?', '+echeance:''):(echeance||'—'))+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div>'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join(' ')+'</div>';
 };
@@ -4220,13 +4261,13 @@ wizardConfirm = function(){
   const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=wizardIsStabOnly()?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   const stabEcheance = (pif&&stab) ? ('T0'+(echeance?', '+echeance:'')) : echeance;
   for(let i=0;i<entryCount;i++){
-    const code=lot; // PIF/STAB/MP : toujours le lot comme code
+    const code=(pif&&!stab&&!mp&&entryCount>1)?(lot+'-'+(i+1)):lot;
     state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, stabEcheance, stabTemps:condition, lot, date, statut:'recu', note:''});
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')+(stabEcheance?' | '+stabEcheance:'')+(condition?' | '+condition:'')}));
   }
@@ -4529,13 +4570,13 @@ wizardRecap = function(){
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const spq=document.getElementById('w-ref-spq')?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1; const entryCount=wizardIsStabOnly()?1:nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
-  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
+  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
   const refHtml='<div style="font-size:12px;color:var(--text2);margin-top:6px">'+((pif||mp)?'SPQ : <strong>'+spq+'</strong> ':'')+(stab?'PTC : <strong>'+ptc+'</strong>':'')+'</div>';
   const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(echeance||'—')+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+refHtml+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché(s)</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('')+'</div></div>';
@@ -4548,15 +4589,15 @@ wizardConfirm = function(){
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const spq=document.getElementById('w-ref-spq')?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=parseInt(document.getElementById('w-nb-series')?.value)||1;
+  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1;
   const mpOnly=mp&&!pif;
-  const entryCount=wizardIsStabOnly()?1:mpOnly?1:nb;
+  const entryCount=mpOnly?1:nb;
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds=(wizardIsStabOnly()||mpOnly)?[]:Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   for(let i=0;i<entryCount;i++){
-    const code=lot; // PIF/STAB/MP : toujours le lot comme code
+    const code=mpOnly?lot:(wizardIsStabOnly()?lot:(nb>1?lot+'-'+(i+1):lot));
     const nbContenants=mpOnly?nb:undefined;
     state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, nbContenants, refSPQ:spq, refPTC:ptc, stabEcheance:echeance, stabTemps:condition, lot, date, statut:'recu', note:''});
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')}));
