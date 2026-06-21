@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v16 — Physico-Chimie</title>
+<title>LabManager v17 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1673,6 +1673,16 @@ function ouvrirModalResultat(echId, analyseId) {
   openModal('modal-resultat');
 }
 
+
+function toggleConformiteChamp(idx, val) {
+  const hidden = document.getElementById('champ-val-'+idx);
+  if (!hidden) return;
+  hidden.value = val;
+  const confBtn = document.getElementById('conf-btn-'+idx);
+  const ncBtn = document.getElementById('nc-btn-'+idx);
+  if (confBtn) { confBtn.style.background = val==='conforme' ? 'var(--green)' : ''; confBtn.style.color = val==='conforme' ? '#fff' : ''; confBtn.style.borderColor = val==='conforme' ? 'var(--green)' : ''; }
+  if (ncBtn)   { ncBtn.style.background = val==='non-conforme' ? 'var(--red)' : ''; ncBtn.style.color = val==='non-conforme' ? '#fff' : ''; ncBtn.style.borderColor = val==='non-conforme' ? 'var(--red)' : ''; }
+}
 
 function selectConformite(val) {
   document.getElementById('resultat-conformite-val').value = val;
