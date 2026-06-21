@@ -1754,24 +1754,6 @@
           "unite": ""
         }
       }
-    },
-    {
-      "id": 1782055141931,
-      "code": "BBBBBB",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "BBBBBB",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1794,11 +1776,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-A — Identification IR : verifiee",
-      "time": "21/06 10:19"
-    },
     {
       "icon": "rosette",
       "text": "Lot approuvé : TEST",
@@ -2043,6 +2020,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-3",
       "time": "21/06 17:19"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : BBBBBB",
+      "time": "21/06 17:20"
     }
   ]
 }
