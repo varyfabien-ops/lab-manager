@@ -1140,26 +1140,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781966194219,
-      "code": "YYYYYYY-C",
-      "produitId": 1781509248907,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "YYYYYYY",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1781973479611,
       "code": "AAAAAAA-A",
       "produitId": 1781852369953,
@@ -1287,11 +1267,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB-A — Osmolalité : verifiee",
-      "time": "20/06 16:35"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB-A — TCC0065 : verifiee",
@@ -1535,6 +1510,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-B",
+      "time": "21/06 09:35"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : YYYYYYY-C",
       "time": "21/06 09:35"
     }
   ]
