@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v26 — Physico-Chimie</title>
+<title>LabManager v28 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -172,7 +172,6 @@
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
-<div class="nav-item" onclick="goTo('enregistrements',this)"><i class="ti ti-file-description"></i> Enregistrements <span class="nav-badge amber" id="badge-enregistrements" style="display:none">0</span></div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
     <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
@@ -443,24 +442,6 @@
   </div>
 </div>
 
-
-<div class="page" id="page-enregistrements">
-  <div class="page-header">
-    <div class="page-header-text"><h1>Enregistrements</h1><p>Documents, formulaires et suivis qualité du laboratoire</p></div>
-    <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-enregistrement')"><i class="ti ti-plus"></i> Nouvel enregistrement</button></div>
-  </div>
-  <div class="stats-grid">
-    <div class="stat-card cyan"><div class="label"><i class="ti ti-file-description"></i>Documents actifs</div><div class="value" id="stat-rec-actifs">0</div><div class="sub">utilisables au labo</div></div>
-    <div class="stat-card amber"><div class="label"><i class="ti ti-clock-exclamation"></i>Revues proches</div><div class="value" id="stat-rec-revue">0</div><div class="sub">dans les 30 jours</div></div>
-    <div class="stat-card red"><div class="label"><i class="ti ti-alert-triangle"></i>En retard</div><div class="value" id="stat-rec-retard">0</div><div class="sub">revue dépassée</div></div>
-  </div>
-  <div class="table-card">
-    <div class="table-card-header"><h3>Liste des enregistrements</h3><div class="spacer"></div>
-      <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-enregistrements" placeholder="Rechercher..." oninput="renderEnregistrements()"></div>
-    </div>
-    <div style="overflow-x:auto"><table style="min-width:980px"><thead><tr><th>Code</th><th>Titre</th><th>Type</th><th>Révision</th><th>Responsable</th><th>Date</th><th>Prochaine revue</th><th>Statut</th><th></th></tr></thead><tbody id="enregistrements-tbody"></tbody></table></div>
-  </div>
-</div>
 
 <div class="page" id="page-tendances">
   <div class="page-header">
@@ -4290,7 +4271,8 @@ function getLotSousSerieContenantDisplay(e0, group){
 function getMarcheDisplay(e0){
   if(e0?.typeSTAB && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>';
   if(e0?.typeMP && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>';
-  const marches=(e0.marcheIds||[]).map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
+  const ids=(e0._marcheIdsMerged||e0.marcheIds||[]);
+  const marches=ids.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
 }
 function getEcheanceConditionDisplay(e0){
@@ -4374,7 +4356,14 @@ function renderEchantillonsTableAlignedV105(){
   const rows=[];
 
   Object.entries(lots).sort((a,b)=>(b[1][0].date||'').localeCompare(a[1][0].date||'')).forEach(([lotKey, group])=>{
-    const e0=group[0];
+    // Pour les PIF multi-SS, privilégier une entrée avec suffixe numérique comme référence (marcheIds, etc.)
+    const avecSuffixe = group.filter(e => /^.+-\d+$/.test(e.code||''));
+    const e0 = avecSuffixe.length > 0 ? avecSuffixe[0] : group[0];
+    // Fusionner les marcheIds de toutes les entrées du groupe
+    if (e0.typePIF && !e0.typeMP) {
+      const allMarcheIds = [...new Set(group.flatMap(e => e.marcheIds||[]))];
+      if (allMarcheIds.length > (e0.marcheIds||[]).length) e0._marcheIdsMerged = allMarcheIds;
+    }
     const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId)||{};
     const prodNom=produit.nom||'—';
     const prodForme=[produit.forme, produit.dosage].filter(Boolean).join(' ');
