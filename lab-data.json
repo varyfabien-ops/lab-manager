@@ -629,6 +629,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | PIF "
+    },
+    {
+      "id": 1782047151106.3484,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-1 | PIF "
+    },
+    {
+      "id": 1782047151106.2964,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-2 | PIF "
     }
   ],
   "catalogue": [
@@ -1502,6 +1520,42 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782047151106,
+      "code": "AAAAAAA-1",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1782047151107,
+      "code": "AAAAAAA-2",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1524,11 +1578,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-A",
-      "time": "21/06 09:45"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : TEST-A",
@@ -1773,6 +1822,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA",
       "time": "21/06 14:50"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 1 analyse(s)",
+      "time": "21/06 15:05"
     }
   ]
 }
