@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v17 — Physico-Chimie</title>
+<title>LabManager v20 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -766,7 +766,7 @@
             <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-flask" style="font-size:28px;color:var(--amber);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">PIF</div>
-              <div style="font-size:11px;color:var(--text2);margin-top:4px">Contrôle de routine</div>
+              
               <input type="checkbox" id="w-type-pif" style="display:none">
             </div>
           </label>
@@ -774,7 +774,7 @@
             <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-thermometer" style="font-size:28px;color:var(--purple);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">STABILITÉ</div>
-              <div style="font-size:11px;color:var(--text2);margin-top:4px">Suivi dans le temps</div>
+              
               <input type="checkbox" id="w-type-stab" style="display:none">
             </div>
           </label>
@@ -782,7 +782,7 @@
             <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-box" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">MP</div>
-              <div style="font-size:11px;color:var(--text2);margin-top:4px">Matière Première</div>
+              
               <input type="checkbox" id="w-type-mp" style="display:none">
             </div>
           </label>
@@ -829,24 +829,8 @@
             <div class="form-group"><label>Nombre de contenants</label><input type="number" id="w-mp-contenants" min="1" value="1"></div>
           </div>
         </div>
-      <!-- ETAPE 4 : Sous-series -->
+      <!-- ETAPE 4 : Analyses -->
       <div id="wstep-4" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Combien de sous-series pour ce lot ?</div>
-        <div class="form-group" style="margin-bottom:14px">
-          <label>Nombre de sous-series *</label>
-          <input type="number" id="w-nb-series" value="1" min="1" max="26" style="font-size:14px;padding:10px" oninput="previewSousSeries()">
-        </div>
-        <div id="w-series-preview" style="background:var(--bg3);border-radius:var(--radius);padding:12px;display:flex;flex-wrap:wrap;gap:6px"></div>
-      </div>
-
-      <!-- ETAPE 5 : Marches -->
-      <div id="wstep-5" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le ou les marches cibles <span style="color:var(--text3)">(etiquetage uniquement)</span></div>
-        <div id="w-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto"></div>
-      </div>
-
-      <!-- ETAPE 6 : Analyses a cocher -->
-      <div id="wstep-6" style="display:none">
         <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Cochez les analyses a realiser pour cet echantillon</div>
         <div id="w-analyses-select" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto"></div>
         <div id="w-no-analyses" style="display:none;color:var(--text3);font-size:12px;padding:12px;background:var(--bg3);border-radius:var(--radius)">
@@ -854,8 +838,8 @@
         </div>
       </div>
 
-      <!-- ETAPE 7 : Recap -->
-      <div id="wstep-7" style="display:none">
+      <!-- ETAPE 5 : Recap -->
+      <div id="wstep-5" style="display:none">
         <div style="margin-bottom:14px;font-size:13px;font-weight:600;color:var(--text)">Recapitulatif de la reception</div>
         <div id="w-recap" style="display:flex;flex-direction:column;gap:10px"></div>
       </div>
@@ -1064,8 +1048,8 @@
 // WIZARD ECHANTILLON - 7 ETAPES
 // ============================================================
 let wizardStep = 1;
-const WIZARD_TOTAL = 7;
-const WIZARD_NAMES = ['Produit','Lot','Type PIF/STAB','Sous-series','Marches','Analyses','Recapitulatif'];
+const WIZARD_TOTAL = 5;
+const WIZARD_NAMES = ['Produit','Lot','Type','Analyses','Récapitulatif'];
 
 function openWizard() {
   wizardStep = 1;
@@ -1125,10 +1109,10 @@ function wizardRender() {
       ? '<i class="ti ti-check"></i> Confirmer la reception'
       : 'Suivant <i class="ti ti-arrow-right"></i>';
   }
-  if(wizardStep===4) previewSousSeries();
-  if(wizardStep===5) wizardLoadMarches();
-  if(wizardStep===6) wizardLoadAnalyses();
-  if(wizardStep===7) wizardRecap();
+  
+  
+  if(wizardStep===4) wizardLoadAnalyses();
+  if(wizardStep===5) wizardRecap();
 }
 
 
@@ -1176,9 +1160,7 @@ function wizardNext() {
   if (!wizardValidate()) return;
   if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
   let nextStep = wizardStep + 1;
-  // Sauter étapes 4 et 5 si PIF seul (déjà dans l'étape 3)
-  if (nextStep === 4 && (isPIFOnly() || isStabOnly() || isMPOnly())) nextStep = 5;
-  if (nextStep === 5 && (isPIFOnly() || isStabOnly() || isMPOnly())) nextStep = 6;
+
   wizardStep = nextStep;
   wizardRender();
 }
@@ -1186,8 +1168,7 @@ function wizardNext() {
 function wizardPrev() {
   if (wizardStep <= 1) return;
   let prevStep = wizardStep - 1;
-  if (prevStep === 5 && (isPIFOnly() || isStabOnly() || isMPOnly())) prevStep = 4;
-  if (prevStep === 4 && (isPIFOnly() || isStabOnly() || isMPOnly())) prevStep = 3;
+
   wizardStep = prevStep;
   wizardRender();
 }
@@ -1209,7 +1190,7 @@ function wizardValidate() {
       toast('La référence SPQ est obligatoire pour un PIF', 'error'); return false;
     }
   }
-  if (wizardStep===6) {
+  if (wizardStep===4) {
     const checked = document.querySelectorAll('#w-analyses-select input:checked');
     if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
   }
@@ -4112,9 +4093,10 @@ toggleTypeCard = function(type) {
   if(card){ card.style.border = cb.checked ? '2px solid '+m[0] : '2px solid var(--border)'; card.style.background = cb.checked ? m[1] : ''; }
   const opts = document.getElementById('w-stab-options');
   if(opts) opts.style.display = wizardIsStabSelected() ? 'block' : 'none';
-  if (wizardStep===4) previewSousSeries();
-  if (wizardStep===5) wizardLoadMarches();
-  if (wizardStep===6) wizardLoadAnalyses();
+  
+  
+  if (wizardStep===4) wizardLoadAnalyses();
+  if (wizardStep===5) wizardRecap();
 };
 
 wizardValidate = function(){
@@ -4123,7 +4105,7 @@ wizardValidate = function(){
   if (wizardStep===3) {
     if (!wizardIsPifSelected() && !wizardIsStabSelected() && !wizardIsMpSelected()) { toast('Selectionnez PIF, STAB et/ou MP', 'error'); return false; }
   }
-  if (wizardStep===6) {
+  if (wizardStep===4) {
     const checked = document.querySelectorAll('#w-analyses-select input:checked');
     if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
   }
@@ -4492,9 +4474,21 @@ const __openWizard_v106 = openWizard;
 openWizard = function(){
   __openWizard_v106?.();
   ensureRefsAndTimepointsV106();
-  const spq=document.getElementById('w-ref-spq'); if(spq) spq.value='';
-  const ptc=document.getElementById('w-ref-ptc'); if(ptc) ptc.value='';
-  const ech=document.getElementById('w-stab-echeance'); if(ech) ech.value='';
+  // Reset tous les champs de saisie
+  ['w-ref-spq','w-ref-ptc','w-pif-spq','w-mp-spq','w-stab-echeance','w-stab-temps','w-stab-ptc'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  const nbSeries=document.getElementById('w-pif-nb-series'); if(nbSeries) nbSeries.value=1;
+  const nbMp=document.getElementById('w-mp-contenants'); if(nbMp) nbMp.value=1;
+  // Décocher tous les marchés
+  document.querySelectorAll('#w-pif-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
+  document.querySelectorAll('#w-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
+  // Vider preview sous-séries
+  const prev=document.getElementById('w-pif-series-preview'); if(prev) prev.innerHTML='';
+  // Masquer options PIF/STAB/MP
+  ['w-pif-options','w-stab-options','w-mp-options'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
+  });
 };
 
 const __toggleTypeCard_v106 = toggleTypeCard;
@@ -4520,7 +4514,7 @@ wizardValidate = function(){
       document.getElementById('w-stab-echeance').value=normalized;
     }
   }
-  if (wizardStep===6) {
+  if (wizardStep===4) {
     const checked = document.querySelectorAll('#w-analyses-select input:checked');
     if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
   }
