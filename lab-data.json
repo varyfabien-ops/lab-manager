@@ -1393,8 +1393,16 @@
       "nbSeries": 1,
       "lot": "AAAAAAA",
       "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852405020": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852405020": {
+          "en_cours": "21/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -1417,11 +1425,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clipboard-check",
-      "text": "Osmolalité : 310 — lot vvvv",
-      "time": "20/06 19:08"
-    },
     {
       "icon": "pill",
       "text": "Produit ajoute : Bupivacaïne HCl",
@@ -1665,6 +1668,11 @@
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
+      "time": "21/06 13:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — L*a*b : en_cours",
       "time": "21/06 13:58"
     }
   ]
