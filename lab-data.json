@@ -1268,11 +1268,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "BBBBBB-A — Volume Extractible : verifiee",
-      "time": "20/06 16:35"
-    },
-    {
       "icon": "rosette",
       "text": "Lot libere : BBBBBB (Setmelanotide 10 mg/mL)",
       "time": "20/06 16:35"
@@ -1511,6 +1506,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-C",
       "time": "21/06 09:35"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : L*a*b",
+      "time": "21/06 09:36"
     },
     {
       "icon": "book",
