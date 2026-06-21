@@ -788,7 +788,20 @@
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
-            <div class="form-group"><label>Echeance</label><input type="date" id="w-stab-echeance"></div>
+            <div class="form-group"><label>Pointage (Step)</label>
+              <select id="w-stab-echeance">
+                <option value="">— Sélectionner —</option>
+                <option value="T0">T0</option>
+                <option value="T1M">T1M</option>
+                <option value="T2M">T2M</option>
+                <option value="T3M">T3M</option>
+                <option value="T6M">T6M</option>
+                <option value="T9M">T9M</option>
+                <option value="T12M">T12M</option>
+                <option value="T18M">T18M</option>
+                <option value="T24M">T24M</option>
+                <option value="T36M">T36M</option>
+              </select></div>
             <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
             <div class="form-group"><label>Référence PTC</label><input id="w-stab-ptc" placeholder="Ex: PTC-2024-001"></div>
           </div>
@@ -2428,13 +2441,17 @@ function renderCatalogue() {
   const tbody = document.getElementById('catalogue-tbody');
   if (!tbody) return;
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
-  tbody.innerHTML = rows.map(a => `<tr>
+  tbody.innerHTML = rows.map(a => {
+    const prods = (a.produitsIds||[]).map(id=>(state.produitsEch||[]).find(p=>p.id===id)).filter(Boolean);
+    return `<tr>
     <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
     <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
+    <td>${prods.length ? prods.map(p=>'<span class="badge badge-blue" style="font-size:11px">'+p.nom+'</span>').join(' ') : '<span style="color:var(--text3)">—</span>'}</td>
     <td>${a.duree||'—'}</td>
     <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
     <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
-  </tr>`).join('');
+  </tr>`;
+  }).join('');
 }
 
 function editAnalyse(id) {
