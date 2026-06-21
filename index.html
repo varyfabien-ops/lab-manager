@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v38 — Physico-Chimie</title>
+<title>LabManager v39 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4523,10 +4523,21 @@ openWizard = function(){
   const refMarchesEl=document.getElementById('w-ref-marches-check'); if(refMarchesEl) refMarchesEl.innerHTML='';
   // Vider preview sous-séries
   const prev=document.getElementById('w-pif-series-preview'); if(prev) prev.innerHTML='';
+  // Reset complet : décocher les types et remettre les cartes à zéro
+  ['pif','stab','mp'].forEach(t=>{
+    const cb=document.getElementById('w-type-'+t); if(cb) cb.checked=false;
+    const card=document.getElementById('w-'+t+'-card');
+    if(card){ card.style.border='2px solid var(--border)'; card.style.background=''; }
+  });
   // Masquer options PIF/STAB/MP
   ['w-pif-options','w-stab-options','w-mp-options'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.style.display='none';
   });
+  // Décocher tous les marchés et vider SPQ
+  document.querySelectorAll('#w-ref-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
+  ['w-ref-spq','w-mp-spq','w-ref-ptc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  const nb=document.getElementById('w-pif-nb-series'); if(nb) nb.value=1;
+  const nbMp2=document.getElementById('w-mp-contenants'); if(nbMp2) nbMp2.value=1;
 };
 
 // toggleTypeCard v106 fusionné dans le toggleTypeCard principal
