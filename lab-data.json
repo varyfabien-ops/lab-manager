@@ -1197,28 +1197,6 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
-    },
-    {
-      "id": 1782027516738,
-      "code": "TEST-A",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "pifSpq": "",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "5C, 25C",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1241,11 +1219,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "rosette",
-      "text": "Lot libere : YYYYYYY (Lipiodol)",
-      "time": "20/06 16:35"
-    },
     {
       "icon": "package",
       "text": "Réception: Lipiodol — 1 étude — 1 analyse",
@@ -1484,6 +1457,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-A",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : TEST-A",
       "time": "21/06 09:45"
     },
     {
