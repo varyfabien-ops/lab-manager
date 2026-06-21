@@ -1207,8 +1207,16 @@
       "mpContenants": 1,
       "lot": "TEST",
       "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852405020": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852405020": {
+          "en_cours": "21/06/2026"
+        }
+      }
     },
     {
       "id": 1782029069271,
@@ -1279,11 +1287,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0044",
-      "time": "20/06 18:37"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
@@ -1528,6 +1531,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 1 analyse",
       "time": "21/06 10:04"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-A — L*a*b : en_cours",
+      "time": "21/06 10:06"
     }
   ]
 }
