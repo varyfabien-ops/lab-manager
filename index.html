@@ -778,11 +778,19 @@
             </div>
           </label>
         </div>
+                <div id="w-pif-options" style="display:none;background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:14px;margin-bottom:10px">
+          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Référence PIF</div>
+          <div class="form-group">
+            <label>Référence SPQ *</label>
+            <input id="w-pif-spq" placeholder="Ex: SPQ-2024-001">
+          </div>
+        </div>
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
             <div class="form-group"><label>Echeance</label><input type="date" id="w-stab-echeance"></div>
             <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
+            <div class="form-group"><label>Référence PTC</label><input id="w-stab-ptc" placeholder="Ex: PTC-2024-001"></div>
           </div>
         </div>
       </div>
@@ -2399,7 +2407,11 @@ function saveAnalyse() {
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.catalogue) state.catalogue = [];
   const habs = document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
-  const entry = { id: editingId||Date.now(), nom, habilitations: habs, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
+  // Récupérer les produits cochés
+  const produitsIds = Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value));
+  // Récupérer les champs de résultats
+  const champsResultats = typeof getChampResultats === 'function' ? getChampResultats() : [];
+  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
   if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
   editingId = null;
@@ -2433,6 +2445,11 @@ function editAnalyse(id) {
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
   document.getElementById('a-desc').value = a.description||'';
+  // Charger les produits et champs après ouverture du modal
+  setTimeout(() => {
+    if (typeof populateProduitsAnalyseCheck === 'function') populateProduitsAnalyseCheck(a.produitsIds||[]);
+    if (typeof chargerChampResultats === 'function') chargerChampResultats(a.champsResultats||null);
+  }, 80);
 
   document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
   openModal('modal-analyse');
@@ -3417,9 +3434,12 @@ function openModal(id) {
     const selIds = editingId ? ((state.catalogue||[]).find(a=>a.id===editingId)||{}).produitsIds||[] : [];
     const selA = editingId ? (state.catalogue||[]).find(a=>a.id===editingId) : null;
     setTimeout(() => {
-      populateProduitsAnalyseCheck(selIds);
-      chargerChampResultats(selA?.champsResultats || null);
-    }, 50);
+      if (typeof populateProduitsAnalyseCheck === 'function') populateProduitsAnalyseCheck(selIds);
+      if (typeof chargerChampResultats === 'function') {
+        // Si nouvelle analyse : 1 champ par défaut; si édition : charger les champs sauvegardés
+        chargerChampResultats(selA?.champsResultats || null);
+      }
+    }, 80);
   }
   if (id === 'modal-echantillon') {
     populateTechSelects();
