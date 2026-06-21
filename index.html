@@ -4599,7 +4599,14 @@ wizardConfirm = function(){
   const mpOnly=mp&&!pif;
   const entryCount=mpOnly?1:nb;
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  // DEBUG
+  console.log('[DEBUG marchés] pif='+pif+' stab='+stab+' mp='+mp+' mpOnly='+mpOnly);
+  console.log('[DEBUG marchés] #w-ref-marches-check existe:', !!document.getElementById('w-ref-marches-check'));
+  console.log('[DEBUG marchés] #w-pif-marches-check existe:', !!document.getElementById('w-pif-marches-check'));
+  const allCbs1 = document.querySelectorAll('#w-ref-marches-check input'); console.log('[DEBUG marchés] checkboxes ref:', allCbs1.length, Array.from(allCbs1).map(c=>c.value+':'+c.checked));
+  const allCbs2 = document.querySelectorAll('#w-pif-marches-check input'); console.log('[DEBUG marchés] checkboxes pif:', allCbs2.length, Array.from(allCbs2).map(c=>c.value+':'+c.checked));
   const marcheIds=(wizardIsStabOnly()||mpOnly)?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  console.log('[DEBUG marchés] marcheIds final:', marcheIds);
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   for(let i=0;i<entryCount;i++){
