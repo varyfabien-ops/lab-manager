@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v24 — Physico-Chimie</title>
+<title>LabManager v25 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1608,8 +1608,8 @@ function renderChampsForEch(ech, a, ssIdx) {
       return '<div class="form-group" style="margin-bottom:10px">'
         + '<label style="font-size:13px;font-weight:600">'+c.label+'</label>'
         + '<div style="display:flex;gap:8px;margin-top:6px">'
-        + '<button type="button" onclick="toggleConformiteChamp(''+key+'','conforme')" id="conf-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isConf?'background:var(--green);color:#fff;border-color:var(--green)':'')+'"><i class="ti ti-circle-check"></i> Conforme</button>'
-        + '<button type="button" onclick="toggleConformiteChamp(''+key+'','non-conforme')" id="nc-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isNC?'background:var(--red);color:#fff;border-color:var(--red)':'')+'"><i class="ti ti-circle-x"></i> Non conforme</button>'
+        + '<button type="button" data-key="'+key+'" data-val="conforme" onclick="toggleConformiteChamp(this.dataset.key,this.dataset.val)" id="conf-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isConf?'background:var(--green);color:#fff;border-color:var(--green)':'')+'"><i class="ti ti-circle-check"></i> Conforme</button>'
+        + '<button type="button" data-key="'+key+'" data-val="non-conforme" onclick="toggleConformiteChamp(this.dataset.key,this.dataset.val)" id="nc-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isNC?'background:var(--red);color:#fff;border-color:var(--red)':'')+'"><i class="ti ti-circle-x"></i> Non conforme</button>'
         + '</div><input type="hidden" id="champ-val-'+key+'" value="'+val+'"></div>';
     } else if (c.type === 'texte') {
       return '<div class="form-group" style="margin-bottom:10px"><label style="font-size:13px;font-weight:600">'+c.label+'</label>'
@@ -1621,7 +1621,6 @@ function renderChampsForEch(ech, a, ssIdx) {
     }
   }).join('');
 }
-
 function ouvrirModalResultat(echId, analyseId) {
   _resultatEchId = parseInt(echId);
   _resultatAnalyseId = parseInt(analyseId);
