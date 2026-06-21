@@ -548,6 +548,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: YYYYYYY | "
+    },
+    {
+      "id": 1782044667843.4724,
+      "nom": "L*a*b",
+      "echantillonCode": "TEST",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST |  STAB"
     }
   ],
   "catalogue": [
@@ -1470,6 +1479,29 @@
           "en_cours": "21/06/2026"
         }
       }
+    },
+    {
+      "id": 1782044667842,
+      "code": "TEST",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "pifSpq": "",
+      "stabEcheance": "T3M",
+      "stabPtc": "PTCXXXX-3",
+      "stabTemps": "5C",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "nbSeries": 1,
+      "lot": "TEST",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1492,11 +1524,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Osmolalité",
-      "time": "20/06 20:44"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : L*a*b",
@@ -1741,6 +1768,11 @@
       "icon": "list-check",
       "text": "YYYYYYY — Identification IR : en_cours",
       "time": "21/06 14:16"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
+      "time": "21/06 14:24"
     }
   ]
 }
