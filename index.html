@@ -1155,6 +1155,10 @@ function toggleTypeCard(type) {
   const bg = bgs[type]||'var(--cyan-dim)';
   card.style.border = cb.checked ? '2px solid '+c : '2px solid var(--border)';
   card.style.background = cb.checked ? bg : '';
+  if (type === 'pif') {
+    const opts = document.getElementById('w-pif-options');
+    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
+  }
   if (type === 'stab') {
     const opts = document.getElementById('w-stab-options');
     if(opts) opts.style.display = cb.checked ? 'block' : 'none';
@@ -1302,10 +1306,12 @@ function wizardConfirm() {
   if (!state.planning) state.planning = [];
   for (let i=0; i<nb; i++) {
     const code = `${lot}-${letters[i]}`;
+    const pifSpqVal = document.getElementById('w-pif-spq')?.value||'';
+    const stabPtcVal = document.getElementById('w-stab-ptc')?.value||'';
     state.echantillons.push({
       id: Date.now()+i, code, produitId: prodId, marcheIds,
       analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
-      stabEcheance: echeance, stabTemps: temps,
+      pifSpq: pifSpqVal, stabEcheance: echeance, stabPtc: stabPtcVal, stabTemps: temps,
       mpSpq, mpContenants,
       lot, date, statut: 'recu', note: ''
     });
@@ -3810,7 +3816,7 @@ previewSousSeries = function(){
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   if(wizardIsStabOnly()){
     if(help) help.textContent='Pas de sous-série ni de marché pour une STAB seule.';
-    if(lab) lab.textContent='Non applicable';
+    if(lab) lab.textContent='—';
     preview.innerHTML='<span class="badge badge-purple">STAB seule</span>';
     return;
   }
@@ -3887,7 +3893,7 @@ wizardRecap = function(){
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
-  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">Non applicable</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
+  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
   const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(pif&&stab?'T0'+(echeance?', '+echeance:''):(echeance||'—'))+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div>'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join(' ')+'</div>';
 };
@@ -3914,7 +3920,7 @@ wizardConfirm = function(){
 function getLotSousSerieContenantDisplay(e0, group){
   const count=group?.length||1;
   if(e0?.typeMP && !e0?.typePIF) return '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>';
-  if(e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) return '<span class="badge badge-purple" style="font-size:11px">Non applicable</span>';
+  if(e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) return '<span class="badge badge-purple" style="font-size:11px">—</span>';
   return '<strong style="font-size:16px;color:var(--yellow)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">sous-série'+(count>1?'s':'')+'</span>';
 }
 function getMarcheDisplay(e0){
@@ -3925,8 +3931,14 @@ function getMarcheDisplay(e0){
 }
 function getEcheanceConditionDisplay(e0){
   const parts=[];
-  if(e0?.typeSTAB && e0?.stabEcheance) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabEcheance+'</span>');
+  if(e0?.typeSTAB && e0?.stabEcheance) {
+    const isT0 = e0.stabEcheance === 'T0';
+    const col = isT0 ? 'badge-amber' : 'badge-purple';
+    parts.push('<span class="badge '+col+'" style="font-size:11px">'+e0.stabEcheance+'</span>');
+  }
   if(e0?.typeSTAB && e0?.stabTemps) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabTemps+'</span>');
+  if(e0?.typeSTAB && e0?.stabPtc) parts.push('<span style="font-size:11px;color:var(--purple)">PTC: '+e0.stabPtc+'</span>');
+  if(e0?.typePIF && e0?.pifSpq) parts.push('<span class="badge badge-amber" style="font-size:11px">SPQ: '+e0.pifSpq+'</span>');
   if(e0?.typeMP && e0?.mpSpq) parts.push('<span class="badge badge-green" style="font-size:11px">SPQ: '+e0.mpSpq+'</span>');
   if(e0?.typeMP && e0?.mpContenants) parts.push('<span style="font-size:11px;color:var(--green)">'+e0.mpContenants+' contenant'+(e0.mpContenants>1?'s':'')+'</span>');
   return parts.length ? parts.join('<br>') : '<span style="color:var(--text3);font-size:12px">—</span>';
@@ -4186,7 +4198,7 @@ wizardRecap = function(){
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
-  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">Non applicable</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
+  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+letters[i])+'</span>').join('');
   const refHtml='<div style="font-size:12px;color:var(--text2);margin-top:6px">'+((pif||mp)?'SPQ : <strong>'+spq+'</strong> ':'')+(stab?'PTC : <strong>'+ptc+'</strong>':'')+'</div>';
   const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(echeance||'—')+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+refHtml+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché(s)</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('')+'</div></div>';
