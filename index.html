@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v13 — Physico-Chimie</title>
+<title>LabManager v14 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4247,7 +4247,7 @@ wizardConfirm = function(){
 
 function getLotSousSerieContenantDisplay(e0, group){
   if(e0?.typeMP && !e0?.typePIF) {
-    const count=e0?.nbContenants||1;
+    const count=e0?.nbContenants||e0?.mpContenants||1;
     return '<span class="badge badge-green" style="font-size:13px;font-weight:700;padding:3px 10px">'+count+'</span>';
   }
   const count=group?.length||1;
