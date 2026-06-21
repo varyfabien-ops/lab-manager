@@ -1344,11 +1344,20 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781975394472": "en_cours"
+        "1781975394472": "terminee"
       },
       "analyseStatutsInfo": {
         "1781975394472": {
-          "en_cours": "21/06/2026"
+          "en_cours": "21/06/2026",
+          "terminee": "21/06/2026"
+        }
+      },
+      "resultats": {
+        "1781975394472": {
+          "valeur": "",
+          "commentaire": "",
+          "date": "21/06/2026",
+          "unite": ""
         }
       }
     }
@@ -1373,11 +1382,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-A — pH : en_cours",
-      "time": "20/06 18:56"
-    },
     {
       "icon": "list-check",
       "text": "YYYYYYY-A — L*a*b : en_cours",
@@ -1621,6 +1625,11 @@
     {
       "icon": "list-check",
       "text": "TEST-A — Identification IR : en_cours",
+      "time": "21/06 10:19"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Identification IR :  — lot TEST",
       "time": "21/06 10:19"
     }
   ]
