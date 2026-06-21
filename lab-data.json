@@ -503,6 +503,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST-C | PIF"
+    },
+    {
+      "id": 1782029969300.3042,
+      "nom": "Identification IR",
+      "echantillonCode": "TEST-A",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-A | "
     }
   ],
   "catalogue": [
@@ -1312,6 +1321,28 @@
       "date": "2026-06-21",
       "statut": "approuve",
       "note": ""
+    },
+    {
+      "id": 1782029969300,
+      "code": "TEST-A",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "pifSpq": "",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "SPQXXXX-3",
+      "mpContenants": 5,
+      "lot": "TEST",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1334,11 +1365,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : pH",
-      "time": "20/06 18:55"
-    },
     {
       "icon": "package",
       "text": "Réception: Xylocaïne 5% Naphazoline — 1 entrée(s) — 1 analyse(s)",
@@ -1583,6 +1609,11 @@
       "icon": "book",
       "text": "Analyse modifiee : Identification IR",
       "time": "21/06 10:18"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
+      "time": "21/06 10:19"
     }
   ]
 }
