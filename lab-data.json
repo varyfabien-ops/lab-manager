@@ -1486,37 +1486,6 @@
       }
     },
     {
-      "id": 1782044170610,
-      "code": "YYYYYYY",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "pifSpq": "",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "SPQXXXX-3",
-      "mpContenants": 20,
-      "nbSeries": 1,
-      "lot": "YYYYYYY",
-      "date": "2026-06-21",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781975394472": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781975394472": {
-          "en_cours": "21/06/2026"
-        }
-      }
-    },
-    {
       "id": 1782044667842,
       "code": "TEST",
       "produitId": 1781852369953,
@@ -1602,11 +1571,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : YYYYYYY-A",
-      "time": "21/06 09:35"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-B",
@@ -1850,6 +1814,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA",
+      "time": "21/06 14:48"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : YYYYYYY",
       "time": "21/06 14:48"
     }
   ]
