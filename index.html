@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v36 — Physico-Chimie</title>
+<title>LabManager v37 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -766,19 +766,7 @@
             </div>
           </label>
         </div>
-                <div id="w-pif-options" style="display:none;background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:14px;margin-bottom:10px">
-          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Informations PIF</div>
-          <div class="form-grid">
-            <div class="form-group"><label>Référence SPQ *</label><input id="w-pif-spq" placeholder="Ex: SPQ-2024-001"></div>
-            <div class="form-group"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1"></div>
-          </div>
-
-          <div class="form-group">
-            <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
-            <div id="w-pif-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
-          </div>
-        </div>
-        <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
+                <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
           <div class="form-grid">
             <div class="form-group"><label>Pointage (Step)</label>
@@ -812,6 +800,7 @@
         <div style="font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px"><i class="ti ti-file-text"></i> Références documentaires</div>
         <div class="form-grid">
           <div class="form-group" id="w-ref-spq-wrap"><label>Référence SPQ * <span style="color:var(--text3);font-weight:400">(PIF / MP)</span></label><input id="w-ref-spq" placeholder="Ex: SPQ-XXX"></div>
+          <div class="form-group" id="w-ref-nb-series-wrap" style="display:none"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1"></div>
           <div class="form-group" id="w-ref-ptc-wrap"><label>Référence PTC * <span style="color:var(--text3);font-weight:400">(STAB)</span></label><input id="w-ref-ptc" placeholder="Ex: PTC-XXX"></div>
         </div>
         <div class="form-group" id="w-ref-marches-wrap" style="display:none;margin-top:10px">
@@ -4522,6 +4511,8 @@ function updateRefVisibilityV106(){
   const ptc=document.getElementById('w-ref-ptc-wrap');
   if(box) box.style.display=(pif||mp||stab)?'block':'none';
   if(spq) spq.style.display=(pif||mp)?'flex':'none';
+  const nbSw=document.getElementById('w-ref-nb-series-wrap');
+  if(nbSw) nbSw.style.display=pif?'flex':'none';
   if(ptc) ptc.style.display=stab?'flex':'none';
   // Marchés : visibles uniquement pour PIF
   const marchesWrap=document.getElementById('w-ref-marches-wrap');
