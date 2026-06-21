@@ -1582,31 +1582,6 @@
       "note": ""
     },
     {
-      "id": 1782044734891,
-      "code": "9960000",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "T0",
-      "stabPtc": "PTCXXXX-3",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "nbSeries": 1,
-      "lot": "9960000",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1782044806824,
       "code": "BBBBBB",
       "produitId": 1781852369953,
@@ -1669,11 +1644,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : DFRG-C3",
-      "time": "20/06 21:56"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C4",
@@ -1918,6 +1888,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : TEST22-A",
       "time": "21/06 14:42"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : 9960000",
+      "time": "21/06 14:47"
     }
   ]
 }
