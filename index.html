@@ -1172,7 +1172,7 @@ function wizardNext() {
   if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
   let nextStep = wizardStep + 1;
   // Sauter étapes 4 et 5 si PIF seul (déjà dans l'étape 3)
-  if (nextStep === 4 && (isPIFOnly() || isStabOnly())) nextStep = 5;
+  if (nextStep === 4 && (isPIFOnly() || isStabOnly() || isMPOnly())) nextStep = 5;
   if (nextStep === 5 && (isPIFOnly() || isStabOnly() || isMPOnly())) nextStep = 6;
   wizardStep = nextStep;
   wizardRender();
@@ -1182,7 +1182,7 @@ function wizardPrev() {
   if (wizardStep <= 1) return;
   let prevStep = wizardStep - 1;
   if (prevStep === 5 && (isPIFOnly() || isStabOnly() || isMPOnly())) prevStep = 4;
-  if (prevStep === 4 && (isPIFOnly() || isStabOnly())) prevStep = 3;
+  if (prevStep === 4 && (isPIFOnly() || isStabOnly() || isMPOnly())) prevStep = 3;
   wizardStep = prevStep;
   wizardRender();
 }
