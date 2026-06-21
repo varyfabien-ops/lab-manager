@@ -593,6 +593,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA-A | PIF "
+    },
+    {
+      "id": 1782045755489.2969,
+      "nom": "L*a*b",
+      "echantillonCode": "TEST22-A",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST22-A | PIF "
+    },
+    {
+      "id": 1782045755489.9883,
+      "nom": "TCC0044",
+      "echantillonCode": "TEST22-A",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST22-A | PIF "
     }
   ],
   "catalogue": [
@@ -1629,6 +1647,25 @@
       "date": "2026-06-21",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782045755489,
+      "code": "TEST22-A",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020,
+        1781852438719
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "TEST22",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1651,11 +1688,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : DFRG-C1",
-      "time": "20/06 21:49"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C2",
@@ -1900,6 +1932,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
       "time": "21/06 14:41"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
+      "time": "21/06 14:42"
     }
   ]
 }
