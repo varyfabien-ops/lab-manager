@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v37 — Physico-Chimie</title>
+<title>LabManager v38 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -745,7 +745,6 @@
             <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-flask" style="font-size:28px;color:var(--amber);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">PIF</div>
-              
               <input type="checkbox" id="w-type-pif" style="display:none">
             </div>
           </label>
@@ -753,7 +752,6 @@
             <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-thermometer" style="font-size:28px;color:var(--purple);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">STABILITÉ</div>
-              
               <input type="checkbox" id="w-type-stab" style="display:none">
             </div>
           </label>
@@ -761,13 +759,27 @@
             <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
               <i class="ti ti-box" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
               <div style="font-weight:600;font-size:14px">MP</div>
-              
               <input type="checkbox" id="w-type-mp" style="display:none">
             </div>
           </label>
         </div>
-                <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
-          <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilite</div>
+
+        <!-- Bloc PIF (jaune) -->
+        <div id="w-pif-options" style="display:none;background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:14px;margin-bottom:10px">
+          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Informations PIF</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Référence SPQ *</label><input id="w-ref-spq" placeholder="Ex: SPQ-2024-001"></div>
+            <div class="form-group"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1"></div>
+          </div>
+          <div class="form-group" style="margin-top:10px">
+            <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
+            <div id="w-ref-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
+          </div>
+        </div>
+
+        <!-- Bloc STAB (violet) -->
+        <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px;margin-bottom:10px">
+          <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilité</div>
           <div class="form-grid">
             <div class="form-group"><label>Pointage (Step)</label>
               <select id="w-stab-echeance">
@@ -782,30 +794,20 @@
                 <option value="T18M">T18M</option>
                 <option value="T24M">T24M</option>
                 <option value="T36M">T36M</option>
-              </select></div>
-            <div class="form-group"><label>Temperatures (separees par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
-            <div class="form-group"><label>Référence PTC</label><input id="w-stab-ptc" placeholder="Ex: PTC-2024-001"></div>
+              </select>
+            </div>
+            <div class="form-group"><label>Températures (séparées par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
+            <div class="form-group"><label>Référence PTC *</label><input id="w-ref-ptc" placeholder="Ex: PTC-2024-001"></div>
           </div>
         </div>
-      </div>
 
-        <div id="w-mp-options" style="display:none;background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius);padding:14px;margin-top:10px">
-          <div style="font-weight:600;font-size:12px;color:var(--green);margin-bottom:10px"><i class="ti ti-box"></i> Options Matière Première</div>
+        <!-- Bloc MP (vert) -->
+        <div id="w-mp-options" style="display:none;background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius);padding:14px;margin-bottom:10px">
+          <div style="font-weight:600;font-size:12px;color:var(--green);margin-bottom:10px"><i class="ti ti-box"></i> Matière Première</div>
           <div class="form-grid">
             <div class="form-group"><label>Référence SPQ *</label><input id="w-mp-spq" placeholder="Ex: SPQ-2024-001"></div>
             <div class="form-group"><label>Nombre de contenants</label><input type="number" id="w-mp-contenants" min="1" value="1"></div>
           </div>
-        </div>
-      <div id="w-ref-options" style="display:none;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px">
-        <div style="font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px"><i class="ti ti-file-text"></i> Références documentaires</div>
-        <div class="form-grid">
-          <div class="form-group" id="w-ref-spq-wrap"><label>Référence SPQ * <span style="color:var(--text3);font-weight:400">(PIF / MP)</span></label><input id="w-ref-spq" placeholder="Ex: SPQ-XXX"></div>
-          <div class="form-group" id="w-ref-nb-series-wrap" style="display:none"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1"></div>
-          <div class="form-group" id="w-ref-ptc-wrap"><label>Référence PTC * <span style="color:var(--text3);font-weight:400">(STAB)</span></label><input id="w-ref-ptc" placeholder="Ex: PTC-XXX"></div>
-        </div>
-        <div class="form-group" id="w-ref-marches-wrap" style="display:none;margin-top:10px">
-          <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
-          <div id="w-ref-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
         </div>
       </div>
 
@@ -4498,38 +4500,11 @@ function ensureRefsAndTimepointsV106(){
     dl.innerHTML=['T0','T1M','T3M','T6M','T9M','T12M','T18M','T24M','T36M'].map(x=>'<option value="'+x+'">').join('');
     document.body.appendChild(dl);
   }
-  // w-ref-options est maintenant dans le HTML statique
-  updateRefVisibilityV106();
+  // refs maintenant dans wstep-3 statique
 }
 
 function updateRefVisibilityV106(){
-  const pif=wizardIsPifSelected?.()||false;
-  const mp=wizardIsMpSelected?.()||false;
-  const stab=wizardIsStabSelected?.()||false;
-  const box=document.getElementById('w-ref-options');
-  const spq=document.getElementById('w-ref-spq-wrap');
-  const ptc=document.getElementById('w-ref-ptc-wrap');
-  if(box) box.style.display=(pif||mp||stab)?'block':'none';
-  if(spq) spq.style.display=(pif||mp)?'flex':'none';
-  const nbSw=document.getElementById('w-ref-nb-series-wrap');
-  if(nbSw) nbSw.style.display=pif?'flex':'none';
-  if(ptc) ptc.style.display=stab?'flex':'none';
-  // Marchés : visibles uniquement pour PIF
-  const marchesWrap=document.getElementById('w-ref-marches-wrap');
-  if(marchesWrap) {
-    marchesWrap.style.display=pif?'block':'none';
-    if(pif) {
-      const marchesEl=document.getElementById('w-ref-marches-check');
-      if(marchesEl) {
-        const marches=state.marches||[];
-        marchesEl.innerHTML=marches.length
-          ? marches.map(m=>'<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</span></label>').join('')
-          : '<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>';
-      }
-    }
-  }
-  const stabOpts=document.getElementById('w-stab-options');
-  if(stabOpts) stabOpts.style.display=stab?'block':'none';
+  // Les blocs sont maintenant gérés directement dans toggleTypeCard
 }
 
 const __openWizard_v106 = openWizard;
@@ -4584,7 +4559,7 @@ wizardRecap = function(){
   const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const spq=document.getElementById('w-ref-spq')?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
+  const spq=(document.getElementById('w-ref-spq')||document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
@@ -4603,7 +4578,7 @@ wizardConfirm = function(){
   const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const spq=document.getElementById('w-ref-spq')?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
+  const spq=(document.getElementById('w-ref-spq')||document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1;
   const mpOnly=mp&&!pif;
