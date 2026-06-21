@@ -1145,24 +1145,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781975427612,
-      "code": "DFRG-C6",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "DFRG",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1781975427613,
       "code": "DFRG-C7",
       "produitId": 1781975343839,
@@ -1201,11 +1183,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Xylocaïne Nébuliseur — 3 sous-séries — 1 analyse",
-      "time": "20/06 16:36"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : 9960000",
@@ -1449,6 +1426,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C5",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : DFRG-C6",
       "time": "21/06 09:45"
     }
   ]
