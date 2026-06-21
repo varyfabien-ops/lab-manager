@@ -643,11 +643,28 @@
         "Balance",
         "Volume"
       ],
-      "duree": "",
-      "code": "",
       "produitsIds": [
         1781852369953
       ],
+      "champsResultats": [
+        {
+          "label": "Teneur en RM493",
+          "type": "numerique",
+          "unite": "%"
+        },
+        {
+          "label": "Teneur en Phenol",
+          "type": "numerique",
+          "unite": "%"
+        },
+        {
+          "label": "Teneur en Alcool Benzylique",
+          "type": "numerique",
+          "unite": "%"
+        }
+      ],
+      "duree": "",
+      "code": "",
       "description": "Dosage du RM493, des conservateurs et des impuretés"
     },
     {
@@ -1591,11 +1608,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiee : L*a*b",
-      "time": "20/06 21:35"
-    },
-    {
       "icon": "list-check",
       "text": "AAAAAAA-A — TCC0044 : en_cours",
       "time": "20/06 21:48"
@@ -1839,6 +1851,11 @@
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
       "time": "21/06 14:26"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : TCC0044",
+      "time": "21/06 14:34"
     }
   ]
 }
