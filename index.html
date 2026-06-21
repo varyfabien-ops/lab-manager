@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v14 — Physico-Chimie</title>
+<title>LabManager v16 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1016,18 +1016,14 @@
       <!-- Conforme / Non-conforme -->
       <div id="resultat-conforme" style="display:none">
         <div style="display:flex;gap:12px;margin-top:8px">
-          <label style="flex:1;cursor:pointer" onclick="selectConformite('conforme')">
-            <div id="card-conforme" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-circle-check" style="font-size:32px;color:var(--green);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:15px;color:var(--green)">Conforme</div>
-            </div>
-          </label>
-          <label style="flex:1;cursor:pointer" onclick="selectConformite('non-conforme')">
-            <div id="card-non-conforme" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-circle-x" style="font-size:32px;color:var(--red);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:15px;color:var(--red)">Non conforme</div>
-            </div>
-          </label>
+          <div id="card-conforme" onclick="selectConformite('conforme')" style="flex:1;cursor:pointer;border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+            <i class="ti ti-circle-check" style="font-size:32px;color:var(--green);display:block;margin-bottom:8px;pointer-events:none"></i>
+            <div style="font-weight:600;font-size:15px;color:var(--green);pointer-events:none">Conforme</div>
+          </div>
+          <div id="card-non-conforme" onclick="selectConformite('non-conforme')" style="flex:1;cursor:pointer;border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+            <i class="ti ti-circle-x" style="font-size:32px;color:var(--red);display:block;margin-bottom:8px;pointer-events:none"></i>
+            <div style="font-weight:600;font-size:15px;color:var(--red);pointer-events:none">Non conforme</div>
+          </div>
         </div>
         <input type="hidden" id="resultat-conformite-val">
       </div>
@@ -1777,7 +1773,7 @@ function onTendProduitChange() {
       ? a.champsResultats
       : [{ type: a.typeResultat || 'numerique' }];
     const hasNumericResult = champs.some(c => (c.type || 'numerique') === 'numerique');
-    const appliesToProduct = !a.produitsIds || !a.produitsIds.length || a.produitsIds.includes(fProduit);
+    const appliesToProduct = Array.isArray(a.produitsIds) && a.produitsIds.includes(fProduit);
     return hasNumericResult && appliesToProduct;
   });
 
