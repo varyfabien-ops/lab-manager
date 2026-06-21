@@ -673,11 +673,18 @@
       "habilitations": [
         "Osmolalité"
       ],
-      "duree": "",
-      "code": "OSMO",
       "produitsIds": [
         1781852369953
       ],
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": "mOsm/kg"
+        }
+      ],
+      "duree": "",
+      "code": "",
       "description": ""
     },
     {
@@ -1608,11 +1615,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "AAAAAAA-A — TCC0044 : en_cours",
-      "time": "20/06 21:48"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiee : Identification IR",
       "time": "20/06 21:49"
@@ -1856,6 +1858,11 @@
       "icon": "book",
       "text": "Analyse modifiee : TCC0044",
       "time": "21/06 14:34"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : Osmolalité",
+      "time": "21/06 14:35"
     }
   ]
 }
