@@ -881,6 +881,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: BBBBBB | PIF "
+    },
+    {
+      "id": 1782055641739.4592,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-1 | PIF "
+    },
+    {
+      "id": 1782055641739.334,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-2 | PIF "
     }
   ],
   "catalogue": [
@@ -1754,6 +1772,42 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782055641739,
+      "code": "AAAAAAA-1",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1782055641740,
+      "code": "AAAAAAA-2",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1776,11 +1830,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "rosette",
-      "text": "Lot approuvé : TEST",
-      "time": "21/06 10:24"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
@@ -2025,6 +2074,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : BBBBBB",
       "time": "21/06 17:20"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 1 analyse(s)",
+      "time": "21/06 17:27"
     }
   ]
 }
