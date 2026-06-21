@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v39 — Physico-Chimie</title>
+<title>LabManager v40 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4593,14 +4593,14 @@ wizardConfirm = function(){
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1;
   const mpOnly=mp&&!pif;
+  const nbMpCont=mpOnly?(parseInt(document.getElementById('w-mp-contenants')?.value)||1):undefined;
   const entryCount=mpOnly?1:nb;
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  // debug removed
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   for(let i=0;i<entryCount;i++){
     const code=mpOnly?lot:(wizardIsStabOnly()?lot:(nb>1?lot+'-'+(i+1):lot));
-    const nbContenants=mpOnly?nb:undefined;
+    const nbContenants=mpOnly?nbMpCont:undefined;
     state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, nbContenants, refSPQ:spq, refPTC:ptc, stabEcheance:echeance, stabTemps:condition, lot, date, statut:'recu', note:''});
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')}));
   }
