@@ -512,6 +512,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST-A | "
+    },
+    {
+      "id": 1782043110047.321,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | PIF"
     }
   ],
   "catalogue": [
@@ -1361,6 +1370,31 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782043110047,
+      "code": "AAAAAAA",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "pifSpq": "SPQXXXX-2",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "nbSeries": 1,
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1383,11 +1417,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "vvvv-A — L*a*b : verifiee",
-      "time": "20/06 19:07"
-    },
     {
       "icon": "clipboard-check",
       "text": "Osmolalité : 310 — lot vvvv",
@@ -1632,6 +1661,11 @@
       "icon": "rosette",
       "text": "Lot approuvé : TEST",
       "time": "21/06 10:24"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
+      "time": "21/06 13:58"
     }
   ]
 }
