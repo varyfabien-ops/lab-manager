@@ -530,6 +530,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: YYYYYYY | "
+    },
+    {
+      "id": 1782043960327.6113,
+      "nom": "Identification IR",
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY | "
     }
   ],
   "catalogue": [
@@ -1421,6 +1430,29 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782043960327,
+      "code": "YYYYYYY",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "pifSpq": "",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "SPQXXXX-3",
+      "mpContenants": 40,
+      "nbSeries": 1,
+      "lot": "YYYYYYY",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1443,11 +1475,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "DFRG-C1 — Identification IR : en_cours",
-      "time": "20/06 19:10"
-    },
     {
       "icon": "list-check",
       "text": "vvvv-A — Osmolalité : verifiee",
@@ -1692,6 +1719,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY",
       "time": "21/06 14:11"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
+      "time": "21/06 14:12"
     }
   ]
 }
