@@ -479,7 +479,7 @@
         <option value="">— Sélectionner —</option>
       </select>
     </div>
-    <div class="form-group" style="min-width:200px" id="tend-resultat-group" style="display:none">
+    <div class="form-group" style="min-width:200px" id="tend-resultat-group">
       <label>Résultat</label>
       <select id="tend-resultat" onchange="renderTendances()" style="font-size:14px;padding:8px" disabled>
         <option value="">— Sélectionner —</option>
@@ -1750,81 +1750,130 @@ let editingTpIdx = null;
 
 
 function onTendProduitChange() {
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selChamp = document.getElementById('tend-champ');
   const selProduit = document.getElementById('tend-produit');
-  const fProduitVal = parseInt(selProduit?.value)||0;
-  // Vider et désactiver les selects suivants
-  while (selAnalyse && selAnalyse.options.length > 1) selAnalyse.remove(1);
-  if (selAnalyse) { selAnalyse.value=''; selAnalyse.disabled = !fProduitVal; }
-  while (selChamp && selChamp.options.length > 1) selChamp.remove(1);
-  if (selChamp) { selChamp.value=''; selChamp.disabled = true; }
-  const champGroup = document.getElementById('tend-champ-group');
-  if (champGroup) champGroup.style.display = 'none';
-  document.getElementById('tendances-container').innerHTML = '';
-  if (!fProduitVal) return;
-  // Peupler les analyses du produit sélectionné
-  const analyses = (state.catalogue||[]).filter(a => {
-    const hasNum = (a.champsResultats && a.champsResultats.some(c=>c.type==='numerique')) || a.typeResultat === 'numerique';
-    if (!hasNum) return false;
-    return a.produitsIds && a.produitsIds.includes(fProduitVal);
+  const selAnalyse = document.getElementById('tend-analyse');
+  const selResultat = document.getElementById('tend-resultat');
+  const container = document.getElementById('tendances-container');
+  const fProduit = parseInt(selProduit?.value) || 0;
+
+  if (selAnalyse) {
+    selAnalyse.innerHTML = '<option value="">— Sélectionner —</option>';
+    selAnalyse.disabled = !fProduit;
+  }
+  if (selResultat) {
+    selResultat.innerHTML = '<option value="">— Sélectionner —</option>';
+    selResultat.disabled = true;
+  }
+  if (container) container.innerHTML = '';
+
+  if (!fProduit) {
+    renderTendances();
+    return;
+  }
+
+  // Analyses applicables au produit sélectionné et possédant au moins un résultat numérique.
+  const analyses = (state.catalogue || []).filter(a => {
+    const champs = Array.isArray(a.champsResultats) && a.champsResultats.length
+      ? a.champsResultats
+      : [{ type: a.typeResultat || 'numerique' }];
+    const hasNumericResult = champs.some(c => (c.type || 'numerique') === 'numerique');
+    const appliesToProduct = !a.produitsIds || !a.produitsIds.length || a.produitsIds.includes(fProduit);
+    return hasNumericResult && appliesToProduct;
   });
+
   analyses.forEach(a => {
-    const o = document.createElement('option');
-    o.value = a.id; o.textContent = a.nom;
-    selAnalyse && selAnalyse.appendChild(o);
+    const opt = document.createElement('option');
+    opt.value = a.id;
+    opt.textContent = a.nom;
+    selAnalyse?.appendChild(opt);
   });
+
+  renderTendances();
 }
 
 function onTendAnalyseChange() {
   const selAnalyse = document.getElementById('tend-analyse');
-  const selChamp = document.getElementById('tend-champ');
-  const champGroup = document.getElementById('tend-champ-group');
-  const aId = parseInt(selAnalyse?.value)||0;
-  while (selChamp && selChamp.options.length > 1) selChamp.remove(1);
-  if (selChamp) { selChamp.value=''; selChamp.disabled = true; }
-  if (champGroup) champGroup.style.display = 'none';
-  document.getElementById('tendances-container').innerHTML = '';
-  if (!aId) return;
-  const a = (state.catalogue||[]).find(x=>x.id===aId);
-  if (!a) return;
-  const champs = a.champsResultats && a.champsResultats.length
-    ? a.champsResultats.filter(c=>c.type==='numerique')
-    : [{label: 'Résultat', unite: a.unite||''}];
-  if (champs.length > 1) {
-    // Plusieurs champs → montrer le select
-    if (champGroup) champGroup.style.display = 'block';
-    champs.forEach((c, i) => {
-      const o = document.createElement('option');
-      o.value = i; o.textContent = c.label + (c.unite?' ('+c.unite+')':'');
-      selChamp && selChamp.appendChild(o);
-    });
-    if (selChamp) selChamp.disabled = false;
-  } else {
-    // Un seul champ → sélectionner auto et afficher
-    if (champGroup) champGroup.style.display = 'none';
-    renderTendances();
+  const selResultat = document.getElementById('tend-resultat');
+  const container = document.getElementById('tendances-container');
+  const fAnalyse = parseInt(selAnalyse?.value) || 0;
+
+  if (selResultat) {
+    selResultat.innerHTML = '<option value="">— Sélectionner —</option>';
+    selResultat.disabled = !fAnalyse;
   }
+  if (container) container.innerHTML = '';
+
+  if (!fAnalyse) {
+    renderTendances();
+    return;
+  }
+
+  const analyse = (state.catalogue || []).find(a => a.id === fAnalyse);
+  if (!analyse) return;
+
+  const champs = Array.isArray(analyse.champsResultats) && analyse.champsResultats.length
+    ? analyse.champsResultats
+    : [{ label: 'Résultat', type: analyse.typeResultat || 'numerique', unite: analyse.unite || '' }];
+
+  const champsNumeriques = champs
+    .map((champ, index) => ({ ...champ, index }))
+    .filter(champ => (champ.type || 'numerique') === 'numerique');
+
+  champsNumeriques.forEach(champ => {
+    const opt = document.createElement('option');
+    opt.value = champ.index;
+    opt.textContent = (champ.label || 'Résultat') + (champ.unite ? ' (' + champ.unite + ')' : '');
+    selResultat?.appendChild(opt);
+  });
+
+  if (selResultat) {
+    selResultat.disabled = champsNumeriques.length === 0;
+    // Si un seul résultat numérique existe, on le sélectionne automatiquement et le graphique s'affiche.
+    if (champsNumeriques.length === 1) selResultat.value = String(champsNumeriques[0].index);
+  }
+
+  renderTendances();
+}
+
+function resetTendances() {
+  const selProduit = document.getElementById('tend-produit');
+  const selAnalyse = document.getElementById('tend-analyse');
+  const selResultat = document.getElementById('tend-resultat');
+  const container = document.getElementById('tendances-container');
+
+  if (selProduit) selProduit.value = '';
+  if (selAnalyse) {
+    selAnalyse.innerHTML = '<option value="">— Sélectionner —</option>';
+    selAnalyse.disabled = true;
+  }
+  if (selResultat) {
+    selResultat.innerHTML = '<option value="">— Sélectionner —</option>';
+    selResultat.disabled = true;
+  }
+  if (container) container.innerHTML = '';
+  renderTendances();
 }
 
 function renderTendances() {
   const selProduit = document.getElementById('tend-produit');
   const selAnalyse = document.getElementById('tend-analyse');
-  const selChamp = document.getElementById('tend-champ');
+  const selResultat = document.getElementById('tend-resultat');
   const container = document.getElementById('tendances-container');
 
-  // Peupler produits si vide
+  // Peupler les produits si le menu est vide.
   if (selProduit && selProduit.options.length <= 1) {
-    (state.produitsEch||[]).forEach(p => {
-      const o = document.createElement('option'); o.value=p.id; o.textContent=p.nom+(p.forme?' — '+p.forme:''); selProduit.appendChild(o);
+    (state.produitsEch || []).forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = p.nom + (p.forme ? ' — ' + p.forme : '');
+      selProduit.appendChild(opt);
     });
   }
 
-  const fProduit = parseInt(selProduit?.value)||0;
-  const fAnalyse = parseInt(selAnalyse?.value)||0;
-  const fChamp = parseInt(selChamp?.value);
+  const fProduit = parseInt(selProduit?.value) || 0;
+  const fAnalyse = parseInt(selAnalyse?.value) || 0;
+  const fResultat = parseInt(selResultat?.value);
 
-  // Afficher message si pas de produit sélectionné
   if (!fProduit) {
     if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un produit pour afficher les tendances</p></div>';
     return;
@@ -1833,137 +1882,89 @@ function renderTendances() {
     if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez une analyse</p></div>';
     return;
   }
-  if (isNaN(fChamp)) {
+  if (isNaN(fResultat)) {
     if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un résultat</p></div>';
     return;
   }
 
-  // Trouver l'analyse sélectionnée
-  const a = (state.catalogue||[]).find(x=>x.id===fAnalyse);
-  if (!a) return;
-  const champs = a.champsResultats && a.champsResultats.length ? a.champsResultats : [{label:'Résultat', type: a.typeResultat||'numerique', unite: a.unite||''}];
-  const champ = champs[fChamp];
+  const analyse = (state.catalogue || []).find(a => a.id === fAnalyse);
+  if (!analyse) return;
+
+  const champs = Array.isArray(analyse.champsResultats) && analyse.champsResultats.length
+    ? analyse.champsResultats
+    : [{ label: 'Résultat', type: analyse.typeResultat || 'numerique', unite: analyse.unite || '' }];
+  const champ = champs[fResultat];
   if (!champ) return;
 
-  // Collecter les données
   const points = [];
-  (state.echantillons||[]).forEach(e => {
-    if (fProduit && e.produitId !== fProduit) return;
-    const res = (e.resultats||{})[fAnalyse];
+  (state.echantillons || []).forEach(e => {
+    if (e.produitId !== fProduit) return;
+    const res = (e.resultats || {})[fAnalyse];
     if (!res) return;
-    const champsData = res.champs || (res.valeur !== undefined ? [{valeur: res.valeur}] : []);
-    const rawVal = champsData[fChamp]?.valeur;
-    const valNum = parseFloat(rawVal);
+    const champsData = Array.isArray(res.champs) ? res.champs : (res.valeur !== undefined ? [{ valeur: res.valeur }] : []);
+    const rawVal = champsData[fResultat]?.valeur;
+    const valNum = parseFloat(String(rawVal).replace(',', '.'));
     if (isNaN(valNum)) return;
-    points.push({ date: res.date||e.date||'', valeur: valNum, lot: e.lot||'—' });
+    points.push({
+      date: res.date || e.date || '',
+      valeur: valNum,
+      lot: e.lot || '—'
+    });
   });
 
-  points.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+  points.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
 
   if (!points.length) {
     if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Aucun résultat enregistré pour cette sélection</p></div>';
     return;
   }
 
-  // Générer le graphique SVG
-  const min = Math.min(...points.map(p=>p.valeur));
-  const max = Math.max(...points.map(p=>p.valeur));
+  const min = Math.min(...points.map(p => p.valeur));
+  const max = Math.max(...points.map(p => p.valeur));
   const range = max - min || 1;
-  const mean = points.reduce((s,p)=>s+p.valeur,0)/points.length;
-  const W=700, H=220, pad=60, padR=20, padT=20, padB=50;
-  const gW = W-pad-padR, gH = H-padT-padB;
-  const x = (i) => pad + (points.length>1 ? i/(points.length-1)*gW : gW/2);
-  const y = (v) => padT + (1-(v-min)/range)*gH;
-  const pathD = points.map((p,i)=>(i===0?'M':'L')+x(i).toFixed(1)+','+y(p.valeur).toFixed(1)).join(' ');
+  const mean = points.reduce((s, p) => s + p.valeur, 0) / points.length;
+  const W = 700, H = 220, pad = 60, padR = 20, padT = 20, padB = 50;
+  const gW = W - pad - padR, gH = H - padT - padB;
+  const x = i => pad + (points.length > 1 ? i / (points.length - 1) * gW : gW / 2);
+  const y = v => padT + (1 - (v - min) / range) * gH;
+  const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(p.valeur).toFixed(1)).join(' ');
+
   const ySteps = 5;
-  const yLabels = Array.from({length:ySteps+1},(_,i)=>{
-    const v = min + (max-min)*i/ySteps;
-    return '<text x="'+(pad-8)+'" y="'+y(v).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">'+v.toFixed(2)+'</text>';
+  const yLabels = Array.from({ length: ySteps + 1 }, (_, i) => {
+    const v = min + (max - min) * i / ySteps;
+    return '<text x="' + (pad - 8) + '" y="' + y(v).toFixed(1) + '" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">' + v.toFixed(2) + '</text>';
   }).join('');
-  const gridLines = Array.from({length:ySteps+1},(_,i)=>{
-    const v = min + (max-min)*i/ySteps;
-    return '<line x1="'+pad+'" y1="'+y(v).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(v).toFixed(1)+'" stroke="#eef1f5" stroke-width="1"/>';
+  const gridLines = Array.from({ length: ySteps + 1 }, (_, i) => {
+    const v = min + (max - min) * i / ySteps;
+    return '<line x1="' + pad + '" y1="' + y(v).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + y(v).toFixed(1) + '" stroke="#eef1f5" stroke-width="1"/>';
   }).join('');
-  const circles = points.map((p,i)=>
-    '<circle cx="'+x(i).toFixed(1)+'" cy="'+y(p.valeur).toFixed(1)+'" r="5" fill="#0d7c75" stroke="#fff" stroke-width="2"><title>'+p.lot+' — '+p.date+' : '+p.valeur+' '+champ.unite+'</title></circle>'
+  const circles = points.map((p, i) =>
+    '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(p.valeur).toFixed(1) + '" r="5" fill="#0d7c75" stroke="#fff" stroke-width="2"><title>' + p.lot + ' — ' + p.date + ' : ' + p.valeur + ' ' + (champ.unite || '') + '</title></circle>'
   ).join('');
-  const xLabels = points.map((p,i)=>
-    '<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+18)+'" text-anchor="middle" font-size="11" fill="#8896a8">'+p.lot+'</text>'+
-    '<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+30)+'" text-anchor="middle" font-size="10" fill="#aaa">'+p.date+'</text>'
+  const xLabels = points.map((p, i) =>
+    '<text x="' + x(i).toFixed(1) + '" y="' + (H - padB + 18) + '" text-anchor="middle" font-size="11" fill="#8896a8">' + p.lot + '</text>' +
+    '<text x="' + x(i).toFixed(1) + '" y="' + (H - padB + 30) + '" text-anchor="middle" font-size="10" fill="#aaa">' + p.date + '</text>'
   ).join('');
-  const valueLbls = points.map((p,i)=>
-    '<text x="'+x(i).toFixed(1)+'" y="'+(y(p.valeur)-10).toFixed(1)+'" text-anchor="middle" font-size="11" font-weight="600" fill="#0d7c75">'+p.valeur+'</text>'
+  const valueLabels = points.map((p, i) =>
+    '<text x="' + x(i).toFixed(1) + '" y="' + (y(p.valeur) - 10).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="600" fill="#0d7c75">' + p.valeur + '</text>'
   ).join('');
 
   if (container) container.innerHTML = '<div class="table-card" style="padding:20px">'
     + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">'
-    + '<h3 style="font-size:15px;font-weight:600">'+a.nom+' — '+champ.label+(champ.unite?' <span style="font-size:12px;color:var(--text3)">('+champ.unite+')</span>':'')+'</h3>'
-    + '<span class="badge badge-cyan" style="margin-left:auto">'+points.length+' mesure'+(points.length>1?'s':'')+'</span>'
-    + '<span class="badge badge-gray">Moy: '+mean.toFixed(2)+(champ.unite?' '+champ.unite:'')+'</span>'
+    + '<h3 style="font-size:15px;font-weight:600">' + analyse.nom + ' — ' + (champ.label || 'Résultat') + (champ.unite ? ' <span style="font-size:12px;color:var(--text3)">(' + champ.unite + ')</span>' : '') + '</h3>'
+    + '<span class="badge badge-cyan" style="margin-left:auto">' + points.length + ' mesure' + (points.length > 1 ? 's' : '') + '</span>'
+    + '<span class="badge badge-gray">Moy: ' + mean.toFixed(2) + (champ.unite ? ' ' + champ.unite : '') + '</span>'
     + '</div>'
-    + '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;overflow:visible">'
+    + '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;overflow:visible">'
     + gridLines
-    + '<line x1="'+pad+'" y1="'+padT+'" x2="'+pad+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
-    + '<line x1="'+pad+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
+    + '<line x1="' + pad + '" y1="' + padT + '" x2="' + pad + '" y2="' + (H - padB) + '" stroke="#dde2ea" stroke-width="1"/>'
+    + '<line x1="' + pad + '" y1="' + (H - padB) + '" x2="' + (W - padR) + '" y2="' + (H - padB) + '" stroke="#dde2ea" stroke-width="1"/>'
     + yLabels
-    + (points.length>1?'<path d="'+pathD+'" fill="none" stroke="#0d7c75" stroke-width="2.5" stroke-linejoin="round"/>':'')
-    + '<line x1="'+pad+'" y1="'+y(mean).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(mean).toFixed(1)+'" stroke="#0d7c75" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>'
-    + valueLbls + circles + xLabels
+    + (points.length > 1 ? '<path d="' + pathD + '" fill="none" stroke="#0d7c75" stroke-width="2.5" stroke-linejoin="round"/>' : '')
+    + '<line x1="' + pad + '" y1="' + y(mean).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + y(mean).toFixed(1) + '" stroke="#0d7c75" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>'
+    + valueLabels + circles + xLabels
     + '</svg></div>';
 }
-
-function onTendProduitChange() {
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selChamp = document.getElementById('tend-champ');
-  const fProduit = parseInt(document.getElementById('tend-produit')?.value)||0;
-
-  // Reset analyse et champ
-  if (selAnalyse) { selAnalyse.innerHTML='<option value="">— Sélectionner une analyse —</option>'; selAnalyse.disabled = !fProduit; }
-  if (selChamp) { selChamp.innerHTML='<option value="">— Sélectionner un résultat —</option>'; selChamp.disabled = true; }
-
-  if (!fProduit) { renderTendances(); return; }
-
-  // Peupler les analyses du produit qui ont des résultats numériques
-  const analyses = (state.catalogue||[]).filter(a => {
-    const hasNum = (a.champsResultats && a.champsResultats.some(c=>c.type==='numerique')) || a.typeResultat === 'numerique';
-    if (!hasNum) return false;
-    return !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(fProduit);
-  });
-  if (selAnalyse) analyses.forEach(a => {
-    const o = document.createElement('option'); o.value=a.id; o.textContent=a.nom; selAnalyse.appendChild(o);
-  });
-  renderTendances();
-}
-
-function onTendAnalyseChange() {
-  const selChamp = document.getElementById('tend-champ');
-  const fAnalyse = parseInt(document.getElementById('tend-analyse')?.value)||0;
-
-  if (selChamp) { selChamp.innerHTML='<option value="">— Sélectionner un résultat —</option>'; selChamp.disabled = !fAnalyse; }
-
-  if (!fAnalyse) { renderTendances(); return; }
-
-  const a = (state.catalogue||[]).find(x=>x.id===fAnalyse);
-  if (!a) return;
-  const champs = a.champsResultats && a.champsResultats.length ? a.champsResultats : [{label:'Résultat', type: a.typeResultat||'numerique', unite: a.unite||''}];
-  const numChamps = champs.map((c,i)=>({...c, idx:i})).filter(c=>c.type==='numerique');
-
-  if (selChamp) {
-    if (numChamps.length === 1) {
-      // Un seul champ numérique : sélectionner automatiquement
-      const o = document.createElement('option'); o.value=numChamps[0].idx; o.textContent=numChamps[0].label+(numChamps[0].unite?' ('+numChamps[0].unite+')':''); selChamp.appendChild(o);
-      selChamp.value = numChamps[0].idx;
-      selChamp.disabled = false;
-    } else {
-      numChamps.forEach(c => {
-        const o = document.createElement('option'); o.value=c.idx; o.textContent=c.label+(c.unite?' ('+c.unite+')':''); selChamp.appendChild(o);
-      });
-      selChamp.disabled = false;
-    }
-  }
-  renderTendances();
-}
-
 
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
@@ -3827,6 +3828,7 @@ window.ajouterChampResultat = ajouterChampResultat;
 window.toggleConformiteChamp = toggleConformiteChamp;
 window.sauvegarderResultat = sauvegarderResultat;
 window.renderTendances = renderTendances;
+window.resetTendances = resetTendances;
 window.onTendProduitChange = onTendProduitChange;
 window.onTendAnalyseChange = onTendAnalyseChange;
 window.onTendProduitChange = onTendProduitChange;
