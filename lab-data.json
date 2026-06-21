@@ -1133,6 +1133,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: BBBBBB | MP "
+    },
+    {
+      "id": 1782056842554.4507,
+      "nom": "Identification IR",
+      "echantillonCode": "BBBBBB",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB | MP "
     }
   ],
   "catalogue": [
@@ -1969,6 +1978,24 @@
       "date": "2026-06-21",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782056842554,
+      "code": "BBBBBB",
+      "produitId": 1782056443354,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "BBBBBB",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1991,11 +2018,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
-      "time": "21/06 14:25"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
@@ -2239,6 +2261,11 @@
     {
       "icon": "trash",
       "text": "Lot supprime : BBBBBB (2 entrees)",
+      "time": "21/06 17:47"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Mépivacaïne HCl — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:47"
     }
   ]
