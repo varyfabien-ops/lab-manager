@@ -1690,71 +1690,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781960722999,
-      "code": "BBBBBB-A",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781509335357,
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959632897,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "BBBBBB",
-      "date": "2026-06-20",
-      "statut": "approuve",
-      "note": "",
-      "analyseStatuts": {
-        "1781509335357": "verifiee",
-        "1781852405020": "verifiee",
-        "1781852438719": "verifiee",
-        "1781852984224": "verifiee",
-        "1781959632897": "verifiee",
-        "1781959743113": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1781509335357": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        },
-        "1781852405020": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        },
-        "1781852438719": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        },
-        "1781852984224": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        },
-        "1781959632897": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        },
-        "1781959743113": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        }
-      },
-      "dateApprobation": "20/06/2026"
-    },
-    {
       "id": 1781961801829,
       "code": "YYYYYYY",
       "produitId": 1781509266740,
@@ -2034,24 +1969,6 @@
       "date": "2026-06-21",
       "statut": "recu",
       "note": ""
-    },
-    {
-      "id": 1782056504071,
-      "code": "BBBBBB",
-      "produitId": 1782056443354,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "BBBBBB",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -2074,11 +1991,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
-      "time": "21/06 14:24"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
@@ -2323,6 +2235,11 @@
       "icon": "package",
       "text": "Réception: Mépivacaïne HCl — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:41"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : BBBBBB (2 entrees)",
+      "time": "21/06 17:47"
     }
   ]
 }
