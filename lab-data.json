@@ -1145,34 +1145,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781974565277,
-      "code": "TEST-A",
-      "produitId": 1781508169429,
-      "marcheIds": [
-        1781508724125
-      ],
-      "analysesIds": [
-        1781509335357
-      ],
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "stabEcheance": "T0",
-      "stabTemps": "5C, 25C",
-      "lot": "TEST",
-      "date": "2026-06-20",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781509335357": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781509335357": {
-          "en_cours": "20/06/2026"
-        }
-      }
-    },
-    {
       "id": 1781975427611,
       "code": "DFRG-C5",
       "produitId": 1781975343839,
@@ -1269,11 +1241,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "YYYYYYY — TCC0015 : verifiee",
-      "time": "20/06 16:35"
-    },
     {
       "icon": "rosette",
       "text": "Lot libere : YYYYYYY (Lipiodol)",
@@ -1517,6 +1484,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-A",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : TEST-A",
       "time": "21/06 09:45"
     }
   ]
