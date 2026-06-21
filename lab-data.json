@@ -836,6 +836,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: YYYYYYY-2 | PIF "
+    },
+    {
+      "id": 1782054467932.469,
+      "nom": "L*a*b",
+      "echantillonCode": "CCCCCC",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: CCCCCC | PIF "
     }
   ],
   "catalogue": [
@@ -1849,6 +1858,24 @@
       "date": "2026-06-21",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782054467932,
+      "code": "CCCCCC",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "CCCCCC",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1871,11 +1898,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 1 analyse",
-      "time": "21/06 10:04"
-    },
     {
       "icon": "list-check",
       "text": "TEST-A — L*a*b : en_cours",
@@ -2120,6 +2142,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 3 analyse(s)",
       "time": "21/06 16:41"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
+      "time": "21/06 17:07"
     }
   ]
 }
