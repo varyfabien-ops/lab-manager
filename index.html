@@ -1345,63 +1345,70 @@ function wizardRecap() {
   const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot = document.getElementById('w-lot')?.value||'';
   const date = document.getElementById('w-date')?.value||'';
-  const pif = document.getElementById('w-type-pif')?.checked;
-  const stab = document.getElementById('w-type-stab')?.checked;
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
   const echeance = document.getElementById('w-stab-echeance')?.value||'';
   const temps = document.getElementById('w-stab-temps')?.value||'';
-  let nb;
-  let marcheIds;
+  const stabPtc = document.getElementById('w-stab-ptc')?.value||'';
+  const pifSpq = document.getElementById('w-pif-spq')?.value||'';
+  const mpSpq = document.getElementById('w-mp-spq')?.value||'';
+  const mpContenants = parseInt(document.getElementById('w-mp-contenants')?.value)||1;
+
+  let nb, marcheIds;
   if (isPIFOnly()) {
     nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
     marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
   } else if (isStabOnly() || isMPOnly()) {
     nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
-    marcheIds = []; // Pas de marché pour STAB seule ni MP
+    marcheIds = [];
   } else {
     nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
     marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
   }
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  // marcheIds déjà défini selon le type
+
   const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
   const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+
+  // Générer les codes sous-séries
+  const sousSeries = nb === 1 ? [lot] : Array.from({length:nb},(_,i)=>lot+'-'+(i+1));
+
   const recap = document.getElementById('w-recap');
   if(!recap) return;
+
   recap.innerHTML = `
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div>
       <div style="font-weight:600">${prod.nom||'—'}</div>
-      ${prod.forme?`<div style="font-size:12px;color:var(--text2)">${prod.forme}${prod.dosage?' '+prod.dosage:''}</div>`:''}
+      ${prod.forme?'<div style="font-size:12px;color:var(--text2)">'+prod.forme+(prod.dosage?' '+prod.dosage:'')+'</div>':''}
     </div>
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Reception</div>
-      <div style="font-weight:600">${lot}</div>
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div>
+      <div style="font-weight:600">${lot||'—'}</div>
       <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
     </div>
     <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type & Sous-series</div>
-      <div style="display:flex;gap:6px;margin-bottom:6px">
+      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div>
+      <div style="display:flex;gap:6px;margin-bottom:8px">
         ${pif?'<span class="badge badge-amber">PIF</span>':''}
         ${stab?'<span class="badge badge-purple">STABILITÉ</span>':''}
         ${mp?'<span class="badge badge-green">MP</span>':''}
       </div>
-      ${mp&&mpSpq?'<div style="font-size:12px;color:var(--text2)">Réf. SPQ : '+mpSpq+'</div>':''}
-      ${mp?'<div style="font-size:12px;color:var(--text2)">Nb contenants : '+mpContenants+'</div>':''}
-      ${stab&&echeance?`<div style="font-size:12px;color:var(--text2)">Echeance : ${formatDate(echeance)}</div>`:''}
-      ${stab&&temps?`<div style="font-size:12px;color:var(--text2)">Temperatures : ${temps}</div>`:''}
-      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">${Array.from({length:nb},(_,i)=>`<span class="badge badge-cyan">${lot}-${letters[i]}</span>`).join('')}</div>
+      ${pif&&pifSpq?'<div style="font-size:12px;color:var(--text2)">Réf. SPQ : <strong>'+pifSpq+'</strong></div>':''}
+      ${stab&&echeance?'<div style="font-size:12px;color:var(--text2)">Pointage : <strong>'+echeance+'</strong></div>':''}
+      ${stab&&temps?'<div style="font-size:12px;color:var(--text2)">Températures : '+temps+'</div>':''}
+      ${stab&&stabPtc?'<div style="font-size:12px;color:var(--text2)">Réf. PTC : <strong>'+stabPtc+'</strong></div>':''}
+      ${mp&&mpSpq?'<div style="font-size:12px;color:var(--text2)">Réf. SPQ : <strong>'+mpSpq+'</strong></div>':''}
+      ${mp?'<div style="font-size:12px;color:var(--text2)">Nb contenants : <strong>'+mpContenants+'</strong></div>':''}
+      ${nb > 1 || !isStabOnly() ? '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">'+sousSeries.map(s=>'<span class="badge badge-cyan">'+s+'</span>').join('')+'</div>' : ''}
     </div>
-    ${marches.length?`<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marches</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">${marches.map(m=>`<span class="badge badge-blue">${m.nom}</span>`).join('')}</div>
-    </div>`:''}
+    ${marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marchés</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join('')+'</div></div>':''}
     <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
       <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
-        <i class="ti ti-list-check"></i> ${analyses.length} analyse${analyses.length>1?'s':''} x ${nb} sous-serie${nb>1?'s':''}
-        = ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning
+        ${analyses.length} analyse${analyses.length>1?'s':''} × ${nb} sous-série${nb>1?'s':''} = ${analyses.length*nb} entrée${analyses.length*nb>1?'s':''} dans le planning
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>`<span class="badge badge-cyan">${a.nom}</span>`).join('')}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('')}</div>
     </div>`;
 }
 
@@ -1602,45 +1609,62 @@ let _resultatEchId = null;
 let _resultatAnalyseId = null;
 
 function ouvrirModalResultat(echId, analyseId) {
-  _resultatEchId = echId;
-  _resultatAnalyseId = analyseId;
-  echId = parseInt(echId); analyseId = parseInt(analyseId);
-  echId = parseInt(echId); analyseId = parseInt(analyseId);
-  const ech = (state.echantillons||[]).find(e=>e.id===echId);
-  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
+  _resultatEchId = parseInt(echId);
+  _resultatAnalyseId = parseInt(analyseId);
+  const ech = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
+  const a = (state.catalogue||[]).find(x=>x.id===_resultatAnalyseId);
   if (!ech || !a) return;
 
-  // Titre et info
   const t = document.getElementById('modal-resultat-title');
   if(t) t.textContent = 'Résultat — ' + a.nom;
   const info = document.getElementById('modal-resultat-info');
-  if(info) info.innerHTML = '<strong>' + (((state.produitsEch||[]).find(p=>p.id===ech.produitId))?.nom||'—') + '</strong> — Lot : <code>' + (ech.lot||'—') + '</code>';
+  const prodNom = (state.produitsEch||[]).find(p=>p.id===ech.produitId)?.nom||'—';
+  if(info) info.innerHTML = '<strong>' + prodNom + '</strong> — Lot : <code>' + (ech.lot||'—') + '</code>';
 
-  // Afficher le bon champ selon le type
-  const type = a.typeResultat||'texte';
-  document.getElementById('resultat-numerique').style.display = type==='numerique' ? 'block' : 'none';
-  document.getElementById('resultat-texte').style.display = type==='texte' ? 'block' : 'none';
-  document.getElementById('resultat-conforme').style.display = type==='conforme' ? 'block' : 'none';
+  const existing = (ech.resultats||{})[_resultatAnalyseId] || {};
 
-  // Label unité
-  const ul = document.getElementById('resultat-unite-label');
-  if(ul) ul.textContent = 'Valeur' + (a.unite ? ' (' + a.unite + ')' : '');
+  // Utiliser les champsResultats si définis, sinon 1 champ par défaut
+  const champs = a.champsResultats && a.champsResultats.length
+    ? a.champsResultats
+    : [{ label: 'Résultat', type: a.typeResultat||'texte', unite: a.unite||'' }];
 
-  // Pré-remplir si résultat existant
-  const existing = (ech.resultats||{})[analyseId];
-  document.getElementById('resultat-valeur').value = existing?.valeur||'';
-  document.getElementById('resultat-texte-val').value = existing?.valeur||'';
-  document.getElementById('resultat-conformite-val').value = existing?.valeur||'';
-  document.getElementById('resultat-commentaire').value = existing?.commentaire||'';
+  // Masquer les anciens champs fixes
+  ['resultat-numerique','resultat-texte','resultat-conforme'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.style.display='none';
+  });
 
-  // Reset conformité cards
-  document.getElementById('card-conforme').style.border = '2px solid var(--border)';
-  document.getElementById('card-non-conforme').style.border = '2px solid var(--border)';
-  if (existing?.valeur === 'conforme') selectConformite('conforme');
-  if (existing?.valeur === 'non-conforme') selectConformite('non-conforme');
+  // Générer les champs dynamiques dans resultat-numerique
+  const container = document.getElementById('resultat-numerique');
+  if (container) {
+    container.style.display = 'block';
+    container.innerHTML = champs.map((c, i) => {
+      const val = (existing.champs && existing.champs[i]) ? existing.champs[i].valeur : '';
+      if (c.type === 'conforme') {
+        const isConf = val === 'conforme', isNC = val === 'non-conforme';
+        return '<div class="form-group" style="margin-bottom:12px">'
+          + '<label style="font-size:13px;font-weight:600">' + c.label + '</label>'
+          + '<div style="display:flex;gap:8px;margin-top:6px">'
+          + '<button type="button" data-idx="'+i+'" data-val="conforme" onclick="toggleConformiteChamp(+this.dataset.idx,this.dataset.val)" id="conf-btn-'+i+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isConf?'background:var(--green);color:#fff;border-color:var(--green)':'')+'"><i class="ti ti-circle-check"></i> Conforme</button>'
+          + '<button type="button" data-idx="'+i+'" data-val="non-conforme" onclick="toggleConformiteChamp(+this.dataset.idx,this.dataset.val)" id="nc-btn-'+i+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isNC?'background:var(--red);color:#fff;border-color:var(--red)':'')+'"><i class="ti ti-circle-x"></i> Non conforme</button>'
+          + '</div><input type="hidden" id="champ-val-'+i+'" value="'+val+'"></div>';
+      } else if (c.type === 'texte') {
+        return '<div class="form-group" style="margin-bottom:12px">'
+          + '<label style="font-size:13px;font-weight:600">' + c.label + '</label>'
+          + '<textarea id="champ-val-'+i+'" style="margin-top:6px" placeholder="Saisir...">' + val + '</textarea></div>';
+      } else {
+        return '<div class="form-group" style="margin-bottom:12px">'
+          + '<label style="font-size:13px;font-weight:600">' + c.label
+          + (c.unite ? ' <span style="font-size:11px;color:var(--text3);font-weight:400">('+c.unite+')</span>' : '')
+          + '</label>'
+          + '<input type="number" step="any" id="champ-val-'+i+'" value="'+val+'" placeholder="Ex: 6.8" style="margin-top:6px;font-size:15px;padding:10px"></div>';
+      }
+    }).join('');
+  }
 
+  document.getElementById('resultat-commentaire').value = existing.commentaire||'';
   openModal('modal-resultat');
 }
+
 
 function selectConformite(val) {
   document.getElementById('resultat-conformite-val').value = val;
@@ -4071,9 +4095,16 @@ wizardConfirm = function(){
 
 function getLotSousSerieContenantDisplay(e0, group){
   const count=group?.length||1;
-  if(e0?.typeMP && !e0?.typePIF) return '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">contenant'+(count>1?'s':'')+'</span>';
-  if(e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) return '<span class="badge badge-purple" style="font-size:11px">—</span>';
-  return '<strong style="font-size:16px;color:var(--yellow)">'+count+'</strong><br><span style="font-size:11px;color:var(--text3)">sous-série'+(count>1?'s':'')+'</span>';
+  if(e0?.typeMP && !e0?.typePIF) {
+    let h = '<strong style="font-size:16px;color:var(--green)">'+count+'</strong><br><span style="font-size:11px;color:var(--green)">contenant'+(count>1?'s':'')+'</span>';
+    if(e0?.mpSpq) h += '<br><span class="badge badge-green" style="font-size:10px;margin-top:3px">SPQ: '+e0.mpSpq+'</span>';
+    return h;
+  }
+  if(e0?.typeSTAB && !e0?.typePIF && !e0?.typeMP) return '<span style="color:var(--text3)">—</span>';
+  // PIF seul ou PIF+STAB
+  let h = '<strong style="font-size:16px;color:var(--cyan)">'+count+'</strong><br><span style="font-size:11px;color:var(--cyan)">sous-série'+(count>1?'s':'')+'</span>';
+  if(e0?.pifSpq) h += '<br><span class="badge badge-amber" style="font-size:10px;margin-top:3px">SPQ: '+e0.pifSpq+'</span>';
+  return h;
 }
 function getMarcheDisplay(e0){
   if(e0?.typeSTAB && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>';
@@ -4090,9 +4121,8 @@ function getEcheanceConditionDisplay(e0){
   }
   if(e0?.typeSTAB && e0?.stabTemps) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabTemps+'</span>');
   if(e0?.typeSTAB && e0?.stabPtc) parts.push('<span style="font-size:11px;color:var(--purple)">PTC: '+e0.stabPtc+'</span>');
-  if(e0?.typePIF && e0?.pifSpq) parts.push('<span class="badge badge-amber" style="font-size:11px">SPQ: '+e0.pifSpq+'</span>');
-  if(e0?.typeMP && e0?.mpSpq) parts.push('<span class="badge badge-green" style="font-size:11px">SPQ: '+e0.mpSpq+'</span>');
-  if(e0?.typeMP && e0?.mpContenants) parts.push('<span style="font-size:11px;color:var(--green)">'+e0.mpContenants+' contenant'+(e0.mpContenants>1?'s':'')+'</span>');
+  // SPQ affiché dans la colonne Sous-Série/Contenant
+  // Nb contenants affiché dans la colonne Sous-Série/Contenant
   return parts.length ? parts.join('<br>') : '<span style="color:var(--text3);font-size:12px">—</span>';
 }
 
