@@ -1720,26 +1720,6 @@
       }
     },
     {
-      "id": 1782051012989,
-      "code": "AAAAAAA",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1782052372132,
       "code": "BBBBBB-1",
       "produitId": 1781852369953,
@@ -1898,11 +1878,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-A — L*a*b : en_cours",
-      "time": "21/06 10:06"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : TEST-A",
@@ -2147,6 +2122,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:07"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : AAAAAAA",
+      "time": "21/06 17:12"
     }
   ]
 }
