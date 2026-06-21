@@ -1539,11 +1539,31 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852405020": "en_cours"
+        "1781852405020": "terminee"
       },
       "analyseStatutsInfo": {
         "1781852405020": {
-          "en_cours": "21/06/2026"
+          "en_cours": "21/06/2026",
+          "terminee": "21/06/2026"
+        }
+      },
+      "resultats": {
+        "1781852405020": {
+          "champs": [
+            {
+              "label": "L*",
+              "valeur": "13",
+              "unite": ""
+            },
+            {
+              "label": "a*",
+              "valeur": "11",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "21/06/2026",
+          "unite": ""
         }
       }
     },
@@ -1563,7 +1583,34 @@
       "lot": "AAAAAAA",
       "date": "2026-06-21",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1781852405020": {
+          "champs": [
+            {
+              "label": "L*",
+              "valeur": "14",
+              "unite": ""
+            },
+            {
+              "label": "a*",
+              "valeur": "12",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "21/06/2026",
+          "unite": ""
+        }
+      },
+      "analyseStatuts": {
+        "1781852405020": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1781852405020": {
+          "terminee": "21/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -1586,11 +1633,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : TEST-A",
-      "time": "21/06 09:45"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C5",
@@ -1835,6 +1877,11 @@
       "icon": "list-check",
       "text": "AAAAAAA-1 — L*a*b : en_cours",
       "time": "21/06 15:05"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "L*a*b — 2 sous-séries — lot AAAAAAA",
+      "time": "21/06 15:15"
     }
   ]
 }
