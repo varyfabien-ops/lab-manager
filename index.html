@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v41 — Physico-Chimie</title>
+<title>LabManager v42 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4549,7 +4549,8 @@ wizardValidate = function(){
     ensureRefsAndTimepointsV106();
     const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
     if (!pif && !stab && !mp) { toast('Sélectionnez PIF, STAB et/ou MP', 'error'); return false; }
-    if ((pif||mp) && !document.getElementById('w-ref-spq')?.value.trim()) { toast('La référence SPQ est obligatoire pour un PIF ou une MP', 'error'); return false; }
+    const spqVal = pif ? document.getElementById('w-ref-spq')?.value.trim() : document.getElementById('w-mp-spq')?.value.trim();
+    if ((pif||mp) && !spqVal) { toast('La référence SPQ est obligatoire pour un PIF ou une MP', 'error'); return false; }
     if (stab && !document.getElementById('w-ref-ptc')?.value.trim()) { toast('La référence PTC est obligatoire pour une STAB', 'error'); return false; }
     if (stab) {
       const raw=document.getElementById('w-stab-echeance')?.value||'';
@@ -4570,7 +4571,7 @@ wizardRecap = function(){
   const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const spq=(document.getElementById('w-ref-spq')||document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
+  const spq=(pif ? document.getElementById('w-ref-spq') : document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
@@ -4589,7 +4590,7 @@ wizardConfirm = function(){
   const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
   const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const spq=(document.getElementById('w-ref-spq')||document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
+  const spq=(pif ? document.getElementById('w-ref-spq') : document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1;
   const mpOnly=mp&&!pif;
