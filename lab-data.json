@@ -1486,48 +1486,6 @@
       }
     },
     {
-      "id": 1782043110047,
-      "code": "AAAAAAA",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "nbSeries": 1,
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781852405020": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1781852405020": {
-          "en_cours": "21/06/2026",
-          "terminee": "21/06/2026"
-        }
-      },
-      "resultats": {
-        "1781852405020": {
-          "valeur": "",
-          "commentaire": "",
-          "date": "21/06/2026",
-          "unite": ""
-        }
-      }
-    },
-    {
       "id": 1782044170610,
       "code": "YYYYYYY",
       "produitId": 1781975343839,
@@ -1644,11 +1602,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : DFRG-C4",
-      "time": "20/06 21:56"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-A",
@@ -1893,6 +1846,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : 9960000",
       "time": "21/06 14:47"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : AAAAAAA",
+      "time": "21/06 14:48"
     }
   ]
 }
