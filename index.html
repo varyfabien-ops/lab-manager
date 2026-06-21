@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v29 — Physico-Chimie</title>
+<title>LabManager v30 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1238,13 +1238,13 @@ function previewSousSeries() {
   let marcheIds;
   if (isPIFOnly()) {
     nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   } else if (isStabOnly() || isMPOnly()) {
     nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
     marcheIds = []; // Pas de marché pour STAB seule ni MP
   } else {
     nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   }
   const lot = document.getElementById('w-lot')?.value || 'LOT';
   const preview = document.getElementById('w-series-preview');
@@ -1323,13 +1323,13 @@ function wizardRecap() {
   let nb, marcheIds;
   if (isPIFOnly()) {
     nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   } else if (isStabOnly() || isMPOnly()) {
     nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
     marcheIds = [];
   } else {
     nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   }
 
   const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
@@ -1393,13 +1393,13 @@ function wizardConfirm() {
   let marcheIds;
   if (isPIFOnly()) {
     nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   } else if (isStabOnly() || isMPOnly()) {
     nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
     marcheIds = []; // Pas de marché pour STAB seule ni MP
   } else {
     nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   }
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   // marcheIds déjà défini selon le type
@@ -4229,7 +4229,7 @@ wizardRecap = function(){
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
@@ -4245,7 +4245,7 @@ wizardConfirm = function(){
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   const stabEcheance = (pif&&stab) ? ('T0'+(echeance?', '+echeance:'')) : echeance;
@@ -4483,7 +4483,7 @@ function ensureRefsAndTimepointsV106(){
     const box=document.createElement('div');
     box.id='w-ref-options';
     box.style.cssText='display:none;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px';
-    box.innerHTML='<div style="font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px"><i class="ti ti-file-text"></i> Références documentaires</div><div class="form-grid"><div class="form-group" id="w-ref-spq-wrap"><label>Référence SPQ * <span style="color:var(--text3);font-weight:400">(PIF / MP)</span></label><input id="w-ref-spq" placeholder="Ex: SPQ-XXX"></div><div class="form-group" id="w-ref-ptc-wrap"><label>Référence PTC * <span style="color:var(--text3);font-weight:400">(STAB)</span></label><input id="w-ref-ptc" placeholder="Ex: PTC-XXX"></div></div>';
+    box.innerHTML='<div style="font-weight:600;font-size:12px;color:var(--text2);margin-bottom:10px"><i class="ti ti-file-text"></i> Références documentaires</div><div class="form-grid"><div class="form-group" id="w-ref-spq-wrap"><label>Référence SPQ * <span style="color:var(--text3);font-weight:400">(PIF / MP)</span></label><input id="w-ref-spq" placeholder="Ex: SPQ-XXX"></div><div class="form-group" id="w-ref-ptc-wrap"><label>Référence PTC * <span style="color:var(--text3);font-weight:400">(STAB)</span></label><input id="w-ref-ptc" placeholder="Ex: PTC-XXX"></div></div><div class="form-group" id="w-ref-marches-wrap" style="display:none;margin-top:10px"><label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label><div id="w-ref-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div></div>';
     host.insertAdjacentElement('afterend', box);
   }
   updateRefVisibilityV106();
@@ -4499,6 +4499,20 @@ function updateRefVisibilityV106(){
   if(box) box.style.display=(pif||mp||stab)?'block':'none';
   if(spq) spq.style.display=(pif||mp)?'flex':'none';
   if(ptc) ptc.style.display=stab?'flex':'none';
+  // Marchés : visibles uniquement pour PIF
+  const marchesWrap=document.getElementById('w-ref-marches-wrap');
+  if(marchesWrap) {
+    marchesWrap.style.display=pif?'block':'none';
+    if(pif) {
+      const marchesEl=document.getElementById('w-ref-marches-check');
+      if(marchesEl && !marchesEl.children.length) {
+        const marches=state.marches||[];
+        marchesEl.innerHTML=marches.length
+          ? marches.map(m=>'<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class=\"badge badge-blue\">'+m.code+'</span>':'')+'</span></label>').join('')
+          : '<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>';
+      }
+    }
+  }
   const stabOpts=document.getElementById('w-stab-options');
   if(stabOpts) stabOpts.style.display=stab?'block':'none';
 }
@@ -4516,6 +4530,7 @@ openWizard = function(){
   // Décocher tous les marchés
   document.querySelectorAll('#w-pif-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
   document.querySelectorAll('#w-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
+  const refMarchesEl=document.getElementById('w-ref-marches-check'); if(refMarchesEl) refMarchesEl.innerHTML='';
   // Vider preview sous-séries
   const prev=document.getElementById('w-pif-series-preview'); if(prev) prev.innerHTML='';
   // Masquer options PIF/STAB/MP
@@ -4562,7 +4577,7 @@ wizardRecap = function(){
   const spq=document.getElementById('w-ref-spq')?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
   const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
   const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   const recap=document.getElementById('w-recap'); if(!recap)return;
@@ -4584,7 +4599,7 @@ wizardConfirm = function(){
   const mpOnly=mp&&!pif;
   const entryCount=mpOnly?1:nb;
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||mpOnly)?[]:Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  const marcheIds=(wizardIsStabOnly()||mpOnly)?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   for(let i=0;i<entryCount;i++){
