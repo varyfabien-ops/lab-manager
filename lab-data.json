@@ -1911,75 +1911,6 @@
       }
     },
     {
-      "id": 1782056281271,
-      "code": "AAAAAAA-1",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1782056281272,
-      "code": "AAAAAAA-2",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1782056281273,
-      "code": "AAAAAAA-3",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020,
-        1781852438719,
-        1781852984224,
-        1781959743113
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1782056842554,
       "code": "BBBBBB",
       "produitId": 1782056443354,
@@ -2018,11 +1949,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
-      "time": "21/06 14:26"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiee : TCC0044",
@@ -2267,6 +2193,11 @@
       "icon": "package",
       "text": "Réception: Mépivacaïne HCl — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:47"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : AAAAAAA (3 entrees)",
+      "time": "21/06 17:56"
     }
   ]
 }
