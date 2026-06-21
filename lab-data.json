@@ -440,6 +440,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: DFRG-C7 | MP "
+    },
+    {
+      "id": 1782027516738.6052,
+      "nom": "L*a*b",
+      "echantillonCode": "TEST-A",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-A |  STAB"
     }
   ],
   "catalogue": [
@@ -1241,6 +1250,28 @@
       "date": "2026-06-20",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782027516738,
+      "code": "TEST-A",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "pifSpq": "",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "5C, 25C",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "lot": "TEST",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1263,11 +1294,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "YYYYYYY — TCC0015 : en_cours",
-      "time": "20/06 16:35"
-    },
     {
       "icon": "list-check",
       "text": "YYYYYYY — TCC0015 : terminee",
@@ -1512,6 +1538,11 @@
       "icon": "book",
       "text": "Analyse modifiee : pH",
       "time": "21/06 09:36"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
+      "time": "21/06 09:38"
     }
   ]
 }
