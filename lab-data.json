@@ -1421,29 +1421,6 @@
           "unite": ""
         }
       }
-    },
-    {
-      "id": 1782043663178,
-      "code": "YYYYYYY",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "pifSpq": "",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "SPQXXXX-3",
-      "mpContenants": 30,
-      "nbSeries": 1,
-      "lot": "YYYYYYY",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1466,11 +1443,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Bupivacaïne HCl — 7 entrée(s) — 1 analyse(s)",
-      "time": "20/06 19:10"
-    },
     {
       "icon": "list-check",
       "text": "DFRG-C1 — Identification IR : en_cours",
@@ -1715,6 +1687,11 @@
       "icon": "package",
       "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
       "time": "21/06 14:07"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : YYYYYYY",
+      "time": "21/06 14:11"
     }
   ]
 }
