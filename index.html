@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v34 — Physico-Chimie</title>
+<title>LabManager v36 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -3530,8 +3530,11 @@ function editEchantillon(id) {
 
 function deleteEchantillon(id) {
   const e = state.echantillons.find(x=>x.id===id);
-  state.echantillons = state.echantillons.filter(x=>x.id!==id);
-  addActivity('trash','Echantillon supprime : '+(e?.code||''));
+  if (!e) return;
+  const lot = e.lot || String(e.id);
+  const toDelete = state.echantillons.filter(x => (x.lot||String(x.id)) === lot);
+  state.echantillons = state.echantillons.filter(x => (x.lot||String(x.id)) !== lot);
+  addActivity('trash', 'Lot supprime : ' + lot + (toDelete.length > 1 ? ' (' + toDelete.length + ' entrees)' : ''));
   renderEchantillonsTable(); renderDashboard(); saveData();
 }
 
@@ -4131,9 +4134,9 @@ toggleTypeCard = function(type) {
   if(pifOpts) pifOpts.style.display = wizardIsPifSelected() ? 'block' : 'none';
   const mpOpts = document.getElementById('w-mp-options');
   if(mpOpts) mpOpts.style.display = wizardIsMpSelected() ? 'block' : 'none';
+  ensureRefsAndTimepointsV106();
   if(wizardIsPifSelected()) {
     populatePIFMarches();
-    // Peupler aussi w-ref-marches-check
     const marchesEl=document.getElementById('w-ref-marches-check');
     const marchesWrap=document.getElementById('w-ref-marches-wrap');
     if(marchesWrap) marchesWrap.style.display='block';
@@ -4560,12 +4563,7 @@ openWizard = function(){
   });
 };
 
-const __toggleTypeCard_v106 = toggleTypeCard;
-toggleTypeCard = function(type){
-  __toggleTypeCard_v106?.(type);
-  ensureRefsAndTimepointsV106();
-  updateRefVisibilityV106();
-};
+// toggleTypeCard v106 fusionné dans le toggleTypeCard principal
 
 wizardValidate = function(){
   if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Sélectionnez un produit', 'error'); return false; }
