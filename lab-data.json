@@ -1718,24 +1718,6 @@
           "unite": ""
         }
       }
-    },
-    {
-      "id": 1782054467932,
-      "code": "CCCCCC",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "CCCCCC",
-      "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1758,11 +1740,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-A — L*a*b : verifiee",
-      "time": "21/06 10:17"
-    },
     {
       "icon": "rosette",
       "text": "Lot approuvé : TEST",
@@ -2006,6 +1983,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-2",
+      "time": "21/06 17:13"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : CCCCCC",
       "time": "21/06 17:13"
     }
   ]
