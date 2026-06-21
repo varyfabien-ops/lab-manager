@@ -1341,7 +1341,7 @@
       "mpContenants": 5,
       "lot": "TEST",
       "date": "2026-06-21",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781975394472": "verifiee"
@@ -1383,11 +1383,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clipboard-check",
-      "text": "L*a*b : 10 — lot vvvv",
-      "time": "20/06 19:07"
-    },
     {
       "icon": "list-check",
       "text": "vvvv-A — L*a*b : verifiee",
@@ -1632,6 +1627,11 @@
       "icon": "list-check",
       "text": "TEST-A — Identification IR : verifiee",
       "time": "21/06 10:19"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : TEST",
+      "time": "21/06 10:24"
     }
   ]
 }
