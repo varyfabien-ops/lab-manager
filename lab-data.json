@@ -908,6 +908,114 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | PIF "
+    },
+    {
+      "id": 1782056238372.5635,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-1 | PIF "
+    },
+    {
+      "id": 1782056238372.4832,
+      "nom": "TCC0044",
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-1 | PIF "
+    },
+    {
+      "id": 1782056238372.843,
+      "nom": "Osmolalité",
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-1 | PIF "
+    },
+    {
+      "id": 1782056238372.6064,
+      "nom": "Volume Extractible",
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-1 | PIF "
+    },
+    {
+      "id": 1782056238372.7083,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-2 | PIF "
+    },
+    {
+      "id": 1782056238372.646,
+      "nom": "TCC0044",
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-2 | PIF "
+    },
+    {
+      "id": 1782056238372.5078,
+      "nom": "Osmolalité",
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-2 | PIF "
+    },
+    {
+      "id": 1782056238372.796,
+      "nom": "Volume Extractible",
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-2 | PIF "
+    },
+    {
+      "id": 1782056238372.2385,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-3 | PIF "
+    },
+    {
+      "id": 1782056238372.8518,
+      "nom": "TCC0044",
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-3 | PIF "
+    },
+    {
+      "id": 1782056238372.7024,
+      "nom": "Osmolalité",
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-3 | PIF "
+    },
+    {
+      "id": 1782056238372.6257,
+      "nom": "Volume Extractible",
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA-3 | PIF "
     }
   ],
   "catalogue": [
@@ -1737,6 +1845,75 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782056238372,
+      "code": "AAAAAAA-1",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852438719,
+        1781852984224,
+        1781959743113
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1782056238373,
+      "code": "AAAAAAA-2",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852438719,
+        1781852984224,
+        1781959743113
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1782056238374,
+      "code": "AAAAAAA-3",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020,
+        1781852438719,
+        1781852984224,
+        1781959743113
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "AAAAAAA",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1759,11 +1936,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
-      "time": "21/06 14:07"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY",
@@ -2008,6 +2180,11 @@
       "icon": "trash",
       "text": "Lot supprime : AAAAAAA",
       "time": "21/06 17:35"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 3 entrée(s) — 4 analyse(s)",
+      "time": "21/06 17:37"
     }
   ]
 }
