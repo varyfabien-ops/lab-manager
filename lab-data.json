@@ -1522,52 +1522,6 @@
       }
     },
     {
-      "id": 1782047151106,
-      "code": "AAAAAAA-1",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781852405020": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1781852405020": {
-          "en_cours": "21/06/2026",
-          "terminee": "21/06/2026"
-        }
-      },
-      "resultats": {
-        "1781852405020": {
-          "champs": [
-            {
-              "label": "L*",
-              "valeur": "13",
-              "unite": ""
-            },
-            {
-              "label": "a*",
-              "valeur": "11",
-              "unite": ""
-            }
-          ],
-          "commentaire": "",
-          "date": "21/06/2026",
-          "unite": ""
-        }
-      }
-    },
-    {
       "id": 1782047151107,
       "code": "AAAAAAA-2",
       "produitId": 1781852369953,
@@ -1633,11 +1587,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : DFRG-C5",
-      "time": "21/06 09:45"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C6",
@@ -1882,6 +1831,11 @@
       "icon": "clipboard-check",
       "text": "L*a*b — 2 sous-séries — lot AAAAAAA",
       "time": "21/06 15:15"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : AAAAAAA-1",
+      "time": "21/06 16:09"
     }
   ]
 }
