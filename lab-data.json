@@ -1519,8 +1519,16 @@
       "stabTemps": "",
       "lot": "AAAAAAA",
       "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852438719": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852438719": {
+          "en_cours": "21/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -1543,11 +1551,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiee : pH",
-      "time": "21/06 09:36"
-    },
     {
       "icon": "package",
       "text": "Reception: Setmelanotide 10 mg/mL — 1 sous-serie — 1 analyse",
@@ -1791,6 +1794,11 @@
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
+      "time": "21/06 14:49"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — TCC0044 : en_cours",
       "time": "21/06 14:49"
     }
   ]
