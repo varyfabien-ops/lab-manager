@@ -498,6 +498,11 @@
           "label": "L*",
           "type": "numerique",
           "unite": ""
+        },
+        {
+          "label": "a*",
+          "type": "numerique",
+          "unite": ""
         }
       ],
       "duree": "",
@@ -1176,11 +1181,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Echantillon supprime : dddddd-A",
-      "time": "20/06 18:32"
-    },
-    {
       "icon": "list-check",
       "text": "dddddd-B — L*a*b : en_cours",
       "time": "20/06 18:36"
@@ -1418,6 +1418,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C7",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : L*a*b",
       "time": "21/06 09:45"
     },
     {
