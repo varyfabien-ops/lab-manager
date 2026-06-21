@@ -779,10 +779,15 @@
           </label>
         </div>
                 <div id="w-pif-options" style="display:none;background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:14px;margin-bottom:10px">
-          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Référence PIF</div>
+          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Informations PIF</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Référence SPQ *</label><input id="w-pif-spq" placeholder="Ex: SPQ-2024-001"></div>
+            <div class="form-group"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1" oninput="previewSousSeriesPIF()"></div>
+          </div>
+          <div id="w-pif-series-preview" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;margin-bottom:12px"></div>
           <div class="form-group">
-            <label>Référence SPQ *</label>
-            <input id="w-pif-spq" placeholder="Ex: SPQ-2024-001">
+            <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
+            <div id="w-pif-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
           </div>
         </div>
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
@@ -808,6 +813,13 @@
         </div>
       </div>
 
+        <div id="w-mp-options" style="display:none;background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius);padding:14px;margin-top:10px">
+          <div style="font-weight:600;font-size:12px;color:var(--green);margin-bottom:10px"><i class="ti ti-box"></i> Options Matière Première</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Référence SPQ *</label><input id="w-mp-spq" placeholder="Ex: SPQ-2024-001"></div>
+            <div class="form-group"><label>Nombre de contenants</label><input type="number" id="w-mp-contenants" min="1" value="1"></div>
+          </div>
+        </div>
       <!-- ETAPE 4 : Sous-series -->
       <div id="wstep-4" style="display:none">
         <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Combien de sous-series pour ce lot ?</div>
@@ -1114,15 +1126,65 @@ function wizardRender() {
   if(wizardStep===7) wizardRecap();
 }
 
+
+function isPIFOnly() {
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
+  return pif && !stab && !mp;
+}
+
+function isMPOnly() {
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
+  return mp && !pif && !stab;
+}
+
+function previewSousSeriesPIF() {
+  const nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
+  const lot = document.getElementById('w-lot')?.value || 'LOT';
+  const preview = document.getElementById('w-pif-series-preview');
+  if (!preview) return;
+  preview.innerHTML = nb === 1
+    ? '<span class="badge badge-cyan">'+lot+'</span>'
+    : Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-cyan">'+lot+'-'+(i+1)+'</span>').join('');
+}
+
+function populatePIFMarches() {
+  const el = document.getElementById('w-pif-marches-check'); if(!el) return;
+  const marches = state.marches||[];
+  if (!marches.length) { el.innerHTML='<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>'; return; }
+  el.innerHTML = marches.map(m => '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">'
+    +'<input type="checkbox" value="'+m.id+'" style="flex-shrink:0">'
+    +'<span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</span>'
+    +'</label>').join('');
+}
+function isStabOnly() {
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
+  return stab && !pif && !mp;
+}
+
 function wizardNext() {
   if (!wizardValidate()) return;
   if (wizardStep === WIZARD_TOTAL) { wizardConfirm(); return; }
-  wizardStep++;
+  let nextStep = wizardStep + 1;
+  // Sauter étapes 4 et 5 si PIF seul (déjà dans l'étape 3)
+  if (nextStep === 4 && (isPIFOnly() || isStabOnly())) nextStep = 5;
+  if (nextStep === 5 && (isPIFOnly() || isStabOnly() || isMPOnly())) nextStep = 6;
+  wizardStep = nextStep;
   wizardRender();
 }
 
 function wizardPrev() {
-  if (wizardStep > 1) { wizardStep--; wizardRender(); }
+  if (wizardStep <= 1) return;
+  let prevStep = wizardStep - 1;
+  if (prevStep === 5 && (isPIFOnly() || isStabOnly() || isMPOnly())) prevStep = 4;
+  if (prevStep === 4 && (isPIFOnly() || isStabOnly())) prevStep = 3;
+  wizardStep = prevStep;
+  wizardRender();
 }
 
 function wizardValidate() {
@@ -1137,6 +1199,9 @@ function wizardValidate() {
     }
     if (mp && !document.getElementById('w-mp-spq')?.value?.trim()) {
       toast('La référence SPQ est obligatoire pour une MP', 'error'); return false;
+    }
+    if (pif && !stab && !mp && !document.getElementById('w-pif-spq')?.value?.trim()) {
+      toast('La référence SPQ est obligatoire pour un PIF', 'error'); return false;
     }
   }
   if (wizardStep===6) {
@@ -1155,7 +1220,7 @@ function wizardUpdateProduit() {
   if (p) {
     if(info) { info.style.display='block'; info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`; }
     // Afficher analyses liees
-    const analyses = (state.catalogue||[]).filter(a => !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(id));
+    const analyses = (state.catalogue||[]).filter(a => a.produitsIds && a.produitsIds.includes(id));
     if(prev) prev.style.display = analyses.length ? 'block' : 'none';
     if(list) list.innerHTML = analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join('');
   } else {
@@ -1167,6 +1232,28 @@ function wizardUpdateProduit() {
 function toggleTypeCard(type) {
   const cb = document.getElementById('w-type-'+type);
   if(!cb) return;
+
+  // Logique d'exclusivité : MP est incompatible avec PIF et STAB
+  if (type === 'mp' && !cb.checked) {
+    // On active MP -> désactiver PIF et STAB
+    ['pif','stab'].forEach(t => {
+      const other = document.getElementById('w-type-'+t);
+      if (other) other.checked = false;
+      const otherCard = document.getElementById('w-'+t+'-card');
+      if (otherCard) { otherCard.style.border='2px solid var(--border)'; otherCard.style.background=''; }
+      const otherOpts = document.getElementById('w-'+t+'-options');
+      if (otherOpts) otherOpts.style.display='none';
+    });
+  } else if ((type === 'pif' || type === 'stab') && !cb.checked) {
+    // On active PIF ou STAB -> désactiver MP
+    const mpCb = document.getElementById('w-type-mp');
+    if (mpCb) mpCb.checked = false;
+    const mpCard = document.getElementById('w-mp-card');
+    if (mpCard) { mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
+    const mpOpts = document.getElementById('w-mp-options');
+    if (mpOpts) mpOpts.style.display='none';
+  }
+
   cb.checked = !cb.checked;
   const card = document.getElementById('w-'+type+'-card');
   if(!card) return;
@@ -1176,22 +1263,24 @@ function toggleTypeCard(type) {
   const bg = bgs[type]||'var(--cyan-dim)';
   card.style.border = cb.checked ? '2px solid '+c : '2px solid var(--border)';
   card.style.background = cb.checked ? bg : '';
-  if (type === 'pif') {
-    const opts = document.getElementById('w-pif-options');
-    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
-  }
-  if (type === 'stab') {
-    const opts = document.getElementById('w-stab-options');
-    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
-  }
-  if (type === 'mp') {
-    const opts = document.getElementById('w-mp-options');
-    if(opts) opts.style.display = cb.checked ? 'block' : 'none';
-  }
+  const opts = document.getElementById('w-'+type+'-options');
+  if (opts) opts.style.display = cb.checked ? 'block' : 'none';
+  if (type === 'pif' && cb.checked) { setTimeout(populatePIFMarches, 50); }
 }
 
 function previewSousSeries() {
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  let nb;
+  let marcheIds;
+  if (isPIFOnly()) {
+    nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
+    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  } else if (isStabOnly() || isMPOnly()) {
+    nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
+    marcheIds = []; // Pas de marché pour STAB seule ni MP
+  } else {
+    nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+    marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  }
   const lot = document.getElementById('w-lot')?.value || 'LOT';
   const preview = document.getElementById('w-series-preview');
   if (!preview) return;
@@ -1227,9 +1316,8 @@ function wizardLoadAnalyses() {
   const stab = document.getElementById('w-type-stab')?.checked;
   // Filtrer les analyses liees au produit
   const analyses = (state.catalogue||[]).filter(a => {
-    if (!prodId) return true;
-    if (!a.produitsIds || a.produitsIds.length===0) return true;
-    return a.produitsIds.includes(prodId);
+    if (!prodId) return a.produitsIds && a.produitsIds.length > 0;
+    return a.produitsIds && a.produitsIds.includes(prodId);
   });
   if (!analyses.length) {
     el.innerHTML=''; el.style.display='none';
@@ -1261,9 +1349,20 @@ function wizardRecap() {
   const stab = document.getElementById('w-type-stab')?.checked;
   const echeance = document.getElementById('w-stab-echeance')?.value||'';
   const temps = document.getElementById('w-stab-temps')?.value||'';
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  let nb;
+  let marcheIds;
+  if (isPIFOnly()) {
+    nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
+    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  } else if (isStabOnly() || isMPOnly()) {
+    nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
+    marcheIds = []; // Pas de marché pour STAB seule ni MP
+  } else {
+    nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+    marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  }
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  // marcheIds déjà défini selon le type
   const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
   const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
@@ -1318,9 +1417,20 @@ function wizardConfirm() {
   const temps = document.getElementById('w-stab-temps')?.value||'';
   const mpSpq = document.getElementById('w-mp-spq')?.value||'';
   const mpContenants = parseInt(document.getElementById('w-mp-contenants')?.value)||1;
-  const nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+  let nb;
+  let marcheIds;
+  if (isPIFOnly()) {
+    nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
+    marcheIds = Array.from(document.querySelectorAll('#w-pif-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  } else if (isStabOnly() || isMPOnly()) {
+    nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
+    marcheIds = []; // Pas de marché pour STAB seule ni MP
+  } else {
+    nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
+    marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  }
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds = Array.from(document.querySelectorAll('#w-marches-check input:checked')).map(cb=>parseInt(cb.value));
+  // marcheIds déjà défini selon le type
   const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
   const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if (!state.echantillons) state.echantillons = [];
@@ -3702,6 +3812,11 @@ window.wizardNext = wizardNext;
 window.wizardPrev = wizardPrev;
 window.wizardUpdateProduit = wizardUpdateProduit;
 window.toggleTypeCard = toggleTypeCard;
+window.isStabOnly = isStabOnly;
+window.isPIFOnly = isPIFOnly;
+window.isMPOnly = isMPOnly;
+window.previewSousSeriesPIF = previewSousSeriesPIF;
+window.populatePIFMarches = populatePIFMarches;
 window.previewSousSeries = previewSousSeries;
 window.wizardConfirm = wizardConfirm;
 window.wizardLoadAnalyses = wizardLoadAnalyses;
@@ -4010,6 +4125,11 @@ window.renderCatalogue = renderCatalogue;
 window.editAnalyse = editAnalyse;
 window.openWizard = openWizard;
 window.toggleTypeCard = toggleTypeCard;
+window.isStabOnly = isStabOnly;
+window.isPIFOnly = isPIFOnly;
+window.isMPOnly = isMPOnly;
+window.previewSousSeriesPIF = previewSousSeriesPIF;
+window.populatePIFMarches = populatePIFMarches;
 window.wizardLoadAnalyses = wizardLoadAnalyses;
 window.renderEchantillonsTable = renderEchantillonsTableAlignedV105;
 window.cycleAnalyseStatut = cycleAnalyseStatut;
