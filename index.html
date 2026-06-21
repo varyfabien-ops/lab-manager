@@ -1442,17 +1442,19 @@ function wizardConfirm() {
   const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if (!state.echantillons) state.echantillons = [];
   if (!state.planning) state.planning = [];
-  for (let i=0; i<nb; i++) {
-    const code = `${lot}-${letters[i]}`;
-    const pifSpqVal = document.getElementById('w-pif-spq')?.value||'';
-    const stabPtcVal = document.getElementById('w-stab-ptc')?.value||'';
-    state.echantillons.push({
-      id: Date.now()+i, code, produitId: prodId, marcheIds,
-      analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
-      pifSpq: pifSpqVal, stabEcheance: echeance, stabPtc: stabPtcVal, stabTemps: temps,
-      mpSpq, mpContenants,
-      lot, date, statut: 'recu', note: ''
-    });
+  const pifSpqVal = document.getElementById('w-pif-spq')?.value||'';
+  const stabPtcVal = document.getElementById('w-stab-ptc')?.value||'';
+  // Créer UNE SEULE entrée par lot (nb et mpContenants sont des infos)
+  state.echantillons.push({
+    id: Date.now(), code: lot, produitId: prodId, marcheIds,
+    analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
+    pifSpq: pifSpqVal, stabEcheance: echeance, stabPtc: stabPtcVal, stabTemps: temps,
+    mpSpq, mpContenants, nbSeries: nb,
+    lot, date, statut: 'recu', note: ''
+  });
+  // Générer les analyses dans le planning (une fois, pas par sous-série)
+  {
+    const i = 0; // compatibilité
     analyses.forEach(a => {
       state.planning.push({
         id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
@@ -1460,11 +1462,11 @@ function wizardConfirm() {
         note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
       });
     });
-  }
+  } // fin bloc analyses
   addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
   closeModal('modal-echantillon');
   renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
-  toast(`${nb} sous-serie${nb>1?'s':''} creee${nb>1?'s':''} avec ${analyses.length*nb} entree${analyses.length*nb>1?'s':''} dans le planning`, 'success');
+    toast('Lot enregistré avec ' + analyses.length + ' analyse' + (analyses.length>1?'s':'') + ' dans le planning', 'success');
 }
 
 
@@ -1747,9 +1749,27 @@ function renderTendances() {
       const o = document.createElement('option'); o.value=p.id; o.textContent=p.nom; selProduit.appendChild(o);
     });
   }
-  if (selAnalyse && selAnalyse.options.length <= 1) {
-    (state.catalogue||[]).filter(a=>a.typeResultat==='numerique').forEach(a => {
-      const o = document.createElement('option'); o.value=a.id; o.textContent=a.nom+(a.unite?' ('+a.unite+')':''); selAnalyse.appendChild(o);
+  // Repeupler le select analyse selon le produit sélectionné
+  const fProduitVal = parseInt(selProduit?.value)||0;
+  // Vider et repeupler
+  while (selAnalyse && selAnalyse.options.length > 1) selAnalyse.remove(1);
+  if (selAnalyse) {
+    const analyses = (state.catalogue||[]).filter(a => {
+      // Doit avoir au moins un champ numérique
+      const hasNum = (a.champsResultats && a.champsResultats.some(c=>c.type==='numerique'))
+                  || a.typeResultat === 'numerique';
+      if (!hasNum) return false;
+      // Filtrer par produit si sélectionné
+      if (fProduitVal && a.produitsIds && a.produitsIds.length > 0) {
+        return a.produitsIds.includes(fProduitVal);
+      }
+      return true;
+    });
+    analyses.forEach(a => {
+      const o = document.createElement('option');
+      o.value = a.id;
+      o.textContent = a.nom;
+      selAnalyse.appendChild(o);
     });
   }
 
@@ -1767,11 +1787,20 @@ function renderTendances() {
       const aId = parseInt(aid);
       if (fAnalyse && aId !== fAnalyse) return;
       const a = (state.catalogue||[]).find(x=>x.id===aId);
-      if (!a || a.typeResultat !== 'numerique') return;
-      const valNum = parseFloat(res.valeur);
-      if (isNaN(valNum)) return;
-      if (!data[aId]) data[aId] = { nom: a.nom, unite: a.unite||'', points: [] };
-      data[aId].points.push({ date: res.date, valeur: valNum, lot: e.lot||'—', produit: produit?.nom||'—' });
+      if (!a) return;
+      const champs = a.champsResultats && a.champsResultats.length ? a.champsResultats : [{label:'Résultat', type: a.typeResultat||'texte', unite: a.unite||''}];
+      // Collecter chaque champ numérique
+      const champsData = res.champs || (res.valeur !== undefined ? [{valeur: res.valeur}] : []);
+      champs.forEach((c, ci) => {
+        if (c.type !== 'numerique') return;
+        const rawVal = champsData[ci]?.valeur;
+        const valNum = parseFloat(rawVal);
+        if (isNaN(valNum)) return;
+        const key = aId + '_' + ci;
+        const label = champs.length > 1 ? a.nom + ' — ' + c.label : a.nom;
+        if (!data[key]) data[key] = { nom: label, unite: c.unite||a.unite||'', points: [] };
+        data[key].points.push({ date: res.date, valeur: valNum, lot: e.lot||'—', produit: produit?.nom||'—' });
+      });
     });
   });
 
