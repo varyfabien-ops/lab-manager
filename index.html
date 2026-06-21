@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v22 — Physico-Chimie</title>
+<title>LabManager v23 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -723,8 +723,6 @@
         <div id="wdot-3" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
         <div id="wdot-4" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
         <div id="wdot-5" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
-        <div id="wdot-6" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
-        <div id="wdot-7" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
       </div>
     </div>
     <div class="modal-body" style="min-height:320px;max-height:60vh;overflow-y:auto">
@@ -791,9 +789,9 @@
           <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Informations PIF</div>
           <div class="form-grid">
             <div class="form-group"><label>Référence SPQ *</label><input id="w-pif-spq" placeholder="Ex: SPQ-2024-001"></div>
-            <div class="form-group"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1" oninput="previewSousSeriesPIF()"></div>
+
           </div>
-          <div id="w-pif-series-preview" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;margin-bottom:12px"></div>
+
           <div class="form-group">
             <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
             <div id="w-pif-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
@@ -4228,7 +4226,7 @@ wizardConfirm = function(){
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   const stabEcheance = (pif&&stab) ? ('T0'+(echeance?', '+echeance:'')) : echeance;
   for(let i=0;i<entryCount;i++){
-    const code=(mp&&!pif)?(lot+'-C'+(i+1)):(wizardIsStabOnly()?lot:(lot+'-'+letters[i]));
+    const code=lot; // PIF/STAB/MP : toujours le lot comme code
     state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, stabEcheance, stabTemps:condition, lot, date, statut:'recu', note:''});
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')+(stabEcheance?' | '+stabEcheance:'')+(condition?' | '+condition:'')}));
   }
@@ -4558,7 +4556,7 @@ wizardConfirm = function(){
   const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
   if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
   for(let i=0;i<entryCount;i++){
-    const code=mpOnly?lot:(wizardIsStabOnly()?lot:(lot+'-'+letters[i]));
+    const code=lot; // PIF/STAB/MP : toujours le lot comme code
     const nbContenants=mpOnly?nb:undefined;
     state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, nbContenants, refSPQ:spq, refPTC:ptc, stabEcheance:echeance, stabTemps:condition, lot, date, statut:'recu', note:''});
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')}));
