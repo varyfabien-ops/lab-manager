@@ -1237,11 +1237,20 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852405020": "en_cours"
+        "1781852405020": "terminee"
       },
       "analyseStatutsInfo": {
         "1781852405020": {
-          "en_cours": "21/06/2026"
+          "en_cours": "21/06/2026",
+          "terminee": "21/06/2026"
+        }
+      },
+      "resultats": {
+        "1781852405020": {
+          "valeur": "",
+          "commentaire": "",
+          "date": "21/06/2026",
+          "unite": ""
         }
       }
     },
@@ -1314,11 +1323,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "dddddd-C — L*a*b : en_cours",
-      "time": "20/06 18:54"
-    },
     {
       "icon": "list-check",
       "text": "dddddd-C — Osmolalité : en_cours",
@@ -1563,6 +1567,11 @@
       "icon": "list-check",
       "text": "TEST-A — L*a*b : en_cours",
       "time": "21/06 10:13"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "L*a*b :  — lot TEST",
+      "time": "21/06 10:14"
     }
   ]
 }
