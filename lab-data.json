@@ -1234,7 +1234,7 @@
       "mpContenants": 1,
       "lot": "TEST",
       "date": "2026-06-21",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781852405020": "verifiee"
@@ -1276,7 +1276,7 @@
       "mpContenants": 1,
       "lot": "TEST",
       "date": "2026-06-21",
-      "statut": "recu",
+      "statut": "approuve",
       "note": ""
     },
     {
@@ -1300,7 +1300,7 @@
       "mpContenants": 1,
       "lot": "TEST",
       "date": "2026-06-21",
-      "statut": "recu",
+      "statut": "approuve",
       "note": ""
     }
   ],
@@ -1324,11 +1324,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : dddddd-C",
-      "time": "20/06 18:54"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0044",
@@ -1572,6 +1567,11 @@
     {
       "icon": "list-check",
       "text": "TEST-A — L*a*b : verifiee",
+      "time": "21/06 10:17"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : TEST",
       "time": "21/06 10:17"
     }
   ]
