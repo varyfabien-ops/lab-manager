@@ -466,18 +466,27 @@
   <div class="page-header">
     <div class="page-header-text"><h1>Tendances</h1><p>Évolution des résultats d'analyses par produit</p></div>
   </div>
-  <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+  <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end">
     <div class="form-group" style="min-width:200px">
       <label>Produit</label>
-      <select id="tend-produit" onchange="renderTendances()" style="font-size:14px;padding:8px">
-        <option value="">— Tous les produits —</option>
+      <select id="tend-produit" onchange="onTendProduitChange()" style="font-size:14px;padding:8px">
+        <option value="">— Sélectionner —</option>
       </select>
     </div>
     <div class="form-group" style="min-width:200px">
       <label>Analyse</label>
-      <select id="tend-analyse" onchange="renderTendances()" style="font-size:14px;padding:8px">
-        <option value="">— Toutes les analyses —</option>
+      <select id="tend-analyse" onchange="onTendAnalyseChange()" style="font-size:14px;padding:8px" disabled>
+        <option value="">— Sélectionner —</option>
       </select>
+    </div>
+    <div class="form-group" style="min-width:200px" id="tend-resultat-group" style="display:none">
+      <label>Résultat</label>
+      <select id="tend-resultat" onchange="renderTendances()" style="font-size:14px;padding:8px" disabled>
+        <option value="">— Sélectionner —</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button class="btn" onclick="resetTendances()" style="font-size:13px"><i class="ti ti-filter-off"></i> Réinitialiser</button>
     </div>
   </div>
   <div id="tendances-container"></div>
@@ -1740,118 +1749,221 @@ let activeStabId = null;
 let editingTpIdx = null;
 
 
+function onTendProduitChange() {
+  const selAnalyse = document.getElementById('tend-analyse');
+  const selChamp = document.getElementById('tend-champ');
+  const selProduit = document.getElementById('tend-produit');
+  const fProduitVal = parseInt(selProduit?.value)||0;
+  // Vider et désactiver les selects suivants
+  while (selAnalyse && selAnalyse.options.length > 1) selAnalyse.remove(1);
+  if (selAnalyse) { selAnalyse.value=''; selAnalyse.disabled = !fProduitVal; }
+  while (selChamp && selChamp.options.length > 1) selChamp.remove(1);
+  if (selChamp) { selChamp.value=''; selChamp.disabled = true; }
+  const champGroup = document.getElementById('tend-champ-group');
+  if (champGroup) champGroup.style.display = 'none';
+  document.getElementById('tendances-container').innerHTML = '';
+  if (!fProduitVal) return;
+  // Peupler les analyses du produit sélectionné
+  const analyses = (state.catalogue||[]).filter(a => {
+    const hasNum = (a.champsResultats && a.champsResultats.some(c=>c.type==='numerique')) || a.typeResultat === 'numerique';
+    if (!hasNum) return false;
+    return a.produitsIds && a.produitsIds.includes(fProduitVal);
+  });
+  analyses.forEach(a => {
+    const o = document.createElement('option');
+    o.value = a.id; o.textContent = a.nom;
+    selAnalyse && selAnalyse.appendChild(o);
+  });
+}
+
+function onTendAnalyseChange() {
+  const selAnalyse = document.getElementById('tend-analyse');
+  const selChamp = document.getElementById('tend-champ');
+  const champGroup = document.getElementById('tend-champ-group');
+  const aId = parseInt(selAnalyse?.value)||0;
+  while (selChamp && selChamp.options.length > 1) selChamp.remove(1);
+  if (selChamp) { selChamp.value=''; selChamp.disabled = true; }
+  if (champGroup) champGroup.style.display = 'none';
+  document.getElementById('tendances-container').innerHTML = '';
+  if (!aId) return;
+  const a = (state.catalogue||[]).find(x=>x.id===aId);
+  if (!a) return;
+  const champs = a.champsResultats && a.champsResultats.length
+    ? a.champsResultats.filter(c=>c.type==='numerique')
+    : [{label: 'Résultat', unite: a.unite||''}];
+  if (champs.length > 1) {
+    // Plusieurs champs → montrer le select
+    if (champGroup) champGroup.style.display = 'block';
+    champs.forEach((c, i) => {
+      const o = document.createElement('option');
+      o.value = i; o.textContent = c.label + (c.unite?' ('+c.unite+')':'');
+      selChamp && selChamp.appendChild(o);
+    });
+    if (selChamp) selChamp.disabled = false;
+  } else {
+    // Un seul champ → sélectionner auto et afficher
+    if (champGroup) champGroup.style.display = 'none';
+    renderTendances();
+  }
+}
+
 function renderTendances() {
   const selProduit = document.getElementById('tend-produit');
   const selAnalyse = document.getElementById('tend-analyse');
+  const selChamp = document.getElementById('tend-champ');
+  const container = document.getElementById('tendances-container');
 
-  // Peupler les selects
+  // Peupler produits si vide
   if (selProduit && selProduit.options.length <= 1) {
     (state.produitsEch||[]).forEach(p => {
-      const o = document.createElement('option'); o.value=p.id; o.textContent=p.nom; selProduit.appendChild(o);
-    });
-  }
-  // Repeupler le select analyse selon le produit sélectionné
-  const fProduitVal = parseInt(selProduit?.value)||0;
-  // Vider et repeupler
-  while (selAnalyse && selAnalyse.options.length > 1) selAnalyse.remove(1);
-  if (selAnalyse) {
-    const analyses = (state.catalogue||[]).filter(a => {
-      // Doit avoir au moins un champ numérique
-      const hasNum = (a.champsResultats && a.champsResultats.some(c=>c.type==='numerique'))
-                  || a.typeResultat === 'numerique';
-      if (!hasNum) return false;
-      // Filtrer par produit si sélectionné
-      if (fProduitVal && a.produitsIds && a.produitsIds.length > 0) {
-        return a.produitsIds.includes(fProduitVal);
-      }
-      return true;
-    });
-    analyses.forEach(a => {
-      const o = document.createElement('option');
-      o.value = a.id;
-      o.textContent = a.nom;
-      selAnalyse.appendChild(o);
+      const o = document.createElement('option'); o.value=p.id; o.textContent=p.nom+(p.forme?' — '+p.forme:''); selProduit.appendChild(o);
     });
   }
 
   const fProduit = parseInt(selProduit?.value)||0;
   const fAnalyse = parseInt(selAnalyse?.value)||0;
-  const container = document.getElementById('tendances-container');
-  if (!container) return;
+  const fChamp = parseInt(selChamp?.value);
 
-  // Collecter les données
-  const data = {}; // { analyseId: { nom, unite, points: [{date, valeur, lot, produit}] } }
-  (state.echantillons||[]).forEach(e => {
-    if (fProduit && e.produitId !== fProduit) return;
-    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
-    Object.entries(e.resultats||{}).forEach(([aid, res]) => {
-      const aId = parseInt(aid);
-      if (fAnalyse && aId !== fAnalyse) return;
-      const a = (state.catalogue||[]).find(x=>x.id===aId);
-      if (!a) return;
-      const champs = a.champsResultats && a.champsResultats.length ? a.champsResultats : [{label:'Résultat', type: a.typeResultat||'texte', unite: a.unite||''}];
-      // Collecter chaque champ numérique
-      const champsData = res.champs || (res.valeur !== undefined ? [{valeur: res.valeur}] : []);
-      champs.forEach((c, ci) => {
-        if (c.type !== 'numerique') return;
-        const rawVal = champsData[ci]?.valeur;
-        const valNum = parseFloat(rawVal);
-        if (isNaN(valNum)) return;
-        const key = aId + '_' + ci;
-        const label = champs.length > 1 ? a.nom + ' — ' + c.label : a.nom;
-        if (!data[key]) data[key] = { nom: label, unite: c.unite||a.unite||'', points: [] };
-        data[key].points.push({ date: res.date, valeur: valNum, lot: e.lot||'—', produit: produit?.nom||'—' });
-      });
-    });
-  });
-
-  if (!Object.keys(data).length) {
-    container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Aucun résultat numérique enregistré pour le moment.<br>Saisissez des résultats depuis la Réception des échantillons.</p></div>';
+  // Afficher message si pas de produit sélectionné
+  if (!fProduit) {
+    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un produit pour afficher les tendances</p></div>';
+    return;
+  }
+  if (!fAnalyse) {
+    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez une analyse</p></div>';
+    return;
+  }
+  if (isNaN(fChamp)) {
+    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un résultat</p></div>';
     return;
   }
 
-  // Générer un graphique SVG par analyse
-  container.innerHTML = Object.entries(data).map(([aId, d]) => {
-    const pts = d.points.sort((a,b)=>a.date?.localeCompare(b.date||'')||0);
-    if (pts.length < 1) return '';
-    const min = Math.min(...pts.map(p=>p.valeur));
-    const max = Math.max(...pts.map(p=>p.valeur));
-    const range = max - min || 1;
-    const W=600, H=180, pad=50, padR=20, padT=20, padB=40;
-    const gW = W-pad-padR, gH = H-padT-padB;
-    const x = (i) => pad + (pts.length>1 ? i/(pts.length-1)*gW : gW/2);
-    const y = (v) => padT + (1-(v-min)/range)*gH;
-    // Ligne
-    const pathD = pts.map((p,i)=>(i===0?'M':'L')+x(i).toFixed(1)+','+y(p.valeur).toFixed(1)).join(' ');
-    // Axe Y labels
-    const yLabels = [min, (min+max)/2, max].map(v=>
-      '<text x="'+(pad-6)+'" y="'+y(v).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">'+v.toFixed(2)+'</text>'
-    ).join('');
-    // Points et tooltips
-    const circles = pts.map((p,i)=>
-      '<circle cx="'+x(i).toFixed(1)+'" cy="'+y(p.valeur).toFixed(1)+'" r="4" fill="#0d7c75" stroke="#fff" stroke-width="2"><title>'+p.lot+' — '+p.date+' : '+p.valeur+' '+d.unite+'</title></circle>'
-    ).join('');
-    // Labels X (lots)
-    const xLabels = pts.map((p,i)=>
-      '<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+14)+'" text-anchor="middle" font-size="10" fill="#8896a8">'+p.lot+'</text>'
-    ).join('');
-    const mean = pts.reduce((s,p)=>s+p.valeur,0)/pts.length;
-    return '<div class="table-card" style="margin-bottom:20px;padding:20px">'
-      + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">'
-      + '<h3 style="font-size:15px;font-weight:600">'+d.nom+(d.unite?' <span style="font-size:12px;color:var(--text3);font-weight:400">('+d.unite+')</span>':'')+'</h3>'
-      + '<span class="badge badge-cyan" style="margin-left:auto">'+pts.length+' mesure'+(pts.length>1?'s':'')+'</span>'
-      + '<span class="badge badge-gray">Moy: '+mean.toFixed(2)+(d.unite?' '+d.unite:'')+'</span>'
-      + '</div>'
-      + '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:'+W+'px;overflow:visible">'
-      + '<line x1="'+pad+'" y1="'+padT+'" x2="'+pad+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
-      + '<line x1="'+pad+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
-      + yLabels
-      + (pts.length>1?'<path d="'+pathD+'" fill="none" stroke="#0d7c75" stroke-width="2" stroke-linejoin="round"/>':'')
-      + '<line x1="'+pad+'" y1="'+y(mean).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(mean).toFixed(1)+'" stroke="#0d7c75" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>'
-      + circles + xLabels
-      + '</svg></div>';
+  // Trouver l'analyse sélectionnée
+  const a = (state.catalogue||[]).find(x=>x.id===fAnalyse);
+  if (!a) return;
+  const champs = a.champsResultats && a.champsResultats.length ? a.champsResultats : [{label:'Résultat', type: a.typeResultat||'numerique', unite: a.unite||''}];
+  const champ = champs[fChamp];
+  if (!champ) return;
+
+  // Collecter les données
+  const points = [];
+  (state.echantillons||[]).forEach(e => {
+    if (fProduit && e.produitId !== fProduit) return;
+    const res = (e.resultats||{})[fAnalyse];
+    if (!res) return;
+    const champsData = res.champs || (res.valeur !== undefined ? [{valeur: res.valeur}] : []);
+    const rawVal = champsData[fChamp]?.valeur;
+    const valNum = parseFloat(rawVal);
+    if (isNaN(valNum)) return;
+    points.push({ date: res.date||e.date||'', valeur: valNum, lot: e.lot||'—' });
+  });
+
+  points.sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+
+  if (!points.length) {
+    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Aucun résultat enregistré pour cette sélection</p></div>';
+    return;
+  }
+
+  // Générer le graphique SVG
+  const min = Math.min(...points.map(p=>p.valeur));
+  const max = Math.max(...points.map(p=>p.valeur));
+  const range = max - min || 1;
+  const mean = points.reduce((s,p)=>s+p.valeur,0)/points.length;
+  const W=700, H=220, pad=60, padR=20, padT=20, padB=50;
+  const gW = W-pad-padR, gH = H-padT-padB;
+  const x = (i) => pad + (points.length>1 ? i/(points.length-1)*gW : gW/2);
+  const y = (v) => padT + (1-(v-min)/range)*gH;
+  const pathD = points.map((p,i)=>(i===0?'M':'L')+x(i).toFixed(1)+','+y(p.valeur).toFixed(1)).join(' ');
+  const ySteps = 5;
+  const yLabels = Array.from({length:ySteps+1},(_,i)=>{
+    const v = min + (max-min)*i/ySteps;
+    return '<text x="'+(pad-8)+'" y="'+y(v).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">'+v.toFixed(2)+'</text>';
   }).join('');
+  const gridLines = Array.from({length:ySteps+1},(_,i)=>{
+    const v = min + (max-min)*i/ySteps;
+    return '<line x1="'+pad+'" y1="'+y(v).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(v).toFixed(1)+'" stroke="#eef1f5" stroke-width="1"/>';
+  }).join('');
+  const circles = points.map((p,i)=>
+    '<circle cx="'+x(i).toFixed(1)+'" cy="'+y(p.valeur).toFixed(1)+'" r="5" fill="#0d7c75" stroke="#fff" stroke-width="2"><title>'+p.lot+' — '+p.date+' : '+p.valeur+' '+champ.unite+'</title></circle>'
+  ).join('');
+  const xLabels = points.map((p,i)=>
+    '<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+18)+'" text-anchor="middle" font-size="11" fill="#8896a8">'+p.lot+'</text>'+
+    '<text x="'+x(i).toFixed(1)+'" y="'+(H-padB+30)+'" text-anchor="middle" font-size="10" fill="#aaa">'+p.date+'</text>'
+  ).join('');
+  const valueLbls = points.map((p,i)=>
+    '<text x="'+x(i).toFixed(1)+'" y="'+(y(p.valeur)-10).toFixed(1)+'" text-anchor="middle" font-size="11" font-weight="600" fill="#0d7c75">'+p.valeur+'</text>'
+  ).join('');
+
+  if (container) container.innerHTML = '<div class="table-card" style="padding:20px">'
+    + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">'
+    + '<h3 style="font-size:15px;font-weight:600">'+a.nom+' — '+champ.label+(champ.unite?' <span style="font-size:12px;color:var(--text3)">('+champ.unite+')</span>':'')+'</h3>'
+    + '<span class="badge badge-cyan" style="margin-left:auto">'+points.length+' mesure'+(points.length>1?'s':'')+'</span>'
+    + '<span class="badge badge-gray">Moy: '+mean.toFixed(2)+(champ.unite?' '+champ.unite:'')+'</span>'
+    + '</div>'
+    + '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;overflow:visible">'
+    + gridLines
+    + '<line x1="'+pad+'" y1="'+padT+'" x2="'+pad+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
+    + '<line x1="'+pad+'" y1="'+(H-padB)+'" x2="'+(W-padR)+'" y2="'+(H-padB)+'" stroke="#dde2ea" stroke-width="1"/>'
+    + yLabels
+    + (points.length>1?'<path d="'+pathD+'" fill="none" stroke="#0d7c75" stroke-width="2.5" stroke-linejoin="round"/>':'')
+    + '<line x1="'+pad+'" y1="'+y(mean).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(mean).toFixed(1)+'" stroke="#0d7c75" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>'
+    + valueLbls + circles + xLabels
+    + '</svg></div>';
 }
+
+function onTendProduitChange() {
+  const selAnalyse = document.getElementById('tend-analyse');
+  const selChamp = document.getElementById('tend-champ');
+  const fProduit = parseInt(document.getElementById('tend-produit')?.value)||0;
+
+  // Reset analyse et champ
+  if (selAnalyse) { selAnalyse.innerHTML='<option value="">— Sélectionner une analyse —</option>'; selAnalyse.disabled = !fProduit; }
+  if (selChamp) { selChamp.innerHTML='<option value="">— Sélectionner un résultat —</option>'; selChamp.disabled = true; }
+
+  if (!fProduit) { renderTendances(); return; }
+
+  // Peupler les analyses du produit qui ont des résultats numériques
+  const analyses = (state.catalogue||[]).filter(a => {
+    const hasNum = (a.champsResultats && a.champsResultats.some(c=>c.type==='numerique')) || a.typeResultat === 'numerique';
+    if (!hasNum) return false;
+    return !a.produitsIds || a.produitsIds.length===0 || a.produitsIds.includes(fProduit);
+  });
+  if (selAnalyse) analyses.forEach(a => {
+    const o = document.createElement('option'); o.value=a.id; o.textContent=a.nom; selAnalyse.appendChild(o);
+  });
+  renderTendances();
+}
+
+function onTendAnalyseChange() {
+  const selChamp = document.getElementById('tend-champ');
+  const fAnalyse = parseInt(document.getElementById('tend-analyse')?.value)||0;
+
+  if (selChamp) { selChamp.innerHTML='<option value="">— Sélectionner un résultat —</option>'; selChamp.disabled = !fAnalyse; }
+
+  if (!fAnalyse) { renderTendances(); return; }
+
+  const a = (state.catalogue||[]).find(x=>x.id===fAnalyse);
+  if (!a) return;
+  const champs = a.champsResultats && a.champsResultats.length ? a.champsResultats : [{label:'Résultat', type: a.typeResultat||'numerique', unite: a.unite||''}];
+  const numChamps = champs.map((c,i)=>({...c, idx:i})).filter(c=>c.type==='numerique');
+
+  if (selChamp) {
+    if (numChamps.length === 1) {
+      // Un seul champ numérique : sélectionner automatiquement
+      const o = document.createElement('option'); o.value=numChamps[0].idx; o.textContent=numChamps[0].label+(numChamps[0].unite?' ('+numChamps[0].unite+')':''); selChamp.appendChild(o);
+      selChamp.value = numChamps[0].idx;
+      selChamp.disabled = false;
+    } else {
+      numChamps.forEach(c => {
+        const o = document.createElement('option'); o.value=c.idx; o.textContent=c.label+(c.unite?' ('+c.unite+')':''); selChamp.appendChild(o);
+      });
+      selChamp.disabled = false;
+    }
+  }
+  renderTendances();
+}
+
 
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
@@ -3715,6 +3827,10 @@ window.ajouterChampResultat = ajouterChampResultat;
 window.toggleConformiteChamp = toggleConformiteChamp;
 window.sauvegarderResultat = sauvegarderResultat;
 window.renderTendances = renderTendances;
+window.onTendProduitChange = onTendProduitChange;
+window.onTendAnalyseChange = onTendAnalyseChange;
+window.onTendProduitChange = onTendProduitChange;
+window.onTendAnalyseChange = onTendAnalyseChange;
 window.selectConformite = selectConformite;
 window.selectConformite = selectConformite;
 window.renderLotsLiberes = renderLotsLiberes;
@@ -3884,6 +4000,10 @@ window.ajouterChampResultat = ajouterChampResultat;
 window.toggleConformiteChamp = toggleConformiteChamp;
 window.sauvegarderResultat = sauvegarderResultat;
 window.renderTendances = renderTendances;
+window.onTendProduitChange = onTendProduitChange;
+window.onTendAnalyseChange = onTendAnalyseChange;
+window.onTendProduitChange = onTendProduitChange;
+window.onTendAnalyseChange = onTendAnalyseChange;
 window.selectConformite = selectConformite;
 window.selectConformite = selectConformite;
 window.renderLotsLiberes = renderLotsLiberes;
