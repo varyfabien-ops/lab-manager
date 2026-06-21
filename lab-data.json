@@ -616,6 +616,16 @@
       "habilitations": [
         "IR"
       ],
+      "produitsIds": [
+        1781975343839
+      ],
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "conforme",
+          "unite": ""
+        }
+      ],
       "duree": "",
       "code": "",
       "description": ""
@@ -1326,11 +1336,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0044",
-      "time": "20/06 18:54"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : pH",
       "time": "20/06 18:55"
     },
@@ -1573,6 +1578,11 @@
       "icon": "rosette",
       "text": "Lot approuvé : TEST",
       "time": "21/06 10:17"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : Identification IR",
+      "time": "21/06 10:18"
     }
   ]
 }
