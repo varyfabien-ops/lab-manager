@@ -539,6 +539,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: YYYYYYY | "
+    },
+    {
+      "id": 1782044170610.1729,
+      "nom": "Identification IR",
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: YYYYYYY | "
     }
   ],
   "catalogue": [
@@ -1430,6 +1439,29 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1782044170610,
+      "code": "YYYYYYY",
+      "produitId": 1781975343839,
+      "marcheIds": [],
+      "analysesIds": [
+        1781975394472
+      ],
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "pifSpq": "",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "SPQXXXX-3",
+      "mpContenants": 20,
+      "nbSeries": 1,
+      "lot": "YYYYYYY",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1452,11 +1484,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "rosette",
-      "text": "Lot libere : vvvv (Setmelanotide 10 mg/mL)",
-      "time": "20/06 20:39"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractible",
@@ -1701,6 +1728,11 @@
       "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY",
       "time": "21/06 14:15"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
+      "time": "21/06 14:16"
     }
   ]
 }
