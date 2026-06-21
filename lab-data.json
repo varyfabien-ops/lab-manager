@@ -1934,8 +1934,16 @@
       "stabTemps": "",
       "lot": "BBBBBB",
       "date": "2026-06-21",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781975394472": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781975394472": {
+          "en_cours": "21/06/2026"
+        }
+      }
     },
     {
       "id": 1782057471387,
@@ -1987,11 +1995,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
-      "time": "21/06 14:42"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : TEST22-A",
@@ -2235,6 +2238,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Identification IR",
+      "time": "21/06 17:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — Identification IR : en_cours",
       "time": "21/06 17:58"
     }
   ]
