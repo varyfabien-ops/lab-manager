@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v20 — Physico-Chimie</title>
+<title>LabManager v22 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1316,7 +1316,7 @@ function wizardLoadAnalyses() {
       <input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0">
       <div style="flex:1">
         <div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>
-        ${a.habilitations&&a.habilitations.length?`<div style="margin-top:3px">${a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')}</div>`:''}
+
         ${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}
       </div>
       <div style="display:flex;gap:4px;flex-shrink:0">
@@ -4091,10 +4091,13 @@ toggleTypeCard = function(type) {
   };
   const m = map[type] || ['var(--cyan)','var(--cyan-dim)'];
   if(card){ card.style.border = cb.checked ? '2px solid '+m[0] : '2px solid var(--border)'; card.style.background = cb.checked ? m[1] : ''; }
-  const opts = document.getElementById('w-stab-options');
-  if(opts) opts.style.display = wizardIsStabSelected() ? 'block' : 'none';
-  
-  
+  const stabOpts = document.getElementById('w-stab-options');
+  if(stabOpts) stabOpts.style.display = wizardIsStabSelected() ? 'block' : 'none';
+  const pifOpts = document.getElementById('w-pif-options');
+  if(pifOpts) pifOpts.style.display = wizardIsPifSelected() ? 'block' : 'none';
+  const mpOpts = document.getElementById('w-mp-options');
+  if(mpOpts) mpOpts.style.display = wizardIsMpSelected() ? 'block' : 'none';
+  if(wizardIsPifSelected()) populatePIFMarches();
   if (wizardStep===4) wizardLoadAnalyses();
   if (wizardStep===5) wizardRecap();
 };
