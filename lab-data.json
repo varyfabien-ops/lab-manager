@@ -449,6 +449,33 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST-A |  STAB"
+    },
+    {
+      "id": 1782029069270.6543,
+      "nom": "L*a*b",
+      "echantillonCode": "TEST-A",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-A | PIF"
+    },
+    {
+      "id": 1782029069270.6174,
+      "nom": "L*a*b",
+      "echantillonCode": "TEST-B",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-B | PIF"
+    },
+    {
+      "id": 1782029069270.2769,
+      "nom": "L*a*b",
+      "echantillonCode": "TEST-C",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-C | PIF"
     }
   ],
   "catalogue": [
@@ -1158,6 +1185,78 @@
         }
       },
       "dateApprobation": "20/06/2026"
+    },
+    {
+      "id": 1782029069270,
+      "code": "TEST-A",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "pifSpq": "SPQXXXX-2",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "lot": "TEST",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1782029069271,
+      "code": "TEST-B",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "pifSpq": "SPQXXXX-2",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "lot": "TEST",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1782029069272,
+      "code": "TEST-C",
+      "produitId": 1781852369953,
+      "marcheIds": [
+        1781853985902
+      ],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "pifSpq": "SPQXXXX-2",
+      "stabEcheance": "",
+      "stabPtc": "",
+      "stabTemps": "",
+      "mpSpq": "",
+      "mpContenants": 1,
+      "lot": "TEST",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1180,11 +1279,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "dddddd-B — L*a*b : en_cours",
-      "time": "20/06 18:36"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0044",
@@ -1429,6 +1523,11 @@
       "icon": "book",
       "text": "Analyse modifiee : L*a*b",
       "time": "21/06 09:45"
+    },
+    {
+      "icon": "package",
+      "text": "Reception: Setmelanotide 10 mg/mL — 3 sous-series — 1 analyse",
+      "time": "21/06 10:04"
     }
   ]
 }
