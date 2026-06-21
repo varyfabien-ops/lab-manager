@@ -490,6 +490,16 @@
       "habilitations": [
         "UV"
       ],
+      "produitsIds": [
+        1781852369953
+      ],
+      "champsResultats": [
+        {
+          "label": "L*",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
       "duree": "",
       "code": "",
       "description": ""
@@ -1143,24 +1153,6 @@
         }
       },
       "dateApprobation": "20/06/2026"
-    },
-    {
-      "id": 1781975427613,
-      "code": "DFRG-C7",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "DFRG",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -1183,16 +1175,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : 9960000",
-      "time": "20/06 18:30"
-    },
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : XXXXXX-A",
-      "time": "20/06 18:30"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : dddddd-A",
@@ -1431,6 +1413,16 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : DFRG-C6",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : DFRG-C7",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiee : L*a*b",
       "time": "21/06 09:45"
     }
   ]
