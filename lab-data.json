@@ -872,6 +872,15 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA-3 | PIF "
+    },
+    {
+      "id": 1782055141931.027,
+      "nom": "L*a*b",
+      "echantillonCode": "BBBBBB",
+      "date": "2026-06-21",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: BBBBBB | PIF "
     }
   ],
   "catalogue": [
@@ -1799,6 +1808,24 @@
       "date": "2026-06-21",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782055141931,
+      "code": "BBBBBB",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020
+      ],
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "stabEcheance": "",
+      "stabTemps": "",
+      "lot": "BBBBBB",
+      "date": "2026-06-21",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1821,11 +1848,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiee : Identification IR",
-      "time": "21/06 10:18"
-    },
     {
       "icon": "package",
       "text": "Reception: Bupivacaïne HCl — 1 sous-serie — 1 analyse",
@@ -2070,6 +2092,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 3 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:15"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
+      "time": "21/06 17:19"
     }
   ]
 }
