@@ -1145,24 +1145,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781975427611,
-      "code": "DFRG-C5",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "DFRG",
-      "date": "2026-06-20",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1781975427612,
       "code": "DFRG-C6",
       "produitId": 1781975343839,
@@ -1219,11 +1201,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Lipiodol — 1 étude — 1 analyse",
-      "time": "20/06 16:35"
-    },
     {
       "icon": "package",
       "text": "Réception: Xylocaïne Nébuliseur — 3 sous-séries — 1 analyse",
@@ -1467,6 +1444,11 @@
     {
       "icon": "trash",
       "text": "Echantillon supprime : TEST-A",
+      "time": "21/06 09:45"
+    },
+    {
+      "icon": "trash",
+      "text": "Echantillon supprime : DFRG-C5",
       "time": "21/06 09:45"
     }
   ]
