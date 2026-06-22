@@ -1354,6 +1354,17 @@
         1782144736659
       ],
       "description": "Dosage selon USP"
+    },
+    {
+      "id": 1782144866942,
+      "nom": "Sulfates PE",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1782144736659
+      ],
+      "description": "Sulfates selon PE"
     }
   ],
   "stabilites": [],
@@ -2162,11 +2173,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : BBBBBB-3",
-      "time": "21/06 17:12"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-1",
       "time": "21/06 17:12"
     },
@@ -2409,6 +2415,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Dosage PE",
       "time": "22/06 18:13"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Sulfates PE",
+      "time": "22/06 18:14"
     }
   ]
 }
