@@ -1566,6 +1566,15 @@
       "code": "",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144693693,
+      "nom": "Lidocaïne HCl",
+      "forme": "Matière Première",
+      "dosage": "",
+      "code": "",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2117,11 +2126,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 4 entrée(s) — 3 analyse(s)",
-      "time": "21/06 16:32"
-    },
-    {
-      "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 3 analyse(s)",
       "time": "21/06 16:41"
     },
@@ -2363,6 +2367,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Prilocaïne HCl",
+      "time": "22/06 18:11"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Lidocaïne HCl",
       "time": "22/06 18:11"
     }
   ]
