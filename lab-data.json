@@ -1530,6 +1530,15 @@
       "code": "M5",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144399543,
+      "nom": "Marcaïne 2,5 mg/mL",
+      "forme": "",
+      "dosage": "",
+      "code": "M3",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2080,11 +2089,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — L*a*b : en_cours",
-      "time": "21/06 15:05"
-    },
-    {
       "icon": "clipboard-check",
       "text": "L*a*b — 2 sous-séries — lot AAAAAAA",
       "time": "21/06 15:15"
@@ -2328,6 +2332,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Marcaïne 5mg/mL",
       "time": "22/06 18:05"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Marcaïne 2,5 mg/mL",
+      "time": "22/06 18:06"
     }
   ]
 }
