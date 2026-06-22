@@ -1307,6 +1307,18 @@
         1782056443354
       ],
       "description": ""
+    },
+    {
+      "id": 1782143684794,
+      "nom": "Identification Chlorures PE",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1781975343839,
+        1782056443354
+      ],
+      "description": "Identification des Chlorures selon PE"
     }
   ],
   "stabilites": [],
@@ -2037,11 +2049,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-A",
-      "time": "21/06 14:49"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
       "time": "21/06 14:49"
@@ -2285,6 +2292,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractible",
       "time": "22/06 17:53"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Identification Chlorures PE",
+      "time": "22/06 17:54"
     }
   ]
 }
