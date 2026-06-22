@@ -1339,7 +1339,7 @@
       "produitsIds": [
         1782144736659
       ],
-      "description": ""
+      "description": "Dosage selon PE"
     },
     {
       "id": 1782144811226,
@@ -2162,11 +2162,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : BBBBBB-2",
-      "time": "21/06 17:12"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : BBBBBB-3",
       "time": "21/06 17:12"
     },
@@ -2408,6 +2403,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Dosage USP",
+      "time": "22/06 18:13"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Dosage PE",
       "time": "22/06 18:13"
     }
   ]
