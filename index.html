@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v43 — Physico-Chimie</title>
+<title>LabManager v45 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4217,7 +4217,8 @@ saveAnalyse = function(){
   const habs=document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
   const produitsIds=Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value)).filter(Boolean);
   if(!produitsIds.length){ toast('Coche au moins un produit pour cette analyse','error'); return; }
-  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:document.getElementById('a-duree').value, code:document.getElementById('a-code').value, produitsIds, description:document.getElementById('a-desc').value};
+  const champsResultats=typeof getChampResultats==='function'?getChampResultats():((state.catalogue||[]).find(x=>x.id===editingId)||{}).champsResultats||[];
+  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:document.getElementById('a-duree').value, code:document.getElementById('a-code').value, produitsIds, description:document.getElementById('a-desc').value, champsResultats};
   if(editingId){ const i=state.catalogue.findIndex(x=>x.id===editingId); if(i>=0) state.catalogue[i]=entry; addActivity('book','Analyse modifiée : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutée au catalogue : '+nom); }
   editingId=null; closeModal('modal-analyse'); renderCatalogue(); populateCatalogueSelect(); saveData(); toast('Analyse enregistrée','success');
@@ -4241,7 +4242,10 @@ editAnalyse = function(id){
   document.getElementById('a-code').value=a.code||'';
   document.getElementById('a-desc').value=a.description||'';
   openModal('modal-analyse');
-  setTimeout(()=>populateProduitsAnalyseCheck(a.produitsIds||[]),60);
+  setTimeout(()=>{
+    populateProduitsAnalyseCheck(a.produitsIds||[]);
+    if(typeof chargerChampResultats==='function') chargerChampResultats(a.champsResultats||null);
+  },60);
 };
 
 wizardRecap = function(){
