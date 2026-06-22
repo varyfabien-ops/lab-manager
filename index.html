@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v50 — Physico-Chimie</title>
+<title>LabManager v52 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1780,25 +1780,48 @@ function sauvegarderResultat() {
     const analyse = (state.catalogue||[]).find(a=>a.id===_resultatAnalyseId);
     if (echRelance && analyse) {
       // Compter les relances existantes
-      const relanceCount = (state.planning||[]).filter(p =>
-        p.echantillonCode===echRelance.code && p.nom===analyse.nom && p.relance
+      const relanceCount = (state.echantillons||[]).filter(e =>
+        e.lot===echRelance.lot && e.relance && e.analysesIds?.includes(_resultatAnalyseId)
       ).length + 1;
-      const newEntry = {
+      const relanceCode = echRelance.lot+'-R'+relanceCount;
+
+      // Créer une nouvelle entrée échantillon pour la relance
+      const newEch = {
+        id: Date.now(),
+        code: relanceCode,
+        lot: echRelance.lot,
+        produitId: echRelance.produitId,
+        marcheIds: echRelance.marcheIds||[],
+        analysesIds: [_resultatAnalyseId],
+        typePIF: echRelance.typePIF,
+        typeSTAB: echRelance.typeSTAB,
+        typeMP: echRelance.typeMP,
+        date: new Date().toISOString().slice(0,10),
+        statut: 'recu',
+        relance: true,
+        relanceNum: relanceCount,
+        relanceType: statutAnalyse.toUpperCase(),
+        note: 'Relance #'+relanceCount+' suite '+statutAnalyse.toUpperCase()+' — '+commentaire,
+        analyseStatuts: { [_resultatAnalyseId]: 'en_cours' },
+        analyseStatutsInfo: { [_resultatAnalyseId]: { en_cours: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'}) } }
+      };
+      if (!state.echantillons) state.echantillons = [];
+      state.echantillons.push(newEch);
+
+      // Aussi ajouter dans le planning
+      if (!state.planning) state.planning = [];
+      state.planning.push({
         id: Date.now()+Math.random(),
         nom: analyse.nom,
-        echantillonCode: echRelance.code,
+        echantillonCode: relanceCode,
         date: new Date().toISOString().slice(0,10),
         priorite: 'haute',
         statut: 'planifie',
         relance: true,
         relanceNum: relanceCount,
         relanceType: statutAnalyse.toUpperCase(),
-        note: 'Relance #'+relanceCount+' suite '+statutAnalyse.toUpperCase()+' — '+commentaire
-      };
-      if (!state.planning) state.planning = [];
-      state.planning.push(newEntry);
-      // Remettre le statut analyse à "en_cours" pour la relance
-      if (echRelance.analyseStatuts) echRelance.analyseStatuts[_resultatAnalyseId] = 'en_cours';
+        note: 'Relance #'+relanceCount+' suite '+statutAnalyse.toUpperCase()
+      });
       toast('Relance #'+relanceCount+' créée suite '+statutAnalyse.toUpperCase(), 'warning');
     }
   }
@@ -4156,6 +4179,7 @@ function typeBadgesForEntry(e){
   if(e?.typePIF) h += '<span class="badge badge-amber" style="font-size:11px">PIF</span> ';
   if(e?.typeMP) h += '<span class="badge badge-green" style="font-size:11px">MP</span> ';
   if(e?.typeSTAB) h += '<span class="badge badge-purple" style="font-size:11px">STAB</span>';
+  if(e?.relance) h += ' <span class="badge badge-red" style="font-size:10px">R#'+e.relanceNum+' '+e.relanceType+'</span>';
   return h || '<span class="badge badge-gray">—</span>';
 }
 function typeColorForEntry(e){
