@@ -1524,7 +1524,7 @@
     },
     {
       "id": 1782144356277,
-      "nom": "Marcaïne 5mg/mL",
+      "nom": "Marcaïne 5 mg/mL",
       "forme": "",
       "dosage": "",
       "code": "M5",
@@ -2089,11 +2089,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "L*a*b — 2 sous-séries — lot AAAAAAA",
-      "time": "21/06 15:15"
-    },
-    {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-1",
       "time": "21/06 16:09"
@@ -2336,6 +2331,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Marcaïne 2,5 mg/mL",
+      "time": "22/06 18:06"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Marcaïne 5 mg/mL",
       "time": "22/06 18:06"
     }
   ]
