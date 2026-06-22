@@ -2074,7 +2074,7 @@
       "stabTemps": "",
       "lot": "BBBBBB",
       "date": "2026-06-21",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1781975394472": "verifiee"
@@ -2194,11 +2194,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 3 entrée(s) — 1 analyse(s)",
-      "time": "21/06 17:15"
-    },
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
@@ -2442,6 +2437,11 @@
     {
       "icon": "list-check",
       "text": "BBBBBB — Identification IR : verifiee",
+      "time": "22/06 18:50"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : BBBBBB",
       "time": "22/06 18:50"
     }
   ]
