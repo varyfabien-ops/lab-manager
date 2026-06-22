@@ -1539,6 +1539,15 @@
       "code": "M3",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144451410,
+      "nom": "Xylocaïne 10 mg/mL",
+      "forme": "",
+      "dosage": "",
+      "code": "X1",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2090,11 +2099,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-1",
-      "time": "21/06 16:09"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-2",
       "time": "21/06 16:09"
     },
@@ -2337,6 +2341,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Marcaïne 5 mg/mL",
       "time": "22/06 18:06"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Xylocaïne 10 mg/mL",
+      "time": "22/06 18:07"
     }
   ]
 }
