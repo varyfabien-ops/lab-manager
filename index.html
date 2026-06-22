@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v49 — Physico-Chimie</title>
+<title>LabManager v50 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1805,7 +1805,7 @@ function sauvegarderResultat() {
 
   closeModal('modal-resultat');
   renderEchantillonsTable();
-  renderPlanningTable?.();
+  if(typeof renderPlanningTable==='function') renderPlanningTable();
   saveData();
   if (statutAnalyse==='ok') toast('Résultat enregistré', 'success');
 }
@@ -2933,7 +2933,7 @@ function renderPlanningTable() {
   if (!rows.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-calendar"></i><p>Aucune analyse planifiee</p></div></td></tr>`; return; }
   tbody.innerHTML = rows.sort((a,b)=>a.date.localeCompare(b.date)).map(p => `
     <tr>
-      <td><strong>${p.nom}</strong>${p.note?`<br><span style="font-size:11px;color:var(--text3)">${p.note}</span>`:''}</td>
+      <td><strong>${p.nom}</strong>${p.relance?`<span class="badge badge-amber" style="font-size:10px;margin-left:4px">Relance #${p.relanceNum} ${p.relanceType}</span>`:''}<br><span style="font-size:11px;color:var(--text3)">${p.echantillonCode||''} ${p.note?'— '+p.note:''}</span></td>
       <td>${p.technicien||'-'}</td>
       <td>${formatDate(p.date)}</td>
       <td>${prioriteBadge(p.priorite)}</td>
