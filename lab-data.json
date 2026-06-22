@@ -1327,6 +1327,19 @@
         1782056443354
       ],
       "description": "Identification des Chlorures selon PE"
+    },
+    {
+      "id": 1782144772894,
+      "nom": "Dosage PE",
+      "habilitations": [
+        "Titrimétrie"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1782144736659
+      ],
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -2135,11 +2148,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA",
-      "time": "21/06 17:12"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : BBBBBB-1",
       "time": "21/06 17:12"
     },
@@ -2381,6 +2389,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Acide Chlorhydrique 2M",
+      "time": "22/06 18:12"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Dosage PE",
       "time": "22/06 18:12"
     }
   ]
