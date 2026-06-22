@@ -1285,7 +1285,7 @@
     },
     {
       "id": 1781959743113,
-      "nom": "Volume Extractibl",
+      "nom": "Volume Extractible",
       "habilitations": [],
       "duree": "",
       "code": "",
@@ -2038,11 +2038,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : BBBBBB",
-      "time": "21/06 14:49"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-A",
       "time": "21/06 14:49"
     },
@@ -2285,6 +2280,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractibl",
       "time": "22/06 17:52"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Volume Extractible",
+      "time": "22/06 17:53"
     }
   ]
 }
