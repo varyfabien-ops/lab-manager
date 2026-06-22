@@ -1181,6 +1181,18 @@
       "relanceNum": 1,
       "relanceType": "OOT",
       "note": "Relance #1 suite OOT — OOT Teneur en BnOH"
+    },
+    {
+      "id": 1782147980415.8557,
+      "nom": "TCC0044",
+      "echantillonCode": "BBBBBB",
+      "date": "2026-06-22",
+      "priorite": "haute",
+      "statut": "planifie",
+      "relance": true,
+      "relanceNum": 2,
+      "relanceType": "OOS",
+      "note": "Relance #2 suite OOS — OOS-26-204"
     }
   ],
   "catalogue": [
@@ -2220,19 +2232,19 @@
             },
             {
               "label": "Teneur en Phenol",
-              "valeur": "95",
+              "valeur": "80",
               "unite": "%"
             },
             {
               "label": "Teneur en Alcool Benzylique",
-              "valeur": "92",
+              "valeur": "99",
               "unite": "%"
             }
           ],
-          "commentaire": "OOT Teneur en BnOH",
+          "commentaire": "OOS-26-204",
           "date": "22/06/2026",
           "unite": "",
-          "statutAnalyse": "oot"
+          "statutAnalyse": "oos"
         }
       }
     }
@@ -2271,11 +2283,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-3",
-      "time": "21/06 17:19"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : BBBBBB",
@@ -2520,6 +2527,11 @@
       "icon": "clipboard-check",
       "text": "TCC0044 — lot BBBBBB",
       "time": "22/06 19:02"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "TCC0044 — lot BBBBBB",
+      "time": "22/06 19:06"
     }
   ]
 }
