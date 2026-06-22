@@ -1516,7 +1516,7 @@
     {
       "id": 1782056443354,
       "nom": "Mépivacaïne HCl",
-      "forme": "",
+      "forme": "Matière Première",
       "dosage": "",
       "code": "MYYYYYYYY",
       "responsable": "",
@@ -2126,11 +2126,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 3 analyse(s)",
-      "time": "21/06 16:41"
-    },
-    {
-      "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:07"
     },
@@ -2372,6 +2367,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Lidocaïne HCl",
+      "time": "22/06 18:11"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Mépivacaïne HCl",
       "time": "22/06 18:11"
     }
   ]
