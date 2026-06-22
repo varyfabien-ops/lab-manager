@@ -2049,6 +2049,20 @@
       ],
       "date": "2021-11-20",
       "statut": "actif"
+    },
+    {
+      "id": 1782143945177,
+      "prenom": "Corentin",
+      "nom": "AUBOIS",
+      "role": "Technicien CQ",
+      "habilitations": [
+        "Balance",
+        "Volume",
+        "Pipette",
+        "HPLC"
+      ],
+      "date": "",
+      "statut": "actif"
     }
   ],
   "commandesStatut": {
@@ -2056,11 +2070,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA",
-      "time": "21/06 14:50"
-    },
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 1 analyse(s)",
@@ -2305,6 +2314,11 @@
       "icon": "book",
       "text": "Analyse modifiée : pH",
       "time": "22/06 17:56"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Corentin AUBOIS",
+      "time": "22/06 17:59"
     }
   ]
 }
