@@ -2187,8 +2187,16 @@
       "stabTemps": "",
       "lot": "BBBBBB",
       "date": "2026-06-22",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852438719": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852438719": {
+          "en_cours": "22/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -2225,11 +2233,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-1",
-      "time": "21/06 17:19"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-2",
@@ -2474,6 +2477,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
       "time": "22/06 19:00"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0044 : en_cours",
+      "time": "22/06 19:01"
     }
   ]
 }
