@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v52 — Physico-Chimie</title>
+<title>LabManager v53 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4491,7 +4491,8 @@ function renderEchantillonsTableAlignedV105(){
 
   const lots={};
   (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve').forEach(e=>{
-    const k=e.lot||String(e.id);
+    // Les relances ont leur propre code unique (LOT-R1, LOT-R2...) -> une ligne indépendante
+    const k=e.relance ? String(e.id) : (e.lot||String(e.id));
     if(!lots[k]) lots[k]=[];
     lots[k].push(e);
   });
