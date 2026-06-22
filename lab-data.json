@@ -2077,11 +2077,26 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781975394472": "en_cours"
+        "1781975394472": "terminee"
       },
       "analyseStatutsInfo": {
         "1781975394472": {
-          "en_cours": "21/06/2026"
+          "en_cours": "21/06/2026",
+          "terminee": "22/06/2026"
+        }
+      },
+      "resultats": {
+        "1781975394472": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "conforme",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "22/06/2026",
+          "unite": ""
         }
       }
     },
@@ -2178,11 +2193,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : YYYYYYY-2",
-      "time": "21/06 17:13"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : CCCCCC",
@@ -2427,6 +2437,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Identification IR",
       "time": "22/06 18:19"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Identification IR — lot BBBBBB",
+      "time": "22/06 18:50"
     }
   ]
 }
