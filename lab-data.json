@@ -1521,6 +1521,15 @@
       "code": "MYYYYYYYY",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144356277,
+      "nom": "Marcaïne 5mg/mL",
+      "forme": "",
+      "dosage": "",
+      "code": "M5",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2071,11 +2080,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 1 analyse(s)",
-      "time": "21/06 15:05"
-    },
-    {
       "icon": "list-check",
       "text": "AAAAAAA-1 — L*a*b : en_cours",
       "time": "21/06 15:05"
@@ -2319,6 +2323,11 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Corentin AUBOIS",
       "time": "22/06 17:59"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Marcaïne 5mg/mL",
+      "time": "22/06 18:05"
     }
   ]
 }
