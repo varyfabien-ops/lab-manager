@@ -2180,11 +2180,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : BBBBBB-4",
-      "time": "21/06 17:13"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY-2",
       "time": "21/06 17:13"
     },
@@ -2427,6 +2422,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Identification IR",
       "time": "22/06 18:18"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Identification IR",
+      "time": "22/06 18:19"
     }
   ]
 }
