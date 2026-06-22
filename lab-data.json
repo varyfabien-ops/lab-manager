@@ -1169,6 +1169,18 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: BBBBBB | PIF "
+    },
+    {
+      "id": 1782147720214.3215,
+      "nom": "TCC0044",
+      "echantillonCode": "BBBBBB",
+      "date": "2026-06-22",
+      "priorite": "haute",
+      "statut": "planifie",
+      "relance": true,
+      "relanceNum": 1,
+      "relanceType": "OOT",
+      "note": "Relance #1 suite OOT — OOT Teneur en BnOH"
     }
   ],
   "catalogue": [
@@ -2194,7 +2206,33 @@
       },
       "analyseStatutsInfo": {
         "1781852438719": {
-          "en_cours": "22/06/2026"
+          "en_cours": "22/06/2026",
+          "terminee": "22/06/2026"
+        }
+      },
+      "resultats": {
+        "1781852438719": {
+          "champs": [
+            {
+              "label": "Teneur en RM493",
+              "valeur": "100",
+              "unite": "%"
+            },
+            {
+              "label": "Teneur en Phenol",
+              "valeur": "95",
+              "unite": "%"
+            },
+            {
+              "label": "Teneur en Alcool Benzylique",
+              "valeur": "92",
+              "unite": "%"
+            }
+          ],
+          "commentaire": "OOT Teneur en BnOH",
+          "date": "22/06/2026",
+          "unite": "",
+          "statutAnalyse": "oot"
         }
       }
     }
@@ -2233,11 +2271,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-2",
-      "time": "21/06 17:19"
-    },
     {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA-3",
@@ -2482,6 +2515,11 @@
       "icon": "list-check",
       "text": "BBBBBB — TCC0044 : en_cours",
       "time": "22/06 19:01"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "TCC0044 — lot BBBBBB",
+      "time": "22/06 19:02"
     }
   ]
 }
