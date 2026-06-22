@@ -1575,6 +1575,15 @@
       "code": "",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144736659,
+      "nom": "Acide Chlorhydrique 2M",
+      "forme": "Matière Première",
+      "dosage": "",
+      "code": "",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2125,11 +2134,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
-      "time": "21/06 17:07"
-    },
-    {
       "icon": "trash",
       "text": "Echantillon supprime : AAAAAAA",
       "time": "21/06 17:12"
@@ -2373,6 +2377,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Mépivacaïne HCl",
       "time": "22/06 18:11"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Acide Chlorhydrique 2M",
+      "time": "22/06 18:12"
     }
   ]
 }
