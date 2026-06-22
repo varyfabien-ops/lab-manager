@@ -1557,6 +1557,15 @@
       "code": "X2",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144669677,
+      "nom": "Prilocaïne HCl",
+      "forme": "Matière Première",
+      "dosage": "",
+      "code": "",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2108,11 +2117,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 3 analyse(s)",
-      "time": "21/06 16:10"
-    },
-    {
-      "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 4 entrée(s) — 3 analyse(s)",
       "time": "21/06 16:32"
     },
@@ -2355,6 +2359,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Xylocaïne 20 mg/mL",
       "time": "22/06 18:07"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Prilocaïne HCl",
+      "time": "22/06 18:11"
     }
   ]
 }
