@@ -1548,6 +1548,15 @@
       "code": "X1",
       "responsable": "",
       "description": ""
+    },
+    {
+      "id": 1782144472126,
+      "nom": "Xylocaïne 20 mg/mL",
+      "forme": "",
+      "dosage": "",
+      "code": "X2",
+      "responsable": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2098,11 +2107,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA-2",
-      "time": "21/06 16:09"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 3 analyse(s)",
       "time": "21/06 16:10"
@@ -2345,6 +2349,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Xylocaïne 10 mg/mL",
+      "time": "22/06 18:07"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Xylocaïne 20 mg/mL",
       "time": "22/06 18:07"
     }
   ]
