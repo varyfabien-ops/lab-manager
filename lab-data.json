@@ -10,15 +10,6 @@
       "note": ""
     },
     {
-      "id": 1781510120638.0925,
-      "nom": "TCC0015",
-      "echantillonCode": "9960000-A",
-      "date": "2026-06-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9960000-A | PIF"
-    },
-    {
       "id": 1781510120638.6848,
       "nom": "pH",
       "echantillonCode": "9960000-A",
@@ -2284,11 +2275,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Echantillon supprime : BBBBBB",
-      "time": "21/06 17:20"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 2 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:27"
@@ -2532,6 +2518,11 @@
       "icon": "clipboard-check",
       "text": "TCC0044 — lot BBBBBB",
       "time": "22/06 19:06"
+    },
+    {
+      "icon": "trash",
+      "text": "Analyse supprimee : TCC0015",
+      "time": "22/06 19:14"
     }
   ]
 }
