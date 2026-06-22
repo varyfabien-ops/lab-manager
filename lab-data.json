@@ -1278,6 +1278,9 @@
       "habilitations": [],
       "duree": "",
       "code": "",
+      "produitsIds": [
+        1781852369953
+      ],
       "description": "Dosage du MPEG"
     },
     {
@@ -2035,11 +2038,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Echantillon supprime : AAAAAAA",
-      "time": "21/06 14:48"
-    },
-    {
-      "icon": "trash",
       "text": "Echantillon supprime : YYYYYYY",
       "time": "21/06 14:48"
     },
@@ -2282,6 +2280,11 @@
       "icon": "list-check",
       "text": "AAAAAAA — Identification IR : en_cours",
       "time": "21/06 17:58"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0065",
+      "time": "22/06 14:21"
     }
   ]
 }
