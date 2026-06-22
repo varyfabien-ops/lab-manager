@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v45 — Physico-Chimie</title>
+<title>LabManager v49 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -171,7 +171,6 @@
 <div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
-<div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
     <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
@@ -233,7 +232,7 @@
   </div>
   <div id="planning-view-catalogue" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Catalogue des analyses</h1><p>Base de reference avec habilitations requises</p></div>
+      <div class="page-header-text"><h1>Catalogue des analyses</h1><p>Base de référence des analyses</p></div>
       <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-analyse')"><i class="ti ti-plus"></i> Nouvelle analyse</button></div>
     </div>
     <div class="table-card">
@@ -375,7 +374,7 @@
       <div class="table-card-header"><h3>Produits enregistres</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits-ech" placeholder="Rechercher..." oninput="renderProduitsEch()"></div>
       </div>
-      <table><thead><tr><th>Produit</th><th>Forme / Dosage</th><th>Marches associes</th><th>Responsable</th><th></th></tr></thead>
+      <table><thead><tr><th>Produit</th><th>Forme / Dosage</th><th>Marches associes</th><th></th></tr></thead>
       <tbody id="produits-ech-tbody"></tbody></table>
     </div>
   </div>
@@ -424,7 +423,7 @@
     </div>
     <table><thead><tr>
       <th>N Etude</th><th>Produit(s)</th><th>Lot(s)</th><th>Temperatures</th>
-      <th>Echeance</th><th>Responsable</th><th>Statut</th><th></th>
+      <th>Echeance</th><th>Statut</th><th></th>
     </tr></thead>
     <tbody id="stab-tbody"></tbody></table>
   </div>
@@ -537,9 +536,10 @@
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group full"><label>Nom de l'analyse *</label><input id="a-nom" placeholder="Ex: Dosage HPLC, Test de dissolution..."></div>
-        <div class="form-group full"><label>Habilitations requises <span style="color:var(--text3);font-weight:400">(séparées par des virgules)</span></label><input id="a-habs" placeholder="Ex: HPLC, Dissolution, pH-métrie"></div>
+        
         <div class="form-group"><label>Durée estimée</label><input id="a-duree" placeholder="Ex: 2h, 30min, 1 journée"></div>
         <div class="form-group"><label>Code / Référence</label><input id="a-code" placeholder="Ex: MO-HPLC-001"></div>
+        <div class="form-group full"><label>Habilitations requises <span style="color:var(--text3);font-weight:400">(séparées par des virgules)</span></label><input id="a-habs" placeholder="Ex: HPLC, Dissolution, pH-métrie"></div>
         <div class="form-group full">
           <label>Produits applicables <span style="color:var(--text3);font-weight:400">(cochez les produits concernés)</span></label>
           <div id="a-produits-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:4px"></div>
@@ -658,7 +658,7 @@
         <div class="form-group"><label>Forme pharmaceutique</label><input id="pe-forme" placeholder="Ex: Comprime, Gelule, Solution..."></div>
         <div class="form-group"><label>Dosage</label><input id="pe-dosage" placeholder="Ex: 500mg, 1g/5mL..."></div>
         <div class="form-group"><label>Code produit</label><input id="pe-code" placeholder="Ex: PARA-500-CPR"></div>
-        <div class="form-group"><label>Responsable produit</label><input id="pe-resp" placeholder="Ex: Dr. Martin"></div>
+        
         <div class="form-group full"><label>Description</label><textarea id="pe-desc" placeholder="Informations complementaires..."></textarea></div>
       </div>
     </div>
@@ -848,7 +848,7 @@
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group"><label>N° d'etude *</label><input id="stab-num" placeholder="Ex: STAB-2024-001"></div>
-        <div class="form-group"><label>Responsable</label><input id="stab-resp" placeholder="Ex: Dr. Martin"></div>
+        
         <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Xylocaine 5%, Paracetamol 500mg"></div>
         <div class="form-group full"><label>Lot(s)</label><input id="stab-lots" placeholder="Ex: LOT-001, LOT-002"></div>
         <div class="form-group"><label>Temperatures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
@@ -993,8 +993,24 @@
         </div>
         <input type="hidden" id="resultat-conformite-val">
       </div>
+      <!-- Statut OOT / OOS -->
       <div class="form-group" style="margin-top:14px">
-        <label>Commentaire (optionnel)</label>
+        <label>Statut de l'analyse</label>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <div id="btn-statut-ok" onclick="selectStatutAnalyse('ok')" style="flex:1;cursor:pointer;border:2px solid var(--border);border-radius:var(--radius);padding:10px;text-align:center;transition:all 0.15s;font-size:13px;font-weight:600">
+            <i class="ti ti-circle-check" style="color:var(--green);pointer-events:none"></i> Conforme
+          </div>
+          <div id="btn-statut-oot" onclick="selectStatutAnalyse('oot')" style="flex:1;cursor:pointer;border:2px solid var(--border);border-radius:var(--radius);padding:10px;text-align:center;transition:all 0.15s;font-size:13px;font-weight:600">
+            <i class="ti ti-alert-triangle" style="color:var(--amber);pointer-events:none"></i> OOT
+          </div>
+          <div id="btn-statut-oos" onclick="selectStatutAnalyse('oos')" style="flex:1;cursor:pointer;border:2px solid var(--border);border-radius:var(--radius);padding:10px;text-align:center;transition:all 0.15s;font-size:13px;font-weight:600">
+            <i class="ti ti-circle-x" style="color:var(--red);pointer-events:none"></i> OOS
+          </div>
+        </div>
+        <input type="hidden" id="resultat-statut-val" value="ok">
+      </div>
+      <div class="form-group" style="margin-top:10px" id="wrap-commentaire-oot" style="display:none">
+        <label id="label-commentaire-resultat">Commentaire <span id="commentaire-obligatoire" style="color:var(--red);display:none">*</span></label>
         <textarea id="resultat-commentaire" placeholder="Observations, remarques..." style="min-height:60px"></textarea>
       </div>
     </div>
@@ -1650,9 +1666,27 @@ function ouvrirModalResultat(echId, analyseId) {
   }
 
   document.getElementById('resultat-commentaire').value = ((ech.resultats||{})[_resultatAnalyseId]?.commentaire)||'';
+  // Reset statut OOT/OOS
+  const prevStatut = ((ech.resultats||{})[_resultatAnalyseId]?.statutAnalyse)||'ok';
+  setTimeout(()=>selectStatutAnalyse(prevStatut), 50);
   openModal('modal-resultat');
 }
 
+
+function selectStatutAnalyse(val) {
+  document.getElementById('resultat-statut-val').value = val;
+  const colors = { ok: 'var(--green)', oot: 'var(--amber)', oos: 'var(--red)' };
+  ['ok','oot','oos'].forEach(v => {
+    const btn = document.getElementById('btn-statut-'+v);
+    if (!btn) return;
+    btn.style.background = v===val ? colors[v] : '';
+    btn.style.color = v===val ? '#fff' : '';
+    btn.style.borderColor = v===val ? colors[v] : 'var(--border)';
+  });
+  // Commentaire obligatoire pour OOT/OOS
+  const lbl = document.getElementById('commentaire-obligatoire');
+  if(lbl) lbl.style.display = (val==='oot'||val==='oos') ? 'inline' : 'none';
+}
 
 function toggleConformiteChamp(idx, val) {
   const hidden = document.getElementById('champ-val-'+idx);
@@ -1722,10 +1756,58 @@ function sauvegarderResultat() {
     }
     addActivity('clipboard-check', (a.nom||'') + ' — lot ' + (ech.lot||''));
   }
+  // Statut OOT/OOS
+  const statutAnalyse = document.getElementById('resultat-statut-val')?.value || 'ok';
+  if ((statutAnalyse==='oot'||statutAnalyse==='oos') && !commentaire.trim()) {
+    toast('Un commentaire est obligatoire pour un OOT ou OOS', 'error'); return;
+  }
+
+  // Stocker le statut OOT/OOS dans le résultat
+  const echRef = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
+  if (echRef && echRef.resultats && echRef.resultats[_resultatAnalyseId]) {
+    echRef.resultats[_resultatAnalyseId].statutAnalyse = statutAnalyse;
+  }
+  if (window._ssIds && window._ssIds.length > 1) {
+    window._ssIds.forEach(ssId => {
+      const ssE = (state.echantillons||[]).find(e=>e.id===ssId);
+      if (ssE?.resultats?.[_resultatAnalyseId]) ssE.resultats[_resultatAnalyseId].statutAnalyse = statutAnalyse;
+    });
+  }
+
+  // Créer une relance si OOT ou OOS
+  if (statutAnalyse==='oot'||statutAnalyse==='oos') {
+    const echRelance = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
+    const analyse = (state.catalogue||[]).find(a=>a.id===_resultatAnalyseId);
+    if (echRelance && analyse) {
+      // Compter les relances existantes
+      const relanceCount = (state.planning||[]).filter(p =>
+        p.echantillonCode===echRelance.code && p.nom===analyse.nom && p.relance
+      ).length + 1;
+      const newEntry = {
+        id: Date.now()+Math.random(),
+        nom: analyse.nom,
+        echantillonCode: echRelance.code,
+        date: new Date().toISOString().slice(0,10),
+        priorite: 'haute',
+        statut: 'planifie',
+        relance: true,
+        relanceNum: relanceCount,
+        relanceType: statutAnalyse.toUpperCase(),
+        note: 'Relance #'+relanceCount+' suite '+statutAnalyse.toUpperCase()+' — '+commentaire
+      };
+      if (!state.planning) state.planning = [];
+      state.planning.push(newEntry);
+      // Remettre le statut analyse à "en_cours" pour la relance
+      if (echRelance.analyseStatuts) echRelance.analyseStatuts[_resultatAnalyseId] = 'en_cours';
+      toast('Relance #'+relanceCount+' créée suite '+statutAnalyse.toUpperCase(), 'warning');
+    }
+  }
+
   closeModal('modal-resultat');
   renderEchantillonsTable();
+  renderPlanningTable?.();
   saveData();
-  toast('Résultat enregistré', 'success');
+  if (statutAnalyse==='ok') toast('Résultat enregistré', 'success');
 }
 
 function cycleAnalyseStatut(echId, analyseId) {
@@ -1984,21 +2066,21 @@ function renderStabilites() {
   const tbody=document.getElementById('stab-tbody'); if(!tbody) return;
   if(!stabs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude</p></div></td></tr>';return;}
   const sb={en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
-  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance||'—')+'</td><td>'+(s.responsable||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
+  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
 }
 
 function saveStabilite() {
   const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
   if(!state.stabilites) state.stabilites=[];
   const analyses=document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
-  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:document.getElementById('stab-echeance').value,debut:document.getElementById('stab-debut').value,responsable:document.getElementById('stab-resp').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
+  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:document.getElementById('stab-echeance').value,debut:document.getElementById('stab-debut').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
   if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
   editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
 }
 
 function editStabilite(id) {
   const s=(state.stabilites||[]).find(x=>x.id===id);if(!s)return;editingId=id;
-  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-resp').value=s.responsable||'';document.getElementById('stab-produits').value=s.produits||'';document.getElementById('stab-lots').value=s.lots||'';document.getElementById('stab-temps').value=s.temperatures||'';document.getElementById('stab-echeance').value=s.echeance||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-analyses').value=(s.analyses||[]).join(', ');document.getElementById('stab-obs').value=s.observations||'';
+  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-produits').value=s.produits||'';document.getElementById('stab-lots').value=s.lots||'';document.getElementById('stab-temps').value=s.temperatures||'';document.getElementById('stab-echeance').value=s.echeance||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-analyses').value=(s.analyses||[]).join(', ');document.getElementById('stab-obs').value=s.observations||'';
   const t=document.getElementById('modal-stab-title');if(t)t.textContent='Modifier';openModal('modal-stab');
 }
 
@@ -2025,7 +2107,7 @@ function renderStabDetail(s) {
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance||'—')+'</strong></div>'
-    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Responsable</span><br><strong>'+(s.responsable||'—')+'</strong></div>'
+    
     +'</div>';
   if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
   else{
@@ -2100,7 +2182,7 @@ function editTimepointResult(tpIdx,analyse) {
 function exportStabWord() {
   const s=(state.stabilites||[]).find(x=>x.id===activeStabId);if(!s)return;
   const tps=s.timepoints||[];const analyses=s.analyses||[];
-  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nEcheance : '+(s.echeance||'—')+'\nResponsable : '+(s.responsable||'—')+'\nStatut : '+s.statut+'\n\n';
+  let c='RAPPORT DE STABILITE\n\nN Etude : '+s.num+'\nProduit(s) : '+s.produits+'\nLot(s) : '+s.lots+'\nTemperatures : '+s.temperatures+'\nDebut : '+(s.debut?formatDate(s.debut):'—')+'\nEcheance : '+(s.echeance||'—')+'\nStatut : '+s.statut+'\n\n';
   if(s.observations)c+='Observations : '+s.observations+'\n\n';
   c+='RESULTATS\n\n';
   if(tps.length){c+=['Analyse',...tps.map(t=>t.label+(t.date?' ('+formatDate(t.date)+')':''))].join('\t')+'\n';analyses.forEach(a=>{c+=[a,...tps.map(t=>(t.resultats||{})[a]||'—')].join('\t')+'\n';});}
@@ -2708,7 +2790,7 @@ function saveAnalyse() {
   const nom = document.getElementById('a-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.catalogue) state.catalogue = [];
-  const habs = document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const habs = document.getElementById('a-habs')?.value.split(',').map(h=>h.trim()).filter(Boolean)||[];
   // Récupérer les produits cochés
   const produitsIds = Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value));
   // Récupérer les champs de résultats
@@ -2747,7 +2829,7 @@ function editAnalyse(id) {
   const a = (state.catalogue||[]).find(x=>x.id===id); if(!a) return;
   editingId = id;
   document.getElementById('a-nom').value = a.nom||'';
-  document.getElementById('a-habs').value = (a.habilitations||[]).join(', ');
+  
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
   document.getElementById('a-desc').value = a.description||'';
@@ -3322,7 +3404,7 @@ function saveProduitEch() {
   const nom = document.getElementById('pe-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.produitsEch) state.produitsEch = [];
-  const entry = { id: editingId||Date.now(), nom, forme: document.getElementById('pe-forme').value, dosage: document.getElementById('pe-dosage').value, code: document.getElementById('pe-code').value, responsable: document.getElementById('pe-resp').value, description: document.getElementById('pe-desc').value };
+  const entry = { id: editingId||Date.now(), nom, forme: document.getElementById('pe-forme').value, dosage: document.getElementById('pe-dosage').value, code: document.getElementById('pe-code').value, description: document.getElementById('pe-desc').value };
   if (editingId) { const i=state.produitsEch.findIndex(x=>x.id===editingId); state.produitsEch[i]=entry; addActivity('pencil','Produit modifie : '+nom); }
   else { state.produitsEch.push(entry); addActivity('pill','Produit ajoute : '+nom); }
   editingId = null;
@@ -3343,7 +3425,7 @@ function renderProduitsEch() {
       <td><strong>${p.nom}</strong>${p.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+p.code+'</code>':''}</td>
       <td>${p.forme||'—'}${p.dosage?' / '+p.dosage:''}</td>
       <td>${marchesProd.length ? marchesProd.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3)">Aucun</span>'}</td>
-      <td>${p.responsable||'—'}</td>
+
       <td><div class="actions"><button class="icon-btn" onclick="editProduitEch(${p.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteProduitEch(${p.id})"><i class="ti ti-trash"></i></button></div></td>
     </tr>`;
   }).join('');
@@ -3356,7 +3438,7 @@ function editProduitEch(id) {
   document.getElementById('pe-forme').value = p.forme||'';
   document.getElementById('pe-dosage').value = p.dosage||'';
   document.getElementById('pe-code').value = p.code||'';
-  document.getElementById('pe-resp').value = p.responsable||'';
+  
   document.getElementById('pe-desc').value = p.description||'';
   document.getElementById('modal-produit-ech-title').textContent = 'Modifier le produit';
   openModal('modal-produit-ech');
@@ -4163,7 +4245,7 @@ wizardUpdateProduit = function(){
   const p = (state.produitsEch||[]).find(x=>x.id===id);
   const info=document.getElementById('w-produit-info'), prev=document.getElementById('w-produit-analyses-preview'), list=document.getElementById('w-produit-analyses-list');
   if(!p){ if(info)info.style.display='none'; if(prev)prev.style.display='none'; return; }
-  if(info){ info.style.display='block'; info.innerHTML = '<strong>'+p.nom+'</strong>'+(p.forme?' — '+p.forme:'')+(p.dosage?' '+p.dosage:'')+(p.code?' <code>'+p.code+'</code>':''); }
+  if(info){ info.style.display='block'; info.innerHTML = '<strong>'+p.nom+(p.relance?'<span class="badge badge-amber" style="font-size:10px;margin-left:4px">Relance #'+p.relanceNum+' '+p.relanceType+'</span>':'')+''+(p.forme?' — '+p.forme:'')+(p.dosage?' '+p.dosage:'')+(p.code?' <code>'+p.code+'</code>':''); }
   const analyses = getAnalysesForProduct(id);
   if(prev) prev.style.display = analyses.length ? 'block' : 'none';
   if(list) list.innerHTML = analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join('');
@@ -4214,7 +4296,7 @@ saveAnalyse = function(){
   const nom=document.getElementById('a-nom').value.trim();
   if(!nom){ toast('Le nom est obligatoire','error'); return; }
   if(!state.catalogue) state.catalogue=[];
-  const habs=document.getElementById('a-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
+  const habs=document.getElementById('a-habs')?.value.split(',').map(h=>h.trim()).filter(Boolean)||[];
   const produitsIds=Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value)).filter(Boolean);
   if(!produitsIds.length){ toast('Coche au moins un produit pour cette analyse','error'); return; }
   const champsResultats=typeof getChampResultats==='function'?getChampResultats():((state.catalogue||[]).find(x=>x.id===editingId)||{}).champsResultats||[];
@@ -4237,10 +4319,11 @@ editAnalyse = function(id){
   editingId=id;
   document.getElementById('modal-analyse-title').textContent='Modifier une analyse';
   document.getElementById('a-nom').value=a.nom||'';
-  document.getElementById('a-habs').value=(a.habilitations||[]).join(', ');
+  
   document.getElementById('a-duree').value=a.duree||'';
   document.getElementById('a-code').value=a.code||'';
   document.getElementById('a-desc').value=a.description||'';
+  if(document.getElementById('a-habs')) document.getElementById('a-habs').value=(a.habilitations||[]).join(', ');
   openModal('modal-analyse');
   setTimeout(()=>{
     populateProduitsAnalyseCheck(a.produitsIds||[]);
@@ -4319,7 +4402,18 @@ function getEcheanceConditionDisplay(e0){
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
   const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
-  if(isDone){ const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':''; if(cellType==='terminee') return '<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'<span style="font-size:9px;color:'+c+'">Résultat</span></button>'; return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>'; }
+  if(isDone){
+    const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'';
+    if(cellType==='terminee'){
+      const ech2=(state.echantillons||[]).find(e=>e.id===echId);
+      const res2=ech2?.resultats?.[analyseId]; const st2=res2?.statutAnalyse||'ok';
+      let badge='';
+      if(st2==='oot') badge='<span class="badge badge-amber" style="font-size:9px;margin-top:2px">OOT</span>';
+      if(st2==='oos') badge='<span class="badge badge-red" style="font-size:9px;margin-top:2px">OOS</span>';
+      return '<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+badge+'</button>';
+    }
+    return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
+  }
   if(cellIdx===curIdx+1 && currentStatut!=='verifiee') return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>';
   return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
 };
