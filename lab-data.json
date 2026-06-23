@@ -1478,7 +1478,7 @@
       "produitsIds": [
         1781975343839
       ],
-      "description": "Pouvoir Rotatoire selon PE",
+      "description": "Pouvoir Rotatoire selon PE (2.2.7)",
       "champsResultats": [
         {
           "label": "Résultat",
@@ -2506,11 +2506,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : AAAAAAA (3 entrees)",
-      "time": "21/06 17:56"
-    },
-    {
       "icon": "package",
       "text": "Réception: Bupivacaïne HCl — 1 entrée(s) — 1 analyse(s)",
       "time": "21/06 17:57"
@@ -2754,6 +2749,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Pouvoir Rotatoire PE",
       "time": "23/06 20:10"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Pouvoir Rotatoire PE",
+      "time": "23/06 20:11"
     }
   ]
 }
