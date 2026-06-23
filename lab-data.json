@@ -1443,7 +1443,13 @@
       "statut": "en_cours",
       "analyses": [],
       "observations": "",
-      "timepoints": []
+      "timepoints": [
+        {
+          "label": "TE",
+          "date": "",
+          "resultats": {}
+        }
+      ]
     }
   ],
   "reactifs": [],
