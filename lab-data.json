@@ -1431,7 +1431,21 @@
       "description": "Sulfates selon PE"
     }
   ],
-  "stabilites": [],
+  "stabilites": [
+    {
+      "id": 1782233825923,
+      "num": "STAB01",
+      "produits": "Setmelanotide 10mg/mL",
+      "lots": "ABCDEF",
+      "temperatures": "5C",
+      "echeance": "T2M",
+      "debut": "2026-06-23",
+      "statut": "en_cours",
+      "analyses": [],
+      "observations": "",
+      "timepoints": []
+    }
+  ],
   "reactifs": [],
   "produits": [
     {
