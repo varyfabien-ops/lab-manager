@@ -2293,10 +2293,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781975394472": "en_cours"
+        "1781975394472": "en_cours",
+        "1782143684794": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781975394472": {
+          "en_cours": "23/06/2026"
+        },
+        "1782143684794": {
           "en_cours": "23/06/2026"
         }
       }
@@ -2336,11 +2340,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : pH",
-      "time": "22/06 17:56"
-    },
     {
       "icon": "certificate",
       "text": "Technicien ajoute : Corentin AUBOIS",
@@ -2584,6 +2583,11 @@
     {
       "icon": "list-check",
       "text": "A — Identification IR : en_cours",
+      "time": "23/06 20:21"
+    },
+    {
+      "icon": "list-check",
+      "text": "A — Identification Chlorures PE : en_cours",
       "time": "23/06 20:21"
     }
   ]
