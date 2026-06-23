@@ -1447,6 +1447,27 @@
         1782144736659
       ],
       "description": "Sulfates selon PE"
+    },
+    {
+      "id": 1782238086216,
+      "nom": "Echantilllthèque",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1781975343839,
+        1782056443354,
+        1782144669677,
+        1782144693693
+      ],
+      "description": "Constitution de l'Échantillothèque",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ]
     }
   ],
   "stabilites": [
@@ -2467,11 +2488,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Mépivacaïne HCl — 1 entrée(s) — 1 analyse(s)",
-      "time": "21/06 17:41"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : BBBBBB (2 entrees)",
       "time": "21/06 17:47"
@@ -2715,6 +2731,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
       "time": "23/06 19:11"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Echantilllthèque",
+      "time": "23/06 20:08"
     }
   ]
 }
