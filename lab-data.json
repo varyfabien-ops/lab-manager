@@ -1486,6 +1486,31 @@
           "unite": ""
         }
       ]
+    },
+    {
+      "id": 1782238670330,
+      "nom": "Absorbance",
+      "habilitations": [
+        "UV"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1781509266740
+      ],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Absorbance à 420nm",
+          "type": "numerique",
+          "unite": ""
+        },
+        {
+          "label": "Absorbance à 460nm",
+          "type": "numerique",
+          "unite": ""
+        }
+      ]
     }
   ],
   "stabilites": [
@@ -2514,11 +2539,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "YYYYYYY — Identification IR : en_cours",
-      "time": "21/06 17:57"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : Identification IR",
       "time": "21/06 17:58"
@@ -2762,6 +2782,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Epinephrine",
       "time": "23/06 20:16"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Absorbance",
+      "time": "23/06 20:17"
     }
   ]
 }
