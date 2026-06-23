@@ -2232,35 +2232,6 @@
           "unite": ""
         }
       }
-    },
-    {
-      "id": 1782057535637,
-      "code": "AAAAAAA",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "nbContenants": 1,
-      "refSPQ": "SPQXXXX-3",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "AAAAAAA",
-      "date": "2026-06-21",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781975394472": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781975394472": {
-          "en_cours": "21/06/2026"
-        }
-      }
     }
   ],
   "techniciens": [
@@ -2297,11 +2268,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Volume Extractible",
-      "time": "22/06 17:53"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Identification Chlorures PE",
@@ -2545,6 +2511,11 @@
     {
       "icon": "trash",
       "text": "Lot supprime : YYYYYYY (3 entrees)",
+      "time": "23/06 20:20"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : AAAAAAA",
       "time": "23/06 20:20"
     }
   ]
