@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v59 — Physico-Chimie</title>
+<title>LabManager v60 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -536,17 +536,20 @@
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group full"><label>Nom de l'analyse *</label><input id="a-nom" placeholder="Ex: Dosage HPLC, Test de dissolution..."></div>
-        
-        <div class="form-group"><label>Durée estimée</label><input id="a-duree" placeholder="Ex: 2h, 30min, 1 journée"></div>
-        <div class="form-group"><label>Code / Référence</label><input id="a-code" placeholder="Ex: MO-HPLC-001"></div>
         <div class="form-group full"><label>Habilitations requises <span style="color:var(--text3);font-weight:400">(séparées par des virgules)</span></label><input id="a-habs" placeholder="Ex: HPLC, Dissolution, pH-métrie"></div>
         <div class="form-group full">
           <label>Produits applicables <span style="color:var(--text3);font-weight:400">(cochez les produits concernés)</span></label>
           <div id="a-produits-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:4px"></div>
         </div>
         <div class="form-group full">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+            <input type="checkbox" id="a-resultat-requis" onchange="toggleResultatRequis()" checked>
+            <span>Résultat à saisir pour cette analyse</span>
+          </label>
+        </div>
+        <div id="a-resultats-wrap" class="form-group full">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <label>Résultats à saisir</label>
+            <label>Champs de résultat</label>
             <button type="button" class="btn" onclick="ajouterChampResultat()" style="font-size:12px;padding:4px 10px"><i class="ti ti-plus"></i> Ajouter un champ</button>
           </div>
           <div id="a-resultats-list" style="display:flex;flex-direction:column;gap:8px"></div>
@@ -1664,6 +1667,7 @@ function ouvrirModalResultat(echId, analyseId) {
   const ech = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
   const a = (state.catalogue||[]).find(x=>x.id===_resultatAnalyseId);
   if (!ech || !a) return;
+  if (a.resultatRequis === false) { toast('Cette analyse ne nécessite pas de saisie de résultat', 'info'); return; }
 
   // Trouver toutes les sous-séries du même lot (PIF avec plusieurs SS)
   // On ne garde que les entrées avec suffixe -N (LOT-1, LOT-2...) si elles existent, sinon l'entrée unique
@@ -1758,6 +1762,12 @@ function onWizardStabEtudeChange() {
     const tp = document.getElementById('w-stab-echeance');
     if(tp) Array.from(tp.options).forEach(opt=>{ opt.disabled=false; opt.text=opt.value||'— Sélectionner —'; });
   }
+}
+
+function toggleResultatRequis() {
+  const cb = document.getElementById('a-resultat-requis');
+  const wrap = document.getElementById('a-resultats-wrap');
+  if(wrap) wrap.style.display = cb?.checked ? 'block' : 'none';
 }
 
 function selectStatutAnalyse(val) {
@@ -4504,8 +4514,9 @@ saveAnalyse = function(){
   const habs=document.getElementById('a-habs')?.value.split(',').map(h=>h.trim()).filter(Boolean)||[];
   const produitsIds=Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value)).filter(Boolean);
   if(!produitsIds.length){ toast('Coche au moins un produit pour cette analyse','error'); return; }
-  const champsResultats=typeof getChampResultats==='function'?getChampResultats():((state.catalogue||[]).find(x=>x.id===editingId)||{}).champsResultats||[];
-  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:document.getElementById('a-duree').value, code:document.getElementById('a-code').value, produitsIds, description:document.getElementById('a-desc').value, champsResultats};
+  const resultatRequis = document.getElementById('a-resultat-requis')?.checked !== false;
+  const champsResultats=resultatRequis?(typeof getChampResultats==='function'?getChampResultats():((state.catalogue||[]).find(x=>x.id===editingId)||{}).champsResultats||[]):[]; 
+  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:'', code:'', produitsIds, description:document.getElementById('a-desc').value, champsResultats, resultatRequis};
   if(editingId){ const i=state.catalogue.findIndex(x=>x.id===editingId); if(i>=0) state.catalogue[i]=entry; addActivity('book','Analyse modifiée : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutée au catalogue : '+nom); }
   editingId=null; closeModal('modal-analyse'); renderCatalogue(); populateCatalogueSelect(); saveData(); toast('Analyse enregistrée','success');
@@ -4533,6 +4544,7 @@ editAnalyse = function(id){
   setTimeout(()=>{
     populateProduitsAnalyseCheck(a.produitsIds||[]);
     if(typeof chargerChampResultats==='function') chargerChampResultats(a.champsResultats||null);
+    const cbReq=document.getElementById('a-resultat-requis'); if(cbReq) { cbReq.checked=a.resultatRequis!==false; toggleResultatRequis(); }
   },60);
 };
 
@@ -4621,6 +4633,8 @@ statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   if(isDone){
     const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'';
     if(cellType==='terminee'){
+      const a2=(state.catalogue||[]).find(x=>x.id===analyseId);
+      if(a2?.resultatRequis===false) return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-circle-check" style="font-size:20px;color:'+c+'"></i>'+(date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'')+'</div>';
       const ech2=(state.echantillons||[]).find(e=>e.id===echId);
       const res2=ech2?.resultats?.[analyseId]; const st2=res2?.statutAnalyse||'ok';
       let badge='';
