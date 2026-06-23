@@ -2290,8 +2290,16 @@
       "stabTemps": "",
       "lot": "A",
       "date": "2026-06-23",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781975394472": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781975394472": {
+          "en_cours": "23/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -2328,11 +2336,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0015",
-      "time": "22/06 17:56"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : pH",
@@ -2576,6 +2579,11 @@
     {
       "icon": "package",
       "text": "Réception: Bupivacaïne HCl — 1 entrée(s) — 4 analyse(s)",
+      "time": "23/06 20:21"
+    },
+    {
+      "icon": "list-check",
+      "text": "A — Identification IR : en_cours",
       "time": "23/06 20:21"
     }
   ]
