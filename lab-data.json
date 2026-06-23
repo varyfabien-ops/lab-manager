@@ -1468,6 +1468,24 @@
           "unite": ""
         }
       ]
+    },
+    {
+      "id": 1782238220848,
+      "nom": "Pouvoir Rotatoire PE",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1781975343839
+      ],
+      "description": "Pouvoir Rotatoire selon PE",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ]
     }
   ],
   "stabilites": [
@@ -2488,11 +2506,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Mépivacaïne HCl — 1 entrée(s) — 1 analyse(s)",
-      "time": "21/06 17:47"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : AAAAAAA (3 entrees)",
       "time": "21/06 17:56"
@@ -2736,6 +2749,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Echantillohèque",
       "time": "23/06 20:08"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Pouvoir Rotatoire PE",
+      "time": "23/06 20:10"
     }
   ]
 }
