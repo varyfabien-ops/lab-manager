@@ -1535,7 +1535,10 @@
     {
       "id": 1782238786363,
       "nom": "Iode Totale",
-      "habilitations": [],
+      "habilitations": [
+        "Titrimétrie",
+        "Karl-Fisher"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [
@@ -2577,11 +2580,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "AAAAAAA — Identification IR : en_cours",
-      "time": "21/06 17:58"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0065",
       "time": "22/06 14:21"
@@ -2825,6 +2823,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Iode Totale",
       "time": "23/06 20:19"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Iode Totale",
+      "time": "23/06 20:20"
     }
   ]
 }
