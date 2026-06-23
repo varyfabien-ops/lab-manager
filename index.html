@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v53 — Physico-Chimie</title>
+<title>LabManager v58 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -794,6 +794,16 @@
                 <option value="T18M">T18M</option>
                 <option value="T24M">T24M</option>
                 <option value="T36M">T36M</option>
+              </select>
+            </div>
+            <div class="form-group full"><label>Rattacher à une étude de stabilité <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
+              <select id="w-stab-etude" onchange="onWizardStabEtudeChange()">
+                <option value="">— Aucune étude sélectionnée —</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Pointage (Step)</label>
+              <select id="w-stab-echeance2" style="display:none">
+                <option value="">— Sélectionner —</option>
               </select>
             </div>
             <div class="form-group"><label>Températures (séparées par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
@@ -1595,6 +1605,33 @@ function exportLotsLiberes() {
 let _resultatEchId = null;
 let _resultatAnalyseId = null;
 
+function renderChampsForStabCond(ech, a, cIdx, cond) {
+  const existing = (ech.resultats||{})[_resultatAnalyseId] || {};
+  const champs = a.champsResultats && a.champsResultats.length
+    ? a.champsResultats
+    : [{ label: 'Résultat', type: a.typeResultat||'texte', unite: a.unite||'' }];
+  return champs.map((c, i) => {
+    const key = 'cond'+cIdx+'_champ'+i;
+    const val = existing.conditions?.[cIdx]?.[i]?.valeur || '';
+    if (c.type === 'conforme') {
+      const isConf = val==='conforme', isNC = val==='non-conforme';
+      return '<div class="form-group" style="margin-bottom:10px">'
+        + '<label style="font-size:13px;font-weight:600">'+c.label+'</label>'
+        + '<div style="display:flex;gap:8px;margin-top:6px">'
+        + '<button type="button" data-key="'+key+'" data-val="conforme" onclick="toggleConformiteChamp(this.dataset.key,this.dataset.val)" id="conf-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isConf?'background:var(--green);color:#fff;border-color:var(--green)':'')+'"><i class="ti ti-circle-check"></i> Conforme</button>'
+        + '<button type="button" data-key="'+key+'" data-val="non-conforme" onclick="toggleConformiteChamp(this.dataset.key,this.dataset.val)" id="nc-btn-'+key+'" class="btn" style="flex:1;justify-content:center;font-size:13px;'+(isNC?'background:var(--red);color:#fff;border-color:var(--red)':'')+'"><i class="ti ti-circle-x"></i> Non conforme</button>'
+        + '</div><input type="hidden" id="champ-val-'+key+'" value="'+val+'"></div>';
+    } else if (c.type === 'texte') {
+      return '<div class="form-group" style="margin-bottom:10px"><label style="font-size:13px;font-weight:600">'+c.label+'</label>'
+        + '<textarea id="champ-val-'+key+'" style="margin-top:6px" placeholder="Saisir...">'+val+'</textarea></div>';
+    } else {
+      return '<div class="form-group" style="margin-bottom:10px"><label style="font-size:13px;font-weight:600">'+c.label
+        +(c.unite?' <span style="font-size:11px;color:var(--text3);font-weight:400">('+c.unite+')</span>':'')+'</label>'
+        + '<input type="number" step="any" id="champ-val-'+key+'" value="'+val+'" placeholder="Ex: 6.8" style="margin-top:6px;font-size:15px;padding:10px"></div>';
+    }
+  }).join('');
+}
+
 function renderChampsForEch(ech, a, ssIdx) {
   const existing = (ech.resultats||{})[_resultatAnalyseId] || {};
   const champs = a.champsResultats && a.champsResultats.length
@@ -1630,7 +1667,7 @@ function ouvrirModalResultat(echId, analyseId) {
 
   // Trouver toutes les sous-séries du même lot (PIF avec plusieurs SS)
   // On ne garde que les entrées avec suffixe -N (LOT-1, LOT-2...) si elles existent, sinon l'entrée unique
-  const toutesEntreesPIF = (state.echantillons||[]).filter(e => e.lot === ech.lot && e.typePIF && !e.typeMP && e.produitId === ech.produitId);
+  const toutesEntreesPIF = (state.echantillons||[]).filter(e => e.lot === ech.lot && e.typePIF && !e.typeMP && e.produitId === ech.produitId && !e.relance);
   const avecSuffixe = toutesEntreesPIF.filter(e => /^.+-\d+$/.test(e.code||''));
   const sousSeries = avecSuffixe.length > 0 ? avecSuffixe : toutesEntreesPIF;
   const isMultiSS = sousSeries.length > 1;
@@ -1649,7 +1686,23 @@ function ouvrirModalResultat(echId, analyseId) {
   const container = document.getElementById('resultat-numerique');
   if (container) {
     container.style.display = 'block';
-    if (isMultiSS) {
+
+    // STAB : une section par condition de température
+    const isStab = ech.typeSTAB && !ech.typePIF;
+    const conditions = isStab ? (ech.stabTemps||'').split(',').map(c=>c.trim()).filter(Boolean) : [];
+    const isMultiCondition = isStab && conditions.length > 1;
+
+    if (isMultiCondition) {
+      window._ssIds = null;
+      window._stabConditions = conditions;
+      container.innerHTML = conditions.map((cond, cIdx) => {
+        return '<div style="border:1px solid var(--purple);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:var(--purple-dim)">'
+          + '<div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px"><i class="ti ti-temperature"></i> Condition : <strong>' + cond + '</strong></div>'
+          + renderChampsForStabCond(ech, a, cIdx, cond)
+          + '</div>';
+      }).join('');
+    } else if (isMultiSS) {
+      window._stabConditions = null;
       // Une section par sous-série
       container.innerHTML = sousSeries.map((ss, ssIdx) => {
         return '<div style="border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:var(--bg3)">'
@@ -1657,10 +1710,10 @@ function ouvrirModalResultat(echId, analyseId) {
           + renderChampsForEch(ss, a, ssIdx)
           + '</div>';
       }).join('');
-      // Stocker les ids des sous-séries pour la sauvegarde
       window._ssIds = sousSeries.map(ss => ss.id);
     } else {
       window._ssIds = null;
+      window._stabConditions = null;
       container.innerHTML = renderChampsForEch(ech, a, 0);
     }
   }
@@ -1672,6 +1725,40 @@ function ouvrirModalResultat(echId, analyseId) {
   openModal('modal-resultat');
 }
 
+
+function populateStabEtudeSelect(produitId) {
+  const sel = document.getElementById('w-stab-etude'); if(!sel) return;
+  const etudes = (state.stabilites||[]).filter(s => !produitId || (s.produitsIds||[]).includes(produitId) || !s.produitsIds?.length);
+  sel.innerHTML = '<option value="">— Aucune étude sélectionnée —</option>'
+    + etudes.map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
+}
+
+function onWizardStabEtudeChange() {
+  const sel = document.getElementById('w-stab-etude');
+  const etudeId = parseInt(sel.value)||null;
+  const etude = etudeId ? (state.stabilites||[]).find(s=>s.id===etudeId) : null;
+  if (etude) {
+    // Préremplir températures et timepoints depuis l'étude
+    const temps = document.getElementById('w-stab-temps');
+    if(temps && etude.temperatures) temps.value = etude.temperatures;
+    // Peupler les timepoints depuis l'étude
+    const tp = document.getElementById('w-stab-echeance');
+    if(tp && etude.timepoints && etude.timepoints.length) {
+      const used = etude.timepoints.map(t=>t.tp||'');
+      const all = ['T0','T1M','T2M','T3M','T6M','T9M','T12M','T18M','T24M','T36M'];
+      // Griser les timepoints déjà faits
+      Array.from(tp.options).forEach(opt => {
+        const done = used.includes(opt.value);
+        opt.disabled = done;
+        opt.text = done ? opt.value+' ✓' : opt.value;
+      });
+    }
+  } else {
+    // Reset
+    const tp = document.getElementById('w-stab-echeance');
+    if(tp) Array.from(tp.options).forEach(opt=>{ opt.disabled=false; opt.text=opt.value||'— Sélectionner —'; });
+  }
+}
 
 function selectStatutAnalyse(val) {
   document.getElementById('resultat-statut-val').value = val;
@@ -1725,7 +1812,29 @@ function sauvegarderResultat() {
   const commentaire = document.getElementById('resultat-commentaire').value;
   const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
 
-  if (window._ssIds && window._ssIds.length > 1) {
+  // Sauvegarde STAB multi-conditions
+  if (window._stabConditions && window._stabConditions.length > 1) {
+    const ech3 = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
+    if (ech3) {
+      if (!ech3.resultats) ech3.resultats = {};
+      const conditions = window._stabConditions.map((cond, cIdx) => {
+        const champs = (a.champsResultats||[{label:'Résultat',type:a.typeResultat||'texte'}]).map((c,i) => {
+          const key='cond'+cIdx+'_champ'+i;
+          return { label:c.label, valeur:(document.getElementById('champ-val-'+key)||{}).value||'', unite:c.unite||'' };
+        });
+        return { condition: cond, champs };
+      });
+      ech3.resultats[anId2] = { conditions, commentaire, date, unite: a.unite||'' };
+      ech3.resultats[anId2].statutAnalyse = statutAnalyse;
+      if ((ech3.analyseStatuts||{})[anId2] !== 'verifiee') {
+        ech3.analyseStatuts = ech3.analyseStatuts||{};
+        ech3.analyseStatuts[anId2] = 'terminee';
+        ech3.analyseStatutsInfo = ech3.analyseStatutsInfo||{};
+        ech3.analyseStatutsInfo[anId2] = ech3.analyseStatutsInfo[anId2]||{};
+        ech3.analyseStatutsInfo[anId2]['terminee'] = date;
+      }
+    }
+  } else if (window._ssIds && window._ssIds.length > 1) {
     // Sauvegarde multi-sous-séries : une entrée par SS
     window._ssIds.forEach((ssId, ssIdx) => {
       const ssEch = (state.echantillons||[]).find(e=>e.id===ssId);
@@ -1743,7 +1852,7 @@ function sauvegarderResultat() {
     });
     addActivity('clipboard-check', (a.nom||'') + ' — ' + window._ssIds.length + ' sous-séries — lot ' + (ech.lot||''));
   } else {
-    // Sauvegarde simple
+    // Sauvegarde simple (1 condition ou PIF/MP sans multi-SS)
     const champs = lireChampsFromDom(a, 0);
     if (!ech.resultats) ech.resultats = {};
     ech.resultats[anId2] = { champs, commentaire, date, unite: a.unite||'' };
@@ -1767,7 +1876,29 @@ function sauvegarderResultat() {
   if (echRef && echRef.resultats && echRef.resultats[_resultatAnalyseId]) {
     echRef.resultats[_resultatAnalyseId].statutAnalyse = statutAnalyse;
   }
-  if (window._ssIds && window._ssIds.length > 1) {
+  // Sauvegarde STAB multi-conditions
+  if (window._stabConditions && window._stabConditions.length > 1) {
+    const ech3 = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
+    if (ech3) {
+      if (!ech3.resultats) ech3.resultats = {};
+      const conditions = window._stabConditions.map((cond, cIdx) => {
+        const champs = (a.champsResultats||[{label:'Résultat',type:a.typeResultat||'texte'}]).map((c,i) => {
+          const key='cond'+cIdx+'_champ'+i;
+          return { label:c.label, valeur:(document.getElementById('champ-val-'+key)||{}).value||'', unite:c.unite||'' };
+        });
+        return { condition: cond, champs };
+      });
+      ech3.resultats[anId2] = { conditions, commentaire, date, unite: a.unite||'' };
+      ech3.resultats[anId2].statutAnalyse = statutAnalyse;
+      if ((ech3.analyseStatuts||{})[anId2] !== 'verifiee') {
+        ech3.analyseStatuts = ech3.analyseStatuts||{};
+        ech3.analyseStatuts[anId2] = 'terminee';
+        ech3.analyseStatutsInfo = ech3.analyseStatutsInfo||{};
+        ech3.analyseStatutsInfo[anId2] = ech3.analyseStatutsInfo[anId2]||{};
+        ech3.analyseStatutsInfo[anId2]['terminee'] = date;
+      }
+    }
+  } else if (window._ssIds && window._ssIds.length > 1) {
     window._ssIds.forEach(ssId => {
       const ssE = (state.echantillons||[]).find(e=>e.id===ssId);
       if (ssE?.resultats?.[_resultatAnalyseId]) ssE.resultats[_resultatAnalyseId].statutAnalyse = statutAnalyse;
@@ -2126,7 +2257,14 @@ function renderStabDetail(s) {
   const tps=s.timepoints||[];const analyses=s.analyses||[];
   let h='<div style="background:var(--bg3);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;font-size:13px">'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Produit(s)</span><br><strong>'+s.produits+'</strong></div>'
-    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s)</span><br><strong>'+s.lots+'</strong></div>'
+    +(()=>{
+    const lotsRattaches = (state.echantillons||[]).filter(e=>e.stabEtudeId===s.id);
+    const lotsUniques = [...new Set(lotsRattaches.map(e=>e.lot))];
+    const lotsHtml = lotsUniques.length
+      ? lotsUniques.map(l=>'<span class="badge badge-purple" style="font-size:11px">'+l+'</span>').join(' ')
+      : '<span style="color:var(--text3)">Aucun lot rattaché</span>';
+    return '<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Lot(s) rattachés</span><br>'+lotsHtml+'</div>';
+  })()
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance||'—')+'</strong></div>'
@@ -4227,6 +4365,10 @@ toggleTypeCard = function(type) {
   if(card){ card.style.border = cb.checked ? '2px solid '+m[0] : '2px solid var(--border)'; card.style.background = cb.checked ? m[1] : ''; }
   const stabOpts = document.getElementById('w-stab-options');
   if(stabOpts) stabOpts.style.display = wizardIsStabSelected() ? 'block' : 'none';
+  if(wizardIsStabSelected()) {
+    const prodId = parseInt(document.getElementById('w-produit')?.value)||null;
+    populateStabEtudeSelect(prodId);
+  }
   const pifOpts = document.getElementById('w-pif-options');
   if(pifOpts) pifOpts.style.display = wizardIsPifSelected() ? 'block' : 'none';
   const mpOpts = document.getElementById('w-mp-options');
@@ -4367,7 +4509,8 @@ wizardRecap = function(){
   const recap=document.getElementById('w-recap'); if(!recap)return;
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
   const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
-  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(pif&&stab?'T0'+(echeance?', '+echeance:''):(echeance||'—'))+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
+  const stabEtudeRecap = stab ? (state.stabilites||[]).find(s=>s.id===(parseInt(document.getElementById('w-stab-etude')?.value)||null)) : null;
+  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(pif&&stab?'T0'+(echeance?', '+echeance:''):(echeance||'—'))+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'')+(stabEtudeRecap?'<div style="font-size:12px;color:var(--purple);margin-top:4px"><i class="ti ti-clipboard-list"></i> Étude : <strong>'+stabEtudeRecap.num+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div>'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join(' ')+'</div>';
 };
 
@@ -4383,7 +4526,13 @@ wizardConfirm = function(){
   const stabEcheance = (pif&&stab) ? ('T0'+(echeance?', '+echeance:'')) : echeance;
   for(let i=0;i<entryCount;i++){
     const code=(pif&&!stab&&!mp&&entryCount>1)?(lot+'-'+(i+1)):lot;
-    state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, stabEcheance, stabTemps:condition, lot, date, statut:'recu', note:''});
+    const stabEtudeId = stab ? (parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
+    state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, stabEcheance, stabTemps:condition, stabEtudeId, lot, date, statut:'recu', note:''});
+    // Rattacher le lot à l'étude de stabilité
+    if(stabEtudeId) {
+      const etude = (state.stabilites||[]).find(s=>s.id===stabEtudeId);
+      if(etude) { if(!etude.lots) etude.lots=[]; if(!etude.lots.split(',').map(l=>l.trim()).includes(lot)) etude.lots = etude.lots ? etude.lots+', '+lot : lot; }
+    }
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')+(stabEcheance?' | '+stabEcheance:'')+(condition?' | '+condition:'')}));
   }
   addActivity('package','Réception: '+(prod.nom||lot)+' — '+entryCount+' entrée(s) — '+analyses.length+' analyse(s)');
@@ -4415,6 +4564,10 @@ function getEcheanceConditionDisplay(e0){
     parts.push('<span class="badge '+col+'" style="font-size:11px">'+e0.stabEcheance+'</span>');
   }
   if(e0?.typeSTAB && e0?.stabTemps) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabTemps+'</span>');
+  if(e0?.stabEtudeId) {
+    const etude=(state.stabilites||[]).find(s=>s.id===e0.stabEtudeId);
+    if(etude) parts.push('<span style="font-size:10px;color:var(--purple)"><i class="ti ti-clipboard-list"></i> '+etude.num+'</span>');
+  }
 
   // SPQ affiché dans la colonne Sous-Série/Contenant
   // Nb contenants affiché dans la colonne Sous-Série/Contenant
