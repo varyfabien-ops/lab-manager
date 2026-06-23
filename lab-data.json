@@ -2361,27 +2361,6 @@
           "en_cours": "22/06/2026"
         }
       }
-    },
-    {
-      "id": 1782234709861,
-      "code": "ABCDEF",
-      "produitId": 1781852369953,
-      "marcheIds": [],
-      "analysesIds": [
-        1781852405020,
-        1781852438719
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC567",
-      "stabEcheance": "T2M",
-      "stabTemps": "5C",
-      "lot": "ABCDEF",
-      "date": "2026-06-23",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -2418,11 +2397,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Identification IR",
-      "time": "22/06 14:22"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractibl",
@@ -2666,6 +2640,11 @@
     {
       "icon": "trash",
       "text": "Lot supprime : BBBBBB (4 entrees)",
+      "time": "23/06 20:20"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : ABCDEF",
       "time": "23/06 20:20"
     }
   ]
