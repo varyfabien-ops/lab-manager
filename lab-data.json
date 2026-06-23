@@ -2363,8 +2363,16 @@
       "stabTemps": "5C",
       "lot": "BBBBBB",
       "date": "2026-06-23",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781852405020": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781852405020": {
+          "en_cours": "23/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -2401,11 +2409,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 3 entrée(s) — 4 analyse(s)",
-      "time": "21/06 17:38"
-    },
     {
       "icon": "pill",
       "text": "Produit ajoute : Mépivacaïne HCl",
@@ -2649,6 +2652,11 @@
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
+      "time": "23/06 18:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — L*a*b : en_cours",
       "time": "23/06 18:35"
     }
   ]
