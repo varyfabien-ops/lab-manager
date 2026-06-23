@@ -2366,10 +2366,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781852405020": "en_cours"
+        "1781852405020": "en_cours",
+        "1781852438719": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781852405020": {
+          "en_cours": "23/06/2026"
+        },
+        "1781852438719": {
           "en_cours": "23/06/2026"
         }
       }
@@ -2409,11 +2413,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "pill",
-      "text": "Produit ajoute : Mépivacaïne HCl",
-      "time": "21/06 17:40"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : Identification IR",
@@ -2658,6 +2657,11 @@
       "icon": "list-check",
       "text": "BBBBBB — L*a*b : en_cours",
       "time": "23/06 18:35"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0044 : en_cours",
+      "time": "23/06 18:36"
     }
   ]
 }
