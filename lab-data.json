@@ -2294,13 +2294,17 @@
       "note": "",
       "analyseStatuts": {
         "1781975394472": "en_cours",
-        "1782143684794": "en_cours"
+        "1782143684794": "en_cours",
+        "1782238086216": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781975394472": {
           "en_cours": "23/06/2026"
         },
         "1782143684794": {
+          "en_cours": "23/06/2026"
+        },
+        "1782238086216": {
           "en_cours": "23/06/2026"
         }
       }
@@ -2340,11 +2344,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Corentin AUBOIS",
-      "time": "22/06 17:59"
-    },
     {
       "icon": "pill",
       "text": "Produit ajoute : Marcaïne 5mg/mL",
@@ -2588,6 +2587,11 @@
     {
       "icon": "list-check",
       "text": "A — Identification Chlorures PE : en_cours",
+      "time": "23/06 20:21"
+    },
+    {
+      "icon": "list-check",
+      "text": "A — Echantillohèque : en_cours",
       "time": "23/06 20:21"
     }
   ]
