@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v58 — Physico-Chimie</title>
+<title>LabManager v59 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2293,6 +2293,45 @@ function renderStabDetail(s) {
     });
     h+='</tbody></table></div>';
   }
+  // Section lots rattachés depuis la réception
+  const lotsRattaches = (state.echantillons||[]).filter(e=>e.stabEtudeId===s.id);
+  if (lotsRattaches.length) {
+    h += '<div style="margin-top:20px">';
+    h += '<div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px"><i class="ti ti-flask"></i> Lots rattachés via la réception</div>';
+    h += '<table style="width:100%;font-size:13px;border-collapse:collapse">';
+    h += '<thead><tr style="background:var(--bg3)">'
+      + '<th style="padding:8px 12px;text-align:left">Lot</th>'
+      + '<th style="padding:8px 12px;text-align:left">Produit</th>'
+      + '<th style="padding:8px 12px;text-align:left">Échéance</th>'
+      + '<th style="padding:8px 12px;text-align:left">Conditions</th>'
+      + '<th style="padding:8px 12px;text-align:left">Date réception</th>'
+      + '<th style="padding:8px 12px;text-align:left">Analyses</th>'
+      + '</tr></thead><tbody>';
+    lotsRattaches.forEach(e => {
+      const prod = (state.produitsEch||[]).find(p=>p.id===e.produitId);
+      const analyses = (e.analysesIds||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)?.nom||'').filter(Boolean);
+      const statuts = (e.analysesIds||[]).map(id => {
+        const st = (e.analyseStatuts||{})[id]||'en_cours';
+        const res = (e.resultats||{})[id];
+        const statutAnalyse = res?.statutAnalyse||'ok';
+        if(st==='terminee' && statutAnalyse==='oot') return '<span class="badge badge-amber" style="font-size:10px">OOT</span>';
+        if(st==='terminee' && statutAnalyse==='oos') return '<span class="badge badge-red" style="font-size:10px">OOS</span>';
+        if(st==='terminee') return '<span class="badge badge-green" style="font-size:10px">✓</span>';
+        if(st==='verifiee') return '<span class="badge badge-cyan" style="font-size:10px">Vérifié</span>';
+        return '<span class="badge" style="font-size:10px;background:var(--bg3)">En cours</span>';
+      });
+      h += '<tr style="border-bottom:1px solid var(--border)">'
+        + '<td style="padding:8px 12px"><code style="font-size:12px">'+e.lot+'</code>'+(e.stabEcheance?'<br><span class="badge badge-purple" style="font-size:10px">'+e.stabEcheance+'</span>':'')+'</td>'
+        + '<td style="padding:8px 12px">'+(prod?.nom||'—')+'</td>'
+        + '<td style="padding:8px 12px">'+(e.stabEcheance||'—')+'</td>'
+        + '<td style="padding:8px 12px">'+(e.stabTemps||'—')+'</td>'
+        + '<td style="padding:8px 12px">'+(e.date?formatDate(e.date):'—')+'</td>'
+        + '<td style="padding:8px 12px">'+analyses.map((a,i)=>a+' '+statuts[i]).join('<br>')+'</td>'
+        + '</tr>';
+    });
+    h += '</tbody></table></div>';
+  }
+
   if(s.observations)h+='<div style="margin-top:16px;background:var(--bg3);border-radius:var(--radius);padding:12px;font-size:13px"><strong>Observations :</strong> '+s.observations+'</div>';
   document.getElementById('stab-detail-content').innerHTML=h;
 }
