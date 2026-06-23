@@ -2050,34 +2050,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1781961801829,
-      "code": "YYYYYYY",
-      "produitId": 1781509266740,
-      "marcheIds": [],
-      "analysesIds": [
-        1781508652926
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "stabEcheance": "T3M",
-      "stabTemps": "5C",
-      "lot": "YYYYYYY",
-      "date": "2026-06-20",
-      "statut": "approuve",
-      "note": "",
-      "analyseStatuts": {
-        "1781508652926": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1781508652926": {
-          "en_cours": "20/06/2026",
-          "terminee": "20/06/2026",
-          "verifiee": "20/06/2026"
-        }
-      },
-      "dateApprobation": "20/06/2026"
-    },
-    {
       "id": 1781966054950,
       "code": "vvvv-A",
       "produitId": 1781852369953,
@@ -2262,51 +2234,6 @@
       }
     },
     {
-      "id": 1782057471387,
-      "code": "YYYYYYY",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "nbContenants": 40,
-      "refSPQ": "SPQXXXX-3",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "lot": "YYYYYYY",
-      "date": "2026-06-21",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1781975394472": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1781975394472": {
-          "en_cours": "21/06/2026",
-          "terminee": "22/06/2026"
-        }
-      },
-      "resultats": {
-        "1781975394472": {
-          "champs": [
-            {
-              "label": "Résultat",
-              "valeur": "",
-              "unite": ""
-            }
-          ],
-          "commentaire": "OOT",
-          "date": "22/06/2026",
-          "unite": "",
-          "statutAnalyse": "oot"
-        }
-      }
-    },
-    {
       "id": 1782057535637,
       "code": "AAAAAAA",
       "produitId": 1781975343839,
@@ -2332,33 +2259,6 @@
       "analyseStatutsInfo": {
         "1781975394472": {
           "en_cours": "21/06/2026"
-        }
-      }
-    },
-    {
-      "id": 1782150660378,
-      "code": "YYYYYYY-R1",
-      "lot": "YYYYYYY",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "date": "2026-06-22",
-      "statut": "recu",
-      "relance": true,
-      "relanceNum": 1,
-      "relanceType": "OOT",
-      "note": "Relance #1 suite OOT — OOT",
-      "analyseStatuts": {
-        "1781975394472": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1781975394472": {
-          "en_cours": "22/06/2026"
         }
       }
     }
@@ -2397,11 +2297,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Volume Extractibl",
-      "time": "22/06 17:52"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractible",
@@ -2645,6 +2540,11 @@
     {
       "icon": "trash",
       "text": "Lot supprime : ABCDEF",
+      "time": "23/06 20:20"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : YYYYYYY (3 entrees)",
       "time": "23/06 20:20"
     }
   ]
