@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v60 — Physico-Chimie</title>
+<title>LabManager v62 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4527,7 +4527,7 @@ renderCatalogue = function(){
   const rows=(state.catalogue||[]).filter(a=>!q||a.nom.toLowerCase().includes(q)||(a.code||'').toLowerCase().includes(q)||getProductNamesForAnalyse(a).join(' ').toLowerCase().includes(q));
   const tbody=document.getElementById('catalogue-tbody'); if(!tbody)return;
   if(!rows.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
-  tbody.innerHTML=rows.map(a=>{ const prods=getProductNamesForAnalyse(a); return '<tr><td><strong>'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':'')+'</td><td>'+(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')+'</td><td>'+(prods.length?prods.map(p=>'<span class="badge badge-green">'+p+'</span>').join(' '):'<span class="badge badge-red">Aucun produit</span>')+'</td><td>'+ (a.duree||'—') +'</td><td style="font-size:12px;color:var(--text2)">'+(a.description||'—')+'</td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editAnalyse('+a.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse('+a.id+')"><i class="ti ti-trash"></i></button></div></td></tr>'; }).join('');
+  tbody.innerHTML=rows.map(a=>{ const prods=getProductNamesForAnalyse(a); return '<tr><td><strong>'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':'')+'</td><td>'+(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')+'</td><td>'+(prods.length?prods.map(p=>'<span class="badge badge-green">'+p+'</span>').join(' '):'<span class="badge badge-red">Aucun produit</span>')+'</td><td style="font-size:12px;color:var(--text2)">'+(a.description||'—')+'</td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editAnalyse('+a.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse('+a.id+')"><i class="ti ti-trash"></i></button></div></td></tr>'; }).join('');
 };
 
 editAnalyse = function(id){
@@ -4535,9 +4535,6 @@ editAnalyse = function(id){
   editingId=id;
   document.getElementById('modal-analyse-title').textContent='Modifier une analyse';
   document.getElementById('a-nom').value=a.nom||'';
-  
-  document.getElementById('a-duree').value=a.duree||'';
-  document.getElementById('a-code').value=a.code||'';
   document.getElementById('a-desc').value=a.description||'';
   if(document.getElementById('a-habs')) document.getElementById('a-habs').value=(a.habilitations||[]).join(', ');
   openModal('modal-analyse');
