@@ -2257,136 +2257,6 @@
       "dateApprobation": "20/06/2026"
     },
     {
-      "id": 1782029630451,
-      "code": "TEST-A",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "approuve",
-      "note": "",
-      "analyseStatuts": {
-        "1781852405020": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1781852405020": {
-          "en_cours": "21/06/2026",
-          "terminee": "21/06/2026",
-          "verifiee": "21/06/2026"
-        }
-      },
-      "resultats": {
-        "1781852405020": {
-          "valeur": "",
-          "commentaire": "",
-          "date": "21/06/2026",
-          "unite": ""
-        }
-      }
-    },
-    {
-      "id": 1782029630453,
-      "code": "TEST-B",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "approuve",
-      "note": ""
-    },
-    {
-      "id": 1782029630454,
-      "code": "TEST-C",
-      "produitId": 1781852369953,
-      "marcheIds": [
-        1781853985902
-      ],
-      "analysesIds": [
-        1781852405020
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "pifSpq": "SPQXXXX-2",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "",
-      "mpContenants": 1,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "approuve",
-      "note": ""
-    },
-    {
-      "id": 1782029969300,
-      "code": "TEST-A",
-      "produitId": 1781975343839,
-      "marcheIds": [],
-      "analysesIds": [
-        1781975394472
-      ],
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "pifSpq": "",
-      "stabEcheance": "",
-      "stabPtc": "",
-      "stabTemps": "",
-      "mpSpq": "SPQXXXX-3",
-      "mpContenants": 5,
-      "lot": "TEST",
-      "date": "2026-06-21",
-      "statut": "approuve",
-      "note": "",
-      "analyseStatuts": {
-        "1781975394472": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1781975394472": {
-          "en_cours": "21/06/2026",
-          "terminee": "21/06/2026",
-          "verifiee": "21/06/2026"
-        }
-      },
-      "resultats": {
-        "1781975394472": {
-          "valeur": "",
-          "commentaire": "",
-          "date": "21/06/2026",
-          "unite": ""
-        }
-      }
-    },
-    {
       "id": 1782238864248,
       "code": "A",
       "produitId": 1781975343839,
@@ -2429,28 +2299,6 @@
           "en_cours": "25/06/2026"
         }
       }
-    },
-    {
-      "id": 1782412327526,
-      "code": "TEST",
-      "produitId": 1781509266740,
-      "marcheIds": [],
-      "analysesIds": [
-        1782238670330,
-        1782238706396,
-        1782238786363
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC567",
-      "stabEcheance": "T2M",
-      "stabTemps": "5C, 25C, 40C",
-      "lot": "TEST",
-      "date": "2026-06-25",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -2487,11 +2335,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Dosage USP",
-      "time": "22/06 18:13"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : Dosage PE",
@@ -2736,6 +2579,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol — 1 entrée(s) — 3 analyse(s)",
       "time": "25/06 20:32"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST (5 entrees)",
+      "time": "25/06 20:36"
     }
   ]
 }
