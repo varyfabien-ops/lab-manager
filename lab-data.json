@@ -1638,7 +1638,19 @@
       "resultatRequis": true
     }
   ],
-  "stabilites": [],
+  "stabilites": [
+    {
+      "id": 1782406883774,
+      "num": "STAB01",
+      "produits": "Lipiodol",
+      "temperatures": "5C, 25C, 40C",
+      "ptc": "PTCXXXX",
+      "debut": "2026-06-25",
+      "statut": "en_cours",
+      "observations": "",
+      "timepoints": []
+    }
+  ],
   "reactifs": [],
   "produits": [
     {
