@@ -1684,13 +1684,7 @@
       "debut": "2026-06-25",
       "statut": "en_cours",
       "observations": "",
-      "timepoints": [
-        {
-          "label": "T1M",
-          "date": "2026-06-26",
-          "resultats": {}
-        }
-      ]
+      "timepoints": []
     }
   ],
   "reactifs": [],
