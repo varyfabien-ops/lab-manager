@@ -1867,6 +1867,14 @@
       "dosage": "",
       "code": "",
       "description": ""
+    },
+    {
+      "id": 1782406090851,
+      "nom": "Acide Chlorhydrique 10%",
+      "forme": "Matière Première",
+      "dosage": "",
+      "code": "",
+      "description": ""
     }
   ],
   "marches": [
@@ -2349,11 +2357,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pill",
-      "text": "Produit ajoute : Marcaïne 2,5 mg/mL",
-      "time": "22/06 18:06"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Marcaïne 5 mg/mL",
       "time": "22/06 18:06"
@@ -2597,6 +2600,11 @@
       "icon": "list-check",
       "text": "A — Pouvoir Rotatoire PE : en_cours",
       "time": "25/06 18:46"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Acide Chlorhydrique 10%",
+      "time": "25/06 18:48"
     }
   ]
 }
