@@ -1638,21 +1638,7 @@
       "resultatRequis": true
     }
   ],
-  "stabilites": [
-    {
-      "id": 1782233825923,
-      "num": "STAB01",
-      "produits": "Setmelanotide 10mg/mL",
-      "lots": "ABCDEF",
-      "temperatures": "5C",
-      "echeance": "T2M",
-      "debut": "2026-06-23",
-      "statut": "en_cours",
-      "analyses": [],
-      "observations": "",
-      "timepoints": []
-    }
-  ],
+  "stabilites": [],
   "reactifs": [],
   "produits": [
     {
@@ -2405,11 +2391,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pill",
-      "text": "Produit ajoute : Lidocaïne HCl",
-      "time": "22/06 18:11"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Mépivacaïne HCl",
       "time": "22/06 18:11"
@@ -2653,6 +2634,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Indice d'Acide",
       "time": "25/06 18:49"
+    },
+    {
+      "icon": "trash",
+      "text": "Stab: STAB01",
+      "time": "25/06 18:53"
     }
   ]
 }
