@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v65 — Physico-Chimie</title>
+<title>LabManager v66 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1128,7 +1128,7 @@ function previewSousSeriesPIF() {
   if (!preview) return;
   preview.innerHTML = nb === 1
     ? '<span class="badge badge-cyan">'+lot+'</span>'
-    : Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-cyan">'+lot+'-'+(i+1)+'</span>').join('');
+    : Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-cyan">'+lot+'-'+(i+1)+'</span>'; }).join('');
 }
 
 function populatePIFMarches() {
@@ -2211,7 +2211,7 @@ function renderStabilites() {
   const tbody=document.getElementById('stab-tbody'); if(!tbody) return;
   if(!stabs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude</p></div></td></tr>';return;}
   const sb={en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
-  tbody.innerHTML=stabs.map(s=>'<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+s.lots+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
+  tbody.innerHTML=stabs.map(s=>{ const lotsR=(state.echantillons||[]).filter(e=>e.stabEtudeId===s.id).map(e=>e.lot).filter((v,i,a)=>a.indexOf(v)===i); return '<tr><td><strong>'+s.num+'</strong></td><td>'+s.produits+'</td><td style="font-size:12px;color:var(--text2)">'+(lotsR.length?lotsR.join(', '):'<span style="color:var(--text3)">—</span>')+'</td><td style="font-size:12px">'+s.temperatures+'</td><td>'+(s.echeance||'—')+'</td><td><span class="badge '+(sb[s.statut]||'badge-gray')+'">'+s.statut+'</span></td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="openStabDetail('+s.id+')" title="Voir"><i class="ti ti-eye"></i></button><button class="icon-btn" onclick="editStabilite('+s.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteStabilite('+s.id+')"><i class="ti ti-trash"></i></button></div></td></tr>').join('');
 }
 
 function saveStabilite() {
