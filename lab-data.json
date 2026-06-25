@@ -1498,9 +1498,18 @@
       "duree": "",
       "code": "",
       "produitsIds": [
-        1782144736659
+        1782144736659,
+        1782406090851
       ],
-      "description": "Sulfates selon PE"
+      "description": "Sulfates selon PE",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "conforme",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true
     },
     {
       "id": 1782238086216,
@@ -2376,11 +2385,6 @@
   "activity": [
     {
       "icon": "pill",
-      "text": "Produit ajoute : Xylocaïne 20 mg/mL",
-      "time": "22/06 18:07"
-    },
-    {
-      "icon": "pill",
       "text": "Produit ajoute : Prilocaïne HCl",
       "time": "22/06 18:11"
     },
@@ -2622,6 +2626,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Dosage USP",
+      "time": "25/06 18:48"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Sulfates PE",
       "time": "25/06 18:48"
     }
   ]
