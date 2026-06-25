@@ -1307,6 +1307,33 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782412327526.0684,
+      "nom": "Absorbance",
+      "echantillonCode": "TEST",
+      "date": "2026-06-25",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
+    },
+    {
+      "id": 1782412327526.7136,
+      "nom": "Viscosité",
+      "echantillonCode": "TEST",
+      "date": "2026-06-25",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
+    },
+    {
+      "id": 1782412327526.9917,
+      "nom": "Iode Totale",
+      "echantillonCode": "TEST",
+      "date": "2026-06-25",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
     }
   ],
   "catalogue": [
@@ -2402,6 +2429,28 @@
           "en_cours": "25/06/2026"
         }
       }
+    },
+    {
+      "id": 1782412327526,
+      "code": "TEST",
+      "produitId": 1781509266740,
+      "marcheIds": [],
+      "analysesIds": [
+        1782238670330,
+        1782238706396,
+        1782238786363
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC567",
+      "stabEcheance": "T2M",
+      "stabTemps": "5C, 25C, 40C",
+      "lot": "TEST",
+      "date": "2026-06-25",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2438,11 +2487,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Dosage PE",
-      "time": "22/06 18:12"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Dosage USP",
@@ -2687,6 +2731,11 @@
       "icon": "trash",
       "text": "Lot supprime : AAAAAAA",
       "time": "25/06 20:31"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol — 1 entrée(s) — 3 analyse(s)",
+      "time": "25/06 20:32"
     }
   ]
 }
