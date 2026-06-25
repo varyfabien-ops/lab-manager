@@ -2402,29 +2402,6 @@
           "en_cours": "25/06/2026"
         }
       }
-    },
-    {
-      "id": 1782406935908,
-      "code": "AAAAAAA",
-      "produitId": 1781509266740,
-      "marcheIds": [],
-      "analysesIds": [
-        1782238670330,
-        1782238706396,
-        1782238786363,
-        1782406161468
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC567",
-      "stabEcheance": "T1M",
-      "stabTemps": "5C, 25C, 40C",
-      "lot": "AAAAAAA",
-      "date": "2026-06-25",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -2461,11 +2438,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "pill",
-      "text": "Produit ajoute : Acide Chlorhydrique 2M",
-      "time": "22/06 18:12"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Dosage PE",
@@ -2710,6 +2682,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol — 1 entrée(s) — 4 analyse(s)",
       "time": "25/06 19:02"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : AAAAAAA",
+      "time": "25/06 20:31"
     }
   ]
 }
