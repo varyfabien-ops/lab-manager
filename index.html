@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v63 — Physico-Chimie</title>
+<title>LabManager v64 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2216,7 +2216,7 @@ function renderStabilites() {
 function saveStabilite() {
   const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
   if(!state.stabilites) state.stabilites=[];
-  const analyses=document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
+
   const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,temperatures:document.getElementById('stab-temps').value,ptc:document.getElementById('stab-ptc-etude')?.value.trim()||'',debut:document.getElementById('stab-debut').value,statut:document.getElementById('stab-statut').value,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
   if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
   editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
