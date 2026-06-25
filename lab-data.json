@@ -1615,6 +1615,27 @@
           "unite": "% m/m"
         }
       ]
+    },
+    {
+      "id": 1782406161468,
+      "nom": "Indice d'Acide",
+      "habilitations": [
+        "Titrimétrie"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1781509266740
+      ],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true
     }
   ],
   "stabilites": [
@@ -2385,11 +2406,6 @@
   "activity": [
     {
       "icon": "pill",
-      "text": "Produit ajoute : Prilocaïne HCl",
-      "time": "22/06 18:11"
-    },
-    {
-      "icon": "pill",
       "text": "Produit ajoute : Lidocaïne HCl",
       "time": "22/06 18:11"
     },
@@ -2632,6 +2648,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Sulfates PE",
       "time": "25/06 18:48"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Indice d'Acide",
+      "time": "25/06 18:49"
     }
   ]
 }
