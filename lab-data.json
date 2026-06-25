@@ -1455,9 +1455,18 @@
       "duree": "",
       "code": "",
       "produitsIds": [
-        1782144736659
+        1782144736659,
+        1782406090851
       ],
-      "description": "Dosage selon PE"
+      "description": "Dosage selon PE",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true
     },
     {
       "id": 1782144811226,
@@ -2357,11 +2366,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : Marcaïne 5 mg/mL",
-      "time": "22/06 18:06"
-    },
-    {
       "icon": "pill",
       "text": "Produit ajoute : Xylocaïne 10 mg/mL",
       "time": "22/06 18:07"
@@ -2604,6 +2608,11 @@
     {
       "icon": "pill",
       "text": "Produit ajoute : Acide Chlorhydrique 10%",
+      "time": "25/06 18:48"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Dosage PE",
       "time": "25/06 18:48"
     }
   ]
