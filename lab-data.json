@@ -1478,9 +1478,18 @@
       "duree": "",
       "code": "",
       "produitsIds": [
-        1782144736659
+        1782144736659,
+        1782406090851
       ],
-      "description": "Dosage selon USP"
+      "description": "Dosage selon USP",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true
     },
     {
       "id": 1782144866942,
@@ -2367,11 +2376,6 @@
   "activity": [
     {
       "icon": "pill",
-      "text": "Produit ajoute : Xylocaïne 10 mg/mL",
-      "time": "22/06 18:07"
-    },
-    {
-      "icon": "pill",
       "text": "Produit ajoute : Xylocaïne 20 mg/mL",
       "time": "22/06 18:07"
     },
@@ -2613,6 +2617,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Dosage PE",
+      "time": "25/06 18:48"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Dosage USP",
       "time": "25/06 18:48"
     }
   ]
