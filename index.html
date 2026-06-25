@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v62 — Physico-Chimie</title>
+<title>LabManager v63 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -860,40 +860,20 @@
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>N° d'etude *</label><input id="stab-num" placeholder="Ex: STAB-2024-001"></div>
-        
-        <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Xylocaine 5%, Paracetamol 500mg"></div>
-        <div class="form-group full"><label>Lot(s)</label><input id="stab-lots" placeholder="Ex: LOT-001, LOT-002"></div>
-        <div class="form-group"><label>Temperatures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
-        <div class="form-group">
-          <label>Échéance</label>
-          <select id="stab-echeance">
-            <option value="">— Sélectionner —</option>
-            <option value="T0">T0</option>
-            <option value="T1M">T1M</option>
-            <option value="T2M">T2M</option>
-            <option value="T3M">T3M</option>
-            <option value="T6M">T6M</option>
-            <option value="T9M">T9M</option>
-            <option value="T12M">T12M</option>
-            <option value="T18M">T18M</option>
-            <option value="T24M">T24M</option>
-            <option value="T36M">T36M</option>
-          </select>
-        </div>
-        <div class="form-group"><label>Date de debut</label><input type="date" id="stab-debut"></div>
+        <div class="form-group"><label>N° d'étude *</label><input id="stab-num" placeholder="Ex: STAB-2024-001"></div>
+        <div class="form-group"><label>Date de début</label><input type="date" id="stab-debut"></div>
+        <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
+        <div class="form-group"><label>Températures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
+        <div class="form-group"><label>Référence PTC *</label><input id="stab-ptc-etude" placeholder="Ex: PTC-2024-001"></div>
         <div class="form-group"><label>Statut</label>
           <select id="stab-statut">
             <option value="en_cours">En cours</option>
-            <option value="termine">Termine</option>
+            <option value="termine">Terminé</option>
             <option value="suspendu">Suspendu</option>
           </select>
         </div>
-        <div class="form-group full"><label>Analyses suivies (separees par des virgules)</label>
-          <textarea id="stab-analyses" placeholder="Ex: Aspect, pH, Dosage HPLC, Impuretes, Dissolution"></textarea>
-        </div>
-        <div class="form-group full"><label>Observations generales</label>
-          <textarea id="stab-obs" placeholder="Protocole, references reglementaires..."></textarea>
+        <div class="form-group full"><label>Observations générales</label>
+          <textarea id="stab-obs" placeholder="Protocole, références réglementaires..."></textarea>
         </div>
       </div>
     </div>
@@ -2237,14 +2217,14 @@ function saveStabilite() {
   const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
   if(!state.stabilites) state.stabilites=[];
   const analyses=document.getElementById('stab-analyses').value.split(',').map(a=>a.trim()).filter(Boolean);
-  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,lots:document.getElementById('stab-lots').value,temperatures:document.getElementById('stab-temps').value,echeance:document.getElementById('stab-echeance').value,debut:document.getElementById('stab-debut').value,statut:document.getElementById('stab-statut').value,analyses,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
+  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,temperatures:document.getElementById('stab-temps').value,ptc:document.getElementById('stab-ptc-etude')?.value.trim()||'',debut:document.getElementById('stab-debut').value,statut:document.getElementById('stab-statut').value,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
   if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
   editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
 }
 
 function editStabilite(id) {
   const s=(state.stabilites||[]).find(x=>x.id===id);if(!s)return;editingId=id;
-  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-produits').value=s.produits||'';document.getElementById('stab-lots').value=s.lots||'';document.getElementById('stab-temps').value=s.temperatures||'';document.getElementById('stab-echeance').value=s.echeance||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-analyses').value=(s.analyses||[]).join(', ');document.getElementById('stab-obs').value=s.observations||'';
+  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-produits').value=s.produits||'';document.getElementById('stab-temps').value=s.temperatures||'';if(document.getElementById('stab-ptc-etude'))document.getElementById('stab-ptc-etude').value=s.ptc||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-obs').value=s.observations||'';
   const t=document.getElementById('modal-stab-title');if(t)t.textContent='Modifier';openModal('modal-stab');
 }
 
