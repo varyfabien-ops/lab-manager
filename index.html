@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v77 — Physico-Chimie</title>
+<title>LabManager v78 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2272,7 +2272,7 @@ function renderStabDetail(s) {
   })()
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Temperatures</span><br><strong>'+(s.temperatures||'—')+'</strong></div>'
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Debut</span><br><strong>'+(s.debut?formatDate(s.debut):'—')+'</strong></div>'
-    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Echeance</span><br><strong>'+(s.echeance||'—')+'</strong></div>'
+    +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Échéances prévues</span><br>'+(s.echeancesPrevues?.length?s.echeancesPrevues.map(t=>'<span class="badge badge-purple" style="font-size:11px">'+t+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</div>'
     
     +'</div>';
   if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
