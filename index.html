@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v79 — Physico-Chimie</title>
+<title>LabManager v81 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -433,7 +433,7 @@
         <h3 id="stab-detail-title">Fiche etude</h3>
         <div class="spacer"></div>
         <button class="btn" onclick="exportStabWord()"><i class="ti ti-download"></i> Exporter</button>
-        <button class="btn" onclick="openAddTimepoint()"><i class="ti ti-plus"></i> Ajouter timepoint</button>
+        
         <button class="btn" style="color:var(--text3)" onclick="closeStabDetail()"><i class="ti ti-x"></i></button>
       </div>
       <div id="stab-detail-content" style="padding:20px"></div>
@@ -1739,12 +1739,8 @@ function onWizardStabEtudeChange() {
     // Filtrer le select w-stab-echeance selon les échéances prévues de l'étude
     const tp = document.getElementById('w-stab-echeance');
     if(tp && etude.echeancesPrevues && etude.echeancesPrevues.length) {
-      const usedTps = (state.echantillons||[]).filter(e=>e.stabEtudeId===etude.id).map(e=>e.stabEcheance).filter(Boolean);
       tp.innerHTML = '<option value="">— Sélectionner —</option>'
-        + etude.echeancesPrevues.map(t => {
-            const done = usedTps.includes(t);
-            return '<option value="'+t+'"'+(done?' style="color:var(--green)"':'')+'>'+t+(done?' ✓':'')+'</option>';
-          }).join('');
+        + etude.echeancesPrevues.map(t=>'<option value="'+t+'">'+t+'</option>').join('');
     } else {
       // Pas d'étude ou pas d'échéances définies : toutes les options
       tp.innerHTML = '<option value="">— Sélectionner —</option>'+['T0','T1M','T2M','T3M','T6M','T9M','T12M','T18M','T24M','T36M'].map(t=>'<option value="'+t+'">'+t+'</option>').join('');
@@ -2275,30 +2271,7 @@ function renderStabDetail(s) {
     +'<div><span style="color:var(--text3);font-size:11px;text-transform:uppercase">Échéances prévues</span><br>'+(s.echeancesPrevues?.length?s.echeancesPrevues.map(t=>'<span class="badge badge-purple" style="font-size:11px">'+t+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</div>'
     
     +'</div>';
-  if(!tps.length){h+='<div class="empty-state"><i class="ti ti-clock"></i><p>Aucun timepoint.</p></div>';}
-  else{
-    h+='<div style="overflow-x:auto"><table style="min-width:600px;font-size:14px"><thead><tr><th style="width:160px">Analyse</th>';
-    tps.forEach(function(tp,ti){h+='<th style="text-align:center;min-width:130px">'+tp.label+'<br><span style="font-size:11px;color:var(--text3);font-weight:400">'+(tp.date?formatDate(tp.date):'')+'</span><div style="display:flex;gap:4px;justify-content:center;margin-top:4px"><button class="icon-btn" onclick="editTimepoint('+ti+')" style="padding:2px 4px"><i class="ti ti-pencil" style="font-size:12px"></i></button><button class="icon-btn danger" onclick="deleteTimepoint('+ti+')" style="padding:2px 4px"><i class="ti ti-trash" style="font-size:12px"></i></button></div></th>';});
-    h+='</tr></thead><tbody>';
-    analyses.forEach(function(a){
-      h+='<tr><td><strong>'+a+'</strong></td>';
-      tps.forEach(function(tp,ti){
-        const res=(tp.resultats||{})[a]||'';
-        const cell = document.createElement('td');
-        cell.style.cssText='text-align:center;padding:8px';
-        const div = document.createElement('div');
-        div.onclick = (function(tpIdx,an){return function(){editTimepointResult(tpIdx,an);};})(ti,a);
-        div.style.cssText='cursor:pointer;min-height:32px;padding:4px 8px;border-radius:8px;border:1px dashed #ddd;font-size:13px;color:'+(res?'#1a2233':'#8896a8');
-        div.textContent = res||'—';
-        cell.appendChild(div);
-        const tempRow = document.createElement('tr'); tempRow.appendChild(cell);
-        h += tempRow.innerHTML;
-      });
-      h+='</tr>';
-    });
-    h+='</tbody></table></div>';
-  }
-  // Section lots rattachés depuis la réception
+    // Section lots rattachés depuis la réception
   const lotsRattaches = (state.echantillons||[]).filter(e=>e.stabEtudeId===s.id);
   if (lotsRattaches.length) {
     h += '<div style="margin-top:20px">';
@@ -4693,7 +4666,8 @@ function renderEchantillonsTableAlignedV105(){
   const lots={};
   (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve').forEach(e=>{
     // Les relances ont leur propre code unique (LOT-R1, LOT-R2...) -> une ligne indépendante
-    const k=e.relance ? String(e.id) : (e.lot||String(e.id));
+    // STAB : chaque réception est une ligne distincte (même lot, échéances différentes)
+    const k=e.relance ? String(e.id) : (e.typeSTAB && !e.typePIF ? String(e.id) : (e.lot||String(e.id)));
     if(!lots[k]) lots[k]=[];
     lots[k].push(e);
   });
