@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v68 — Physico-Chimie</title>
+<title>LabManager v69 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1423,7 +1423,7 @@ function wizardConfirm() {
   const stabPtcVal = document.getElementById('w-stab-ptc')?.value||'';
   // Créer UNE SEULE entrée par lot (nb et mpContenants sont des infos)
   const code = lot; // le code de l'entrée = le numéro de lot
-  const stabEtudeId = stab ? (parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
+  const stabEtudeId = stab ? (window._selectedStabEtudeId || parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
   state.echantillons.push({
     id: Date.now(), code, produitId: prodId, marcheIds,
     analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
@@ -1716,11 +1716,14 @@ function populateStabEtudeSelect(produitId) {
   const etudes = (state.stabilites||[]).filter(s => !produitId || (s.produitsIds||[]).includes(produitId) || !s.produitsIds?.length);
   sel.innerHTML = '<option value="">— Aucune étude sélectionnée —</option>'
     + etudes.map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
+  // Restaurer la sélection mémorisée
+  if(window._selectedStabEtudeId) sel.value = window._selectedStabEtudeId;
 }
 
 function onWizardStabEtudeChange() {
   const sel = document.getElementById('w-stab-etude');
   const etudeId = parseInt(sel.value)||null;
+  window._selectedStabEtudeId = etudeId; // Mémoriser la sélection
   const etude = etudeId ? (state.stabilites||[]).find(s=>s.id===etudeId) : null;
   if (etude) {
     // Préremplir températures et timepoints depuis l'étude
@@ -4555,7 +4558,7 @@ wizardConfirm = function(){
   const stabEcheance = (pif&&stab) ? ('T0'+(echeance?', '+echeance:'')) : echeance;
   for(let i=0;i<entryCount;i++){
     const code=(pif&&!stab&&!mp&&entryCount>1)?(lot+'-'+(i+1)):lot;
-    const stabEtudeId = stab ? (parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
+    const stabEtudeId = stab ? (window._selectedStabEtudeId || parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
     state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, stabEcheance, stabTemps:condition, stabEtudeId, lot, date, statut:'recu', note:''});
     // Rattacher le lot à l'étude de stabilité
     if(stabEtudeId) {
@@ -4828,6 +4831,7 @@ openWizard = function(){
   document.querySelectorAll('#w-pif-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
   document.querySelectorAll('#w-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
   const refMarchesEl=document.getElementById('w-ref-marches-check'); if(refMarchesEl) refMarchesEl.innerHTML='';
+  window._selectedStabEtudeId = null;
   // Vider preview sous-séries
   const prev=document.getElementById('w-pif-series-preview'); if(prev) prev.innerHTML='';
   // Reset complet : décocher les types et remettre les cartes à zéro
