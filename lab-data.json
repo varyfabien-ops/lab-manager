@@ -2641,8 +2641,16 @@
       "stabEtudeId": 1782584520587,
       "lot": "AAAAAAA",
       "date": "2026-09-28",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1781509335357": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1781509335357": {
+          "en_cours": "27/06/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -2679,11 +2687,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "rosette",
-      "text": "Lot approuvé : BBBBBB",
-      "time": "22/06 19:50"
-    },
     {
       "icon": "clipboard-check",
       "text": "Identification IR — lot YYYYYYY",
@@ -2928,6 +2931,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
       "time": "27/06 20:38"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — pH : en_cours",
+      "time": "27/06 20:56"
     }
   ]
 }
