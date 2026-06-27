@@ -1478,6 +1478,60 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST | STAB "
+    },
+    {
+      "id": 1782585180970.6978,
+      "nom": "pH",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585180970.204,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585180970.2732,
+      "nom": "TCC0044",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585180970.1401,
+      "nom": "Osmolalité",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585180970.9392,
+      "nom": "TCC0065",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585180970.3813,
+      "nom": "Volume Extractible",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
     }
   ],
   "catalogue": [
@@ -2423,6 +2477,32 @@
         }
       },
       "dateApprobation": "20/06/2026"
+    },
+    {
+      "id": 1782585180970,
+      "code": "AAAAAAA",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781509335357,
+        1781852405020,
+        1781852438719,
+        1781852984224,
+        1781959632897,
+        1781959743113
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCXXXX",
+      "stabEcheance": "T1M",
+      "stabTemps": "5C, 25C, 40C",
+      "stabEtudeId": 1782584520587,
+      "lot": "AAAAAAA",
+      "date": "2026-06-27",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2459,11 +2539,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Analyse supprimee : TCC0015",
-      "time": "22/06 19:15"
-    },
     {
       "icon": "trash",
       "text": "Analyse supprimee : pH",
@@ -2708,6 +2783,11 @@
       "icon": "trash",
       "text": "Lot supprime : TEST",
       "time": "27/06 20:19"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 6 analyse(s)",
+      "time": "27/06 20:33"
     }
   ]
 }
