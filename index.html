@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v81 — Physico-Chimie</title>
+<title>LabManager v83 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1485,6 +1485,7 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
   const isDone = curIdx >= cellIdx && curIdx >= 0;
   const isVerifiee = currentStatut === 'verifiee';
   const date = statInfo[cellType];
+  const labels = { en_cours:'En cours', terminee:'Terminée', verifiee:'Vérifiée' };
   const colors = { en_cours:'#0550ae', terminee:'#0d7c75', verifiee:'#1a7f37' };
   const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
   const c = colors[cellType]||'#888'; const ic = icons[cellType]||'circle';
@@ -1492,7 +1493,7 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
     const d = date ? '<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>' : '';
     return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
   } else if (cellIdx === curIdx+1 && !isVerifiee) {
-    return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>';
+    return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">'+(labels[cellType]||cellType)+'</span></button>';
   }
   return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
 }
@@ -1810,6 +1811,7 @@ function sauvegarderResultat() {
   if (!ech || !a) return;
   const commentaire = document.getElementById('resultat-commentaire').value;
   const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const statutAnalyse = document.getElementById('resultat-statut-val')?.value || 'ok';
 
   // Sauvegarde STAB multi-conditions
   if (window._stabConditions && window._stabConditions.length > 1) {
@@ -1864,8 +1866,7 @@ function sauvegarderResultat() {
     }
     addActivity('clipboard-check', (a.nom||'') + ' — lot ' + (ech.lot||''));
   }
-  // Statut OOT/OOS
-  const statutAnalyse = document.getElementById('resultat-statut-val')?.value || 'ok';
+  // Statut OOT/OOS (déclaré en haut)
   if ((statutAnalyse==='oot'||statutAnalyse==='oos') && !commentaire.trim()) {
     toast('Un commentaire est obligatoire pour un OOT ou OOS', 'error'); return;
   }
@@ -2294,9 +2295,10 @@ function renderStabDetail(s) {
         const statutAnalyse = res?.statutAnalyse||'ok';
         if(st==='terminee' && statutAnalyse==='oot') return '<span class="badge badge-amber" style="font-size:10px">OOT</span>';
         if(st==='terminee' && statutAnalyse==='oos') return '<span class="badge badge-red" style="font-size:10px">OOS</span>';
-        if(st==='terminee') return '<span class="badge badge-green" style="font-size:10px">✓</span>';
-        if(st==='verifiee') return '<span class="badge badge-cyan" style="font-size:10px">Vérifié</span>';
-        return '<span class="badge" style="font-size:10px;background:var(--bg3)">En cours</span>';
+        if(st==='terminee') return '<span class="badge badge-green" style="font-size:10px">Terminée</span>';
+        if(st==='verifiee') return '<span class="badge badge-cyan" style="font-size:10px">Vérifiée</span>';
+        if(st==='en_cours') return '<span class="badge badge-blue" style="font-size:10px">En cours</span>';
+        return '<span class="badge" style="font-size:10px;background:var(--bg3);color:var(--text2)">À faire</span>';
       });
       h += '<tr style="border-bottom:1px solid var(--border)">'
         + '<td style="padding:8px 12px"><code style="font-size:12px">'+e.lot+'</code>'+(e.stabEcheance?'<br><span class="badge badge-purple" style="font-size:10px">'+e.stabEcheance+'</span>':'')+'</td>'
@@ -2658,7 +2660,7 @@ function renderDashboardChart() {
   }
 
   const config = [
-    { key: 'a_lancer',  label: 'A lancer',  color: '#8896a8', bg: 'rgba(136,150,168,0.12)' },
+    { key: 'a_lancer',  label: 'À faire',  color: '#8896a8', bg: 'rgba(136,150,168,0.12)' },
     { key: 'en_cours',  label: 'En cours',   color: '#0550ae', bg: 'rgba(5,80,174,0.12)' },
     { key: 'terminee',  label: 'Terminee',   color: '#0d7c75', bg: 'rgba(13,124,117,0.12)' },
     { key: 'verifiee',  label: 'Verifiee',   color: '#1a7f37', bg: 'rgba(26,127,55,0.12)' },
@@ -4612,7 +4614,7 @@ statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
     }
     return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
   }
-  if(cellIdx===curIdx+1 && currentStatut!=='verifiee') return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">Cliquer</span></button>';
+  if(cellIdx===curIdx+1 && currentStatut!=='verifiee') return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">'+(labels[cellType]||cellType)+'</span></button>';
   return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
 };
 
