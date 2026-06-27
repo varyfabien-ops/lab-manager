@@ -2644,11 +2644,54 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781509335357": "en_cours"
+        "1781509335357": "en_cours",
+        "1781852405020": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781509335357": {
           "en_cours": "27/06/2026"
+        },
+        "1781852405020": {
+          "en_cours": "27/06/2026"
+        }
+      },
+      "resultats": {
+        "1781509335357": {
+          "conditions": [
+            {
+              "condition": "5C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "4,5",
+                  "unite": ""
+                }
+              ]
+            },
+            {
+              "condition": "25C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "4,4",
+                  "unite": ""
+                }
+              ]
+            },
+            {
+              "condition": "40C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "4,3",
+                  "unite": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "27/06/2026",
+          "unite": ""
         }
       }
     }
@@ -2687,11 +2730,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clipboard-check",
-      "text": "Identification IR — lot YYYYYYY",
-      "time": "22/06 19:51"
-    },
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
@@ -2936,6 +2974,11 @@
       "icon": "list-check",
       "text": "AAAAAAA — pH : en_cours",
       "time": "27/06 20:56"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — L*a*b : en_cours",
+      "time": "27/06 20:57"
     }
   ]
 }
