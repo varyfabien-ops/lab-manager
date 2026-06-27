@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v71 — Physico-Chimie</title>
+<title>LabManager v73 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1733,10 +1733,7 @@ function onWizardStabEtudeChange() {
     const ptc = document.getElementById('w-ref-ptc');
     if(ptc) {
       ptc.value = etude.ptc || '';
-      ptc.readOnly = true;
-      ptc.style.background = 'var(--bg3)';
-      ptc.style.color = 'var(--text2)';
-      ptc.title = 'PTC rattaché à l'étude ' + etude.num;
+      ptc.title = 'PTC - ' + etude.num;
     }
     // Peupler les timepoints depuis l'étude
     const tp = document.getElementById('w-stab-echeance');
@@ -1754,8 +1751,7 @@ function onWizardStabEtudeChange() {
     // Reset
     const tp = document.getElementById('w-stab-echeance');
     if(tp) Array.from(tp.options).forEach(opt=>{ opt.disabled=false; opt.text=opt.value||'— Sélectionner —'; });
-    const ptcReset = document.getElementById('w-ref-ptc');
-    if(ptcReset) { ptcReset.readOnly = false; ptcReset.style.background = ''; ptcReset.style.color = ''; ptcReset.title = ''; }
+    const ptcReset = document.getElementById('w-ref-ptc'); if(ptcReset) ptcReset.title = '';
   }
 }
 
