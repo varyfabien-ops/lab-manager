@@ -1645,7 +1645,15 @@
         1781509248907,
         1781852369953
       ],
-      "description": ""
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "pH",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true
     },
     {
       "id": 1781852405020,
@@ -2731,11 +2739,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
-      "time": "23/06 18:35"
-    },
-    {
       "icon": "list-check",
       "text": "BBBBBB — L*a*b : en_cours",
       "time": "23/06 18:35"
@@ -2979,6 +2982,11 @@
       "icon": "list-check",
       "text": "AAAAAAA — L*a*b : en_cours",
       "time": "27/06 20:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : pH",
+      "time": "27/06 20:59"
     }
   ]
 }
