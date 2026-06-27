@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v76 — Physico-Chimie</title>
+<title>LabManager v77 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -860,6 +860,12 @@
         <div class="form-group full"><label>Produit(s)</label><input id="stab-produits" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
         <div class="form-group"><label>Températures</label><input id="stab-temps" placeholder="Ex: 5°C, 25°C/60%HR, 40°C/75%HR"></div>
         <div class="form-group"><label>Référence PTC *</label><input id="stab-ptc-etude" placeholder="Ex: PTC-2024-001"></div>
+        <div class="form-group full">
+          <label>Échéances prévues <span style="color:var(--text3);font-weight:400">(cochez les timepoints de l'étude)</span></label>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px" id="stab-echeances-check">
+            <label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T0" class="stab-ech-cb"> T0</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T1M" class="stab-ech-cb"> T1M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T2M" class="stab-ech-cb"> T2M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T3M" class="stab-ech-cb"> T3M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T6M" class="stab-ech-cb"> T6M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T9M" class="stab-ech-cb"> T9M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T12M" class="stab-ech-cb"> T12M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T18M" class="stab-ech-cb"> T18M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T24M" class="stab-ech-cb"> T24M</label><label style="display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px"><input type="checkbox" value="T36M" class="stab-ech-cb"> T36M</label>
+          </div>
+        </div>
         <div class="form-group"><label>Statut</label>
           <select id="stab-statut">
             <option value="en_cours">En cours</option>
@@ -1730,17 +1736,18 @@ function onWizardStabEtudeChange() {
       ptc.value = etude.ptc || '';
       ptc.title = 'PTC - ' + etude.num;
     }
-    // Peupler les timepoints depuis l'étude
+    // Filtrer le select w-stab-echeance selon les échéances prévues de l'étude
     const tp = document.getElementById('w-stab-echeance');
-    if(tp && etude.timepoints && etude.timepoints.length) {
-      const used = etude.timepoints.map(t=>t.tp||'');
-      const all = ['T0','T1M','T2M','T3M','T6M','T9M','T12M','T18M','T24M','T36M'];
-      // Griser les timepoints déjà faits
-      Array.from(tp.options).forEach(opt => {
-        const done = used.includes(opt.value);
-        opt.disabled = done;
-        opt.text = done ? opt.value+' ✓' : opt.value;
-      });
+    if(tp && etude.echeancesPrevues && etude.echeancesPrevues.length) {
+      const usedTps = (state.echantillons||[]).filter(e=>e.stabEtudeId===etude.id).map(e=>e.stabEcheance).filter(Boolean);
+      tp.innerHTML = '<option value="">— Sélectionner —</option>'
+        + etude.echeancesPrevues.map(t => {
+            const done = usedTps.includes(t);
+            return '<option value="'+t+'"'+(done?' style="color:var(--green)"':'')+'>'+t+(done?' ✓':'')+'</option>';
+          }).join('');
+    } else {
+      // Pas d'étude ou pas d'échéances définies : toutes les options
+      tp.innerHTML = '<option value="">— Sélectionner —</option>'+['T0','T1M','T2M','T3M','T6M','T9M','T12M','T18M','T24M','T36M'].map(t=>'<option value="'+t+'">'+t+'</option>').join('');
     }
   } else {
     // Reset
@@ -2223,14 +2230,16 @@ function saveStabilite() {
   const num=document.getElementById('stab-num').value.trim(); if(!num){toast('Numero obligatoire','error');return;}
   if(!state.stabilites) state.stabilites=[];
 
-  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,temperatures:document.getElementById('stab-temps').value,ptc:document.getElementById('stab-ptc-etude')?.value.trim()||'',debut:document.getElementById('stab-debut').value,statut:document.getElementById('stab-statut').value,observations:document.getElementById('stab-obs').value,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
+  const echeancesPrevues=Array.from(document.querySelectorAll('#stab-echeances-check input:checked')).map(cb=>cb.value);
+  const entry={id:editingId||Date.now(),num,produits:document.getElementById('stab-produits').value,temperatures:document.getElementById('stab-temps').value,ptc:document.getElementById('stab-ptc-etude')?.value.trim()||'',debut:document.getElementById('stab-debut').value,statut:document.getElementById('stab-statut').value,observations:document.getElementById('stab-obs').value,echeancesPrevues,timepoints:editingId?(state.stabilites.find(s=>s.id===editingId)?.timepoints||[]):[]};
   if(editingId){const i=state.stabilites.findIndex(s=>s.id===editingId);state.stabilites[i]=entry;}else{state.stabilites.push(entry);}
   editingId=null;closeModal('modal-stab');renderStabilites();saveData();toast('Etude enregistree','success');
 }
 
 function editStabilite(id) {
   const s=(state.stabilites||[]).find(x=>x.id===id);if(!s)return;editingId=id;
-  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-produits').value=s.produits||'';document.getElementById('stab-temps').value=s.temperatures||'';if(document.getElementById('stab-ptc-etude'))document.getElementById('stab-ptc-etude').value=s.ptc||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-obs').value=s.observations||'';
+  document.getElementById('stab-num').value=s.num||'';document.getElementById('stab-produits').value=s.produits||'';
+  document.querySelectorAll('#stab-echeances-check input').forEach(cb=>{ cb.checked=(s.echeancesPrevues||[]).includes(cb.value); });document.getElementById('stab-temps').value=s.temperatures||'';if(document.getElementById('stab-ptc-etude'))document.getElementById('stab-ptc-etude').value=s.ptc||'';document.getElementById('stab-debut').value=s.debut||'';document.getElementById('stab-statut').value=s.statut||'en_cours';document.getElementById('stab-obs').value=s.observations||'';
   const t=document.getElementById('modal-stab-title');if(t)t.textContent='Modifier';openModal('modal-stab');
 }
 
