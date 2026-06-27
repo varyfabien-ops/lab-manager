@@ -2652,12 +2652,13 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781509335357": "en_cours",
+        "1781509335357": "terminee",
         "1781852405020": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781509335357": {
-          "en_cours": "27/06/2026"
+          "en_cours": "27/06/2026",
+          "terminee": "27/06/2026"
         },
         "1781852405020": {
           "en_cours": "27/06/2026"
@@ -2670,8 +2671,8 @@
               "condition": "5C",
               "champs": [
                 {
-                  "label": "Résultat",
-                  "valeur": "4,5",
+                  "label": "pH",
+                  "valeur": "4.4",
                   "unite": ""
                 }
               ]
@@ -2680,8 +2681,8 @@
               "condition": "25C",
               "champs": [
                 {
-                  "label": "Résultat",
-                  "valeur": "4,4",
+                  "label": "pH",
+                  "valeur": "4.5",
                   "unite": ""
                 }
               ]
@@ -2690,8 +2691,8 @@
               "condition": "40C",
               "champs": [
                 {
-                  "label": "Résultat",
-                  "valeur": "4,3",
+                  "label": "pH",
+                  "valeur": "5",
                   "unite": ""
                 }
               ]
@@ -2699,7 +2700,8 @@
           ],
           "commentaire": "",
           "date": "27/06/2026",
-          "unite": ""
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       }
     }
