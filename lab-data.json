@@ -1845,19 +1845,7 @@
       "resultatRequis": true
     }
   ],
-  "stabilites": [
-    {
-      "id": 1782406883774,
-      "num": "STAB01",
-      "produits": "Lipiodol",
-      "temperatures": "5C, 25C, 40C",
-      "ptc": "PTCXXXX",
-      "debut": "2026-06-25",
-      "statut": "en_cours",
-      "observations": "",
-      "timepoints": []
-    }
-  ],
+  "stabilites": [],
   "reactifs": [],
   "produits": [
     {
@@ -2474,11 +2462,6 @@
     {
       "icon": "clipboard-check",
       "text": "TCC0044 — lot BBBBBB",
-      "time": "22/06 19:02"
-    },
-    {
-      "icon": "clipboard-check",
-      "text": "TCC0044 — lot BBBBBB",
       "time": "22/06 19:06"
     },
     {
@@ -2720,6 +2703,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol — 1 entrée(s) — 4 analyse(s)",
       "time": "27/06 20:14"
+    },
+    {
+      "icon": "trash",
+      "text": "Stab: STAB01",
+      "time": "27/06 20:19"
     }
   ]
 }
