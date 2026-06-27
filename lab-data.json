@@ -2339,29 +2339,6 @@
         }
       },
       "dateApprobation": "20/06/2026"
-    },
-    {
-      "id": 1782582428631,
-      "code": "AAAAAAA",
-      "produitId": 1781509266740,
-      "marcheIds": [],
-      "analysesIds": [
-        1782238670330,
-        1782238706396,
-        1782238786363,
-        1782406161468
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCXXXX",
-      "stabEcheance": "T1M",
-      "stabTemps": "5C, 25C, 40C",
-      "lot": "AAAAAAA",
-      "date": "2026-06-27",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -2398,11 +2375,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — Identification IR : verifiee",
-      "time": "22/06 18:50"
-    },
     {
       "icon": "rosette",
       "text": "Lot approuvé : BBBBBB",
@@ -2647,6 +2619,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Acide Acétique Glacial 100 %",
       "time": "27/06 19:49"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : AAAAAAA",
+      "time": "27/06 19:50"
     }
   ]
 }
