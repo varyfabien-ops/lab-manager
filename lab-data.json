@@ -1442,6 +1442,42 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782584066639.8416,
+      "nom": "Absorbance",
+      "echantillonCode": "TEST",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
+    },
+    {
+      "id": 1782584066639.9324,
+      "nom": "Viscosité",
+      "echantillonCode": "TEST",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
+    },
+    {
+      "id": 1782584066639.0403,
+      "nom": "Iode Totale",
+      "echantillonCode": "TEST",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
+    },
+    {
+      "id": 1782584066639.3574,
+      "nom": "Indice d'Acide",
+      "echantillonCode": "TEST",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST | STAB "
     }
   ],
   "catalogue": [
@@ -2375,6 +2411,30 @@
         }
       },
       "dateApprobation": "20/06/2026"
+    },
+    {
+      "id": 1782584066639,
+      "code": "TEST",
+      "produitId": 1781509266740,
+      "marcheIds": [],
+      "analysesIds": [
+        1782238670330,
+        1782238706396,
+        1782238786363,
+        1782406161468
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCXXXX",
+      "stabEcheance": "T2M",
+      "stabTemps": "5C, 25C, 40C",
+      "stabEtudeId": 1782406883774,
+      "lot": "TEST",
+      "date": "2026-06-27",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2411,11 +2471,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — TCC0044 : en_cours",
-      "time": "22/06 19:01"
-    },
     {
       "icon": "clipboard-check",
       "text": "TCC0044 — lot BBBBBB",
@@ -2660,6 +2715,11 @@
       "icon": "trash",
       "text": "Lot supprime : AAAAAAA",
       "time": "27/06 20:02"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol — 1 entrée(s) — 4 analyse(s)",
+      "time": "27/06 20:14"
     }
   ]
 }
