@@ -1799,6 +1799,18 @@
       "stockMin": "15",
       "qteCmde": "20",
       "note": ""
+    },
+    {
+      "id": 1782582599645,
+      "nom": "Acide Acétique Glacial 100 %",
+      "fournisseur": "MERCK",
+      "ref": "1.00063.1000",
+      "localisation": "I3",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "1",
+      "qteCmde": "2",
+      "note": "Acide acétique (glacial) 100 % anhydre, pour analyse EMSURE® ACS,ISO,Reag. Ph Eur"
     }
   ],
   "contenants": [
@@ -2387,11 +2399,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "Identification IR — lot BBBBBB",
-      "time": "22/06 18:50"
-    },
-    {
       "icon": "list-check",
       "text": "BBBBBB — Identification IR : verifiee",
       "time": "22/06 18:50"
@@ -2635,6 +2642,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol — 1 entrée(s) — 4 analyse(s)",
       "time": "27/06 19:47"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Acide Acétique Glacial 100 %",
+      "time": "27/06 19:49"
     }
   ]
 }
