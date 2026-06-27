@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v69 — Physico-Chimie</title>
+<title>LabManager v71 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1420,7 +1420,7 @@ function wizardConfirm() {
   if (!state.echantillons) state.echantillons = [];
   if (!state.planning) state.planning = [];
   const pifSpqVal = document.getElementById('w-pif-spq')?.value||'';
-  const stabPtcVal = document.getElementById('w-stab-ptc')?.value||'';
+  const stabPtcVal = document.getElementById('w-ref-ptc')?.value || (window._selectedStabEtudeId ? ((state.stabilites||[]).find(s=>s.id===window._selectedStabEtudeId)?.ptc||'') : '');
   // Créer UNE SEULE entrée par lot (nb et mpContenants sont des infos)
   const code = lot; // le code de l'entrée = le numéro de lot
   const stabEtudeId = stab ? (window._selectedStabEtudeId || parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
@@ -1717,7 +1717,7 @@ function populateStabEtudeSelect(produitId) {
   sel.innerHTML = '<option value="">— Aucune étude sélectionnée —</option>'
     + etudes.map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
   // Restaurer la sélection mémorisée
-  if(window._selectedStabEtudeId) sel.value = window._selectedStabEtudeId;
+  if(window._selectedStabEtudeId) { sel.value = window._selectedStabEtudeId; window._selectedStabEtudeId = parseInt(sel.value)||null; }
 }
 
 function onWizardStabEtudeChange() {
@@ -1726,9 +1726,18 @@ function onWizardStabEtudeChange() {
   window._selectedStabEtudeId = etudeId; // Mémoriser la sélection
   const etude = etudeId ? (state.stabilites||[]).find(s=>s.id===etudeId) : null;
   if (etude) {
-    // Préremplir températures et timepoints depuis l'étude
+    // Préremplir températures depuis l'étude
     const temps = document.getElementById('w-stab-temps');
     if(temps && etude.temperatures) temps.value = etude.temperatures;
+    // Préremplir PTC depuis l'étude et le rendre readonly
+    const ptc = document.getElementById('w-ref-ptc');
+    if(ptc) {
+      ptc.value = etude.ptc || '';
+      ptc.readOnly = true;
+      ptc.style.background = 'var(--bg3)';
+      ptc.style.color = 'var(--text2)';
+      ptc.title = 'PTC rattaché à l'étude ' + etude.num;
+    }
     // Peupler les timepoints depuis l'étude
     const tp = document.getElementById('w-stab-echeance');
     if(tp && etude.timepoints && etude.timepoints.length) {
@@ -1745,6 +1754,8 @@ function onWizardStabEtudeChange() {
     // Reset
     const tp = document.getElementById('w-stab-echeance');
     if(tp) Array.from(tp.options).forEach(opt=>{ opt.disabled=false; opt.text=opt.value||'— Sélectionner —'; });
+    const ptcReset = document.getElementById('w-ref-ptc');
+    if(ptcReset) { ptcReset.readOnly = false; ptcReset.style.background = ''; ptcReset.style.color = ''; ptcReset.title = ''; }
   }
 }
 
@@ -4401,6 +4412,9 @@ toggleTypeCard = function(type) {
   if(wizardIsStabSelected()) {
     const prodId = parseInt(document.getElementById('w-produit')?.value)||null;
     populateStabEtudeSelect(prodId);
+    // Mémoriser la valeur si déjà sélectionnée
+    const stabSel = document.getElementById('w-stab-etude');
+    if(stabSel?.value) window._selectedStabEtudeId = parseInt(stabSel.value)||null;
   }
   const pifOpts = document.getElementById('w-pif-options');
   if(pifOpts) pifOpts.style.display = wizardIsPifSelected() ? 'block' : 'none';
@@ -4541,7 +4555,7 @@ wizardRecap = function(){
   const recap=document.getElementById('w-recap'); if(!recap)return;
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
   const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
-  const stabEtudeRecap = stab ? (state.stabilites||[]).find(s=>s.id===(parseInt(document.getElementById('w-stab-etude')?.value)||null)) : null;
+  const stabEtudeRecap = stab ? (state.stabilites||[]).find(s=>s.id===window._selectedStabEtudeId) : null;
   const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(pif&&stab?'T0'+(echeance?', '+echeance:''):(echeance||'—'))+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'')+(stabEtudeRecap?'<div style="font-size:12px;color:var(--purple);margin-top:4px"><i class="ti ti-clipboard-list"></i> Étude : <strong>'+stabEtudeRecap.num+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div>'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join(' ')+'</div>';
 };
@@ -4862,7 +4876,7 @@ wizardValidate = function(){
     if (!pif && !stab && !mp) { toast('Sélectionnez PIF, STAB et/ou MP', 'error'); return false; }
     const spqVal = pif ? document.getElementById('w-ref-spq')?.value.trim() : document.getElementById('w-mp-spq')?.value.trim();
     if ((pif||mp) && !spqVal) { toast('La référence SPQ est obligatoire pour un PIF ou une MP', 'error'); return false; }
-    if (stab && !document.getElementById('w-ref-ptc')?.value.trim()) { toast('La référence PTC est obligatoire pour une STAB', 'error'); return false; }
+    if (stab && !document.getElementById('w-ref-ptc')?.value.trim() && !window._selectedStabEtudeId) { toast('La référence PTC est obligatoire (ou sélectionnez une étude)', 'error'); return false; }
     if (stab) {
       const raw=document.getElementById('w-stab-echeance')?.value||'';
       const normalized=normalizeTimepointListV106(raw, pif&&stab);
