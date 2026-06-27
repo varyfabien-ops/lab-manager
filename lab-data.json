@@ -2589,15 +2589,11 @@
     }
   ],
   "commandesStatut": {
-    "1781446866469": "en_attente"
+    "1781446866469": "en_attente",
+    "1782582599645": "commandee"
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Echantilllthèque",
-      "time": "23/06 20:08"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : Echantillohèque",
@@ -2842,6 +2838,11 @@
       "icon": "trash",
       "text": "Lot supprime : BBBBBB",
       "time": "27/06 22:11"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande mise a jour : Acide Acétique Glacial 100 %",
+      "time": "27/06 22:12"
     }
   ]
 }
