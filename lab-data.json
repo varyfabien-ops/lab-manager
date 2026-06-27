@@ -1406,6 +1406,42 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782583257780.4539,
+      "nom": "Absorbance",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782583257780.9438,
+      "nom": "Viscosité",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782583257780.0754,
+      "nom": "Iode Totale",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782583257780.369,
+      "nom": "Indice d'Acide",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
     }
   ],
   "catalogue": [
@@ -2339,6 +2375,29 @@
         }
       },
       "dateApprobation": "20/06/2026"
+    },
+    {
+      "id": 1782583257780,
+      "code": "AAAAAAA",
+      "produitId": 1781509266740,
+      "marcheIds": [],
+      "analysesIds": [
+        1782238670330,
+        1782238706396,
+        1782238786363,
+        1782406161468
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCXXXX",
+      "stabEcheance": "T2M",
+      "stabTemps": "5C, 25C, 40C",
+      "lot": "AAAAAAA",
+      "date": "2026-06-27",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2375,11 +2434,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "rosette",
-      "text": "Lot approuvé : BBBBBB",
-      "time": "22/06 18:50"
-    },
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 1 analyse(s)",
@@ -2624,6 +2678,11 @@
       "icon": "trash",
       "text": "Lot supprime : AAAAAAA",
       "time": "27/06 19:50"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol — 1 entrée(s) — 4 analyse(s)",
+      "time": "27/06 20:00"
     }
   ]
 }
