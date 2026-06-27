@@ -2652,13 +2652,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1781509335357": "terminee",
+        "1781509335357": "verifiee",
         "1781852405020": "en_cours"
       },
       "analyseStatutsInfo": {
         "1781509335357": {
           "en_cours": "27/06/2026",
-          "terminee": "27/06/2026"
+          "terminee": "27/06/2026",
+          "verifiee": "27/06/2026"
         },
         "1781852405020": {
           "en_cours": "27/06/2026"
@@ -2740,11 +2741,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — L*a*b : en_cours",
-      "time": "23/06 18:35"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB — TCC0044 : en_cours",
@@ -2989,6 +2985,11 @@
       "icon": "book",
       "text": "Analyse modifiée : pH",
       "time": "27/06 20:59"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — pH : verifiee",
+      "time": "27/06 21:27"
     }
   ]
 }
