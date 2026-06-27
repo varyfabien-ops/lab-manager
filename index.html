@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v73 — Physico-Chimie</title>
+<title>LabManager v74 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4924,7 +4924,8 @@ wizardConfirm = function(){
   for(let i=0;i<entryCount;i++){
     const code=mpOnly?lot:(wizardIsStabOnly()?lot:(nb>1?lot+'-'+(i+1):lot));
     const nbContenants=mpOnly?nbMpCont:undefined;
-    state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, nbContenants, refSPQ:spq, refPTC:ptc, stabEcheance:echeance, stabTemps:condition, lot, date, statut:'recu', note:''});
+    const stabEtudeId=stab?(window._selectedStabEtudeId||null):null;
+    state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, nbContenants, refSPQ:spq, refPTC:ptc, stabEcheance:echeance, stabTemps:condition, stabEtudeId, lot, date, statut:'recu', note:''});
     analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')}));
   }
   addActivity('package','Réception: '+(prod.nom||lot)+' — '+entryCount+' entrée(s) — '+analyses.length+' analyse(s)');
