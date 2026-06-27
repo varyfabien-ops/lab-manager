@@ -1856,13 +1856,16 @@
       "statut": "en_cours",
       "observations": "",
       "echeancesPrevues": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
+        "T0",
+        "T1M",
+        "T2M",
+        "T3M",
+        "T6M",
+        "T9M",
+        "T12M",
+        "T18M",
+        "T24M",
+        "T36M"
       ],
       "timepoints": []
     }
