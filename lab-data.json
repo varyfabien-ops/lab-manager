@@ -1532,6 +1532,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585238519.3416,
+      "nom": "L*a*b",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
+    },
+    {
+      "id": 1782585238519.753,
+      "nom": "TCC0044",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-06-27",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA | STAB "
     }
   ],
   "catalogue": [
@@ -2503,6 +2521,28 @@
       "date": "2026-06-27",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1782585238519,
+      "code": "AAAAAAA",
+      "produitId": 1781852369953,
+      "marcheIds": [],
+      "analysesIds": [
+        1781852405020,
+        1781852438719
+      ],
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCXXXX",
+      "stabEcheance": "T3M",
+      "stabTemps": "5C, 25C, 40C",
+      "stabEtudeId": 1782584520587,
+      "lot": "AAAAAAA",
+      "date": "2026-06-27",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2539,11 +2579,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Analyse supprimee : pH",
-      "time": "22/06 19:16"
-    },
     {
       "icon": "clipboard-check",
       "text": "TCC0044 — lot BBBBBB",
@@ -2787,6 +2822,11 @@
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 6 analyse(s)",
+      "time": "27/06 20:33"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
       "time": "27/06 20:33"
     }
   ]
