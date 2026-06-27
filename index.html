@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v74 — Physico-Chimie</title>
+<title>LabManager v76 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -784,7 +784,12 @@
         <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px;margin-bottom:10px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilité</div>
           <div class="form-grid">
-            <div class="form-group"><label>Pointage (Step)</label>
+            <div class="form-group full"><label>Rattacher à une étude de stabilité <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
+              <select id="w-stab-etude" onchange="onWizardStabEtudeChange()">
+                <option value="">— Aucune étude sélectionnée —</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Échéance(s) STAB / timepoint(s) *</label>
               <select id="w-stab-echeance">
                 <option value="">— Sélectionner —</option>
                 <option value="T0">T0</option>
@@ -797,16 +802,6 @@
                 <option value="T18M">T18M</option>
                 <option value="T24M">T24M</option>
                 <option value="T36M">T36M</option>
-              </select>
-            </div>
-            <div class="form-group full"><label>Rattacher à une étude de stabilité <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
-              <select id="w-stab-etude" onchange="onWizardStabEtudeChange()">
-                <option value="">— Aucune étude sélectionnée —</option>
-              </select>
-            </div>
-            <div class="form-group"><label>Pointage (Step)</label>
-              <select id="w-stab-echeance2" style="display:none">
-                <option value="">— Sélectionner —</option>
               </select>
             </div>
             <div class="form-group"><label>Températures (séparées par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
@@ -4902,7 +4897,8 @@ wizardRecap = function(){
   const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
   const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
   const refHtml='<div style="font-size:12px;color:var(--text2);margin-top:6px">'+((pif||mp)?'SPQ : <strong>'+spq+'</strong> ':'')+(stab?'PTC : <strong>'+ptc+'</strong>':'')+'</div>';
-  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(echeance||'—')+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'');
+  const stabEtudeRecap2=stab?(state.stabilites||[]).find(s=>s.id===window._selectedStabEtudeId):null;
+  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(echeance||'—')+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'')+(stabEtudeRecap2?'<div style="font-size:12px;color:var(--purple);margin-top:4px"><i class="ti ti-clipboard-list"></i> Étude : <strong>'+stabEtudeRecap2.num+'</strong></div>':'');
   recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+refHtml+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché(s)</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('')+'</div></div>';
 };
 
