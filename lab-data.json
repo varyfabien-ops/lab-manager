@@ -2399,30 +2399,6 @@
         }
       },
       "dateApprobation": "20/06/2026"
-    },
-    {
-      "id": 1782584066639,
-      "code": "TEST",
-      "produitId": 1781509266740,
-      "marcheIds": [],
-      "analysesIds": [
-        1782238670330,
-        1782238706396,
-        1782238786363,
-        1782406161468
-      ],
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCXXXX",
-      "stabEcheance": "T2M",
-      "stabTemps": "5C, 25C, 40C",
-      "stabEtudeId": 1782406883774,
-      "lot": "TEST",
-      "date": "2026-06-27",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -2459,11 +2435,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clipboard-check",
-      "text": "TCC0044 — lot BBBBBB",
-      "time": "22/06 19:06"
-    },
     {
       "icon": "trash",
       "text": "Analyse supprimee : TCC0015",
@@ -2707,6 +2678,11 @@
     {
       "icon": "trash",
       "text": "Stab: STAB01",
+      "time": "27/06 20:19"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST",
       "time": "27/06 20:19"
     }
   ]
