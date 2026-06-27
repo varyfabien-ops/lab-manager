@@ -1845,7 +1845,28 @@
       "resultatRequis": true
     }
   ],
-  "stabilites": [],
+  "stabilites": [
+    {
+      "id": 1782584520587,
+      "num": "STAB01",
+      "produits": "Setmelanotide 10mg/mL",
+      "temperatures": "5C, 25C, 40C",
+      "ptc": "PTCXXXX",
+      "debut": "2026-06-27",
+      "statut": "en_cours",
+      "observations": "",
+      "echeancesPrevues": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "timepoints": []
+    }
+  ],
   "reactifs": [],
   "produits": [
     {
