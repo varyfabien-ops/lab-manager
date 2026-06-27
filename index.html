@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v83 — Physico-Chimie</title>
+<title>LabManager v84 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4599,7 +4599,7 @@ function getEcheanceConditionDisplay(e0){
 
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
-  const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
+  const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const labels={en_cours:'En cours',terminee:'Terminée',verifiee:'Vérifiée'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
   if(isDone){
     const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'';
     if(cellType==='terminee'){
