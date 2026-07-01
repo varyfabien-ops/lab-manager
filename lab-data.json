@@ -2587,6 +2587,16 @@
       ],
       "date": "",
       "statut": "actif"
+    },
+    {
+      "id": 1782926129205,
+      "prenom": "Camille",
+      "nom": "PAAL",
+      "visa": "CPL",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "2021-11-20",
+      "statut": "actif"
     }
   ],
   "commandesStatut": {
@@ -2595,11 +2605,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Pouvoir Rotatoire PE",
-      "time": "23/06 20:11"
-    },
     {
       "icon": "pill",
       "text": "Produit ajoute : Epinephrine",
@@ -2843,6 +2848,11 @@
     {
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
+      "time": "01/07 19:15"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Camille PAAL",
       "time": "01/07 19:15"
     }
   ]
