@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v86 — Physico-Chimie</title>
+<title>LabManager v88 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -171,6 +171,7 @@
 <div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
+<div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
     <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
@@ -920,9 +921,10 @@
   <div class="modal">
     <div class="modal-header"><i class="ti ti-certificate" style="font-size:18px;color:var(--cyan)"></i><h3>Ajouter un technicien</h3><button class="close-btn" onclick="closeModal('modal-hab')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body"><div class="form-grid">
-      <div class="form-group"><label>Prenom *</label><input id="h-prenom" placeholder="Ex: Marie"></div>
+      <div class="form-group"><label>Prénom *</label><input id="h-prenom" placeholder="Ex: Marie"></div>
       <div class="form-group"><label>Nom *</label><input id="h-nom" placeholder="Ex: Dupont"></div>
-      <div class="form-group full"><label>Poste / Role</label><input id="h-role" placeholder="Ex: Technicienne HPLC senior"></div>
+      <div class="form-group"><label>VISA * <span style="color:var(--text3);font-weight:400">(3 lettres)</span></label><input id="h-visa" placeholder="Ex: MDP" maxlength="3" style="text-transform:uppercase;font-weight:700;letter-spacing:2px"></div>
+      <div class="form-group"><label>Poste / Rôle</label><input id="h-role" placeholder="Ex: Technicienne HPLC senior"></div>
       <div class="form-group full"><label>Habilitations (separees par des virgules)</label><textarea id="h-habs" placeholder="Ex: HPLC, GC, Karl Fischer"></textarea></div>
       <div class="form-group"><label>Date d'entree</label><input type="date" id="h-date"></div>
       <div class="form-group"><label>Statut</label><select id="h-statut"><option value="actif">Actif</option><option value="formation">En formation</option><option value="inactif">Inactif</option></select></div>
@@ -3906,7 +3908,8 @@ function saveHabilitation() {
   const nom = document.getElementById('h-nom').value.trim();
   if (!prenom || !nom) { toast('Prenom et nom sont obligatoires', 'error'); return; }
   const habs = document.getElementById('h-habs').value.split(',').map(h=>h.trim()).filter(Boolean);
-  const entry = { id: editingId||Date.now(), prenom, nom, role: document.getElementById('h-role').value, habilitations: habs, date: document.getElementById('h-date').value, statut: document.getElementById('h-statut').value };
+  const visa = document.getElementById('h-visa').value.trim().toUpperCase().slice(0,3);
+  const entry = { id: editingId||Date.now(), prenom, nom, visa, role: document.getElementById('h-role').value, habilitations: habs, date: document.getElementById('h-date').value, statut: document.getElementById('h-statut').value };
   if (editingId) { const i=state.techniciens.findIndex(x=>x.id===editingId); state.techniciens[i]=entry; addActivity('pencil','Technicien modifie : '+prenom+' '+nom); }
   else { state.techniciens.push(entry); addActivity('certificate','Technicien ajoute : '+prenom+' '+nom); }
   editingId = null;
@@ -3921,7 +3924,7 @@ function renderTechniciens() {
   grid.innerHTML = state.techniciens.map(t => `
     <div class="tech-card">
       <div class="tech-card-header">
-        <div class="avatar">${t.prenom[0]}${t.nom[0]}</div>
+        <div class="avatar" style="font-size:11px;font-weight:800;letter-spacing:1px">${t.visa||t.prenom[0]+t.nom[0]}</div>
         <div>
           <div class="tech-name">${t.prenom} ${t.nom}</div>
           <div class="tech-role">${t.role||'Technicien'}</div>
@@ -3942,6 +3945,7 @@ function editTech(id) {
   editingId = id;
   document.getElementById('h-prenom').value = t.prenom;
   document.getElementById('h-nom').value = t.nom;
+  if(document.getElementById('h-visa')) document.getElementById('h-visa').value = t.visa||'';
   document.getElementById('h-role').value = t.role||'';
   document.getElementById('h-habs').value = (t.habilitations||[]).join(', ');
   document.getElementById('h-date').value = t.date||'';
