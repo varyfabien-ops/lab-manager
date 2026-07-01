@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v88 — Physico-Chimie</title>
+<title>LabManager v89 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -166,7 +166,7 @@
 <aside><div class="nav-section"><div class="nav-label">Navigation</div>
 <div class="nav-item active" onclick="goTo('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
 <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-<div id="planning-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Planning</div><div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div></div>
+<div id="planning-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToPlanning('semaine')"><i class="ti ti-layout-columns"></i> Planning semaine</div><div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Calendrier</div><div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div></div>
 <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
@@ -208,6 +208,23 @@
 </div>
 
 <div class="page" id="page-planning">
+  <!-- VUE SEMAINE -->
+  <div id="planning-view-semaine" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Planning Semaine</h1><p>Organisation par technicien</p></div>
+      <div class="page-header-actions" style="display:flex;gap:8px;align-items:center">
+        <button class="btn" onclick="planSemaineNav(-1)"><i class="ti ti-chevron-left"></i></button>
+        <button class="btn" onclick="planSemaineToday()"><i class="ti ti-calendar-today"></i> Cette semaine</button>
+        <button class="btn" onclick="planSemaineNav(1)"><i class="ti ti-chevron-right"></i></button>
+        <span id="plan-semaine-label" style="font-size:14px;font-weight:600;color:var(--text2);margin-left:8px"></span>
+        <button class="btn btn-primary" onclick="openModalPlanTask(null,null)" style="margin-left:8px"><i class="ti ti-plus"></i> Ajouter</button>
+      </div>
+    </div>
+    <div class="table-card" style="padding:0;overflow-x:auto">
+      <div id="plan-semaine-grid" style="min-width:900px"></div>
+    </div>
+  </div>
+
   <div id="planning-view-calendar" style="display:none">
     <div class="page-header">
       <div class="page-header-text"><h1>Planification</h1><p>Calendrier des experiences et analyses</p></div>
@@ -2390,6 +2407,7 @@ let state = {
   produitsEch: [], marches: [],
   echantillons: [],
   techniciens: [],
+  planTasks: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -2914,17 +2932,18 @@ function goToPlanning(view) {
   if (page) page.classList.add('active');
   document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
   document.querySelectorAll('#planning-submenu .nav-sub').forEach(n => n.classList.remove('active'));
-  ['calendar','catalogue'].forEach(v => {
+  ['calendar','catalogue','semaine'].forEach(v => {
     const el = document.getElementById('planning-view-'+v);
     if (el) el.style.display = 'none';
   });
   const target = document.getElementById('planning-view-'+view);
   if (target) { target.style.display = 'block'; }
   const subItems = document.querySelectorAll('#planning-submenu .nav-sub');
-  const idx4 = {calendar:0, catalogue:1};
+  const idx4 = {semaine:0, calendar:1, catalogue:2};
   if (subItems[idx4[view]]) subItems[idx4[view]].classList.add('active');
   if (view === 'calendar') { renderCalendar(); renderPlanningTable(); }
   if (view === 'catalogue') renderCatalogue();
+  if (view === 'semaine') { initPlanSemaine(); renderPlanSemaine(); }
 }
 
 
@@ -4235,7 +4254,304 @@ window.onProduitEchSelect = onProduitEchSelect;
 window.onMarcheEchChange = onMarcheEchChange;
 window.populateMarcheChecks = populateMarcheChecks;
 window.populateAnalysesChecks = populateAnalysesChecks;
+// ============================================================
+// PLANNING SEMAINE
+// ============================================================
+
+const PLAN_TYPES = {
+  analyse:       { label: 'Analyse',           color: '#F5C400', bg: '#FFF9C4', text: '#7a6000' },
+  hplc:          { label: 'Retraitement HPLC', color: '#E91E63', bg: '#FCE4EC', text: '#880E4F' },
+  verification:  { label: 'Vérification',      color: '#4CAF50', bg: '#E8F5E9', text: '#1B5E20' },
+  formation:     { label: 'Formation',          color: '#FF9800', bg: '#FFF3E0', text: '#7a4000' },
+  mp:            { label: 'MP',                 color: '#42A5F5', bg: '#E3F2FD', text: '#0D47A1' },
+  eaux:          { label: 'Poste des eaux',    color: '#3F51B5', bg: '#E8EAF6', text: '#1A237E' }
+};
+
+let planSemaineStartDate = null;
+let planDraggedTask = null;
+
+function initPlanSemaine() {
+  if (!planSemaineStartDate) {
+    const now = new Date();
+    const day = now.getDay();
+    const diff = now.getDate() - day + (day === 0 ? -6 : 1);
+    planSemaineStartDate = new Date(now.setDate(diff));
+    planSemaineStartDate.setHours(0,0,0,0);
+  }
+}
+
+function planSemaineToday() {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = now.getDate() - day + (day === 0 ? -6 : 1);
+  planSemaineStartDate = new Date(now.setDate(diff));
+  planSemaineStartDate.setHours(0,0,0,0);
+  renderPlanSemaine();
+}
+
+function planSemaineNav(dir) {
+  planSemaineStartDate = new Date(planSemaineStartDate);
+  planSemaineStartDate.setDate(planSemaineStartDate.getDate() + dir * 7);
+  renderPlanSemaine();
+}
+
+function dateToKey(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function renderPlanSemaine() {
+  initPlanSemaine();
+  const grid = document.getElementById('plan-semaine-grid');
+  if (!grid) return;
+
+  const days = [];
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(planSemaineStartDate);
+    d.setDate(d.getDate() + i);
+    days.push(d);
+  }
+
+  const dayNames = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven'];
+  const monthNames = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+
+  // Label semaine
+  const lbl = document.getElementById('plan-semaine-label');
+  if (lbl) {
+    const s = days[0], e = days[4];
+    lbl.textContent = s.getDate() + ' ' + monthNames[s.getMonth()] + ' – ' + e.getDate() + ' ' + monthNames[e.getMonth()] + ' ' + e.getFullYear();
+  }
+
+  const techs = state.techniciens || [];
+  const tasks = state.planTasks || [];
+  const today = dateToKey(new Date());
+
+  // Construire la grille
+  let html = '<table style="width:100%;border-collapse:collapse;table-layout:fixed">';
+  
+  // Header
+  html += '<thead><tr><th style="width:140px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);text-align:left;font-size:12px;color:var(--text2)">TECHNICIEN</th>';
+  days.forEach((d, i) => {
+    const key = dateToKey(d);
+    const isToday = key === today;
+    html += '<th style="padding:10px 8px;background:' + (isToday ? 'var(--blue-dim)' : 'var(--bg3)') + ';border:1px solid var(--border);text-align:center;color:' + (isToday ? 'var(--blue)' : 'var(--text2)') + ';font-size:12px">';
+    html += '<div style="font-weight:700">' + dayNames[i] + '</div>';
+    html += '<div style="font-weight:400;font-size:11px">' + d.getDate() + ' ' + monthNames[d.getMonth()] + '</div>';
+    html += '</th>';
+  });
+  html += '</tr></thead>';
+
+  // Lignes techniciens
+  html += '<tbody>';
+  
+  // Ligne sans technicien
+  const allRows = [{id: null, prenom: '—', nom: 'Non assigné', visa: '?'}].concat(techs);
+  
+  allRows.forEach(tech => {
+    html += '<tr>';
+    html += '<td style="padding:8px 14px;border:1px solid var(--border);vertical-align:top;background:var(--bg2)">';
+    html += '<div style="display:flex;align-items:center;gap:8px">';
+    if (tech.id) {
+      html += '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0] + tech.nom[0]) + '</div>';
+      html += '<div style="font-size:12px;font-weight:600">' + tech.prenom + ' ' + tech.nom + '</div>';
+    } else {
+      html += '<div style="font-size:12px;color:var(--text3)">Non assigné</div>';
+    }
+    html += '</div></td>';
+    
+    days.forEach(d => {
+      const key = dateToKey(d);
+      const isToday = key === today;
+      const cellTasks = tasks.filter(t => t.date === key && (tech.id ? t.techId === tech.id : !t.techId));
+      
+      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:80px;background:' + (isToday ? 'rgba(5,80,174,0.03)' : 'var(--bg)') + '" ';
+      html += 'ondragover="event.preventDefault()" ';
+      html += 'ondrop="onPlanDrop(event,\"' + key + '\",\"' + (tech.id || 'null') + '\")" ';
+      html += 'onclick="openModalPlanTask(\"' + key + '\",\"' + (tech.id || 'null') + '\")">';
+      
+      cellTasks.forEach(task => {
+        const type = PLAN_TYPES[task.type] || PLAN_TYPES.analyse;
+        html += '<div draggable="true" ';
+        html += 'ondragstart="onPlanDragStart(event,' + task.id + ')" ';
+        html += 'onclick="event.stopPropagation();editPlanTask(' + task.id + ')" ';
+        html += 'style="background:' + type.bg + ';border-left:3px solid ' + type.color + ';border-radius:4px;padding:5px 8px;margin-bottom:4px;cursor:grab;font-size:11px;line-height:1.4">';
+        html += '<div style="font-weight:700;color:' + type.text + '">' + type.label + '</div>';
+        html += '<div style="color:' + type.text + ';opacity:0.85">' + (task.desc || '') + '</div>';
+        if (task.lot) html += '<div style="color:var(--text3);font-size:10px">' + task.lot + '</div>';
+        html += '</div>';
+      });
+      
+      html += '</td>';
+    });
+    html += '</tr>';
+  });
+  
+  html += '</tbody></table>';
+  grid.innerHTML = html;
+}
+
+function onPlanDragStart(event, taskId) {
+  planDraggedTask = taskId;
+  event.dataTransfer.effectAllowed = 'move';
+}
+
+function onPlanDrop(event, date, techId) {
+  event.preventDefault();
+  if (!planDraggedTask) return;
+  if (!state.planTasks) state.planTasks = [];
+  const task = state.planTasks.find(t => t.id === planDraggedTask);
+  if (task) {
+    task.date = date;
+    task.techId = techId || null;
+    saveData();
+    renderPlanSemaine();
+  }
+  planDraggedTask = null;
+}
+
+function selectPlanType(type) {
+  document.getElementById('plan-task-type').value = type;
+  document.querySelectorAll('.plan-type-btn').forEach(btn => {
+    const t = PLAN_TYPES[btn.dataset.type];
+    if (btn.dataset.type === type) {
+      btn.style.borderColor = t.color;
+      btn.style.background = t.bg;
+      btn.style.boxShadow = '0 0 0 2px ' + t.color + '44';
+    } else {
+      btn.style.borderColor = 'var(--border)';
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+    }
+  });
+}
+
+function openModalPlanTask(date, techId) {
+  window._editingPlanTaskId = null;
+  document.getElementById('modal-plan-task-title').textContent = 'Nouvelle tâche';
+  document.getElementById('plan-task-type').value = '';
+  document.getElementById('plan-task-desc').value = '';
+  document.getElementById('plan-task-note').value = '';
+  document.getElementById('plan-task-date').value = date || dateToKey(new Date());
+  
+  // Peupler techniciens
+  const sel = document.getElementById('plan-task-tech');
+  sel.innerHTML = '<option value="">— Non assigné —</option>';
+  (state.techniciens || []).forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = (t.visa ? '[' + t.visa + '] ' : '') + t.prenom + ' ' + t.nom;
+    if (techId && t.id === techId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+
+  // Peupler lots
+  const lotSel = document.getElementById('plan-task-lot');
+  lotSel.innerHTML = '<option value="">— Aucun lot —</option>';
+  const lots = [...new Set((state.echantillons || []).map(e => e.lot).filter(Boolean))];
+  lots.forEach(lot => {
+    const opt = document.createElement('option');
+    opt.value = lot;
+    opt.textContent = lot;
+    lotSel.appendChild(opt);
+  });
+
+  // Reset boutons type
+  document.querySelectorAll('.plan-type-btn').forEach(btn => {
+    btn.style.borderColor = 'var(--border)';
+    btn.style.background = '';
+    btn.style.boxShadow = '';
+  });
+
+  const delBtnC = document.getElementById('plan-task-delete-btn');
+  if (delBtnC) delBtnC.style.display = 'none';
+  openModal('modal-plan-task');
+}
+
+function editPlanTask(taskId) {
+  if (!state.planTasks) return;
+  const task = state.planTasks.find(t => t.id === taskId);
+  if (!task) return;
+  
+  window._editingPlanTaskId = taskId;
+  document.getElementById('modal-plan-task-title').textContent = 'Modifier la tâche';
+  document.getElementById('plan-task-type').value = task.type || '';
+  document.getElementById('plan-task-desc').value = task.desc || '';
+  document.getElementById('plan-task-note').value = task.note || '';
+  document.getElementById('plan-task-date').value = task.date || '';
+
+  // Peupler techniciens
+  const sel = document.getElementById('plan-task-tech');
+  sel.innerHTML = '<option value="">— Non assigné —</option>';
+  (state.techniciens || []).forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = (t.visa ? '[' + t.visa + '] ' : '') + t.prenom + ' ' + t.nom;
+    if (task.techId && t.id === task.techId) opt.selected = true;
+    sel.appendChild(opt);
+  });
+
+  // Peupler lots
+  const lotSel = document.getElementById('plan-task-lot');
+  lotSel.innerHTML = '<option value="">— Aucun lot —</option>';
+  const lots = [...new Set((state.echantillons || []).map(e => e.lot).filter(Boolean))];
+  lots.forEach(lot => {
+    const opt = document.createElement('option');
+    opt.value = lot;
+    opt.textContent = lot;
+    if (task.lot === lot) opt.selected = true;
+    lotSel.appendChild(opt);
+  });
+
+  // Sélectionner le type visuellement
+  selectPlanType(task.type || '');
+
+  const delBtn = document.getElementById('plan-task-delete-btn');
+  if (delBtn) delBtn.style.display = 'inline-flex';
+  openModal('modal-plan-task');
+}
+
+function savePlanTask() {
+  const type = document.getElementById('plan-task-type').value;
+  const desc = document.getElementById('plan-task-desc').value.trim();
+  if (!type) { toast('Sélectionnez un type de tâche', 'error'); return; }
+  if (!desc) { toast('La description est obligatoire', 'error'); return; }
+
+  const techId = document.getElementById('plan-task-tech').value;
+  const date = document.getElementById('plan-task-date').value;
+  const lot = document.getElementById('plan-task-lot').value;
+  const note = document.getElementById('plan-task-note').value.trim();
+
+  if (!state.planTasks) state.planTasks = [];
+
+  if (window._editingPlanTaskId) {
+    const task = state.planTasks.find(t => t.id === window._editingPlanTaskId);
+    if (task) { task.type = type; task.desc = desc; task.techId = techId ? parseInt(techId) : null; task.date = date; task.lot = lot; task.note = note; }
+  } else {
+    state.planTasks.push({ id: Date.now(), type, desc, techId: techId ? parseInt(techId) : null, date, lot, note });
+  }
+
+  closeModal('modal-plan-task');
+  saveData();
+  renderPlanSemaine();
+}
+
+function deletePlanTask(taskId) {
+  if (!state.planTasks) return;
+  state.planTasks = state.planTasks.filter(t => t.id !== taskId);
+  saveData();
+  renderPlanSemaine();
+}
+
+
 window.goToPlanning = goToPlanning;
+window.planSemaineNav = planSemaineNav;
+window.planSemaineToday = planSemaineToday;
+window.openModalPlanTask = openModalPlanTask;
+window.editPlanTask = editPlanTask;
+window.savePlanTask = savePlanTask;
+window.deletePlanTask = deletePlanTask;
+window.selectPlanType = selectPlanType;
+window.onPlanDragStart = onPlanDragStart;
+window.onPlanDrop = onPlanDrop;
 window.saveAnalyse = saveAnalyse;
 window.editAnalyse = editAnalyse;
 window.deleteAnalyse = deleteAnalyse;
@@ -4930,5 +5246,59 @@ window.wizardConfirm=wizardConfirm;
 setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e); } }, 0);
 
 </script>
+<div class="modal-overlay" id="modal-plan-task">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <i class="ti ti-calendar-event" style="font-size:18px;color:var(--purple)"></i>
+      <h3 id="modal-plan-task-title">Nouvelle tâche</h3>
+      <button class="close-btn" onclick="closeModal('modal-plan-task')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Type de tâche *</label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+          <div class="plan-type-btn" data-type="analyse" onclick="selectPlanType('analyse')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#FFF9C4;border-color:#F5C400;color:#7a6000">🔬 Analyse</div>
+          <div class="plan-type-btn" data-type="hplc" onclick="selectPlanType('hplc')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#FCE4EC;border-color:#E91E63;color:#880E4F">🔁 Retraitement HPLC</div>
+          <div class="plan-type-btn" data-type="verification" onclick="selectPlanType('verification')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#E8F5E9;border-color:#4CAF50;color:#1B5E20">✅ Vérification</div>
+          <div class="plan-type-btn" data-type="formation" onclick="selectPlanType('formation')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#FFF3E0;border-color:#FF9800;color:#7a4000">📚 Formation</div>
+          <div class="plan-type-btn" data-type="mp" onclick="selectPlanType('mp')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#E3F2FD;border-color:#42A5F5;color:#0D47A1">📦 MP</div>
+          <div class="plan-type-btn" data-type="eaux" onclick="selectPlanType('eaux')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#E8EAF6;border-color:#3F51B5;color:#1A237E">💧 Poste des eaux</div>
+        </div>
+        <input type="hidden" id="plan-task-type" value="">
+      </div>
+      <div class="form-group">
+        <label>Description *</label>
+        <input id="plan-task-desc" placeholder="Ex: Dosage HPLC lot BBBBBB">
+      </div>
+      <div class="form-group">
+        <label>Technicien</label>
+        <select id="plan-task-tech">
+          <option value="">— Non assigné —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="date" id="plan-task-date">
+      </div>
+      <div class="form-group">
+        <label>Lier à un lot <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
+        <select id="plan-task-lot">
+          <option value="">— Aucun lot —</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Note</label>
+        <input id="plan-task-note" placeholder="Informations complémentaires...">
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn btn-danger" id="plan-task-delete-btn" onclick="deletePlanTask(window._editingPlanTaskId)" style="display:none"><i class="ti ti-trash"></i> Supprimer</button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="btn" onclick="closeModal('modal-plan-task')">Annuler</button>
+        <button class="btn btn-primary" onclick="savePlanTask()"><i class="ti ti-check"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
