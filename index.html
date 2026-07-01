@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v84 — Physico-Chimie</title>
+<title>LabManager v86 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -345,17 +345,22 @@
   <th style="width:150px;text-align:center">Échéance / Condition</th>
   <th style="width:120px;text-align:center">Date de réception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
   <th style="width:170px;text-align:center">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:120px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>En cours<br>
+  <th style="width:110px;text-align:center;background:var(--bg3);color:var(--text2)"><i class="ti ti-clock" style="font-size:14px"></i><br>À FAIRE<br>
+    <select class="filter-input" id="fech-afaire" onchange="renderEchantillonsTable()" style="color:var(--text)">
+      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
+    </select>
+  </th>
+  <th style="width:110px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>EN COURS<br>
     <select class="filter-input" id="fech-encours" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
     </select>
   </th>
-  <th style="width:120px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:14px"></i><br>Terminee<br>
+  <th style="width:110px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:14px"></i><br>TERMINÉE<br>
     <select class="filter-input" id="fech-terminee" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
     </select>
   </th>
-  <th style="width:120px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:14px"></i><br>Verifiee<br>
+  <th style="width:110px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:14px"></i><br>VÉRIFIÉE<br>
     <select class="filter-input" id="fech-verifiee" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
     </select>
@@ -1485,7 +1490,7 @@ function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
   const isDone = curIdx >= cellIdx && curIdx >= 0;
   const isVerifiee = currentStatut === 'verifiee';
   const date = statInfo[cellType];
-  const labels = { en_cours:'En cours', terminee:'Terminée', verifiee:'Vérifiée' };
+  const labels = { a_lancer:'À FAIRE', en_cours:'EN COURS', terminee:'TERMINÉE', verifiee:'VÉRIFIÉE' };
   const colors = { en_cours:'#0550ae', terminee:'#0d7c75', verifiee:'#1a7f37' };
   const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
   const c = colors[cellType]||'#888'; const ic = icons[cellType]||'circle';
@@ -2295,10 +2300,10 @@ function renderStabDetail(s) {
         const statutAnalyse = res?.statutAnalyse||'ok';
         if(st==='terminee' && statutAnalyse==='oot') return '<span class="badge badge-amber" style="font-size:10px">OOT</span>';
         if(st==='terminee' && statutAnalyse==='oos') return '<span class="badge badge-red" style="font-size:10px">OOS</span>';
-        if(st==='terminee') return '<span class="badge badge-green" style="font-size:10px">Terminée</span>';
-        if(st==='verifiee') return '<span class="badge badge-cyan" style="font-size:10px">Vérifiée</span>';
-        if(st==='en_cours') return '<span class="badge badge-blue" style="font-size:10px">En cours</span>';
-        return '<span class="badge" style="font-size:10px;background:var(--bg3);color:var(--text2)">À faire</span>';
+        if(st==='terminee') return '<span class="badge badge-green" style="font-size:10px">TERMINÉE</span>';
+        if(st==='verifiee') return '<span class="badge badge-cyan" style="font-size:10px">VÉRIFIÉE</span>';
+        if(st==='en_cours') return '<span class="badge badge-blue" style="font-size:10px">EN COURS</span>';
+        return '<span class="badge" style="font-size:10px;background:var(--bg3);color:var(--text2)">À FAIRE</span>';
       });
       h += '<tr style="border-bottom:1px solid var(--border)">'
         + '<td style="padding:8px 12px"><code style="font-size:12px">'+e.lot+'</code>'+(e.stabEcheance?'<br><span class="badge badge-purple" style="font-size:10px">'+e.stabEcheance+'</span>':'')+'</td>'
@@ -4599,7 +4604,7 @@ function getEcheanceConditionDisplay(e0){
 
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
-  const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const labels={en_cours:'En cours',terminee:'Terminée',verifiee:'Vérifiée'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
+  const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const labels={a_lancer:'À FAIRE',en_cours:'EN COURS',terminee:'TERMINÉE',verifiee:'VÉRIFIÉE'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
   if(isDone){
     const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'';
     if(cellType==='terminee'){
@@ -4742,7 +4747,7 @@ function renderEchantillonsTableAlignedV105(){
         '<td '+TD+'>'+getEcheanceConditionDisplay(e0)+'</td>'+
         '<td '+TD+'>'+(e0.date?formatDate(e0.date):'—')+'</td>'+
         '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':''):'—')+'</td>'+
-        (a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
+        (a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'a_lancer')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
         actionCell+
         '</tr>'
       );
