@@ -96,7 +96,24 @@
     }
   ],
   "echantillons": [],
-  "techniciens": [],
+  "techniciens": [
+    {
+      "id": 1785175077562,
+      "prenom": "Fabien",
+      "nom": "VARY",
+      "visa": "FVY",
+      "role": "Technicien CQ",
+      "habilitations": [
+        "pH",
+        "Volume",
+        "Balance",
+        "HPLC",
+        "Burette"
+      ],
+      "date": "2021-11-20",
+      "statut": "actif"
+    }
+  ],
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
@@ -149,31 +166,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0545",
       "time": "27/07 18:42"
-    }
-  ],
-  "spq": [
+    },
     {
-      "id": 1785170562421,
-      "ref": "SPQ0545",
-      "produits": "Setmelanotide 10 mg/mL",
-      "marches": [
-        {
-          "marcheId": 1785169908180,
-          "analyses": [
-            1785169966496,
-            1785170122728,
-            1785170145444
-          ]
-        },
-        {
-          "marcheId": 1785170017612,
-          "analyses": [
-            1785169966496,
-            1785170122728,
-            1785170145444
-          ]
-        }
-      ]
+      "icon": "certificate",
+      "text": "Technicien ajoute : Fabien VARY",
+      "time": "27/07 19:57"
     }
   ]
 }
