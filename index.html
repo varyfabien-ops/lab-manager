@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v95 — Physico-Chimie</title>
+<title>LabManager v96 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4746,7 +4746,16 @@ function populateSpqSelect(selId, selectedId) {
   const sel = document.getElementById(selId);
   if (!sel) return;
   sel.innerHTML = '<option value="">— Aucune SPQ —</option>'
-    + (state.spq||[]).map(s => '<option value="' + s.id + '"' + (s.id === selectedId ? ' selected' : '') + '>' + s.ref + (s.produits ? ' — ' + s.produits : '') + '</option>').join('');
+    + (state.spq||[]).map(s => '<option value="' + s.id + '"' + (s.id === selectedId ? ' selected' : '') + '>' + s.ref + '</option>').join('');
+}
+
+function onArtSpqChange() {
+  const spqId = parseInt(document.getElementById('art-spq').value) || null;
+  const spq = spqId ? (state.spq||[]).find(s => s.id === spqId) : null;
+  if (spq && spq.produits) {
+    const nomEl = document.getElementById('art-nom');
+    if (nomEl && !nomEl.value.trim()) nomEl.value = spq.produits;
+  }
 }
 
 function openModalArticle() {
@@ -4825,6 +4834,7 @@ window.editSPQ = editSPQ;
 window.saveSPQ = saveSPQ;
 window.deleteSPQ = deleteSPQ;
 window.addSpqMarche = addSpqMarche;
+window.onArtSpqChange = onArtSpqChange;
 window.renderArticles = renderArticles;
 window.openModalArticle = openModalArticle;
 window.editArticle = editArticle;
@@ -5624,7 +5634,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <div class="form-grid">
         <div class="form-group"><label>Code article *</label><input id="art-code" placeholder="Ex: M000001" style="text-transform:uppercase;font-weight:700;font-family:monospace"></div>
         <div class="form-group"><label>SPQ liée</label>
-          <select id="art-spq"><option value="">— Aucune SPQ —</option></select>
+          <select id="art-spq" onchange="onArtSpqChange()"><option value="">— Aucune SPQ —</option></select>
         </div>
         <div class="form-group full"><label>Désignation *</label><input id="art-nom" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
         <div class="form-group"><label>Concentration</label><input id="art-concentration" placeholder="Ex: 10 mg/mL"></div>
