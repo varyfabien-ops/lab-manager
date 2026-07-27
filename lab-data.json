@@ -5,12 +5,19 @@
   "reactifs": [],
   "produits": [],
   "contenants": [],
-  "produitsEch": [],
+  "produitsEch": [
+    {
+      "id": 1785169889615,
+      "nom": "Setmelanotide 10mg/mL",
+      "forme": "",
+      "dosage": "",
+      "code": "SET",
+      "description": ""
+    }
+  ],
   "marches": [],
   "echantillons": [],
   "techniciens": [],
-  "planTasks": [],
-  "spq": [],
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
@@ -18,6 +25,11 @@
       "icon": "trash",
       "text": "Réinitialisation complète des données",
       "time": "27/07 18:24"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Setmelanotide 10mg/mL",
+      "time": "27/07 18:31"
     }
   ]
 }
