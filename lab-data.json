@@ -2606,11 +2606,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pill",
-      "text": "Produit ajoute : Epinephrine",
-      "time": "23/06 20:16"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Absorbance",
       "time": "23/06 20:17"
@@ -2854,6 +2849,28 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Camille PAAL",
       "time": "01/07 19:15"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0050",
+      "time": "27/07 18:21"
+    }
+  ],
+  "spq": [
+    {
+      "id": 1785169312563,
+      "ref": "SPQ0050",
+      "produits": "Xylocaïne 20mg/mL",
+      "marches": [
+        {
+          "marcheId": 1781508724125,
+          "analyses": [
+            1781509335357,
+            1781852405020,
+            1781959743113
+          ]
+        }
+      ]
     }
   ]
 }
