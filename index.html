@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v90 — Physico-Chimie</title>
+<title>LabManager v91 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1067,7 +1067,8 @@
         <div class="form-group full"><label>Chemin du fichier</label><input id="gh-path" value="lab-data.json"></div>
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" style="flex-wrap:wrap;gap:8px">
+      <button class="btn btn-danger" onclick="resetAllData()" style="margin-right:auto"><i class="ti ti-trash"></i> Réinitialiser les données</button>
       <button class="btn" onclick="closeModal('modal-github')">Annuler</button>
       <button class="btn" onclick="testGithubConfig()"><i class="ti ti-plug"></i> Tester</button>
       <button class="btn btn-primary" onclick="saveGithubConfig()"><i class="ti ti-check"></i> Enregistrer</button>
@@ -2592,6 +2593,20 @@ async function testGithubConfig() {
   } catch(e) { setSyncStatus('error', 'Erreur reseau'); toast('Erreur de connexion', 'error'); }
 }
 
+function resetAllData() {
+  if (!confirm('⚠️ Cette action va effacer TOUTES les données (échantillons, analyses, produits, réactifs, planning...).\n\nCette action est irréversible.\n\nConfirmer ?')) return;
+  state = {
+    planning: [], catalogue: [], stabilites: [], reactifs: [], produits: [], contenants: [],
+    produitsEch: [], marches: [], echantillons: [], techniciens: [], planTasks: [], spq: [],
+    commandesStatut: {}, enregistrements: [], activity: []
+  };
+  saveData();
+  closeModal('modal-github');
+  renderAll();
+  toast('Données réinitialisées', 'success');
+  addActivity('trash', 'Réinitialisation complète des données');
+}
+
 function openGithubConfig() {
   if (githubConfig) {
     document.getElementById('gh-token').value = githubConfig.token || '';
@@ -4112,6 +4127,7 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
 
 // Expose all functions globally for onclick handlers
 window.openGithubConfig = openGithubConfig;
+window.resetAllData = resetAllData;
 window.showGithubConfig = showGithubConfig;
 window.saveGithubConfig = saveGithubConfig;
 window.testGithubConfig = testGithubConfig;
