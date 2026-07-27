@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v93 — Physico-Chimie</title>
+<title>LabManager v95 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -171,6 +171,7 @@
 <div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
+<div class="nav-item" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles</div>
 <div class="nav-item" onclick="goTo('spq',this)"><i class="ti ti-file-certificate"></i> SPQ</div>
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
@@ -514,6 +515,20 @@
     <div class="table-card-header"><h3><i class="ti ti-alert-triangle" style="color:var(--amber);margin-right:6px"></i>Produits a recommander</h3></div>
     <table><thead><tr><th>Produit</th><th>Fournisseur</th><th>Reference</th><th>Stock actuel</th><th>Stock minimum</th><th>Qte a commander</th><th>Urgence</th><th>Statut commande</th></tr></thead>
     <tbody id="commandes-tbody"></tbody></table>
+  </div>
+</div>
+
+<div class="page" id="page-articles">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Codes Articles</h1><p>Référentiel produits et SPQ associées</p></div>
+    <div class="page-header-actions"><button class="btn btn-primary" onclick="openModalArticle()"><i class="ti ti-plus"></i> Nouveau code article</button></div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><h3>Articles enregistrés</h3><div class="spacer"></div>
+      <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-articles" placeholder="Rechercher..." oninput="renderArticles()"></div>
+    </div>
+    <table><thead><tr><th>Code article</th><th>Désignation</th><th>SPQ liée</th><th>Concentration</th><th>Forme</th><th></th></tr></thead>
+    <tbody id="articles-tbody"></tbody></table>
   </div>
 </div>
 
@@ -2418,6 +2433,7 @@ let state = {
   techniciens: [],
   planTasks: [],
   spq: [],
+  articles: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -2526,6 +2542,7 @@ function goTo(page, el) {
   if (page === 'enregistrements') renderEnregistrements();
   if (page === 'habilitations') renderTechniciens();
   if (page === 'spq') renderSPQ();
+  if (page === 'articles') renderArticles();
   if (page === 'dashboard') renderDashboard();
 }
 
@@ -4088,7 +4105,7 @@ function openModal(id) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
     const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
-  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task') {
+  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article') {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
     inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
     const sels = document.querySelectorAll('#'+id+' select');
@@ -4695,12 +4712,124 @@ function deleteSPQ(id) {
 
 
 window.goToPlanning = goToPlanning;
+
+// ============================================================
+// CODES ARTICLES
+// ============================================================
+
+function renderArticles() {
+  const tbody = document.getElementById('articles-tbody');
+  if (!tbody) return;
+  const q = (document.getElementById('search-articles')?.value || '').toLowerCase();
+  const arts = (state.articles || []).filter(a => !q || a.code.toLowerCase().includes(q) || (a.nom||'').toLowerCase().includes(q));
+  if (!arts.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><i class="ti ti-barcode"></i><p>Aucun code article</p></td></tr>';
+    return;
+  }
+  tbody.innerHTML = arts.map(a => {
+    const spq = (state.spq||[]).find(s => s.id === a.spqId);
+    return '<tr>'
+      + '<td><strong style="font-family:monospace">' + a.code + '</strong></td>'
+      + '<td>' + (a.nom||'—') + '</td>'
+      + '<td>' + (spq ? '<span class="badge badge-purple" style="font-size:11px">' + spq.ref + '</span>' : '<span style="color:var(--text3)">—</span>') + '</td>'
+      + '<td style="font-size:12px;color:var(--text2)">' + (a.concentration||'—') + '</td>'
+      + '<td style="font-size:12px;color:var(--text2)">' + (a.forme||'—') + '</td>'
+      + '<td><div class="actions" style="opacity:1">'
+      + '<button class="icon-btn" onclick="editArticle(' + a.id + ')"><i class="ti ti-pencil"></i></button>'
+      + '<button class="icon-btn danger" onclick="deleteArticle(' + a.id + ')"><i class="ti ti-trash"></i></button>'
+      + '</div></td>'
+      + '</tr>';
+  }).join('');
+}
+
+function populateSpqSelect(selId, selectedId) {
+  const sel = document.getElementById(selId);
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Aucune SPQ —</option>'
+    + (state.spq||[]).map(s => '<option value="' + s.id + '"' + (s.id === selectedId ? ' selected' : '') + '>' + s.ref + (s.produits ? ' — ' + s.produits : '') + '</option>').join('');
+}
+
+function openModalArticle() {
+  window._editingArticleId = null;
+  document.getElementById('modal-article-title').textContent = 'Nouveau code article';
+  document.getElementById('art-code').value = '';
+  document.getElementById('art-nom').value = '';
+  document.getElementById('art-concentration').value = '';
+  document.getElementById('art-forme').value = '';
+  populateSpqSelect('art-spq', null);
+  const delBtn = document.getElementById('art-delete-btn');
+  if (delBtn) delBtn.style.display = 'none';
+  openModal('modal-article');
+}
+
+function editArticle(id) {
+  const a = (state.articles||[]).find(x => x.id === id);
+  if (!a) return;
+  window._editingArticleId = id;
+  document.getElementById('modal-article-title').textContent = 'Modifier — ' + a.code;
+  document.getElementById('art-code').value = a.code || '';
+  document.getElementById('art-nom').value = a.nom || '';
+  document.getElementById('art-concentration').value = a.concentration || '';
+  document.getElementById('art-forme').value = a.forme || '';
+  populateSpqSelect('art-spq', a.spqId);
+  const delBtn = document.getElementById('art-delete-btn');
+  if (delBtn) delBtn.style.display = 'inline-flex';
+  openModal('modal-article');
+}
+
+function saveArticle() {
+  const code = document.getElementById('art-code').value.trim().toUpperCase();
+  const nom = document.getElementById('art-nom').value.trim();
+  if (!code) { toast('Le code article est obligatoire', 'error'); return; }
+  if (!nom) { toast('La désignation est obligatoire', 'error'); return; }
+  const spqId = parseInt(document.getElementById('art-spq').value) || null;
+  const entry = {
+    id: window._editingArticleId || Date.now(),
+    code, nom,
+    spqId,
+    concentration: document.getElementById('art-concentration').value.trim(),
+    forme: document.getElementById('art-forme').value.trim()
+  };
+  if (!state.articles) state.articles = [];
+  if (window._editingArticleId) {
+    const idx = state.articles.findIndex(x => x.id === window._editingArticleId);
+    if (idx >= 0) state.articles[idx] = entry;
+    addActivity('barcode', 'Article modifié : ' + code);
+  } else {
+    // Vérifier unicité du code
+    if (state.articles.find(x => x.code === code)) { toast('Ce code article existe déjà', 'error'); return; }
+    state.articles.push(entry);
+    addActivity('barcode', 'Article créé : ' + code);
+  }
+  closeModal('modal-article');
+  saveData();
+  renderArticles();
+  toast('Code article enregistré', 'success');
+}
+
+function deleteArticle(id) {
+  if (!id || !state.articles) return;
+  const a = state.articles.find(x => x.id === id);
+  state.articles = state.articles.filter(x => x.id !== id);
+  closeModal('modal-article');
+  saveData();
+  renderArticles();
+  toast('Article supprimé', 'info');
+  addActivity('trash', 'Article supprimé : ' + (a?.code||''));
+}
+
+
 window.renderSPQ = renderSPQ;
 window.openModalSPQ = openModalSPQ;
 window.editSPQ = editSPQ;
 window.saveSPQ = saveSPQ;
 window.deleteSPQ = deleteSPQ;
 window.addSpqMarche = addSpqMarche;
+window.renderArticles = renderArticles;
+window.openModalArticle = openModalArticle;
+window.editArticle = editArticle;
+window.saveArticle = saveArticle;
+window.deleteArticle = deleteArticle;
 window.planSemaineNav = planSemaineNav;
 window.planSemaineToday = planSemaineToday;
 window.openModalPlanTask = openModalPlanTask;
@@ -4968,8 +5097,7 @@ saveAnalyse = function(){
   if(!nom){ toast('Le nom est obligatoire','error'); return; }
   if(!state.catalogue) state.catalogue=[];
   const habs=document.getElementById('a-habs')?.value.split(',').map(h=>h.trim()).filter(Boolean)||[];
-  const produitsIds=Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value)).filter(Boolean);
-  if(!produitsIds.length){ toast('Coche au moins un produit pour cette analyse','error'); return; }
+  const produitsIds=[];
   const resultatRequis = document.getElementById('a-resultat-requis')?.checked !== false;
   const champsResultats=resultatRequis?(typeof getChampResultats==='function'?getChampResultats():((state.catalogue||[]).find(x=>x.id===editingId)||{}).champsResultats||[]):[]; 
   const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:'', code:'', produitsIds, description:document.getElementById('a-desc').value, champsResultats, resultatRequis};
@@ -5481,6 +5609,33 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <div style="display:flex;gap:8px;margin-left:auto">
         <button class="btn" onclick="closeModal('modal-spq')">Annuler</button>
         <button class="btn btn-primary" onclick="saveSPQ()"><i class="ti ti-check"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-article">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <i class="ti ti-barcode" style="font-size:18px;color:var(--blue)"></i>
+      <h3 id="modal-article-title">Nouveau code article</h3>
+      <button class="close-btn" onclick="closeModal('modal-article')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Code article *</label><input id="art-code" placeholder="Ex: M000001" style="text-transform:uppercase;font-weight:700;font-family:monospace"></div>
+        <div class="form-group"><label>SPQ liée</label>
+          <select id="art-spq"><option value="">— Aucune SPQ —</option></select>
+        </div>
+        <div class="form-group full"><label>Désignation *</label><input id="art-nom" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
+        <div class="form-group"><label>Concentration</label><input id="art-concentration" placeholder="Ex: 10 mg/mL"></div>
+        <div class="form-group"><label>Forme galénique</label><input id="art-forme" placeholder="Ex: Solution injectable"></div>
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn btn-danger" id="art-delete-btn" onclick="deleteArticle(window._editingArticleId)" style="display:none"><i class="ti ti-trash"></i> Supprimer</button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="btn" onclick="closeModal('modal-article')">Annuler</button>
+        <button class="btn btn-primary" onclick="saveArticle()"><i class="ti ti-check"></i> Enregistrer</button>
       </div>
     </div>
   </div>
