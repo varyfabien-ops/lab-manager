@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v91 — Physico-Chimie</title>
+<title>LabManager v93 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -575,10 +575,7 @@
       <div class="form-grid">
         <div class="form-group full"><label>Nom de l'analyse *</label><input id="a-nom" placeholder="Ex: Dosage HPLC, Test de dissolution..."></div>
         <div class="form-group full"><label>Habilitations requises <span style="color:var(--text3);font-weight:400">(séparées par des virgules)</span></label><input id="a-habs" placeholder="Ex: HPLC, Dissolution, pH-métrie"></div>
-        <div class="form-group full">
-          <label>Produits applicables <span style="color:var(--text3);font-weight:400">(cochez les produits concernés)</span></label>
-          <div id="a-produits-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px;display:flex;flex-wrap:wrap;gap:6px;min-height:40px;margin-top:4px"></div>
-        </div>
+    
         <div class="form-group full">
           <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
             <input type="checkbox" id="a-resultat-requis" onchange="toggleResultatRequis()" checked>
@@ -713,12 +710,8 @@
     <div class="modal-header"><i class="ti ti-world" style="font-size:18px;color:var(--cyan)"></i><h3 id="modal-marche-title">Nouveau marche</h3><button class="close-btn" onclick="closeModal('modal-marche')"><i class="ti ti-x"></i></button></div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>Nom du marche *</label><input id="m-nom" placeholder="Ex: France, USA, Europe..."></div>
-        <div class="form-group"><label>Code</label><input id="m-code" placeholder="Ex: FR, US, EU"></div>
-        <div class="form-group full"><label>Analyses requises</label>
-          <div id="m-analyses-check" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:12px;max-height:220px;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px"></div>
-        </div>
-        <div class="form-group full"><label>Remarques</label><textarea id="m-note" placeholder="Exigences reglementaires, normes..."></textarea></div>
+        <div class="form-group"><label>Pays / Marché *</label><input id="m-nom" placeholder="Ex: France, USA, Europe..."></div>
+        <div class="form-group"><label>Abréviation</label><input id="m-code" placeholder="Ex: FR, US, EU" maxlength="5" style="text-transform:uppercase"></div>
       </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-marche')">Annuler</button><button class="btn btn-primary" onclick="saveMarche()"><i class="ti ti-check"></i> Enregistrer</button></div>
@@ -3030,7 +3023,7 @@ function saveAnalyse() {
   if (!state.catalogue) state.catalogue = [];
   const habs = document.getElementById('a-habs')?.value.split(',').map(h=>h.trim()).filter(Boolean)||[];
   // Récupérer les produits cochés
-  const produitsIds = Array.from(document.querySelectorAll('#a-produits-check input:checked')).map(cb=>parseInt(cb.value));
+  const produitsIds = [];
   // Récupérer les champs de résultats
   const champsResultats = typeof getChampResultats === 'function' ? getChampResultats() : [];
   const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
@@ -3702,14 +3695,12 @@ function saveMarche() {
   const nom = document.getElementById('m-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.marches) state.marches = [];
-  const checked = Array.from(document.querySelectorAll('#m-analyses-check input:checked')).map(cb=>parseInt(cb.value));
-  const entry = { id: editingId||Date.now(), nom, code: document.getElementById('m-code').value, analyses: checked, note: document.getElementById('m-note').value };
-  if (editingId) { const i=state.marches.findIndex(x=>x.id===editingId); state.marches[i]=entry; addActivity('pencil','Marche modifie : '+nom); }
-  else { state.marches.push(entry); addActivity('world','Marche ajoute : '+nom); }
+  const entry = { id: editingId||Date.now(), nom, code: document.getElementById('m-code').value.trim().toUpperCase() };
+  if (editingId) { const i=state.marches.findIndex(x=>x.id===editingId); if(i>=0) state.marches[i]=entry; }
+  else state.marches.push(entry);
   editingId = null;
   closeModal('modal-marche');
   renderMarches(); saveData();
-  toast('Marche enregistre', 'success');
 }
 
 function renderMarches() {
@@ -3773,10 +3764,8 @@ function editMarche(id) {
   editingId = id;
   document.getElementById('m-nom').value = m.nom||'';
   document.getElementById('m-code').value = m.code||'';
-  document.getElementById('m-note').value = m.note||'';
-  document.getElementById('modal-marche-title').textContent = 'Modifier le marche';
+  document.getElementById('modal-marche-title').textContent = 'Modifier le marché';
   openModal('modal-marche');
-  setTimeout(() => populateAnalysesChecks('m-analyses-check', m.analyses||[]), 50);
 }
 
 function deleteMarche(id) {
@@ -4065,7 +4054,6 @@ function openModal(id) {
     const selIds = editingId ? ((state.catalogue||[]).find(a=>a.id===editingId)||{}).produitsIds||[] : [];
     const selA = editingId ? (state.catalogue||[]).find(a=>a.id===editingId) : null;
     setTimeout(() => {
-      if (typeof populateProduitsAnalyseCheck === 'function') populateProduitsAnalyseCheck(selIds);
       if (typeof chargerChampResultats === 'function') {
         // Si nouvelle analyse : 1 champ par défaut; si édition : charger les champs sauvegardés
         chargerChampResultats(selA?.champsResultats || null);
@@ -4100,7 +4088,7 @@ function openModal(id) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
     const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
-  if (!editingId) {
+  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task') {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
     inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
     const sels = document.querySelectorAll('#'+id+' select');
@@ -5007,7 +4995,7 @@ editAnalyse = function(id){
   if(document.getElementById('a-habs')) document.getElementById('a-habs').value=(a.habilitations||[]).join(', ');
   openModal('modal-analyse');
   setTimeout(()=>{
-    populateProduitsAnalyseCheck(a.produitsIds||[]);
+
     if(typeof chargerChampResultats==='function') chargerChampResultats(a.champsResultats||null);
     const cbReq=document.getElementById('a-resultat-requis'); if(cbReq) { cbReq.checked=a.resultatRequis!==false; toggleResultatRequis(); }
   },60);
