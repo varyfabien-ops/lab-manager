@@ -44,6 +44,13 @@
       "code": "US",
       "analyses": [],
       "note": ""
+    },
+    {
+      "id": 1785170017612,
+      "nom": "CANADA",
+      "code": "CA",
+      "analyses": [],
+      "note": ""
     }
   ],
   "echantillons": [],
@@ -74,6 +81,11 @@
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0545",
+      "time": "27/07 18:33"
+    },
+    {
+      "icon": "world",
+      "text": "Marche ajoute : CANADA",
       "time": "27/07 18:33"
     }
   ],
