@@ -42,6 +42,27 @@
         }
       ],
       "resultatRequis": true
+    },
+    {
+      "id": 1785170145444,
+      "nom": "Volume Extractible",
+      "habilitations": [
+        "Volume"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1785169889615
+      ],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": "mL"
+        }
+      ],
+      "resultatRequis": true
     }
   ],
   "stabilites": [],
@@ -112,6 +133,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : pH",
+      "time": "27/07 18:35"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Volume Extractible",
       "time": "27/07 18:35"
     }
   ],
