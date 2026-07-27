@@ -1,6 +1,28 @@
 {
   "planning": [],
-  "catalogue": [],
+  "catalogue": [
+    {
+      "id": 1785169966496,
+      "nom": "Osmolalité",
+      "habilitations": [
+        "Osmolalité"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [
+        1785169889615
+      ],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": "mOsm/kg"
+        }
+      ],
+      "resultatRequis": true
+    }
+  ],
   "stabilites": [],
   "reactifs": [],
   "produits": [],
@@ -43,6 +65,11 @@
       "icon": "world",
       "text": "Marche ajoute : USA",
       "time": "27/07 18:31"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Osmolalité",
+      "time": "27/07 18:32"
     }
   ]
 }
