@@ -849,11 +849,27 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785170122728": "en_cours"
+        "1785170122728": "terminee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
-          "en_cours": "28/07/2026"
+          "en_cours": "28/07/2026",
+          "terminee": "28/07/2026"
+        }
+      },
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "5.5",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       }
     },
@@ -893,7 +909,30 @@
       "stabEtudeId": null,
       "date": "2026-07-28",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "4.8",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785170122728": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "terminee": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785262754887,
@@ -955,11 +994,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Osmolalité",
-      "time": "27/07 18:32"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0545",
@@ -1203,6 +1237,11 @@
     {
       "icon": "list-check",
       "text": "TEST 2-1 — pH : en_cours",
+      "time": "28/07 21:17"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "pH — 2 sous-séries — lot TEST 2",
       "time": "28/07 21:17"
     }
   ],
