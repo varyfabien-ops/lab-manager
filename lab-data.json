@@ -499,6 +499,35 @@
       "description": "Analyse selon USP",
       "champsResultats": [],
       "resultatRequis": false
+    },
+    {
+      "id": 1785262672685,
+      "nom": "TCC0015 - Lidocaïne Naphazoline",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
+      "produitsIds": [],
+      "champsResultats": [
+        {
+          "label": "Teneur en Naphazoline",
+          "type": "numerique",
+          "unite": "mg/mL"
+        },
+        {
+          "label": "Teneur en PHBM",
+          "type": "numerique",
+          "unite": "mg/mL"
+        },
+        {
+          "label": "Teneur en Lidocaïne",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true,
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -997,6 +1026,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0001",
       "time": "28/07 20:10"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : TCC0015 - Lidocaïne Naphazoline",
+      "time": "28/07 20:17"
     }
   ],
   "spq": [
