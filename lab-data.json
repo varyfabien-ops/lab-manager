@@ -1036,6 +1036,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0001",
       "time": "28/07 20:18"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : MYYYYYYYY",
+      "time": "28/07 20:18"
     }
   ],
   "spq": [
@@ -1084,6 +1089,14 @@
       "code": "MXXXXXXXX",
       "nom": "Marcaïne 2,5mg/mL SC",
       "spqId": 1785247433998,
+      "concentration": "",
+      "forme": ""
+    },
+    {
+      "id": 1785262722735,
+      "code": "MYYYYYYYY",
+      "nom": "Xylocaïne 5% Naphazoline",
+      "spqId": 1785262243733,
       "concentration": "",
       "forme": ""
     }
