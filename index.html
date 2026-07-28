@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v96 — Physico-Chimie</title>
+<title>LabManager v97 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -735,162 +735,137 @@
 
 <!-- MODAL ECHANTILLON WIZARD -->
 <div class="modal-overlay" id="modal-echantillon">
-  <div class="modal" style="width:660px">
+  <div class="modal" style="width:680px">
     <div class="modal-header">
       <i class="ti ti-package" style="font-size:18px;color:var(--cyan)"></i>
-      <h3>Reception d'un echantillon</h3>
+      <h3>Réception d'un échantillon</h3>
       <button class="close-btn" onclick="closeModal('modal-echantillon')"><i class="ti ti-x"></i></button>
     </div>
+    <!-- Progress bar -->
     <div style="padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg3)">
       <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-        <span id="wizard-step-label" style="font-size:12px;font-weight:600;color:var(--cyan)">Etape 1 / 7</span>
-        <span id="wizard-step-name" style="font-size:12px;color:var(--text2)">Produit</span>
+        <span id="wizard-step-label" style="font-size:12px;font-weight:600;color:var(--cyan)">Étape 1</span>
+        <span id="wizard-step-name" style="font-size:12px;color:var(--text2)"></span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" id="wizard-progress" style="width:14%"></div></div>
-      <div style="display:flex;gap:4px;margin-top:8px">
-        <div id="wdot-1" style="flex:1;height:3px;border-radius:2px;background:var(--cyan)"></div>
-        <div id="wdot-2" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
-        <div id="wdot-3" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
-        <div id="wdot-4" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
-        <div id="wdot-5" style="flex:1;height:3px;border-radius:2px;background:var(--border)"></div>
-      </div>
+      <div class="progress-bar"><div class="progress-fill" id="wizard-progress" style="width:20%"></div></div>
+      <div style="display:flex;gap:4px;margin-top:8px" id="wizard-dots-container"></div>
     </div>
-    <div class="modal-body" style="min-height:320px;max-height:60vh;overflow-y:auto">
+    <div class="modal-body" style="min-height:340px;max-height:65vh;overflow-y:auto">
 
-      <!-- ETAPE 1 : Produit -->
+      <!-- STEP 1 : TYPE -->
       <div id="wstep-1">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le produit a analyser</div>
-        <div class="form-group" style="margin-bottom:14px">
-          <label>Produit *</label>
-          <select id="w-produit" style="font-size:14px;padding:10px" onchange="wizardUpdateProduit()">
-            <option value="">— Choisir un produit —</option>
-          </select>
-        </div>
-        <div id="w-produit-info" style="display:none;background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:10px 12px;font-size:12px"></div>
-        <div id="w-produit-analyses-preview" style="display:none;margin-top:10px;background:var(--bg3);border-radius:var(--radius);padding:10px 12px">
-          <div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Analyses liees a ce produit</div>
-          <div id="w-produit-analyses-list" style="display:flex;flex-wrap:wrap;gap:4px"></div>
-        </div>
-      </div>
-
-      <!-- ETAPE 2 : Lot -->
-      <div id="wstep-2" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Renseignez le numero de lot</div>
-        <div class="form-group" style="margin-bottom:14px">
-          <label>Numero de lot *</label>
-          <input id="w-lot" placeholder="Ex: LOT-2024-001" style="font-size:14px;padding:10px">
-        </div>
-        <div class="form-group">
-          <label>Date de reception</label>
-          <input type="date" id="w-date" style="font-size:14px;padding:10px">
-        </div>
-      </div>
-
-      <!-- ETAPE 3 : PIF / STAB -->
-      <div id="wstep-3" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Selectionnez le type d'analyse</div>
-        <div style="display:flex;gap:12px;margin-bottom:16px">
+        <div style="margin-bottom:16px;font-size:13px;color:var(--text2)">Sélectionnez le type d'analyse</div>
+        <div style="display:flex;gap:12px">
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('pif')">
-            <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-flask" style="font-size:28px;color:var(--amber);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:14px">PIF</div>
+            <div id="w-pif-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+              <i class="ti ti-flask" style="font-size:32px;color:var(--amber);display:block;margin-bottom:8px"></i>
+              <div style="font-weight:700;font-size:15px">PIF</div>
               <input type="checkbox" id="w-type-pif" style="display:none">
             </div>
           </label>
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('stab')">
-            <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-thermometer" style="font-size:28px;color:var(--purple);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:14px">STABILITÉ</div>
+            <div id="w-stab-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+              <i class="ti ti-thermometer" style="font-size:32px;color:var(--purple);display:block;margin-bottom:8px"></i>
+              <div style="font-weight:700;font-size:15px">STABILITÉ</div>
               <input type="checkbox" id="w-type-stab" style="display:none">
             </div>
           </label>
           <label style="flex:1;cursor:pointer" onclick="toggleTypeCard('mp')">
-            <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:16px;text-align:center;transition:all 0.15s">
-              <i class="ti ti-box" style="font-size:28px;color:var(--green);display:block;margin-bottom:8px"></i>
-              <div style="font-weight:600;font-size:14px">MP</div>
+            <div id="w-mp-card" style="border:2px solid var(--border);border-radius:var(--radius-lg);padding:20px;text-align:center;transition:all 0.15s">
+              <i class="ti ti-box" style="font-size:32px;color:var(--green);display:block;margin-bottom:8px"></i>
+              <div style="font-weight:700;font-size:15px">MP</div>
               <input type="checkbox" id="w-type-mp" style="display:none">
             </div>
           </label>
         </div>
+      </div>
 
-        <!-- Bloc PIF (jaune) -->
-        <div id="w-pif-options" style="display:none;background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:14px;margin-bottom:10px">
-          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Informations PIF</div>
+      <!-- STEP 2 : CODE ARTICLE -->
+      <div id="wstep-2" style="display:none">
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Saisissez le code article</div>
+        <div class="form-group">
+          <label>Code article *</label>
+          <input id="w-code-article" placeholder="Ex: M000001" style="text-transform:uppercase;font-family:monospace;font-size:15px;font-weight:700" oninput="onWizardCodeArticleChange()">
+        </div>
+        <div id="w-article-info" style="display:none;margin-top:10px;background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px;font-size:13px"></div>
+        <div style="margin-top:12px">
+          <label style="font-size:12px;color:var(--text2)">Ou sélectionnez depuis la liste</label>
+          <select id="w-article-select" style="margin-top:6px" onchange="onWizardArticleSelect()">
+            <option value="">— Choisir un article —</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- STEP 3 : MARCHÉS (PIF uniquement) -->
+      <div id="wstep-3" style="display:none">
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Sélectionnez le ou les marchés</div>
+        <div id="w-marches-spq" style="display:flex;flex-direction:column;gap:6px"></div>
+        <div id="w-no-marches-msg" style="display:none;color:var(--text3);font-size:13px;padding:12px;background:var(--bg3);border-radius:var(--radius)">
+          Aucun marché défini dans la SPQ. <a href="#" onclick="goTo('spq',null);closeModal('modal-echantillon');return false" style="color:var(--cyan)">Configurer la SPQ</a>
+        </div>
+      </div>
+
+      <!-- STEP 4 : LOT + OPTIONS -->
+      <div id="wstep-4" style="display:none">
+        <div class="form-grid">
+          <div class="form-group"><label>Numéro de lot *</label><input id="w-lot" placeholder="Ex: AAAAAA" style="font-weight:700"></div>
+          <div class="form-group"><label>Date de réception</label><input type="date" id="w-date"></div>
+        </div>
+        <!-- PIF : nb sous-séries -->
+        <div id="w4-pif-opts" style="display:none;margin-top:10px;background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--radius);padding:14px">
+          <div style="font-weight:600;font-size:12px;color:var(--amber);margin-bottom:10px"><i class="ti ti-flask"></i> Options PIF</div>
           <div class="form-grid">
-            <div class="form-group"><label>Référence SPQ *</label><input id="w-ref-spq" placeholder="Ex: SPQ-2024-001"></div>
+            <div class="form-group"><label>Référence SPQ *</label><input id="w-ref-spq" placeholder="Auto depuis article"></div>
             <div class="form-group"><label>Nombre de sous-séries</label><input type="number" id="w-pif-nb-series" min="1" value="1"></div>
           </div>
-          <div class="form-group" style="margin-top:10px">
-            <label>Marchés <span style="color:var(--text3);font-weight:400">(étiquetage)</span></label>
-            <div id="w-ref-marches-check" style="display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;margin-top:6px"></div>
-          </div>
         </div>
-
-        <!-- Bloc STAB (violet) -->
-        <div id="w-stab-options" style="display:none;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px;margin-bottom:10px">
+        <!-- STAB : PTC + étude + échéance -->
+        <div id="w4-stab-opts" style="display:none;margin-top:10px;background:var(--purple-dim);border:1px solid var(--purple);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--purple);margin-bottom:10px"><i class="ti ti-thermometer"></i> Options Stabilité</div>
           <div class="form-grid">
-            <div class="form-group full"><label>Rattacher à une étude de stabilité <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
-              <select id="w-stab-etude" onchange="onWizardStabEtudeChange()">
-                <option value="">— Aucune étude sélectionnée —</option>
-              </select>
-            </div>
-            <div class="form-group"><label>Échéance(s) STAB / timepoint(s) *</label>
+            <div class="form-group"><label>Référence PTC *</label><input id="w-ref-ptc" placeholder="Ex: PTC-2024-001"></div>
+            <div class="form-group"><label>Échéance / Timepoint</label>
               <select id="w-stab-echeance">
                 <option value="">— Sélectionner —</option>
-                <option value="T0">T0</option>
-                <option value="T1M">T1M</option>
-                <option value="T2M">T2M</option>
-                <option value="T3M">T3M</option>
-                <option value="T6M">T6M</option>
-                <option value="T9M">T9M</option>
-                <option value="T12M">T12M</option>
-                <option value="T18M">T18M</option>
-                <option value="T24M">T24M</option>
-                <option value="T36M">T36M</option>
+                <option value="T0">T0</option><option value="T1M">T1M</option><option value="T2M">T2M</option>
+                <option value="T3M">T3M</option><option value="T6M">T6M</option><option value="T9M">T9M</option>
+                <option value="T12M">T12M</option><option value="T18M">T18M</option>
+                <option value="T24M">T24M</option><option value="T36M">T36M</option>
               </select>
             </div>
-            <div class="form-group"><label>Températures (séparées par virgule)</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
-            <div class="form-group"><label>Référence PTC *</label><input id="w-ref-ptc" placeholder="Ex: PTC-2024-001"></div>
+            <div class="form-group"><label>Températures</label><input id="w-stab-temps" placeholder="Ex: 5C, 25C, 40C"></div>
+            <div class="form-group"><label>Étude de stabilité</label>
+              <select id="w-stab-etude" onchange="onWizardStabEtudeChange()">
+                <option value="">— Aucune —</option>
+              </select>
+            </div>
           </div>
         </div>
-
-        <!-- Bloc MP (vert) -->
-        <div id="w-mp-options" style="display:none;background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius);padding:14px;margin-bottom:10px">
+        <!-- MP : nb contenants -->
+        <div id="w4-mp-opts" style="display:none;margin-top:10px;background:var(--green-dim);border:1px solid var(--green);border-radius:var(--radius);padding:14px">
           <div style="font-weight:600;font-size:12px;color:var(--green);margin-bottom:10px"><i class="ti ti-box"></i> Matière Première</div>
           <div class="form-grid">
-            <div class="form-group"><label>Référence SPQ *</label><input id="w-mp-spq" placeholder="Ex: SPQ-2024-001"></div>
+            <div class="form-group"><label>Référence SPQ *</label><input id="w-mp-spq" placeholder="Auto depuis article"></div>
             <div class="form-group"><label>Nombre de contenants</label><input type="number" id="w-mp-contenants" min="1" value="1"></div>
           </div>
         </div>
       </div>
 
-      <!-- ETAPE 4 : Analyses -->
-      <div id="wstep-4" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Cochez les analyses a realiser pour cet echantillon</div>
-        <div id="w-analyses-select" style="display:flex;flex-direction:column;gap:6px;max-height:320px;overflow-y:auto"></div>
-        <div id="w-no-analyses" style="display:none;color:var(--text3);font-size:12px;padding:12px;background:var(--bg3);border-radius:var(--radius)">
-          Aucune analyse liee a ce produit. Allez dans Planification > Catalogue pour ajouter des analyses et les lier a ce produit.
-        </div>
-      </div>
-
-      <!-- ETAPE 5 : Recap -->
+      <!-- STEP 5 : RÉCAP -->
       <div id="wstep-5" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;font-weight:600;color:var(--text)">Recapitulatif de la reception</div>
+        <div style="margin-bottom:16px;font-size:14px;font-weight:600">Récapitulatif de la réception</div>
         <div id="w-recap" style="display:flex;flex-direction:column;gap:10px"></div>
       </div>
 
     </div>
-    <div class="modal-footer" style="justify-content:space-between">
-      <button class="btn" id="wizard-btn-prev" onclick="wizardPrev()" style="display:none"><i class="ti ti-arrow-left"></i> Precedent</button>
-      <div style="flex:1"></div>
+    <div class="modal-footer">
+      <button class="btn" id="wizard-btn-prev" onclick="wizardPrev()" style="display:none"><i class="ti ti-arrow-left"></i> Précédent</button>
       <button class="btn" onclick="closeModal('modal-echantillon')">Annuler</button>
       <button class="btn btn-primary" id="wizard-btn-next" onclick="wizardNext()">Suivant <i class="ti ti-arrow-right"></i></button>
     </div>
   </div>
 </div>
 
->
 <!-- MODAL STABILITE -->
 <div class="modal-overlay" id="modal-stab">
   <div class="modal" style="width:620px">
@@ -1089,95 +1064,390 @@
 // ============================================================
 let wizardStep = 1;
 const WIZARD_TOTAL = 5;
-const WIZARD_NAMES = ['Produit','Lot','Type','Analyses','Récapitulatif'];
+// Steps dynamiques selon le type
+// 1=Type, 2=CodeArticle, 3=Marchés(PIF), 4=Lot+Options, 5=Récap
+
+function wizardIsPifSelected(){ return !!document.getElementById('w-type-pif')?.checked; }
+function wizardIsStabSelected(){ return !!document.getElementById('w-type-stab')?.checked; }
+function wizardIsMpSelected(){ return !!document.getElementById('w-type-mp')?.checked; }
+function wizardIsStabOnly(){ return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected(); }
+function wizardIsMpOnly(){ return wizardIsMpSelected() && !wizardIsPifSelected() && !wizardIsStabSelected(); }
 
 function openWizard() {
   wizardStep = 1;
-  ['w-lot','w-stab-echeance','w-stab-temps'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
-  const nb = document.getElementById('w-nb-series'); if(nb) nb.value=1;
-  const dt = document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
-  const wpif = document.getElementById('w-type-pif'); if(wpif) wpif.checked=false;
-  const wstab = document.getElementById('w-type-stab'); if(wstab) wstab.checked=false;
-  const wmp = document.getElementById('w-type-mp'); if(wmp) wmp.checked=false;
-  const pifCard = document.getElementById('w-pif-card');
-  const stabCard = document.getElementById('w-stab-card');
-  if(pifCard) { pifCard.style.border='2px solid var(--border)'; pifCard.style.background=''; }
-  if(stabCard) { stabCard.style.border='2px solid var(--border)'; stabCard.style.background=''; }
-  const mpCard = document.getElementById('w-mp-card');
-  if(mpCard) { mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
-  const mpOpts = document.getElementById('w-mp-options'); if(mpOpts) mpOpts.style.display='none';
-  const spq = document.getElementById('w-mp-spq'); if(spq) spq.value='';
-  const mpCont = document.getElementById('w-mp-contenants'); if(mpCont) mpCont.value='1';
-  const stabOpts = document.getElementById('w-stab-options');
-  if(stabOpts) stabOpts.style.display='none';
-  const prodInfo = document.getElementById('w-produit-info');
-  if(prodInfo) prodInfo.style.display='none';
-  const prodPrev = document.getElementById('w-produit-analyses-preview');
-  if(prodPrev) prodPrev.style.display='none';
-  // Populate produit select
-  const sel = document.getElementById('w-produit');
-  if(sel) {
-    sel.innerHTML = '<option value="">— Choisir un produit —</option>' +
-      (state.produitsEch||[]).map(p=>`<option value="${p.id}">${p.nom}${p.code?' ('+p.code+')':''}</option>`).join('');
-    sel.value = '';
+  window._selectedStabEtudeId = null;
+  window._wizardArticle = null;
+  // Reset type cards
+  ['pif','stab','mp'].forEach(t => {
+    const cb = document.getElementById('w-type-'+t); if(cb) cb.checked=false;
+    const card = document.getElementById('w-'+t+'-card');
+    if(card){ card.style.border='2px solid var(--border)'; card.style.background=''; }
+  });
+  // Reset champs
+  ['w-code-article','w-lot','w-ref-spq','w-ref-ptc','w-mp-spq','w-stab-temps'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value='';
+  });
+  const dt=document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
+  const nb=document.getElementById('w-pif-nb-series'); if(nb) nb.value=1;
+  const nbc=document.getElementById('w-mp-contenants'); if(nbc) nbc.value=1;
+  const art=document.getElementById('w-article-select');
+  if(art) {
+    art.innerHTML='<option value="">— Choisir un article —</option>'
+      +(state.articles||[]).map(a=>'<option value="'+a.id+'">'+a.code+' — '+a.nom+'</option>').join('');
   }
+  document.getElementById('w-article-info').style.display='none';
+  // Masquer options
+  ['w4-pif-opts','w4-stab-opts','w4-mp-opts'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
+  });
   wizardRender();
   openModal('modal-echantillon');
 }
 
+function wizardStepsForType() {
+  // Retourne la liste des steps à afficher selon le type sélectionné
+  const pif = wizardIsPifSelected(), stab = wizardIsStabSelected(), mp = wizardIsMpSelected();
+  if (!pif && !stab && !mp) return [1,2,4,5];
+  if (mp && !pif && !stab) return [1,2,4,5]; // MP : type, article, lot+opts, récap
+  if (stab && !pif && !mp) return [1,2,4,5]; // STAB seule : type, article, lot+opts, récap
+  return [1,2,3,4,5]; // PIF ou PIF+STAB : type, article, marchés, lot+opts, récap
+}
+
+function wizardCurrentStepIdx() {
+  const steps = wizardStepsForType();
+  return steps.indexOf(wizardStep);
+}
+
 function wizardRender() {
-  for (let i=1; i<=WIZARD_TOTAL; i++) {
-    const el = document.getElementById('wstep-'+i);
-    if (el) el.style.display = i===wizardStep ? 'block' : 'none';
-  }
+  const steps = wizardStepsForType();
+  const totalSteps = steps.length;
+  const idx = wizardCurrentStepIdx();
+
+  // Labels
+  const names = {1:'Type', 2:'Code article', 3:'Marchés', 4:'Lot & Options', 5:'Récapitulatif'};
   const lbl = document.getElementById('wizard-step-label');
   const nm = document.getElementById('wizard-step-name');
   const prog = document.getElementById('wizard-progress');
-  if(lbl) lbl.textContent = `Etape ${wizardStep} / ${WIZARD_TOTAL}`;
-  if(nm) nm.textContent = WIZARD_NAMES[wizardStep-1];
-  if(prog) prog.style.width = Math.round(wizardStep/WIZARD_TOTAL*100)+'%';
+  if(lbl) lbl.textContent = 'Étape '+(idx+1)+' / '+totalSteps;
+  if(nm) nm.textContent = names[wizardStep]||'';
+  if(prog) prog.style.width = Math.round((idx+1)/totalSteps*100)+'%';
+
   // Dots
-  for(let i=1; i<=WIZARD_TOTAL; i++) {
-    const dot = document.getElementById('wdot-'+i);
-    if(dot) dot.style.background = i<=wizardStep ? 'var(--cyan)' : 'var(--border)';
+  const dotsEl = document.getElementById('wizard-dots-container');
+  if(dotsEl) dotsEl.innerHTML = steps.map((_,i)=>'<div style="flex:1;height:3px;border-radius:2px;background:'+(i<=idx?'var(--cyan)':'var(--border)')+'"></div>').join('');
+
+  // Afficher le bon step
+  for(let i=1;i<=5;i++){
+    const el=document.getElementById('wstep-'+i);
+    if(el) el.style.display=(i===wizardStep)?'block':'none';
   }
+
+  // Boutons
   const prev = document.getElementById('wizard-btn-prev');
-  if(prev) prev.style.display = wizardStep>1 ? 'flex' : 'none';
   const next = document.getElementById('wizard-btn-next');
+  if(prev) prev.style.display = idx>0?'inline-flex':'none';
   if(next) {
-    next.innerHTML = wizardStep===WIZARD_TOTAL
-      ? '<i class="ti ti-check"></i> Confirmer la reception'
-      : 'Suivant <i class="ti ti-arrow-right"></i>';
+    if(wizardStep===5) {
+      next.innerHTML='<i class="ti ti-check"></i> Confirmer la réception';
+    } else {
+      next.innerHTML='Suivant <i class="ti ti-arrow-right"></i>';
+    }
   }
-  
-  
-  if(wizardStep===4) wizardLoadAnalyses();
+
+  // Actions par step
+  if(wizardStep===3) wizardLoadMarches();
+  if(wizardStep===4) wizardLoadStep4();
   if(wizardStep===5) wizardRecap();
 }
 
-
-function isPIFOnly() {
-  const pif = document.getElementById('w-type-pif')?.checked||false;
-  const stab = document.getElementById('w-type-stab')?.checked||false;
-  const mp = document.getElementById('w-type-mp')?.checked||false;
-  return pif && !stab && !mp;
+function wizardNext() {
+  if(!wizardValidate()) return;
+  if(wizardStep===5){ wizardConfirm(); return; }
+  const steps = wizardStepsForType();
+  const idx = wizardCurrentStepIdx();
+  if(idx < steps.length-1) {
+    wizardStep = steps[idx+1];
+    wizardRender();
+  }
 }
 
-function isMPOnly() {
-  const pif = document.getElementById('w-type-pif')?.checked||false;
-  const stab = document.getElementById('w-type-stab')?.checked||false;
-  const mp = document.getElementById('w-type-mp')?.checked||false;
-  return mp && !pif && !stab;
+function wizardPrev() {
+  const steps = wizardStepsForType();
+  const idx = wizardCurrentStepIdx();
+  if(idx > 0) {
+    wizardStep = steps[idx-1];
+    wizardRender();
+  }
 }
 
-function previewSousSeriesPIF() {
-  const nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-  const lot = document.getElementById('w-lot')?.value || 'LOT';
-  const preview = document.getElementById('w-pif-series-preview');
-  if (!preview) return;
-  preview.innerHTML = nb === 1
-    ? '<span class="badge badge-cyan">'+lot+'</span>'
-    : Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-cyan">'+lot+'-'+(i+1)+'</span>').join('');
+function wizardValidate() {
+  if(wizardStep===1) {
+    if(!wizardIsPifSelected()&&!wizardIsStabSelected()&&!wizardIsMpSelected()){
+      toast('Sélectionnez au moins un type','error'); return false;
+    }
+    // MP exclusif
+    if(wizardIsMpSelected()&&(wizardIsPifSelected()||wizardIsStabSelected())){
+      toast('MP ne peut pas être combiné avec PIF ou STAB','error'); return false;
+    }
+  }
+  if(wizardStep===2) {
+    const code=document.getElementById('w-code-article')?.value.trim();
+    if(!code){ toast('Saisissez un code article','error'); return false; }
+  }
+  if(wizardStep===4) {
+    const lot=document.getElementById('w-lot')?.value.trim();
+    if(!lot){ toast('Le numéro de lot est obligatoire','error'); return false; }
+    if(wizardIsStabSelected()) {
+      const ptc=document.getElementById('w-ref-ptc')?.value.trim();
+      if(!ptc&&!window._selectedStabEtudeId){ toast('La référence PTC est obligatoire','error'); return false; }
+    }
+    if(wizardIsPifSelected()) {
+      const spq=document.getElementById('w-ref-spq')?.value.trim();
+      if(!spq){ toast('La référence SPQ est obligatoire','error'); return false; }
+    }
+  }
+  return true;
+}
+
+function toggleTypeCard(type) {
+  const cb = document.getElementById('w-type-'+type);
+  if(!cb) return;
+  cb.checked = !cb.checked;
+  // MP exclusif
+  if(type==='mp' && cb.checked) {
+    ['pif','stab'].forEach(t=>{
+      const c=document.getElementById('w-type-'+t); if(c) c.checked=false;
+      const ca=document.getElementById('w-'+t+'-card');
+      if(ca){ca.style.border='2px solid var(--border)';ca.style.background='';}
+    });
+  } else if((type==='pif'||type==='stab')&&cb.checked) {
+    const c=document.getElementById('w-type-mp'); if(c) c.checked=false;
+    const ca=document.getElementById('w-mp-card');
+    if(ca){ca.style.border='2px solid var(--border)';ca.style.background='';}
+  }
+  const colors={pif:['var(--amber)','var(--amber-dim)'],stab:['var(--purple)','var(--purple-dim)'],mp:['var(--green)','var(--green-dim)']};
+  const card=document.getElementById('w-'+type+'-card');
+  const [c,bg]=colors[type]||['var(--cyan)','var(--cyan-dim)'];
+  if(card){card.style.border=cb.checked?'2px solid '+c:'2px solid var(--border)';card.style.background=cb.checked?bg:'';}
+}
+
+function onWizardCodeArticleChange() {
+  const code = (document.getElementById('w-code-article')?.value||'').trim().toUpperCase();
+  if(!code) { document.getElementById('w-article-info').style.display='none'; return; }
+  const art = (state.articles||[]).find(a=>a.code===code);
+  window._wizardArticle = art||null;
+  const infoEl = document.getElementById('w-article-info');
+  if(art) {
+    const spq = art.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
+    infoEl.style.display='block';
+    infoEl.innerHTML='<strong>'+art.nom+'</strong>'+(art.concentration?' — '+art.concentration:'')+(spq?'<br><span style="color:var(--cyan)">SPQ : '+spq.ref+'</span>':'<br><span style="color:var(--amber)">⚠️ Aucune SPQ liée</span>');
+  } else {
+    infoEl.style.display='block';
+    infoEl.innerHTML='<span style="color:var(--red)">Code article introuvable</span>';
+  }
+}
+
+function onWizardArticleSelect() {
+  const sel = document.getElementById('w-article-select');
+  const art = (state.articles||[]).find(a=>a.id===parseInt(sel.value));
+  if(art) {
+    document.getElementById('w-code-article').value = art.code;
+    onWizardCodeArticleChange();
+  }
+}
+
+function wizardLoadMarches() {
+  const art = window._wizardArticle;
+  const spq = art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
+  const container = document.getElementById('w-marches-spq');
+  const noMsg = document.getElementById('w-no-marches-msg');
+  if(!spq||!spq.marches||!spq.marches.length) {
+    if(container) container.innerHTML='';
+    if(noMsg) noMsg.style.display='block';
+    return;
+  }
+  if(noMsg) noMsg.style.display='none';
+  const marches = spq.marches.map(sm=>{
+    const m=(state.marches||[]).find(x=>x.id===sm.marcheId);
+    return m?{...m,analyses:sm.analyses||[]}:null;
+  }).filter(Boolean);
+  if(container) {
+    container.innerHTML = marches.map(m=>
+      '<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 14px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">'
+      +'<input type="checkbox" class="w-marche-cb" value="'+m.id+'" style="flex-shrink:0">'
+      +'<span style="font-size:14px;font-weight:600">'+m.nom+'</span>'
+      +(m.code?'<span class="badge badge-blue" style="font-size:11px">'+m.code+'</span>':'')
+      +'<span style="font-size:11px;color:var(--text3);margin-left:auto">'+m.analyses.length+' analyse'+(m.analyses.length>1?'s':'')+'</span>'
+      +'</label>'
+    ).join('');
+  }
+}
+
+function wizardLoadStep4() {
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const art=window._wizardArticle;
+  const spq=art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
+
+  // Afficher/masquer les blocs
+  const pifOpts=document.getElementById('w4-pif-opts');
+  const stabOpts=document.getElementById('w4-stab-opts');
+  const mpOpts=document.getElementById('w4-mp-opts');
+  if(pifOpts) pifOpts.style.display=pif?'block':'none';
+  if(stabOpts) stabOpts.style.display=stab?'block':'none';
+  if(mpOpts) mpOpts.style.display=mp?'block':'none';
+
+  // Préremplir SPQ ref pour PIF
+  if(pif&&spq) {
+    const spqEl=document.getElementById('w-ref-spq');
+    if(spqEl&&!spqEl.value) spqEl.value=spq.ref;
+  }
+  // Préremplir SPQ ref pour MP
+  if(mp&&spq) {
+    const mpSpqEl=document.getElementById('w-mp-spq');
+    if(mpSpqEl&&!mpSpqEl.value) mpSpqEl.value=spq.ref;
+  }
+  // Peupler études stab
+  if(stab) {
+    const etudesSel=document.getElementById('w-stab-etude');
+    if(etudesSel) {
+      etudesSel.innerHTML='<option value="">— Aucune —</option>'
+        +(state.stabilites||[]).map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
+      if(window._selectedStabEtudeId) etudesSel.value=window._selectedStabEtudeId;
+    }
+  }
+}
+
+function wizardRecap() {
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const art=window._wizardArticle;
+  const spq=art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
+  const lot=document.getElementById('w-lot')?.value.trim()||'—';
+  const date=document.getElementById('w-date')?.value||'';
+  const nb=parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
+  const nbMp=parseInt(document.getElementById('w-mp-contenants')?.value)||1;
+  
+  // Marchés sélectionnés
+  const marcheIds=Array.from(document.querySelectorAll('.w-marche-cb:checked')).map(cb=>parseInt(cb.value));
+  
+  // Analyser les analyses résultantes
+  const analyses = getWizardAnalyses();
+
+  const recap=document.getElementById('w-recap');
+  if(!recap) return;
+
+  let html='';
+  // Article
+  html+='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">'
+    +'<div style="font-size:11px;text-transform:uppercase;color:var(--text3);margin-bottom:4px">ARTICLE</div>'
+    +'<strong>'+(art?.code||'—')+'</strong> — '+(art?.nom||'—')
+    +(spq?'<br><span style="font-size:12px;color:var(--cyan)">SPQ : '+spq.ref+'</span>':'')
+    +'</div>';
+  // Lot
+  html+='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">'
+    +'<div style="font-size:11px;text-transform:uppercase;color:var(--text3);margin-bottom:4px">LOT & RÉCEPTION</div>'
+    +'<strong>'+lot+'</strong>'+(date?'<br><span style="font-size:12px;color:var(--text2)">'+formatDate(date)+'</span>':'')
+    +'</div>';
+  // Type
+  html+='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">'
+    +'<div style="font-size:11px;text-transform:uppercase;color:var(--text3);margin-bottom:6px">TYPE</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'
+    +(pif?'<span class="badge badge-amber">PIF</span>':'')
+    +(stab?'<span class="badge badge-purple">STAB</span>':'')
+    +(mp?'<span class="badge badge-green">MP</span>':'')
+    +'</div>'
+    +(pif&&nb>1?'<div style="font-size:12px;color:var(--text2);margin-top:4px">'+nb+' sous-série'+(nb>1?'s':'')+'</div>':'')
+    +(mp?'<div style="font-size:12px;color:var(--text2);margin-top:4px">'+nbMp+' contenant'+(nbMp>1?'s':'')+'</div>':'')
+    +(stab?'<div style="font-size:12px;color:var(--purple);margin-top:4px">PTC : '+(document.getElementById('w-ref-ptc')?.value||'—')+'</div>':'')
+    +(stab?'<div style="font-size:12px;color:var(--purple)">Échéance : '+(document.getElementById('w-stab-echeance')?.value||'—')+'</div>':'')
+    +'</div>';
+  // Marchés
+  if(marcheIds.length){
+    const marchesNoms=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)?.nom||'').filter(Boolean);
+    html+='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">'
+      +'<div style="font-size:11px;text-transform:uppercase;color:var(--text3);margin-bottom:6px">MARCHÉS</div>'
+      +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+marchesNoms.map(n=>'<span class="badge badge-blue">'+n+'</span>').join('')+'</div>'
+      +'</div>';
+  }
+  // Analyses
+  html+='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">'
+    +'<div style="font-size:11px;text-transform:uppercase;color:var(--text3);margin-bottom:6px">'+analyses.length+' ANALYSE'+(analyses.length>1?'S':'')+'</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join('')+'</div>'
+    +'</div>';
+
+  recap.innerHTML=html;
+}
+
+function getWizardAnalyses() {
+  // Déduire les analyses depuis SPQ + marchés sélectionnés (PIF) ou PTC (STAB)
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const art=window._wizardArticle;
+  const spq=art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
+  
+  const analyseIds=new Set();
+  
+  if(pif&&spq) {
+    // Analyses depuis SPQ + marchés cochés
+    const marcheIds=Array.from(document.querySelectorAll('.w-marche-cb:checked')).map(cb=>parseInt(cb.value));
+    (spq.marches||[]).forEach(sm=>{
+      if(marcheIds.includes(sm.marcheId)) (sm.analyses||[]).forEach(id=>analyseIds.add(id));
+    });
+  }
+  if(mp&&spq&&!pif) {
+    // MP : toutes les analyses de la SPQ tous marchés confondus
+    (spq.marches||[]).forEach(sm=>(sm.analyses||[]).forEach(id=>analyseIds.add(id)));
+  }
+  // TODO STAB : analyses depuis PTC (à implémenter quand PTC aura son module)
+  
+  return [...analyseIds].map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+}
+
+function wizardConfirm() {
+  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
+  const art=window._wizardArticle;
+  const lot=document.getElementById('w-lot')?.value.trim();
+  const date=document.getElementById('w-date')?.value||new Date().toISOString().slice(0,10);
+  const nb=pif?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1;
+  const nbMp=mp?(parseInt(document.getElementById('w-mp-contenants')?.value)||1):1;
+  const mpOnly=mp&&!pif;
+  const marcheIds=Array.from(document.querySelectorAll('.w-marche-cb:checked')).map(cb=>parseInt(cb.value));
+  const analyses=getWizardAnalyses();
+  const analyseIds=analyses.map(a=>a.id);
+  const prodId=art?.id||null;
+  const stabEtudeId=stab?(window._selectedStabEtudeId||parseInt(document.getElementById('w-stab-etude')?.value)||null):null;
+  const echeance=document.getElementById('w-stab-echeance')?.value||'';
+  const condition=document.getElementById('w-stab-temps')?.value||'';
+  const spqRef=document.getElementById('w-ref-spq')?.value.trim()||document.getElementById('w-mp-spq')?.value.trim()||'';
+  const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
+  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const entryCount=mpOnly?1:nb;
+
+  if(!state.echantillons) state.echantillons=[];
+  if(!state.planning) state.planning=[];
+
+  for(let i=0;i<entryCount;i++){
+    const code=mpOnly?lot:(stab&&!pif?lot:(entryCount>1?lot+'-'+(i+1):lot));
+    const nbContenants=mpOnly?nbMp:undefined;
+    state.echantillons.push({
+      id:Date.now()+i, code, lot,
+      articleId:art?.id||null, articleCode:art?.code||'',
+      produitId:prodId,
+      marcheIds, analysesIds:analyseIds,
+      typePIF:pif, typeSTAB:stab, typeMP:mp,
+      nbContenants, refSPQ:spqRef, refPTC:ptc,
+      stabEcheance:echeance, stabTemps:condition, stabEtudeId,
+      date, statut:'recu', note:''
+    });
+    analyses.forEach(a=>state.planning.push({
+      id:Date.now()+Math.random(), nom:a.nom,
+      echantillonCode:code, date, priorite:'normale', statut:'planifie',
+      note:'Auto: '+code
+    }));
+  }
+
+  addActivity('package','Réception: '+(art?.nom||lot)+' — '+entryCount+' entrée(s) — '+analyses.length+' analyse(s)');
+  closeModal('modal-echantillon');
+  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
+  toast(entryCount+' entrée(s) créée(s)','success');
 }
 
 function populatePIFMarches() {
@@ -4711,6 +4981,13 @@ function deleteSPQ(id) {
 }
 
 
+window.openWizard = openWizard;
+window.wizardNext = wizardNext;
+window.wizardPrev = wizardPrev;
+window.toggleTypeCard = toggleTypeCard;
+window.onWizardCodeArticleChange = onWizardCodeArticleChange;
+window.onWizardArticleSelect = onWizardArticleSelect;
+window.wizardConfirm = wizardConfirm;
 window.goToPlanning = goToPlanning;
 
 // ============================================================
