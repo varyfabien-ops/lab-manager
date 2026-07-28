@@ -63,6 +63,27 @@
         }
       ],
       "resultatRequis": true
+    },
+    {
+      "id": 1785247344996,
+      "nom": "TCC0004 Lidocaïne / PHBM",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Piettes"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Teneur en Lidocaïne",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true
     }
   ],
   "stabilites": [],
@@ -176,30 +197,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0545",
       "time": "27/07 19:58"
-    }
-  ],
-  "spq": [
+    },
     {
-      "id": 1785175132895,
-      "ref": "SPQ0545",
-      "produits": "Setmelanotide 10 mg/mL",
-      "marches": [
-        {
-          "marcheId": 1785169908180,
-          "analyses": [
-            1785169966496,
-            1785170122728,
-            1785170145444
-          ]
-        },
-        {
-          "marcheId": 1785170017612,
-          "analyses": [
-            1785169966496,
-            1785170122728
-          ]
-        }
-      ]
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0004 Lidocaïne / PHBM",
+      "time": "28/07 16:02"
     }
   ]
 }
