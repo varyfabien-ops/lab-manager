@@ -849,12 +849,13 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785170122728": "terminee"
+        "1785170122728": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
           "en_cours": "28/07/2026",
-          "terminee": "28/07/2026"
+          "terminee": "28/07/2026",
+          "verifiee": "28/07/2026"
         }
       },
       "resultats": {
@@ -994,11 +995,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0545",
-      "time": "27/07 18:33"
-    },
     {
       "icon": "world",
       "text": "Marche ajoute : CANADA",
@@ -1242,6 +1238,11 @@
     {
       "icon": "clipboard-check",
       "text": "pH — 2 sous-séries — lot TEST 2",
+      "time": "28/07 21:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 2-1 — pH : verifiee",
       "time": "28/07 21:17"
     }
   ],
