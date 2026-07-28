@@ -136,6 +136,17 @@
         }
       ],
       "resultatRequis": true
+    },
+    {
+      "id": 1785247569532,
+      "nom": "Limpidité / Coloration US",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "Analyse selon USP",
+      "champsResultats": [],
+      "resultatRequis": false
     }
   ],
   "stabilites": [],
@@ -284,6 +295,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0054",
       "time": "28/07 16:05"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Limpidité / Coloration US",
+      "time": "28/07 16:06"
     }
   ],
   "spq": [
