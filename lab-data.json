@@ -70,7 +70,7 @@
       "habilitations": [
         "HPLC",
         "Balance",
-        "Piettes"
+        "Pipettes"
       ],
       "duree": "",
       "code": "",
@@ -226,6 +226,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0002 Sodium",
+      "time": "28/07 16:03"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 Lidocaïne / PHBM",
       "time": "28/07 16:03"
     }
   ]
