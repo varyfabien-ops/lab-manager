@@ -300,6 +300,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Limpidité / Coloration US",
       "time": "28/07 16:06"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : MXXXXXXXX",
+      "time": "28/07 16:06"
     }
   ],
   "spq": [
@@ -317,6 +322,16 @@
           ]
         }
       ]
+    }
+  ],
+  "articles": [
+    {
+      "id": 1785247590600,
+      "code": "MXXXXXXXX",
+      "nom": "Marcaïne 2,5 mg/mL SC",
+      "spqId": 1785247433998,
+      "concentration": "",
+      "forme": ""
     }
   ]
 }
