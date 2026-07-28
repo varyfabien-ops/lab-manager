@@ -1031,6 +1031,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0015 - Lidocaïne Naphazoline",
       "time": "28/07 20:17"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ modifiée : SPQ0001",
+      "time": "28/07 20:18"
     }
   ],
   "spq": [
@@ -1066,7 +1071,8 @@
           "marcheId": 1785262197983,
           "analyses": [
             1785170122728,
-            1785247477146
+            1785247477146,
+            1785262672685
           ]
         }
       ]
