@@ -104,6 +104,17 @@
         }
       ],
       "resultatRequis": true
+    },
+    {
+      "id": 1785247477146,
+      "nom": "Limpidité / Coloration PE",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "Analyse selon PE",
+      "champsResultats": [],
+      "resultatRequis": false
     }
   ],
   "stabilites": [],
@@ -237,6 +248,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0054",
       "time": "28/07 16:03"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Limpidité / Coloration PE",
+      "time": "28/07 16:04"
     }
   ],
   "spq": [
