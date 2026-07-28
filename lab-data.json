@@ -647,14 +647,30 @@
       "note": "",
       "analyseStatuts": {
         "1785247529863": "en_cours",
-        "1785170122728": "en_cours"
+        "1785170122728": "terminee"
       },
       "analyseStatutsInfo": {
         "1785247529863": {
           "en_cours": "28/07/2026"
         },
         "1785170122728": {
-          "en_cours": "28/07/2026"
+          "en_cours": "28/07/2026",
+          "terminee": "28/07/2026"
+        }
+      },
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "5.1",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       }
     },
@@ -701,7 +717,30 @@
       "stabEtudeId": null,
       "date": "2026-07-28",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "5.2",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785170122728": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "terminee": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785255736561,
@@ -746,7 +785,30 @@
       "stabEtudeId": null,
       "date": "2026-07-28",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "5.1",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785170122728": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "terminee": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785261788933,
@@ -884,11 +946,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Réinitialisation complète des données",
-      "time": "27/07 18:24"
-    },
     {
       "icon": "pill",
       "text": "Produit ajoute : Setmelanotide 10mg/mL",
@@ -1133,6 +1190,11 @@
       "icon": "list-check",
       "text": "TEST-1 — pH : en_cours",
       "time": "28/07 21:16"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "pH — 3 sous-séries — lot TEST",
+      "time": "28/07 21:17"
     }
   ],
   "spq": [
