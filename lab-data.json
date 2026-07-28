@@ -987,6 +987,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5mg/mL SC — 2 entrée(s) — 3 analyse(s)",
       "time": "28/07 20:03"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0001",
+      "time": "28/07 20:10"
     }
   ],
   "spq": [
@@ -1010,6 +1015,17 @@
             1785247529863,
             1785247569532
           ]
+        }
+      ]
+    },
+    {
+      "id": 1785262243733,
+      "ref": "SPQ0001",
+      "produits": "Xylocaïne 5% Naphazoline",
+      "marches": [
+        {
+          "marcheId": 1785262197983,
+          "analyses": []
         }
       ]
     }
