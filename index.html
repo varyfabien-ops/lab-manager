@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v105 — Physico-Chimie</title>
+<title>LabManager v107 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -355,16 +355,32 @@
     </div>
     <div class="table-card">
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
+        <button class="btn" onclick="resetEchFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i></button>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
       <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
-  <th style="width:170px;text-align:center">Produit<br><input class="filter-input" id="fech-produit" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
-  <th style="width:120px;text-align:center">Lot<br><input class="filter-input" id="fech-lot" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:170px;text-align:center">
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="produit" onclick="openXlFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
+    <input type="hidden" id="fech-produit" value="">
+  </th>
+  <th style="width:120px;text-align:center">
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="lot" onclick="openXlFilter(event,'lot')">Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
+    <input type="hidden" id="fech-lot" value="">
+  </th>
   <th style="width:120px;text-align:center">Sous-Série / Contenant</th>
-  <th style="width:110px;text-align:center">Marché</th>
+  <th style="width:110px;text-align:center">
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="marche" onclick="openXlFilter(event,'marche')">Marché <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
+    <input type="hidden" id="fech-marche" value="">
+  </th>
   <th style="width:150px;text-align:center">Échéance / Condition</th>
-  <th style="width:120px;text-align:center">Date de réception<br><input class="filter-input" id="fech-date" type="date" oninput="renderEchantillonsTable()"></th>
-  <th style="width:170px;text-align:center">Analyse<br><input class="filter-input" id="fech-analyse" placeholder="Filtrer..." oninput="renderEchantillonsTable()"></th>
+  <th style="width:120px;text-align:center">
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="date" onclick="openXlFilter(event,'date')">Date réception <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
+    <input type="hidden" id="fech-date" value="">
+  </th>
+  <th style="width:170px;text-align:center">
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="analyse" onclick="openXlFilter(event,'analyse')">Analyse <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
+    <input type="hidden" id="fech-analyse" value="">
+  </th>
   <th style="width:110px;text-align:center;background:var(--bg3);color:var(--text2)"><i class="ti ti-clock" style="font-size:14px"></i><br>À FAIRE<br>
     <select class="filter-input" id="fech-afaire" onchange="renderEchantillonsTable()" style="color:var(--text)">
       <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
@@ -4838,6 +4854,126 @@ window.toggleTypeCard = toggleTypeCard;
 window.onWizardCodeArticleChange = onWizardCodeArticleChange;
 window.onWizardArticleSelect = onWizardArticleSelect;
 window.wizardConfirm = wizardConfirm;
+
+// ============================================================
+// FILTRES STYLE EXCEL
+// ============================================================
+
+window._xlFilter = { produit:[], lot:[], marche:[], date:[], analyse:[] };
+let _xlFilterOpen = null;
+
+function openXlFilter(event, col) {
+  event.stopPropagation();
+  // Fermer si déjà ouvert
+  if (_xlFilterOpen === col) { closeXlFilter(); return; }
+  closeXlFilter();
+  _xlFilterOpen = col;
+
+  // Collecter les valeurs distinctes
+  const vals = new Set();
+  const echs = state.echantillons || [];
+  echs.forEach(e => {
+    if (col === 'produit') {
+      const art = e.articleId ? (state.articles||[]).find(a=>a.id===e.articleId) : null;
+      const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId)||{};
+      vals.add(art?.nom || produit.nom || '—');
+    } else if (col === 'lot') {
+      if (e.lot) vals.add(e.lot);
+    } else if (col === 'marche') {
+      (e.marcheIds||[]).forEach(id => {
+        const m = (state.marches||[]).find(m=>m.id===id);
+        if (m) vals.add(m.nom);
+      });
+    } else if (col === 'date') {
+      if (e.date) vals.add(e.date);
+    } else if (col === 'analyse') {
+      (e.analysesIds||[]).forEach(id => {
+        const a = (state.catalogue||[]).find(a=>a.id===id);
+        if (a) vals.add(a.nom);
+      });
+    }
+  });
+
+  const sorted = [...vals].sort((a,b)=>a.localeCompare(b));
+  const current = window._xlFilter[col] || [];
+
+  // Créer le dropdown
+  const dropdown = document.createElement('div');
+  dropdown.id = 'xl-filter-dropdown';
+  dropdown.style.cssText = 'position:fixed;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,0.15);z-index:9999;min-width:220px;max-height:320px;overflow-y:auto;font-size:13px';
+
+  // Header
+  dropdown.innerHTML = '<div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px">'
+    + '<button onclick="xlFilterSelectAll(col)" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Tout</button>'
+    + '<button onclick="xlFilterClear(col)" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Aucun</button>'
+    + '</div>'
+    + '<div style="padding:4px 0">'
+    + sorted.map(v => '<label style="display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer;hover:background:var(--bg3)">'
+      + '<input type="checkbox" class="xl-cb" data-col="'+col+'" data-val="'+v+'" '+(current.includes(v)?'checked':'')+' onchange="xlFilterChange(this.dataset.col,this)">'
+      + '<span>'+v+'</span>'
+      + '</label>'
+    ).join('')
+    + '</div>';
+
+  document.body.appendChild(dropdown);
+
+  // Positionner
+  const rect = event.target.getBoundingClientRect();
+  const top = rect.bottom + 4;
+  const left = Math.min(rect.left, window.innerWidth - 240);
+  dropdown.style.top = top + 'px';
+  dropdown.style.left = left + 'px';
+
+  // Fermer au clic extérieur
+  setTimeout(() => document.addEventListener('click', closeXlFilter, {once:true}), 0);
+}
+
+function closeXlFilter() {
+  const el = document.getElementById('xl-filter-dropdown');
+  if (el) el.remove();
+  _xlFilterOpen = null;
+}
+
+function xlFilterChange(col, cb) {
+  if (!window._xlFilter[col]) window._xlFilter[col] = [];
+  if (cb.checked) {
+    if (!window._xlFilter[col].includes(cb.dataset.val)) window._xlFilter[col].push(cb.dataset.val);
+  } else {
+    window._xlFilter[col] = window._xlFilter[col].filter(v => v !== cb.dataset.val);
+  }
+  updateXlFilterIcons();
+  renderEchantillonsTable();
+}
+
+function xlFilterSelectAll(col) {
+  const cbs = document.querySelectorAll('.xl-cb[data-col="'+col+'"]');
+  window._xlFilter[col] = [];
+  cbs.forEach(cb => { cb.checked=false; });
+  updateXlFilterIcons();
+  renderEchantillonsTable();
+}
+
+function xlFilterClear(col) {
+  xlFilterSelectAll(col);
+}
+
+function updateXlFilterIcons() {
+  // Mettre en évidence les colonnes avec un filtre actif
+  ['produit','lot','marche','date','analyse'].forEach(col => {
+    const active = (window._xlFilter[col]||[]).length > 0;
+    documenquerySelectorAll('[data-filter-col="'+col+'"]').forEach(el => {
+      const icon = el.querySelector('.ti-filter');
+      if (icon) icon.style.color = active ? 'var(--cyan)' : 'var(--text3)';
+    }); });
+}
+
+function resetEchFiltres() {
+  window._xlFilter = { produit:[], lot:[], marche:[], date:[], analyse:[] };
+  updateXlFilterIcons();
+  renderEchantillonsTable();
+}
+
+
 window.goToPlanning = goToPlanning;
 
 // ============================================================
@@ -4963,6 +5099,10 @@ window.deleteSPQ = deleteSPQ;
 window.addSpqMarche = addSpqMarche;
 window.onArtSpqChange = onArtSpqChange;
 window.renderArticles = renderArticles;
+window.openXlFilter = openXlFilter;
+window.xlFilterChange = xlFilterChange;
+window.xlFilterSelectAll = xlFilterSelectAll;
+window.resetEchFiltres = resetEchFiltres;
 window.openModalArticle = openModalArticle;
 window.editArticle = editArticle;
 window.saveArticle = saveArticle;
@@ -5373,10 +5513,11 @@ function renderEchantillonsTableAlignedV105(){
   const tbody=document.getElementById('ech-tbody');
   if(!tbody) return;
   const q=(document.getElementById('search-ech')?.value||'').toLowerCase();
-  const fProduit=(document.getElementById('fech-produit')?.value||'').toLowerCase();
-  const fLot=(document.getElementById('fech-lot')?.value||'').toLowerCase();
-  const fDate=document.getElementById('fech-date')?.value||'';
-  const fAnalyse=(document.getElementById('fech-analyse')?.value||'').toLowerCase();
+  const fProduit=window._xlFilter?.produit||[];
+  const fLot=window._xlFilter?.lot||[];
+  const fMarche=window._xlFilter?.marche||[];
+  const fDate=window._xlFilter?.date||[];
+  const fAnalyse=window._xlFilter?.analyse||[];
   const fEnCours=document.getElementById('fech-encours')?.value||'';
   const fTerminee=document.getElementById('fech-terminee')?.value||'';
   const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
@@ -5410,14 +5551,16 @@ function renderEchantillonsTableAlignedV105(){
     const lotCode=e0.lot||lotKey;
 
     if(q && !(prodNom+' '+lotCode).toLowerCase().includes(q)) return;
-    if(fProduit && !prodNom.toLowerCase().includes(fProduit)) return;
-    if(fLot && !lotCode.toLowerCase().includes(fLot)) return;
-    if(fDate && e0.date!==fDate) return;
+    if(fProduit.length && !fProduit.includes(prodNom)) return;
+    if(fLot.length && !fLot.includes(lotCode)) return;
+    if(fDate.length && !fDate.includes(e0.date||'')) return;
+    const lotMarches=(e0._marcheIdsMerged||e0.marcheIds||[]).map(id=>(state.marches||[]).find(m=>m.id===id)?.nom).filter(Boolean);
+    if(fMarche.length && !lotMarches.some(n=>fMarche.includes(n))) return;
 
     // Dédupliquer les analyses sur toutes les entrées du groupe
     const allAnalyseIds=[...new Set(group.flatMap(e=>e.analysesIds||[]))];
-    let analyses=allAnalyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-    if(fAnalyse) analyses=analyses.filter(a=>(a.nom||'').toLowerCase().includes(fAnalyse));
+    let analyses=allAnalyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean).sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
+    if(fAnalyse.length) analyses=analyses.filter(a=>fAnalyse.includes(a.nom||''));
 
     if(fEnCours||fTerminee||fVerifiee){
       const statuts=Object.values(e0.analyseStatuts||{});
