@@ -404,8 +404,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-28",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785170122728": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "en_cours": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785255535011,
@@ -666,6 +674,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5mg/mL SC — 3 entrée(s) — 4 analyse(s)",
       "time": "28/07 18:18"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — pH : en_cours",
+      "time": "28/07 18:20"
     }
   ],
   "spq": [
