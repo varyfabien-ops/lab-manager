@@ -84,6 +84,26 @@
         }
       ],
       "resultatRequis": true
+    },
+    {
+      "id": 1785247382413,
+      "nom": "TCC0002 Sodium",
+      "habilitations": [
+        "SAA",
+        "Pipettes"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Teneur en Sodium",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true
     }
   ],
   "stabilites": [],
@@ -202,6 +222,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0004 Lidocaïne / PHBM",
       "time": "28/07 16:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0002 Sodium",
+      "time": "28/07 16:03"
     }
   ]
 }
