@@ -408,14 +408,15 @@
       "note": "",
       "analyseStatuts": {
         "1785170122728": "en_cours",
-        "1785247477146": "en_cours"
+        "1785247477146": "terminee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
           "en_cours": "28/07/2026"
         },
         "1785247477146": {
-          "en_cours": "28/07/2026"
+          "en_cours": "28/07/2026",
+          "terminee": "28/07/2026"
         }
       }
     },
