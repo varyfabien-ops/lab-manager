@@ -846,8 +846,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-28",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785170122728": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "en_cours": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785261788934,
@@ -947,11 +955,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "world",
-      "text": "Marche ajoute : USA",
-      "time": "27/07 18:31"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Osmolalité",
@@ -1195,6 +1198,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — pH : verifiee",
+      "time": "28/07 21:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 2-1 — pH : en_cours",
       "time": "28/07 21:17"
     }
   ],
