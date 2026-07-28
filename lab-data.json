@@ -407,16 +407,32 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785170122728": "en_cours",
+        "1785170122728": "terminee",
         "1785247477146": "terminee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
-          "en_cours": "28/07/2026"
+          "en_cours": "28/07/2026",
+          "terminee": "28/07/2026"
         },
         "1785247477146": {
           "en_cours": "28/07/2026",
           "terminee": "28/07/2026"
+        }
+      },
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       }
     },
@@ -447,7 +463,30 @@
       "stabEtudeId": null,
       "date": "2026-07-28",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785170122728": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "terminee": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785255535012,
@@ -476,7 +515,30 @@
       "stabEtudeId": null,
       "date": "2026-07-28",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785170122728": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "terminee": "28/07/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -688,6 +750,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
+      "time": "28/07 18:20"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "pH — 3 sous-séries — lot TEST",
       "time": "28/07 18:20"
     }
   ],
