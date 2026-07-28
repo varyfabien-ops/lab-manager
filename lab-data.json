@@ -164,7 +164,7 @@
     },
     {
       "id": 1785253079838,
-      "nom": "Marcaïne 5mg/mL",
+      "nom": "Marcaïne 2,5mg/mL",
       "forme": "",
       "dosage": "",
       "code": "M3",
@@ -318,6 +318,11 @@
       "icon": "pill",
       "text": "Produit ajoute : Marcaïne 5mg/mL",
       "time": "28/07 17:37"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Marcaïne 2,5mg/mL",
+      "time": "28/07 17:38"
     }
   ],
   "spq": [
