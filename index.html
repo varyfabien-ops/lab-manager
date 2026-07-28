@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v118 — Physico-Chimie</title>
+<title>LabManager v119 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2253,8 +2253,9 @@ function renderTendances() {
   const container = document.getElementById('tendances-container');
 
   // Peupler les articles depuis state.articles qui ont des échantillons PIF
-  // Toujours repeupler le select produit
+  // Repeupler le select produit en préservant la valeur sélectionnée
   if (selProduit) {
+    const savedVal = selProduit.value;
     selProduit.innerHTML = '<option value="">— Sélectionner —</option>';
     const articlesAvecPIF = (state.articles||[]).filter(art =>
       (state.echantillons||[]).some(e=>e.typePIF && e.articleId===art.id)
@@ -2269,6 +2270,7 @@ function renderTendances() {
         const opt=document.createElement('option'); opt.value='p_'+id; opt.textContent=p.nom; selProduit.appendChild(opt);
       });
     }
+    if(savedVal) selProduit.value = savedVal;
   }
 
   const fVal=selProduit?.value||'';
