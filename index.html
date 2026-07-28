@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v98 — Physico-Chimie</title>
+<title>LabManager v99 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2890,7 +2890,7 @@ async function loadData() {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[] };
+    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Donnees synchronisees', 'success');
