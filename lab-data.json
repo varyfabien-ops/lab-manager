@@ -643,8 +643,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-28",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785247529863": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785247529863": {
+          "en_cours": "28/07/2026"
+        }
+      }
     },
     {
       "id": 1785255736560,
@@ -1111,6 +1119,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne 5% Naphazoline — 1 entrée(s) — 3 analyse(s)",
       "time": "28/07 20:19"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
+      "time": "28/07 20:33"
     }
   ],
   "spq": [
