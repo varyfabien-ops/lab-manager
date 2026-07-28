@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v107 — Physico-Chimie</title>
+<title>LabManager v108 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -3179,7 +3179,8 @@ function saveAnalyse() {
   const produitsIds = [];
   // Récupérer les champs de résultats
   const champsResultats = typeof getChampResultats === 'function' ? getChampResultats() : [];
-  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, duree: document.getElementById('a-duree').value, code: document.getElementById('a-code').value, description: document.getElementById('a-desc').value };
+  const resultatRequis = document.getElementById('a-resultat-requis')?.checked !== false;
+  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, resultatRequis, description: document.getElementById('a-desc').value };
   if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
   editingId = null;
