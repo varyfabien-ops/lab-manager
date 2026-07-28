@@ -299,7 +299,7 @@
       "analyseStatuts": {
         "1785170122728": "verifiee",
         "1785247477146": "en_cours",
-        "1785247529863": "en_cours"
+        "1785247529863": "terminee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
@@ -311,7 +311,8 @@
           "en_cours": "28/07/2026"
         },
         "1785247529863": {
-          "en_cours": "28/07/2026"
+          "en_cours": "28/07/2026",
+          "terminee": "28/07/2026"
         }
       },
       "resultats": {
@@ -321,6 +322,19 @@
               "label": "Résultat",
               "valeur": "6.1",
               "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        },
+        "1785247529863": {
+          "champs": [
+            {
+              "label": "Teneur en Bupivacaïne",
+              "valeur": "2.54",
+              "unite": "mg/mL"
             }
           ],
           "commentaire": "",
@@ -369,13 +383,30 @@
           "date": "28/07/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1785247529863": {
+          "champs": [
+            {
+              "label": "Teneur en Bupivacaïne",
+              "valeur": "2.53",
+              "unite": "mg/mL"
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       },
       "analyseStatuts": {
-        "1785170122728": "terminee"
+        "1785170122728": "terminee",
+        "1785247529863": "terminee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
+          "terminee": "28/07/2026"
+        },
+        "1785247529863": {
           "terminee": "28/07/2026"
         }
       }
@@ -419,13 +450,30 @@
           "date": "28/07/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1785247529863": {
+          "champs": [
+            {
+              "label": "Teneur en Bupivacaïne",
+              "valeur": "2.52",
+              "unite": "mg/mL"
+            }
+          ],
+          "commentaire": "",
+          "date": "28/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       },
       "analyseStatuts": {
-        "1785170122728": "terminee"
+        "1785170122728": "terminee",
+        "1785247529863": "terminee"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
+          "terminee": "28/07/2026"
+        },
+        "1785247529863": {
           "terminee": "28/07/2026"
         }
       }
@@ -605,6 +653,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
+      "time": "28/07 17:58"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "TCC0004 Bupivacaïne — 3 sous-séries — lot TEST",
       "time": "28/07 17:58"
     }
   ],
