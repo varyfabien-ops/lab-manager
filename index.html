@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v116 — Physico-Chimie</title>
+<title>LabManager v117 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2454,117 +2454,7 @@ function resetTendances() {
   renderTendances();
 }
 
-function renderTendances() {
-  const selProduit = document.getElementById('tend-produit');
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-
-  // Peupler les produits si le menu est vide.
-  if (selProduit && selProduit.options.length <= 1) {
-    (state.produitsEch || []).forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = p.nom + (p.forme ? ' — ' + p.forme : '');
-      selProduit.appendChild(opt);
-    });
-  }
-
-  const fProduit = parseInt(selProduit?.value) || 0;
-  const fAnalyse = parseInt(selAnalyse?.value) || 0;
-  const fResultat = parseInt(selResultat?.value);
-
-  if (!fProduit) {
-    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un produit pour afficher les tendances</p></div>';
-    return;
-  }
-  if (!fAnalyse) {
-    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez une analyse</p></div>';
-    return;
-  }
-  if (isNaN(fResultat)) {
-    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un résultat</p></div>';
-    return;
-  }
-
-  const analyse = (state.catalogue || []).find(a => a.id === fAnalyse);
-  if (!analyse) return;
-
-  const champs = Array.isArray(analyse.champsResultats) && analyse.champsResultats.length
-    ? analyse.champsResultats
-    : [{ label: 'Résultat', type: analyse.typeResultat || 'numerique', unite: analyse.unite || '' }];
-  const champ = champs[fResultat];
-  if (!champ) return;
-
-  const points = [];
-  (state.echantillons || []).forEach(e => {
-    if (e.produitId !== fProduit) return;
-    const res = (e.resultats || {})[fAnalyse];
-    if (!res) return;
-    const champsData = Array.isArray(res.champs) ? res.champs : (res.valeur !== undefined ? [{ valeur: res.valeur }] : []);
-    const rawVal = champsData[fResultat]?.valeur;
-    const valNum = parseFloat(String(rawVal).replace(',', '.'));
-    if (isNaN(valNum)) return;
-    points.push({
-      date: res.date || e.date || '',
-      valeur: valNum,
-      lot: e.lot || '—'
-    });
-  });
-
-  points.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-
-  if (!points.length) {
-    if (container) container.innerHTML = '<div class="empty-state"><i class="ti ti-trending-up"></i><p>Aucun résultat enregistré pour cette sélection</p></div>';
-    return;
-  }
-
-  const min = Math.min(...points.map(p => p.valeur));
-  const max = Math.max(...points.map(p => p.valeur));
-  const range = max - min || 1;
-  const mean = points.reduce((s, p) => s + p.valeur, 0) / points.length;
-  const W = 700, H = 220, pad = 60, padR = 20, padT = 20, padB = 50;
-  const gW = W - pad - padR, gH = H - padT - padB;
-  const x = i => pad + (points.length > 1 ? i / (points.length - 1) * gW : gW / 2);
-  const y = v => padT + (1 - (v - min) / range) * gH;
-  const pathD = points.map((p, i) => (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ',' + y(p.valeur).toFixed(1)).join(' ');
-
-  const ySteps = 5;
-  const yLabels = Array.from({ length: ySteps + 1 }, (_, i) => {
-    const v = min + (max - min) * i / ySteps;
-    return '<text x="' + (pad - 8) + '" y="' + y(v).toFixed(1) + '" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">' + v.toFixed(2) + '</text>';
-  }).join('');
-  const gridLines = Array.from({ length: ySteps + 1 }, (_, i) => {
-    const v = min + (max - min) * i / ySteps;
-    return '<line x1="' + pad + '" y1="' + y(v).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + y(v).toFixed(1) + '" stroke="#eef1f5" stroke-width="1"/>';
-  }).join('');
-  const circles = points.map((p, i) =>
-    '<circle cx="' + x(i).toFixed(1) + '" cy="' + y(p.valeur).toFixed(1) + '" r="5" fill="#0d7c75" stroke="#fff" stroke-width="2"><title>' + p.lot + ' — ' + p.date + ' : ' + p.valeur + ' ' + (champ.unite || '') + '</title></circle>'
-  ).join('');
-  const xLabels = points.map((p, i) =>
-    '<text x="' + x(i).toFixed(1) + '" y="' + (H - padB + 18) + '" text-anchor="middle" font-size="11" fill="#8896a8">' + p.lot + '</text>' +
-    '<text x="' + x(i).toFixed(1) + '" y="' + (H - padB + 30) + '" text-anchor="middle" font-size="10" fill="#aaa">' + p.date + '</text>'
-  ).join('');
-  const valueLabels = points.map((p, i) =>
-    '<text x="' + x(i).toFixed(1) + '" y="' + (y(p.valeur) - 10).toFixed(1) + '" text-anchor="middle" font-size="11" font-weight="600" fill="#0d7c75">' + p.valeur + '</text>'
-  ).join('');
-
-  if (container) container.innerHTML = '<div class="table-card" style="padding:20px">'
-    + '<div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">'
-    + '<h3 style="font-size:15px;font-weight:600">' + analyse.nom + ' — ' + (champ.label || 'Résultat') + (champ.unite ? ' <span style="font-size:12px;color:var(--text3)">(' + champ.unite + ')</span>' : '') + '</h3>'
-    + '<span class="badge badge-cyan" style="margin-left:auto">' + points.length + ' mesure' + (points.length > 1 ? 's' : '') + '</span>'
-    + '<span class="badge badge-gray">Moy: ' + mean.toFixed(2) + (champ.unite ? ' ' + champ.unite : '') + '</span>'
-    + '</div>'
-    + '<svg viewBox="0 0 ' + W + ' ' + H + '" style="width:100%;overflow:visible">'
-    + gridLines
-    + '<line x1="' + pad + '" y1="' + padT + '" x2="' + pad + '" y2="' + (H - padB) + '" stroke="#dde2ea" stroke-width="1"/>'
-    + '<line x1="' + pad + '" y1="' + (H - padB) + '" x2="' + (W - padR) + '" y2="' + (H - padB) + '" stroke="#dde2ea" stroke-width="1"/>'
-    + yLabels
-    + (points.length > 1 ? '<path d="' + pathD + '" fill="none" stroke="#0d7c75" stroke-width="2.5" stroke-linejoin="round"/>' : '')
-    + '<line x1="' + pad + '" y1="' + y(mean).toFixed(1) + '" x2="' + (W - padR) + '" y2="' + y(mean).toFixed(1) + '" stroke="#0d7c75" stroke-width="1" stroke-dasharray="6,4" opacity="0.5"/>'
-    + valueLabels + circles + xLabels
-    + '</svg></div>';
-}
+// ancienne renderTendances supprimée
 
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
