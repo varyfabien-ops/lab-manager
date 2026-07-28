@@ -407,10 +407,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785170122728": "en_cours"
+        "1785170122728": "en_cours",
+        "1785247477146": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
+          "en_cours": "28/07/2026"
+        },
+        "1785247477146": {
           "en_cours": "28/07/2026"
         }
       }
@@ -678,6 +682,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — pH : en_cours",
+      "time": "28/07 18:20"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
       "time": "28/07 18:20"
     }
   ],
