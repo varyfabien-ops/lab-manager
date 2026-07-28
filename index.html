@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v100 — Physico-Chimie</title>
+<title>LabManager v101 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1599,136 +1599,6 @@ function wizardLoadAnalyses() {
     </label>`).join('');
 }
 
-function wizardRecap() {
-  const prodId = parseInt(document.getElementById('w-produit')?.value);
-  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot = document.getElementById('w-lot')?.value||'';
-  const date = document.getElementById('w-date')?.value||'';
-  const pif = document.getElementById('w-type-pif')?.checked||false;
-  const stab = document.getElementById('w-type-stab')?.checked||false;
-  const mp = document.getElementById('w-type-mp')?.checked||false;
-  const echeance = document.getElementById('w-stab-echeance')?.value||'';
-  const temps = document.getElementById('w-stab-temps')?.value||'';
-  const stabPtc = document.getElementById('w-stab-ptc')?.value||'';
-  const pifSpq = document.getElementById('w-pif-spq')?.value||'';
-  const mpSpq = document.getElementById('w-mp-spq')?.value||'';
-  const mpContenants = parseInt(document.getElementById('w-mp-contenants')?.value)||1;
-
-  let nb, marcheIds;
-  if (isPIFOnly()) {
-    nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  } else if (isStabOnly() || isMPOnly()) {
-    nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
-    marcheIds = [];
-  } else {
-    nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  }
-
-  const marches = marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
-  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-
-  // Générer les codes sous-séries
-  const sousSeries = nb === 1 ? [lot] : Array.from({length:nb},(_,i)=>lot+'-'+(i+1));
-
-  const recap = document.getElementById('w-recap');
-  if(!recap) return;
-
-  recap.innerHTML = `
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div>
-      <div style="font-weight:600">${prod.nom||'—'}</div>
-      ${prod.forme?'<div style="font-size:12px;color:var(--text2)">'+prod.forme+(prod.dosage?' '+prod.dosage:'')+'</div>':''}
-    </div>
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div>
-      <div style="font-weight:600">${lot||'—'}</div>
-      <div style="font-size:12px;color:var(--text2)">${date?formatDate(date):'—'}</div>
-    </div>
-    <div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div>
-      <div style="display:flex;gap:6px;margin-bottom:8px">
-        ${pif?'<span class="badge badge-amber">PIF</span>':''}
-        ${stab?'<span class="badge badge-purple">STABILITÉ</span>':''}
-        ${mp?'<span class="badge badge-green">MP</span>':''}
-      </div>
-      ${pif&&pifSpq?'<div style="font-size:12px;color:var(--text2)">Réf. SPQ : <strong>'+pifSpq+'</strong></div>':''}
-      ${stab&&echeance?'<div style="font-size:12px;color:var(--text2)">Pointage : <strong>'+echeance+'</strong></div>':''}
-      ${stab&&temps?'<div style="font-size:12px;color:var(--text2)">Températures : '+temps+'</div>':''}
-      ${stab&&stabPtc?'<div style="font-size:12px;color:var(--text2)">Réf. PTC : <strong>'+stabPtc+'</strong></div>':''}
-      ${mp&&mpSpq?'<div style="font-size:12px;color:var(--text2)">Réf. SPQ : <strong>'+mpSpq+'</strong></div>':''}
-      ${mp?'<div style="font-size:12px;color:var(--text2)">Nb contenants : <strong>'+mpContenants+'</strong></div>':''}
-      ${nb > 1 || !isStabOnly() ? '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px">'+sousSeries.map(s=>'<span class="badge badge-cyan">'+s+'</span>').join('')+'</div>' : ''}
-    </div>
-    ${marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marchés</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join('')+'</div></div>':''}
-    <div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px">
-      <div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px">
-        ${analyses.length} analyse${analyses.length>1?'s':''} × ${nb} sous-série${nb>1?'s':''} = ${analyses.length*nb} entrée${analyses.length*nb>1?'s':''} dans le planning
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px">${analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('')}</div>
-    </div>`;
-}
-
-function wizardConfirm() {
-  const prodId = parseInt(document.getElementById('w-produit')?.value);
-  const prod = (state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot = document.getElementById('w-lot')?.value.trim()||'';
-  const date = document.getElementById('w-date')?.value||'';
-  const pif = document.getElementById('w-type-pif')?.checked||false;
-  const stab = document.getElementById('w-type-stab')?.checked||false;
-  const mp = document.getElementById('w-type-mp')?.checked||false;
-  const echeance = document.getElementById('w-stab-echeance')?.value||'';
-  const temps = document.getElementById('w-stab-temps')?.value||'';
-  const mpSpq = document.getElementById('w-mp-spq')?.value||'';
-  const mpContenants = parseInt(document.getElementById('w-mp-contenants')?.value)||1;
-  let nb;
-  let marcheIds;
-  if (isPIFOnly()) {
-    nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  } else if (isStabOnly() || isMPOnly()) {
-    nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
-    marcheIds = []; // Pas de marché pour STAB seule ni MP
-  } else {
-    nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  }
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  // marcheIds déjà défini selon le type
-  const analyseIds = Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value));
-  const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  if (!state.echantillons) state.echantillons = [];
-  if (!state.planning) state.planning = [];
-  const pifSpqVal = document.getElementById('w-pif-spq')?.value||'';
-  const stabPtcVal = document.getElementById('w-ref-ptc')?.value || (window._selectedStabEtudeId ? ((state.stabilites||[]).find(s=>s.id===window._selectedStabEtudeId)?.ptc||'') : '');
-  // Créer UNE SEULE entrée par lot (nb et mpContenants sont des infos)
-  const code = lot; // le code de l'entrée = le numéro de lot
-  const stabEtudeId = stab ? (window._selectedStabEtudeId || parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
-  state.echantillons.push({
-    id: Date.now(), code, produitId: prodId, marcheIds,
-    analysesIds: analyseIds, typePIF: pif, typeSTAB: stab, typeMP: mp,
-    pifSpq: pifSpqVal, stabEcheance: echeance, stabPtc: stabPtcVal, stabTemps: temps,
-    mpSpq, mpContenants, nbSeries: nb, stabEtudeId,
-    lot, date, statut: 'recu', note: ''
-  });
-  // Générer les analyses dans le planning (une fois, pas par sous-série)
-  {
-    const i = 0; // compatibilité
-    analyses.forEach(a => {
-      state.planning.push({
-        id: Date.now()+Math.random(), nom: a.nom, echantillonCode: code,
-        date, priorite: 'normale', statut: 'planifie',
-        note: `Auto: ${code} | ${pif?'PIF':''}${stab?' STAB':''}`
-      });
-    });
-  } // fin bloc analyses
-  addActivity('package', `Reception: ${prod.nom||lot} — ${nb} sous-serie${nb>1?'s':''} — ${analyses.length} analyse${analyses.length>1?'s':''}`);
-  closeModal('modal-echantillon');
-  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
-    toast('Lot enregistré avec ' + analyses.length + ' analyse' + (analyses.length>1?'s':'') + ' dans le planning', 'success');
-}
 
 
 function populateProduitsAnalyseCheck(selectedIds) {
@@ -5368,47 +5238,11 @@ editAnalyse = function(id){
   },60);
 };
 
-wizardRecap = function(){
-  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-  const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  const recap=document.getElementById('w-recap'); if(!recap)return;
-  const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
-  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
-  const stabEtudeRecap = stab ? (state.stabilites||[]).find(s=>s.id===window._selectedStabEtudeId) : null;
-  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(pif&&stab?'T0'+(echeance?', '+echeance:''):(echeance||'—'))+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'')+(stabEtudeRecap?'<div style="font-size:12px;color:var(--purple);margin-top:4px"><i class="ti ti-clipboard-list"></i> Étude : <strong>'+stabEtudeRecap.num+'</strong></div>':'');
-  recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;font-weight:600;color:var(--cyan);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div>'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join(' ')+'</div>';
-};
+// wizardRecap/Confirm héritée supprimée
 
-wizardConfirm = function(){
-  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const echeance=normalizeStabTimepoints(document.getElementById('w-stab-echeance')?.value||''); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
-  const stabEcheance = (pif&&stab) ? ('T0'+(echeance?', '+echeance:'')) : echeance;
-  for(let i=0;i<entryCount;i++){
-    const code=(pif&&!stab&&!mp&&entryCount>1)?(lot+'-'+(i+1)):lot;
-    const stabEtudeId = stab ? (window._selectedStabEtudeId || parseInt(document.getElementById('w-stab-etude')?.value)||null) : null;
-    state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, stabEcheance, stabTemps:condition, stabEtudeId, lot, date, statut:'recu', note:''});
-    // Rattacher le lot à l'étude de stabilité
-    if(stabEtudeId) {
-      const etude = (state.stabilites||[]).find(s=>s.id===stabEtudeId);
-      if(etude) { if(!etude.lots) etude.lots=[]; if(!etude.lots.split(',').map(l=>l.trim()).includes(lot)) etude.lots = etude.lots ? etude.lots+', '+lot : lot; }
-    }
-    analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')+(stabEcheance?' | '+stabEcheance:'')+(condition?' | '+condition:'')}));
-  }
-  addActivity('package','Réception: '+(prod.nom||lot)+' — '+entryCount+' entrée(s) — '+analyses.length+' analyse(s)');
-  closeModal('modal-echantillon'); renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData(); toast(entryCount+' entrée(s) créée(s)','success');
-};
+
+// wizardRecap/Confirm héritée supprimée
+
 
 function getLotSousSerieContenantDisplay(e0, group){
   if(e0?.typeMP && !e0?.typePIF) {
@@ -5695,51 +5529,11 @@ openWizard = function(){
 
 // wizardValidate héritée supprimée
 
-wizardRecap = function(){
-  ensureRefsAndTimepointsV106();
-  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot=document.getElementById('w-lot')?.value||''; const date=document.getElementById('w-date')?.value||'';
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const spq=(pif ? document.getElementById('w-ref-spq') : document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
-  const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1; const entryCount=nb; const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(wizardIsStabOnly()||(mp&&!pif))?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const marches=marcheIds.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-  const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  const recap=document.getElementById('w-recap'); if(!recap)return;
-  const typeHtml=(pif?'<span class="badge badge-yellow">PIF</span> ':'')+(mp?'<span class="badge badge-green">MP</span> ':'')+(stab?'<span class="badge badge-purple">STAB</span>':'');
-  const ssHtml=wizardIsStabOnly()?'<span class="badge badge-purple">—</span>':Array.from({length:entryCount},(_,i)=>'<span class="badge '+(mp&&!pif?'badge-green':'badge-yellow')+'">'+(mp&&!pif?'Contenant '+(i+1):lot+'-'+(i+1))+'</span>').join('');
-  const refHtml='<div style="font-size:12px;color:var(--text2);margin-top:6px">'+((pif||mp)?'SPQ : <strong>'+spq+'</strong> ':'')+(stab?'PTC : <strong>'+ptc+'</strong>':'')+'</div>';
-  const stabEtudeRecap2=stab?(state.stabilites||[]).find(s=>s.id===window._selectedStabEtudeId):null;
-  const echCond=(stab?'<div style="font-size:12px;color:var(--text2)">Échéance(s) : <strong>'+(echeance||'—')+'</strong></div>':'')+(stab&&condition?'<div style="font-size:12px;color:var(--text2)">Condition(s) : <strong>'+condition+'</strong></div>':'')+(stabEtudeRecap2?'<div style="font-size:12px;color:var(--purple);margin-top:4px"><i class="ti ti-clipboard-list"></i> Étude : <strong>'+stabEtudeRecap2.num+'</strong></div>':'');
-  recap.innerHTML='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Produit</div><div style="font-weight:600">'+(prod.nom||'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px">Lot & Réception</div><div style="font-weight:600">'+lot+'</div><div style="font-size:12px;color:var(--text2)">'+(date?formatDate(date):'—')+'</div></div><div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Type</div><div style="display:flex;gap:6px;margin-bottom:6px">'+typeHtml+'</div>'+refHtml+echCond+'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+ssHtml+'</div></div>'+(marches.length?'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">Marché(s)</div>'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</div>':'')+'<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px"><div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:8px"><i class="ti ti-list-check"></i> '+analyses.length+' analyse(s) x '+entryCount+' entrée(s)</div><div style="display:flex;flex-wrap:wrap;gap:4px">'+analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('')+'</div></div>';
-};
+// wizardRecap/Confirm héritée supprimée
 
-wizardConfirm = function(){
-  ensureRefsAndTimepointsV106();
-  const prodId=parseInt(document.getElementById('w-produit')?.value); const prod=(state.produitsEch||[]).find(p=>p.id===prodId)||{};
-  const lot=document.getElementById('w-lot')?.value.trim()||''; const date=document.getElementById('w-date')?.value||'';
-  const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-  const spq=(pif ? document.getElementById('w-ref-spq') : document.getElementById('w-mp-spq'))?.value.trim()||''; const ptc=document.getElementById('w-ref-ptc')?.value.trim()||'';
-  const echeance=normalizeTimepointListV106(document.getElementById('w-stab-echeance')?.value||'', pif&&stab); const condition=document.getElementById('w-stab-temps')?.value||'';
-  const nb=wizardIsPifSelected()?(parseInt(document.getElementById('w-pif-nb-series')?.value)||1):1;
-  const mpOnly=mp&&!pif;
-  const nbMpCont=mpOnly?(parseInt(document.getElementById('w-mp-contenants')?.value)||1):undefined;
-  const entryCount=mpOnly?1:nb;
-  const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const marcheIds=(mpOnly||wizardIsStabOnly())?[]:Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  const analyseIds=Array.from(document.querySelectorAll('#w-analyses-select input:checked')).map(cb=>parseInt(cb.value)); const analyses=analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
-  if(!state.echantillons)state.echantillons=[]; if(!state.planning)state.planning=[];
-  for(let i=0;i<entryCount;i++){
-    const code=mpOnly?lot:(wizardIsStabOnly()?lot:(nb>1?lot+'-'+(i+1):lot));
-    const nbContenants=mpOnly?nbMpCont:undefined;
-    const stabEtudeId=stab?(window._selectedStabEtudeId||null):null;
-    state.echantillons.push({id:Date.now()+i, code, produitId:prodId, marcheIds, analysesIds:analyseIds, typePIF:pif, typeSTAB:stab, typeMP:mp, nbContenants, refSPQ:spq, refPTC:ptc, stabEcheance:echeance, stabTemps:condition, stabEtudeId, lot, date, statut:'recu', note:''});
-    analyses.forEach(a=>state.planning.push({id:Date.now()+Math.random(), nom:a.nom, echantillonCode:code, date, priorite:'normale', statut:'planifie', note:'Auto: '+code+' | '+(pif?'PIF ':'')+(mp?'MP ':'')+(stab?'STAB ':'')}));
-  }
-  addActivity('package','Réception: '+(prod.nom||lot)+' — '+entryCount+' entrée(s) — '+analyses.length+' analyse(s)');
-  closeModal('modal-echantillon'); renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData(); toast(entryCount+' entrée(s) créée(s)','success');
-};
+
+// wizardRecap/Confirm héritée supprimée
+
 
 window.openWizard=openWizard;
 window.toggleTypeCard=toggleTypeCard;
