@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v114 — Physico-Chimie</title>
+<title>LabManager v115 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2196,7 +2196,7 @@ function onTendProduitChange() {
   const fArticleId = parseInt(fVal) || 0;
   // Analyses présentes sur les échantillons PIF de cet article
   const analyseIds = new Set(
-    (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:true))
+    (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:fVal.startsWith('p_')?e.produitId===parseInt(fVal.slice(2)):true))
       .flatMap(e=>e.analysesIds||[])
   );
   const analyses = [...analyseIds]
@@ -2279,16 +2279,22 @@ function renderTendances() {
   const selResultat = document.getElementById('tend-resultat');
   const container = document.getElementById('tendances-container');
 
-  // Peupler les articles depuis les échantillons PIF reçus
+  // Peupler les articles depuis state.articles qui ont des échantillons PIF
+  if (selProduit) { selProduit.innerHTML = '<option value="">— Sélectionner —</option>'; }
   if (selProduit && selProduit.options.length <= 1) {
-    const articleIds=[...new Set((state.echantillons||[]).filter(e=>e.typePIF).map(e=>e.articleId).filter(Boolean))];
-    articleIds.forEach(id=>{
-      const art=(state.articles||[]).find(a=>a.id===id); if(!art) return;
-      const opt=document.createElement('option'); opt.value=id; opt.textContent=art.code+' — '+art.nom; selProduit.appendChild(opt);
+    const articlesAvecPIF = (state.articles||[]).filter(art =>
+      (state.echantillons||[]).some(e=>e.typePIF && e.articleId===art.id)
+    );
+    // Ajouter aussi les articles des échantillons sans articleId (anciens produits)
+    articlesAvecPIF.forEach(art=>{
+      const opt=document.createElement('option'); opt.value=art.id; opt.textContent=art.code+' — '+art.nom; selProduit.appendChild(opt);
     });
-    if(!articleIds.length){
-      (state.produitsEch||[]).forEach(p=>{
-        const opt=document.createElement('option'); opt.value='p_'+p.id; opt.textContent=p.nom; selProduit.appendChild(opt);
+    // Fallback : produitsEch pour les anciens échantillons sans articleId
+    if(!articlesAvecPIF.length) {
+      const prodIds=[...new Set((state.echantillons||[]).filter(e=>e.typePIF&&!e.articleId&&e.produitId).map(e=>e.produitId))];
+      prodIds.forEach(id=>{
+        const p=(state.produitsEch||[]).find(x=>x.id===id); if(!p) return;
+        const opt=document.createElement('option'); opt.value='p_'+id; opt.textContent=p.nom; selProduit.appendChild(opt);
       });
     }
   }
@@ -2307,7 +2313,7 @@ function renderTendances() {
   const champ=champs[fResultat]; if(!champ) return;
 
   const points=[];
-  (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:true)).forEach(e=>{
+  (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:fVal.startsWith('p_')?e.produitId===parseInt(fVal.slice(2)):true)).forEach(e=>{
     const res=(e.resultats||{})[fAnalyse]; if(!res) return;
     const cd=Array.isArray(res.champs)?res.champs:(res.valeur!==undefined?[{valeur:res.valeur}]:[]);
     const raw=cd[fResultat]?.valeur;
@@ -2372,7 +2378,7 @@ function onTendProduitChange() {
   const fArticleId = parseInt(fVal) || 0;
   // Analyses présentes sur les échantillons PIF de cet article
   const analyseIds = new Set(
-    (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:true))
+    (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:fVal.startsWith('p_')?e.produitId===parseInt(fVal.slice(2)):true))
       .flatMap(e=>e.analysesIds||[])
   );
   const analyses = [...analyseIds]
