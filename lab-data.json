@@ -298,7 +298,8 @@
       "note": "",
       "analyseStatuts": {
         "1785170122728": "verifiee",
-        "1785247477146": "en_cours"
+        "1785247477146": "en_cours",
+        "1785247529863": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785170122728": {
@@ -307,6 +308,9 @@
           "verifiee": "28/07/2026"
         },
         "1785247477146": {
+          "en_cours": "28/07/2026"
+        },
+        "1785247529863": {
           "en_cours": "28/07/2026"
         }
       },
@@ -596,6 +600,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
+      "time": "28/07 17:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
       "time": "28/07 17:58"
     }
   ],
