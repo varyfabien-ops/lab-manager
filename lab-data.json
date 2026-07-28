@@ -115,6 +115,27 @@
       "description": "Analyse selon PE",
       "champsResultats": [],
       "resultatRequis": false
+    },
+    {
+      "id": 1785247529863,
+      "nom": "TCC0004 Bupivacaïne",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Teneur en Bupivacaïne",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true
     }
   ],
   "stabilites": [],
@@ -253,6 +274,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Limpidité / Coloration PE",
       "time": "28/07 16:04"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0004 Bupivacaïne",
+      "time": "28/07 16:05"
     }
   ],
   "spq": [
