@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v101 — Physico-Chimie</title>
+<title>LabManager v105 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1378,26 +1378,33 @@ function wizardRecap() {
 }
 
 function getWizardAnalyses() {
-  // Déduire les analyses depuis SPQ + marchés sélectionnés (PIF) ou PTC (STAB)
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const art=window._wizardArticle;
   const spq=art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
-  
   const analyseIds=new Set();
-  
+  const analysesParMarche={}; // {analyseId: [marcheId1, marcheId2, ...]}
+
   if(pif&&spq) {
-    // Analyses depuis SPQ + marchés cochés
     const marcheIds=Array.from(document.querySelectorAll('.w-marche-cb:checked')).map(cb=>parseInt(cb.value));
     (spq.marches||[]).forEach(sm=>{
-      if(marcheIds.includes(sm.marcheId)) (sm.analyses||[]).forEach(id=>analyseIds.add(id));
+      if(marcheIds.includes(sm.marcheId)) {
+        (sm.analyses||[]).forEach(id=>{
+          analyseIds.add(id);
+          if(!analysesParMarche[id]) analysesParMarche[id]=[];
+          if(!analysesParMarche[id].includes(sm.marcheId)) analysesParMarche[id].push(sm.marcheId);
+        });
+      }
     });
   }
   if(mp&&spq&&!pif) {
-    // MP : toutes les analyses de la SPQ tous marchés confondus
-    (spq.marches||[]).forEach(sm=>(sm.analyses||[]).forEach(id=>analyseIds.add(id)));
+    (spq.marches||[]).forEach(sm=>(sm.analyses||[]).forEach(id=>{
+      analyseIds.add(id);
+      if(!analysesParMarche[id]) analysesParMarche[id]=[];
+      if(!analysesParMarche[id].includes(sm.marcheId)) analysesParMarche[id].push(sm.marcheId);
+    }));
   }
-  // TODO STAB : analyses depuis PTC (à implémenter quand PTC aura son module)
-  
+
+  window._wizardAnalysesParMarche = analysesParMarche;
   return [...analyseIds].map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
 }
 
@@ -1427,11 +1434,12 @@ function wizardConfirm() {
   for(let i=0;i<entryCount;i++){
     const code=mpOnly?lot:(stab&&!pif?lot:(entryCount>1?lot+'-'+(i+1):lot));
     const nbContenants=mpOnly?nbMp:undefined;
+    const analysesParMarche=window._wizardAnalysesParMarche||{};
     state.echantillons.push({
       id:Date.now()+i, code, lot,
       articleId:art?.id||null, articleCode:art?.code||'',
       produitId:prodId,
-      marcheIds, analysesIds:analyseIds,
+      marcheIds, analysesIds:analyseIds, analysesParMarche,
       typePIF:pif, typeSTAB:stab, typeMP:mp,
       nbContenants, refSPQ:spqRef, refPTC:ptc,
       stabEcheance:echeance, stabTemps:condition, stabEtudeId,
@@ -2127,10 +2135,19 @@ function cycleAnalyseStatut(echId, analyseId) {
   const nextIdx = order.indexOf(cur) + 1;
   if (nextIdx >= order.length) return;
   const next = order[nextIdx];
-  // Si on passe à "terminee", ouvrir le modal de saisie du résultat
+  // Si on passe à "terminee"
   if (next === 'terminee') {
+    const a2 = (state.catalogue||[]).find(x=>x.id===analyseId);
+    if (a2 && a2.resultatRequis === false) {
+      // Pas de résultat requis : passer directement à terminée
+      ech.analyseStatuts[analyseId] = 'terminee';
+      if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
+      ech.analyseStatutsInfo[analyseId]['terminee'] = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+      renderEchantillonsTable(); saveData();
+      return;
+    }
     ouvrirModalResultat(echId, analyseId);
-    return; // Le statut sera mis à jour dans sauvegarderResultat
+    return;
   }
   ech.analyseStatuts[analyseId] = next;
   if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
@@ -5254,9 +5271,15 @@ function getLotSousSerieContenantDisplay(e0, group){
   // PIF seul ou PIF+STAB
   return '<span class="badge badge-yellow" style="font-size:13px;font-weight:700;padding:3px 10px">'+count+'</span>';
 }
-function getMarcheDisplay(e0){
+function getMarcheDisplay(e0, analyseId){
   if(e0?.typeSTAB && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>';
   if(e0?.typeMP && !e0?.typePIF) return '<span style="color:var(--text3);font-size:12px">—</span>';
+  // Si on a analysesParMarche, afficher les marchés spécifiques à cette analyse
+  if(analyseId && e0.analysesParMarche && e0.analysesParMarche[analyseId]) {
+    const ids=e0.analysesParMarche[analyseId];
+    const marches=ids.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
+    return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
+  }
   const ids=(e0._marcheIdsMerged||e0.marcheIds||[]);
   const marches=ids.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
@@ -5308,7 +5331,16 @@ cycleAnalyseStatut = function(echId, analyseId){
   if(!ech.analyseStatuts)ech.analyseStatuts={}; if(!ech.analyseStatutsInfo)ech.analyseStatutsInfo={};
   const cur=ech.analyseStatuts[analyseId]||'a_lancer'; if(cur==='verifiee')return;
   const next=order[order.indexOf(cur)+1]; if(!next)return;
-  if(next==='terminee'){ ouvrirModalResultat(echId,analyseId); return; }
+  if(next==='terminee'){
+    const a3=(state.catalogue||[]).find(x=>x.id===analyseId);
+    if(a3&&a3.resultatRequis===false){
+      ech.analyseStatuts[analyseId]='terminee';
+      if(!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId]={};
+      ech.analyseStatutsInfo[analyseId]['terminee']=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+      renderEchantillonsTable(); saveData(); return;
+    }
+    ouvrirModalResultat(echId,analyseId); return;
+  }
   ech.analyseStatuts[analyseId]=next; if(!ech.analyseStatutsInfo[analyseId])ech.analyseStatutsInfo[analyseId]={}; ech.analyseStatutsInfo[analyseId][next]=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
   const ids=ech.analysesIds||[]; const allDone=ids.length&&ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee'); const anyStarted=ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';}); ech.statut=allDone?'conforme':anyStarted?'en_analyse':'recu';
   const a=(state.catalogue||[]).find(x=>x.id===analyseId); addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next); renderEchantillonsTable(); saveData();
@@ -5371,8 +5403,10 @@ function renderEchantillonsTableAlignedV105(){
       if (allMarcheIds.length > (e0.marcheIds||[]).length) e0._marcheIdsMerged = allMarcheIds;
     }
     const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId)||{};
-    const prodNom=produit.nom||'—';
-    const prodForme=[produit.forme, produit.dosage].filter(Boolean).join(' ');
+    const article=e0.articleId?(state.articles||[]).find(a=>a.id===e0.articleId):null;
+    const prodNom=article?.nom||produit.nom||'—';
+    const prodCode=article?.code||'';
+    const prodForme=article?.concentration||[produit.forme, produit.dosage].filter(Boolean).join(' ');
     const lotCode=e0.lot||lotKey;
 
     if(q && !(prodNom+' '+lotCode).toLowerCase().includes(q)) return;
@@ -5380,7 +5414,9 @@ function renderEchantillonsTableAlignedV105(){
     if(fLot && !lotCode.toLowerCase().includes(fLot)) return;
     if(fDate && e0.date!==fDate) return;
 
-    let analyses=(e0.analysesIds||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
+    // Dédupliquer les analyses sur toutes les entrées du groupe
+    const allAnalyseIds=[...new Set(group.flatMap(e=>e.analysesIds||[]))];
+    let analyses=allAnalyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
     if(fAnalyse) analyses=analyses.filter(a=>(a.nom||'').toLowerCase().includes(fAnalyse));
 
     if(fEnCours||fTerminee||fVerifiee){
@@ -5419,10 +5455,10 @@ function renderEchantillonsTableAlignedV105(){
 
       rows.push(
         '<tr style="'+borderT+rowBg+'">'+
-        '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'<br><span style="display:inline-flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+typeBadgesForEntry(e0)+'</span></td>'+
+        '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodCode?'<br><span style="font-size:10px;color:var(--text3);font-family:monospace">'+prodCode+'</span>':'')+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'<br><span style="display:inline-flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+typeBadgesForEntry(e0)+'</span></td>'+
         '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
         '<td '+TD+'>'+getLotSousSerieContenantDisplay(e0,group)+'</td>'+
-        '<td '+TD+'>'+getMarcheDisplay(e0)+'</td>'+
+        '<td '+TD+'>'+getMarcheDisplay(e0, a?.id)+'</td>'+
         '<td '+TD+'>'+getEcheanceConditionDisplay(e0)+'</td>'+
         '<td '+TD+'>'+(e0.date?formatDate(e0.date):'—')+'</td>'+
         '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':''):'—')+'</td>'+
