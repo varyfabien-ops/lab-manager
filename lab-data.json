@@ -161,6 +161,14 @@
       "dosage": "",
       "code": "SET",
       "description": ""
+    },
+    {
+      "id": 1785253079838,
+      "nom": "Marcaïne 5mg/mL",
+      "forme": "",
+      "dosage": "",
+      "code": "M3",
+      "description": ""
     }
   ],
   "marches": [
@@ -305,6 +313,11 @@
       "icon": "barcode",
       "text": "Article créé : MXXXXXXXX",
       "time": "28/07 16:06"
+    },
+    {
+      "icon": "pill",
+      "text": "Produit ajoute : Marcaïne 5mg/mL",
+      "time": "28/07 17:37"
     }
   ],
   "spq": [
@@ -333,5 +346,6 @@
       "concentration": "",
       "forme": ""
     }
-  ]
+  ],
+  "planTasks": []
 }
