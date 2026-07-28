@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v115 — Physico-Chimie</title>
+<title>LabManager v116 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2280,16 +2280,15 @@ function renderTendances() {
   const container = document.getElementById('tendances-container');
 
   // Peupler les articles depuis state.articles qui ont des échantillons PIF
-  if (selProduit) { selProduit.innerHTML = '<option value="">— Sélectionner —</option>'; }
-  if (selProduit && selProduit.options.length <= 1) {
+  // Toujours repeupler le select produit
+  if (selProduit) {
+    selProduit.innerHTML = '<option value="">— Sélectionner —</option>';
     const articlesAvecPIF = (state.articles||[]).filter(art =>
       (state.echantillons||[]).some(e=>e.typePIF && e.articleId===art.id)
     );
-    // Ajouter aussi les articles des échantillons sans articleId (anciens produits)
     articlesAvecPIF.forEach(art=>{
       const opt=document.createElement('option'); opt.value=art.id; opt.textContent=art.code+' — '+art.nom; selProduit.appendChild(opt);
     });
-    // Fallback : produitsEch pour les anciens échantillons sans articleId
     if(!articlesAvecPIF.length) {
       const prodIds=[...new Set((state.echantillons||[]).filter(e=>e.typePIF&&!e.articleId&&e.produitId).map(e=>e.produitId))];
       prodIds.forEach(id=>{
