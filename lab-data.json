@@ -164,7 +164,7 @@
     },
     {
       "id": 1785253079838,
-      "nom": "Marcaïne 2,5mg/mL",
+      "nom": "Marcaïne 2,5mg/mL SC",
       "forme": "",
       "dosage": "",
       "code": "M3",
@@ -327,6 +327,11 @@
     {
       "icon": "barcode",
       "text": "Article modifié : MXXXXXXXX",
+      "time": "28/07 17:39"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Marcaïne 2,5mg/mL SC",
       "time": "28/07 17:39"
     }
   ],
