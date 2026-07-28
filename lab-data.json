@@ -279,6 +279,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0004 Bupivacaïne",
       "time": "28/07 16:05"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ modifiée : SPQ0054",
+      "time": "28/07 16:05"
     }
   ],
   "spq": [
@@ -290,7 +295,9 @@
         {
           "marcheId": 1785170017612,
           "analyses": [
-            1785170122728
+            1785170122728,
+            1785247477146,
+            1785247529863
           ]
         }
       ]
