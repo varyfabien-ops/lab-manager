@@ -350,6 +350,33 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST 2-2"
+    },
+    {
+      "id": 1785262754887.891,
+      "nom": "pH",
+      "echantillonCode": "TEST 3",
+      "date": "2026-07-28",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 3"
+    },
+    {
+      "id": 1785262754887.2773,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "TEST 3",
+      "date": "2026-07-28",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 3"
+    },
+    {
+      "id": 1785262754887.2146,
+      "nom": "TCC0015 - Lidocaïne Naphazoline",
+      "echantillonCode": "TEST 3",
+      "date": "2026-07-28",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 3"
     }
   ],
   "catalogue": [
@@ -784,6 +811,44 @@
       "date": "2026-07-28",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1785262754887,
+      "code": "TEST 3",
+      "lot": "TEST 3",
+      "articleId": 1785262722735,
+      "articleCode": "MYYYYYYYY",
+      "produitId": 1785262722735,
+      "marcheIds": [
+        1785262197983
+      ],
+      "analysesIds": [
+        1785170122728,
+        1785247477146,
+        1785262672685
+      ],
+      "analysesParMarche": {
+        "1785170122728": [
+          1785262197983
+        ],
+        "1785247477146": [
+          1785262197983
+        ],
+        "1785262672685": [
+          1785262197983
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0001",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-07-28",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1041,6 +1106,11 @@
       "icon": "barcode",
       "text": "Article créé : MYYYYYYYY",
       "time": "28/07 20:18"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 5% Naphazoline — 1 entrée(s) — 3 analyse(s)",
+      "time": "28/07 20:19"
     }
   ],
   "spq": [
