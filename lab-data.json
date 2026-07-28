@@ -269,216 +269,7 @@
       "note": ""
     }
   ],
-  "echantillons": [
-    {
-      "id": 1785254276705,
-      "code": "TEST-1",
-      "lot": "TEST",
-      "articleId": 1785247590600,
-      "articleCode": "MXXXXXXXX",
-      "produitId": 1785247590600,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247477146,
-        1785247529863
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-28",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785170122728": "verifiee",
-        "1785247477146": "en_cours",
-        "1785247529863": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1785170122728": {
-          "en_cours": "28/07/2026",
-          "terminee": "28/07/2026",
-          "verifiee": "28/07/2026"
-        },
-        "1785247477146": {
-          "en_cours": "28/07/2026"
-        },
-        "1785247529863": {
-          "en_cours": "28/07/2026",
-          "terminee": "28/07/2026"
-        }
-      },
-      "resultats": {
-        "1785170122728": {
-          "champs": [
-            {
-              "label": "Résultat",
-              "valeur": "6.1",
-              "unite": ""
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1785247529863": {
-          "champs": [
-            {
-              "label": "Teneur en Bupivacaïne",
-              "valeur": "2.54",
-              "unite": "mg/mL"
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      }
-    },
-    {
-      "id": 1785254276706,
-      "code": "TEST-2",
-      "lot": "TEST",
-      "articleId": 1785247590600,
-      "articleCode": "MXXXXXXXX",
-      "produitId": 1785247590600,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247477146,
-        1785247529863
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-28",
-      "statut": "recu",
-      "note": "",
-      "resultats": {
-        "1785170122728": {
-          "champs": [
-            {
-              "label": "Résultat",
-              "valeur": "6.2",
-              "unite": ""
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1785247529863": {
-          "champs": [
-            {
-              "label": "Teneur en Bupivacaïne",
-              "valeur": "2.53",
-              "unite": "mg/mL"
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      },
-      "analyseStatuts": {
-        "1785170122728": "terminee",
-        "1785247529863": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1785170122728": {
-          "terminee": "28/07/2026"
-        },
-        "1785247529863": {
-          "terminee": "28/07/2026"
-        }
-      }
-    },
-    {
-      "id": 1785254276707,
-      "code": "TEST-3",
-      "lot": "TEST",
-      "articleId": 1785247590600,
-      "articleCode": "MXXXXXXXX",
-      "produitId": 1785247590600,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247477146,
-        1785247529863
-      ],
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-28",
-      "statut": "recu",
-      "note": "",
-      "resultats": {
-        "1785170122728": {
-          "champs": [
-            {
-              "label": "Résultat",
-              "valeur": "6.3",
-              "unite": ""
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1785247529863": {
-          "champs": [
-            {
-              "label": "Teneur en Bupivacaïne",
-              "valeur": "2.52",
-              "unite": "mg/mL"
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      },
-      "analyseStatuts": {
-        "1785170122728": "terminee",
-        "1785247529863": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1785170122728": {
-          "terminee": "28/07/2026"
-        },
-        "1785247529863": {
-          "terminee": "28/07/2026"
-        }
-      }
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -659,6 +450,16 @@
       "icon": "clipboard-check",
       "text": "TCC0004 Bupivacaïne — 3 sous-séries — lot TEST",
       "time": "28/07 17:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 Bupivacaïne : verifiee",
+      "time": "28/07 17:59"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST (3 entrees)",
+      "time": "28/07 18:13"
     }
   ],
   "spq": [
