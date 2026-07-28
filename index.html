@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v117 — Physico-Chimie</title>
+<title>LabManager v118 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2181,34 +2181,7 @@ let activeStabId = null;
 let editingTpIdx = null;
 
 
-function onTendProduitChange() {
-  const selProduit = document.getElementById('tend-produit');
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-  const fVal = selProduit?.value || '';
-
-  if (selAnalyse) { selAnalyse.innerHTML = '<option value="">— Sélectionner —</option>'; selAnalyse.disabled = !fVal; }
-  if (selResultat) { selResultat.innerHTML = '<option value="">— Sélectionner —</option>'; selResultat.disabled = true; }
-  if (container) container.innerHTML = '';
-  if (!fVal) { renderTendances(); return; }
-
-  const fArticleId = parseInt(fVal) || 0;
-  // Analyses présentes sur les échantillons PIF de cet article
-  const analyseIds = new Set(
-    (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:fVal.startsWith('p_')?e.produitId===parseInt(fVal.slice(2)):true))
-      .flatMap(e=>e.analysesIds||[])
-  );
-  const analyses = [...analyseIds]
-    .map(id=>(state.catalogue||[]).find(a=>a.id===id))
-    .filter(a=>{ if(!a) return false; const c=Array.isArray(a.champsResultats)&&a.champsResultats.length?a.champsResultats:[{type:'numerique'}]; return c.some(x=>(x.type||'numerique')==='numerique'); })
-    .sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-
-  analyses.forEach(a=>{
-    const opt=document.createElement('option'); opt.value=a.id; opt.textContent=a.nom; selAnalyse?.appendChild(opt);
-  });
-  renderTendances();
-}
+// ancienne onTendProduitChange supprimée
 
 function onTendAnalyseChange() {
   const selAnalyse = document.getElementById('tend-analyse');
