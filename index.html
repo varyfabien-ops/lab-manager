@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v97 — Physico-Chimie</title>
+<title>LabManager v98 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1483,29 +1483,7 @@ function wizardPrev() {
   wizardRender();
 }
 
-function wizardValidate() {
-  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
-  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
-  if (wizardStep===3) {
-    const pif = document.getElementById('w-type-pif')?.checked;
-    const stab = document.getElementById('w-type-stab')?.checked;
-    const mp = document.getElementById('w-type-mp')?.checked;
-    if (!pif && !stab && !mp) {
-      toast('Sélectionnez au moins un type (PIF, STABILITÉ ou MP)', 'error'); return false;
-    }
-    if (mp && !document.getElementById('w-mp-spq')?.value?.trim()) {
-      toast('La référence SPQ est obligatoire pour une MP', 'error'); return false;
-    }
-    if (pif && !stab && !mp && !document.getElementById('w-pif-spq')?.value?.trim()) {
-      toast('La référence SPQ est obligatoire pour un PIF', 'error'); return false;
-    }
-  }
-  if (wizardStep===4) {
-    const checked = document.querySelectorAll('#w-analyses-select input:checked');
-    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
-  }
-  return true;
-}
+// wizardValidate remplacée par la nouvelle version
 
 function wizardUpdateProduit() {
   const id = parseInt(document.getElementById('w-produit').value);
@@ -5314,18 +5292,7 @@ toggleTypeCard = function(type) {
   if (wizardStep===5) wizardRecap();
 };
 
-wizardValidate = function(){
-  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Selectionnez un produit', 'error'); return false; }
-  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numero de lot', 'error'); return false; }
-  if (wizardStep===3) {
-    if (!wizardIsPifSelected() && !wizardIsStabSelected() && !wizardIsMpSelected()) { toast('Selectionnez PIF, STAB et/ou MP', 'error'); return false; }
-  }
-  if (wizardStep===4) {
-    const checked = document.querySelectorAll('#w-analyses-select input:checked');
-    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
-  }
-  return true;
-};
+// wizardValidate héritée supprimée
 
 wizardUpdateProduit = function(){
   const id = parseInt(document.getElementById('w-produit')?.value);
@@ -5741,29 +5708,7 @@ openWizard = function(){
 
 // toggleTypeCard v106 fusionné dans le toggleTypeCard principal
 
-wizardValidate = function(){
-  if (wizardStep===1 && !document.getElementById('w-produit').value) { toast('Sélectionnez un produit', 'error'); return false; }
-  if (wizardStep===2 && !document.getElementById('w-lot').value.trim()) { toast('Renseignez le numéro de lot', 'error'); return false; }
-  if (wizardStep===3) {
-    ensureRefsAndTimepointsV106();
-    const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
-    if (!pif && !stab && !mp) { toast('Sélectionnez PIF, STAB et/ou MP', 'error'); return false; }
-    const spqVal = pif ? document.getElementById('w-ref-spq')?.value.trim() : document.getElementById('w-mp-spq')?.value.trim();
-    if ((pif||mp) && !spqVal) { toast('La référence SPQ est obligatoire pour un PIF ou une MP', 'error'); return false; }
-    if (stab && !document.getElementById('w-ref-ptc')?.value.trim() && !window._selectedStabEtudeId) { toast('La référence PTC est obligatoire (ou sélectionnez une étude)', 'error'); return false; }
-    if (stab) {
-      const raw=document.getElementById('w-stab-echeance')?.value||'';
-      const normalized=normalizeTimepointListV106(raw, pif&&stab);
-      if(!normalized){ toast('Pour une STAB, indique une échéance type T0, T3M, T6M, T12M…', 'error'); return false; }
-      document.getElementById('w-stab-echeance').value=normalized;
-    }
-  }
-  if (wizardStep===4) {
-    const checked = document.querySelectorAll('#w-analyses-select input:checked');
-    if (!checked.length) { toast('Cochez au moins une analyse', 'error'); return false; }
-  }
-  return true;
-};
+// wizardValidate héritée supprimée
 
 wizardRecap = function(){
   ensureRefsAndTimepointsV106();
