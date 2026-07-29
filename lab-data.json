@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0054",
-      "time": "28/07 18:13"
-    },
-    {
       "icon": "package",
       "text": "Réception: Marcaïne 2,5mg/mL SC — 3 entrée(s) — 4 analyse(s)",
       "time": "28/07 18:18"
@@ -1232,6 +1227,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 2 entrée(s) — 5 analyse(s)",
       "time": "29/07 17:50"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M74012000",
+      "time": "29/07 18:35"
     }
   ],
   "spq": [
@@ -1308,6 +1308,12 @@
       "spqId": 1785335987687,
       "concentration": "",
       "forme": ""
+    },
+    {
+      "id": 1785342931395,
+      "code": "M74012000",
+      "nom": "Carbocaïne 20 mg/mL SC",
+      "spqId": null
     }
   ],
   "planTasks": [
