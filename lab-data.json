@@ -1032,11 +1032,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0004 Lidocaïne / PHBM",
-      "time": "28/07 16:02"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0002 Sodium",
       "time": "28/07 16:03"
     },
@@ -1279,6 +1274,11 @@
       "icon": "barcode",
       "text": "Article modifié : M74011000",
       "time": "29/07 16:42"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ modifiée : SPQ0054",
+      "time": "29/07 16:45"
     }
   ],
   "spq": [
@@ -1292,13 +1292,6 @@
           "analyses": [
             1785170122728,
             1785247477146,
-            1785247529863
-          ]
-        },
-        {
-          "marcheId": 1785169908180,
-          "analyses": [
-            1785170122728,
             1785247529863,
             1785247569532
           ]
