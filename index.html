@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v129 — Physico-Chimie</title>
+<title>LabManager v130 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4949,13 +4949,13 @@ function openXlFilter(event, col) {
   dropdown.querySelector('#xl-btn-all').onclick = (e) => { e.stopPropagation(); dropdown.querySelectorAll('.xl-cb').forEach(cb=>{cb.checked=false;}); window._xlFilter[col]=[]; updateXlFilterIcons(); renderEchantillonsTable(); };
   dropdown.querySelector('#xl-btn-none').onclick = (e) => { e.stopPropagation(); dropdown.querySelectorAll('.xl-cb').forEach(cb=>{cb.checked=false;}); window._xlFilter[col]=[]; updateXlFilterIcons(); renderEchantillonsTable(); };
   dropdown.querySelectorAll('.xl-cb').forEach(cb => {
-    cb.addEventListener('change', (e) => {
-      e.stopPropagation();
+    cb.addEventListener('change', () => {
       const c=cb.dataset.col, v=cb.dataset.val;
       if(!window._xlFilter[c]) window._xlFilter[c]=[];
       if(cb.checked){ if(!window._xlFilter[c].includes(v)) window._xlFilter[c].push(v); }
       else { window._xlFilter[c]=window._xlFilter[c].filter(x=>x!==v); }
-      updateXlFilterIcons(); renderEchantillonsTable();
+      updateXlFilterIcons();
+      setTimeout(() => renderEchantillonsTable(), 0);
     });
   });
 
