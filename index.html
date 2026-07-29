@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v125 — Physico-Chimie</title>
+<title>LabManager v126 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5070,8 +5070,6 @@ function openModalArticle() {
   document.getElementById('modal-article-title').textContent = 'Nouveau code article';
   document.getElementById('art-code').value = '';
   document.getElementById('art-nom').value = '';
-  document.getElementById('art-concentration').value = '';
-  document.getElementById('art-forme').value = '';
   populateSpqSelect('art-spq', null);
   const delBtn = document.getElementById('art-delete-btn');
   if (delBtn) delBtn.style.display = 'none';
