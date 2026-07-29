@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : MYYYYYYYY",
-      "time": "28/07 20:18"
-    },
-    {
       "icon": "package",
       "text": "Réception: Xylocaïne 5% Naphazoline — 1 entrée(s) — 3 analyse(s)",
       "time": "28/07 20:19"
@@ -1232,6 +1227,11 @@
       "icon": "barcode",
       "text": "Article créé : M78003701",
       "time": "29/07 18:39"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M78004100",
+      "time": "29/07 18:40"
     }
   ],
   "spq": [
@@ -1351,6 +1351,12 @@
       "id": 1785343178510,
       "code": "M78003701",
       "nom": "Xylocaïne 20 mg/mL SC",
+      "spqId": null
+    },
+    {
+      "id": 1785343211243,
+      "code": "M78004100",
+      "nom": "Xylocard 50 mg/mL",
       "spqId": null
     }
   ],
