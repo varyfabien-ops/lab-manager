@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "pH — 3 sous-séries — lot TEST",
-      "time": "28/07 18:20"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : TEST (3 entrees)",
       "time": "28/07 18:21"
@@ -1232,6 +1227,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0058",
       "time": "29/07 18:36"
+    },
+    {
+      "icon": "trash",
+      "text": "Article supprimé : MYYYYYYYY",
+      "time": "29/07 18:37"
     }
   ],
   "spq": [
@@ -1302,14 +1302,6 @@
       "code": "M760130000",
       "nom": "Marcaïne 2,5 mg/mL SC",
       "spqId": 1785247433998,
-      "concentration": "",
-      "forme": ""
-    },
-    {
-      "id": 1785262722735,
-      "code": "MYYYYYYYY",
-      "nom": "Xylocaïne 5% Naphazoline",
-      "spqId": 1785262243733,
       "concentration": "",
       "forme": ""
     },
