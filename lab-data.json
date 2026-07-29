@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0001",
-      "time": "28/07 20:18"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : MYYYYYYYY",
       "time": "28/07 20:18"
@@ -1232,6 +1227,11 @@
       "icon": "barcode",
       "text": "Article créé : M78003601",
       "time": "29/07 18:39"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M78003701",
+      "time": "29/07 18:39"
     }
   ],
   "spq": [
@@ -1345,6 +1345,12 @@
       "id": 1785343158627,
       "code": "M78003601",
       "nom": "Xylocaïne 10 mg/mL SC",
+      "spqId": null
+    },
+    {
+      "id": 1785343178510,
+      "code": "M78003701",
+      "nom": "Xylocaïne 20 mg/mL SC",
       "spqId": null
     }
   ],
