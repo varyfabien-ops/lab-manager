@@ -985,11 +985,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
-      "time": "28/07 20:33"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST-1 — pH : en_cours",
       "time": "28/07 21:16"
     },
@@ -1232,6 +1227,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0018",
       "time": "29/07 18:40"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0049",
+      "time": "29/07 18:40"
     }
   ],
   "spq": [
@@ -1306,6 +1306,12 @@
       "ref": "SPQ0018",
       "produits": "",
       "marches": []
+    },
+    {
+      "id": 1785343233743,
+      "ref": "SPQ0049",
+      "produits": "",
+      "marches": []
     }
   ],
   "articles": [
@@ -1351,7 +1357,7 @@
       "id": 1785343158627,
       "code": "M78003601",
       "nom": "Xylocaïne 10 mg/mL SC",
-      "spqId": null
+      "spqId": 1785343233743
     },
     {
       "id": 1785343178510,
