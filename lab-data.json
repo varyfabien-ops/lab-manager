@@ -985,11 +985,6 @@
   "activity": [
     {
       "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0001",
-      "time": "28/07 20:10"
-    },
-    {
-      "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0001",
       "time": "28/07 20:10"
     },
@@ -1232,6 +1227,11 @@
       "icon": "barcode",
       "text": "Article créé : M76014000",
       "time": "29/07 18:38"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0055",
+      "time": "29/07 18:38"
     }
   ],
   "spq": [
@@ -1294,6 +1294,12 @@
       "ref": "SPQ0058",
       "produits": "",
       "marches": []
+    },
+    {
+      "id": 1785343103294,
+      "ref": "SPQ0055",
+      "produits": "",
+      "marches": []
     }
   ],
   "articles": [
@@ -1327,7 +1333,7 @@
       "id": 1785343091427,
       "code": "M76014000",
       "nom": "Marcaïne 5 mg/mL SC",
-      "spqId": null
+      "spqId": 1785343103294
     }
   ],
   "planTasks": [
