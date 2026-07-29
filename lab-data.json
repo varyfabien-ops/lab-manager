@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
-      "time": "28/07 18:20"
-    },
-    {
       "icon": "clipboard-check",
       "text": "pH — 3 sous-séries — lot TEST",
       "time": "28/07 18:20"
@@ -1232,6 +1227,11 @@
       "icon": "barcode",
       "text": "Article créé : M705170000",
       "time": "29/07 18:36"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0058",
+      "time": "29/07 18:36"
     }
   ],
   "spq": [
@@ -1288,6 +1288,12 @@
       "ref": "SPQ0053",
       "produits": "",
       "marches": []
+    },
+    {
+      "id": 1785343005994,
+      "ref": "SPQ0058",
+      "produits": "",
+      "marches": []
     }
   ],
   "articles": [
@@ -1325,7 +1331,7 @@
       "id": 1785342995411,
       "code": "M705170000",
       "nom": "Citanest 5 mg/mL SC",
-      "spqId": null
+      "spqId": 1785343005994
     }
   ],
   "planTasks": [
