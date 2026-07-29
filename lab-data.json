@@ -839,7 +839,10 @@
       "analyseStatuts": {
         "1785336377803": "verifiee",
         "1785247382413": "en_cours",
-        "1785247477146": "en_cours"
+        "1785247477146": "en_cours",
+        "1785247569532": "en_cours",
+        "1785170122728": "en_cours",
+        "1785247529863": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
@@ -851,6 +854,15 @@
           "en_cours": "29/07/2026"
         },
         "1785247477146": {
+          "en_cours": "29/07/2026"
+        },
+        "1785247569532": {
+          "en_cours": "29/07/2026"
+        },
+        "1785170122728": {
+          "en_cours": "29/07/2026"
+        },
+        "1785247529863": {
           "en_cours": "29/07/2026"
         }
       },
@@ -973,21 +985,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Marcaïne 2,5mg/mL SC",
-      "time": "28/07 17:39"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Marcaïne 2,5mg/mL SC — 3 entrée(s) — 3 analyse(s)",
-      "time": "28/07 17:57"
-    },
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — pH : en_cours",
-      "time": "28/07 17:58"
-    },
     {
       "icon": "clipboard-check",
       "text": "pH — 3 sous-séries — lot TEST",
@@ -1221,6 +1218,21 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
+      "time": "29/07 16:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Limpidité / Coloration US : en_cours",
+      "time": "29/07 16:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — pH : en_cours",
+      "time": "29/07 16:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
       "time": "29/07 16:51"
     }
   ],
