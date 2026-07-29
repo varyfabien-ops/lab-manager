@@ -997,11 +997,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : pH",
-      "time": "27/07 18:35"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : Volume Extractible",
       "time": "27/07 18:35"
     },
@@ -1244,6 +1239,11 @@
       "icon": "barcode",
       "text": "Article modifié : M760130000",
       "time": "29/07 16:38"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M74011000",
+      "time": "29/07 16:39"
     }
   ],
   "spq": [
@@ -1300,6 +1300,14 @@
       "code": "MYYYYYYYY",
       "nom": "Xylocaïne 5% Naphazoline",
       "spqId": 1785262243733,
+      "concentration": "",
+      "forme": ""
+    },
+    {
+      "id": 1785335950554,
+      "code": "M74011000",
+      "nom": "Carbocaïne 10mg/mL SC",
+      "spqId": null,
       "concentration": "",
       "forme": ""
     }
