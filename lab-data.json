@@ -837,11 +837,27 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785336377803": "en_cours"
+        "1785336377803": "terminee"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
-          "en_cours": "29/07/2026"
+          "en_cours": "29/07/2026",
+          "terminee": "29/07/2026"
+        }
+      },
+      "resultats": {
+        "1785336377803": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "conforme",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "29/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       }
     },
@@ -901,7 +917,30 @@
       "stabEtudeId": null,
       "date": "2026-07-29",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785336377803": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "conforme",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "29/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785336377803": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785336377803": {
+          "terminee": "29/07/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -925,11 +964,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article créé : MXXXXXXXX",
-      "time": "28/07 16:06"
-    },
     {
       "icon": "pill",
       "text": "Produit ajoute : Marcaïne 5mg/mL",
@@ -1174,6 +1208,11 @@
       "icon": "list-check",
       "text": "TEST-1 — Amines Tertiaires : en_cours",
       "time": "29/07 16:49"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Amines Tertiaires — 2 sous-séries — lot TEST",
+      "time": "29/07 16:50"
     }
   ],
   "spq": [
