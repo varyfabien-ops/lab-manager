@@ -593,6 +593,51 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785349276515.6057,
+      "nom": "pH",
+      "echantillonCode": "TEST 2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 2"
+    },
+    {
+      "id": 1785349276515.3098,
+      "nom": "Volume Extractible",
+      "echantillonCode": "TEST 2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 2"
+    },
+    {
+      "id": 1785349276515.0786,
+      "nom": "TCC0002 Sodium",
+      "echantillonCode": "TEST 2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 2"
+    },
+    {
+      "id": 1785349276515.9578,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "TEST 2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 2"
+    },
+    {
+      "id": 1785349276515.404,
+      "nom": "TCC0004 Bupivacaïne",
+      "echantillonCode": "TEST 2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 2"
     }
   ],
   "catalogue": [
@@ -960,6 +1005,52 @@
       "date": "2026-07-29",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1785349276514,
+      "code": "TEST 2",
+      "lot": "TEST 2",
+      "articleId": 1785247590600,
+      "articleCode": "M76013000",
+      "produitId": 1785247590600,
+      "marcheIds": [
+        1785336252486
+      ],
+      "analysesIds": [
+        1785170122728,
+        1785170145444,
+        1785247382413,
+        1785247477146,
+        1785247529863
+      ],
+      "analysesParMarche": {
+        "1785170122728": [
+          1785336252486
+        ],
+        "1785170145444": [
+          1785336252486
+        ],
+        "1785247382413": [
+          1785336252486
+        ],
+        "1785247477146": [
+          1785336252486
+        ],
+        "1785247529863": [
+          1785336252486
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "SPQ0054",
+      "refPTC": "PTC567",
+      "stabEcheance": "T0",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-07-29",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -983,11 +1074,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — pH : verifiee",
-      "time": "28/07 21:17"
-    },
     {
       "icon": "list-check",
       "text": "TEST 2-1 — pH : en_cours",
@@ -1232,6 +1318,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0209",
       "time": "29/07 18:40"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Marcaïne 2,5 mg/mL SC — 1 entrée(s) — 5 analyse(s)",
+      "time": "29/07 20:21"
     }
   ],
   "spq": [
