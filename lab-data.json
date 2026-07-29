@@ -377,6 +377,132 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST 3"
+    },
+    {
+      "id": 1785336521386.4358,
+      "nom": "pH",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.27,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.898,
+      "nom": "TCC0004 Bupivacaïne",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.1404,
+      "nom": "Limpidité / Coloration US",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.206,
+      "nom": "Amines Tertiaires",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.522,
+      "nom": "Volume Extractible",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.1753,
+      "nom": "TCC0002 Sodium",
+      "echantillonCode": "TEST-1",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-1"
+    },
+    {
+      "id": 1785336521386.2737,
+      "nom": "pH",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785336521386.2502,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785336521386.0532,
+      "nom": "TCC0004 Bupivacaïne",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785336521386.846,
+      "nom": "Limpidité / Coloration US",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785336521386.6714,
+      "nom": "Amines Tertiaires",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785336521386.4734,
+      "nom": "Volume Extractible",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
+    },
+    {
+      "id": 1785336521386.1987,
+      "nom": "TCC0002 Sodium",
+      "echantillonCode": "TEST-2",
+      "date": "2026-07-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST-2"
     }
   ],
   "catalogue": [
@@ -652,7 +778,124 @@
       "code": "DK"
     }
   ],
-  "echantillons": [],
+  "echantillons": [
+    {
+      "id": 1785336521386,
+      "code": "TEST-1",
+      "lot": "TEST",
+      "articleId": 1785247590600,
+      "articleCode": "M760130000",
+      "produitId": 1785247590600,
+      "marcheIds": [
+        1785170017612,
+        1785336252486
+      ],
+      "analysesIds": [
+        1785170122728,
+        1785247477146,
+        1785247529863,
+        1785247569532,
+        1785336377803,
+        1785170145444,
+        1785247382413
+      ],
+      "analysesParMarche": {
+        "1785170122728": [
+          1785170017612,
+          1785336252486
+        ],
+        "1785247477146": [
+          1785170017612,
+          1785336252486
+        ],
+        "1785247529863": [
+          1785170017612,
+          1785336252486
+        ],
+        "1785247569532": [
+          1785170017612
+        ],
+        "1785336377803": [
+          1785170017612
+        ],
+        "1785170145444": [
+          1785336252486
+        ],
+        "1785247382413": [
+          1785336252486
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0054",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-07-29",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1785336521387,
+      "code": "TEST-2",
+      "lot": "TEST",
+      "articleId": 1785247590600,
+      "articleCode": "M760130000",
+      "produitId": 1785247590600,
+      "marcheIds": [
+        1785170017612,
+        1785336252486
+      ],
+      "analysesIds": [
+        1785170122728,
+        1785247477146,
+        1785247529863,
+        1785247569532,
+        1785336377803,
+        1785170145444,
+        1785247382413
+      ],
+      "analysesParMarche": {
+        "1785170122728": [
+          1785170017612,
+          1785336252486
+        ],
+        "1785247477146": [
+          1785170017612,
+          1785336252486
+        ],
+        "1785247529863": [
+          1785170017612,
+          1785336252486
+        ],
+        "1785247569532": [
+          1785170017612
+        ],
+        "1785336377803": [
+          1785170017612
+        ],
+        "1785170145444": [
+          1785336252486
+        ],
+        "1785247382413": [
+          1785336252486
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0054",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-07-29",
+      "statut": "recu",
+      "note": ""
+    }
+  ],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -674,11 +917,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0054",
-      "time": "28/07 16:05"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Limpidité / Coloration US",
@@ -922,6 +1160,11 @@
     {
       "icon": "trash",
       "text": "Lot supprime : TEST 3",
+      "time": "29/07 16:48"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Marcaïne 2,5 mg/mL SC — 2 entrée(s) — 7 analyse(s)",
       "time": "29/07 16:48"
     }
   ],
