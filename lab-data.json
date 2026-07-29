@@ -834,8 +834,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-29",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785336377803": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785336377803": {
+          "en_cours": "29/07/2026"
+        }
+      }
     },
     {
       "id": 1785336521387,
@@ -917,11 +925,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Limpidité / Coloration US",
-      "time": "28/07 16:06"
-    },
     {
       "icon": "barcode",
       "text": "Article créé : MXXXXXXXX",
@@ -1166,6 +1169,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 2 entrée(s) — 7 analyse(s)",
       "time": "29/07 16:48"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Amines Tertiaires : en_cours",
+      "time": "29/07 16:49"
     }
   ],
   "spq": [
