@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v119 — Physico-Chimie</title>
+<title>LabManager v121 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -381,25 +381,14 @@
     <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="analyse" onclick="openXlFilter(event,'analyse')">Analyse <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
     <input type="hidden" id="fech-analyse" value="">
   </th>
-  <th style="width:110px;text-align:center;background:var(--bg3);color:var(--text2)"><i class="ti ti-clock" style="font-size:14px"></i><br>À FAIRE<br>
-    <select class="filter-input" id="fech-afaire" onchange="renderEchantillonsTable()" style="color:var(--text)">
-      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
-    </select>
-  </th>
   <th style="width:110px;text-align:center;background:var(--blue-dim);color:var(--blue)"><i class="ti ti-microscope" style="font-size:14px"></i><br>EN COURS<br>
-    <select class="filter-input" id="fech-encours" onchange="renderEchantillonsTable()" style="color:var(--text)">
-      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
-    </select>
+    <input type="hidden" id="fech-afaire" value=""><input type="hidden" id="fech-encours" value="">
   </th>
   <th style="width:110px;text-align:center;background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-check" style="font-size:14px"></i><br>TERMINÉE<br>
-    <select class="filter-input" id="fech-terminee" onchange="renderEchantillonsTable()" style="color:var(--text)">
-      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
-    </select>
+    <input type="hidden" id="fech-terminee" value="">
   </th>
   <th style="width:110px;text-align:center;background:var(--green-dim);color:var(--green)"><i class="ti ti-rosette" style="font-size:14px"></i><br>VÉRIFIÉE<br>
-    <select class="filter-input" id="fech-verifiee" onchange="renderEchantillonsTable()" style="color:var(--text)">
-      <option value="">Tous</option><option value="oui">Oui</option><option value="non">Non</option>
-    </select>
+    <input type="hidden" id="fech-verifiee" value="">
   </th>
   <th style="width:40px"></th>
 </tr></thead>
@@ -2261,7 +2250,7 @@ function renderTendances() {
       (state.echantillons||[]).some(e=>e.typePIF && e.articleId===art.id)
     );
     articlesAvecPIF.forEach(art=>{
-      const opt=document.createElement('option'); opt.value=art.id; opt.textContent=art.code+' — '+art.nom; selProduit.appendChild(opt);
+      const opt=document.createElement('option'); opt.value=art.id; opt.textContent=art.nom; selProduit.appendChild(opt);
     });
     if(!articlesAvecPIF.length) {
       const prodIds=[...new Set((state.echantillons||[]).filter(e=>e.typePIF&&!e.articleId&&e.produitId).map(e=>e.produitId))];
@@ -5452,11 +5441,11 @@ function getMarcheDisplay(e0, analyseId){
   if(analyseId && e0.analysesParMarche && e0.analysesParMarche[analyseId]) {
     const ids=e0.analysesParMarche[analyseId];
     const marches=ids.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-    return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
+    return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:10px;padding:2px 6px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
   }
   const ids=(e0._marcheIdsMerged||e0.marcheIds||[]);
   const marches=ids.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
-  return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
+  return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:10px;padding:2px 6px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
 }
 function getEcheanceConditionDisplay(e0){
   const parts=[];
@@ -5494,6 +5483,10 @@ statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
       return '<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+badge+'</button>';
     }
     return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
+  }
+  // EN COURS : si a_lancer, afficher "À FAIRE" cliquable
+  if(cellType==='en_cours' && currentStatut==='a_lancer') {
+    return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-clock" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">À FAIRE</span></button>';
   }
   if(cellIdx===curIdx+1 && currentStatut!=='verifiee') return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">'+(labels[cellType]||cellType)+'</span></button>';
   return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
@@ -5639,7 +5632,7 @@ function renderEchantillonsTableAlignedV105(){
         '<td '+TD+'>'+getEcheanceConditionDisplay(e0)+'</td>'+
         '<td '+TD+'>'+(e0.date?formatDate(e0.date):'—')+'</td>'+
         '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':''):'—')+'</td>'+
-        (a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'a_lancer')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
+        (a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
         actionCell+
         '</tr>'
       );
