@@ -838,7 +838,8 @@
       "note": "",
       "analyseStatuts": {
         "1785336377803": "verifiee",
-        "1785247382413": "en_cours"
+        "1785247382413": "en_cours",
+        "1785247477146": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
@@ -847,6 +848,9 @@
           "verifiee": "29/07/2026"
         },
         "1785247382413": {
+          "en_cours": "29/07/2026"
+        },
+        "1785247477146": {
           "en_cours": "29/07/2026"
         }
       },
@@ -969,11 +973,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article modifié : MXXXXXXXX",
-      "time": "28/07 17:39"
-    },
     {
       "icon": "pencil",
       "text": "Produit modifie : Marcaïne 2,5mg/mL SC",
@@ -1217,6 +1216,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — Amines Tertiaires : verifiee",
+      "time": "29/07 16:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
       "time": "29/07 16:51"
     }
   ],
