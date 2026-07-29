@@ -997,11 +997,6 @@
   "activity": [
     {
       "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0545",
-      "time": "27/07 18:42"
-    },
-    {
-      "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0545",
       "time": "27/07 18:42"
     },
@@ -1244,6 +1239,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0052",
       "time": "29/07 16:39"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M74011000",
+      "time": "29/07 16:40"
     }
   ],
   "spq": [
@@ -1313,7 +1313,7 @@
       "id": 1785335950554,
       "code": "M74011000",
       "nom": "Carbocaïne 10mg/mL SC",
-      "spqId": null,
+      "spqId": 1785335987687,
       "concentration": "",
       "forme": ""
     }
