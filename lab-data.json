@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : TEST (3 entrees)",
-      "time": "28/07 18:21"
-    },
-    {
       "icon": "package",
       "text": "Réception: Marcaïne 2,5mg/mL SC — 3 entrée(s) — 4 analyse(s)",
       "time": "28/07 18:22"
@@ -1232,6 +1227,11 @@
       "icon": "trash",
       "text": "Article supprimé : MYYYYYYYY",
       "time": "29/07 18:37"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M76013000",
+      "time": "29/07 18:37"
     }
   ],
   "spq": [
@@ -1299,11 +1299,9 @@
   "articles": [
     {
       "id": 1785247590600,
-      "code": "M760130000",
+      "code": "M76013000",
       "nom": "Marcaïne 2,5 mg/mL SC",
-      "spqId": 1785247433998,
-      "concentration": "",
-      "forme": ""
+      "spqId": 1785247433998
     },
     {
       "id": 1785335950554,
