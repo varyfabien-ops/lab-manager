@@ -985,11 +985,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "Réception: Marcaïne 2,5mg/mL SC — 3 entrée(s) — 4 analyse(s)",
-      "time": "28/07 18:22"
-    },
-    {
-      "icon": "package",
       "text": "Réception: Marcaïne 2,5mg/mL SC — 2 entrée(s) — 3 analyse(s)",
       "time": "28/07 20:03"
     },
@@ -1232,6 +1227,11 @@
       "icon": "barcode",
       "text": "Article modifié : M76013000",
       "time": "29/07 18:37"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M70517000",
+      "time": "29/07 18:37"
     }
   ],
   "spq": [
@@ -1319,7 +1319,7 @@
     },
     {
       "id": 1785342995411,
-      "code": "M705170000",
+      "code": "M70517000",
       "nom": "Citanest 5 mg/mL SC",
       "spqId": 1785343005994
     }
