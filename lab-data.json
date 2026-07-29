@@ -996,11 +996,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "world",
-      "text": "Marche ajoute : CANADA",
-      "time": "27/07 18:33"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : pH",
       "time": "27/07 18:35"
@@ -1244,6 +1239,11 @@
       "icon": "list-check",
       "text": "TEST 2-1 — pH : verifiee",
       "time": "28/07 21:17"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M760130000",
+      "time": "29/07 16:38"
     }
   ],
   "spq": [
@@ -1289,7 +1289,7 @@
   "articles": [
     {
       "id": 1785247590600,
-      "code": "MXXXXXXXX",
+      "code": "M760130000",
       "nom": "Marcaïne 2,5mg/mL SC",
       "spqId": 1785247433998,
       "concentration": "",
