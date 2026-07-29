@@ -996,11 +996,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0545",
-      "time": "27/07 19:58"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0004 Lidocaïne / PHBM",
       "time": "28/07 16:02"
@@ -1244,6 +1239,11 @@
       "icon": "barcode",
       "text": "Article modifié : MYYYYYYYY",
       "time": "29/07 16:41"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M74011000",
+      "time": "29/07 16:42"
     }
   ],
   "spq": [
@@ -1312,7 +1312,7 @@
     {
       "id": 1785335950554,
       "code": "M74011000",
-      "nom": "Carbocaïne 10mg/mL SC",
+      "nom": "Carbocaïne 10 mg/mL SC",
       "spqId": 1785335987687,
       "concentration": "",
       "forme": ""
