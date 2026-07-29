@@ -839,10 +839,11 @@
       "analyseStatuts": {
         "1785336377803": "verifiee",
         "1785247382413": "en_cours",
-        "1785247477146": "en_cours",
+        "1785247477146": "terminee",
         "1785247569532": "en_cours",
         "1785170122728": "en_cours",
-        "1785247529863": "en_cours"
+        "1785247529863": "en_cours",
+        "1785170145444": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
@@ -854,7 +855,8 @@
           "en_cours": "29/07/2026"
         },
         "1785247477146": {
-          "en_cours": "29/07/2026"
+          "en_cours": "29/07/2026",
+          "terminee": "29/07/2026"
         },
         "1785247569532": {
           "en_cours": "29/07/2026"
@@ -863,6 +865,9 @@
           "en_cours": "29/07/2026"
         },
         "1785247529863": {
+          "en_cours": "29/07/2026"
+        },
+        "1785170145444": {
           "en_cours": "29/07/2026"
         }
       },
@@ -985,11 +990,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clipboard-check",
-      "text": "pH — 3 sous-séries — lot TEST",
-      "time": "28/07 17:58"
-    },
     {
       "icon": "list-check",
       "text": "TEST-1 — pH : verifiee",
@@ -1233,6 +1233,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
+      "time": "29/07 16:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Volume Extractible : en_cours",
       "time": "29/07 16:51"
     }
   ],
