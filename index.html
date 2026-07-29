@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v121 — Physico-Chimie</title>
+<title>LabManager v124 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -171,8 +171,7 @@
 <div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
-<div class="nav-item" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles</div>
-<div class="nav-item" onclick="goTo('spq',this)"><i class="ti ti-file-certificate"></i> SPQ</div>
+<div class="nav-item" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles & SPQ</div>
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
@@ -532,22 +531,20 @@
     <div class="table-card-header"><h3>Articles enregistrés</h3><div class="spacer"></div>
       <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-articles" placeholder="Rechercher..." oninput="renderArticles()"></div>
     </div>
-    <table><thead><tr><th>Code article</th><th>Désignation</th><th>SPQ liée</th><th>Concentration</th><th>Forme</th><th></th></tr></thead>
+    <table><thead><tr><th>Code article</th><th>Désignation</th><th>SPQ liée</th><th></th></tr></thead>
     <tbody id="articles-tbody"></tbody></table>
   </div>
-</div>
 
-<div class="page" id="page-spq">
-  <div class="page-header">
-    <div class="page-header-text"><h1>Spécifications (SPQ)</h1><p>Gestion des spécifications par produit et marché</p></div>
-    <div class="page-header-actions"><button class="btn btn-primary" onclick="openModalSPQ()"><i class="ti ti-plus"></i> Nouvelle SPQ</button></div>
-  </div>
-  <div class="table-card">
-    <div class="table-card-header"><h3>SPQ enregistrées</h3><div class="spacer"></div>
-      <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-spq" placeholder="Rechercher..." oninput="renderSPQ()"></div>
+  <!-- SECTION SPQ intégrée -->
+  <div id="spq-detail-panel" style="display:none;margin-top:20px">
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3 id="spq-detail-title">SPQ — </h3>
+        <div class="spacer"></div>
+        <button class="btn" onclick="closeSpqPanel()"><i class="ti ti-x"></i></button>
+      </div>
+      <div id="spq-detail-content" style="padding:20px"></div>
     </div>
-    <table><thead><tr><th>Référence</th><th>Produit(s)</th><th>Marchés</th><th>Analyses</th><th></th></tr></thead>
-    <tbody id="spq-tbody"></tbody></table>
   </div>
 </div>
 
@@ -2699,8 +2696,7 @@ function goTo(page, el) {
   if (page === 'audit') renderAuditTrail();
   if (page === 'enregistrements') renderEnregistrements();
   if (page === 'habilitations') renderTechniciens();
-  if (page === 'spq') renderSPQ();
-  if (page === 'articles') renderArticles();
+  if (page === 'articles') { renderArticles(); }
   if (page === 'dashboard') renderDashboard();
 }
 
@@ -4927,18 +4923,32 @@ function openXlFilter(event, col) {
 
   // Header
   dropdown.innerHTML = '<div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px">'
-    + '<button onclick="xlFilterSelectAll(col)" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Tout</button>'
-    + '<button onclick="xlFilterClear(col)" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Aucun</button>'
+    + '<button id="xl-btn-all" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Tout sélectionner</button>'
+    + '<button id="xl-btn-none" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Aucun</button>'
     + '</div>'
     + '<div style="padding:4px 0">'
-    + sorted.map(v => '<label style="display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer;hover:background:var(--bg3)">'
-      + '<input type="checkbox" class="xl-cb" data-col="'+col+'" data-val="'+v+'" '+(current.includes(v)?'checked':'')+' onchange="xlFilterChange(this.dataset.col,this)">'
+    + sorted.map(v => '<label style="display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer">'
+      + '<input type="checkbox" class="xl-cb" data-col="'+col+'" data-val="'+v+'" '+(current.includes(v)?'checked':'')+'>'
       + '<span>'+v+'</span>'
       + '</label>'
     ).join('')
     + '</div>';
 
   document.body.appendChild(dropdown);
+
+  // Event listeners natifs
+  dropdown.querySelector('#xl-btn-all').onclick = (e) => { e.stopPropagation(); dropdown.querySelectorAll('.xl-cb').forEach(cb=>{cb.checked=false;}); window._xlFilter[col]=[]; updateXlFilterIcons(); renderEchantillonsTable(); };
+  dropdown.querySelector('#xl-btn-none').onclick = (e) => { e.stopPropagation(); dropdown.querySelectorAll('.xl-cb').forEach(cb=>{cb.checked=false;}); window._xlFilter[col]=[]; updateXlFilterIcons(); renderEchantillonsTable(); };
+  dropdown.querySelectorAll('.xl-cb').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      e.stopPropagation();
+      const c=cb.dataset.col, v=cb.dataset.val;
+      if(!window._xlFilter[c]) window._xlFilter[c]=[];
+      if(cb.checked){ if(!window._xlFilter[c].includes(v)) window._xlFilter[c].push(v); }
+      else { window._xlFilter[c]=window._xlFilter[c].filter(x=>x!==v); }
+      updateXlFilterIcons(); renderEchantillonsTable();
+    });
+  });
 
   // Positionner
   const rect = event.target.getBoundingClientRect();
@@ -5018,9 +5028,10 @@ function renderArticles() {
       + '<td><strong style="font-family:monospace">' + a.code + '</strong></td>'
       + '<td>' + (a.nom||'—') + '</td>'
       + '<td>' + (spq ? '<span class="badge badge-purple" style="font-size:11px">' + spq.ref + '</span>' : '<span style="color:var(--text3)">—</span>') + '</td>'
-      + '<td style="font-size:12px;color:var(--text2)">' + (a.concentration||'—') + '</td>'
-      + '<td style="font-size:12px;color:var(--text2)">' + (a.forme||'—') + '</td>'
+
+
       + '<td><div class="actions" style="opacity:1">'
+      + '<button class="icon-btn" onclick="openSpqPanel(' + a.id + ')" title="Gérer la SPQ"><i class="ti ti-file-certificate"></i></button>'
       + '<button class="icon-btn" onclick="editArticle(' + a.id + ')"><i class="ti ti-pencil"></i></button>'
       + '<button class="icon-btn danger" onclick="deleteArticle(' + a.id + ')"><i class="ti ti-trash"></i></button>'
       + '</div></td>'
@@ -5064,8 +5075,6 @@ function editArticle(id) {
   document.getElementById('modal-article-title').textContent = 'Modifier — ' + a.code;
   document.getElementById('art-code').value = a.code || '';
   document.getElementById('art-nom').value = a.nom || '';
-  document.getElementById('art-concentration').value = a.concentration || '';
-  document.getElementById('art-forme').value = a.forme || '';
   populateSpqSelect('art-spq', a.spqId);
   const delBtn = document.getElementById('art-delete-btn');
   if (delBtn) delBtn.style.display = 'inline-flex';
@@ -5082,8 +5091,6 @@ function saveArticle() {
     id: window._editingArticleId || Date.now(),
     code, nom,
     spqId,
-    concentration: document.getElementById('art-concentration').value.trim(),
-    forme: document.getElementById('art-forme').value.trim()
   };
   if (!state.articles) state.articles = [];
   if (window._editingArticleId) {
@@ -5122,6 +5129,75 @@ window.deleteSPQ = deleteSPQ;
 window.addSpqMarche = addSpqMarche;
 window.onArtSpqChange = onArtSpqChange;
 window.renderArticles = renderArticles;
+
+function openSpqPanel(articleId) {
+  const art = (state.articles||[]).find(a=>a.id===articleId);
+  if (!art) return;
+  window._spqPanelArticleId = articleId;
+  const spq = art.spqId ? (state.spq||[]).find(s=>s.id===art.spqId) : null;
+  const panel = document.getElementById('spq-detail-panel');
+  const title = document.getElementById('spq-detail-title');
+  const content = document.getElementById('spq-detail-content');
+  if (!panel || !title || !content) return;
+  title.textContent = 'SPQ — ' + art.nom + (spq ? ' (' + spq.ref + ')' : ' — non définie');
+  panel.style.display = 'block';
+
+  // Rendu du contenu SPQ
+  if (!spq) {
+    content.innerHTML = '<div style="color:var(--text3);margin-bottom:16px">Aucune SPQ liée à cet article. <button class="btn btn-primary" onclick="openModalSPQ(' + articleId + ')" style="font-size:12px;margin-left:8px"><i class="ti ti-plus"></i> Créer une SPQ</button></div>';
+    return;
+  }
+  // Afficher les marchés et analyses de la SPQ
+  let h = '<div style="display:flex;gap:8px;margin-bottom:16px">';
+  h += '<button class="btn" onclick="editSPQ(' + spq.id + ')"><i class="ti ti-pencil"></i> Modifier la SPQ</button>';
+  h += '<span style="font-size:13px;color:var(--text2);align-self:center">Réf : <strong>' + spq.ref + '</strong></span>';
+  h += '</div>';
+  if (!spq.marches || !spq.marches.length) {
+    h += '<div style="color:var(--text3)">Aucun marché défini dans cette SPQ.</div>';
+  } else {
+    spq.marches.forEach(sm => {
+      const m = (state.marches||[]).find(x=>x.id===sm.marcheId);
+      const analyses = (sm.analyses||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)?.nom).filter(Boolean);
+      h += '<div style="background:var(--bg3);border-radius:var(--radius);padding:12px;margin-bottom:10px">';
+      h += '<div style="font-weight:600;font-size:13px;margin-bottom:8px">' + (m ? m.nom + (m.code ? ' <span class="badge badge-blue">' + m.code + '</span>' : '') : 'Marché inconnu') + '</div>';
+      h += '<div style="display:flex;flex-wrap:wrap;gap:6px">' + analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">' + a + '</span>').join('') + '</div>';
+      h += '</div>';
+    });
+  }
+  content.innerHTML = h;
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function closeSpqPanel() {
+  const panel = document.getElementById('spq-detail-panel');
+  if (panel) panel.style.display = 'none';
+  window._spqPanelArticleId = null;
+}
+
+// Modifier openModalSPQ pour accepter un articleId
+const _origOpenModalSPQ = openModalSPQ;
+window.openModalSPQ = function(articleId) {
+  _origOpenModalSPQ();
+  // Pré-associer l'article
+  if (articleId) window._spqForArticleId = articleId;
+};
+
+// Après saveSPQ, mettre à jour le lien article->spq si nécessaire
+const _origSaveSPQ = saveSPQ;
+window.saveSPQ = function() {
+  _origSaveSPQ();
+  // Si créée depuis un article, lier automatiquement
+  if (window._spqForArticleId) {
+    const lastSpq = (state.spq||[]).slice(-1)[0];
+    const art = (state.articles||[]).find(a=>a.id===window._spqForArticleId);
+    if (art && lastSpq) { art.spqId = lastSpq.id; saveData(); }
+    window._spqForArticleId = null;
+    if (window._spqPanelArticleId) openSpqPanel(window._spqPanelArticleId);
+  }
+};
+
+window.openSpqPanel = openSpqPanel;
+window.closeSpqPanel = closeSpqPanel;
 window.openXlFilter = openXlFilter;
 window.xlFilterChange = xlFilterChange;
 window.xlFilterSelectAll = xlFilterSelectAll;
@@ -5844,8 +5920,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
           <select id="art-spq" onchange="onArtSpqChange()"><option value="">— Aucune SPQ —</option></select>
         </div>
         <div class="form-group full"><label>Désignation *</label><input id="art-nom" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
-        <div class="form-group"><label>Concentration</label><input id="art-concentration" placeholder="Ex: 10 mg/mL"></div>
-        <div class="form-group"><label>Forme galénique</label><input id="art-forme" placeholder="Ex: Solution injectable"></div>
+
       </div>
     </div>
     <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
