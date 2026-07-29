@@ -837,13 +837,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785336377803": "terminee",
+        "1785336377803": "verifiee",
         "1785247382413": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
           "en_cours": "29/07/2026",
-          "terminee": "29/07/2026"
+          "terminee": "29/07/2026",
+          "verifiee": "29/07/2026"
         },
         "1785247382413": {
           "en_cours": "29/07/2026"
@@ -968,11 +969,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Marcaïne 2,5mg/mL",
-      "time": "28/07 17:38"
-    },
     {
       "icon": "barcode",
       "text": "Article modifié : MXXXXXXXX",
@@ -1216,6 +1212,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — TCC0002 Sodium : en_cours",
+      "time": "29/07 16:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Amines Tertiaires : verifiee",
       "time": "29/07 16:51"
     }
   ],
