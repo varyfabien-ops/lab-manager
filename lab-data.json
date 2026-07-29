@@ -996,11 +996,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Fabien VARY",
-      "time": "27/07 19:57"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0545",
       "time": "27/07 19:58"
@@ -1243,6 +1238,11 @@
     {
       "icon": "barcode",
       "text": "Article modifié : M760130000",
+      "time": "29/07 16:41"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : MYYYYYYYY",
       "time": "29/07 16:41"
     }
   ],
