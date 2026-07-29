@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v126 — Physico-Chimie</title>
+<title>LabManager v128 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -451,7 +451,7 @@
       <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-stab" placeholder="Rechercher..." oninput="renderStabilites()"></div>
     </div>
     <table><thead><tr>
-      <th>N Etude</th><th>Produit(s)</th><th>Lot(s)</th><th>Temperatures</th>
+      <th>N Etude</th><th>Lot(s)</th><th>Temperatures</th>
       <th>Echeance</th><th>Statut</th><th></th>
     </tr></thead>
     <tbody id="stab-tbody"></tbody></table>
@@ -4817,7 +4817,6 @@ function editSPQ(id) {
   window._editingSpqId = id;
   document.getElementById('modal-spq-title').textContent = 'Modifier SPQ — ' + s.ref;
   document.getElementById('spq-ref').value = s.ref || '';
-  document.getElementById('spq-produits').value = s.produits || '';
   document.getElementById('spq-marches-container').innerHTML = '';
   (s.marches||[]).forEach(m => addSpqMarche(m.marcheId, m.analyses||[]));
   const delBtn = document.getElementById('spq-delete-btn');
@@ -4841,10 +4840,10 @@ function saveSPQ() {
   
   if (_editingSpqId) {
     const idx = state.spq.findIndex(x => x.id === _editingSpqId);
-    if (idx >= 0) state.spq[idx] = { ...state.spq[idx], ref, produits: document.getElementById('spq-produits').value.trim(), marches };
+    if (idx >= 0) state.spq[idx] = { ...state.spq[idx], ref, marches };
     addActivity('file-certificate', 'SPQ modifiée : ' + ref);
   } else {
-    state.spq.push({ id: Date.now(), ref, produits: document.getElementById('spq-produits').value.trim(), marches });
+    state.spq.push({ id: Date.now(), ref, marches });
     addActivity('file-certificate', 'SPQ créée : ' + ref);
   }
   
@@ -4967,6 +4966,8 @@ function openXlFilter(event, col) {
   dropdown.style.top = top + 'px';
   dropdown.style.left = left + 'px';
 
+  // Empêcher la fermeture au clic dans le dropdown
+  dropdown.addEventListener('click', e => e.stopPropagation());
   // Fermer au clic extérieur
   setTimeout(() => document.addEventListener('click', closeXlFilter, {once:true}), 0);
 }
@@ -5881,8 +5882,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     </div>
     <div class="modal-body">
       <div class="form-grid">
-        <div class="form-group"><label>Référence SPQ *</label><input id="spq-ref" placeholder="Ex: SPQ0050"></div>
-        <div class="form-group"><label>Produit(s) lié(s)</label><input id="spq-produits" placeholder="Ex: Setmelanotide 10mg/mL"></div>
+        <div class="form-group full"><label>Référence SPQ *</label><input id="spq-ref" placeholder="Ex: SPQ0050"></div>
       </div>
       <div class="form-group" style="margin-top:16px">
         <label style="font-size:14px;font-weight:700;margin-bottom:12px;display:block">Marchés et analyses requises</label>
