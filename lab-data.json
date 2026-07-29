@@ -841,7 +841,7 @@
         "1785247382413": "en_cours",
         "1785247477146": "terminee",
         "1785247569532": "terminee",
-        "1785170122728": "en_cours",
+        "1785170122728": "terminee",
         "1785247529863": "en_cours",
         "1785170145444": "en_cours"
       },
@@ -863,7 +863,8 @@
           "terminee": "29/07/2026"
         },
         "1785170122728": {
-          "en_cours": "29/07/2026"
+          "en_cours": "29/07/2026",
+          "terminee": "29/07/2026"
         },
         "1785247529863": {
           "en_cours": "29/07/2026"
@@ -878,6 +879,19 @@
             {
               "label": "Résultat",
               "valeur": "conforme",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "29/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        },
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "5.1",
               "unite": ""
             }
           ],
@@ -958,13 +972,30 @@
           "date": "29/07/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1785170122728": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "5.2",
+              "unite": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "29/07/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       },
       "analyseStatuts": {
-        "1785336377803": "terminee"
+        "1785336377803": "terminee",
+        "1785170122728": "terminee"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
+          "terminee": "29/07/2026"
+        },
+        "1785170122728": {
           "terminee": "29/07/2026"
         }
       }
@@ -991,11 +1022,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — pH : verifiee",
-      "time": "28/07 17:58"
-    },
     {
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
@@ -1240,6 +1266,11 @@
       "icon": "list-check",
       "text": "TEST-1 — Volume Extractible : en_cours",
       "time": "29/07 16:51"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "pH — 2 sous-séries — lot TEST",
+      "time": "29/07 16:52"
     }
   ],
   "spq": [
