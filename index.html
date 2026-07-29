@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v128 — Physico-Chimie</title>
+<title>LabManager v129 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5657,7 +5657,7 @@ function renderEchantillonsTableAlignedV105(){
     // Dédupliquer les analyses sur toutes les entrées du groupe
     const allAnalyseIds=[...new Set(group.flatMap(e=>e.analysesIds||[]))];
     let analyses=allAnalyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean).sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-    if(fAnalyse.length) analyses=analyses.filter(a=>fAnalyse.includes(a.nom||''));
+    if(fAnalyse.length) { analyses=analyses.filter(a=>fAnalyse.includes(a.nom||'')); if(!analyses.length) return; }
 
     if(fEnCours||fTerminee||fVerifiee){
       const statuts=Object.values(e0.analyseStatuts||{});
