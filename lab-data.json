@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "pH — 3 sous-séries — lot TEST",
-      "time": "28/07 21:17"
-    },
-    {
       "icon": "list-check",
       "text": "TEST-1 — pH : verifiee",
       "time": "28/07 21:17"
@@ -1232,6 +1227,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0050",
       "time": "29/07 18:40"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0209",
+      "time": "29/07 18:40"
     }
   ],
   "spq": [
@@ -1318,6 +1318,12 @@
       "ref": "SPQ0050",
       "produits": "",
       "marches": []
+    },
+    {
+      "id": 1785343255909,
+      "ref": "SPQ0209",
+      "produits": "",
+      "marches": []
     }
   ],
   "articles": [
@@ -1375,7 +1381,7 @@
       "id": 1785343211243,
       "code": "M78004100",
       "nom": "Xylocard 50 mg/mL",
-      "spqId": null
+      "spqId": 1785343255909
     }
   ],
   "planTasks": [
