@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "TEST-1 — pH : en_cours",
-      "time": "28/07 21:16"
-    },
-    {
       "icon": "clipboard-check",
       "text": "pH — 3 sous-séries — lot TEST",
       "time": "28/07 21:17"
@@ -1232,6 +1227,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0049",
       "time": "29/07 18:40"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0050",
+      "time": "29/07 18:40"
     }
   ],
   "spq": [
@@ -1312,6 +1312,12 @@
       "ref": "SPQ0049",
       "produits": "",
       "marches": []
+    },
+    {
+      "id": 1785343243859,
+      "ref": "SPQ0050",
+      "produits": "",
+      "marches": []
     }
   ],
   "articles": [
@@ -1363,7 +1369,7 @@
       "id": 1785343178510,
       "code": "M78003701",
       "nom": "Xylocaïne 20 mg/mL SC",
-      "spqId": null
+      "spqId": 1785343243859
     },
     {
       "id": 1785343211243,
