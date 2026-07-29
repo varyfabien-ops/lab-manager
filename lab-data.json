@@ -1442,5 +1442,15 @@
       "forme": ""
     }
   ],
-  "planTasks": []
+  "planTasks": [
+    {
+      "id": 1785336953377,
+      "type": "eaux",
+      "desc": "edr",
+      "techId": 1785175077562,
+      "date": "2026-08-03",
+      "lot": "",
+      "note": ""
+    }
+  ]
 }
