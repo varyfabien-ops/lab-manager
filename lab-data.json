@@ -984,11 +984,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0001",
-      "time": "28/07 20:10"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0015 - Lidocaïne Naphazoline",
       "time": "28/07 20:17"
@@ -1232,6 +1227,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0055",
       "time": "29/07 18:38"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M76031000",
+      "time": "29/07 18:38"
     }
   ],
   "spq": [
@@ -1334,6 +1334,12 @@
       "code": "M76014000",
       "nom": "Marcaïne 5 mg/mL SC",
       "spqId": 1785343103294
+    },
+    {
+      "id": 1785343136427,
+      "code": "M76031000",
+      "nom": "Xylocaïne 5 mg/mL SC",
+      "spqId": null
     }
   ],
   "planTasks": [
