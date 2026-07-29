@@ -652,170 +652,7 @@
       "code": "DK"
     }
   ],
-  "echantillons": [
-    {
-      "id": 1785261788933,
-      "code": "TEST 2-1",
-      "lot": "TEST 2",
-      "articleId": 1785247590600,
-      "articleCode": "MXXXXXXXX",
-      "produitId": 1785247590600,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247477146,
-        1785247529863
-      ],
-      "analysesParMarche": {
-        "1785170122728": [
-          1785170017612
-        ],
-        "1785247477146": [
-          1785170017612
-        ],
-        "1785247529863": [
-          1785170017612
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-28",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785170122728": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1785170122728": {
-          "en_cours": "28/07/2026",
-          "terminee": "28/07/2026",
-          "verifiee": "28/07/2026"
-        }
-      },
-      "resultats": {
-        "1785170122728": {
-          "champs": [
-            {
-              "label": "Résultat",
-              "valeur": "5.5",
-              "unite": ""
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      }
-    },
-    {
-      "id": 1785261788934,
-      "code": "TEST 2-2",
-      "lot": "TEST 2",
-      "articleId": 1785247590600,
-      "articleCode": "MXXXXXXXX",
-      "produitId": 1785247590600,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247477146,
-        1785247529863
-      ],
-      "analysesParMarche": {
-        "1785170122728": [
-          1785170017612
-        ],
-        "1785247477146": [
-          1785170017612
-        ],
-        "1785247529863": [
-          1785170017612
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-28",
-      "statut": "recu",
-      "note": "",
-      "resultats": {
-        "1785170122728": {
-          "champs": [
-            {
-              "label": "Résultat",
-              "valeur": "4.8",
-              "unite": ""
-            }
-          ],
-          "commentaire": "",
-          "date": "28/07/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      },
-      "analyseStatuts": {
-        "1785170122728": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1785170122728": {
-          "terminee": "28/07/2026"
-        }
-      }
-    },
-    {
-      "id": 1785262754887,
-      "code": "TEST 3",
-      "lot": "TEST 3",
-      "articleId": 1785262722735,
-      "articleCode": "MYYYYYYYY",
-      "produitId": 1785262722735,
-      "marcheIds": [
-        1785262197983
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247477146,
-        1785262672685
-      ],
-      "analysesParMarche": {
-        "1785170122728": [
-          1785262197983
-        ],
-        "1785247477146": [
-          1785262197983
-        ],
-        "1785262672685": [
-          1785262197983
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0001",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-28",
-      "statut": "recu",
-      "note": ""
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -837,16 +674,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Limpidité / Coloration PE",
-      "time": "28/07 16:04"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0004 Bupivacaïne",
-      "time": "28/07 16:05"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0054",
@@ -1085,6 +912,16 @@
     {
       "icon": "trash",
       "text": "Lot supprime : TEST (3 entrees)",
+      "time": "29/07 16:48"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST 2 (2 entrees)",
+      "time": "29/07 16:48"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST 3",
       "time": "29/07 16:48"
     }
   ],
