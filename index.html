@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v145 — Physico-Chimie</title>
+<title>LabManager v148 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -350,6 +350,7 @@
     <div class="page-header">
       <div class="page-header-text"><h1>Préparations</h1><p>Suivi des réactifs préparés au laboratoire</p></div>
       <div class="page-header-actions">
+        <button class="btn" onclick="imprimerPerimes()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
         <button class="btn" onclick="goToReactifs('archives-prep')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
         <button class="btn" onclick="goToReactifs('catalogue-prep')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
         <button class="btn btn-primary" onclick="openModalPrep()"><i class="ti ti-plus"></i> Nouvelle préparation</button>
@@ -369,12 +370,12 @@
       <table><thead style="white-space:nowrap"><tr>
         <th style="white-space:nowrap">Réactif</th>
         <th style="width:140px";white-space:nowrap>N° interne</th>
-        <th style="width:120px;";white-space:nowrap>Date préparation</th>
+        <th style="width:120px;";white-space:nowrap>Date de préparation</th>
         <th style="width:120px;";white-space:nowrap>Date de validité</th>
         <th style="width:100px";white-space:nowrap>Statut</th>
         <th style="width:120px";white-space:nowrap>Emplacement</th>
-        <th style="width:80px";white-space:nowrap>Préparé par</th>
-        <th style="width:100px";white-space:nowrap>Vérifiée</th>
+        <th style="width:80px";white-space:nowrap>Préparation</th>
+        <th style="width:100px";white-space:nowrap>Vérification</th>
         <th style="width:60px";white-space:nowrap></th>
       </tr></thead>
       <tbody id="prep-tbody"></tbody></table>
@@ -5256,15 +5257,15 @@ function renderPreparations() {
     const tech = p.techId?(state.techniciens||[]).find(t=>t.id===p.techId):null;
     return '<tr style="border-left:4px solid '+(statut.color==="#f44336"?"#f44336":type.color)+'">'
       +'<td><strong>'+p.nom+'</strong>'+(cat.emplacement?'<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:10px"></i> '+cat.emplacement+'</span>':'')+'</td>'
-      +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
-      +'<td>'+formatDate(p.datePrep||'')+'</td>'
+      +'<td style="font-family:monospace;font-weight:600;text-align:center">'+p.numero+'</td>'
+      +'<td style="text-align:center">'+formatDate(p.datePrep||'')+'</td>'
       +(()=>{
         let d=p.datePerm||'';
         if(p.dateRestrictive && p.dateRestrictive < p.datePerm) d=p.dateRestrictive;
         return '<td>'+formatDate(d)+'</td>';
       })()
       +'<td><span class="badge" style="background:'+statut.bg+';color:'+statut.color+';font-size:11px">'+statut.label+'</span></td>'
-      +'<td style="font-size:12px;color:var(--text2)">'+(cat.emplacement||'—')+'</td>'
+      +'<td style="text-align:center;font-size:12px;color:var(--text2)">'+(cat.emplacement||'—')+'</td>'
       +'<td style="text-align:center;font-size:12px">'+(tech?tech.visa||tech.prenom[0]+tech.nom[0]:'—')+'</td>'
       +(p.verifiedBy
         ? '<td style="text-align:center"><span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyPrep('+p.id+')" title="Cliquer pour annuler">✓ '+p.verifiedBy+'</span></td>'
@@ -5545,6 +5546,86 @@ function supprimerArchivePrep(id) {
 }
 
 window.archiverPreparation = archiverPreparation;
+
+function imprimerPerimes() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const perimes = (state.preparations||[]).filter(p => {
+    if (p.archive) return false;
+    let d = new Date((p.dateRestrictive && p.dateRestrictive < p.datePerm ? p.dateRestrictive : p.datePerm) + 'T12:00:00');
+    return d < today;
+  });
+
+  const dateStr = today.toLocaleDateString('fr-FR', {weekday:'long', day:'2-digit', month:'long', year:'numeric'});
+
+  let rows = '';
+  if (!perimes.length) {
+    rows = '<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun réactif périmé</td></tr>';
+  } else {
+    perimes.forEach(p => {
+      const cat = (state.cataloguePrep||[]).find(c=>c.id===p.catId)||{};
+      const type = PREP_TYPES[cat.type]||PREP_TYPES.autre;
+      const dateValidity = p.dateRestrictive && p.dateRestrictive < p.datePerm ? p.dateRestrictive : p.datePerm;
+      const tech = p.techId ? (state.techniciens||[]).find(t=>t.id===p.techId) : null;
+      rows += '<tr>'
+        + '<td style="border-left:4px solid '+type.color+';padding-left:8px">'+p.nom+'</td>'
+        + '<td style="font-family:monospace;font-weight:bold">'+p.numero+'</td>'
+        + '<td>'+formatDate(p.datePrep||'')+'</td>'
+        + '<td style="color:#c0392b;font-weight:600">'+formatDate(dateValidity||'')+'</td>'
+        + '<td>'+(cat.emplacement||'—')+'</td>'
+        + '</tr>';
+    });
+  }
+
+  const win = window.open('', '_blank', 'width=800,height=600');
+  win.document.write(`<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réactifs périmés — ${dateStr}</title>
+  <style>
+    body { font-family: Arial, sans-serif; font-size: 13px; margin: 30px; color: #222; }
+    h1 { font-size: 18px; margin-bottom: 4px; }
+    .subtitle { color: #666; font-size: 12px; margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #f5f5f5; text-align: left; padding: 8px 10px; border-bottom: 2px solid #ddd; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    .footer { margin-top: 32px; font-size: 11px; color: #999; display: flex; justify-content: space-between; }
+    .logo { font-weight: bold; font-size: 16px; }
+    @media print { body { margin: 20px; } }
+  </style>
+</head>
+<body>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+    <div>
+      <h1>Réactifs à éliminer</h1>
+      <div class="subtitle">Liste des réactifs périmés au ${dateStr}</div>
+    </div>
+    <div class="logo">astrea<br><span style="font-weight:400;font-size:12px">pharma</span></div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Réactif</th>
+        <th>N° interne</th>
+        <th>Date préparation</th>
+        <th>Date de validité</th>
+        <th>Emplacement</th>
+      </tr>
+    </thead>
+    <tbody>${rows}</tbody>
+  </table>
+  <div class="footer">
+    <span>Imprimé le ${dateStr}</span>
+    <span>LabManager — Physico-Chimie</span>
+  </div>
+  <script>window.onload = () => window.print();<\/script>
+</body>
+</html>`);
+  win.document.close();
+}
+
+window.imprimerPerimes = imprimerPerimes;
 window.renderArchivedPreps = renderArchivedPreps;
 window.supprimerArchivePrep = supprimerArchivePrep;
 window.confirmVerifyPrep = confirmVerifyPrep;
