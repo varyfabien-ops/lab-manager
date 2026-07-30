@@ -1485,5 +1485,16 @@
       "lot": "",
       "note": ""
     }
+  ],
+  "preparations": [],
+  "cataloguePrep": [
+    {
+      "id": 1785422870804,
+      "nom": "Mélange Eau / Isopropanol (90/10)",
+      "type": "autre",
+      "peremption": 31,
+      "format": "AAAA/XXXX",
+      "desc": "Stockage HPLC"
+    }
   ]
 }
