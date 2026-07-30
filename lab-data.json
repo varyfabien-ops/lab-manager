@@ -1075,11 +1075,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : M74011000",
-      "time": "29/07 16:39"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0052",
       "time": "29/07 16:39"
@@ -1323,6 +1318,11 @@
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
       "time": "30/07 17:28"
+    },
+    {
+      "icon": "archive",
+      "text": "Réactif archivé: Mélange Eau / Isopropanol (50/50) 2026/0002",
+      "time": "30/07 19:36"
     }
   ],
   "spq": [
@@ -1512,7 +1512,9 @@
       "datePermFR": "28/03/2026",
       "techId": 1785175077562,
       "comment": "",
-      "dateRestrictive": ""
+      "dateRestrictive": "",
+      "archive": true,
+      "archivedAt": "30/07/2026"
     }
   ],
   "cataloguePrep": [
