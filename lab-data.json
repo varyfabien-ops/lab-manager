@@ -1522,6 +1522,7 @@
       "type": "autre",
       "peremption": 1,
       "format": "AAAA/XXXX",
+      "emplacement": "I10",
       "desc": "Stockage HPLC"
     },
     {
