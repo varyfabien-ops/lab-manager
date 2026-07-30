@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v137 — Physico-Chimie</title>
+<title>LabManager v139 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -370,7 +370,7 @@
         <th>Réactif</th>
         <th style="width:140px">N° interne</th>
         <th style="width:120px">Date préparation</th>
-        <th style="width:120px">Date péremption</th>
+        <th style="width:120px">Date de validité</th>
         <th style="width:100px">Statut</th>
         <th style="width:80px">Préparé par</th>
         <th style="width:100px">Vérifiée</th>
@@ -5211,7 +5211,13 @@ const PREP_TYPES = {
 
 function getPrepStatut(prep) {
   const today = new Date(); today.setHours(0,0,0,0);
-  const perm = new Date(prep.datePerm+'T12:00:00');
+  // Utiliser la date la plus restrictive (calculée ou saisie manuellement)
+  let permDate = new Date(prep.datePerm+'T12:00:00');
+  if(prep.dateRestrictive) {
+    const dr = new Date(prep.dateRestrictive+'T12:00:00');
+    if(dr < permDate) permDate = dr;
+  }
+  const perm = permDate;
   const diff = Math.ceil((perm - today) / 86400000);
   if (diff < 0) return { label: 'Périmé', color: '#f44336', bg: '#FFEBEE' };
   if (diff <= 7) return { label: diff + 'j', color: '#FF9800', bg: '#FFF3E0' };
@@ -5234,7 +5240,11 @@ function renderPreparations() {
       +'<td><strong>'+p.nom+'</strong>'+(cat.desc?'<br><span style="font-size:11px;color:var(--text3)">'+cat.desc+'</span>':'')+'</td>'
       +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
       +'<td>'+formatDate(p.datePrep||'')+'</td>'
-      +'<td>'+formatDate(p.datePerm||'')+'</td>'
+      +(()=>{
+        let d=p.datePerm||'';
+        if(p.dateRestrictive && p.dateRestrictive < p.datePerm) d=p.dateRestrictive;
+        return '<td>'+formatDate(d)+(p.dateRestrictive&&p.dateRestrictive<p.datePerm?'<br><span style="font-size:10px;color:var(--amber)">mat.</span>':'')+'</td>';
+      })()
       +'<td><span class="badge" style="background:'+statut.bg+';color:'+statut.color+';font-size:11px">'+statut.label+'</span></td>'
       +'<td style="text-align:center;font-size:12px">'+(tech?tech.visa||tech.prenom[0]+tech.nom[0]:'—')+'</td>'
       +(p.verifiedBy
@@ -5330,6 +5340,7 @@ function editPreparation(id) {
     document.getElementById('prep-date-perm').value=p.datePerm||'';
     document.getElementById('prep-technicien').value=p.techId||'';
     document.getElementById('prep-comment').value=p.comment||'';
+    document.getElementById('prep-date-restrictive').value=p.dateRestrictive||'';
     document.getElementById('prep-delete-btn').style.display='inline-flex';
   },50);
 }
@@ -5340,15 +5351,14 @@ function onPrepReactifChange() {
   const info=document.getElementById('prep-reactif-info');
   if(!cat){if(info)info.style.display='none';return;}
   const type=PREP_TYPES[cat.type]||PREP_TYPES.autre;
-  if(info){info.style.display='block';info.innerHTML='<span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:11px">'+type.label+'</span> — Péremption : <strong>'+cat.peremption+' jours</strong> — Format : <code>'+cat.format+'</code>';}
-  // Calculer date péremption en mois
+  if(info){info.style.display='block';info.innerHTML='<span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:11px">'+type.label+'</span> — Validité : <strong>'+cat.peremption+' mois</strong> — Format : <code>'+cat.format+'</code>';}
+  // Calculer date de validité en mois
   const datePrep=document.getElementById('prep-date-prep')?.value;
   if(datePrep&&cat.peremption){
-    const d=new Date(datePrep);
+    const d=new Date(datePrep+'T12:00:00');
     const dayOrig=d.getDate();
-    d.setMonth(d.getMonth()+cat.peremption);
-    // Si le jour original n'existe pas dans le mois cible, rester sur le même jour du mois
-    if(d.getDate()!==dayOrig) d.setDate(0); // dernier jour du mois précédent
+    d.setMonth(d.getMonth()+parseInt(cat.peremption));
+    if(d.getDate()!==dayOrig) d.setDate(0);
     document.getElementById('prep-date-perm').value=d.toISOString().slice(0,10);
   }
 }
@@ -5369,7 +5379,8 @@ function savePreparation() {
     numero, datePrep, datePerm,
     datePrepFR:formatDate(datePrep),
     datePermFR:datePerm?formatDate(datePerm):'',
-    techId, comment:document.getElementById('prep-comment').value.trim()
+    techId, comment:document.getElementById('prep-comment').value.trim(),
+    dateRestrictive:document.getElementById('prep-date-restrictive')?.value||''
   };
   if(!state.preparations) state.preparations=[];
   if(window._editingPrepId){const i=state.preparations.findIndex(x=>x.id===window._editingPrepId);if(i>=0)state.preparations[i]=entry;}
@@ -6281,15 +6292,19 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <div id="prep-reactif-info" style="display:none;background:var(--bg3);border-radius:var(--radius);padding:10px;margin-bottom:12px;font-size:12px"></div>
       <div class="form-grid">
         <div class="form-group"><label>N° interne *</label><input id="prep-numero" placeholder="Ex: 2024/0001"></div>
-        <div class="form-group"><label>Date de préparation *</label><input type="date" id="prep-date-prep"></div>
+        <div class="form-group"><label>Date de préparation *</label><input type="date" id="prep-date-prep" oninput="onPrepReactifChange()"></div>
       </div>
       <div class="form-grid">
-        <div class="form-group"><label>Date de péremption</label><input type="date" id="prep-date-perm" readonly style="background:var(--bg3);color:var(--text2)"></div>
+        <div class="form-group"><label>Date de validité (calculée)</label><input type="date" id="prep-date-perm" readonly style="background:var(--bg3);color:var(--text2)"></div>
         <div class="form-group"><label>Préparé par</label>
           <select id="prep-technicien">
             <option value="">— Sélectionner —</option>
           </select>
         </div>
+      </div>
+      <div class="form-group full">
+        <label>Date de validité la plus restrictive <span style="color:var(--text3);font-weight:400">(date de péremption des matières)</span></label>
+        <input type="date" id="prep-date-restrictive">
       </div>
       <div class="form-group"><label>Commentaire</label><input id="prep-comment" placeholder="Observations..."></div>
     </div>
