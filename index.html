@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v141 — Physico-Chimie</title>
+<title>LabManager v143 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -372,6 +372,7 @@
         <th style="width:120px">Date préparation</th>
         <th style="width:120px">Date de validité</th>
         <th style="width:100px">Statut</th>
+        <th style="width:120px">Emplacement</th>
         <th style="width:80px">Préparé par</th>
         <th style="width:100px">Vérifiée</th>
         <th style="width:60px"></th>
@@ -5253,16 +5254,17 @@ function renderPreparations() {
     const type = PREP_TYPES[cat.type]||PREP_TYPES.autre;
     const statut = getPrepStatut(p);
     const tech = p.techId?(state.techniciens||[]).find(t=>t.id===p.techId):null;
-    return '<tr style="border-left:4px solid '+type.color+'">'
+    return '<tr style="border-left:4px solid '+(statut.color==="#f44336"?"#f44336":type.color)+'">'
       +'<td><strong>'+p.nom+'</strong>'+(cat.emplacement?'<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:10px"></i> '+cat.emplacement+'</span>':'')+'</td>'
       +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
       +'<td>'+formatDate(p.datePrep||'')+'</td>'
       +(()=>{
         let d=p.datePerm||'';
         if(p.dateRestrictive && p.dateRestrictive < p.datePerm) d=p.dateRestrictive;
-        return '<td>'+formatDate(d)+(p.dateRestrictive&&p.dateRestrictive<p.datePerm?'<br><span style="font-size:10px;color:var(--amber)">mat.</span>':'')+'</td>';
+        return '<td>'+formatDate(d)+'</td>';
       })()
       +'<td><span class="badge" style="background:'+statut.bg+';color:'+statut.color+';font-size:11px">'+statut.label+'</span></td>'
+      +'<td style="font-size:12px;color:var(--text2)">'+(cat.emplacement||'—')+'</td>'
       +'<td style="text-align:center;font-size:12px">'+(tech?tech.visa||tech.prenom[0]+tech.nom[0]:'—')+'</td>'
       +(p.verifiedBy
         ? '<td style="text-align:center"><span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyPrep('+p.id+')" title="Cliquer pour annuler">✓ '+p.verifiedBy+'</span></td>'
