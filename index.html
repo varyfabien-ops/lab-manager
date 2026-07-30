@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v139 — Physico-Chimie</title>
+<title>LabManager v141 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -350,6 +350,7 @@
     <div class="page-header">
       <div class="page-header-text"><h1>Préparations</h1><p>Suivi des réactifs préparés au laboratoire</p></div>
       <div class="page-header-actions">
+        <button class="btn" onclick="goToReactifs('archives-prep')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
         <button class="btn" onclick="goToReactifs('catalogue-prep')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
         <button class="btn btn-primary" onclick="openModalPrep()"><i class="ti ti-plus"></i> Nouvelle préparation</button>
       </div>
@@ -366,7 +367,6 @@
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-prep" placeholder="Rechercher..." oninput="renderPreparations()"></div>
       </div>
       <table><thead><tr>
-        <th style="width:60px">Type</th>
         <th>Réactif</th>
         <th style="width:140px">N° interne</th>
         <th style="width:120px">Date préparation</th>
@@ -377,6 +377,22 @@
         <th style="width:60px"></th>
       </tr></thead>
       <tbody id="prep-tbody"></tbody></table>
+    </div>
+  </div>
+
+  <!-- VUE ARCHIVES PRÉPARATIONS -->
+  <div id="reactifs-view-archives-prep" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Archives préparations</h1><p>Réactifs périmés ou terminés</p></div>
+      <div class="page-header-actions"><button class="btn" onclick="goToReactifs('preparations')"><i class="ti ti-arrow-left"></i> Retour</button></div>
+    </div>
+    <div class="table-card">
+      <table><thead><tr>
+        <th>Réactif</th><th style="width:140px">N° interne</th>
+        <th style="width:120px">Date préparation</th><th style="width:120px">Date validité</th>
+        <th>Archivé</th><th style="width:60px"></th>
+      </tr></thead>
+      <tbody id="prep-archives-tbody"></tbody></table>
     </div>
   </div>
 
@@ -396,6 +412,7 @@
         <th style="width:100px">Type</th>
         <th style="width:120px">Péremption (jours)</th>
         <th style="width:120px">Format N°</th>
+        <th>Emplacement</th>
         <th style="width:80px"></th>
       </tr></thead>
       <tbody id="cat-prep-tbody"></tbody></table>
@@ -2717,7 +2734,7 @@ function renderAll() {
   renderAuditTrail();
   // Initialiser les sous-vues sans changer la page active
   // Reactifs : afficher contenants par defaut
-  ['produits','contenants','archives','preparations','catalogue-prep'].forEach(v => {
+  ['produits','contenants','archives','preparations','catalogue-prep','archives-prep'].forEach(v => {
     const el = document.getElementById('reactifs-view-'+v);
     if (el) el.style.display = v === 'contenants' ? 'block' : 'none';
   });
@@ -4423,7 +4440,7 @@ function goToReactifs(view) {
   if (page) page.classList.add('active');
   document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
   document.querySelectorAll('#reactifs-submenu .nav-sub').forEach(n => n.classList.remove('active'));
-  ['produits','contenants','archives','preparations','catalogue-prep'].forEach(v => {
+  ['produits','contenants','archives','preparations','catalogue-prep','archives-prep'].forEach(v => {
     const el = document.getElementById('reactifs-view-'+v);
     if (el) el.style.display = 'none';
   });
@@ -4437,6 +4454,7 @@ function goToReactifs(view) {
   if (view === 'archives') renderArchivesTable();
   if (view === 'preparations') renderPreparations();
   if (view === 'catalogue-prep') renderCataloguePrep();
+  if (view === 'archives-prep') renderArchivedPreps();
 }
 
 function renderArchivesTable() {
@@ -5227,7 +5245,7 @@ function getPrepStatut(prep) {
 function renderPreparations() {
   const tbody = document.getElementById('prep-tbody'); if(!tbody) return;
   const q = (document.getElementById('search-prep')?.value||'').toLowerCase();
-  const preps = (state.preparations||[]).filter(p=>!q||(p.nom||'').toLowerCase().includes(q)||(p.numero||'').toLowerCase().includes(q));
+  const preps = (state.preparations||[]).filter(p=>!p.archive&&(!q||(p.nom||'').toLowerCase().includes(q)||(p.numero||'').toLowerCase().includes(q)));
   if(!preps.length) { tbody.innerHTML='<tr><td colspan="8" class="empty-state"><i class="ti ti-flask"></i><p>Aucune préparation</p></td></tr>'; return; }
   preps.sort((a,b)=>b.datePerm?.localeCompare(a.datePerm||'')||0);
   tbody.innerHTML = preps.map(p=>{
@@ -5236,8 +5254,7 @@ function renderPreparations() {
     const statut = getPrepStatut(p);
     const tech = p.techId?(state.techniciens||[]).find(t=>t.id===p.techId):null;
     return '<tr style="border-left:4px solid '+type.color+'">'
-      +'<td style="text-align:center"><span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:10px;font-weight:700">'+type.label+'</span></td>'
-      +'<td><strong>'+p.nom+'</strong>'+(cat.desc?'<br><span style="font-size:11px;color:var(--text3)">'+cat.desc+'</span>':'')+'</td>'
+      +'<td><strong>'+p.nom+'</strong>'+(cat.emplacement?'<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:10px"></i> '+cat.emplacement+'</span>':'')+'</td>'
       +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
       +'<td>'+formatDate(p.datePrep||'')+'</td>'
       +(()=>{
@@ -5250,7 +5267,7 @@ function renderPreparations() {
       +(p.verifiedBy
         ? '<td style="text-align:center"><span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyPrep('+p.id+')" title="Cliquer pour annuler">✓ '+p.verifiedBy+'</span></td>'
         : '<td style="text-align:center"><button onclick="verifyPrep('+p.id+')" style="background:none;border:2px dashed #ddd;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:11px;color:#aaa">Vérifier</button></td>')
-      +'<td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editPreparation('+p.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deletePreparation('+p.id+')"><i class="ti ti-trash"></i></button></div></td>'
+      +'<td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editPreparation('+p.id+')" title="Modifier"><i class="ti ti-pencil"></i></button><button class="icon-btn" onclick="archiverPreparation('+p.id+')" title="Archiver" style="color:var(--amber)"><i class="ti ti-archive"></i></button><button class="icon-btn danger" onclick="deletePreparation('+p.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div></td>'
       +'</tr>';
   }).join('');
 }
@@ -5265,7 +5282,7 @@ function renderCataloguePrep() {
       +'<td><strong>'+c.nom+'</strong>'+(c.desc?'<br><span style="font-size:11px;color:var(--text3)">'+c.desc+'</span>':'')+'</td>'
       +'<td><span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:11px">'+type.label+'</span></td>'
       +'<td style="text-align:center">'+c.peremption+' mois</td>'
-      +'<td style="font-family:monospace;font-size:12px">'+(c.format||'AAAA/XXXX')+'</td>'
+      +'<td style="font-family:monospace;font-size:12px">'+(c.format||'AAAA/XXXX')+'</td>'+'<td style="font-size:12px;color:var(--text2)">'+(c.emplacement||'—')+'</td>'
       +'<td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editCataloguePrep('+c.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteCataloguePrep('+c.id+')"><i class="ti ti-trash"></i></button></div></td>'
       +'</tr>';
   }).join('');
@@ -5273,7 +5290,7 @@ function renderCataloguePrep() {
 
 function openModalCataloguePrep() {
   window._editingCatPrepId = null;
-  ['cp-nom','cp-desc','cp-format'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['cp-nom','cp-desc','cp-format','cp-emplacement'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('cp-type').value='pe';
   document.getElementById('cp-peremption').value='';
   document.getElementById('cp-delete-btn').style.display='none';
@@ -5287,6 +5304,7 @@ function editCataloguePrep(id) {
   document.getElementById('cp-type').value=c.type||'pe';
   document.getElementById('cp-peremption').value=c.peremption||'';
   document.getElementById('cp-format').value=c.format||'';
+  if(document.getElementById('cp-emplacement')) document.getElementById('cp-emplacement').value=c.emplacement||'';
   document.getElementById('cp-desc').value=c.desc||'';
   document.getElementById('cp-delete-btn').style.display='inline-flex';
   openModal('modal-cat-prep');
@@ -5297,7 +5315,7 @@ function saveCataloguePrep() {
   const per=parseInt(document.getElementById('cp-peremption').value)||0;
   if(!nom){toast('Le nom est obligatoire','error');return;}
   if(!per){toast('La durée de péremption est obligatoire','error');return;}
-  const entry={id:window._editingCatPrepId||Date.now(),nom,type:document.getElementById('cp-type').value,peremption:per,format:document.getElementById('cp-format').value.trim()||'AAAA/XXXX',desc:document.getElementById('cp-desc').value.trim()};
+  const entry={id:window._editingCatPrepId||Date.now(),nom,type:document.getElementById('cp-type').value,peremption:per,format:document.getElementById('cp-format').value.trim()||'AAAA/XXXX',emplacement:document.getElementById('cp-emplacement')?.value.trim()||'',desc:document.getElementById('cp-desc').value.trim()};
   if(!state.cataloguePrep) state.cataloguePrep=[];
   if(window._editingCatPrepId){const i=state.cataloguePrep.findIndex(x=>x.id===window._editingCatPrepId);if(i>=0)state.cataloguePrep[i]=entry;}
   else state.cataloguePrep.push(entry);
@@ -5492,6 +5510,41 @@ function unverifyPrep(id) {
 }
 
 window.verifyPrep = verifyPrep;
+
+function archiverPreparation(id) {
+  const p=(state.preparations||[]).find(x=>x.id===id); if(!p) return;
+  p.archive=true; p.archivedAt=new Date().toLocaleDateString('fr-FR');
+  saveData(); renderPreparations();
+  toast('Réactif archivé','success');
+  addActivity('archive','Réactif archivé: '+p.nom+' '+p.numero);
+}
+
+function renderArchivedPreps() {
+  const tbody=document.getElementById('prep-archives-tbody'); if(!tbody) return;
+  const archived=(state.preparations||[]).filter(p=>p.archive);
+  if(!archived.length){tbody.innerHTML='<tr><td colspan="7" class="empty-state"><i class="ti ti-archive"></i><p>Aucun réactif archivé</p></td></tr>';return;}
+  tbody.innerHTML=archived.map(p=>{
+    const cat=(state.cataloguePrep||[]).find(c=>c.id===p.catId)||{};
+    const type=PREP_TYPES[cat.type]||PREP_TYPES.autre;
+    return '<tr style="opacity:0.7;border-left:4px solid #aaa">'
+      +'<td><strong>'+p.nom+'</strong></td>'
+      +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
+      +'<td>'+formatDate(p.datePrep||'')+'</td>'
+      +'<td>'+formatDate(p.datePerm||'')+'</td>'
+      +'<td style="font-size:12px;color:var(--text3)">Archivé le '+p.archivedAt+'</td>'
+      +'<td><button class="icon-btn danger" onclick="supprimerArchivePrep('+p.id+')" title="Supprimer définitivement"><i class="ti ti-trash"></i></button></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function supprimerArchivePrep(id) {
+  state.preparations=(state.preparations||[]).filter(x=>x.id!==id);
+  saveData(); renderArchivedPreps();
+}
+
+window.archiverPreparation = archiverPreparation;
+window.renderArchivedPreps = renderArchivedPreps;
+window.supprimerArchivePrep = supprimerArchivePrep;
 window.confirmVerifyPrep = confirmVerifyPrep;
 window.unverifyPrep = unverifyPrep;
 window.renderCataloguePrep = renderCataloguePrep;
@@ -6262,6 +6315,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
         <div class="form-group"><label>Péremption (mois) *</label><input type="number" id="cp-peremption" min="1" placeholder="Ex: 1"></div>
       </div>
       <div class="form-group"><label>Format N° interne <span style="color:var(--text3);font-weight:400">(laisser vide pour AAAA/XXXX)</span></label><input id="cp-format" placeholder="Ex: AAAA/XXXX ou format personnalisé"></div>
+      <div class="form-group"><label>Emplacement</label><input id="cp-emplacement" placeholder="Ex: Armoire A, Frigo 1, Paillasse B..."></div>
       <div class="form-group"><label>Description / Notes</label><textarea id="cp-desc" placeholder="Conditions de préparation, références..."></textarea></div>
     </div>
     <div class="modal-footer" style="display:flex;justify-content:space-between">
