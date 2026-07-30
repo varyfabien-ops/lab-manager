@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v136 — Physico-Chimie</title>
+<title>LabManager v137 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5233,8 +5233,8 @@ function renderPreparations() {
       +'<td style="text-align:center"><span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:10px;font-weight:700">'+type.label+'</span></td>'
       +'<td><strong>'+p.nom+'</strong>'+(cat.desc?'<br><span style="font-size:11px;color:var(--text3)">'+cat.desc+'</span>':'')+'</td>'
       +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
-      +'<td>'+formatDate(p.datePrepFR||p.datePrep||'')+'</td>'
-      +'<td>'+formatDate(p.datePermFR||p.datePerm||'')+'</td>'
+      +'<td>'+formatDate(p.datePrep||'')+'</td>'
+      +'<td>'+formatDate(p.datePerm||'')+'</td>'
       +'<td><span class="badge" style="background:'+statut.bg+';color:'+statut.color+';font-size:11px">'+statut.label+'</span></td>'
       +'<td style="text-align:center;font-size:12px">'+(tech?tech.visa||tech.prenom[0]+tech.nom[0]:'—')+'</td>'
       +(p.verifiedBy
