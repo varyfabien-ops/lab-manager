@@ -1510,6 +1510,14 @@
       "peremption": 1,
       "format": "AAAA/XXXX",
       "desc": "Stockage HPLC"
+    },
+    {
+      "id": 1785423885020,
+      "nom": "Mélange Eau / Isopropanol (50/50)",
+      "type": "autre",
+      "peremption": 1,
+      "format": "AAAA/XXXX",
+      "desc": "Stockage HPLC"
     }
   ]
 }
