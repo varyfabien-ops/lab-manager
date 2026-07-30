@@ -1075,11 +1075,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "pH — 2 sous-séries — lot TEST 2",
-      "time": "28/07 21:17"
-    },
-    {
       "icon": "list-check",
       "text": "TEST 2-1 — pH : verifiee",
       "time": "28/07 21:17"
@@ -1323,6 +1318,11 @@
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90/10) 2026/0001",
       "time": "30/07 16:48"
+    },
+    {
+      "icon": "check",
+      "text": "Réactif vérifié: Mélange Eau / Isopropanol (90/10) FVY",
+      "time": "30/07 17:03"
     }
   ],
   "spq": [
@@ -1497,7 +1497,9 @@
       "datePrepFR": "30/07/2026",
       "datePermFR": "30/08/2026",
       "techId": 1785175077562,
-      "comment": ""
+      "comment": "",
+      "verifiedBy": "FVY",
+      "verifiedAt": "30/07/2026"
     }
   ],
   "cataloguePrep": [
