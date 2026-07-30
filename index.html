@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v135 — Physico-Chimie</title>
+<title>LabManager v136 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5457,7 +5457,7 @@ function verifyPrep(id) {
     +techs.map(t=>'<option value="'+(t.visa||t.prenom[0]+t.nom[0])+'">['+(t.visa||'?')+'] '+t.prenom+' '+t.nom+'</option>').join('')
     +'</select>'
     +'<div style="display:flex;gap:8px;justify-content:flex-end">'
-    +'<button onclick="document.getElementById('verify-popup').remove()" class="btn">Annuler</button>'
+    +'<button onclick="document.getElementById(\'verify-popup\').remove()" class="btn">Annuler</button>'
     +'<button onclick="confirmVerifyPrep('+id+')" class="btn btn-primary">Confirmer</button>'
     +'</div>';
   document.body.appendChild(popup);
