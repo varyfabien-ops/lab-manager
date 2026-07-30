@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v131 — Physico-Chimie</title>
+<title>LabManager v132 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -168,7 +168,7 @@
 <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="planning-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToPlanning('semaine')"><i class="ti ti-layout-columns"></i> Planning semaine</div><div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Calendrier</div><div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div></div>
 <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
+<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('preparations')"><i class="ti ti-flask"></i> Préparations</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
 <div class="nav-item" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles & SPQ</div>
@@ -342,6 +342,62 @@
         <tbody id="archives-tbody"></tbody>
       </table>
       </div>
+    </div>
+  </div>
+
+  <!-- VUE PRÉPARATIONS -->
+  <div id="reactifs-view-preparations" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Préparations</h1><p>Suivi des réactifs préparés au laboratoire</p></div>
+      <div class="page-header-actions">
+        <button class="btn" onclick="goToReactifs('catalogue-prep')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
+        <button class="btn btn-primary" onclick="openModalPrep()"><i class="ti ti-plus"></i> Nouvelle préparation</button>
+      </div>
+    </div>
+    <!-- Légende -->
+    <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px"><span style="width:14px;height:14px;border-radius:3px;background:#4CAF50;display:inline-block"></span> PE (Pharmacopée Européenne)</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px"><span style="width:14px;height:14px;border-radius:3px;background:#42A5F5;display:inline-block"></span> USP</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px"><span style="width:14px;height:14px;border-radius:3px;background:#FF9800;display:inline-block"></span> Autre</span>
+      <span style="display:flex;align-items:center;gap:6px;font-size:12px"><span style="width:14px;height:14px;border-radius:3px;background:#f44336;display:inline-block"></span> Périmé</span>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Préparations en cours</h3><div class="spacer"></div>
+        <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-prep" placeholder="Rechercher..." oninput="renderPreparations()"></div>
+      </div>
+      <table><thead><tr>
+        <th style="width:60px">Type</th>
+        <th>Réactif</th>
+        <th style="width:140px">N° interne</th>
+        <th style="width:120px">Date préparation</th>
+        <th style="width:120px">Date péremption</th>
+        <th style="width:100px">Statut</th>
+        <th style="width:80px">Préparé par</th>
+        <th style="width:60px"></th>
+      </tr></thead>
+      <tbody id="prep-tbody"></tbody></table>
+    </div>
+  </div>
+
+  <!-- VUE CATALOGUE RÉACTIFS PRÉPARÉS -->
+  <div id="reactifs-view-catalogue-prep" style="display:none">
+    <div class="page-header">
+      <div class="page-header-text"><h1>Catalogue des réactifs</h1><p>Base de données des réactifs préparables</p></div>
+      <div class="page-header-actions">
+        <button class="btn" onclick="goToReactifs('preparations')" style="margin-right:8px"><i class="ti ti-arrow-left"></i> Retour</button>
+        <button class="btn btn-primary" onclick="openModalCataloguePrep()"><i class="ti ti-plus"></i> Nouveau réactif</button>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3>Réactifs enregistrés</h3></div>
+      <table><thead><tr>
+        <th>Nom du réactif</th>
+        <th style="width:100px">Type</th>
+        <th style="width:120px">Péremption (jours)</th>
+        <th style="width:120px">Format N°</th>
+        <th style="width:80px"></th>
+      </tr></thead>
+      <tbody id="cat-prep-tbody"></tbody></table>
     </div>
   </div>
 </div>
@@ -2589,6 +2645,8 @@ let state = {
   planTasks: [],
   spq: [],
   articles: [],
+  preparations: [],
+  cataloguePrep: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -2658,7 +2716,7 @@ function renderAll() {
   renderAuditTrail();
   // Initialiser les sous-vues sans changer la page active
   // Reactifs : afficher contenants par defaut
-  ['produits','contenants','archives'].forEach(v => {
+  ['produits','contenants','archives','preparations','catalogue-prep'].forEach(v => {
     const el = document.getElementById('reactifs-view-'+v);
     if (el) el.style.display = v === 'contenants' ? 'block' : 'none';
   });
@@ -2796,7 +2854,7 @@ async function loadData() {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[] };
+    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     toast('Donnees synchronisees', 'success');
@@ -4364,7 +4422,7 @@ function goToReactifs(view) {
   if (page) page.classList.add('active');
   document.querySelectorAll('.nav-item:not(.nav-sub)').forEach(n => n.classList.remove('active'));
   document.querySelectorAll('#reactifs-submenu .nav-sub').forEach(n => n.classList.remove('active'));
-  ['produits','contenants','archives'].forEach(v => {
+  ['produits','contenants','archives','preparations','catalogue-prep'].forEach(v => {
     const el = document.getElementById('reactifs-view-'+v);
     if (el) el.style.display = 'none';
   });
@@ -4376,6 +4434,8 @@ function goToReactifs(view) {
   if (view === 'produits') renderProduitsAccordion();
   if (view === 'contenants') renderReactifsTable();
   if (view === 'archives') renderArchivesTable();
+  if (view === 'preparations') renderPreparations();
+  if (view === 'catalogue-prep') renderCataloguePrep();
 }
 
 function renderArchivesTable() {
@@ -5137,6 +5197,188 @@ window.saveSPQ = saveSPQ;
 window.deleteSPQ = deleteSPQ;
 window.addSpqMarche = addSpqMarche;
 window.onArtSpqChange = onArtSpqChange;
+
+// ============================================================
+// PRÉPARATIONS RÉACTIFS
+// ============================================================
+
+const PREP_TYPES = {
+  pe:    { label: 'PE',    color: '#4CAF50', bg: '#E8F5E9', text: '#1B5E20' },
+  usp:   { label: 'USP',   color: '#42A5F5', bg: '#E3F2FD', text: '#0D47A1' },
+  autre: { label: 'Autre', color: '#FF9800', bg: '#FFF3E0', text: '#7a4000' }
+};
+
+function getPrepStatut(prep) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const perm = new Date(prep.datePerm);
+  const diff = Math.ceil((perm - today) / 86400000);
+  if (diff < 0) return { label: 'Périmé', color: '#f44336', bg: '#FFEBEE' };
+  if (diff <= 7) return { label: diff + 'j', color: '#FF9800', bg: '#FFF3E0' };
+  return { label: 'Valide', color: '#4CAF50', bg: '#E8F5E9' };
+}
+
+function renderPreparations() {
+  const tbody = document.getElementById('prep-tbody'); if(!tbody) return;
+  const q = (document.getElementById('search-prep')?.value||'').toLowerCase();
+  const preps = (state.preparations||[]).filter(p=>!q||(p.nom||'').toLowerCase().includes(q)||(p.numero||'').toLowerCase().includes(q));
+  if(!preps.length) { tbody.innerHTML='<tr><td colspan="8" class="empty-state"><i class="ti ti-flask"></i><p>Aucune préparation</p></td></tr>'; return; }
+  preps.sort((a,b)=>b.datePerm?.localeCompare(a.datePerm||'')||0);
+  tbody.innerHTML = preps.map(p=>{
+    const cat = (state.cataloguePrep||[]).find(c=>c.id===p.catId)||{};
+    const type = PREP_TYPES[cat.type]||PREP_TYPES.autre;
+    const statut = getPrepStatut(p);
+    const tech = p.techId?(state.techniciens||[]).find(t=>t.id===p.techId):null;
+    return '<tr style="border-left:4px solid '+type.color+'">'
+      +'<td style="text-align:center"><span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:10px;font-weight:700">'+type.label+'</span></td>'
+      +'<td><strong>'+p.nom+'</strong>'+(cat.desc?'<br><span style="font-size:11px;color:var(--text3)">'+cat.desc+'</span>':'')+'</td>'
+      +'<td style="font-family:monospace;font-weight:600">'+p.numero+'</td>'
+      +'<td>'+formatDate(p.datePrepFR||p.datePrep||'')+'</td>'
+      +'<td>'+formatDate(p.datePermFR||p.datePerm||'')+'</td>'
+      +'<td><span class="badge" style="background:'+statut.bg+';color:'+statut.color+';font-size:11px">'+statut.label+'</span></td>'
+      +'<td style="text-align:center;font-size:12px">'+(tech?tech.visa||tech.prenom[0]+tech.nom[0]:'—')+'</td>'
+      +'<td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editPreparation('+p.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deletePreparation('+p.id+')"><i class="ti ti-trash"></i></button></div></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function renderCataloguePrep() {
+  const tbody = document.getElementById('cat-prep-tbody'); if(!tbody) return;
+  const cats = state.cataloguePrep||[];
+  if(!cats.length) { tbody.innerHTML='<tr><td colspan="5" class="empty-state"><i class="ti ti-database"></i><p>Aucun réactif dans le catalogue</p></td></tr>'; return; }
+  tbody.innerHTML = cats.map(c=>{
+    const type=PREP_TYPES[c.type]||PREP_TYPES.autre;
+    return '<tr>'
+      +'<td><strong>'+c.nom+'</strong>'+(c.desc?'<br><span style="font-size:11px;color:var(--text3)">'+c.desc+'</span>':'')+'</td>'
+      +'<td><span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:11px">'+type.label+'</span></td>'
+      +'<td style="text-align:center">'+c.peremption+' j</td>'
+      +'<td style="font-family:monospace;font-size:12px">'+(c.format||'AAAA/XXXX')+'</td>'
+      +'<td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editCataloguePrep('+c.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteCataloguePrep('+c.id+')"><i class="ti ti-trash"></i></button></div></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function openModalCataloguePrep() {
+  window._editingCatPrepId = null;
+  ['cp-nom','cp-desc','cp-format'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('cp-type').value='pe';
+  document.getElementById('cp-peremption').value='';
+  document.getElementById('cp-delete-btn').style.display='none';
+  openModal('modal-cat-prep');
+}
+
+function editCataloguePrep(id) {
+  const c=(state.cataloguePrep||[]).find(x=>x.id===id); if(!c) return;
+  window._editingCatPrepId=id;
+  document.getElementById('cp-nom').value=c.nom||'';
+  document.getElementById('cp-type').value=c.type||'pe';
+  document.getElementById('cp-peremption').value=c.peremption||'';
+  document.getElementById('cp-format').value=c.format||'';
+  document.getElementById('cp-desc').value=c.desc||'';
+  document.getElementById('cp-delete-btn').style.display='inline-flex';
+  openModal('modal-cat-prep');
+}
+
+function saveCataloguePrep() {
+  const nom=document.getElementById('cp-nom').value.trim();
+  const per=parseInt(document.getElementById('cp-peremption').value)||0;
+  if(!nom){toast('Le nom est obligatoire','error');return;}
+  if(!per){toast('La durée de péremption est obligatoire','error');return;}
+  const entry={id:window._editingCatPrepId||Date.now(),nom,type:document.getElementById('cp-type').value,peremption:per,format:document.getElementById('cp-format').value.trim()||'AAAA/XXXX',desc:document.getElementById('cp-desc').value.trim()};
+  if(!state.cataloguePrep) state.cataloguePrep=[];
+  if(window._editingCatPrepId){const i=state.cataloguePrep.findIndex(x=>x.id===window._editingCatPrepId);if(i>=0)state.cataloguePrep[i]=entry;}
+  else state.cataloguePrep.push(entry);
+  closeModal('modal-cat-prep'); saveData(); renderCataloguePrep();
+  toast('Réactif enregistré','success');
+}
+
+function deleteCataloguePrep(id) {
+  if(!id) return;
+  state.cataloguePrep=(state.cataloguePrep||[]).filter(x=>x.id!==id);
+  closeModal('modal-cat-prep'); saveData(); renderCataloguePrep();
+}
+
+function openModalPrep() {
+  window._editingPrepId=null;
+  // Peupler réactifs
+  const sel=document.getElementById('prep-reactif');
+  sel.innerHTML='<option value="">— Sélectionner —</option>'+(state.cataloguePrep||[]).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
+  // Peupler techniciens
+  const techSel=document.getElementById('prep-technicien');
+  techSel.innerHTML='<option value="">— Sélectionner —</option>'+(state.techniciens||[]).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
+  document.getElementById('prep-numero').value='';
+  document.getElementById('prep-date-prep').value=new Date().toISOString().slice(0,10);
+  document.getElementById('prep-date-perm').value='';
+  document.getElementById('prep-comment').value='';
+  document.getElementById('prep-reactif-info').style.display='none';
+  document.getElementById('prep-delete-btn').style.display='none';
+  openModal('modal-prep');
+}
+
+function editPreparation(id) {
+  const p=(state.preparations||[]).find(x=>x.id===id); if(!p) return;
+  window._editingPrepId=id;
+  openModalPrep();
+  setTimeout(()=>{
+    document.getElementById('prep-reactif').value=p.catId||'';
+    onPrepReactifChange();
+    document.getElementById('prep-numero').value=p.numero||'';
+    document.getElementById('prep-date-prep').value=p.datePrep||'';
+    document.getElementById('prep-date-perm').value=p.datePerm||'';
+    document.getElementById('prep-technicien').value=p.techId||'';
+    document.getElementById('prep-comment').value=p.comment||'';
+    document.getElementById('prep-delete-btn').style.display='inline-flex';
+  },50);
+}
+
+function onPrepReactifChange() {
+  const catId=parseInt(document.getElementById('prep-reactif')?.value)||0;
+  const cat=(state.cataloguePrep||[]).find(c=>c.id===catId);
+  const info=document.getElementById('prep-reactif-info');
+  if(!cat){if(info)info.style.display='none';return;}
+  const type=PREP_TYPES[cat.type]||PREP_TYPES.autre;
+  if(info){info.style.display='block';info.innerHTML='<span class="badge" style="background:'+type.bg+';color:'+type.text+';font-size:11px">'+type.label+'</span> — Péremption : <strong>'+cat.peremption+' jours</strong> — Format : <code>'+cat.format+'</code>';}
+  // Calculer date péremption
+  const datePrep=document.getElementById('prep-date-prep')?.value;
+  if(datePrep&&cat.peremption){
+    const d=new Date(datePrep);
+    d.setDate(d.getDate()+cat.peremption);
+    document.getElementById('prep-date-perm').value=d.toISOString().slice(0,10);
+  }
+}
+
+function savePreparation() {
+  const catId=parseInt(document.getElementById('prep-reactif').value)||0;
+  const cat=(state.cataloguePrep||[]).find(c=>c.id===catId);
+  const numero=document.getElementById('prep-numero').value.trim();
+  const datePrep=document.getElementById('prep-date-prep').value;
+  if(!catId){toast('Sélectionnez un réactif','error');return;}
+  if(!numero){toast('Le numéro interne est obligatoire','error');return;}
+  if(!datePrep){toast('La date de préparation est obligatoire','error');return;}
+  const datePerm=document.getElementById('prep-date-perm').value;
+  const techId=parseInt(document.getElementById('prep-technicien').value)||null;
+  const entry={
+    id:window._editingPrepId||Date.now(),
+    catId, nom:cat?.nom||'',
+    numero, datePrep, datePerm,
+    datePrepFR:new Date(datePrep).toLocaleDateString('fr-FR'),
+    datePermFR:datePerm?new Date(datePerm).toLocaleDateString('fr-FR'):'',
+    techId, comment:document.getElementById('prep-comment').value.trim()
+  };
+  if(!state.preparations) state.preparations=[];
+  if(window._editingPrepId){const i=state.preparations.findIndex(x=>x.id===window._editingPrepId);if(i>=0)state.preparations[i]=entry;}
+  else state.preparations.push(entry);
+  closeModal('modal-prep'); saveData(); renderPreparations();
+  toast('Préparation enregistrée','success');
+  addActivity('flask','Préparation: '+entry.nom+' '+numero);
+}
+
+function deletePreparation(id) {
+  if(!id) return;
+  state.preparations=(state.preparations||[]).filter(x=>x.id!==id);
+  closeModal('modal-prep'); saveData(); renderPreparations();
+}
+
+
 window.renderArticles = renderArticles;
 
 function openSpqPanel(articleId) {
@@ -5190,6 +5432,17 @@ function openModalSPQForArticle(articleId) {
 }
 
 window.openSpqPanel = openSpqPanel;
+window.renderPreparations = renderPreparations;
+window.renderCataloguePrep = renderCataloguePrep;
+window.openModalPrep = openModalPrep;
+window.openModalCataloguePrep = openModalCataloguePrep;
+window.savePreparation = savePreparation;
+window.saveCataloguePrep = saveCataloguePrep;
+window.deletePreparation = deletePreparation;
+window.deleteCataloguePrep = deleteCataloguePrep;
+window.editPreparation = editPreparation;
+window.editCataloguePrep = editCataloguePrep;
+window.onPrepReactifChange = onPrepReactifChange;
 window.openModalSPQForArticle = openModalSPQForArticle;
 window.closeSpqPanel = closeSpqPanel;
 window.openXlFilter = openXlFilter;
@@ -5921,6 +6174,80 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <div style="display:flex;gap:8px;margin-left:auto">
         <button class="btn" onclick="closeModal('modal-article')">Annuler</button>
         <button class="btn btn-primary" onclick="saveArticle()"><i class="ti ti-check"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CATALOGUE RÉACTIF PRÉPARÉ -->
+<div class="modal-overlay" id="modal-cat-prep">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <i class="ti ti-flask" style="font-size:18px;color:var(--cyan)"></i>
+      <h3 id="modal-cat-prep-title">Nouveau réactif</h3>
+      <button class="close-btn" onclick="closeModal('modal-cat-prep')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Nom du réactif *</label><input id="cp-nom" placeholder="Ex: Acide acétique 10%"></div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Type *</label>
+          <select id="cp-type">
+            <option value="pe">PE (Pharmacopée Européenne)</option>
+            <option value="usp">USP</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Péremption (jours) *</label><input type="number" id="cp-peremption" min="1" placeholder="Ex: 30"></div>
+      </div>
+      <div class="form-group"><label>Format N° interne <span style="color:var(--text3);font-weight:400">(laisser vide pour AAAA/XXXX)</span></label><input id="cp-format" placeholder="Ex: AAAA/XXXX ou format personnalisé"></div>
+      <div class="form-group"><label>Description / Notes</label><textarea id="cp-desc" placeholder="Conditions de préparation, références..."></textarea></div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between">
+      <button class="btn btn-danger" id="cp-delete-btn" onclick="deleteCataloguePrep(window._editingCatPrepId)" style="display:none"><i class="ti ti-trash"></i></button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="btn" onclick="closeModal('modal-cat-prep')">Annuler</button>
+        <button class="btn btn-primary" onclick="saveCataloguePrep()"><i class="ti ti-check"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOUVELLE PRÉPARATION -->
+<div class="modal-overlay" id="modal-prep">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <i class="ti ti-flask" style="font-size:18px;color:var(--cyan)"></i>
+      <h3 id="modal-prep-title">Nouvelle préparation</h3>
+      <button class="close-btn" onclick="closeModal('modal-prep')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Réactif *</label>
+        <select id="prep-reactif" onchange="onPrepReactifChange()">
+          <option value="">— Sélectionner —</option>
+        </select>
+      </div>
+      <div id="prep-reactif-info" style="display:none;background:var(--bg3);border-radius:var(--radius);padding:10px;margin-bottom:12px;font-size:12px"></div>
+      <div class="form-grid">
+        <div class="form-group"><label>N° interne *</label><input id="prep-numero" placeholder="Ex: 2024/0001"></div>
+        <div class="form-group"><label>Date de préparation *</label><input type="date" id="prep-date-prep"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Date de péremption</label><input type="date" id="prep-date-perm" readonly style="background:var(--bg3);color:var(--text2)"></div>
+        <div class="form-group"><label>Préparé par</label>
+          <select id="prep-technicien">
+            <option value="">— Sélectionner —</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Commentaire</label><input id="prep-comment" placeholder="Observations..."></div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between">
+      <button class="btn btn-danger" id="prep-delete-btn" onclick="deletePreparation(window._editingPrepId)" style="display:none"><i class="ti ti-trash"></i></button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="btn" onclick="closeModal('modal-prep')">Annuler</button>
+        <button class="btn btn-primary" onclick="savePreparation()"><i class="ti ti-check"></i> Enregistrer</button>
       </div>
     </div>
   </div>
