@@ -1535,6 +1535,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I10",
       "desc": "Stockage HPLC"
+    },
+    {
+      "id": 1785433053899,
+      "nom": "Acide Acétique R",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "I3",
+      "desc": ""
     }
   ]
 }
