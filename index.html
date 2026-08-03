@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v149 — Physico-Chimie</title>
+<title>LabManager v151 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -188,6 +188,7 @@
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
     <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
 <div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+<div class="nav-item" onclick="goTo('profils-config',this)"><i class="ti ti-users"></i> Profils</div>
 </div></aside>
 <main>
 
@@ -5529,7 +5530,7 @@ function renderPreparations() {
     const statut = getPrepStatut(p);
     const tech = p.techId?(state.techniciens||[]).find(t=>t.id===p.techId):null;
     return '<tr style="border-left:4px solid '+(statut.color==="#f44336"?"#f44336":type.color)+'">'
-      +'<td><strong>'+p.nom+'</strong>'+(cat.emplacement?'<br><span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:10px"></i> '+cat.emplacement+'</span>':'')+'</td>'
+      +'<td><strong>'+p.nom+'</strong>'+(cat.desc?'<br><span style="font-size:11px;color:var(--text3)">'+cat.desc+'</span>':'')+'</td>'
       +'<td style="font-family:monospace;font-weight:600;text-align:center">'+p.numero+'</td>'
       +'<td style="text-align:center">'+formatDate(p.datePrep||'')+'</td>'
       +(()=>{
