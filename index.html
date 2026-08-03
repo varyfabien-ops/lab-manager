@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v155 — Physico-Chimie</title>
+<title>LabManager v156 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -334,7 +334,8 @@
   </div>
   <div id="reactifs-view-archives" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Archives</h1><p>Réactifs Commerciaux archives, retires ou expires</p></div>
+      <div class="page-header-text"><h1>Archives</h1><p>Réactifs Commerciaux archivés, retirés ou expirés</p></div>
+      <div class="page-header-actions"><button class="btn" onclick="goToReactifs('contenants')"><i class="ti ti-arrow-left"></i> Retour</button></div>
     </div>
     <div class="table-card">
       <div class="table-card-header"><h3>Historique</h3><div class="spacer"></div>
@@ -4570,9 +4571,24 @@ function goToReactifs(view) {
   });
   const target = document.getElementById('reactifs-view-'+view);
   if (target) { target.style.display = 'block'; }
-  const subItems = document.querySelectorAll('#reactifs-submenu .nav-sub');
-  const labels = {produits:0, contenants:1, archives:2};
-  if (subItems[labels[view]]) subItems[labels[view]].classList.add('active');
+  // Surbrillance nav : activer le sous-menu correspondant
+  document.querySelectorAll('#reactifs-submenu .nav-sub').forEach(item => {
+    const onclick = item.getAttribute('onclick') || '';
+    const isActive = onclick.includes("'" + view + "'") || 
+      (view === 'archives' && onclick.includes("'archives'")) ||
+      (view === 'produits' && onclick.includes("'produits'")) ||
+      (['catalogue-prep','archives-prep'].includes(view) && onclick.includes("'preparations'")) ||
+      (['archives'].includes(view) && onclick.includes("'contenants'"));
+    // Activer le parent si sous-vue
+    const parentView = {
+      'produits': 'contenants', 'archives': 'contenants',
+      'catalogue-prep': 'preparations', 'archives-prep': 'preparations'
+    }[view];
+    const matchView = parentView ? 
+      (onclick.includes("'" + parentView + "'") || onclick.includes("'" + view + "'")) :
+      onclick.includes("'" + view + "'");
+    if (matchView) item.classList.add('active');
+  });
   if (view === 'produits') renderProduitsAccordion();
   if (view === 'contenants') renderReactifsTable();
   if (view === 'archives') renderArchivesTable();
