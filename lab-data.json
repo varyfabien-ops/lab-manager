@@ -1146,15 +1146,10 @@
     }
   ],
   "commandesStatut": {
-    "1785742919397": "commandee"
+    "1785742919397": "en_attente"
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — Volume Extractible : en_cours",
-      "time": "29/07 16:51"
-    },
     {
       "icon": "clipboard-check",
       "text": "pH — 2 sous-séries — lot TEST",
@@ -1394,6 +1389,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot VBCN32443",
       "time": "03/08 09:50"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande mise a jour : Méthanol HPLC Grade",
+      "time": "03/08 09:51"
     },
     {
       "icon": "shopping-cart",
