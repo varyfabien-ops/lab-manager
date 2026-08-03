@@ -1570,6 +1570,16 @@
       "format": "AAAA/XXXX",
       "emplacement": "I3",
       "desc": ""
+    },
+    {
+      "id": 1785742627021,
+      "nom": "Red Methyl TS",
+      "type": "usp",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "RP - M",
+      "desc": "Dosage USP HCl"
     }
-  ]
+  ],
+  "profils": []
 }
