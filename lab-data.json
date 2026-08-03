@@ -1076,11 +1076,6 @@
   "activity": [
     {
       "icon": "barcode",
-      "text": "Article modifié : M760130000",
-      "time": "29/07 16:41"
-    },
-    {
-      "icon": "barcode",
       "text": "Article modifié : MYYYYYYYY",
       "time": "29/07 16:41"
     },
@@ -1323,6 +1318,11 @@
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
       "time": "30/07 19:52"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Red Methyl TS 2026/0004",
+      "time": "03/08 09:38"
     }
   ],
   "spq": [
@@ -1541,6 +1541,19 @@
       "techId": 1785175077562,
       "comment": "",
       "dateRestrictive": ""
+    },
+    {
+      "id": 1785742696254,
+      "catId": 1785742627021,
+      "nom": "Red Methyl TS",
+      "numero": "2026/0004",
+      "datePrep": "2026-08-03",
+      "datePerm": "2027-02-03",
+      "datePrepFR": "03/08/2026",
+      "datePermFR": "03/02/2027",
+      "techId": 1785175077562,
+      "comment": "",
+      "dateRestrictive": "2028-12-18"
     }
   ],
   "cataloguePrep": [
