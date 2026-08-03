@@ -874,18 +874,6 @@
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "id": 1785743002857
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
       "id": 1785743002858
     },
     {
@@ -1152,11 +1140,6 @@
   "activity": [
     {
       "icon": "clipboard-check",
-      "text": "pH — 2 sous-séries — lot TEST",
-      "time": "29/07 16:52"
-    },
-    {
-      "icon": "clipboard-check",
       "text": "TCC0002 Sodium — 2 sous-séries — lot TEST",
       "time": "29/07 16:52"
     },
@@ -1398,6 +1381,11 @@
     {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
+      "time": "03/08 09:51"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
       "time": "03/08 09:51"
     }
   ],
