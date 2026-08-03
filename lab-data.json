@@ -860,7 +860,7 @@
       "peremption": "2029-01-15",
       "ouverture": "2026-08-03",
       "validite": "2028-01-23",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "id": 1785743002845
     },
@@ -1270,11 +1270,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Lot supprime : TEST (3 entrees)",
-      "time": "29/07 16:48"
-    },
-    {
-      "icon": "trash",
       "text": "Lot supprime : TEST 2 (2 entrees)",
       "time": "29/07 16:48"
     },
@@ -1516,6 +1511,11 @@
     {
       "icon": "archive",
       "text": "Réactif archivé: Acide Acétique R 2026/0003",
+      "time": "03/08 09:44"
+    },
+    {
+      "icon": "lock",
+      "text": "Cloture : Méthanol HPLC Grade lot VBCN32443",
       "time": "03/08 09:44"
     }
   ],
