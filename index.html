@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v152 — Physico-Chimie</title>
+<title>LabManager v155 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -179,7 +179,7 @@
 <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="planning-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToPlanning('semaine')"><i class="ti ti-layout-columns"></i> Planning semaine</div><div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Calendrier</div><div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div></div>
 <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('produits')"><i class="ti ti-database"></i> Fiches produits</div><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Contenants</div><div class="nav-item nav-sub" onclick="goToReactifs('preparations')"><i class="ti ti-flask"></i> Préparations</div><div class="nav-item nav-sub" onclick="goToReactifs('archives')"><i class="ti ti-archive"></i> Archives</div></div>
+<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Réactifs Commerciaux</div><div class="nav-item nav-sub" onclick="goToReactifs('preparations')"><i class="ti ti-flask"></i> Préparations</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
 <div class="nav-item" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles & SPQ</div>
@@ -279,8 +279,8 @@
 <div class="page" id="page-reactifs">
   <div id="reactifs-view-produits" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Fiches produits</h1><p>Catalogue des reactifs du laboratoire</p></div>
-      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau produit</button></div>
+      <div class="page-header-text"><h1>Catalogue réactifs</h1><p>Catalogue des réactifs du laboratoire</p></div>
+      <div class="page-header-actions"><button class="btn" onclick="goToReactifs('contenants')" style="margin-right:8px"><i class="ti ti-arrow-left"></i> Retour</button><button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau réactif</button></div>
     </div>
     <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;display:flex;align-items:center;gap:10px">
       <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Produits enregistres</h3>
@@ -291,14 +291,16 @@
   </div>
   <div id="reactifs-view-contenants" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Contenants</h1><p>Stocks en cours</p></div>
+      <div class="page-header-text"><h1>Réactifs Commerciaux</h1><p>Stocks en cours</p></div>
       <div class="page-header-actions">
         <button class="btn" onclick="imprimerPerimesContenants()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
+        <button class="btn" onclick="goToReactifs('archives')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
+        <button class="btn" onclick="goToReactifs('produits')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
         <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button>
       </div>
     </div>
     <div class="table-card">
-      <div class="table-card-header"><h3>Contenants actifs</h3><div class="spacer"></div>
+      <div class="table-card-header"><h3>Réactifs Commerciaux actifs</h3><div class="spacer"></div>
         <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
       <div style="overflow-x:auto">
@@ -332,7 +334,7 @@
   </div>
   <div id="reactifs-view-archives" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Archives</h1><p>Contenants archives, retires ou expires</p></div>
+      <div class="page-header-text"><h1>Archives</h1><p>Réactifs Commerciaux archives, retires ou expires</p></div>
     </div>
     <div class="table-card">
       <div class="table-card-header"><h3>Historique</h3><div class="spacer"></div>
@@ -364,7 +366,7 @@
   <div id="reactifs-view-preparations" style="display:none">
     <div class="page-header">
       <div class="page-header-text"><h1>Préparations</h1><p>Suivi des réactifs préparés au laboratoire</p></div>
-      <div class="page-header-actions">
+      <div class="page-header-actions"><button class="btn" onclick="goToReactifs('contenants')" style="margin-right:8px"><i class="ti ti-arrow-left"></i> Retour</button>
         <button class="btn" onclick="imprimerPerimes()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
         <button class="btn" onclick="goToReactifs('archives-prep')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
         <button class="btn" onclick="goToReactifs('catalogue-prep')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
@@ -3638,7 +3640,7 @@ function renderProduitsAccordion() {
         ${p.ref?`<code style="font-size:11px;background:var(--bg3);padding:1px 6px;border-radius:4px">${p.ref}</code>`:''}
         ${p.fc?`<span class="badge badge-purple">FC ${p.fc}</span>`:''}
         ${p.localisation?`<span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${p.localisation}</span>`:''}
-        <span class="badge badge-gray" style="margin-left:4px">${contenants.length} contenant${contenants.length>1?'s':''}</span>
+        <span class="badge badge-gray" style="margin-left:4px">${contenants.length} réactif${contenants.length>1?'s commerciaux':" commercial"}</span>
         <div style="margin-left:auto;display:flex;gap:6px">
           <button class="icon-btn" onclick="event.stopPropagation();addContenantForProduit(${p.id})" title="Ajouter un contenant"><i class="ti ti-plus"></i></button>
           <button class="icon-btn" onclick="event.stopPropagation();editProduit(${p.id})"><i class="ti ti-pencil"></i></button>
@@ -3717,7 +3719,7 @@ function saveContenant() {
   if (editingId) {
     const i = state.contenants.findIndex(x=>x.id===editingId);
     state.contenants[i] = { ...state.contenants[i], ...base };
-    addActivity('pencil', 'Contenant modifie : lot '+lot);
+    addActivity('pencil', 'Réactif commercial modifié : lot '+lot);
   } else {
     for (let i = 0; i < nb; i++) {
       state.contenants.push({ ...base, id: Date.now() + i });
@@ -3783,7 +3785,7 @@ function confirmerOuverture() {
 function deleteContenant(id) {
   const c = (state.contenants||[]).find(x=>x.id===id);
   state.contenants = (state.contenants||[]).filter(x=>x.id!==id);
-  addActivity('trash', 'Contenant supprime : lot '+(c?.lot||''));
+  addActivity('trash', 'Réactif commercial supprimé : lot '+(c?.lot||''));
   renderReactifsTable(); renderProduitsAccordion(); updateBadges(); saveData();
 }
 
@@ -4493,7 +4495,7 @@ function imprimerPerimesContenants() {
 
   const win = window.open('', '_blank', 'width=800,height=600');
   win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">'
-    + '<title>Contenants périmés — '+dateStr+'</title>'
+    + '<title>Réactifs Commerciaux périmés — '+dateStr+'</title>'
     + '<style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px;color:#222}'
     + 'h1{font-size:18px;margin-bottom:4px}.subtitle{color:#666;font-size:12px;margin-bottom:24px}'
     + 'table{width:100%;border-collapse:collapse}'
@@ -4503,7 +4505,7 @@ function imprimerPerimesContenants() {
     + '.footer{margin-top:32px;font-size:11px;color:#999;display:flex;justify-content:space-between}'
     + '@media print{body{margin:20px}}</style></head><body>'
     + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">'
-    + '<div><h1>Contenants à éliminer</h1><div class="subtitle">Liste des contenants périmés au '+dateStr+'</div></div>'
+    + '<div><h1>Réactifs Commerciaux à éliminer</h1><div class="subtitle">Liste des contenants périmés au '+dateStr+'</div></div>'
     + '<div style="font-weight:bold;font-size:16px">astrea<br><span style="font-weight:400;font-size:12px">pharma</span></div>'
     + '</div>'
     + '<table><thead><tr><th>Produit</th><th>N° Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead>'
@@ -5288,7 +5290,7 @@ function applyProfile(p) {
   const navMap = {
     'dashboard': ['Tableau de bord'],
     'planning': ['Planning semaine','Calendrier','Catalogue analyses'],
-    'reactifs': ['Réactifs','Fiches produits','Contenants','Préparations','Archives'],
+    'reactifs': ['Réactifs','Réactifs Commerciaux','Préparations','Archives'],
     'echantillons': ['Echantillons','Reception','Produits','Marches','Lots libres'],
     'articles': ['Codes articles & SPQ'],
     'habilitations': ['Habilitations'],
