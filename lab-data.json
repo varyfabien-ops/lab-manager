@@ -861,6 +861,18 @@
       "stockMin": "3",
       "qteCmde": "5",
       "note": "Analyse de la STEP"
+    },
+    {
+      "id": 1785746859729,
+      "nom": "LCK314",
+      "fournisseur": "HACH",
+      "ref": "LCK314",
+      "localisation": "Poste des Eaux",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "3",
+      "qteCmde": "5",
+      "note": "Analyse de la STEP"
     }
   ],
   "contenants": [
@@ -1115,11 +1127,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Marcaïne 2,5 mg/mL SC — 2 entrée(s) — 5 analyse(s)",
-      "time": "29/07 17:50"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : M74012000",
       "time": "29/07 18:35"
@@ -1363,6 +1370,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : LCK339",
       "time": "03/08 10:46"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : LCK314",
+      "time": "03/08 10:47"
     }
   ],
   "spq": [
