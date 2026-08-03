@@ -874,78 +874,6 @@
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "id": 1785743002851
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1785743002852
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1785743002853
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1785743002854
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1785743002855
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1785743002856
-    },
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
       "id": 1785743002857
     },
     {
@@ -1221,36 +1149,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "Amines Tertiaires — 2 sous-séries — lot TEST",
-      "time": "29/07 16:50"
-    },
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — TCC0002 Sodium : en_cours",
-      "time": "29/07 16:51"
-    },
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — Amines Tertiaires : verifiee",
-      "time": "29/07 16:51"
-    },
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
-      "time": "29/07 16:51"
-    },
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — Limpidité / Coloration US : en_cours",
-      "time": "29/07 16:51"
-    },
-    {
-      "icon": "list-check",
-      "text": "TEST-1 — pH : en_cours",
-      "time": "29/07 16:51"
-    },
-    {
       "icon": "list-check",
       "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
       "time": "29/07 16:51"
@@ -1449,6 +1347,36 @@
       "icon": "lock",
       "text": "Cloture : Méthanol HPLC Grade lot VBCN32443",
       "time": "03/08 09:44"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "03/08 09:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "03/08 09:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "03/08 09:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "03/08 09:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "03/08 09:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "03/08 09:50"
     },
     {
       "icon": "trash",
