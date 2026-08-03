@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v151 — Physico-Chimie</title>
+<title>LabManager v152 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -292,7 +292,10 @@
   <div id="reactifs-view-contenants" style="display:none">
     <div class="page-header">
       <div class="page-header-text"><h1>Contenants</h1><p>Stocks en cours</p></div>
-      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button></div>
+      <div class="page-header-actions">
+        <button class="btn" onclick="imprimerPerimesContenants()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
+        <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau contenant</button>
+      </div>
     </div>
     <div class="table-card">
       <div class="table-card-header"><h3>Contenants actifs</h3><div class="spacer"></div>
@@ -4458,6 +4461,60 @@ window.getStatutAuto = getStatutAuto;
 window.populateProduitSelect = populateProduitSelect;
 window.populateTechSelects = populateTechSelects;
 window.renderReactifsTable = renderReactifsTable;
+
+function imprimerPerimesContenants() {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const perimes = (state.contenants||[]).filter(c => {
+    if (['archive','retire'].includes(getStatutAuto(c))) return false;
+    const dateRef = c.validite || c.peremption;
+    if (!dateRef) return false;
+    return new Date(dateRef+'T12:00:00') < today;
+  });
+
+  const dateStr = today.toLocaleDateString('fr-FR', {weekday:'long', day:'2-digit', month:'long', year:'numeric'});
+
+  let rows = '';
+  if (!perimes.length) {
+    rows = '<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun contenant périmé</td></tr>';
+  } else {
+    perimes.forEach(c => {
+      const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+      const dateRef = c.validite || c.peremption;
+      rows += '<tr>'
+        + '<td><strong>'+(p.nom||'—')+'</strong></td>'
+        + '<td style="font-family:monospace">'+(c.lot||'—')+'</td>'
+        + '<td>'+(p.fournisseur||'—')+'</td>'
+        + '<td>'+formatDate(c.ouverture||'')+'</td>'
+        + '<td style="color:#c0392b;font-weight:600">'+formatDate(dateRef)+'</td>'
+        + '<td>'+(p.localisation||'—')+'</td>'
+        + '</tr>';
+    });
+  }
+
+  const win = window.open('', '_blank', 'width=800,height=600');
+  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8">'
+    + '<title>Contenants périmés — '+dateStr+'</title>'
+    + '<style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px;color:#222}'
+    + 'h1{font-size:18px;margin-bottom:4px}.subtitle{color:#666;font-size:12px;margin-bottom:24px}'
+    + 'table{width:100%;border-collapse:collapse}'
+    + 'th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase;letter-spacing:0.5px}'
+    + 'td{padding:8px 10px;border-bottom:1px solid #eee;vertical-align:middle}'
+    + 'tr:last-child td{border-bottom:none}'
+    + '.footer{margin-top:32px;font-size:11px;color:#999;display:flex;justify-content:space-between}'
+    + '@media print{body{margin:20px}}</style></head><body>'
+    + '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">'
+    + '<div><h1>Contenants à éliminer</h1><div class="subtitle">Liste des contenants périmés au '+dateStr+'</div></div>'
+    + '<div style="font-weight:bold;font-size:16px">astrea<br><span style="font-weight:400;font-size:12px">pharma</span></div>'
+    + '</div>'
+    + '<table><thead><tr><th>Produit</th><th>N° Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead>'
+    + '<tbody>'+rows+'</tbody></table>'
+    + '<div class="footer"><span>Imprimé le '+dateStr+'</span><span>LabManager — Physico-Chimie</span></div>'
+    + '<scr'+'ipt>window.onload=()=>window.print();<\/scr'+'ipt>'
+    + '</body></html>');
+  win.document.close();
+}
+
+window.imprimerPerimesContenants = imprimerPerimesContenants;
 window.renderProduitsAccordion = renderProduitsAccordion;
 window.renderPlanningTable = renderPlanningTable;
 window.renderEchantillonsTable = renderEchantillonsTableAlignedV105;
