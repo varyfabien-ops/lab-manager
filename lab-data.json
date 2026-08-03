@@ -837,7 +837,20 @@
   ],
   "stabilites": [],
   "reactifs": [],
-  "produits": [],
+  "produits": [
+    {
+      "id": 1785742919397,
+      "nom": "Méthanol HPLC Grade",
+      "fournisseur": "MERCK",
+      "ref": "41239000",
+      "localisation": "I4",
+      "fc": "0.6",
+      "conditionnement": "2.5 L",
+      "stockMin": "10",
+      "qteCmde": "15",
+      "note": ""
+    }
+  ],
   "contenants": [],
   "produitsEch": [
     {
@@ -1074,11 +1087,6 @@
   "commandesStatut": {},
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article modifié : MYYYYYYYY",
-      "time": "29/07 16:41"
-    },
     {
       "icon": "barcode",
       "text": "Article modifié : M74011000",
@@ -1323,6 +1331,11 @@
       "icon": "flask",
       "text": "Préparation: Red Methyl TS 2026/0004",
       "time": "03/08 09:38"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Méthanol HPLC Grade",
+      "time": "03/08 09:41"
     }
   ],
   "spq": [
