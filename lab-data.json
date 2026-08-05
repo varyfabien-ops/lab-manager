@@ -1666,6 +1666,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I4",
       "desc": ""
+    },
+    {
+      "id": 1785958751543,
+      "nom": "Mélange Eau / Acétonitrile (50/50)",
+      "type": "autre",
+      "peremption": 1,
+      "format": "AAAA/XXXX",
+      "emplacement": "I4",
+      "desc": ""
     }
   ],
   "profils": [
