@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v156 — Physico-Chimie</title>
+<title>LabManager v157 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5626,7 +5626,10 @@ function renderPreparations() {
 
 function renderCataloguePrep() {
   const tbody = document.getElementById('cat-prep-tbody'); if(!tbody) return;
-  const cats = state.cataloguePrep||[];
+  const typeOrder = {pe:0, usp:1, autre:2};
+  const cats = [...(state.cataloguePrep||[])].sort((a,b)=>
+    (typeOrder[a.type]??3)-(typeOrder[b.type]??3) || (a.nom||'').localeCompare(b.nom||'')
+  );
   if(!cats.length) { tbody.innerHTML='<tr><td colspan="5" class="empty-state"><i class="ti ti-database"></i><p>Aucun réactif dans le catalogue</p></td></tr>'; return; }
   tbody.innerHTML = cats.map(c=>{
     const type=PREP_TYPES[c.type]||PREP_TYPES.autre;
