@@ -1648,6 +1648,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "RP - M",
       "desc": "Dosage USP HCl"
+    },
+    {
+      "id": 1785958602112,
+      "nom": "Ammoniaque R",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "FRIGO",
+      "desc": ""
     }
   ],
   "profils": [
