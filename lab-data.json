@@ -1657,6 +1657,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "FRIGO",
       "desc": ""
+    },
+    {
+      "id": 1785958650378,
+      "nom": "Mélange Eau / Méthanol",
+      "type": "autre",
+      "peremption": 1,
+      "format": "AAAA/XXXX",
+      "emplacement": "I4",
+      "desc": ""
     }
   ],
   "profils": [
