@@ -1675,6 +1675,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I4",
       "desc": ""
+    },
+    {
+      "id": 1785998382196,
+      "nom": "Acide Acétique Dilué R",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "I3",
+      "desc": ""
     }
   ],
   "profils": [
