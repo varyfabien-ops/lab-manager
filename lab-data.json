@@ -1693,6 +1693,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I10",
       "desc": "TCC0065"
+    },
+    {
+      "id": 1785998486111,
+      "nom": "Solution de Nitrate d'Argent R1",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "C1",
+      "desc": ""
     }
   ],
   "profils": [
