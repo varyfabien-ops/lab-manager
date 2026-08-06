@@ -1702,6 +1702,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "C1",
       "desc": ""
+    },
+    {
+      "id": 1785998555756,
+      "nom": "Solutions Mères Bupivacaïne",
+      "type": "autre",
+      "peremption": 1,
+      "format": "HCPCxxxx-x p.xx-x",
+      "emplacement": "FRIGO",
+      "desc": "TCC0004"
     }
   ],
   "profils": [
