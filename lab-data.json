@@ -1684,6 +1684,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I3",
       "desc": ""
+    },
+    {
+      "id": 1785998436179,
+      "nom": "Mélange Eau / Isopropanol (47/53)",
+      "type": "autre",
+      "peremption": 1,
+      "format": "AAAA/XXXX",
+      "emplacement": "I10",
+      "desc": "TCC0065"
     }
   ],
   "profils": [
