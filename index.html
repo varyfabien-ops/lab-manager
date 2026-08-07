@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v157 — Physico-Chimie</title>
+<title>LabManager v158 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2850,11 +2850,33 @@ function goTo(page, el) {
 // ============================================================
 // GITHUB SYNC
 // ============================================================
+// ⚙️ CONFIG GITHUB HARDCODÉE — modifiable ici
+const GITHUB_DEFAULT_CONFIG = {
+  token: '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',
+  owner: 'varyfabien-ops',
+  repo: 'lab-manager',
+  path: 'lab-data.json'
+};
+
 function loadGithubConfig() {
+  // Priorité : config hardcodée, puis localStorage
   const saved = localStorage.getItem(STOR_KEY);
-  if (saved) {
+  if (GITHUB_DEFAULT_CONFIG.token && GITHUB_DEFAULT_CONFIG.owner) {
+    githubConfig = { ...GITHUB_DEFAULT_CONFIG };
+    // Si localStorage a une config plus récente (différente), l'utiliser
+    if (saved) {
+      try {
+        const local = JSON.parse(saved);
+        if (local.token && local.token !== GITHUB_DEFAULT_CONFIG.token) {
+          githubConfig = local;
+        }
+      } catch(e) {}
+    }
+  } else if (saved) {
     githubConfig = JSON.parse(saved);
-    setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
+  }
+  if (githubConfig) {
+    setSyncStatus('ok', githubConfig.owner + '/' + githubConfig.repo);
     const banner = document.getElementById('github-banner');
     if (banner) banner.style.display = 'none';
   } else {
