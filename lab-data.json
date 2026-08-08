@@ -1423,15 +1423,10 @@
   ],
   "commandesStatut": {
     "1785742919397": "en_attente",
-    "1785746786712": "commandee"
+    "1785746786712": "en_attente"
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "archive",
-      "text": "Réactif archivé: Acide Acétique R 2026/0003",
-      "time": "03/08 09:44"
-    },
     {
       "icon": "lock",
       "text": "Cloture : Méthanol HPLC Grade lot VBCN32443",
@@ -1671,6 +1666,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : L*a*b",
       "time": "08/08 15:42"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande mise a jour : LCK339",
+      "time": "08/08 16:02"
     },
     {
       "icon": "shopping-cart",
