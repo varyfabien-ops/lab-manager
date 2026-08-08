@@ -1012,55 +1012,68 @@
   "contenants": [
     {
       "produitId": 1786212150511,
-      "lot": "R098B0",
-      "qte": "125 mg",
+      "lot": "R14640",
+      "qte": "200 mg",
       "reception": "2026-08-08",
       "peremption": "",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "coaUrl": "",
-      "id": 1786216261762
+      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
+      "id": 1786216310044
     },
     {
       "produitId": 1786212150511,
-      "lot": "R098B0",
-      "qte": "125 mg",
+      "lot": "R14640",
+      "qte": "200 mg",
       "reception": "2026-08-08",
       "peremption": "",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "coaUrl": "",
-      "id": 1786216261763
+      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
+      "id": 1786216310045
     },
     {
       "produitId": 1786212150511,
-      "lot": "R098B0",
-      "qte": "125 mg",
+      "lot": "R14640",
+      "qte": "200 mg",
       "reception": "2026-08-08",
       "peremption": "",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "coaUrl": "",
-      "id": 1786216261764
+      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
+      "id": 1786216310046
     },
     {
       "produitId": 1786212150511,
-      "lot": "R098B0",
-      "qte": "125 mg",
+      "lot": "R14640",
+      "qte": "200 mg",
       "reception": "2026-08-08",
       "peremption": "",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "coaUrl": "",
-      "id": 1786216261765
+      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
+      "id": 1786216310047
+    },
+    {
+      "produitId": 1786212150511,
+      "lot": "R14640",
+      "qte": "200 mg",
+      "reception": "2026-08-08",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
+      "id": 1786216310048
     }
   ],
   "produitsEch": [
@@ -1399,31 +1412,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
-      "time": "08/08 12:11"
-    },
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Tampon pH 12 lot HC57833622",
-      "time": "08/08 12:19"
-    },
-    {
-      "icon": "lock",
-      "text": "Cloture : Tampon pH 12 lot HC57833622",
-      "time": "08/08 12:23"
-    },
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot HC57833622",
-      "time": "08/08 12:24"
-    },
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot ",
-      "time": "08/08 12:24"
-    },
-    {
-      "icon": "package",
       "text": "6x Tampon pH 9 lot HC56730103 receptionne(s)",
       "time": "08/08 12:27"
     },
@@ -1645,6 +1633,31 @@
     {
       "icon": "trash",
       "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:11"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:11"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:11"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:11"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:11"
+    },
+    {
+      "icon": "package",
+      "text": "5x Propylparaben (PHBP) lot R14640 receptionne(s)",
       "time": "08/08 21:11"
     }
   ],
