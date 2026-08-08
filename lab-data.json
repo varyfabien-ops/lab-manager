@@ -947,7 +947,80 @@
       "note": ""
     }
   ],
-  "contenants": [],
+  "contenants": [
+    {
+      "produitId": 1786178095292,
+      "lot": "HC56730103",
+      "qte": "30",
+      "reception": "2026-06-16",
+      "peremption": "2027-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786184868790
+    },
+    {
+      "produitId": 1786178095292,
+      "lot": "HC56730103",
+      "qte": "30",
+      "reception": "2026-06-16",
+      "peremption": "2027-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786184868791
+    },
+    {
+      "produitId": 1786178095292,
+      "lot": "HC56730103",
+      "qte": "30",
+      "reception": "2026-06-16",
+      "peremption": "2027-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786184868792
+    },
+    {
+      "produitId": 1786178095292,
+      "lot": "HC56730103",
+      "qte": "30",
+      "reception": "2026-06-16",
+      "peremption": "2027-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786184868793
+    },
+    {
+      "produitId": 1786178095292,
+      "lot": "HC56730103",
+      "qte": "30",
+      "reception": "2026-06-16",
+      "peremption": "2027-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786184868794
+    },
+    {
+      "produitId": 1786178095292,
+      "lot": "HC56730103",
+      "qte": "30",
+      "reception": "2026-06-16",
+      "peremption": "2027-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786184868795
+    }
+  ],
   "produitsEch": [
     {
       "id": 1785169889615,
@@ -1278,11 +1351,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "archive",
-      "text": "Réactif archivé: Mélange Eau / Isopropanol (50/50) 2026/0002",
-      "time": "30/07 19:36"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: Acide Acétique R 2026/0003",
       "time": "30/07 19:38"
@@ -1526,6 +1594,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot ",
       "time": "08/08 12:24"
+    },
+    {
+      "icon": "package",
+      "text": "6x Tampon pH 9 lot HC56730103 receptionne(s)",
+      "time": "08/08 12:27"
     }
   ],
   "spq": [
