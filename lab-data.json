@@ -1014,21 +1014,6 @@
       "qte": "30",
       "reception": "2026-06-16",
       "peremption": "2027-02-28",
-      "ouverture": "2026-08-08",
-      "validite": "2027-02-28",
-      "statut": "ouvert",
-      "note": "",
-      "id": 1786184868790,
-      "coaUrl": "blob:https://www.sigmaaldrich.com/b49b66e0-4a75-4bb5-8374-863f973f51b2",
-      "verifiedBy": "FVY",
-      "verifiedAt": "08/08/2026"
-    },
-    {
-      "produitId": 1786178095292,
-      "lot": "HC56730103",
-      "qte": "30",
-      "reception": "2026-06-16",
-      "peremption": "2027-02-28",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
@@ -1607,11 +1592,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "shopping-cart",
-      "text": "Commande mise a jour : Méthanol HPLC Grade",
-      "time": "03/08 09:51"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot VBCN32443",
       "time": "03/08 09:51"
@@ -1855,6 +1835,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Propylparaben (PHBP) lot R14640",
       "time": "08/08 20:04"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC56730103",
+      "time": "08/08 21:09"
     }
   ],
   "spq": [
