@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v178 — Physico-Chimie</title>
+<title>LabManager v179 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4064,7 +4064,7 @@ function renderReactifsTable() {
       <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
       <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
       <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
-      <td style="font-size:12px" class="${expVal.cls}">${c.validite?formatDate(c.validite)+'<br>'+expVal.badge:'<span style="color:var(--text3)">Non ouvert</span>'}</td>
+      <td style="font-size:12px;text-align:center">${c.validite?'<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>':'<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
       <td>
         <div class="actions" style="opacity:1;flex-wrap:wrap">
@@ -4097,12 +4097,12 @@ function isContenantCritical(c) {
 }
 
 function expiryStatus(expiry) {
-  if (!expiry) return { cls:'', badge:`<span class="badge badge-gray">-</span>` };
-  const d = new Date(expiry); const today = new Date(); today.setHours(0,0,0,0);
+  if (!expiry) return { cls:'', badge:'<span class="badge badge-gray">-</span>', color:'', bg:'' };
+  const d = new Date(expiry+'T12:00:00'); const today = new Date(); today.setHours(0,0,0,0);
   const days = Math.ceil((d-today)/(1000*60*60*24));
-  if (days < 0) return { cls:'expiry-danger', badge:`<span class="badge badge-red"><i class="ti ti-alert-circle" style="font-size:11px"></i> Expire</span>` };
-  if (days <= 30) return { cls:'expiry-warn', badge:`<span class="badge badge-amber"><i class="ti ti-clock" style="font-size:11px"></i> ${days}j</span>` };
-  return { cls:'', badge:`<span class="badge badge-green">OK</span>` };
+  if (days < 0) return { cls:'expiry-danger', badge:'<span class="badge badge-red"><i class="ti ti-alert-circle" style="font-size:11px"></i> Expiré</span>', color:'#f44336', bg:'#FFEBEE' };
+  if (days <= 30) return { cls:'expiry-warn', badge:'<span class="badge badge-amber"><i class="ti ti-clock" style="font-size:11px"></i> '+days+'j</span>', color:'#FF9800', bg:'#FFF3E0' };
+  return { cls:'', badge:'<span class="badge badge-green">OK</span>', color:'#4CAF50', bg:'#E8F5E9' };
 }
 
 
