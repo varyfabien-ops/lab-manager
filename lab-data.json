@@ -909,6 +909,18 @@
       "stockMin": "3",
       "qteCmde": "3",
       "note": ""
+    },
+    {
+      "id": 1786178095292,
+      "nom": "Tampon pH 9",
+      "fournisseur": "MERCK",
+      "ref": "1.99003.0001",
+      "localisation": "pHmètre",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "3",
+      "qteCmde": "3",
+      "note": ""
     }
   ],
   "contenants": [],
@@ -1149,11 +1161,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article modifié : M70517000",
-      "time": "29/07 18:37"
-    },
     {
       "icon": "barcode",
       "text": "Article créé : M76014000",
@@ -1398,6 +1405,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 10",
       "time": "08/08 10:32"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Tampon pH 9",
+      "time": "08/08 10:34"
     }
   ],
   "spq": [
