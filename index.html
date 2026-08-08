@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v205 — Physico-Chimie</title>
+<title>LabManager v208 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -46,8 +46,10 @@
 
   .header-top { display: flex; align-items: center; padding: 0 20px; gap: 16px; height: 52px; border-bottom: 1px solid var(--border); }
   .header-nav { display: flex; align-items: center; padding: 0 16px; height: 46px; gap: 4px; overflow-x: auto; }
-  .nav-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--radius); cursor: pointer; color: var(--text2); font-size: 13px; font-weight: 500; border: none; background: none; white-space: nowrap; transition: all 0.15s; }
-  .nav-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+  .nav-btn { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: var(--radius); cursor: pointer; color: var(--text2); font-size: 13px; font-weight: 500; border: none; background: none; white-space: nowrap; transition: all 0.15s; border-bottom: 3px solid transparent; }
+  .nav-btn:hover { background: var(--cyan-dim2); color: var(--text); }
+  .nav-btn.active { background: var(--cyan-dim); color: var(--cyan); border-bottom-color: var(--cyan); }
+  .nav-sep { width: 1px; height: 24px; background: var(--border); margin: 0 2px; }
   .nav-btn:hover { background: var(--cyan-dim2); color: var(--text); }
   .nav-btn.active { background: var(--cyan-dim); color: var(--cyan); }
   .nav-dropdown { position: relative; }
@@ -185,9 +187,9 @@
     <button class="nav-btn" onclick="goToPlanning('calendar')" id="nav-plan-calendar"><i class="ti ti-calendar-event"></i> Calendrier</button>
     <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue</button>
     <div class="nav-sep"></div>
-    <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> RC <span class="nav-badge-h" id="badge-reactifs" style="display:none">0</span></button>
+    <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> Réactifs Commerciaux <span class="nav-badge-h" id="badge-reactifs" style="display:none">0</span></button>
     <button class="nav-btn" onclick="goToReactifs('preparations')" id="nav-preparations"><i class="ti ti-flask"></i> Préparations</button>
-    <button class="nav-btn" onclick="goTo('commandes',null)" id="nav-commandes"><i class="ti ti-shopping-cart"></i> Commandes</button>
+    <button class="nav-btn" onclick="goTo('commandes',null)" id="nav-commandes"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge-h" id="badge-commandes" style="display:none">0</span></button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Réception</button>
     <button class="nav-btn" onclick="goToEch('marches')" id="nav-marches"><i class="ti ti-world"></i> Marchés</button>
@@ -1670,6 +1672,18 @@ function populatePIFMarches() {
     +'<input type="checkbox" value="'+m.id+'" style="flex-shrink:0">'
     +'<span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</span>'
     +'</label>').join('');
+}
+function isPIFOnly() {
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
+  return pif && !stab && !mp;
+}
+function isMPOnly() {
+  const pif = document.getElementById('w-type-pif')?.checked||false;
+  const stab = document.getElementById('w-type-stab')?.checked||false;
+  const mp = document.getElementById('w-type-mp')?.checked||false;
+  return mp && !pif && !stab;
 }
 function isStabOnly() {
   const pif = document.getElementById('w-type-pif')?.checked||false;
@@ -4727,13 +4741,27 @@ function populateTechSelects() {
 // BADGES & UTILS
 // ============================================================
 function updateBadges() {
-  const critical = (state.contenants||[]).filter(c=>isContenantCritical(c) && c.statut !== 'archive' && c.statut !== 'retire').length;
+  // Badge Réactifs Commerciaux : stock = 0 (rupture totale) en rouge
+  const enRupture = (state.produits||[]).filter(p => {
+    const stock = (state.contenants||[]).filter(c => c.produitId===p.id && !['archive','retire'].includes(getStatutAuto(c))).length;
+    return stock === 0 && p.stockMin > 0;
+  }).length;
   const badge = document.getElementById('badge-reactifs');
-  if (badge) { badge.textContent = critical; badge.style.display = critical ? '' : 'none'; }
-  // Badge commandes
+  if (badge) {
+    badge.textContent = enRupture;
+    badge.style.display = enRupture ? '' : 'none';
+    badge.style.background = '#f44336';
+    badge.style.color = 'white';
+  }
+  // Badge Commandes : produits sous stock minimum (amber) + rupture rouge
   const nbCmd = getProduitsSousMin ? getProduitsSousMin().length : 0;
   const badgeCmd = document.getElementById('badge-commandes');
-  if (badgeCmd) { badgeCmd.textContent = nbCmd; badgeCmd.style.display = nbCmd ? '' : 'none'; }
+  if (badgeCmd) {
+    badgeCmd.textContent = nbCmd;
+    badgeCmd.style.display = nbCmd ? '' : 'none';
+    badgeCmd.style.background = enRupture > 0 ? '#f44336' : '#FF9800';
+    badgeCmd.style.color = 'white';
+  }
   const recDue = (state.enregistrements||[]).filter(r=>isRecordDue(r)).length;
   const badgeRec = document.getElementById('badge-enregistrements');
   if (badgeRec) { badgeRec.textContent = recDue; badgeRec.style.display = recDue ? '' : 'none'; }
@@ -5814,8 +5842,14 @@ function enterAdmin() {
 function applyProfile(p) {
   const allowed = p ? (p.modules||[]) : ALL_MODULES.map(m=>m.key);
   // Réinitialiser
-  document.querySelectorAll('.nav-btn').forEach(el => el.style.display = '');
+  const profileColor = p?.color || 'var(--cyan)';
+  document.querySelectorAll('.nav-btn').forEach(el => { el.style.display = ''; el.style.setProperty('--profile-color', profileColor); });
   document.querySelectorAll('.nav-sep').forEach(el => el.style.display = '');
+  // Appliquer la couleur du profil sur les boutons actifs via CSS variable
+  const styleId = 'profile-nav-style';
+  let styleEl = document.getElementById(styleId);
+  if (!styleEl) { styleEl = document.createElement('style'); styleEl.id = styleId; document.head.appendChild(styleEl); }
+  styleEl.textContent = '.nav-btn.active { background: ' + profileColor + '18 !important; color: ' + profileColor + ' !important; border-bottom-color: ' + profileColor + ' !important; } .nav-btn:hover { border-bottom-color: ' + profileColor + '66; }';
   if (!p) return;
   const navMap = {
     'dashboard':     ['nav-dashboard'],
