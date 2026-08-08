@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v203 — Physico-Chimie</title>
+<title>LabManager v204 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -3024,7 +3024,6 @@ function renderAll() {
   renderProfilsConfig();
   // Initialiser les sous-vues sans changer la page active
   // Reactifs : afficher contenants par defaut
-  updateNavActive('reactifs-'+view);
   ['produits','contenants','archives','preparations','catalogue-prep','archives-prep'].forEach(v => {
     const el = document.getElementById('reactifs-view-'+v);
     if (el) el.style.display = v === 'contenants' ? 'block' : 'none';
