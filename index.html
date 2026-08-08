@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v162 — Physico-Chimie</title>
+<title>LabManager v163 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -2850,35 +2850,38 @@ function goTo(page, el) {
 // ============================================================
 // GITHUB SYNC
 // ============================================================
-// ⚙️ CONFIG GITHUB HARDCODÉE — modifiable ici
-const GITHUB_DEFAULT_CONFIG = {
-  token: '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',
-  owner: 'varyfabien-ops',
-  repo: 'lab-manager',
-  path: 'lab-data.json'
-};
-
 function loadGithubConfig() {
-  // Priorité : config hardcodée, puis localStorage
-  const saved = localStorage.getItem(STOR_KEY);
-  if (GITHUB_DEFAULT_CONFIG.token && GITHUB_DEFAULT_CONFIG.owner) {
-    githubConfig = { ...GITHUB_DEFAULT_CONFIG };
-    // Si localStorage a une config plus récente (différente), l'utiliser
-    if (saved) {
-      try {
-        const local = JSON.parse(saved);
-        if (local.token && local.token !== GITHUB_DEFAULT_CONFIG.token) {
-          githubConfig = local;
-        }
-      } catch(e) {}
-    }
-  } else if (saved) {
-    githubConfig = JSON.parse(saved);
+  // 1. Lire le token depuis l'URL si présent (?token=ghp_xxx)
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlToken = urlParams.get('token');
+  const urlOwner = urlParams.get('owner');
+  const urlRepo = urlParams.get('repo');
+
+  if (urlToken) {
+    // Sauvegarder en localStorage et nettoyer l'URL
+    const config = {
+      token: urlToken,
+      owner: urlOwner || 'varyfabien-ops',
+      repo: urlRepo || 'lab-manager',
+      path: 'lab-data.json'
+    };
+    localStorage.setItem(STOR_KEY, JSON.stringify(config));
+    // Nettoyer l'URL sans recharger
+    window.history.replaceState({}, document.title, window.location.pathname);
+    githubConfig = config;
+    setSyncStatus('ok', config.owner + '/' + config.repo);
+    return;
   }
-  if (githubConfig) {
-    setSyncStatus('ok', githubConfig.owner + '/' + githubConfig.repo);
-    const banner = document.getElementById('github-banner');
-    if (banner) banner.style.display = 'none';
+
+  // 2. Lire depuis localStorage
+  const saved = localStorage.getItem(STOR_KEY);
+  if (saved) {
+    try {
+      githubConfig = JSON.parse(saved);
+      setSyncStatus('ok', githubConfig.owner + '/' + githubConfig.repo);
+      const banner = document.getElementById('github-banner');
+      if (banner) banner.style.display = 'none';
+    } catch(e) {}
   } else {
     const banner = document.getElementById('github-banner');
     if (banner) banner.style.display = 'flex';
