@@ -299,12 +299,12 @@
       <table style="table-layout:fixed;min-width:900px">
         <thead><tr>
           <th style="width:180px">Produit<br><input class="filter-input" id="f-produit" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-          <th style="width:110px">N Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+          <th style="width:110px">N° de Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
           <th style="width:120px">Fournisseur<br><input class="filter-input" id="f-fourn" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-          <th style="width:90px">Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
-          <th style="width:90px">Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
-          <th style="width:100px">Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
-          <th style="width:130px">Validite<br>
+          <th style="width:90px">Date de Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
+          <th style="width:90px">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
+          <th style="width:100px">Date de Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
+          <th style="width:130px">Date de Validite<br>
             <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()">
               <option value="">Tous</option><option value="ok">OK</option>
               <option value="alerte">Alerte</option><option value="expire">Expire</option>
@@ -327,7 +327,7 @@
   <!-- VUE ARCHIVES PRÉPARATIONS -->
   <div id="reactifs-view-archives-prep" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Archives préparations</h1><p>Réactifs périmés ou terminés</p></div>
+      <div class="page-header-text"><h1>Archives des Solutions Préparées</h1><p>Solutions Préparées périmées ou terminées</p></div>
       <div class="page-header-actions"><button class="btn" onclick="goToReactifs('preparations')"><i class="ti ti-arrow-left"></i> Retour</button></div>
     </div>
     <div class="table-card">
