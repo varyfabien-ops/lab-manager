@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v187 — Physico-Chimie</title>
+<title>LabManager v190 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -262,7 +262,7 @@
       <div class="table-card-header"><h3>Analyses referencees</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
       </div>
-      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations</th><th>Duree</th><th>Description</th><th></th></tr></thead>
+      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations</th><th>Description</th><th></th></tr></thead>
       <tbody id="catalogue-tbody"></tbody></table>
     </div>
   </div>
@@ -649,6 +649,25 @@
     </div>
   </div>
   <div id="profils-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px"></div>
+</div>
+
+<div class="page" id="page-commandes-archives">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Archives commandes</h1><p>Historique des commandes réceptionnées</p></div>
+    <div class="page-header-actions">
+      <button class="btn" onclick="goTo('commandes',null)"><i class="ti ti-arrow-left"></i> Retour</button>
+    </div>
+  </div>
+  <div class="table-card">
+    <table><thead><tr>
+      <th>Produit</th><th>Fournisseur</th><th>Référence</th>
+      <th style="width:120px">N° DA</th>
+      <th style="width:130px">Date livraison prévue</th>
+      <th style="width:130px">Date réception</th>
+      <th style="width:60px"></th>
+    </tr></thead>
+    <tbody id="commandes-archives-tbody"></tbody></table>
+  </div>
 </div>
 </main>
 </div>
@@ -2893,6 +2912,7 @@ let state = {
   preparations: [],
   cataloguePrep: [],
   profils: [],
+  commandesArchives: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -3121,7 +3141,7 @@ async function loadData() {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[] };
+    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     updateBadges();
@@ -3553,7 +3573,7 @@ function renderCatalogue() {
     return `<tr>
     <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
     <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
-    <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
+    <td style="font-size:12px;color:var(--text2)">${a.description||a.duree||'—'}</td>
     <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
   </tr>`;
   }).join('');
@@ -4387,7 +4407,7 @@ function renderCommandes() {
   const tbody = document.getElementById('commandes-tbody');
   if (!tbody) return;
   if (!produits.length) {
-    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande a passer</p></div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="ti ti-shopping-cart"></i><p>Aucune commande à passer</p></div></td></tr>';
     return;
   }
 
@@ -4400,23 +4420,36 @@ function renderCommandes() {
     const urgenceBadge = urgent
       ? '<span class="badge badge-red"><i class="ti ti-urgent" style="font-size:10px"></i> Rupture</span>'
       : '<span class="badge badge-amber"><i class="ti ti-alert-triangle" style="font-size:10px"></i> Alerte</span>';
-    const statutOptions = [
-      {v:'a_commander', l:'A commander'},
-      {v:'commandee', l:'Commandee'},
-      {v:'en_attente', l:'En attente livraison'},
-    ];
+    const cmdData = (state.commandesStatut||{})[p.id] || {};
+    const cmdStatutVal = typeof cmdData === 'string' ? cmdData : (cmdData.statut||'a_commander');
+    const ORDER = ['a_commander','commandee','en_attente','receptionnee'];
+    const curIdx = ORDER.indexOf(cmdStatutVal);
+    // Infos sous les icônes
+    const infoDa = cmdData.da ? '<div style="font-size:10px;color:var(--text2)">DA: <strong>'+cmdData.da+'</strong></div>' : '';
+    const infoDatLiv = cmdData.dateLiv ? '<div style="font-size:10px;color:var(--text2)">Liv: '+formatDate(cmdData.dateLiv)+'</div>' : '';
+    // Icônes progressives
+    function cmdIcon(idx, icon, label, color, done, next) {
+      if(done) return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><div style="width:36px;height:36px;border-radius:50%;background:'+color+';display:flex;align-items:center;justify-content:center;color:white"><i class="ti '+icon+'" style="font-size:16px"></i></div><span style="font-size:9px;font-weight:600;color:'+color+'">'+label+'</span></div>';
+      if(next) return '<button onclick="setCommandeStatut('+p.id+',\''+ORDER[idx]+'\')" style="background:none;border:2px dashed #ccc;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#aaa" title="Passer à : '+label+'"><i class="ti '+icon+'" style="font-size:16px"></i></button>';
+      return '<div style="width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center"><i class="ti '+icon+'" style="font-size:16px;color:var(--border)"></i></div>';
+    }
+    const icons = [
+      cmdIcon(0,'ti-shopping-cart','À cmd','#6c757d', curIdx>=0, curIdx===0),
+      cmdIcon(1,'ti-file-invoice','Cmdée','#2196F3', curIdx>=1, curIdx===1),
+      cmdIcon(2,'ti-truck','En attente','#FF9800', curIdx>=2, curIdx===2),
+      cmdIcon(3,'ti-package-import','Reçue','#4CAF50', curIdx>=3, curIdx===3),
+    ].join('<div style="width:16px;height:2px;background:var(--border);margin-top:18px;flex-shrink:0"></div>');
     return `<tr style="${urgent?'background:var(--red-dim)':''}">
       <td><strong>${p.nom}</strong>${p.localisation?'<br><span style="font-size:11px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
       <td>${p.fournisseur||'-'}</td>
       <td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">${p.ref||'-'}</code></td>
-      <td style="text-align:center"><strong style="font-size:18px;color:${urgent?'var(--red)':'var(--amber)'}">${stock}</strong><br><span style="font-size:11px;color:var(--text3)">contenant${stock>1?'s':''}</span></td>
-      <td style="text-align:center"><strong>${min}</strong><br><span style="font-size:11px;color:var(--text3)">minimum</span></td>
+      <td style="text-align:center"><strong style="font-size:18px;color:${urgent?'var(--red)':'var(--amber)'}">${stock}</strong></td>
+      <td style="text-align:center"><strong>${min}</strong></td>
       <td style="text-align:center">${p.qteCmde?'<strong>'+p.qteCmde+'</strong>':'-'}</td>
       <td>${urgenceBadge}</td>
       <td>
-        <select style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;color:var(--text);font-size:12px;cursor:pointer" onchange="setCommandeStatut(${p.id}, this.value)">
-          ${statutOptions.map(o=>`<option value="${o.v}" ${cmdStatut===o.v?'selected':''}>${o.l}</option>`).join('')}
-        </select>
+        <div style="display:flex;align-items:center;gap:0">${icons}</div>
+        ${infoDa}${infoDatLiv}
       </td>
     </tr>`;
   }).join('');
@@ -4424,10 +4457,89 @@ function renderCommandes() {
 
 function setCommandeStatut(produitId, statut) {
   if (!state.commandesStatut) state.commandesStatut = {};
-  state.commandesStatut[produitId] = statut;
-  addActivity('shopping-cart', 'Commande mise a jour : ' + ((state.produits||[]).find(p=>p.id===produitId)?.nom||''));
-  saveData();
+  const existing = state.commandesStatut[produitId];
+  const prev = typeof existing === 'string' ? {statut: existing} : (existing||{});
+  const p = (state.produits||[]).find(x=>x.id===produitId);
+
+  if (statut === 'commandee') {
+    showCmdPopup('N° DA (Demande d\'Achat)', prev.da||'', (da) => {
+      state.commandesStatut[produitId] = { ...prev, statut, da };
+      saveData(); renderCommandes();
+    });
+    return;
+  } else if (statut === 'en_attente') {
+    showCmdPopup('Date de livraison prévue', prev.dateLiv||new Date().toISOString().slice(0,10), (dateLiv) => {
+      state.commandesStatut[produitId] = { ...prev, statut, dateLiv };
+      saveData(); renderCommandes();
+    }, true);
+    return;
+  } else if (statut === 'receptionnee') {
+    showCmdPopup('Date de réception', new Date().toISOString().slice(0,10), (dateReception) => {
+      // Archiver
+      if (!state.commandesArchives) state.commandesArchives = [];
+      state.commandesArchives.push({
+        id: Date.now(),
+        produitId, nom: p?.nom||'', fournisseur: p?.fournisseur||'', ref: p?.ref||'',
+        da: prev.da||'', dateLiv: prev.dateLiv||'', dateReception,
+        archivedAt: new Date().toLocaleDateString('fr-FR')
+      });
+      delete state.commandesStatut[produitId];
+      saveData();
+      toast('Commande archivée ! Vous pouvez maintenant enregistrer la réception.', 'success');
+      renderCommandes();
+      // Pré-remplir et ouvrir le wizard de réception
+      setTimeout(() => {
+        goTo('reception', null);
+        setTimeout(() => {
+          openWizard();
+          // Pré-sélectionner MP et chercher le produit
+          toggleTypeCard('mp');
+          const artInput = document.getElementById('w-code-article');
+          // Chercher l'article lié à ce produit
+          const art = (state.articles||[]).find(a => a.nom && p && a.nom.toLowerCase().includes((p.nom||'').toLowerCase().split(' ')[0]));
+          if(art && artInput) {
+            artInput.value = art.code;
+            onWizardCodeArticleChange();
+          }
+        }, 300);
+      }, 500);
+    }, true);
+    return;
+  }
+  state.commandesStatut[produitId] = { ...prev, statut };
+  addActivity('shopping-cart', 'Commande : ' + (p?.nom||'') + ' → ' + statut);
+  saveData(); renderCommandes();
 }
+
+function showCmdPopup(label, defaultVal, callback, isDate) {
+  const existing = document.getElementById('cmd-popup');
+  if(existing) existing.remove();
+  const popup = document.createElement('div');
+  popup.id = 'cmd-popup';
+  popup.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:320px';
+  const inputHtml = isDate
+    ? '<input type="date" id="cmd-popup-input" value="'+defaultVal+'" style="width:100%;margin-bottom:16px;padding:8px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg2);color:var(--text)">'
+    : '<input type="text" id="cmd-popup-input" value="'+defaultVal+'" placeholder="'+label+'" style="width:100%;margin-bottom:16px;padding:8px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg2);color:var(--text)">';
+  popup.innerHTML = '<div style="font-weight:700;margin-bottom:12px">'+label+'</div>'
+    + inputHtml
+    + '<div style="display:flex;gap:8px;justify-content:flex-end">'
+    + '<button id="cmd-popup-cancel" class="btn">Annuler</button>'
+    + '<button id="cmd-popup-ok" class="btn btn-primary">Confirmer</button>'
+    + '</div>';
+  document.body.appendChild(popup);
+  popup.addEventListener('click', e=>e.stopPropagation());
+  const input = popup.querySelector('#cmd-popup-input');
+  input.focus(); input.select();
+  popup.querySelector('#cmd-popup-cancel').onclick = () => popup.remove();
+  popup.querySelector('#cmd-popup-ok').onclick = () => {
+    const val = input.value.trim();
+    if(!val) { toast('Veuillez saisir une valeur','error'); return; }
+    popup.remove();
+    callback(val);
+  };
+  input.addEventListener('keydown', e => { if(e.key==='Enter') popup.querySelector('#cmd-popup-ok').click(); });
+}
+window.showCmdPopup = showCmdPopup;
 
 function exportCommandes() {
   const produits = getProduitsSousMin();
@@ -4651,6 +4763,34 @@ window.getStatutAuto = getStatutAuto;
 window.populateProduitSelect = populateProduitSelect;
 window.populateTechSelects = populateTechSelects;
 window.renderReactifsTable = renderReactifsTable;
+
+function renderCommandesArchives() {
+  const tbody = document.getElementById('commandes-archives-tbody'); if(!tbody) return;
+  const archives = [...(state.commandesArchives||[])].reverse();
+  if(!archives.length) {
+    tbody.innerHTML='<tr><td colspan="7" class="empty-state"><i class="ti ti-archive"></i><p>Aucune commande archivée</p></td></tr>';
+    return;
+  }
+  tbody.innerHTML = archives.map(a => '<tr>'
+    +'<td><strong>'+a.nom+'</strong></td>'
+    +'<td>'+( a.fournisseur||'—')+'</td>'
+    +'<td><code style="font-size:11px;background:var(--bg3);padding:2px 6px;border-radius:4px">'+(a.ref||'—')+'</code></td>'
+    +'<td style="font-size:12px">'+(a.da||'—')+'</td>'
+    +'<td style="font-size:12px">'+formatDate(a.dateLiv||'')+'</td>'
+    +'<td style="font-size:12px;color:var(--green);font-weight:600">'+formatDate(a.dateReception||'')+'</td>'
+    +'<td><button class="icon-btn danger" onclick="supprimerArchiveCommande('+a.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></td>'
+    +'</tr>'
+  ).join('');
+}
+
+function supprimerArchiveCommande(id) {
+  state.commandesArchives = (state.commandesArchives||[]).filter(x=>x.id!==id);
+  saveData(); renderCommandesArchives();
+}
+
+window.renderCommandesArchives = renderCommandesArchives;
+window.supprimerArchiveCommande = supprimerArchiveCommande;
+
 
 // ============================================================
 // FILTRES EXCEL RÉACTIFS COMMERCIAUX
