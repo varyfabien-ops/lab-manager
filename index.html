@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v197 — Physico-Chimie</title>
+<title>LabManager v198 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -772,6 +772,10 @@
         <div class="form-group"><label>Référence catalogue</label><input id="r-ref" placeholder="Ex: 34998"></div>
         <div class="form-group"><label>Localisation</label><input id="r-loc" placeholder="Ex: Armoire A - étagère 2"></div>
         <div class="form-group"><label>Facteur correctif</label><input id="r-fc" type="number" step="0.01" min="0" max="1" placeholder="Ex: 0.5"></div>
+        <div class="form-group" style="display:flex;align-items:center;gap:8px;padding-top:20px">
+          <input type="checkbox" id="r-bvs" style="width:16px;height:16px;cursor:pointer">
+          <label for="r-bvs" style="cursor:pointer;margin:0">Validité référence <strong>BVS</strong></label>
+        </div>
         <div class="form-group"><label>Conditionnement</label><input id="r-cond" placeholder="Ex: 2.5 L, 500 g..."></div>
         <div class="form-group"><label>Stock minimum (contenants)</label><input id="r-stock-min" type="number" min="0" placeholder="Ex: 2"></div>
         <div class="form-group"><label>Quantité à commander</label><input id="r-qte-cmd" type="number" min="0" placeholder="Ex: 5"></div>
@@ -4081,7 +4085,7 @@ function renderReactifsTable() {
       <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
       <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
       <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
-      <td style="font-size:12px;text-align:center">${c.validite?'<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>':'<span style="color:var(--text3)">Non ouvert</span>'}</td>
+      <td style="font-size:12px;text-align:center">${p.bvs ? '<span class="badge" style="background:#EDE7F6;color:#7C3AED;font-size:12px;font-weight:600">BVS</span>' : c.validite ? '<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>' : '<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
       <td style="text-align:center;font-size:12px">${c.ouverture ? formatDate(c.ouverture) : '<span style="color:var(--text3)">—</span>'}</td>
       <td style="text-align:center">${c.verifiedBy ? '<span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyContenant('+c.id+')" title="Cliquer pour annuler">✓ '+c.verifiedBy+'</span>' : '<button onclick="verifyContenant('+c.id+')" style="background:none;border:2px dashed #ddd;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:11px;color:#aaa">Vérifier</button>'}</td>
