@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v198 — Physico-Chimie</title>
+<title>LabManager v200 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -300,6 +300,7 @@
         <thead><tr>
           <th style="width:200px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
           <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
+          <th style="width:110px">Emplacement</th>
           <th style="width:90px">Date de Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
           <th style="width:90px">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
           <th style="width:100px">Date de Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
@@ -817,7 +818,12 @@
         <input type="date" id="ouv-date" oninput="afficherValiditeOuverture()">
       </div>
       <div id="ouv-validite-display" style="margin-top:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:13px;color:var(--text2);display:none"></div>
-
+      <div class="form-group" style="margin-top:12px">
+        <label>Ouvert par *</label>
+        <select id="ouv-tech">
+          <option value="">— Sélectionner —</option>
+        </select>
+      </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-ouverture')">Annuler</button><button class="btn btn-primary" onclick="confirmerOuverture()"><i class="ti ti-check"></i> Confirmer l'ouverture</button></div>
   </div>
@@ -3894,17 +3900,23 @@ function afficherValiditeOuverture() {
   const ouv = document.getElementById('ouv-date').value;
   const c = ouvertureCible;
   if (!c || !ouv) return;
-  const result = computeValidite(ouv, c.peremption, c.produitId);
+  const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
   const disp = document.getElementById('ouv-validite-display');
   if (!disp) return;
   disp.style.display = 'block';
+  // Si BVS ou pas de péremption fournisseur : pas de calcul
+  if (p.bvs || !c.peremption) {
+    disp.innerHTML = '<span style="color:#7C3AED"><strong>Référence BVS</strong> — validité à vérifier dans le BVS</span>';
+    return;
+  }
+  const result = computeValidite(ouv, c.peremption, c.produitId);
   if (!result) { disp.innerHTML = '<span style="color:var(--red)">Date invalide</span>'; return; }
   const today = new Date(); today.setHours(0,0,0,0);
   const restants = Math.ceil((new Date(result.date) - today)/(1000*60*60*24));
-  const fcTxt = result.fc !== 1 ? ' (FC '+result.fc+' x '+result.jours+'j)' : '';
-  if (restants < 0) disp.innerHTML = '<span style="color:var(--red)">Validite : '+formatDate(result.date)+' - Expire'+fcTxt+'</span>';
-  else if (restants <= 30) disp.innerHTML = '<span style="color:var(--amber)">Validite : '+formatDate(result.date)+' - '+restants+'j restants'+fcTxt+'</span>';
-  else disp.innerHTML = '<span style="color:var(--green)">Validite : '+formatDate(result.date)+' - '+restants+'j restants'+fcTxt+'</span>';
+  const fcTxt = result.fc !== 1 ? ' (FC '+result.fc+' × '+result.jours+'j)' : '';
+  if (restants < 0) disp.innerHTML = '<span style="color:var(--red)">Validité : '+formatDate(result.date)+' — Expiré'+fcTxt+'</span>';
+  else if (restants <= 30) disp.innerHTML = '<span style="color:var(--amber)">Validité : '+formatDate(result.date)+' — '+restants+'j restants'+fcTxt+'</span>';
+  else disp.innerHTML = '<span style="color:var(--green)">Validité : '+formatDate(result.date)+' — '+restants+'j restants'+fcTxt+'</span>';
 }
 
 // -- CONTENANTS -----------------------------------------------
@@ -3975,6 +3987,11 @@ function ouvrirContenant(id) {
   document.getElementById('ouv-validite-display').style.display = 'none';
   document.getElementById('ouv-validite-display').innerHTML = '';
   const coaEl = document.getElementById('ouv-coa'); if(coaEl) coaEl.value = ouvertureCible.coaUrl||'';
+  const ouvTechSel = document.getElementById('ouv-tech');
+  if(ouvTechSel) {
+    ouvTechSel.innerHTML = '<option value="">— Sélectionner —</option>'
+      + (state.techniciens||[]).map(t=>'<option value="'+(t.visa||t.prenom[0]+t.nom[0])+'">['+(t.visa||'?')+'] '+t.prenom+' '+t.nom+'</option>').join('');
+  }
   const el = document.getElementById('modal-ouverture');
   el.classList.add('open'); el.style.display = 'flex';
   afficherValiditeOuverture();
@@ -3983,10 +4000,13 @@ function ouvrirContenant(id) {
 function confirmerOuverture() {
   const ouv = document.getElementById('ouv-date').value;
   if (!ouv || !ouvertureCible) { toast('Date obligatoire', 'error'); return; }
-  const result = computeValidite(ouv, ouvertureCible.peremption, ouvertureCible.produitId);
+  const pOuv = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
+  const result = (pOuv.bvs || !ouvertureCible.peremption) ? null : computeValidite(ouv, ouvertureCible.peremption, ouvertureCible.produitId);
   const i = state.contenants.findIndex(x=>x.id===ouvertureCible.id);
   if (i < 0) return;
+  const ouvVisa = document.getElementById('ouv-tech')?.value||'';
   state.contenants[i].ouverture = ouv;
+  state.contenants[i].ouvertPar = ouvVisa;
   state.contenants[i].validite = result ? result.date : '';
   state.contenants[i].statut = 'ouvert';
   const p = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
@@ -4080,14 +4100,15 @@ function renderReactifsTable() {
     const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
     const canOpen = !c.ouverture && statAuto !== 'archive' && statAuto !== 'retire';
     return `<tr>
-      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}${p.localisation?'<br><span style="font-size:10px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
+      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}</td>
       <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
+      <td style="font-size:12px;color:var(--text2)">${p.localisation||'—'}</td>
       <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
       <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
       <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
       <td style="font-size:12px;text-align:center">${p.bvs ? '<span class="badge" style="background:#EDE7F6;color:#7C3AED;font-size:12px;font-weight:600">BVS</span>' : c.validite ? '<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>' : '<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
-      <td style="text-align:center;font-size:12px">${c.ouverture ? formatDate(c.ouverture) : '<span style="color:var(--text3)">—</span>'}</td>
+      <td style="text-align:center;font-size:12px">${c.ouverture ? (c.ouvertPar?'<strong>'+c.ouvertPar+'</strong><br>':'')+'<span style="font-size:10px;color:var(--text3)">'+formatDate(c.ouverture)+'</span>' : '<span style="color:var(--text3)">—</span>'}</td>
       <td style="text-align:center">${c.verifiedBy ? '<span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyContenant('+c.id+')" title="Cliquer pour annuler">✓ '+c.verifiedBy+'</span>' : '<button onclick="verifyContenant('+c.id+')" style="background:none;border:2px dashed #ddd;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:11px;color:#aaa">Vérifier</button>'}</td>
       <td>
         <div class="actions" style="opacity:1;flex-wrap:nowrap;gap:4px">
