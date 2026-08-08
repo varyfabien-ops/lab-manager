@@ -1780,6 +1780,16 @@
       "modules": [
         "echantillons"
       ]
+    },
+    {
+      "id": 1786178168193,
+      "nom": "Enregistrement",
+      "icone": "ti-user",
+      "color": "#FF9800",
+      "modules": [
+        "echantillons",
+        "articles"
+      ]
     }
   ]
 }
