@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v196 — Physico-Chimie</title>
+<title>LabManager v197 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -298,9 +298,8 @@
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
         <thead><tr>
-          <th style="width:180px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
+          <th style="width:200px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
           <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
-          <th style="width:120px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="fourn" onclick="openRcFilter(event,'fourn')">Fournisseur <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-fourn" value=""></th>
           <th style="width:90px">Date de Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
           <th style="width:90px">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
           <th style="width:100px">Date de Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
@@ -317,6 +316,8 @@
               <option value="ouvert">Ouvert</option>
             </select>
           </th>
+          <th style="width:90px;white-space:nowrap">Ouverture</th>
+          <th style="width:100px;white-space:nowrap">Vérification</th>
           <th style="width:80px"></th>
         </tr></thead>
         <tbody id="reactifs-tbody"></tbody>
@@ -4075,14 +4076,15 @@ function renderReactifsTable() {
     const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
     const canOpen = !c.ouverture && statAuto !== 'archive' && statAuto !== 'retire';
     return `<tr>
-      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.localisation?'<br><span style="font-size:10px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
+      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}${p.localisation?'<br><span style="font-size:10px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
       <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
-      <td style="font-size:12px">${p.fournisseur||'-'}</td>
       <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
       <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
       <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
       <td style="font-size:12px;text-align:center">${c.validite?'<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>':'<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
+      <td style="text-align:center;font-size:12px">${c.ouverture ? formatDate(c.ouverture) : '<span style="color:var(--text3)">—</span>'}</td>
+      <td style="text-align:center">${c.verifiedBy ? '<span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyContenant('+c.id+')" title="Cliquer pour annuler">✓ '+c.verifiedBy+'</span>' : '<button onclick="verifyContenant('+c.id+')" style="background:none;border:2px dashed #ddd;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:11px;color:#aaa">Vérifier</button>'}</td>
       <td>
         <div class="actions" style="opacity:1;flex-wrap:nowrap;gap:4px">
           ${canOpen
@@ -4809,6 +4811,40 @@ window.getStatutAuto = getStatutAuto;
 window.populateProduitSelect = populateProduitSelect;
 window.populateTechSelects = populateTechSelects;
 window.renderReactifsTable = renderReactifsTable;
+
+function verifyContenant(id) {
+  const techs = state.techniciens||[];
+  if(!techs.length){toast('Aucun technicien enregistré','error');return;}
+  const popup = document.createElement('div');
+  popup.id = 'verify-popup';
+  popup.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:280px';
+  popup.innerHTML = '<div style="font-weight:700;margin-bottom:12px">Vérification par :</div>'
+    +'<select id="verify-cont-sel" style="width:100%;margin-bottom:12px"><option value="">— Sélectionner —</option>'
+    +techs.map(t=>'<option value="'+(t.visa||t.prenom[0]+t.nom[0])+'">['+(t.visa||'?')+'] '+t.prenom+' '+t.nom+'</option>').join('')
+    +'</select><div style="display:flex;gap:8px;justify-content:flex-end">'
+    +'<button id="vc-cancel" class="btn">Annuler</button>'
+    +'<button id="vc-ok" class="btn btn-primary">Confirmer</button></div>';
+  document.body.appendChild(popup);
+  popup.querySelector('#vc-cancel').onclick = () => popup.remove();
+  popup.querySelector('#vc-ok').onclick = () => {
+    const visa = document.getElementById('verify-cont-sel')?.value;
+    if(!visa){toast('Sélectionnez un technicien','error');return;}
+    const c=(state.contenants||[]).find(x=>x.id===id);
+    if(c){c.verifiedBy=visa;c.verifiedAt=new Date().toLocaleDateString('fr-FR');saveData();renderReactifsTable();}
+    popup.remove();
+    toast('Réactif vérifié par '+visa,'success');
+  };
+  popup.addEventListener('click',e=>e.stopPropagation());
+}
+
+function unverifyContenant(id) {
+  const c=(state.contenants||[]).find(x=>x.id===id);
+  if(c){delete c.verifiedBy;delete c.verifiedAt;saveData();renderReactifsTable();}
+}
+
+window.verifyContenant = verifyContenant;
+window.unverifyContenant = unverifyContenant;
+
 
 function renderCommandesArchives() {
   const tbody = document.getElementById('commandes-archives-tbody'); if(!tbody) return;
