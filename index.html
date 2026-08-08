@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v179 — Physico-Chimie</title>
+<title>LabManager v180 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -774,6 +774,7 @@
         <div class="form-group"><label>Date de réception</label><input type="date" id="c-reception"></div>
         <div class="form-group"><label>Péremption fournisseur</label><input type="date" id="c-peremption"></div>
         <div class="form-group full"><label>Remarques</label><textarea id="c-note" placeholder="Observations à la réception, anomalies..."></textarea></div>
+        <div class="form-group full"><label>Lien CoA <span style="color:var(--text3);font-weight:400">(optionnel)</span></label><input id="c-coa" type="url" placeholder="https://..."></div>
       </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-contenant')">Annuler</button><button class="btn btn-primary" onclick="saveContenant()"><i class="ti ti-check"></i> Enregistrer</button></div>
@@ -791,10 +792,7 @@
         <input type="date" id="ouv-date" oninput="afficherValiditeOuverture()">
       </div>
       <div id="ouv-validite-display" style="margin-top:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:13px;color:var(--text2);display:none"></div>
-      <div class="form-group" style="margin-top:12px">
-        <label>Lien CoA <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
-        <input id="ouv-coa" placeholder="https://..." type="url">
-      </div>
+
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-ouverture')">Annuler</button><button class="btn btn-primary" onclick="confirmerOuverture()"><i class="ti ti-check"></i> Confirmer l'ouverture</button></div>
   </div>
@@ -3904,7 +3902,7 @@ function saveContenant() {
   const nb = parseInt(document.getElementById('c-nb').value) || 1;
   if (!produitId || !lot) { toast('Produit et numero de lot obligatoires', 'error'); return; }
   if (!state.contenants) state.contenants = [];
-  const base = { produitId, lot, qte: document.getElementById('c-qte').value, reception: document.getElementById('c-reception').value, peremption: document.getElementById('c-peremption').value, ouverture: '', validite: '', statut: 'en_stock', note: document.getElementById('c-note').value };
+  const base = { produitId, lot, qte: document.getElementById('c-qte').value, reception: document.getElementById('c-reception').value, peremption: document.getElementById('c-peremption').value, ouverture: '', validite: '', statut: 'en_stock', note: document.getElementById('c-note').value, coaUrl: document.getElementById('c-coa')?.value.trim()||'' };
   const produit = (state.produits||[]).find(p=>p.id===produitId);
   if (editingId) {
     const i = state.contenants.findIndex(x=>x.id===editingId);
@@ -3938,6 +3936,7 @@ function editContenant(id) {
   document.getElementById('c-reception').value = c.reception||'';
   document.getElementById('c-peremption').value = c.peremption||'';
   document.getElementById('c-note').value = c.note||'';
+  if(document.getElementById('c-coa')) document.getElementById('c-coa').value = c.coaUrl||'';
   document.getElementById('modal-contenant-title').textContent = 'Modifier le contenant';
   openModal('modal-contenant');
 }
@@ -3963,11 +3962,9 @@ function confirmerOuverture() {
   const result = computeValidite(ouv, ouvertureCible.peremption, ouvertureCible.produitId);
   const i = state.contenants.findIndex(x=>x.id===ouvertureCible.id);
   if (i < 0) return;
-  const coaUrl = document.getElementById('ouv-coa')?.value.trim()||'';
   state.contenants[i].ouverture = ouv;
   state.contenants[i].validite = result ? result.date : '';
   state.contenants[i].statut = 'ouvert';
-  state.contenants[i].coaUrl = coaUrl;
   const p = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
   addActivity('lock-open', 'Ouverture : '+(p.nom||'')+' lot '+(ouvertureCible.lot||''));
   ouvertureCible = null;
