@@ -1009,7 +1009,73 @@
       "bvs": true
     }
   ],
-  "contenants": [],
+  "contenants": [
+    {
+      "produitId": 1786212150511,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-08-08",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786216261761
+    },
+    {
+      "produitId": 1786212150511,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-08-08",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786216261762
+    },
+    {
+      "produitId": 1786212150511,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-08-08",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786216261763
+    },
+    {
+      "produitId": 1786212150511,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-08-08",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786216261764
+    },
+    {
+      "produitId": 1786212150511,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-08-08",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786216261765
+    }
+  ],
   "produitsEch": [
     {
       "id": 1785169889615,
@@ -1346,11 +1412,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
-      "time": "08/08 10:58"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST-1 — TCC0004 Bupivacaïne : verifiee",
       "time": "08/08 10:58"
     },
@@ -1593,6 +1654,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Propylparaben (PHBP)",
       "time": "08/08 21:10"
+    },
+    {
+      "icon": "package",
+      "text": "5x Propylparaben (PHBP) lot R098B0 receptionne(s)",
+      "time": "08/08 21:11"
     }
   ],
   "spq": [
