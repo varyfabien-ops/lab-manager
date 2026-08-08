@@ -169,15 +169,17 @@
 <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
 <div id="planning-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToPlanning('semaine')"><i class="ti ti-layout-columns"></i> Planning semaine</div><div class="nav-item nav-sub" onclick="goToPlanning('calendar')"><i class="ti ti-calendar-event"></i> Calendrier</div><div class="nav-item nav-sub" onclick="goToPlanning('catalogue')"><i class="ti ti-book"></i> Catalogue analyses</div></div>
 <div class="nav-item" onclick="toggleReactifsMenu(event)"><i class="ti ti-flask-2"></i> Reactifs <span class="nav-badge amber" id="badge-reactifs" style="display:none">0</span><i class="ti ti-chevron-down" id="reactifs-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Réactifs Commerciaux</div><div class="nav-item nav-sub" onclick="goToReactifs('preparations')"><i class="ti ti-flask"></i> Préparations</div></div>
+<div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Réactifs Commerciaux</div><div class="nav-item nav-sub" onclick="goToReactifs('preparations')"><i class="ti ti-flask"></i> Préparations</div>
+<div class="nav-item nav-sub" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-<div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div></div>
-<div class="nav-item" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles & SPQ</div>
+<div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div>
+<div class="nav-item nav-sub" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles & SPQ</div></div>
+
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
     <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
-<div class="nav-item" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge" id="badge-commandes" style="display:none">0</span></div>
+
 <div class="nav-item" onclick="goTo('profils-config',this)"><i class="ti ti-users"></i> Profils</div>
 </div></aside>
 <main>
@@ -3115,9 +3117,13 @@ async function loadData() {
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     updateBadges();
-    initHomeScreen();
     const lastPage = sessionStorage.getItem('labmanager_page');
-    if (lastPage && !((state.profils||[]).length > 0)) goTo(lastPage, null);
+    const hasProfils = (state.profils||[]).length > 0;
+    if (hasProfils) {
+      initHomeScreen();
+    } else if (lastPage) {
+      goTo(lastPage, null);
+    }
     toast('Données synchronisées', 'success');
   } catch(e) { setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); }
 }
@@ -5435,8 +5441,8 @@ function applyProfile(p) {
   const onclickMap = {
     'dashboard':     ['dashboard'],
     'planning':      ['planning','planSemaine','goToPlanning','calendrier','catalogue'],
-    'reactifs':      ['reactifs','contenants','preparations'],
-    'echantillons':  ['echantillons','reception','produits','marches','lots'],
+    'reactifs':      ['reactifs','contenants','preparations','commandes'],
+    'echantillons':  ['echantillons','reception','produits','marches','lots','articles'],
     'articles':      ['articles'],
     'habilitations': ['habilitations'],
     'activity':      ['activity','journal'],
