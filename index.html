@@ -2950,6 +2950,7 @@ function renderAll() {
   updateBadgeLiberes();
   renderStabilites();
   renderAuditTrail();
+  renderProfilsConfig();
   // Initialiser les sous-vues sans changer la page active
   // Reactifs : afficher contenants par defaut
   ['produits','contenants','archives','preparations','catalogue-prep','archives-prep'].forEach(v => {
@@ -4578,7 +4579,7 @@ function openModal(id) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
     const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
-  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article') {
+  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep') {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
     inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
     const sels = document.querySelectorAll('#'+id+' select');
@@ -5485,22 +5486,31 @@ function openModalProfil() {
   document.getElementById('profil-nom').value = '';
   document.getElementById('profil-icone').value = 'ti-user';
   document.getElementById('profil-delete-btn').style.display = 'none';
+  // Reset couleurs
   document.querySelectorAll('input[name="profil-color"]').forEach(r => r.checked = false);
   document.querySelectorAll('.color-swatch').forEach(s => s.style.border = '3px solid transparent');
   const firstRadio = document.querySelector('input[name="profil-color"]');
   if(firstRadio) { firstRadio.checked = true; firstRadio.nextElementSibling.style.border = '3px solid #333'; }
+  // Modules
   const cont = document.getElementById('profil-modules-checks');
-  cont.innerHTML = ALL_MODULES.map(m =>
-    '<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;padding:4px 0">'
-    + '<input type="checkbox" class="profil-mod-cb" value="'+m.key+'"> '+m.label+'</label>'
-  ).join('');
-  openModal('modal-profil');
+  cont.innerHTML = '';
+  ALL_MODULES.forEach(m => {
+    const lbl = document.createElement('label');
+    lbl.style.cssText = 'display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;padding:4px 0';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.className = 'profil-mod-cb'; cb.value = m.key;
+    lbl.appendChild(cb);
+    lbl.appendChild(document.createTextNode(' '+m.label));
+    cont.appendChild(lbl);
+  });
+  // Event listeners couleur
   document.querySelectorAll('input[name="profil-color"]').forEach(r => {
     r.addEventListener('change', () => {
       document.querySelectorAll('.color-swatch').forEach(s => s.style.border = '3px solid transparent');
       r.nextElementSibling.style.border = '3px solid #333';
     });
   });
+  openModal('modal-profil');
 }
 
 function editProfil(id) {
