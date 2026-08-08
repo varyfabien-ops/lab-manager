@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v222 — Physico-Chimie</title>
+<title>LabManager v223 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -317,29 +317,29 @@
       <div class="table-card-header" style="background:var(--bg2);"><h3>Contenants actifs</h3><div class="spacer"></div>
         <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
-      <table style="table-layout:fixed;min-width:900px;width:100%">
+      <table style="table-layout:fixed;min-width:1100px;width:100%">
         <thead id="rc-thead"><tr>
-          <th style="width:200px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
-          <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
-          <th style="width:110px">Emplacement</th>
-          <th style="width:90px">Date de Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
-          <th style="width:90px">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
-          <th style="width:100px">Date de Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
-          <th style="width:130px">Date de Validite<br>
-            <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()">
+          <th style="width:200px;text-align:left"><div style="display:flex;align-items:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
+          <th style="width:120px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
+          <th style="width:110px;text-align:center">Emplacement</th>
+          <th style="width:130px;text-align:center">Date de Réception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()" style="width:110px"></th>
+          <th style="width:130px;text-align:center">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()" style="width:110px"></th>
+          <th style="width:130px;text-align:center">Date de Péremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()" style="width:110px"></th>
+          <th style="width:130px;text-align:center">Date de Validité<br>
+            <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()" style="width:110px">
               <option value="">Tous</option><option value="ok">OK</option>
-              <option value="alerte">Alerte</option><option value="expire">Expire</option>
+              <option value="alerte">Alerte</option><option value="expire">Expiré</option>
               <option value="non_ouvert">Non ouvert</option>
             </select>
           </th>
-          <th style="width:100px">Statut<br>
-            <select class="filter-input" id="f-statut" onchange="renderReactifsTable()">
+          <th style="width:110px;text-align:center">Statut<br>
+            <select class="filter-input" id="f-statut" onchange="renderReactifsTable()" style="width:90px">
               <option value="">Tous</option><option value="en_stock">En stock</option>
               <option value="ouvert">Ouvert</option>
             </select>
           </th>
-          <th style="width:90px;white-space:nowrap">Ouverture</th>
-          <th style="width:100px;white-space:nowrap">Vérification</th>
+          <th style="width:100px;text-align:center">Ouverture</th>
+          <th style="width:110px;text-align:center">Vérification</th>
           <th style="width:120px"></th>
         </tr></thead>
         <tbody id="reactifs-tbody"></tbody>
@@ -4138,11 +4138,11 @@ function renderReactifsTable() {
     const canOpen = !c.ouverture && statAuto !== 'archive' && statAuto !== 'retire';
     return `<tr>
       <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}</td>
-      <td><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
-      <td style="font-size:12px;color:var(--text2)">${p.localisation||'—'}</td>
-      <td style="font-size:12px">${c.reception?formatDate(c.reception):'-'}</td>
-      <td style="font-size:12px">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
-      <td style="font-size:12px" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
+      <td style="text-align:center"><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
+      <td style="font-size:12px;color:var(--text2);text-align:center">${p.localisation||'—'}</td>
+      <td style="font-size:12px;text-align:center">${c.reception?formatDate(c.reception):'-'}</td>
+      <td style="font-size:12px;text-align:center">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
+      <td style="font-size:12px;text-align:center" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
       <td style="font-size:12px;text-align:center">${p.bvs ? '<span class="badge" style="background:#EDE7F6;color:#7C3AED;font-size:12px;font-weight:600">Voir BVS</span>' : c.validite ? '<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>' : '<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
       <td style="text-align:center;font-size:12px">${c.ouverture ? (c.ouvertPar?'<strong>'+c.ouvertPar+'</strong>':'<span style="font-size:10px;color:var(--text3)">'+formatDate(c.ouverture)+'</span>') : '<span style="color:var(--text3)">—</span>'}</td>
