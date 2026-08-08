@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v213 — Physico-Chimie</title>
+<title>LabManager v215 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -314,12 +314,12 @@
       </div>
     </div>
     <div class="table-card">
-      <div class="table-card-header" style="background:var(--bg2);"><h3>Contenants actifs</h3><div class="spacer"></div>
+      <div class="table-card-header" style="background:var(--bg2);position:sticky;top:100px;z-index:50;"><h3>Contenants actifs</h3><div class="spacer"></div>
         <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
-        <thead style="position:sticky;top:0;z-index:98;background:var(--bg2)"><tr>
+        <thead style="position:sticky;top:149px;z-index:49;background:var(--bg2)"><tr>
           <th style="width:200px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
           <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
           <th style="width:110px">Emplacement</th>
@@ -433,7 +433,7 @@
       </div>
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
-        <thead style="position:sticky;top:0;z-index:98;background:var(--bg2)"><tr>
+        <thead style="position:sticky;top:149px;z-index:49;background:var(--bg2)"><tr>
           <th style="width:180px">Produit<br><input class="filter-input" id="fa-produit" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
           <th style="width:110px">N Lot<br><input class="filter-input" id="fa-lot" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
           <th style="width:120px">Fournisseur<br><input class="filter-input" id="fa-fourn" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
@@ -3846,7 +3846,7 @@ function saveProduit() {
   const nom = document.getElementById('r-nom').value.trim();
   if (!nom) { toast('Le nom du reactif est obligatoire', 'error'); return; }
   if (!state.produits) state.produits = [];
-  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, stockMin: document.getElementById('r-stock-min').value, qteCmde: document.getElementById('r-qte-cmd').value, note: document.getElementById('r-note').value };
+  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, stockMin: document.getElementById('r-stock-min').value, qteCmde: document.getElementById('r-qte-cmd').value, note: document.getElementById('r-note').value, bvs: document.getElementById('r-bvs')?.checked||false };
   if (editingId) { const i=state.produits.findIndex(x=>x.id===editingId); state.produits[i]=entry; addActivity('pencil','Produit modifie : '+nom); }
   else { state.produits.push(entry); addActivity('flask-2','Produit ajoute : '+nom); }
   editingId = null;
@@ -3867,6 +3867,7 @@ function editProduit(id) {
   document.getElementById('r-stock-min').value = p.stockMin||'';
   document.getElementById('r-qte-cmd').value = p.qteCmde||'';
   document.getElementById('r-note').value = p.note||'';
+  if(document.getElementById('r-bvs')) document.getElementById('r-bvs').checked = p.bvs||false;
   document.getElementById('modal-reactif-title').textContent = 'Modifier le produit';
   openModal('modal-reactif');
 }
