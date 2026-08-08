@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v209 — Physico-Chimie</title>
+<title>LabManager v210 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -304,7 +304,7 @@
     <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
   </div>
   <div id="reactifs-view-contenants" style="display:none">
-    <div class="page-header" style="position:sticky;top:0;z-index:100;background:var(--bg);padding-bottom:8px">
+    <div class="page-header" style="position:sticky;top:100px;z-index:100;background:var(--bg);padding-bottom:8px;padding-top:4px">
       <div class="page-header-text"><h1>Réactifs Commerciaux</h1><p>Stocks en cours</p></div>
       <div class="page-header-actions">
         <button class="btn" onclick="imprimerPerimesContenants()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
@@ -314,12 +314,12 @@
       </div>
     </div>
     <div class="table-card">
-      <div class="table-card-header" style="position:sticky;top:64px;z-index:99;background:var(--bg2);"><h3>Contenants actifs</h3><div class="spacer"></div>
+      <div class="table-card-header" style="position:sticky;top:160px;z-index:99;background:var(--bg2);"><h3>Contenants actifs</h3><div class="spacer"></div>
         <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
-        <thead style="position:sticky;top:120px;z-index:98;background:var(--bg2)"><tr>
+        <thead style="position:sticky;top:216px;z-index:98;background:var(--bg2)"><tr>
           <th style="width:200px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
           <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
           <th style="width:110px">Emplacement</th>
@@ -433,7 +433,7 @@
       </div>
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
-        <thead style="position:sticky;top:120px;z-index:98;background:var(--bg2)"><tr>
+        <thead style="position:sticky;top:216px;z-index:98;background:var(--bg2)"><tr>
           <th style="width:180px">Produit<br><input class="filter-input" id="fa-produit" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
           <th style="width:110px">N Lot<br><input class="filter-input" id="fa-lot" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
           <th style="width:120px">Fournisseur<br><input class="filter-input" id="fa-fourn" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
