@@ -1792,7 +1792,8 @@
       "icone": "ti-user",
       "color": "#00BCD4",
       "modules": [
-        "reactifs"
+        "reactifs",
+        "commandes"
       ]
     },
     {
