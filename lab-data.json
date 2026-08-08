@@ -933,6 +933,18 @@
       "stockMin": "1",
       "qteCmde": "1",
       "note": ""
+    },
+    {
+      "id": 1786178517315,
+      "nom": "Tampon pH 2",
+      "fournisseur": "MERCK",
+      "ref": "1.99012.0001",
+      "localisation": "pHmètre",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "3",
+      "qteCmde": "3",
+      "note": ""
     }
   ],
   "contenants": [],
@@ -1173,11 +1185,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0055",
-      "time": "29/07 18:38"
-    },
     {
       "icon": "barcode",
       "text": "Article créé : M76031000",
@@ -1422,6 +1429,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 12",
       "time": "08/08 10:40"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Tampon pH 2",
+      "time": "08/08 10:41"
     }
   ],
   "spq": [
