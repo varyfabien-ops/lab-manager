@@ -852,6 +852,23 @@
       ],
       "resultatRequis": false,
       "description": ""
+    },
+    {
+      "id": 1786196559426,
+      "nom": "L*a*b",
+      "habilitations": [
+        "UV"
+      ],
+      "produitsIds": [],
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": false,
+      "description": ""
     }
   ],
   "stabilites": [],
@@ -1410,11 +1427,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Méthanol HPLC Grade lot VBCN32443",
-      "time": "03/08 09:43"
-    },
-    {
       "icon": "check",
       "text": "Réactif vérifié: Acide Acétique R FVY",
       "time": "03/08 09:44"
@@ -1658,6 +1670,11 @@
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0004 Mépivacaïne / PHBM",
       "time": "08/08 15:41"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutee au catalogue : L*a*b",
+      "time": "08/08 15:42"
     }
   ],
   "spq": [
