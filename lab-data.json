@@ -1800,7 +1800,10 @@
       "nom": "Enregistrement",
       "icone": "ti-user",
       "color": "#FF9800",
-      "modules": []
+      "modules": [
+        "echantillons",
+        "articles"
+      ]
     }
   ]
 }
