@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v223 — Physico-Chimie</title>
+<title>LabManager v224 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -322,22 +322,11 @@
           <th style="width:200px;text-align:left"><div style="display:flex;align-items:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
           <th style="width:120px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
           <th style="width:110px;text-align:center">Emplacement</th>
-          <th style="width:130px;text-align:center">Date de Réception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()" style="width:110px"></th>
-          <th style="width:130px;text-align:center">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()" style="width:110px"></th>
-          <th style="width:130px;text-align:center">Date de Péremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()" style="width:110px"></th>
-          <th style="width:130px;text-align:center">Date de Validité<br>
-            <select class="filter-input" id="f-validite-statut" onchange="renderReactifsTable()" style="width:110px">
-              <option value="">Tous</option><option value="ok">OK</option>
-              <option value="alerte">Alerte</option><option value="expire">Expiré</option>
-              <option value="non_ouvert">Non ouvert</option>
-            </select>
-          </th>
-          <th style="width:110px;text-align:center">Statut<br>
-            <select class="filter-input" id="f-statut" onchange="renderReactifsTable()" style="width:90px">
-              <option value="">Tous</option><option value="en_stock">En stock</option>
-              <option value="ouvert">Ouvert</option>
-            </select>
-          </th>
+          <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="reception" onclick="openRcFilter(event,'reception')">Date Réception <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
+          <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="ouverture" onclick="openRcFilter(event,'ouverture')">Date Ouverture <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
+          <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="peremption" onclick="openRcFilter(event,'peremption')">Date Péremption <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
+          <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="validite_statut" onclick="openRcFilter(event,'validite_statut')">Date Validité <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
+          <th style="width:110px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="statut" onclick="openRcFilter(event,'statut')">Statut <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:100px;text-align:center">Ouverture</th>
           <th style="width:110px;text-align:center">Vérification</th>
           <th style="width:120px"></th>
@@ -4079,7 +4068,7 @@ function statutContenantBadge(s) {
 }
 
 function resetFiltres() {
-  window._rcFilter = { produit:[], lot:[], fourn:[] };
+  window._rcFilter = { produit:[], lot:[], fourn:[], reception:[], ouverture:[], peremption:[], statut:[], validite_statut:[] };
   ['f-produit','f-lot','f-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
   ['f-reception','f-ouverture','f-peremption'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
   ['f-validite-statut','f-statut'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
@@ -4092,36 +4081,32 @@ function renderReactifsTable() {
   const fProduit = window._rcFilter?.produit||[];
   const fLot = window._rcFilter?.lot||[];
   const fFourn = window._rcFilter?.fourn||[];
-  const fReception = document.getElementById('f-reception')?.value||'';
-  const fOuverture = document.getElementById('f-ouverture')?.value||'';
-  const fPeremption = document.getElementById('f-peremption')?.value||'';
-  const fValiditeStatut = document.getElementById('f-validite-statut')?.value||'';
-  const fStatut = document.getElementById('f-statut')?.value||'';
+  const fReception = window._rcFilter?.reception||[];
+  const fOuverture = window._rcFilter?.ouverture||[];
+  const fPeremption = window._rcFilter?.peremption||[];
+  const fStatut = window._rcFilter?.statut||[];
+  const fValiditeSt = window._rcFilter?.validite_statut||[];
   const today = new Date(); today.setHours(0,0,0,0);
 
   const contenants = state.contenants.filter(c => {
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
     const statAuto = getStatutAuto(c);
-    // Vue contenants = uniquement actifs (pas les archives)
     if (['archive','retire','expire'].includes(statAuto)) return false;
     if (fProduit.length && !fProduit.includes(p.nom||'')) return false;
     if (fLot.length && !fLot.includes(c.lot||'')) return false;
     if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
-    if (fReception && c.reception !== fReception) return false;
-    if (fOuverture && c.ouverture !== fOuverture) return false;
-    if (fPeremption && c.peremption !== fPeremption) return false;
-    if (fStatut && statAuto !== fStatut) return false;
-    if (fValiditeStatut) {
-      if (!c.validite && fValiditeStatut !== 'non_ouvert') return false;
-      if (c.validite) {
-        const dV = new Date(c.validite);
-        const restants = Math.ceil((dV-today)/(1000*60*60*24));
-        if (fValiditeStatut === 'ok' && restants <= 30) return false;
-        if (fValiditeStatut === 'alerte' && (restants <= 0 || restants > 30)) return false;
-        if (fValiditeStatut === 'expire' && restants > 0) return false;
-        if (fValiditeStatut === 'non_ouvert') return false;
-      }
-      if (!c.validite && fValiditeStatut !== 'non_ouvert') return false;
+    if (fReception.length && !fReception.includes(formatDate(c.reception))) return false;
+    if (fOuverture.length && !fOuverture.includes(formatDate(c.ouverture))) return false;
+    if (fPeremption.length && !fPeremption.includes(formatDate(c.peremption))) return false;
+    if (fStatut.length) {
+      const label = statAuto==='en_stock'?'En stock':statAuto==='ouvert'?'Ouvert':'';
+      if(!fStatut.includes(label)) return false;
+    }
+    if (fValiditeSt.length) {
+      let label;
+      if(!c.validite) label='Non ouvert';
+      else { const dV=new Date(c.validite); const r=Math.ceil((dV-today)/(1000*60*60*24)); label=r>30?'OK':r>0?'Alerte':'Expiré'; }
+      if(!fValiditeSt.includes(label)) return false;
     }
     return true;
   });
@@ -4950,7 +4935,7 @@ window.supprimerArchiveCommande = supprimerArchiveCommande;
 // ============================================================
 // FILTRES EXCEL RÉACTIFS COMMERCIAUX
 // ============================================================
-window._rcFilter = { produit:[], lot:[], fourn:[] };
+window._rcFilter = { produit:[], lot:[], fourn:[], reception:[], ouverture:[], peremption:[], statut:[], validite_statut:[] };
 let _rcFilterOpen = null;
 
 function openRcFilter(event, col) {
@@ -4959,11 +4944,27 @@ function openRcFilter(event, col) {
   closeRcFilter();
   _rcFilterOpen = col;
   const vals = new Set();
-  (state.contenants||[]).forEach(c => {
+  const today2 = new Date(); today2.setHours(0,0,0,0);
+  (state.contenants||[]).filter(c=>{const st=getStatutAuto(c);return !['archive','retire','expire'].includes(st);}).forEach(c => {
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
     if (col==='produit') { if(p.nom) vals.add(p.nom); }
     else if (col==='lot') { if(c.lot) vals.add(c.lot); }
     else if (col==='fourn') { if(p.fournisseur) vals.add(p.fournisseur); }
+    else if (col==='reception') { if(c.reception) vals.add(formatDate(c.reception)); }
+    else if (col==='ouverture') { if(c.ouverture) vals.add(formatDate(c.ouverture)); }
+    else if (col==='peremption') { if(c.peremption) vals.add(formatDate(c.peremption)); }
+    else if (col==='statut') {
+      const st = getStatutAuto(c);
+      if(st==='en_stock') vals.add('En stock');
+      else if(st==='ouvert') vals.add('Ouvert');
+    }
+    else if (col==='validite_statut') {
+      if(!c.validite) vals.add('Non ouvert');
+      else {
+        const dV=new Date(c.validite); const r=Math.ceil((dV-today2)/(1000*60*60*24));
+        if(r>30) vals.add('OK'); else if(r>0) vals.add('Alerte'); else vals.add('Expiré');
+      }
+    }
   });
   const sorted = [...vals].sort((a,b)=>a.localeCompare(b));
   const current = window._rcFilter[col]||[];
@@ -5001,7 +5002,7 @@ function closeRcFilter() {
 }
 
 function updateRcFilterIcons() {
-  ['produit','lot','fourn'].forEach(col => {
+  ['produit','lot','fourn','reception','ouverture','peremption','statut','validite_statut'].forEach(col => {
     const active = (window._rcFilter[col]||[]).length > 0;
     const el = document.querySelector('[data-rc-col="'+col+'"]');
     if(el) { const icon=el.querySelector('.ti-filter'); if(icon) icon.style.color=active?'var(--cyan)':'var(--text3)'; }
