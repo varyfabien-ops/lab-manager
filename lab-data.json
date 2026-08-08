@@ -981,6 +981,18 @@
       "stockMin": "3",
       "qteCmde": "3",
       "note": ""
+    },
+    {
+      "id": 1786207222803,
+      "nom": "Methylparaben (PHBM)",
+      "fournisseur": "USP",
+      "ref": "1432005",
+      "localisation": "Salle CPG",
+      "fc": "1",
+      "conditionnement": "125 mg",
+      "stockMin": "5",
+      "qteCmde": "5",
+      "note": ""
     }
   ],
   "contenants": [
@@ -1490,11 +1502,6 @@
       "time": "03/08 09:50"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "03/08 09:50"
-    },
-    {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
       "time": "03/08 09:51"
@@ -1693,6 +1700,11 @@
       "icon": "package",
       "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
       "time": "08/08 16:37"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Methylparaben (PHBM)",
+      "time": "08/08 18:40"
     }
   ],
   "spq": [
