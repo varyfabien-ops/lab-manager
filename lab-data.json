@@ -1135,7 +1135,9 @@
       "note": "",
       "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
       "id": 1786207897864,
-      "ouvertPar": "CPL"
+      "ouvertPar": "CPL",
+      "verifiedBy": "KBT",
+      "verifiedAt": "08/08/2026"
     },
     {
       "produitId": 1786207222803,
