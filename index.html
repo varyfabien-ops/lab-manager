@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v120 — Physico-Chimie</title>
+<title>LabManager v178 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -178,7 +178,7 @@
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
 <div class="nav-item" onclick="goTo('audit',this)"><i class="ti ti-history"></i> Journal d'activité</div>
 <div class="nav-item" onclick="goTo('stabilites',this)"><i class="ti ti-chart-line"></i> Stabilites</div>
-    <div class="nav-item" onclick="goTo('tendances',this)"><i class="ti ti-trending-up"></i> Tendances</div>
+    <div class="nav-item" onclick="goTo('tendances',this)" style="display:none"><i class="ti ti-trending-up"></i> Tendances</div>
 
 <div class="nav-item" onclick="goTo('profils-config',this)"><i class="ti ti-users"></i> Profils</div>
 </div></aside>
@@ -791,6 +791,10 @@
         <input type="date" id="ouv-date" oninput="afficherValiditeOuverture()">
       </div>
       <div id="ouv-validite-display" style="margin-top:12px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;font-size:13px;color:var(--text2);display:none"></div>
+      <div class="form-group" style="margin-top:12px">
+        <label>Lien CoA <span style="color:var(--text3);font-weight:400">(optionnel)</span></label>
+        <input id="ouv-coa" placeholder="https://..." type="url">
+      </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-ouverture')">Annuler</button><button class="btn btn-primary" onclick="confirmerOuverture()"><i class="ti ti-check"></i> Confirmer l'ouverture</button></div>
   </div>
@@ -1238,8 +1242,13 @@ function openWizard() {
   const nbc=document.getElementById('w-mp-contenants'); if(nbc) nbc.value=1;
   const art=document.getElementById('w-article-select');
   if(art) {
+    const wizTypes = [];
+    if(wizardIsPifSelected()) wizTypes.push('pif_stab');
+    if(wizardIsStabSelected()) wizTypes.push('pif_stab');
+    if(wizardIsMpSelected()) wizTypes.push('mp');
+    const filteredArts = (state.articles||[]).filter(a => !a.type || wizTypes.includes(a.type) || wizTypes.length===0);
     art.innerHTML='<option value="">— Choisir un article —</option>'
-      +(state.articles||[]).map(a=>'<option value="'+a.id+'">'+a.code+' — '+a.nom+'</option>').join('');
+      +filteredArts.map(a=>'<option value="'+a.id+'">'+a.code+' — '+a.nom+'</option>').join('');
   }
   document.getElementById('w-article-info').style.display='none';
   // Masquer options
@@ -3853,7 +3862,9 @@ function computeValidite(ouv, per, produitId) {
   const produit = (state.produits||[]).find(p=>p.id==produitId);
   const fc = produit ? parseFloat(produit.fc||1) : 1;
   const joursValides = Math.round(jours * fc);
-  const dValide = new Date(dOuv.getTime() + joursValides*24*60*60*1000);
+  let dValide = new Date(dOuv.getTime() + joursValides*24*60*60*1000);
+  // La date de validité ne peut pas dépasser la date de péremption fournisseur
+  if (dValide > dPer) dValide = dPer;
   return { date: dValide.toISOString().slice(0,10), fc, jours };
 }
 
@@ -3940,6 +3951,7 @@ function ouvrirContenant(id) {
   document.getElementById('ouv-date').value = new Date().toISOString().slice(0,10);
   document.getElementById('ouv-validite-display').style.display = 'none';
   document.getElementById('ouv-validite-display').innerHTML = '';
+  const coaEl = document.getElementById('ouv-coa'); if(coaEl) coaEl.value = ouvertureCible.coaUrl||'';
   const el = document.getElementById('modal-ouverture');
   el.classList.add('open'); el.style.display = 'flex';
   afficherValiditeOuverture();
@@ -3951,9 +3963,11 @@ function confirmerOuverture() {
   const result = computeValidite(ouv, ouvertureCible.peremption, ouvertureCible.produitId);
   const i = state.contenants.findIndex(x=>x.id===ouvertureCible.id);
   if (i < 0) return;
+  const coaUrl = document.getElementById('ouv-coa')?.value.trim()||'';
   state.contenants[i].ouverture = ouv;
   state.contenants[i].validite = result ? result.date : '';
   state.contenants[i].statut = 'ouvert';
+  state.contenants[i].coaUrl = coaUrl;
   const p = (state.produits||[]).find(x=>x.id===ouvertureCible.produitId)||{};
   addActivity('lock-open', 'Ouverture : '+(p.nom||'')+' lot '+(ouvertureCible.lot||''));
   ouvertureCible = null;
@@ -4056,6 +4070,7 @@ function renderReactifsTable() {
         <div class="actions" style="opacity:1;flex-wrap:wrap">
           ${canOpen
         ? `<button class="icon-btn" onclick="ouvrirContenant(${c.id})" title="Enregistrer l'ouverture" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>`
+        +(c.coaUrl?`<a href="${c.coaUrl}" target="_blank" class="icon-btn" title="Voir le CoA" style="color:var(--purple)"><i class="ti ti-file-certificate"></i></a>`:'')
         : statAuto === 'ouvert'
           ? `<button class="icon-btn danger" onclick="fermerContenant(${c.id})" title="Cloturer - passer en archive"><i class="ti ti-lock"></i></button>`
           : ''
@@ -4211,10 +4226,6 @@ function renderMarches() {
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
           <strong>${m.nom}</strong>
           ${m.code?'<span class="badge badge-blue">'+m.code+'</span>':''}
-          <span class="badge badge-gray">${analyses.length} analyse${analyses.length>1?'s':''}</span>
-        </div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px">
-          ${analyses.length ? analyses.map(a=>'<span class="badge badge-cyan">'+a.nom+'</span>').join('') : '<span style="color:var(--text3);font-size:12px">Aucune analyse definie</span>'}
         </div>
         ${m.note?'<div style="font-size:11px;color:var(--text2);margin-top:6px">'+m.note+'</div>':''}
       </div>
@@ -5635,6 +5646,7 @@ function openModalArticle() {
   document.getElementById('modal-article-title').textContent = 'Nouveau code article';
   document.getElementById('art-code').value = '';
   document.getElementById('art-nom').value = '';
+  if(document.getElementById('art-type')) document.getElementById('art-type').value = 'pif_stab';
   populateSpqSelect('art-spq', null);
   const delBtn = document.getElementById('art-delete-btn');
   if (delBtn) delBtn.style.display = 'none';
@@ -5648,6 +5660,7 @@ function editArticle(id) {
   document.getElementById('modal-article-title').textContent = 'Modifier — ' + a.code;
   document.getElementById('art-code').value = a.code || '';
   document.getElementById('art-nom').value = a.nom || '';
+  if(document.getElementById('art-type')) document.getElementById('art-type').value = a.type || 'pif_stab';
   populateSpqSelect('art-spq', a.spqId);
   const delBtn = document.getElementById('art-delete-btn');
   if (delBtn) delBtn.style.display = 'inline-flex';
@@ -5660,9 +5673,10 @@ function saveArticle() {
   if (!code) { toast('Le code article est obligatoire', 'error'); return; }
   if (!nom) { toast('La désignation est obligatoire', 'error'); return; }
   const spqId = parseInt(document.getElementById('art-spq').value) || null;
+  const artType = document.getElementById('art-type')?.value || 'pif_stab';
   const entry = {
     id: window._editingArticleId || Date.now(),
-    code, nom,
+    code, nom, type: artType,
     spqId,
   };
   if (!state.articles) state.articles = [];
@@ -6426,14 +6440,11 @@ cycleAnalyseStatut = function(echId, analyseId){
   const cur=ech.analyseStatuts[analyseId]||'a_lancer'; if(cur==='verifiee')return;
   const next=order[order.indexOf(cur)+1]; if(!next)return;
   if(next==='terminee'){
-    const a3=(state.catalogue||[]).find(x=>x.id===analyseId);
-    if(a3&&a3.resultatRequis===false){
-      ech.analyseStatuts[analyseId]='terminee';
-      if(!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId]={};
-      ech.analyseStatutsInfo[analyseId]['terminee']=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-      renderEchantillonsTable(); saveData(); return;
-    }
-    ouvrirModalResultat(echId,analyseId); return;
+    // Passage direct à terminée sans saisie de résultat
+    ech.analyseStatuts[analyseId]='terminee';
+    if(!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId]={};
+    ech.analyseStatutsInfo[analyseId]['terminee']=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+    renderEchantillonsTable(); saveData(); return;
   }
   ech.analyseStatuts[analyseId]=next; if(!ech.analyseStatutsInfo[analyseId])ech.analyseStatutsInfo[analyseId]={}; ech.analyseStatutsInfo[analyseId][next]=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
   const ids=ech.analysesIds||[]; const allDone=ids.length&&ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee'); const anyStarted=ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';}); ech.statut=allDone?'conforme':anyStarted?'en_analyse':'recu';
@@ -6766,11 +6777,16 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group"><label>Code article *</label><input id="art-code" placeholder="Ex: M000001" style="text-transform:uppercase;font-weight:700;font-family:monospace"></div>
+        <div class="form-group"><label>Type *</label>
+          <select id="art-type">
+            <option value="pif_stab">PIF / STAB</option>
+            <option value="mp">MP</option>
+          </select>
+        </div>
+        <div class="form-group full"><label>Désignation *</label><input id="art-nom" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
         <div class="form-group"><label>SPQ liée</label>
           <select id="art-spq" onchange="onArtSpqChange()"><option value="">— Aucune SPQ —</option></select>
         </div>
-        <div class="form-group full"><label>Désignation *</label><input id="art-nom" placeholder="Ex: Setmelanotide 10 mg/mL"></div>
-
       </div>
     </div>
     <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
