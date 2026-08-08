@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v165 — Physico-Chimie</title>
+<title>LabManager v166 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4538,7 +4538,7 @@ function imprimerPerimesContenants() {
     + '<scr'+'ipt>window.onload=()=>window.print();<\/scr'+'ipt>'
     + '
 <!-- PAGE ACCUEIL PROFILS -->
-<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
+<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px;pointer-events:none">
   <div style="text-align:center;margin-bottom:8px">
     <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
     <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
@@ -5296,6 +5296,7 @@ function showHomeScreen() {
   const home = document.getElementById('home-screen');
   if (!home) return;
   home.style.display = 'flex';
+  home.style.pointerEvents = 'all';
   const grid = document.getElementById('home-profils-grid');
   if (!grid) return;
   if (!profils.length) {
@@ -5320,7 +5321,7 @@ function selectProfile(id) {
   if (!p) return;
   activeProfile = p;
   applyProfile(p);
-  document.getElementById('home-screen').style.display = 'none';
+  const hs2=document.getElementById('home-screen'); hs2.style.display='none'; hs2.style.pointerEvents='none';
   // Aller au premier module autorisé
   const firstModule = (p.modules||[])[0] || 'dashboard';
   goTo(firstModule, null);
@@ -5329,7 +5330,7 @@ function selectProfile(id) {
 function enterAdmin() {
   activeProfile = null;
   applyProfile(null);
-  document.getElementById('home-screen').style.display = 'none';
+  const hsA=document.getElementById('home-screen'); hsA.style.display='none'; hsA.style.pointerEvents='none';
   goTo('dashboard', null);
 }
 
@@ -6007,7 +6008,7 @@ function imprimerPerimes() {
   <script>window.onload = () => window.print();<\/script>
 
 <!-- PAGE ACCUEIL PROFILS -->
-<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
+<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px;pointer-events:none">
   <div style="text-align:center;margin-bottom:8px">
     <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
     <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
@@ -6851,7 +6852,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
 </div>
 
 <!-- PAGE ACCUEIL PROFILS -->
-<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
+<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px;pointer-events:none">
   <div style="text-align:center;margin-bottom:8px">
     <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
     <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
