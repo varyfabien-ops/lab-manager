@@ -1007,7 +1007,9 @@
       "statut": "ouvert",
       "note": "",
       "id": 1786184868790,
-      "coaUrl": "blob:https://www.sigmaaldrich.com/b49b66e0-4a75-4bb5-8374-863f973f51b2"
+      "coaUrl": "blob:https://www.sigmaaldrich.com/b49b66e0-4a75-4bb5-8374-863f973f51b2",
+      "verifiedBy": "FVY",
+      "verifiedAt": "08/08/2026"
     },
     {
       "produitId": 1786178095292,
