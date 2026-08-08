@@ -1014,61 +1014,6 @@
       "qte": "125 mg",
       "reception": "2026-08-08",
       "peremption": "",
-      "ouverture": "2026-08-08",
-      "validite": "",
-      "statut": "ouvert",
-      "note": "",
-      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
-      "id": 1786207897864,
-      "ouvertPar": "CPL",
-      "verifiedBy": "KBT",
-      "verifiedAt": "08/08/2026"
-    },
-    {
-      "produitId": 1786207222803,
-      "lot": "R098B0",
-      "qte": "125 mg",
-      "reception": "2026-08-08",
-      "peremption": "",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
-      "id": 1786207897865
-    },
-    {
-      "produitId": 1786207222803,
-      "lot": "R098B0",
-      "qte": "125 mg",
-      "reception": "2026-08-08",
-      "peremption": "",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
-      "id": 1786207897866
-    },
-    {
-      "produitId": 1786207222803,
-      "lot": "R098B0",
-      "qte": "125 mg",
-      "reception": "2026-08-08",
-      "peremption": "",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
-      "id": 1786207897867
-    },
-    {
-      "produitId": 1786207222803,
-      "lot": "R098B0",
-      "qte": "125 mg",
-      "reception": "2026-08-08",
-      "peremption": "",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
@@ -1481,26 +1426,6 @@
   "activity": [
     {
       "icon": "flask-2",
-      "text": "Produit ajoute : Tampon pH 7",
-      "time": "08/08 10:30"
-    },
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "08/08 10:31"
-    },
-    {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Tampon pH 10",
-      "time": "08/08 10:32"
-    },
-    {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Tampon pH 9",
-      "time": "08/08 10:34"
-    },
-    {
-      "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 12",
       "time": "08/08 10:40"
     },
@@ -1727,6 +1652,26 @@
     {
       "icon": "trash",
       "text": "Contenant supprime : lot HC57833622",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
       "time": "08/08 21:09"
     }
   ],
