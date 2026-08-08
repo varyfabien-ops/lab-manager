@@ -1069,12 +1069,16 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785247529863": "terminee"
+        "1785247529863": "terminee",
+        "1785247477146": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247529863": {
           "en_cours": "08/08/2026",
           "terminee": "08/08/2026"
+        },
+        "1785247477146": {
+          "en_cours": "08/08/2026"
         }
       },
       "resultats": {
@@ -1272,11 +1276,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0050",
-      "time": "29/07 18:40"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0209",
@@ -1521,6 +1520,11 @@
       "icon": "clipboard-check",
       "text": "TCC0004 Bupivacaïne — 2 sous-séries — lot TEST",
       "time": "08/08 10:53"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
+      "time": "08/08 10:58"
     }
   ],
   "spq": [
