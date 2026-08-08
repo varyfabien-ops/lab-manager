@@ -1423,7 +1423,11 @@
   ],
   "commandesStatut": {
     "1785742919397": "en_attente",
-    "1785746786712": "en_attente"
+    "1785746786712": "en_attente",
+    "1786178456775": {
+      "statut": "commandee",
+      "da": "XXXXXXX"
+    }
   },
   "enregistrements": [],
   "activity": [
@@ -2050,5 +2054,6 @@
         "articles"
       ]
     }
-  ]
+  ],
+  "commandesArchives": []
 }
