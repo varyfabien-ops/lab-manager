@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v224 — Physico-Chimie</title>
+<title>LabManager v225 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -3043,6 +3043,9 @@ function renderAll() {
 // NAVIGATION
 // ============================================================
 function goTo(page, el) {
+  // Masquer le clone sticky RC si on quitte la page RC
+  const rcClone = document.getElementById('rc-sticky-clone');
+  if (rcClone) rcClone.style.display = 'none';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const target = document.getElementById('page-' + page);
@@ -3511,6 +3514,8 @@ function togglePlanningMenu(e) {
 
 function goToPlanning(view) {
   updateNavActive('plan-'+view);
+  const rcClone = document.getElementById('rc-sticky-clone');
+  if (rcClone) rcClone.style.display = 'none';
   currentPlanningView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-planning');
@@ -4190,6 +4195,8 @@ function toggleEchMenu(e) {
 
 function goToEch(view) {
   updateNavActive('ech-'+view);
+  const rcClone = document.getElementById('rc-sticky-clone');
+  if (rcClone) rcClone.style.display = 'none';
   currentEchView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-echantillons');
@@ -5076,6 +5083,8 @@ function toggleReactifsMenu(e) {
 function goToReactifs(view) {
   currentReactifsView = view;
   updateNavActive('reactifs-'+view);
+  const rcClone = document.getElementById('rc-sticky-clone');
+  if (rcClone && view !== 'contenants') rcClone.style.display = 'none';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-reactifs');
   if (page) page.classList.add('active');
