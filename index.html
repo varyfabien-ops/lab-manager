@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v190 — Physico-Chimie</title>
+<title>LabManager v191 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4430,7 +4430,7 @@ function renderCommandes() {
     // Icônes progressives
     function cmdIcon(idx, icon, label, color, done, next) {
       if(done) return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px"><div style="width:36px;height:36px;border-radius:50%;background:'+color+';display:flex;align-items:center;justify-content:center;color:white"><i class="ti '+icon+'" style="font-size:16px"></i></div><span style="font-size:9px;font-weight:600;color:'+color+'">'+label+'</span></div>';
-      if(next) return '<button onclick="setCommandeStatut('+p.id+',\''+ORDER[idx]+'\')" style="background:none;border:2px dashed #ccc;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#aaa" title="Passer à : '+label+'"><i class="ti '+icon+'" style="font-size:16px"></i></button>';
+      if(next) return '<button class="cmd-step-btn" data-pid="'+p.id+'" data-statut="'+ORDER[idx]+'" style="background:none;border:2px dashed #ccc;border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#aaa" title="'+label+'"><i class="ti '+icon+'" style="font-size:16px"></i></button>';
       return '<div style="width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center"><i class="ti '+icon+'" style="font-size:16px;color:var(--border)"></i></div>';
     }
     const icons = [
@@ -4453,6 +4453,13 @@ function renderCommandes() {
       </td>
     </tr>`;
   }).join('');
+
+  // Event listeners sur les boutons de statut
+  document.querySelectorAll('.cmd-step-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setCommandeStatut(parseInt(btn.dataset.pid), btn.dataset.statut);
+    });
+  });
 }
 
 function setCommandeStatut(produitId, statut) {
