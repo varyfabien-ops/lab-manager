@@ -1341,11 +1341,13 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785170145444": "en_cours"
+        "1785170145444": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785170145444": {
-          "en_cours": "08/08/2026"
+          "en_cours": "08/08/2026",
+          "terminee": "08/08/2026",
+          "verifiee": "08/08/2026"
         }
       }
     }
@@ -1418,11 +1420,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Tampon pH 9 lot HC56730103",
-      "time": "08/08 12:28"
-    },
     {
       "icon": "pencil",
       "text": "Contenant modifie : lot HC56730103",
@@ -1666,6 +1663,11 @@
     {
       "icon": "list-check",
       "text": "TEST 2 — Volume Extractible : en_cours",
+      "time": "08/08 21:21"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 2 — Volume Extractible : verifiee",
       "time": "08/08 21:21"
     }
   ],
