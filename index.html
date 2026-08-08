@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v163 — Physico-Chimie</title>
+<title>LabManager v165 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -164,16 +164,6 @@
   </div>
 </header>
 <div class="layout">
-<!-- PAGE ACCUEIL PROFILS -->
-<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
-  <div style="text-align:center;margin-bottom:8px">
-    <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
-    <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
-  </div>
-  <div id="home-profils-grid" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:900px"></div>
-  <button onclick="enterAdmin()" style="background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline">Accès administrateur complet</button>
-</div>
-
 <aside><div class="nav-section"><div class="nav-label">Navigation</div>
 <div class="nav-item active" onclick="goTo('dashboard',this)"><i class="ti ti-layout-dashboard"></i> Tableau de bord</div>
 <div class="nav-item" onclick="togglePlanningMenu(event)"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" id="planning-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
@@ -619,7 +609,10 @@
 <div class="page" id="page-articles">
   <div class="page-header">
     <div class="page-header-text"><h1>Codes Articles</h1><p>Référentiel produits et SPQ associées</p></div>
-    <div class="page-header-actions"><button class="btn btn-primary" onclick="openModalArticle()"><i class="ti ti-plus"></i> Nouveau code article</button></div>
+    <div class="page-header-actions">
+    <button class="btn" onclick="openModalSPQ()" style="margin-right:8px"><i class="ti ti-file-certificate"></i> Nouvelle SPQ</button>
+    <button class="btn btn-primary" onclick="openModalArticle()"><i class="ti ti-plus"></i> Nouveau code article</button>
+  </div>
   </div>
   <div class="table-card">
     <div class="table-card-header"><h3>Articles enregistrés</h3><div class="spacer"></div>
@@ -2836,6 +2829,7 @@ function goTo(page, el) {
   const target = document.getElementById('page-' + page);
   if (target) target.classList.add('active');
   if (el) el.classList.add('active');
+  sessionStorage.setItem('labmanager_page', page);
   if (page === 'commandes') renderCommandes();
   if (page === 'stabilites') renderStabilites();
   if (page === 'tendances') renderTendances();
@@ -2971,7 +2965,11 @@ async function loadData() {
     state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
-    toast('Donnees synchronisees', 'success');
+    updateBadges();
+    initHomeScreen();
+    const lastPage = sessionStorage.getItem('labmanager_page');
+    if (lastPage && !((state.profils||[]).length > 0)) goTo(lastPage, null);
+    toast('Données synchronisées', 'success');
   } catch(e) { setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); }
 }
 
@@ -4538,7 +4536,17 @@ function imprimerPerimesContenants() {
     + '<tbody>'+rows+'</tbody></table>'
     + '<div class="footer"><span>Imprimé le '+dateStr+'</span><span>LabManager — Physico-Chimie</span></div>'
     + '<scr'+'ipt>window.onload=()=>window.print();<\/scr'+'ipt>'
-    + '</body></html>');
+    + '
+<!-- PAGE ACCUEIL PROFILS -->
+<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
+  <div style="text-align:center;margin-bottom:8px">
+    <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
+    <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
+  </div>
+  <div id="home-profils-grid" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:900px"></div>
+  <button onclick="enterAdmin()" style="background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline">Accès administrateur complet</button>
+</div>
+</body></html>');
   win.document.close();
 }
 
@@ -5997,6 +6005,16 @@ function imprimerPerimes() {
     <span>LabManager — Physico-Chimie</span>
   </div>
   <script>window.onload = () => window.print();<\/script>
+
+<!-- PAGE ACCUEIL PROFILS -->
+<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
+  <div style="text-align:center;margin-bottom:8px">
+    <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
+    <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
+  </div>
+  <div id="home-profils-grid" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:900px"></div>
+  <button onclick="enterAdmin()" style="background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline">Accès administrateur complet</button>
+</div>
 </body>
 </html>`);
   win.document.close();
@@ -6830,6 +6848,16 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       </div>
     </div>
   </div>
+</div>
+
+<!-- PAGE ACCUEIL PROFILS -->
+<div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px">
+  <div style="text-align:center;margin-bottom:8px">
+    <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
+    <div style="color:var(--text2);font-size:14px">Physico-Chimie — Sélectionnez votre profil</div>
+  </div>
+  <div id="home-profils-grid" style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:900px"></div>
+  <button onclick="enterAdmin()" style="background:none;border:none;color:var(--text3);font-size:12px;cursor:pointer;margin-top:8px;text-decoration:underline">Accès administrateur complet</button>
 </div>
 </body>
 </html>
