@@ -921,6 +921,18 @@
       "stockMin": "3",
       "qteCmde": "3",
       "note": ""
+    },
+    {
+      "id": 1786178456775,
+      "nom": "Tampon pH 12",
+      "fournisseur": "MERCK",
+      "ref": "1.99022.0001",
+      "localisation": "pHmètre",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "1",
+      "qteCmde": "1",
+      "note": ""
     }
   ],
   "contenants": [],
@@ -1157,7 +1169,7 @@
     }
   ],
   "commandesStatut": {
-    "1785742919397": "a_commander"
+    "1785742919397": "en_attente"
   },
   "enregistrements": [],
   "activity": [
@@ -1407,9 +1419,9 @@
       "time": "08/08 10:34"
     },
     {
-      "icon": "shopping-cart",
-      "text": "Commande mise a jour : Méthanol HPLC Grade",
-      "time": "08/08 10:36"
+      "icon": "flask-2",
+      "text": "Produit ajoute : Tampon pH 12",
+      "time": "08/08 10:40"
     }
   ],
   "spq": [
@@ -1763,23 +1775,22 @@
   ],
   "profils": [
     {
-      "id": 1786178118344,
+      "id": 1785742830183,
       "nom": "Réactifs / Commandes",
       "icone": "ti-user",
       "color": "#00BCD4",
       "modules": [
-        "reactifs",
-        "commandes"
+        "reactifs"
       ]
     },
     {
-      "id": 1786178168193,
+      "id": 1786176046538,
       "nom": "Enregistrement",
       "icone": "ti-user",
-      "color": "#FF9800",
+      "color": "",
       "modules": [
-        "echantillons",
-        "articles"
+        "",
+        ""
       ]
     }
   ]
