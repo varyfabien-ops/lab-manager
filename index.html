@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v192 — Physico-Chimie</title>
+<title>LabManager v193 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -597,7 +597,7 @@
 <div class="page" id="page-commandes">
   <div class="page-header">
     <div class="page-header-text"><h1>Commandes a passer</h1><p>Produits en dessous du stock minimum</p></div>
-    <div class="page-header-actions"><button class="btn" onclick="exportCommandes()"><i class="ti ti-download"></i> Exporter CSV</button></div>
+    <div class="page-header-actions"><button class="btn" onclick="showCmdsByDA()" style="margin-right:8px"><i class="ti ti-list-search"></i> Par DA</button><button class="btn" onclick="goTo('commandes-archives',null)" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button><button class="btn" onclick="exportCommandes()"><i class="ti ti-download"></i> Exporter CSV</button></div>
   </div>
   <div id="commandes-alertes" style="margin-bottom:20px"></div>
   <div class="table-card">
@@ -4481,7 +4481,8 @@ function setCommandeStatut(produitId, statut) {
     }, true);
     return;
   } else if (statut === 'receptionnee') {
-    showCmdPopup('Date de réception', new Date().toISOString().slice(0,10), (dateReception) => {
+    const dateReception = new Date().toISOString().slice(0,10);
+    ((dateReception) => {
       // Archiver
       if (!state.commandesArchives) state.commandesArchives = [];
       state.commandesArchives.push({
@@ -4492,25 +4493,22 @@ function setCommandeStatut(produitId, statut) {
       });
       delete state.commandesStatut[produitId];
       saveData();
-      toast('Commande archivée ! Vous pouvez maintenant enregistrer la réception.', 'success');
+      toast('Commande archivée !', 'success');
       renderCommandes();
-      // Pré-remplir et ouvrir le wizard de réception
+      // Ouvrir le modal de nouveau réactif commercial pré-rempli
       setTimeout(() => {
-        goTo('reception', null);
+        goToReactifs('contenants');
         setTimeout(() => {
-          openWizard();
-          // Pré-sélectionner MP et chercher le produit
-          toggleTypeCard('mp');
-          const artInput = document.getElementById('w-code-article');
-          // Chercher l'article lié à ce produit
-          const art = (state.articles||[]).find(a => a.nom && p && a.nom.toLowerCase().includes((p.nom||'').toLowerCase().split(' ')[0]));
-          if(art && artInput) {
-            artInput.value = art.code;
-            onWizardCodeArticleChange();
+          openModal('modal-contenant');
+          // Pré-remplir le produit
+          const sel = document.getElementById('c-produit');
+          if(sel && p) {
+            const prod = (state.produits||[]).find(x=>x.nom===p.nom);
+            if(prod) sel.value = prod.id;
           }
         }, 300);
       }, 500);
-    }, true);
+    })(dateReception);
     return;
   }
   state.commandesStatut[produitId] = { ...prev, statut };
@@ -4534,6 +4532,7 @@ function showCmdPopup(label, defaultVal, callback, isDate) {
     + '<button id="cmd-popup-ok" class="btn btn-primary">Confirmer</button>'
     + '</div>';
   document.body.appendChild(popup);
+  popup.querySelector('#da-popup-close').onclick = () => popup.remove();
   popup.addEventListener('click', e=>e.stopPropagation());
   const input = popup.querySelector('#cmd-popup-input');
   input.focus(); input.select();
@@ -4547,6 +4546,46 @@ function showCmdPopup(label, defaultVal, callback, isDate) {
   input.addEventListener('keydown', e => { if(e.key==='Enter') popup.querySelector('#cmd-popup-ok').click(); });
 }
 window.showCmdPopup = showCmdPopup;
+
+function showCmdsByDA() {
+  // Grouper les commandes actives par N° DA
+  const byDA = {};
+  Object.entries(state.commandesStatut||{}).forEach(([produitId, data]) => {
+    const d = typeof data === 'string' ? {statut:data} : data;
+    if (!d.da) return;
+    if (!byDA[d.da]) byDA[d.da] = [];
+    const p = (state.produits||[]).find(x=>x.id===parseInt(produitId));
+    if(p) byDA[d.da].push({ nom:p.nom, statut:d.statut, dateLiv:d.dateLiv });
+  });
+  // Aussi dans les archives
+  (state.commandesArchives||[]).forEach(a => {
+    if(!a.da) return;
+    if(!byDA[a.da]) byDA[a.da] = [];
+    byDA[a.da].push({ nom:a.nom, statut:'receptionnee', dateLiv:a.dateLiv, dateReception:a.dateReception });
+  });
+
+  if(!Object.keys(byDA).length) { toast('Aucune commande avec N° DA', 'info'); return; }
+
+  const popup = document.createElement('div');
+  popup.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:480px;max-height:80vh;overflow-y:auto';
+  const statutLabel = {a_commander:'À commander',commandee:'Commandée',en_attente:'En attente',receptionnee:'Reçue'};
+    let daHtml = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><strong style="font-size:16px">Commandes par N° DA</strong><button id="da-popup-close" style="background:none;border:none;cursor:pointer;font-size:20px;color:var(--text2)">×</button></div>';
+  Object.entries(byDA).sort().forEach(([da, prods]) => {
+    daHtml += '<div style="background:var(--bg3);border-radius:var(--radius);padding:12px;margin-bottom:10px">';
+    html += '<div style="font-weight:700;margin-bottom:8px;color:var(--cyan)">DA : '+da+'</div>';
+    daHtml += prods.map(p=>'<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:13px;border-bottom:1px solid var(--border)">'
+      +'<span>'+p.nom+'</span>'
+      +'<span class="badge '+(p.statut==='receptionnee'?'badge-green':p.statut==='en_attente'?'badge-amber':'badge-blue')+'" style="font-size:11px">'+( statutLabel[p.statut]||p.statut)+'</span>'
+      +'</div>').join('');
+    daHtml += '</div>';
+  });
+  popup.innerHTML = daHtml;
+  document.body.appendChild(popup);
+  popup.addEventListener('click', e=>e.stopPropagation());
+  setTimeout(()=>document.addEventListener('click', function h(e){if(!popup.contains(e.target)){popup.remove();document.removeEventListener('click',h);}},{capture:false}),0);
+}
+window.showCmdsByDA = showCmdsByDA;
+
 
 function exportCommandes() {
   const produits = getProduitsSousMin();
