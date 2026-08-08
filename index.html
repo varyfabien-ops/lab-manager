@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v208 — Physico-Chimie</title>
+<title>LabManager v209 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1768,6 +1768,7 @@ function toggleTypeCard(type) {
   if (type === 'pif' && cb.checked) { setTimeout(populatePIFMarches, 50); }
 }
 
+function previewSousSeriesPIF() { previewSousSeries(); }
 function previewSousSeries() {
   let nb;
   let marcheIds;
