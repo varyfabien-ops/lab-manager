@@ -1157,15 +1157,10 @@
     }
   ],
   "commandesStatut": {
-    "1785742919397": "en_attente"
+    "1785742919397": "a_commander"
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article créé : M76014000",
-      "time": "29/07 18:38"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0055",
@@ -1410,6 +1405,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 9",
       "time": "08/08 10:34"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande mise a jour : Méthanol HPLC Grade",
+      "time": "08/08 10:36"
     }
   ],
   "spq": [
