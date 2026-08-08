@@ -1005,7 +1005,8 @@
       "conditionnement": "200 mg",
       "stockMin": "3",
       "qteCmde": "5",
-      "note": ""
+      "note": "",
+      "bvs": true
     }
   ],
   "contenants": [],
@@ -1344,11 +1345,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "TCC0004 Bupivacaïne — 2 sous-séries — lot TEST",
-      "time": "08/08 10:53"
-    },
-    {
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
       "time": "08/08 10:58"
@@ -1591,6 +1587,11 @@
     {
       "icon": "pencil",
       "text": "Produit modifie : Methylparaben (PHBM)",
+      "time": "08/08 21:10"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Propylparaben (PHBP)",
       "time": "08/08 21:10"
     }
   ],
