@@ -1799,11 +1799,8 @@
       "id": 1786176046538,
       "nom": "Enregistrement",
       "icone": "ti-user",
-      "color": "",
-      "modules": [
-        "",
-        ""
-      ]
+      "color": "#FF9800",
+      "modules": []
     }
   ]
 }
