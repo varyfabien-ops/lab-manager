@@ -638,6 +638,15 @@
   <div class="tech-grid" id="tech-grid"></div>
 </div>
 
+<div class="page" id="page-profils-config">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Profils d'accès</h1><p>Configurez les profils et les modules accessibles</p></div>
+    <div class="page-header-actions">
+      <button class="btn btn-primary" onclick="openModalProfil()"><i class="ti ti-plus"></i> Nouveau profil</button>
+    </div>
+  </div>
+  <div id="profils-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px"></div>
+</div>
 </main>
 </div>
 <div class="toast-container" id="toast-container"></div>
@@ -1142,15 +1151,7 @@
     </div>
   </div>
 </div>
-<div class="page" id="page-profils-config">
-  <div class="page-header">
-    <div class="page-header-text"><h1>Profils d'accès</h1><p>Configurez les profils et les modules accessibles</p></div>
-    <div class="page-header-actions">
-      <button class="btn btn-primary" onclick="openModalProfil()"><i class="ti ti-plus"></i> Nouveau profil</button>
-    </div>
-  </div>
-  <div id="profils-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px"></div>
-</div>
+
 
 <!-- MODAL PROFIL -->
 <div class="modal-overlay" id="modal-profil">
@@ -5419,25 +5420,27 @@ function applyProfile(p) {
     document.querySelectorAll('.nav-item, .nav-sub').forEach(el => el.style.display = '');
     return;
   }
-  const navMap = {
-    'dashboard':     ['Tableau de bord'],
-    'planning':      ['Planification','Planning semaine','Calendrier','Catalogue analyses'],
-    'reactifs':      ['Reactifs','Réactifs','Réactifs Commerciaux','Préparations'],
-    'echantillons':  ['Echantillons','Reception','Produits','Marches','Lots libres'],
-    'articles':      ['Codes articles & SPQ'],
-    'habilitations': ['Habilitations'],
-    'activity':      ["Journal d'activité"],
-    'stabilites':    ['Stabilités'],
-    'tendances':     ['Tendances'],
-    'commandes':     ['Commandes'],
-    'profils-config':['Profils'],
+  // Correspondance par onclick plutôt que par texte
+  const onclickMap = {
+    'dashboard':     ['dashboard'],
+    'planning':      ['planning','planSemaine','goToPlanning','calendrier','catalogue'],
+    'reactifs':      ['reactifs','contenants','preparations'],
+    'echantillons':  ['echantillons','reception','produits','marches','lots'],
+    'articles':      ['articles'],
+    'habilitations': ['habilitations'],
+    'activity':      ['activity','journal'],
+    'stabilites':    ['stabilites'],
+    'tendances':     ['tendances'],
+    'commandes':     ['commandes'],
+    'profils-config':['profils'],
   };
   document.querySelectorAll('.nav-item, .nav-sub').forEach(el => {
-    const text = el.textContent.trim();
+    const onclick = (el.getAttribute('onclick')||'').toLowerCase();
+    const text = el.textContent.trim().toLowerCase();
     let visible = false;
     allowed.forEach(key => {
-      const labels = navMap[key] || [];
-      if (labels.some(l => text.startsWith(l))) visible = true;
+      const keywords = onclickMap[key] || [];
+      if (keywords.some(k => onclick.includes(k) || text.includes(k))) visible = true;
     });
     el.style.display = visible ? '' : 'none';
   });
