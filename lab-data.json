@@ -1129,12 +1129,13 @@
       "qte": "125 mg",
       "reception": "2026-08-08",
       "peremption": "",
-      "ouverture": "",
+      "ouverture": "2026-08-08",
       "validite": "",
-      "statut": "en_stock",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
-      "id": 1786207897864
+      "id": 1786207897864,
+      "ouvertPar": "CPL"
     },
     {
       "produitId": 1786207222803,
@@ -1534,11 +1535,6 @@
       "time": "03/08 09:50"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "03/08 09:50"
-    },
-    {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
       "time": "03/08 09:51"
@@ -1772,6 +1768,11 @@
       "icon": "package",
       "text": "5x Methylparaben (PHBM) lot R098B0 receptionne(s)",
       "time": "08/08 18:51"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Methylparaben (PHBM) lot R098B0",
+      "time": "08/08 18:58"
     }
   ],
   "spq": [
