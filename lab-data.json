@@ -1178,6 +1178,16 @@
       ],
       "date": "2021-11-20",
       "statut": "actif"
+    },
+    {
+      "id": 1786178865689,
+      "prenom": "Camille",
+      "nom": "PAAL",
+      "visa": "CPL",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "2026-08-08",
+      "statut": "actif"
     }
   ],
   "commandesStatut": {
@@ -1185,11 +1195,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article créé : M76031000",
-      "time": "29/07 18:38"
-    },
     {
       "icon": "barcode",
       "text": "Article créé : M78003601",
@@ -1434,6 +1439,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 2",
       "time": "08/08 10:41"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Camille PAAL",
+      "time": "08/08 10:47"
     }
   ],
   "spq": [
