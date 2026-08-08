@@ -873,6 +873,18 @@
       "stockMin": "3",
       "qteCmde": "5",
       "note": "Analyse de la STEP"
+    },
+    {
+      "id": 1786177709859,
+      "nom": "Tampon pH 4",
+      "fournisseur": "MERCK",
+      "ref": "1.99001.0001",
+      "localisation": "pHmètre",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "3",
+      "qteCmde": "3",
+      "note": ""
     }
   ],
   "contenants": [
@@ -1127,11 +1139,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : M705170000",
-      "time": "29/07 18:36"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0058",
       "time": "29/07 18:36"
@@ -1375,6 +1382,11 @@
       "icon": "flask",
       "text": "Préparation: Solutions Mères Bupivacaïne HCPC0030-F p.16-4",
       "time": "06/08 08:43"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Tampon pH 4",
+      "time": "08/08 10:28"
     }
   ],
   "spq": [
@@ -1737,29 +1749,11 @@
       ]
     },
     {
-      "id": 1786177531077,
+      "id": 1786176046538,
       "nom": "Enregistrement",
       "icone": "ti-user",
       "color": "",
       "modules": [
-        ""
-      ]
-    },
-    {
-      "id": 1786177545293,
-      "nom": "Enregistrement",
-      "icone": "ti-user",
-      "color": "",
-      "modules": [
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
         "",
         ""
       ]
