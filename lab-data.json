@@ -1198,6 +1198,16 @@
       "habilitations": [],
       "date": "2026-08-08",
       "statut": "actif"
+    },
+    {
+      "id": 1786178911372,
+      "prenom": "Valérie",
+      "nom": "THOMAS",
+      "visa": "VT",
+      "role": "Responsable Support",
+      "habilitations": [],
+      "date": "2026-08-08",
+      "statut": "actif"
     }
   ],
   "commandesStatut": {
@@ -1205,11 +1215,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article créé : M78003701",
-      "time": "29/07 18:39"
-    },
     {
       "icon": "barcode",
       "text": "Article créé : M78004100",
@@ -1453,6 +1458,11 @@
     {
       "icon": "certificate",
       "text": "Technicien ajoute : Kévin BERTHELOT",
+      "time": "08/08 10:48"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Valérie THOMAS",
       "time": "08/08 10:48"
     }
   ],
