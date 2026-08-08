@@ -1425,8 +1425,9 @@
     "1785742919397": "en_attente",
     "1785746786712": "en_attente",
     "1786178456775": {
-      "statut": "commandee",
-      "da": "XXXXXXX"
+      "statut": "en_attente",
+      "da": "XXXXXXX",
+      "dateLiv": "2026-08-08"
     }
   },
   "enregistrements": [],
