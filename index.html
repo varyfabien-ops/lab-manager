@@ -5156,6 +5156,8 @@ function openModalSPQ() {
 function editSPQ(id) {
   const s = (state.spq||[]).find(x => x.id === id);
   if (!s) return;
+  openModalSPQ();
+  // Après ouverture, définir l'ID et remplir les champs
   _editingSpqId = id;
   window._editingSpqId = id;
   document.getElementById('modal-spq-title').textContent = 'Modifier SPQ — ' + s.ref;
@@ -5164,7 +5166,6 @@ function editSPQ(id) {
   (s.marches||[]).forEach(m => addSpqMarche(m.marcheId, m.analyses||[]));
   const delBtn = document.getElementById('spq-delete-btn');
   if (delBtn) delBtn.style.display = 'inline-flex';
-  openModal('modal-spq');
 }
 
 function saveSPQ() {
@@ -5192,7 +5193,16 @@ function saveSPQ() {
   
   closeModal('modal-spq');
   saveData();
-  renderSPQ();
+  renderArticles();
+  // Si créée depuis un article, lier automatiquement
+  if (window._spqForArticleId) {
+    const lastSpq = (state.spq||[]).slice(-1)[0];
+    const art = (state.articles||[]).find(a=>a.id===window._spqForArticleId);
+    if (art && lastSpq && !_editingSpqId) { art.spqId = lastSpq.id; saveData(); }
+    const panelId = window._spqPanelArticleId;
+    window._spqForArticleId = null;
+    if (panelId) openSpqPanel(panelId);
+  }
   toast('SPQ enregistrée', 'success');
 }
 
@@ -5202,7 +5212,7 @@ function deleteSPQ(id) {
   state.spq = state.spq.filter(x => x.id !== id);
   closeModal('modal-spq');
   saveData();
-  renderSPQ();
+  renderArticles();
   toast('SPQ supprimée', 'info');
   addActivity('trash', 'SPQ supprimée : ' + (s?.ref||''));
 }
@@ -5515,21 +5525,21 @@ function openModalProfil() {
 
 function editProfil(id) {
   const p = (state.profils||[]).find(x=>x.id===id); if(!p) return;
-  window._editingProfilId = id;
+  // Ouvrir d'abord (sans réinitialiser _editingProfilId)
   openModalProfil();
-  setTimeout(() => {
-    document.getElementById('modal-profil-title').textContent = 'Modifier — '+p.nom;
-    document.getElementById('profil-nom').value = p.nom||'';
-    document.getElementById('profil-icone').value = p.icone||'ti-user';
-    document.getElementById('profil-delete-btn').style.display = 'inline-flex';
-    document.querySelectorAll('input[name="profil-color"]').forEach(r => {
-      if(r.value === p.color) { r.checked=true; r.nextElementSibling.style.border='3px solid #333'; }
-      else r.nextElementSibling.style.border='3px solid transparent';
-    });
-    document.querySelectorAll('.profil-mod-cb').forEach(cb => {
-      cb.checked = (p.modules||[]).includes(cb.value);
-    });
-  }, 50);
+  // Puis définir l'ID et remplir les champs
+  window._editingProfilId = id;
+  document.getElementById('modal-profil-title').textContent = 'Modifier — '+p.nom;
+  document.getElementById('profil-nom').value = p.nom||'';
+  document.getElementById('profil-icone').value = p.icone||'ti-user';
+  document.getElementById('profil-delete-btn').style.display = 'inline-flex';
+  document.querySelectorAll('input[name="profil-color"]').forEach(r => {
+    if(r.value === p.color) { r.checked=true; r.nextElementSibling.style.border='3px solid #333'; }
+    else r.nextElementSibling.style.border='3px solid transparent';
+  });
+  document.querySelectorAll('.profil-mod-cb').forEach(cb => {
+    cb.checked = (p.modules||[]).includes(cb.value);
+  });
 }
 
 function saveProfil() {
