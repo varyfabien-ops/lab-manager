@@ -1763,16 +1763,6 @@
   ],
   "profils": [
     {
-      "id": 1786176046538,
-      "nom": "Enregistrement",
-      "icone": "ti-user",
-      "color": "",
-      "modules": [
-        "",
-        ""
-      ]
-    },
-    {
       "id": 1786178118344,
       "nom": "Réactifs / Commandes",
       "icone": "ti-user",
