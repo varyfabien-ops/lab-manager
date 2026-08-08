@@ -954,9 +954,9 @@
       "qte": "30",
       "reception": "2026-06-16",
       "peremption": "2027-02-28",
-      "ouverture": "2026-08-08",
-      "validite": "2027-02-28",
-      "statut": "ouvert",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
       "note": "",
       "id": 1786184868790,
       "coaUrl": "blob:https://www.sigmaaldrich.com/b49b66e0-4a75-4bb5-8374-863f973f51b2"
@@ -1353,11 +1353,6 @@
   "activity": [
     {
       "icon": "flask",
-      "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
-      "time": "30/07 19:52"
-    },
-    {
-      "icon": "flask",
       "text": "Préparation: Red Methyl TS 2026/0004",
       "time": "03/08 09:38"
     },
@@ -1600,6 +1595,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Tampon pH 9 lot HC56730103",
       "time": "08/08 12:28"
+    },
+    {
+      "icon": "pencil",
+      "text": "Contenant modifie : lot HC56730103",
+      "time": "08/08 12:40"
     }
   ],
   "spq": [
