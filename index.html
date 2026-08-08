@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v180 — Physico-Chimie</title>
+<title>LabManager v187 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -172,7 +172,7 @@
 <div id="reactifs-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToReactifs('contenants')"><i class="ti ti-package"></i> Réactifs Commerciaux</div><div class="nav-item nav-sub" onclick="goToReactifs('preparations')"><i class="ti ti-flask"></i> Préparations</div>
 <div class="nav-item nav-sub" onclick="goTo('commandes',this)"><i class="ti ti-shopping-cart"></i> Commandes</div></div>
 <div class="nav-item" onclick="toggleEchMenu(event)"><i class="ti ti-package"></i> Echantillons <i class="ti ti-chevron-down" id="ech-chevron" style="margin-left:auto;font-size:12px;transition:transform 0.2s"></i></div>
-<div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div>
+<div id="ech-submenu" style="display:none"><div class="nav-item nav-sub" onclick="goToEch('reception')"><i class="ti ti-package"></i> Reception</div><div class="nav-item nav-sub" onclick="goToEch('produits-ech')" style="display:none"><i class="ti ti-pill"></i> Produits</div><div class="nav-item nav-sub" onclick="goToEch('marches')"><i class="ti ti-world"></i> Marches</div><div class="nav-item nav-sub" onclick="goToEch('liberes')"><i class="ti ti-circle-check"></i> Lots liberes <span class="nav-badge" id="badge-liberes" style="display:none;background:var(--green-dim);color:var(--green)">0</span></div>
 <div class="nav-item nav-sub" onclick="goTo('articles',this)"><i class="ti ti-barcode"></i> Codes articles & SPQ</div></div>
 
 <div class="nav-item" onclick="goTo('habilitations',this)"><i class="ti ti-certificate"></i> Habilitations</div>
@@ -262,7 +262,7 @@
       <div class="table-card-header"><h3>Analyses referencees</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-catalogue" placeholder="Rechercher..." oninput="renderCatalogue()"></div>
       </div>
-      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations</th><th>Produits applicables</th><th>Duree</th><th>Description</th><th></th></tr></thead>
+      <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations</th><th>Duree</th><th>Description</th><th></th></tr></thead>
       <tbody id="catalogue-tbody"></tbody></table>
     </div>
   </div>
@@ -298,9 +298,9 @@
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
         <thead><tr>
-          <th style="width:180px">Produit<br><input class="filter-input" id="f-produit" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-          <th style="width:110px">N° de Lot<br><input class="filter-input" id="f-lot" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
-          <th style="width:120px">Fournisseur<br><input class="filter-input" id="f-fourn" placeholder="Filtrer..." oninput="renderReactifsTable()"></th>
+          <th style="width:180px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
+          <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
+          <th style="width:120px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="fourn" onclick="openRcFilter(event,'fourn')">Fournisseur <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-fourn" value=""></th>
           <th style="width:90px">Date de Reception<br><input class="filter-input" id="f-reception" type="date" oninput="renderReactifsTable()"></th>
           <th style="width:90px">Date d'Ouverture<br><input class="filter-input" id="f-ouverture" type="date" oninput="renderReactifsTable()"></th>
           <th style="width:100px">Date de Peremption<br><input class="filter-input" id="f-peremption" type="date" oninput="renderReactifsTable()"></th>
@@ -438,9 +438,10 @@
     </div>
     <div class="table-card">
       <div class="table-card-header"><h3>Echantillons</h3><div class="spacer"></div>
-        <button class="btn" onclick="resetEchFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i></button>
+        <button class="btn" onclick="resetEchFiltres()" style="font-size:12px" title="Réinitialiser les filtres"><i class="ti ti-filter-off"></i></button>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
+    <div id="active-filters-bar" style="display:none;padding:8px 16px;border-top:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;align-items:center;background:var(--bg3)"></div>
       <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
   <th style="width:170px;text-align:center">
     <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="produit" onclick="openXlFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
@@ -609,7 +610,7 @@
 <div class="page" id="page-articles">
   <div class="page-header">
     <div class="page-header-text"><h1>Codes Articles</h1><p>Référentiel produits et SPQ associées</p></div>
-    <div class="page-header-actions"><button class="btn" onclick="openModalSPQ()" style="margin-right:8px"><i class="ti ti-file-certificate"></i> Nouvelle SPQ</button><button class="btn" onclick="openSpqPanel(window._spqPanelArticleId)" style="margin-right:8px" id="btn-view-spq" style="display:none"><i class="ti ti-eye"></i> Voir SPQ</button><button class="btn btn-primary" onclick="openModalArticle()"><i class="ti ti-plus"></i> Nouveau code article</button></div>
+    <div class="page-header-actions"><button class="btn" onclick="openModalSPQ()" style="margin-right:8px;background:var(--purple-dim);color:var(--purple);border-color:var(--purple)"><i class="ti ti-plus"></i> Nouvelle SPQ</button><button class="btn btn-primary" onclick="openModalArticle()"><i class="ti ti-plus"></i> Nouveau code article</button></div>
   </div>
   <div class="table-card">
     <div class="table-card-header"><h3>Articles enregistrés</h3><div class="spacer"></div>
@@ -3543,7 +3544,7 @@ function saveAnalyse() {
 
 function renderCatalogue() {
   const q = (document.getElementById('search-catalogue')?.value||'').toLowerCase();
-  const rows = (state.catalogue||[]).filter(a => !q || a.nom.toLowerCase().includes(q) || (a.code||'').toLowerCase().includes(q));
+  const rows = [...(state.catalogue||[])].filter(a => !q || a.nom.toLowerCase().includes(q) || (a.code||'').toLowerCase().includes(q)).sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
   const tbody = document.getElementById('catalogue-tbody');
   if (!tbody) return;
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
@@ -3552,8 +3553,6 @@ function renderCatalogue() {
     return `<tr>
     <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
     <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
-    <td>${prods.length ? prods.map(p=>'<span class="badge badge-blue" style="font-size:11px">'+p.nom+'</span>').join(' ') : '<span style="color:var(--text3)">—</span>'}</td>
-    <td>${a.duree||'—'}</td>
     <td style="font-size:12px;color:var(--text2)">${a.description||'—'}</td>
     <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
   </tr>`;
@@ -3998,6 +3997,7 @@ function statutContenantBadge(s) {
 }
 
 function resetFiltres() {
+  window._rcFilter = { produit:[], lot:[], fourn:[] };
   ['f-produit','f-lot','f-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
   ['f-reception','f-ouverture','f-peremption'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
   ['f-validite-statut','f-statut'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
@@ -4007,9 +4007,9 @@ function resetFiltres() {
 // -- TABLE CONTENANTS avec filtres ----------------------------
 function renderReactifsTable() {
   if (!state.contenants) state.contenants = [];
-  const fProduit = (document.getElementById('f-produit')?.value||'').toLowerCase();
-  const fLot = (document.getElementById('f-lot')?.value||'').toLowerCase();
-  const fFourn = (document.getElementById('f-fourn')?.value||'').toLowerCase();
+  const fProduit = window._rcFilter?.produit||[];
+  const fLot = window._rcFilter?.lot||[];
+  const fFourn = window._rcFilter?.fourn||[];
   const fReception = document.getElementById('f-reception')?.value||'';
   const fOuverture = document.getElementById('f-ouverture')?.value||'';
   const fPeremption = document.getElementById('f-peremption')?.value||'';
@@ -4022,9 +4022,9 @@ function renderReactifsTable() {
     const statAuto = getStatutAuto(c);
     // Vue contenants = uniquement actifs (pas les archives)
     if (['archive','retire','expire'].includes(statAuto)) return false;
-    if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
-    if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
-    if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
+    if (fProduit.length && !fProduit.includes(p.nom||'')) return false;
+    if (fLot.length && !fLot.includes(c.lot||'')) return false;
+    if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
     if (fReception && c.reception !== fReception) return false;
     if (fOuverture && c.ouverture !== fOuverture) return false;
     if (fPeremption && c.peremption !== fPeremption) return false;
@@ -4064,16 +4064,17 @@ function renderReactifsTable() {
       <td style="font-size:12px;text-align:center">${c.validite?'<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>':'<span style="color:var(--text3)">Non ouvert</span>'}</td>
       <td>${statutContenantBadge(statAuto)}</td>
       <td>
-        <div class="actions" style="opacity:1;flex-wrap:wrap">
+        <div class="actions" style="opacity:1;flex-wrap:nowrap;gap:4px">
           ${canOpen
         ? `<button class="icon-btn" onclick="ouvrirContenant(${c.id})" title="Enregistrer l'ouverture" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>`
         +(c.coaUrl?`<a href="${c.coaUrl}" target="_blank" class="icon-btn" title="Voir le CoA" style="color:var(--purple)"><i class="ti ti-file-certificate"></i></a>`:'')
         : statAuto === 'ouvert'
-          ? `<button class="icon-btn danger" onclick="fermerContenant(${c.id})" title="Cloturer - passer en archive"><i class="ti ti-lock"></i></button>`
+          ? `<button class="icon-btn danger" onclick="fermerContenant(${c.id})" title="Clôturer - passer en archive"><i class="ti ti-lock"></i></button>`
+          +(c.coaUrl?`<a href="${c.coaUrl}" target="_blank" class="icon-btn" title="Voir le CoA" style="color:var(--purple)"><i class="ti ti-file-certificate"></i></a>`:'')
           : ''
       }
-          <button class="icon-btn" onclick="editContenant(${c.id})"><i class="ti ti-pencil"></i></button>
-          <button class="icon-btn danger" onclick="deleteContenant(${c.id})"><i class="ti ti-trash"></i></button>
+          <button class="icon-btn" onclick="editContenant(${c.id})" title="Modifier"><i class="ti ti-pencil"></i></button>
+          <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
         </div>
       </td>
     </tr>`;
@@ -4651,6 +4652,71 @@ window.populateProduitSelect = populateProduitSelect;
 window.populateTechSelects = populateTechSelects;
 window.renderReactifsTable = renderReactifsTable;
 
+// ============================================================
+// FILTRES EXCEL RÉACTIFS COMMERCIAUX
+// ============================================================
+window._rcFilter = { produit:[], lot:[], fourn:[] };
+let _rcFilterOpen = null;
+
+function openRcFilter(event, col) {
+  event.stopPropagation();
+  if (_rcFilterOpen === col) { closeRcFilter(); return; }
+  closeRcFilter();
+  _rcFilterOpen = col;
+  const vals = new Set();
+  (state.contenants||[]).forEach(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    if (col==='produit') { if(p.nom) vals.add(p.nom); }
+    else if (col==='lot') { if(c.lot) vals.add(c.lot); }
+    else if (col==='fourn') { if(p.fournisseur) vals.add(p.fournisseur); }
+  });
+  const sorted = [...vals].sort((a,b)=>a.localeCompare(b));
+  const current = window._rcFilter[col]||[];
+  const dropdown = document.createElement('div');
+  dropdown.id = 'rc-filter-dropdown';
+  dropdown.style.cssText = 'position:fixed;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,0.15);z-index:9999;min-width:220px;max-height:320px;overflow-y:auto;font-size:13px';
+  dropdown.innerHTML = '<div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px"><button id="rc-btn-all" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Tout</button><button id="rc-btn-none" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Aucun</button></div>'
+    + '<div style="padding:4px 0">'
+    + sorted.map(v => '<label style="display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer"><input type="checkbox" class="rc-cb" data-col="'+col+'" data-val="'+v+'" '+(current.includes(v)?'checked':'')+'><span>'+v+'</span></label>').join('')
+    + '</div>';
+  document.body.appendChild(dropdown);
+  dropdown.addEventListener('click', e => e.stopPropagation());
+  dropdown.querySelector('#rc-btn-all').onclick = () => { dropdown.querySelectorAll('.rc-cb').forEach(cb=>cb.checked=false); window._rcFilter[col]=[]; updateRcFilterIcons(); renderReactifsTable(); };
+  dropdown.querySelector('#rc-btn-none').onclick = () => { dropdown.querySelectorAll('.rc-cb').forEach(cb=>cb.checked=false); window._rcFilter[col]=[]; updateRcFilterIcons(); renderReactifsTable(); };
+  dropdown.querySelectorAll('.rc-cb').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const c=cb.dataset.col, v=cb.dataset.val;
+      if(!window._rcFilter[c]) window._rcFilter[c]=[];
+      if(cb.checked){ if(!window._rcFilter[c].includes(v)) window._rcFilter[c].push(v); }
+      else { window._rcFilter[c]=window._rcFilter[c].filter(x=>x!==v); }
+      updateRcFilterIcons();
+      setTimeout(()=>renderReactifsTable(),0);
+    });
+  });
+  const rect = event.target.getBoundingClientRect();
+  dropdown.style.top = (rect.bottom+4)+'px';
+  dropdown.style.left = Math.min(rect.left, window.innerWidth-240)+'px';
+  setTimeout(()=>document.addEventListener('click', closeRcFilter, {once:true}),0);
+}
+
+function closeRcFilter() {
+  const el=document.getElementById('rc-filter-dropdown');
+  if(el) el.remove();
+  _rcFilterOpen = null;
+}
+
+function updateRcFilterIcons() {
+  ['produit','lot','fourn'].forEach(col => {
+    const active = (window._rcFilter[col]||[]).length > 0;
+    const el = document.querySelector('[data-rc-col="'+col+'"]');
+    if(el) { const icon=el.querySelector('.ti-filter'); if(icon) icon.style.color=active?'var(--cyan)':'var(--text3)'; }
+  });
+}
+
+window.openRcFilter = openRcFilter;
+window.closeRcFilter = closeRcFilter;
+
+
 function imprimerPerimesContenants() {
   const today = new Date(); today.setHours(0,0,0,0);
   const perimes = (state.contenants||[]).filter(c => {
@@ -4745,9 +4811,9 @@ function renderArchivesTable() {
     const s = getStatutAuto(c);
     if (!['archive','retire','expire'].includes(s)) return false;
     const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
-    if (fProduit && !(p.nom||'').toLowerCase().includes(fProduit)) return false;
-    if (fLot && !(c.lot||'').toLowerCase().includes(fLot)) return false;
-    if (fFourn && !(p.fournisseur||'').toLowerCase().includes(fFourn)) return false;
+    if (fProduit.length && !fProduit.includes(p.nom||'')) return false;
+    if (fLot.length && !fLot.includes(c.lot||'')) return false;
+    if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
     if (fStatut && s !== fStatut) return false;
     return true;
   });
@@ -5359,14 +5425,50 @@ function xlFilterClear(col) {
 }
 
 function updateXlFilterIcons() {
-  // Mettre en évidence les colonnes avec un filtre actif
+  const colLabels = {produit:'Produit',lot:'Lot',marche:'Marché',date:'Date',analyse:'Analyse'};
   ['produit','lot','marche','date','analyse'].forEach(col => {
     const active = (window._xlFilter[col]||[]).length > 0;
     document.querySelectorAll('[data-filter-col="'+col+'"]').forEach(el => {
       const icon = el.querySelector('.ti-filter');
       if (icon) icon.style.color = active ? 'var(--cyan)' : 'var(--text3)';
-    }); });
+    });
+  });
+  // Afficher les filtres actifs sous forme de badges
+  const bar = document.getElementById('active-filters-bar');
+  if(!bar) return;
+    bar.innerHTML = '';
+  let hasFilters = false;
+  ['produit','lot','marche','date','analyse'].forEach(col => {
+    (window._xlFilter[col]||[]).forEach(v => {
+      hasFilters = true;
+      const span = document.createElement('span');
+      span.style.cssText = 'display:inline-flex;align-items:center;gap:4px;background:var(--cyan-dim);color:var(--cyan);border:1px solid var(--cyan3);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:500';
+      span.innerHTML = '<span style="font-size:10px;opacity:0.7">'+colLabels[col]+':</span> '+v;
+      const btn = document.createElement('button');
+      btn.textContent = '×';
+      btn.style.cssText = 'background:none;border:none;cursor:pointer;color:var(--cyan);font-size:14px;padding:0;margin-left:2px;line-height:1';
+      btn.onclick = () => removeXlFilter(col, v);
+      span.appendChild(btn);
+      bar.appendChild(span);
+    });
+  });
+  if(hasFilters) {
+    const lbl = document.createElement('span');
+    lbl.style.cssText = 'font-size:11px;color:var(--text3);margin-right:4px';
+    lbl.textContent = 'Filtres :';
+    bar.insertBefore(lbl, bar.firstChild);
+    bar.style.display = 'flex';
+  } else {
+    bar.style.display = 'none';
+  }}
+
+function removeXlFilter(col, val) {
+  if(!window._xlFilter[col]) return;
+  window._xlFilter[col] = window._xlFilter[col].filter(v=>v!==val);
+  updateXlFilterIcons();
+  renderEchantillonsTable();
 }
+window.removeXlFilter = removeXlFilter;
 
 function resetEchFiltres() {
   window._xlFilter = { produit:[], lot:[], marche:[], date:[], analyse:[] };
@@ -5412,7 +5514,7 @@ function showHomeScreen() {
   profils.forEach(p => {
     const color = p.color || 'var(--cyan)';
     const div = document.createElement('div');
-    div.style.cssText = 'cursor:pointer;background:var(--bg2);border:2px solid '+color+';border-radius:var(--radius-lg);padding:32px 24px;text-align:center;min-width:180px;transition:all 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06)';
+    div.style.cssText = 'cursor:pointer;background:var(--bg2);border:2px solid '+color+';border-radius:var(--radius-lg);padding:32px 24px;text-align:center;width:200px;min-width:200px;max-width:200px;transition:all 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06)';
     div.innerHTML = '<i class="ti '+(p.icone||'ti-user')+'" style="font-size:48px;color:'+color+';display:block;margin-bottom:12px"></i><div style="font-size:17px;font-weight:700;color:var(--text)">'+p.nom+'</div>';
     div.onmouseover = () => div.style.transform = 'scale(1.04)';
     div.onmouseout = () => div.style.transform = 'scale(1)';
@@ -6522,7 +6624,7 @@ function renderEchantillonsTableAlignedV105(){
     // Dédupliquer les analyses sur toutes les entrées du groupe
     const allAnalyseIds=[...new Set(group.flatMap(e=>e.analysesIds||[]))];
     let analyses=allAnalyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean).sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-    if(fAnalyse.length) analyses=analyses.filter(a=>fAnalyse.includes(a.nom||''));
+    if(fAnalyse.length) { analyses=analyses.filter(a=>fAnalyse.includes(a.nom||'')); if(!analyses.length) return; }
 
     if(fEnCours||fTerminee||fVerifiee){
       const statuts=Object.values(e0.analyseStatuts||{});
