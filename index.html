@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v215 — Physico-Chimie</title>
+<title>LabManager v216 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -313,12 +313,11 @@
         <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau réactif</button>
       </div>
     </div>
-    <div class="table-card">
-      <div class="table-card-header" style="background:var(--bg2);position:sticky;top:100px;z-index:50;"><h3>Contenants actifs</h3><div class="spacer"></div>
+    <div class="table-card" style="overflow-x:auto">
+      <div class="table-card-header" style="background:var(--bg2);position:sticky;top:100px;z-index:50;left:0;"><h3>Contenants actifs</h3><div class="spacer"></div>
         <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
-      <div style="overflow-x:auto">
-      <table style="table-layout:fixed;min-width:900px">
+      <table style="table-layout:fixed;min-width:900px;width:100%">
         <thead style="position:sticky;top:149px;z-index:49;background:var(--bg2)"><tr>
           <th style="width:200px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
           <th style="width:110px"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
@@ -345,7 +344,6 @@
         </tr></thead>
         <tbody id="reactifs-tbody"></tbody>
       </table>
-      </div>
     </div>
   </div>
   <!-- VUE ARCHIVES PRÉPARATIONS -->
