@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v191 — Physico-Chimie</title>
+<title>LabManager v192 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4434,10 +4434,10 @@ function renderCommandes() {
       return '<div style="width:36px;height:36px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center"><i class="ti '+icon+'" style="font-size:16px;color:var(--border)"></i></div>';
     }
     const icons = [
-      cmdIcon(0,'ti-shopping-cart','À cmd','#6c757d', curIdx>=0, curIdx===0),
-      cmdIcon(1,'ti-file-invoice','Cmdée','#2196F3', curIdx>=1, curIdx===1),
-      cmdIcon(2,'ti-truck','En attente','#FF9800', curIdx>=2, curIdx===2),
-      cmdIcon(3,'ti-package-import','Reçue','#4CAF50', curIdx>=3, curIdx===3),
+      cmdIcon(0,'ti-shopping-cart','À cmd','#6c757d', curIdx>=0, curIdx+1===0),
+      cmdIcon(1,'ti-file-invoice','Cmdée','#2196F3', curIdx>=1, curIdx+1===1),
+      cmdIcon(2,'ti-truck','En attente','#FF9800', curIdx>=2, curIdx+1===2),
+      cmdIcon(3,'ti-package-import','Reçue','#4CAF50', curIdx>=3, curIdx+1===3),
     ].join('<div style="width:16px;height:2px;background:var(--border);margin-top:18px;flex-shrink:0"></div>');
     return `<tr style="${urgent?'background:var(--red-dim)':''}">
       <td><strong>${p.nom}</strong>${p.localisation?'<br><span style="font-size:11px;color:var(--text3)">'+p.localisation+'</span>':''}</td>
