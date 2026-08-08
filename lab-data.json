@@ -1341,13 +1341,17 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785170145444": "verifiee"
+        "1785170145444": "verifiee",
+        "1785170122728": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785170145444": {
           "en_cours": "08/08/2026",
           "terminee": "08/08/2026",
           "verifiee": "08/08/2026"
+        },
+        "1785170122728": {
+          "en_cours": "08/08/2026"
         }
       }
     }
@@ -1420,11 +1424,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "pencil",
-      "text": "Contenant modifie : lot HC56730103",
-      "time": "08/08 12:40"
-    },
     {
       "icon": "package",
       "text": "3x Tampon pH 4 lot HC46017601 receptionne(s)",
@@ -1668,6 +1667,11 @@
     {
       "icon": "list-check",
       "text": "TEST 2 — Volume Extractible : verifiee",
+      "time": "08/08 21:21"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 2 — pH : en_cours",
       "time": "08/08 21:21"
     }
   ],
