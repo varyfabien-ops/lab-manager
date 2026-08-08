@@ -992,7 +992,8 @@
       "conditionnement": "125 mg",
       "stockMin": "5",
       "qteCmde": "5",
-      "note": ""
+      "note": "",
+      "bvs": true
     },
     {
       "id": 1786212150511,
@@ -1343,11 +1344,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "TEST-1 — TCC0004 Bupivacaïne : en_cours",
-      "time": "08/08 10:53"
-    },
-    {
       "icon": "clipboard-check",
       "text": "TCC0004 Bupivacaïne — 2 sous-séries — lot TEST",
       "time": "08/08 10:53"
@@ -1591,6 +1587,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot R14640",
       "time": "08/08 21:09"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Methylparaben (PHBM)",
+      "time": "08/08 21:10"
     }
   ],
   "spq": [
