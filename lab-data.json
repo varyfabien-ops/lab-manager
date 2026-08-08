@@ -1069,13 +1069,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785247529863": "terminee",
+        "1785247529863": "verifiee",
         "1785247477146": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247529863": {
           "en_cours": "08/08/2026",
-          "terminee": "08/08/2026"
+          "terminee": "08/08/2026",
+          "verifiee": "08/08/2026"
         },
         "1785247477146": {
           "en_cours": "08/08/2026"
@@ -1276,11 +1277,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0209",
-      "time": "29/07 18:40"
-    },
     {
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 1 entrée(s) — 5 analyse(s)",
@@ -1524,6 +1520,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : en_cours",
+      "time": "08/08 10:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 Bupivacaïne : verifiee",
       "time": "08/08 10:58"
     }
   ],
