@@ -1134,7 +1134,9 @@
       "statut": "ouvert",
       "note": "",
       "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1432005-R098B0.pdf",
-      "id": 1786207351322
+      "id": 1786207351322,
+      "verifiedBy": "CPL",
+      "verifiedAt": "08/08/2026"
     }
   ],
   "produitsEch": [
