@@ -1018,42 +1018,6 @@
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "id": 1786184868791
-    },
-    {
-      "produitId": 1786178095292,
-      "lot": "HC56730103",
-      "qte": "30",
-      "reception": "2026-06-16",
-      "peremption": "2027-02-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1786184868792
-    },
-    {
-      "produitId": 1786178095292,
-      "lot": "HC56730103",
-      "qte": "30",
-      "reception": "2026-06-16",
-      "peremption": "2027-02-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "id": 1786184868793
-    },
-    {
-      "produitId": 1786178095292,
-      "lot": "HC56730103",
-      "qte": "30",
-      "reception": "2026-06-16",
-      "peremption": "2027-02-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
       "id": 1786184868794
     },
     {
@@ -1597,21 +1561,6 @@
       "time": "03/08 09:51"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "03/08 09:51"
-    },
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "03/08 09:51"
-    },
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "03/08 09:51"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : LCK339",
       "time": "03/08 10:46"
@@ -1835,6 +1784,21 @@
       "icon": "lock-open",
       "text": "Ouverture : Propylparaben (PHBP) lot R14640",
       "time": "08/08 20:04"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC56730103",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC56730103",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC56730103",
+      "time": "08/08 21:09"
     },
     {
       "icon": "trash",
