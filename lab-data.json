@@ -1215,7 +1215,9 @@
       "note": "",
       "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
       "id": 1786212225827,
-      "ouvertPar": "VT"
+      "ouvertPar": "VT",
+      "verifiedBy": "FVY",
+      "verifiedAt": "08/08/2026"
     },
     {
       "produitId": 1786212150511,
