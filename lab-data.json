@@ -947,7 +947,20 @@
       "note": ""
     }
   ],
-  "contenants": [],
+  "contenants": [
+    {
+      "produitId": 1786178456775,
+      "lot": "HC57833622",
+      "qte": "30",
+      "reception": "2026-01-23",
+      "peremption": "2027-10-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "id": 1786183919755
+    }
+  ],
   "produitsEch": [
     {
       "id": 1785169889615,
@@ -1278,11 +1291,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Marcaïne 2,5 mg/mL SC — 1 entrée(s) — 5 analyse(s)",
-      "time": "29/07 20:21"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90/10) 2026/0001",
       "time": "30/07 16:48"
@@ -1526,6 +1534,11 @@
       "icon": "list-check",
       "text": "TEST-1 — TCC0004 Bupivacaïne : verifiee",
       "time": "08/08 10:58"
+    },
+    {
+      "icon": "package",
+      "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
+      "time": "08/08 12:11"
     }
   ],
   "spq": [
