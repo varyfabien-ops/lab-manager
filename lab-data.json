@@ -947,21 +947,7 @@
       "note": ""
     }
   ],
-  "contenants": [
-    {
-      "produitId": 1786178456775,
-      "lot": "HC57833622",
-      "qte": "30",
-      "reception": "2026-01-23",
-      "peremption": "2027-10-31",
-      "ouverture": "2026-08-08",
-      "validite": "2027-10-31",
-      "statut": "archive",
-      "note": "",
-      "id": 1786183919755,
-      "coaUrl": "blob:https://www.sigmaaldrich.com/3d707c3f-d432-4758-86dc-60d8dce52e2e"
-    }
-  ],
+  "contenants": [],
   "produitsEch": [
     {
       "id": 1785169889615,
@@ -1294,11 +1280,6 @@
     {
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
-      "time": "30/07 17:05"
-    },
-    {
-      "icon": "flask",
-      "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
       "time": "30/07 17:28"
     },
     {
@@ -1540,6 +1521,11 @@
       "icon": "lock",
       "text": "Cloture : Tampon pH 12 lot HC57833622",
       "time": "08/08 12:23"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC57833622",
+      "time": "08/08 12:24"
     }
   ],
   "spq": [
