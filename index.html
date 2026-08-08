@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v218 — Physico-Chimie</title>
+<title>LabManager v219 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -68,7 +68,7 @@
   .nav-badge.amber { background: var(--amber-dim); color: var(--amber); }
   .nav-sub { padding-left: 36px; font-size: 12px; }
   .nav-sub.active { background: var(--cyan-dim); color: var(--cyan); border-left-color: var(--cyan); }
-  main { margin-left: 0; flex: 1; padding: 20px 28px; overflow-y: scroll; height: calc(100vh - 100px); }
+  main { margin-left: 0; flex: 1; padding: 20px 28px; overflow-y: scroll; overflow-x: auto; height: calc(100vh - 100px); }
   .page { display: none; }
   .page.active { display: block; }
   .page-header { margin-bottom: 24px; display: flex; align-items: flex-start; gap: 16px; }
@@ -313,7 +313,7 @@
         <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau réactif</button>
       </div>
     </div>
-    <div class="table-card" style="overflow-x:auto">
+    <div class="table-card">
       <div class="table-card-header" style="background:var(--bg2);"><h3>Contenants actifs</h3><div class="spacer"></div>
         <button class="btn" onclick="resetFiltres()" style="font-size:12px"><i class="ti ti-filter-off"></i> Reinitialiser</button>
       </div>
