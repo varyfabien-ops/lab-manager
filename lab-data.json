@@ -1021,19 +1021,6 @@
       "statut": "en_stock",
       "note": "",
       "coaUrl": "",
-      "id": 1786216261761
-    },
-    {
-      "produitId": 1786212150511,
-      "lot": "R098B0",
-      "qte": "125 mg",
-      "reception": "2026-08-08",
-      "peremption": "",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "",
       "id": 1786216261762
     },
     {
@@ -1411,11 +1398,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "TEST-1 — TCC0004 Bupivacaïne : verifiee",
-      "time": "08/08 10:58"
-    },
-    {
       "icon": "package",
       "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
       "time": "08/08 12:11"
@@ -1658,6 +1640,11 @@
     {
       "icon": "package",
       "text": "5x Propylparaben (PHBP) lot R098B0 receptionne(s)",
+      "time": "08/08 21:11"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot R098B0",
       "time": "08/08 21:11"
     }
   ],
