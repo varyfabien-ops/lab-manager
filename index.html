@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v193 — Physico-Chimie</title>
+<title>LabManager v194 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4532,7 +4532,6 @@ function showCmdPopup(label, defaultVal, callback, isDate) {
     + '<button id="cmd-popup-ok" class="btn btn-primary">Confirmer</button>'
     + '</div>';
   document.body.appendChild(popup);
-  popup.querySelector('#da-popup-close').onclick = () => popup.remove();
   popup.addEventListener('click', e=>e.stopPropagation());
   const input = popup.querySelector('#cmd-popup-input');
   input.focus(); input.select();
