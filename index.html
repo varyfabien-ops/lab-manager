@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v204 — Physico-Chimie</title>
+<title>LabManager v205 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -47,6 +47,7 @@
   .header-top { display: flex; align-items: center; padding: 0 20px; gap: 16px; height: 52px; border-bottom: 1px solid var(--border); }
   .header-nav { display: flex; align-items: center; padding: 0 16px; height: 46px; gap: 4px; overflow-x: auto; }
   .nav-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--radius); cursor: pointer; color: var(--text2); font-size: 13px; font-weight: 500; border: none; background: none; white-space: nowrap; transition: all 0.15s; }
+  .nav-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
   .nav-btn:hover { background: var(--cyan-dim2); color: var(--text); }
   .nav-btn.active { background: var(--cyan-dim); color: var(--cyan); }
   .nav-dropdown { position: relative; }
@@ -179,31 +180,20 @@
   </div>
   <div class="header-nav" id="header-nav">
     <button class="nav-btn" onclick="goTo('dashboard',this)" id="nav-dashboard"><i class="ti ti-layout-dashboard"></i> Tableau de bord</button>
-    <div class="nav-dropdown" id="nav-dd-planning">
-      <button class="nav-btn" onclick="toggleNavDD('planning')" id="nav-planning"><i class="ti ti-calendar"></i> Planification <i class="ti ti-chevron-down" style="font-size:11px"></i></button>
-      <div class="nav-dropdown-menu" id="nav-dd-menu-planning">
-        <div class="nav-dropdown-item" onclick="goToPlanning('semaine');closeNavDD()"><i class="ti ti-layout-columns"></i> Planning semaine</div>
-        <div class="nav-dropdown-item" onclick="goToPlanning('calendar');closeNavDD()"><i class="ti ti-calendar-event"></i> Calendrier</div>
-        <div class="nav-dropdown-item" onclick="goToPlanning('catalogue');closeNavDD()"><i class="ti ti-book"></i> Catalogue analyses</div>
-      </div>
-    </div>
-    <div class="nav-dropdown" id="nav-dd-reactifs">
-      <button class="nav-btn" onclick="toggleNavDD('reactifs')" id="nav-reactifs"><i class="ti ti-flask-2"></i> Réactifs <span class="nav-badge-h" id="badge-reactifs" style="display:none">0</span> <i class="ti ti-chevron-down" style="font-size:11px"></i></button>
-      <div class="nav-dropdown-menu" id="nav-dd-menu-reactifs">
-        <div class="nav-dropdown-item" onclick="goToReactifs('contenants');closeNavDD()"><i class="ti ti-package"></i> Réactifs Commerciaux</div>
-        <div class="nav-dropdown-item" onclick="goToReactifs('preparations');closeNavDD()"><i class="ti ti-flask"></i> Préparations</div>
-        <div class="nav-dropdown-item" onclick="goTo('commandes',null);closeNavDD()"><i class="ti ti-shopping-cart"></i> Commandes</div>
-      </div>
-    </div>
-    <div class="nav-dropdown" id="nav-dd-echantillons">
-      <button class="nav-btn" onclick="toggleNavDD('echantillons')" id="nav-echantillons"><i class="ti ti-package"></i> Échantillons <i class="ti ti-chevron-down" style="font-size:11px"></i></button>
-      <div class="nav-dropdown-menu" id="nav-dd-menu-echantillons">
-        <div class="nav-dropdown-item" onclick="goToEch('reception');closeNavDD()"><i class="ti ti-package"></i> Réception</div>
-        <div class="nav-dropdown-item" onclick="goToEch('marches');closeNavDD()"><i class="ti ti-world"></i> Marchés</div>
-        <div class="nav-dropdown-item" onclick="goToEch('liberes');closeNavDD()"><i class="ti ti-circle-check"></i> Lots libres <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></div>
-        <div class="nav-dropdown-item" onclick="goTo('articles',null);closeNavDD()"><i class="ti ti-barcode"></i> Codes articles & SPQ</div>
-      </div>
-    </div>
+    <div class="nav-sep"></div>
+    <button class="nav-btn" onclick="goToPlanning('semaine')" id="nav-plan-semaine"><i class="ti ti-layout-columns"></i> Planning</button>
+    <button class="nav-btn" onclick="goToPlanning('calendar')" id="nav-plan-calendar"><i class="ti ti-calendar-event"></i> Calendrier</button>
+    <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue</button>
+    <div class="nav-sep"></div>
+    <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> RC <span class="nav-badge-h" id="badge-reactifs" style="display:none">0</span></button>
+    <button class="nav-btn" onclick="goToReactifs('preparations')" id="nav-preparations"><i class="ti ti-flask"></i> Préparations</button>
+    <button class="nav-btn" onclick="goTo('commandes',null)" id="nav-commandes"><i class="ti ti-shopping-cart"></i> Commandes</button>
+    <div class="nav-sep"></div>
+    <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Réception</button>
+    <button class="nav-btn" onclick="goToEch('marches')" id="nav-marches"><i class="ti ti-world"></i> Marchés</button>
+    <button class="nav-btn" onclick="goToEch('liberes')" id="nav-liberes"><i class="ti ti-circle-check"></i> Lots libres <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></button>
+    <button class="nav-btn" onclick="goTo('articles',null)" id="nav-articles"><i class="ti ti-barcode"></i> Articles & SPQ</button>
+    <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goTo('habilitations',this)" id="nav-habilitations"><i class="ti ti-certificate"></i> Habilitations</button>
     <button class="nav-btn" onclick="goTo('audit',this)" id="nav-audit"><i class="ti ti-history"></i> Journal</button>
     <button class="nav-btn" onclick="goTo('stabilites',this)" id="nav-stabilites"><i class="ti ti-chart-line"></i> Stabilités</button>
@@ -5823,33 +5813,26 @@ function enterAdmin() {
 
 function applyProfile(p) {
   const allowed = p ? (p.modules||[]) : ALL_MODULES.map(m=>m.key);
+  // Réinitialiser
+  document.querySelectorAll('.nav-btn').forEach(el => el.style.display = '');
+  document.querySelectorAll('.nav-sep').forEach(el => el.style.display = '');
+  if (!p) return;
   const navMap = {
     'dashboard':     ['nav-dashboard'],
-    'planning':      ['nav-planning'],
-    'reactifs':      ['nav-reactifs'],
-    'echantillons':  ['nav-echantillons'],
-    'articles':      ['nav-echantillons'],
+    'planning':      ['nav-plan-semaine','nav-plan-calendar','nav-plan-catalogue'],
+    'reactifs':      ['nav-contenants','nav-preparations','nav-commandes'],
+    'echantillons':  ['nav-reception','nav-marches','nav-liberes'],
+    'articles':      ['nav-articles'],
     'habilitations': ['nav-habilitations'],
     'activity':      ['nav-audit'],
     'stabilites':    ['nav-stabilites'],
-    'tendances':     ['nav-tendances'],
-    'commandes':     ['nav-reactifs'],
+    'commandes':     ['nav-commandes'],
     'profils-config':['nav-profils-config'],
   };
-  // Réinitialiser
-  document.querySelectorAll('.nav-btn, .nav-dropdown').forEach(el => el.style.display = '');
-  if (!p) return;
-  // Collecter les IDs visibles
   const visibleIds = new Set();
-  allowed.forEach(key => {
-    (navMap[key]||[]).forEach(id => visibleIds.add(id));
-  });
-  // Masquer les éléments non autorisés
-  document.querySelectorAll('.nav-btn[id], .nav-dropdown[id]').forEach(el => {
-    const id = el.id.replace('nav-dd-','nav-');
-    if(!visibleIds.has(el.id) && !visibleIds.has(id)) {
-      el.style.display = 'none';
-    }
+  allowed.forEach(key => { (navMap[key]||[]).forEach(id => visibleIds.add(id)); });
+  document.querySelectorAll('.nav-btn[id]').forEach(el => {
+    if(!visibleIds.has(el.id)) el.style.display = 'none';
   });
 }
 
@@ -5996,41 +5979,32 @@ window.toggleNavDD = toggleNavDD;
 window.closeNavDD = closeNavDD;
 
 function updateNavActive(page) {
-  // Réinitialiser tous les boutons
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.nav-dropdown-item').forEach(b=>b.classList.remove('active'));
-
-  // Pages simples
-  const directMap = {
-    'dashboard': 'nav-dashboard',
-    'habilitations': 'nav-habilitations',
-    'audit': 'nav-audit',
-    'stabilites': 'nav-stabilites',
-    'tendances': 'nav-tendances',
-    'profils-config': 'nav-profils-config',
-    'commandes': 'nav-reactifs',
-    'commandes-archives': 'nav-reactifs',
-    'articles': 'nav-echantillons',
+  const map = {
+    'dashboard':            'nav-dashboard',
+    'habilitations':        'nav-habilitations',
+    'audit':                'nav-audit',
+    'stabilites':           'nav-stabilites',
+    'profils-config':       'nav-profils-config',
+    'commandes':            'nav-commandes',
+    'commandes-archives':   'nav-commandes',
+    'articles':             'nav-articles',
+    'plan-semaine':         'nav-plan-semaine',
+    'plan-calendar':        'nav-plan-calendar',
+    'plan-catalogue':       'nav-plan-catalogue',
+    'reactifs-contenants':  'nav-contenants',
+    'reactifs-preparations':'nav-preparations',
+    'reactifs-archives':    'nav-contenants',
+    'reactifs-produits':    'nav-contenants',
+    'reactifs-catalogue-prep':'nav-preparations',
+    'reactifs-archives-prep':'nav-preparations',
+    'ech-reception':        'nav-reception',
+    'ech-marches':          'nav-marches',
+    'ech-liberes':          'nav-liberes',
+    'ech-produits-ech':     'nav-reception',
   };
-  if(directMap[page]) {
-    const el = document.getElementById(directMap[page]);
-    if(el) el.classList.add('active');
-  }
-  // Planification
-  if(['plan-semaine','plan-calendar','plan-catalogue'].includes(page)) {
-    const el = document.getElementById('nav-planning');
-    if(el) el.classList.add('active');
-  }
-  // Réactifs
-  if(['reactifs-contenants','reactifs-preparations','reactifs-archives','reactifs-produits','reactifs-catalogue-prep','reactifs-archives-prep'].includes(page)) {
-    const el = document.getElementById('nav-reactifs');
-    if(el) el.classList.add('active');
-  }
-  // Échantillons
-  if(['ech-reception','ech-marches','ech-liberes','ech-produits-ech'].includes(page)) {
-    const el = document.getElementById('nav-echantillons');
-    if(el) el.classList.add('active');
-  }
+  const id = map[page];
+  if(id) { const el=document.getElementById(id); if(el) el.classList.add('active'); }
 }
 window.updateNavActive = updateNavActive;
 
