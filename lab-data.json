@@ -1031,7 +1031,7 @@
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "coaUrl": "blob:https://www.sigmaaldrich.com/ff8944b8-637e-4157-9afc-b4f087403f9b",
+      "coaUrl": "https://www.merckmillipore.com/Web-FR-Site/fr_FR/-/EUR/ShowDocument-GetCOACOQ?COAOrderNumber=1990010001&BatchNumber=HC46017601&Origin=FINDER_COA",
       "id": 1786185838178
     },
     {
@@ -1391,11 +1391,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Méthanol HPLC Grade",
-      "time": "03/08 09:41"
-    },
-    {
       "icon": "package",
       "text": "15x Méthanol HPLC Grade lot VBCN32443 receptionne(s)",
       "time": "03/08 09:43"
@@ -1639,6 +1634,11 @@
       "icon": "package",
       "text": "3x Tampon pH 4 lot HC46017601 receptionne(s)",
       "time": "08/08 12:43"
+    },
+    {
+      "icon": "pencil",
+      "text": "Contenant modifie : lot HC46017601",
+      "time": "08/08 12:49"
     }
   ],
   "spq": [
