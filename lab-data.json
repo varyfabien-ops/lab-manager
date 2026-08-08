@@ -1002,9 +1002,9 @@
       "qte": "30",
       "reception": "2026-06-16",
       "peremption": "2027-02-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-08",
+      "validite": "2027-02-28",
+      "statut": "ouvert",
       "note": "",
       "id": 1786184868790,
       "coaUrl": "blob:https://www.sigmaaldrich.com/b49b66e0-4a75-4bb5-8374-863f973f51b2"
@@ -1505,11 +1505,6 @@
       "time": "03/08 09:50"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot VBCN32443",
-      "time": "03/08 09:50"
-    },
-    {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : Méthanol HPLC Grade",
       "time": "03/08 09:51"
@@ -1718,6 +1713,11 @@
       "icon": "package",
       "text": "1x Methylparaben (PHBM) lot R098B0 receptionne(s)",
       "time": "08/08 18:42"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Tampon pH 9 lot HC56730103",
+      "time": "08/08 18:46"
     }
   ],
   "spq": [
