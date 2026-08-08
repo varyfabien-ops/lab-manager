@@ -885,6 +885,18 @@
       "stockMin": "3",
       "qteCmde": "3",
       "note": ""
+    },
+    {
+      "id": 1786177856625,
+      "nom": "Tampon pH 7",
+      "fournisseur": "MERCK",
+      "ref": "1.99002.0001",
+      "localisation": "pHmètre",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "3",
+      "qteCmde": "3",
+      "note": ""
     }
   ],
   "contenants": [
@@ -1139,11 +1151,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0058",
-      "time": "29/07 18:36"
-    },
-    {
       "icon": "trash",
       "text": "Article supprimé : MYYYYYYYY",
       "time": "29/07 18:37"
@@ -1387,6 +1394,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 4",
       "time": "08/08 10:28"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Tampon pH 7",
+      "time": "08/08 10:30"
     }
   ],
   "spq": [
