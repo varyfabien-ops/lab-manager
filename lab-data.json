@@ -1009,45 +1009,6 @@
   ],
   "contenants": [
     {
-      "produitId": 1786177709859,
-      "lot": "HC46017601",
-      "qte": "30",
-      "reception": "2026-04-09",
-      "peremption": "2027-12-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "blob:https://www.sigmaaldrich.com/ff8944b8-637e-4157-9afc-b4f087403f9b",
-      "id": 1786185838179
-    },
-    {
-      "produitId": 1786177709859,
-      "lot": "HC46017601",
-      "qte": "30",
-      "reception": "2026-04-09",
-      "peremption": "2027-12-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "blob:https://www.sigmaaldrich.com/ff8944b8-637e-4157-9afc-b4f087403f9b",
-      "id": 1786185838180
-    },
-    {
-      "produitId": 1786178456775,
-      "lot": "HC57833622",
-      "qte": "30",
-      "reception": "2026-08-08",
-      "peremption": "2026-08-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
-      "note": "",
-      "coaUrl": "",
-      "id": 1786199861767
-    },
-    {
       "produitId": 1786207222803,
       "lot": "R098B0",
       "qte": "125 mg",
@@ -1519,21 +1480,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : LCK339",
-      "time": "03/08 10:47"
-    },
-    {
-      "icon": "flask",
-      "text": "Préparation: Solutions Mères Bupivacaïne HCPC0030-F p.16-4",
-      "time": "06/08 08:43"
-    },
-    {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Tampon pH 4",
-      "time": "08/08 10:28"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 7",
       "time": "08/08 10:30"
@@ -1766,6 +1712,21 @@
     {
       "icon": "trash",
       "text": "Contenant supprime : lot HC46017601",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC46017601",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC46017601",
+      "time": "08/08 21:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot HC57833622",
       "time": "08/08 21:09"
     }
   ],
