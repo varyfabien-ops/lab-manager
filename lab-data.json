@@ -1278,11 +1278,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
-      "time": "30/07 17:28"
-    },
-    {
       "icon": "archive",
       "text": "Réactif archivé: Mélange Eau / Isopropanol (50/50) 2026/0002",
       "time": "30/07 19:36"
@@ -1525,6 +1520,11 @@
     {
       "icon": "trash",
       "text": "Contenant supprime : lot HC57833622",
+      "time": "08/08 12:24"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot ",
       "time": "08/08 12:24"
     }
   ],
