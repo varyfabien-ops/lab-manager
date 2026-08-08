@@ -954,11 +954,12 @@
       "qte": "30",
       "reception": "2026-06-16",
       "peremption": "2027-02-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-08",
+      "validite": "2027-02-28",
+      "statut": "ouvert",
       "note": "",
-      "id": 1786184868790
+      "id": 1786184868790,
+      "coaUrl": "blob:https://www.sigmaaldrich.com/b49b66e0-4a75-4bb5-8374-863f973f51b2"
     },
     {
       "produitId": 1786178095292,
@@ -1352,11 +1353,6 @@
   "activity": [
     {
       "icon": "flask",
-      "text": "Préparation: Acide Acétique R 2026/0003",
-      "time": "30/07 19:38"
-    },
-    {
-      "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (50/50) 2026/0002",
       "time": "30/07 19:52"
     },
@@ -1599,6 +1595,11 @@
       "icon": "package",
       "text": "6x Tampon pH 9 lot HC56730103 receptionne(s)",
       "time": "08/08 12:27"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Tampon pH 9 lot HC56730103",
+      "time": "08/08 12:28"
     }
   ],
   "spq": [
