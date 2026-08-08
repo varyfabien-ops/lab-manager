@@ -1020,6 +1020,45 @@
       "statut": "en_stock",
       "note": "",
       "id": 1786184868795
+    },
+    {
+      "produitId": 1786177709859,
+      "lot": "HC46017601",
+      "qte": "30",
+      "reception": "2026-04-09",
+      "peremption": "2027-12-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "blob:https://www.sigmaaldrich.com/ff8944b8-637e-4157-9afc-b4f087403f9b",
+      "id": 1786185838178
+    },
+    {
+      "produitId": 1786177709859,
+      "lot": "HC46017601",
+      "qte": "30",
+      "reception": "2026-04-09",
+      "peremption": "2027-12-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "blob:https://www.sigmaaldrich.com/ff8944b8-637e-4157-9afc-b4f087403f9b",
+      "id": 1786185838179
+    },
+    {
+      "produitId": 1786177709859,
+      "lot": "HC46017601",
+      "qte": "30",
+      "reception": "2026-04-09",
+      "peremption": "2027-12-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "blob:https://www.sigmaaldrich.com/ff8944b8-637e-4157-9afc-b4f087403f9b",
+      "id": 1786185838180
     }
   ],
   "produitsEch": [
@@ -1352,11 +1391,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: Red Methyl TS 2026/0004",
-      "time": "03/08 09:38"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Méthanol HPLC Grade",
       "time": "03/08 09:41"
@@ -1600,6 +1634,11 @@
       "icon": "pencil",
       "text": "Contenant modifie : lot HC56730103",
       "time": "08/08 12:40"
+    },
+    {
+      "icon": "package",
+      "text": "3x Tampon pH 4 lot HC46017601 receptionne(s)",
+      "time": "08/08 12:43"
     }
   ],
   "spq": [
