@@ -1338,8 +1338,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-29",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785170145444": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785170145444": {
+          "en_cours": "08/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -1410,11 +1418,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "6x Tampon pH 9 lot HC56730103 receptionne(s)",
-      "time": "08/08 12:27"
-    },
     {
       "icon": "lock-open",
       "text": "Ouverture : Tampon pH 9 lot HC56730103",
@@ -1659,6 +1662,11 @@
       "icon": "package",
       "text": "5x Propylparaben (PHBP) lot R14640 receptionne(s)",
       "time": "08/08 21:11"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 2 — Volume Extractible : en_cours",
+      "time": "08/08 21:21"
     }
   ],
   "spq": [
