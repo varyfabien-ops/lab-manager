@@ -899,20 +899,7 @@
       "note": ""
     }
   ],
-  "contenants": [
-    {
-      "produitId": 1785742919397,
-      "lot": "VBCN32443",
-      "qte": "2.5 L",
-      "reception": "2026-07-31",
-      "peremption": "2029-01-15",
-      "ouverture": "2026-08-03",
-      "validite": "2028-01-23",
-      "statut": "archive",
-      "note": "",
-      "id": 1785743002845
-    }
-  ],
+  "contenants": [],
   "produitsEch": [
     {
       "id": 1785169889615,
@@ -1150,11 +1137,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Article supprimé : MYYYYYYYY",
-      "time": "29/07 18:37"
-    },
     {
       "icon": "barcode",
       "text": "Article modifié : M76013000",
@@ -1399,6 +1381,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Tampon pH 7",
       "time": "08/08 10:30"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot VBCN32443",
+      "time": "08/08 10:31"
     }
   ],
   "spq": [
