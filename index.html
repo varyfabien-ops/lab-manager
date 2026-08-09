@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v274 — Physico-Chimie</title>
+<title>LabManager v276 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1330,6 +1330,7 @@ function wizardRender() {
   }
 
   // Actions par step
+  if(wizardStep===2) wizardLoadArticlesSelect();
   if(wizardStep===3) wizardLoadMarches();
   if(wizardStep===4) wizardLoadStep4();
   if(wizardStep===5) wizardRecap();
@@ -1366,6 +1367,22 @@ function wizardValidate() {
   return true;
 }
 
+
+
+function wizardLoadArticlesSelect() {
+  const sel = document.getElementById('w-article-select');
+  if (!sel) return;
+  const typePIF = wizardIsPifSelected() || wizardIsStabSelected();
+  const typeMP = wizardIsMpSelected();
+  const articles = (state.articles||[]).filter(a => {
+    if (typeMP) return a.type === 'MP';
+    if (typePIF) return a.type === 'PIF_STAB' || !a.type;
+    return true;
+  }).sort((a,b) => (a.code||'').localeCompare(b.code||''));
+  sel.innerHTML = '<option value="">— Choisir un article —</option>' +
+    articles.map(a => `<option value="${a.code}">${a.code} — ${a.designation||a.nom||''}</option>`).join('');
+}
+window.wizardLoadArticlesSelect = wizardLoadArticlesSelect;
 
 function onWizardCodeArticleChange() {
   const code = (document.getElementById('w-code-article')?.value||'').trim().toUpperCase();
@@ -4840,10 +4857,8 @@ function renderPlanSemaine() {
     etiquettes.forEach((e, idx) => {
       const bg = e.color ? e.color.bg : (e.isSous ? '#F3E5F5' : '#FFF8E1');
       const border = e.color ? e.color.border : (e.isSous ? '#9C27B0' : '#FF9800');
-      const canDelete = e.planTaskId || e.isSous; // manuelles et sous-analyses peuvent être supprimées
-      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + ';display:flex;align-items:center;gap:6px;justify-content:space-between" title="Glisser vers une cellule du planning">';
+      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
       html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
-      if (canDelete) html += '<button onclick="deleteEtiquette(' + idx + ')" style="background:none;border:none;cursor:pointer;color:' + border + ';opacity:0.6;padding:0;font-size:12px;line-height:1;flex-shrink:0" title="Supprimer cette étiquette">✕</button>';
       html += '</div>';
     });
   }
@@ -4917,6 +4932,26 @@ function buildEtiquettesAPlanifier() {
         t.sousKey === sousKey && t.date
       );
       if (dejaPlannee) return;
+      // Chercher ou créer une planTask sans date pour cette sous-analyse
+      let existingTask = (state.planTasks||[]).find(t => t.sousKey === sousKey);
+      if (!existingTask) {
+        if (!state.planTasks) state.planTasks = [];
+        existingTask = {
+          id: Date.now() + sousIdx + Math.random()*1000|0,
+          date: null, techId: null,
+          desc: sousNom,
+          analyseNom: sousNom,
+          analyseId: info.analyseId,
+          sousKey,
+          echId: info.echIds[0],
+          type: 'analyse',
+          sousAnalyses: [],
+          color: autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
+          isSous: true,
+          parentNom: nom,
+        };
+        state.planTasks.push(existingTask);
+      }
       etiquettes.push({
         nom: sousNom,
         echId: info.echIds[0],
@@ -4926,7 +4961,8 @@ function buildEtiquettesAPlanifier() {
         sousAnalyses: [],
         isSous: true,
         parentNom: nom,
-        color: autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
+        color: existingTask.color || autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
+        planTaskId: existingTask.id,
       });
     });
   });
@@ -4945,6 +4981,38 @@ function buildEtiquettesAPlanifier() {
       });
     }
   });
+
+  // Étiquettes fixes "Poste des Eaux - STEP" × 5 par semaine
+  const semaineKey = dateToKey(planSemaineStartDate || new Date());
+  for (let i = 0; i < 5; i++) {
+    const stepKey = 'step_' + semaineKey + '_' + i;
+    let stepTask = (state.planTasks||[]).find(t => t.sousKey === stepKey);
+    if (!stepTask) {
+      if (!state.planTasks) state.planTasks = [];
+      stepTask = {
+        id: Date.now() + 10000 + i,
+        date: null, techId: null,
+        desc: 'Poste des Eaux - STEP',
+        analyseNom: 'Poste des Eaux - STEP',
+        sousKey: stepKey,
+        type: 'analyse',
+        color: { bg:'#E0F7FA', border:'#00BCD4' },
+        isSous: false,
+        manuel: true,
+      };
+      state.planTasks.push(stepTask);
+    }
+    if (!stepTask.date) {
+      etiquettes.push({
+        nom: 'Poste des Eaux - STEP',
+        sousKey: stepKey,
+        planTaskId: stepTask.id,
+        color: stepTask.color || { bg:'#E0F7FA', border:'#00BCD4' },
+        isSous: false,
+        sousAnalyses: [],
+      });
+    }
+  }
 
   window._etiquettesCache = etiquettes;
   return etiquettes;
