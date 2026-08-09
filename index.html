@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v272 — Physico-Chimie</title>
+<title>LabManager v274 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4840,8 +4840,10 @@ function renderPlanSemaine() {
     etiquettes.forEach((e, idx) => {
       const bg = e.color ? e.color.bg : (e.isSous ? '#F3E5F5' : '#FFF8E1');
       const border = e.color ? e.color.border : (e.isSous ? '#9C27B0' : '#FF9800');
-      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
+      const canDelete = e.planTaskId || e.isSous; // manuelles et sous-analyses peuvent être supprimées
+      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + ';display:flex;align-items:center;gap:6px;justify-content:space-between" title="Glisser vers une cellule du planning">';
       html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
+      if (canDelete) html += '<button onclick="deleteEtiquette(' + idx + ')" style="background:none;border:none;cursor:pointer;color:' + border + ';opacity:0.6;padding:0;font-size:12px;line-height:1;flex-shrink:0" title="Supprimer cette étiquette">✕</button>';
       html += '</div>';
     });
   }
@@ -4879,9 +4881,9 @@ function buildEtiquettesAPlanifier() {
       const cat = (state.catalogue || []).find(c => Number(c.id) === Number(aId));
       if (!cat) return;
 
-      // Vérifier si déjà planifiée
+      // Vérifier si déjà planifiée (seulement l'analyse principale, pas les sous-analyses)
       const dejaPlannee = (state.planTasks || []).some(t =>
-        t.echId === ech.id && Number(t.analyseId) === Number(aId)
+        t.echId === ech.id && Number(t.analyseId) === Number(aId) && !t.isSous && t.date
       );
       if (dejaPlannee) return;
 
@@ -4906,12 +4908,20 @@ function buildEtiquettesAPlanifier() {
       color: autoColMain || null,
     });
     // Étiquettes sous-analyses (séparées, indépendantes)
-    (info.sousAnalyses || []).forEach(sousNom => {
+    (info.sousAnalyses || []).forEach((sousNom, sousIdx) => {
       const autoCol = getAutoColor(sousNom);
+      // ID unique = analyseId + index de la sous-analyse
+      const sousKey = String(info.analyseId) + '_sous_' + sousIdx;
+      // Vérifier si cette sous-analyse spécifique est déjà planifiée
+      const dejaPlannee = (state.planTasks || []).some(t =>
+        t.sousKey === sousKey && t.date
+      );
+      if (dejaPlannee) return;
       etiquettes.push({
         nom: sousNom,
         echId: info.echIds[0],
         analyseId: info.analyseId,
+        sousKey,
         echIds: info.echIds,
         sousAnalyses: [],
         isSous: true,
@@ -4968,14 +4978,18 @@ function onDropNewTask(event, date, techId) {
   state.planTasks.push({
     id: Date.now(),
     date, techId: techId ? String(techId) : null,
-    desc: e.nom + (e.lot ? ' — Lot ' + e.lot : ''),
+    desc: e.nom,
     analyseNom: e.nom,
     analyseId: e.analyseId,
+    sousKey: e.sousKey || null,
     echId: e.echId,
     echCode: e.echCode,
     type: 'analyse',
-    sousAnalyses: e.sousAnalyses,
-    note: e.sousAnalyses.length ? '↳ ' + e.sousAnalyses.join(' · ') : '',
+    sousAnalyses: e.sousAnalyses || [],
+    color: e.color || null,
+    isSous: e.isSous || false,
+    parentNom: e.parentNom || null,
+    manuel: e.planTaskId ? true : false,
   });
   
   planDraggedNew = null;
@@ -5149,6 +5163,26 @@ window.saveEtiquettes = saveEtiquettes;
 window.onDragNewTask = onDragNewTask;
 window.onDropNewTask = onDropNewTask;
 window.onDropBackToList = onDropBackToList;
+
+function deleteEtiquette(idx) {
+  const e = window._etiquettesCache[idx];
+  if (!e) return;
+  if (e.planTaskId) {
+    // Étiquette manuelle : supprimer de planTasks
+    state.planTasks = state.planTasks.filter(t => t.id !== e.planTaskId);
+    saveData();
+  } else if (e.isSous) {
+    // Sous-analyse : la délier du catalogue (supprimer du tableau sousAnalyses)
+    const cat = (state.catalogue||[]).find(c => Number(c.id) === Number(e.analyseId));
+    if (cat && cat.sousAnalyses) {
+      cat.sousAnalyses = cat.sousAnalyses.filter(s => s !== e.nom);
+      saveData();
+    }
+  }
+  renderPlanSemaine();
+}
+window.deleteEtiquette = deleteEtiquette;
+
 
 function onPlanDragStart(event, taskId) {
   planDraggedTask = taskId;
