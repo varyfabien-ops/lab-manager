@@ -1694,7 +1694,7 @@
     {
       "id": 1786294931438,
       "date": "2026-08-13",
-      "techId": "1785175077562",
+      "techId": null,
       "desc": "Poste des Eaux - Conductivité",
       "analyseNom": "Poste des Eaux - Conductivité",
       "analyseId": null,
@@ -1706,7 +1706,8 @@
       "color": {
         "bg": "#E3F2FD",
         "border": "#2196F3"
-      }
+      },
+      "lot": ""
     },
     {
       "id": 1786295068505,
