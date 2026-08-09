@@ -2183,25 +2183,6 @@
       "isSous": true,
       "parentNom": "TCC0002 - Sodium",
       "manuel": false
-    },
-    {
-      "id": 1786301894804,
-      "date": "2026-08-06",
-      "techId": "1786271486368",
-      "desc": "TCC0065 - Conditionnement Colonne & Détecteur",
-      "analyseNom": "TCC0065 - Conditionnement Colonne & Détecteur",
-      "analyseId": 1786301151090,
-      "sousKey": "1786301151090_sous_0",
-      "echId": 1786301809768,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#F3E5F5",
-        "border": "#9C27B0"
-      },
-      "isSous": true,
-      "parentNom": "TCC0065 - MPEG",
-      "manuel": false
     }
   ],
   "planRythmes": {
