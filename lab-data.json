@@ -2145,6 +2145,25 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1786301888920,
+      "date": "2026-08-04",
+      "techId": "1786271486368",
+      "desc": "Retraitement TCC0065 - MPEG",
+      "analyseNom": "Retraitement TCC0065 - MPEG",
+      "analyseId": 1786301151090,
+      "sousKey": "1786301151090_sous_1",
+      "echId": 1786301809768,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#FCE4EC",
+        "border": "#E91E63"
+      },
+      "isSous": true,
+      "parentNom": "TCC0065 - MPEG",
+      "manuel": false
     }
   ],
   "planRythmes": {
