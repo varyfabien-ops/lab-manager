@@ -1780,23 +1780,6 @@
       "note": ""
     },
     {
-      "id": 1786289949055,
-      "date": null,
-      "techId": null,
-      "desc": "Poste des Eaux - STEP",
-      "analyseNom": "Poste des Eaux - STEP",
-      "analyseId": null,
-      "echId": null,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": "",
-      "manuel": true,
-      "color": {
-        "bg": "#FFF8E1",
-        "border": "#FF9800"
-      }
-    },
-    {
       "id": 1786290770389,
       "date": "2026-08-06",
       "techId": "1785175077562",
@@ -1846,6 +1829,25 @@
         "bg": "#E3F2FD",
         "border": "#2196F3"
       }
+    },
+    {
+      "id": 1786295005525,
+      "date": "2026-08-03",
+      "techId": "1786178865689",
+      "desc": "TCC0004 Bupivacaïne",
+      "analyseNom": "TCC0004 Bupivacaïne",
+      "analyseId": 1785247529863,
+      "sousKey": null,
+      "echId": 1785349276514,
+      "type": "analyse",
+      "sousAnalyses": [
+        "Retraitement TCC0004 Bupivacaïne",
+        "Vérification TCC0004 Bupivacaïne"
+      ],
+      "color": null,
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "planRythmes": {
