@@ -1430,11 +1430,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Contenant modifie : lot HC46017601",
-      "time": "08/08 12:49"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : TCC0004 Mépivacaïne / PHBM",
       "time": "08/08 15:41"
@@ -1678,6 +1673,11 @@
       "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration US : en_cours",
       "time": "08/08 21:22"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
+      "time": "09/08 12:30"
     }
   ],
   "spq": [
@@ -1928,6 +1928,17 @@
       "techId": 1785175077562,
       "comment": "",
       "dateRestrictive": ""
+    },
+    {
+      "id": 1786271450984,
+      "catId": 1786271040157,
+      "nom": "10N Ammonium Hydroxide",
+      "numero": "2026/0153",
+      "datePrep": "2026-07-10",
+      "datePerm": "2027-01-10",
+      "dateRestrictive": "2026-11-29",
+      "techId": null,
+      "comment": ""
     }
   ],
   "cataloguePrep": [
