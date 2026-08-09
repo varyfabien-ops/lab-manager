@@ -1011,7 +1011,7 @@
     {
       "id": 1786272630780,
       "nom": "Phenol",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "PHR1047-1G",
       "localisation": "FRIGO",
       "fc": "0",
@@ -1466,11 +1466,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Methylparaben (PHBM)",
-      "time": "08/08 18:40"
-    },
-    {
       "icon": "package",
       "text": "1x Methylparaben (PHBM) lot R098B0 receptionne(s)",
       "time": "08/08 18:42"
@@ -1713,6 +1708,11 @@
     {
       "icon": "pencil",
       "text": "Produit modifie : Alcool Benzylique (BnOH)",
+      "time": "09/08 12:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Phenol",
       "time": "09/08 12:52"
     }
   ],
