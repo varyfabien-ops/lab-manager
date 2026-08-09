@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v260 — Physico-Chimie</title>
+<title>LabManager v261 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4303,7 +4303,7 @@ window.getStatutAuto = getStatutAuto;
 window.populateProduitSelect = populateProduitSelect;
 window.populateTechSelects = populateTechSelects;
 window.renderReactifsTable = renderReactifsTable;
-let renderReactifsTable;
+var renderReactifsTable;
 const _origRenderRC = renderReactifsTable;
 renderReactifsTable = function() { _origRenderRC(); setTimeout(initRcStickyHeader, 50); };
 
@@ -6579,7 +6579,7 @@ function getProductNamesForAnalyse(a){
 }
 
 const __openWizard_v104 = typeof openWizard === 'function' ? openWizard : null;
-let openWizard;
+var openWizard;
 openWizard = function(){
   ensureMpCardInWizard();
   if(__openWizard_v104) __openWizard_v104();
@@ -6588,7 +6588,7 @@ openWizard = function(){
   const mpCard=document.getElementById('w-mp-card'); if(mpCard){ mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
 };
 
-let toggleTypeCard;
+var toggleTypeCard;
 toggleTypeCard = function(type) {
   ensureMpCardInWizard();
   const cb = document.getElementById('w-type-'+type);
@@ -6637,7 +6637,7 @@ toggleTypeCard = function(type) {
 
 // wizardValidate héritée supprimée
 
-let wizardUpdateProduit;
+var wizardUpdateProduit;
 wizardUpdateProduit = function(){
   const id = parseInt(document.getElementById('w-produit')?.value);
   const p = (state.produitsEch||[]).find(x=>x.id===id);
@@ -6649,7 +6649,7 @@ wizardUpdateProduit = function(){
   if(list) list.innerHTML = analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join('');
 };
 
-let previewSousSeries;
+var previewSousSeries;
 previewSousSeries = function(){
   const nb=parseInt(document.getElementById('w-nb-series')?.value)||1;
   const lot=document.getElementById('w-lot')?.value||'LOT';
@@ -6674,7 +6674,7 @@ previewSousSeries = function(){
   preview.innerHTML=Array.from({length:Math.min(nb,26)},(_,i)=>'<span class="badge badge-yellow">'+lot+'-'+(i+1)+'</span>').join('');
 };
 
-let wizardLoadMarches;
+var wizardLoadMarches;
 wizardLoadMarches = function(){
   const el=document.getElementById('w-marches-check'); if(!el)return;
   if(wizardIsStabOnly() || (wizardIsMpSelected() && !wizardIsPifSelected())){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Non demandé pour ce type d’enregistrement.</div>'; return; }
@@ -6683,7 +6683,7 @@ wizardLoadMarches = function(){
   el.innerHTML=marches.map(m=>'<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</div>'+(m.note?'<div style="font-size:11px;color:var(--text2)">'+m.note+'</div>':'')+'</div></label>').join('');
 };
 
-let wizardLoadAnalyses;
+var wizardLoadAnalyses;
 wizardLoadAnalyses = function(){
   const el=document.getElementById('w-analyses-select'); const noA=document.getElementById('w-no-analyses'); if(!el)return;
   const prodId=parseInt(document.getElementById('w-produit')?.value);
@@ -6693,7 +6693,7 @@ wizardLoadAnalyses = function(){
   el.innerHTML=analyses.map(a=>'<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+a.id+'" style="margin-top:2px;flex-shrink:0"><div style="flex:1"><div style="font-weight:600;font-size:13px">'+a.nom+(a.code?' <code style="font-size:10px">'+a.code+'</code>':'')+'</div>'+(a.habilitations&&a.habilitations.length?'<div style="margin-top:3px">'+a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')+'</div>':'')+(a.duree?'<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> '+a.duree+'</div>':'')+'</div><div style="display:flex;gap:4px;flex-shrink:0">'+(wizardIsPifSelected()?'<span class="badge badge-yellow" style="font-size:10px">PIF</span>':'')+(wizardIsMpSelected()?'<span class="badge badge-green" style="font-size:10px">MP</span>':'')+(wizardIsStabSelected()?'<span class="badge badge-purple" style="font-size:10px">STAB</span>':'')+'</div></label>').join('');
 };
 
-let saveAnalyse;
+var saveAnalyse;
 saveAnalyse = function(){
   const nom=document.getElementById('a-nom').value.trim();
   if(!nom){ toast('Le nom est obligatoire','error'); return; }
@@ -6709,7 +6709,7 @@ saveAnalyse = function(){
   editingId=null; closeModal('modal-analyse'); renderCatalogue(); populateCatalogueSelect(); saveData(); toast('Analyse enregistrée','success');
 };
 
-let renderCatalogue;
+var renderCatalogue;
 renderCatalogue = function(){
   const q=(document.getElementById('search-catalogue')?.value||'').toLowerCase();
   const rows=(state.catalogue||[]).filter(a=>!q||a.nom.toLowerCase().includes(q)||(a.code||'').toLowerCase().includes(q)||getProductNamesForAnalyse(a).join(' ').toLowerCase().includes(q));
@@ -6718,7 +6718,7 @@ renderCatalogue = function(){
   tbody.innerHTML=rows.map(a=>{ const prods=getProductNamesForAnalyse(a); return '<tr><td><strong>'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':'')+'</td><td>'+(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')+'</td><td>'+(prods.length?prods.map(p=>'<span class="badge badge-green">'+p+'</span>').join(' '):'<span class="badge badge-red">Aucun produit</span>')+'</td><td style="font-size:12px;color:var(--text2)">'+(a.description||'—')+'</td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editAnalyse('+a.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse('+a.id+')"><i class="ti ti-trash"></i></button></div></td></tr>'; }).join('');
 };
 
-let editAnalyse;
+var editAnalyse;
 editAnalyse = function(id){
   const a=(state.catalogue||[]).find(x=>x.id===id); if(!a)return;
   editingId=id;
@@ -6784,7 +6784,7 @@ function getEcheanceConditionDisplay(e0){
 
 ;
 
-let statutIcon;
+var statutIcon;
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
   const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const labels={a_lancer:'À FAIRE',en_cours:'EN COURS',terminee:'TERMINÉE',verifiee:'VÉRIFIÉE'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
@@ -6809,7 +6809,7 @@ statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
 };
 
-let cycleAnalyseStatut;
+var cycleAnalyseStatut;
 cycleAnalyseStatut = function(echId, analyseId){
   echId=parseInt(echId); analyseId=parseInt(analyseId);
   const order=['a_lancer','en_cours','terminee','verifiee']; const ech=(state.echantillons||[]).find(e=>e.id===echId); if(!ech)return;
