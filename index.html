@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v294 — Physico-Chimie</title>
+<title>LabManager v297 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4695,7 +4695,8 @@ const PLAN_TYPES = {
   verification:  { label: 'Vérification',      color: '#4CAF50', bg: '#E8F5E9', text: '#1B5E20' },
   formation:     { label: 'Formation',          color: '#FF9800', bg: '#FFF3E0', text: '#7a4000' },
   mp:            { label: 'MP',                 color: '#42A5F5', bg: '#E3F2FD', text: '#0D47A1' },
-  eaux:          { label: 'Poste des eaux',    color: '#3F51B5', bg: '#E8EAF6', text: '#1A237E' }
+  eaux:          { label: 'Poste des eaux',     color: '#3F51B5', bg: '#E8EAF6', text: '#1A237E' },
+  absence:       { label: 'Absence',            color: '#f44336', bg: '#FFEBEE', text: '#B71C1C' },
 };
 
 let planSemaineStartDate = null;
@@ -4769,7 +4770,15 @@ function renderPlanSemaine() {
     lbl.textContent = s.getDate() + ' ' + monthNames[s.getMonth()] + ' – ' + e.getDate() + ' ' + monthNames[e.getMonth()] + ' ' + e.getFullYear();
   }
 
-  const techs = (state.techniciens || []).filter(t => t.statut === 'actif' && (t.role||'').toLowerCase().includes('cq'));
+  const rythmeOrdre = { matin: 0, am: 1, absent: 2 };
+  const semLundi = dateToKey(planSemaineStartDate || new Date());
+  const techs = (state.techniciens || [])
+    .filter(t => t.statut === 'actif' && (t.role||'').toLowerCase().includes('cq'))
+    .sort((a, b) => {
+      const rA = rythmeOrdre[(state.planRythmes||{})[a.id + '_' + semLundi] || 'matin'] ?? 0;
+      const rB = rythmeOrdre[(state.planRythmes||{})[b.id + '_' + semLundi] || 'matin'] ?? 0;
+      return rA - rB;
+    });
   const tasks = state.planTasks || [];
   const today = dateToKey(new Date());
 
@@ -4803,19 +4812,12 @@ function renderPlanSemaine() {
     if (tech.id) {
       const rKey = tech.id + '_' + dateToKey(days[0]); // clé semaine = techId_lundi
       const rythme = (state.planRythmes||{})[rKey] || 'matin';
-      const rLabel = {matin:'Matin 5h-13h', am:'AM 13h-21h', absent:'Absent'}[rythme];
-      const rColor = {matin:'#2196F3', am:'#9C27B0', absent:'#f44336'}[rythme];
+
       html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
       html += '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0] + tech.nom[0]) + '</div>';
       html += '<div style="font-size:12px;font-weight:600">' + tech.prenom + ' ' + tech.nom + '</div>';
       html += '</div>';
-      html += '<div style="display:flex;gap:4px;flex-wrap:wrap">';
-      ['matin','am','absent'].forEach(r => {
-        const labels = {matin:'Matin',am:'AM',absent:'Absent'};
-        const active = rythme === r ? 'active' : '';
-        html += `<button class="rythme-btn ${r} ${active}" onclick="setRythme(${tech.id},'${dateToKey(days[0])}','${r}')">${labels[r]}</button>`;
-      });
-      html += '</div>';
+      // Rythme géré dans la colonne dédiée
     } else {
       html += '<div style="font-size:12px;color:var(--text3);padding:4px 0">Non assigné</div>';
     }
@@ -5405,9 +5407,15 @@ function savePlanTask() {
 
   if (window._editingPlanTaskId) {
     const task = state.planTasks.find(t => t.id === window._editingPlanTaskId);
-    if (task) { task.type = type; task.desc = desc; task.techId = techId ? parseInt(techId) : null; task.date = date; task.lot = lot; task.note = note; }
+    if (task) { task.type = type; task.desc = desc; task.techId = techId ? String(techId) : null; task.date = date; task.lot = lot; task.note = note; }
   } else {
-    state.planTasks.push({ id: Date.now(), type, desc, techId: techId ? parseInt(techId) : null, date, lot, note });
+    state.planTasks.push({ id: Date.now(), type, desc, techId: techId ? String(techId) : null, date, lot, note,
+      color: type === 'absence' ? { bg:'#FFEBEE', border:'#f44336' } : null });
+  }
+  // Si absence : marquer le planRythme pour bloquer le drop
+  if (type === 'absence' && techId && date) {
+    if (!state.planRythmes) state.planRythmes = {};
+    state.planRythmes[techId + '_abs_' + date] = true;
   }
 
   closeModal('modal-plan-task');
@@ -7292,6 +7300,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
           <div class="plan-type-btn" data-type="formation" onclick="selectPlanType('formation')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#FFF3E0;border-color:#FF9800;color:#7a4000">📚 Formation</div>
           <div class="plan-type-btn" data-type="mp" onclick="selectPlanType('mp')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#E3F2FD;border-color:#42A5F5;color:#0D47A1">📦 MP</div>
           <div class="plan-type-btn" data-type="eaux" onclick="selectPlanType('eaux')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#E8EAF6;border-color:#3F51B5;color:#1A237E">💧 Poste des eaux</div>
+          <div class="plan-type-btn" data-type="absence" onclick="selectPlanType('absence')" style="padding:7px 12px;border-radius:var(--radius);border:2px solid var(--border);cursor:pointer;font-size:12px;font-weight:600;background:#FFEBEE;border-color:#f44336;color:#B71C1C">🚫 Absence</div>
         </div>
         <input type="hidden" id="plan-task-type" value="">
       </div>
