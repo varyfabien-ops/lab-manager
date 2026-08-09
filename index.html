@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v287 — Physico-Chimie</title>
+<title>LabManager v288 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4959,9 +4959,9 @@ function buildEtiquettesAPlanifier() {
     });
   });
 
-  // Ajouter les tâches manuelles sans date assignée
+  // Ajouter les tâches manuelles sans date assignée (exclure celles avec sousKey = gérées par les fixes)
   (state.planTasks || []).forEach(t => {
-    if (!t.date && t.manuel) {
+    if (!t.date && t.manuel && !t.sousKey) {
       etiquettes.push({
         nom: t.analyseNom || t.desc,
         echId: null,
