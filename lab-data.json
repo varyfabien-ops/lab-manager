@@ -1417,6 +1417,16 @@
       "habilitations": [],
       "date": "2026-08-08",
       "statut": "actif"
+    },
+    {
+      "id": 1786271486368,
+      "prenom": "Himidati",
+      "nom": "MOUENDHOIMU",
+      "visa": "HMU",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "2026-08-13",
+      "statut": "actif"
     }
   ],
   "commandesStatut": {
@@ -1429,11 +1439,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : TCC0004 Mépivacaïne / PHBM",
-      "time": "08/08 15:41"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutee au catalogue : L*a*b",
@@ -1678,6 +1683,11 @@
       "icon": "flask",
       "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
       "time": "09/08 12:30"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Himidati MOUENDHOIMU",
+      "time": "09/08 12:31"
     }
   ],
   "spq": [
