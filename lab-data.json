@@ -1873,7 +1873,17 @@
       "spqId": 1785343255909
     }
   ],
-  "planTasks": [],
+  "planTasks": [
+    {
+      "id": 1786285947414,
+      "type": "eaux",
+      "desc": "STEP",
+      "techId": 1785175077562,
+      "date": "2026-08-09",
+      "lot": "",
+      "note": ""
+    }
+  ],
   "preparations": [
     {
       "id": 1785422900371,
