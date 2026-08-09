@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v245 — Physico-Chimie</title>
+<title>LabManager v250 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -149,6 +149,15 @@
   .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--cyan3); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--cyan); flex-shrink: 0; }
   .tech-name { font-weight: 600; font-size: 14px; }
   .tech-role { font-size: 12px; color: var(--text2); }
+  .rythme-btn { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; border: 1.5px solid; cursor: pointer; background: none; transition: all 0.15s; }
+  .rythme-btn.matin  { border-color: #2196F3; color: #2196F3; }
+  .rythme-btn.matin.active  { background: #2196F3; color: white; }
+  .rythme-btn.am     { border-color: #9C27B0; color: #9C27B0; }
+  .rythme-btn.am.active     { background: #9C27B0; color: white; }
+  .rythme-btn.absent { border-color: #f44336; color: #f44336; }
+  .rythme-btn.absent.active { background: #f44336; color: white; }
+  .rythme-cell { font-size: 11px; text-align: center; padding: 2px 0; }
+  .absence-dot { width: 8px; height: 8px; border-radius: 50%; background: #f44336; display: inline-block; margin-left: 4px; }
   .a-planifier-tag { background: #FFF8E1; border: 1.5px solid #FF9800; border-radius: 8px; padding: 8px 12px; font-size: 12px; cursor: grab; color: var(--text); user-select: none; line-height: 1.4; min-width: 160px; max-width: 240px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
   .a-planifier-tag:hover { background: #FF9800; color: white; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(255,152,0,0.3); }
   .a-planifier-tag .sous { font-weight: 400; font-size: 10px; color: var(--text2); margin-top: 3px; }
@@ -2951,7 +2960,7 @@ let state = {
   produitsEch: [], marches: [],
   echantillons: [],
   techniciens: [],
-  planTasks: [],
+  planTasks: [], planRythmes: {},
   spq: [],
   articles: [],
   preparations: [],
@@ -3192,7 +3201,7 @@ async function loadData() {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[] };
+    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[] };
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     updateBadges();
@@ -5055,29 +5064,10 @@ function imprimerPerimesContenants() {
     return '<tr><td>'+( p.nom||'—')+'</td><td style="font-family:monospace">'+(c.lot||'—')+'</td><td>'+(p.fournisseur||'—')+'</td><td>'+formatDate(c.ouverture||'')+'</td><td style="color:#c0392b;font-weight:600">'+formatDate(dateRef)+'</td><td>'+(p.localisation||'—')+'</td></tr>';
   }).join('') : '<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun contenant périmé</td></tr>';
   const win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Contenants périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs commerciaux à éliminer</h1><p style="color:#666">'+dateStr+'</p><table><thead><tr><th>Produit</th><th>Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script>
-<!-- MODAL ÉTIQUETTES PLANNING -->
-<div class="modal-overlay" id="modal-etiquettes" style="display:none">
-  <div class="modal" style="max-width:500px">
-    <div class="modal-header">
-      <i class="ti ti-tag" style="font-size:18px;color:#FF9800"></i>
-      <h3>Créer des étiquettes à planifier</h3>
-      <button class="close-btn" onclick="closeModal('modal-etiquettes')"><i class="ti ti-x"></i></button>
-    </div>
-    <div class="modal-body">
-      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes à glisser dans le planning.</p>
-      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:10px"></div>
-      <button class="btn" onclick="addEtiquetteLine()" id="btn-add-etiq-line" style="margin-top:12px;font-size:12px"><i class="ti ti-plus"></i> Ajouter une ligne</button>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-etiquettes')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveEtiquettes()"><i class="ti ti-check"></i> Créer les étiquettes</button>
-    </div>
-  </div>
-</div>
-</body></html>');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Contenants périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs commerciaux à éliminer</h1><p style="color:#666">'+dateStr+'</p><table><thead><tr><th>Produit</th><th>Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script>');
   win.document.close();
 }
+
 window.imprimerPerimesContenants = imprimerPerimesContenants;
 
 window.renderProduitsAccordion = renderProduitsAccordion;
@@ -5314,22 +5304,40 @@ function renderPlanSemaine() {
   
   allRows.forEach(tech => {
     html += '<tr>';
-    html += '<td style="padding:8px 14px;border:1px solid var(--border);vertical-align:top;background:var(--bg2)">';
-    html += '<div style="display:flex;align-items:center;gap:8px">';
+    html += '<td style="padding:8px 14px;border:1px solid var(--border);vertical-align:top;background:var(--bg2);min-width:140px">';
     if (tech.id) {
+      const rKey = tech.id + '_' + dateToKey(days[0]); // clé semaine = techId_lundi
+      const rythme = (state.planRythmes||{})[rKey] || 'matin';
+      const rLabel = {matin:'Matin 5h-13h', am:'AM 13h-21h', absent:'Absent'}[rythme];
+      const rColor = {matin:'#2196F3', am:'#9C27B0', absent:'#f44336'}[rythme];
+      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
       html += '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0] + tech.nom[0]) + '</div>';
       html += '<div style="font-size:12px;font-weight:600">' + tech.prenom + ' ' + tech.nom + '</div>';
+      html += '</div>';
+      html += '<div style="display:flex;gap:4px;flex-wrap:wrap">';
+      ['matin','am','absent'].forEach(r => {
+        const labels = {matin:'Matin',am:'AM',absent:'Absent'};
+        const active = rythme === r ? 'active' : '';
+        html += `<button class="rythme-btn ${r} ${active}" onclick="setRythme(${tech.id},'${dateToKey(days[0])}','${r}')">${labels[r]}</button>`;
+      });
+      html += '</div>';
     } else {
-      html += '<div style="font-size:12px;color:var(--text3)">Non assigné</div>';
+      html += '<div style="font-size:12px;color:var(--text3);padding:4px 0">Non assigné</div>';
     }
-    html += '</div></td>';
+    html += '</td>';
     
     days.forEach(d => {
       const key = dateToKey(d);
       const isToday = key === today;
       const cellTasks = tasks.filter(t => t.date === key && (tech.id ? t.techId === tech.id : !t.techId));
       
-      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:80px;background:' + (isToday ? 'rgba(5,80,174,0.03)' : 'var(--bg)') + '" ';
+      const rKey2 = tech.id ? (tech.id + '_' + dateToKey(days[0])) : null;
+      const rythme2 = rKey2 ? ((state.planRythmes||{})[rKey2]||'matin') : 'matin';
+      // Absence ponctuelle sur ce jour spécifique
+      const absKey = tech.id ? (tech.id + '_abs_' + key) : null;
+      const absJour = absKey ? !!((state.planRythmes||{})[absKey]) : false;
+      const cellBg = absJour || rythme2 === 'absent' ? 'rgba(244,67,54,0.07)' : isToday ? 'rgba(5,80,174,0.03)' : 'var(--bg)';
+      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:80px;background:' + cellBg + '" ';
       html += 'ondragover="event.preventDefault()" ';
       html += 'ondrop="onPlanDrop(event,\"' + key + '\",\"' + (tech.id || 'null') + '\")" ';
       html += 'onclick="openModalPlanTask(\"' + key + '\",\"' + (tech.id || 'null') + '\")">';
@@ -5562,6 +5570,32 @@ function saveEtiquettes() {
   renderPlanSemaine();
   toast(count + ' étiquette(s) créée(s)', 'success');
 }
+
+// ============================================================
+// RYTHMES ET ABSENCES TECHNICIENS
+// ============================================================
+function setRythme(techId, semaineLundi, rythme) {
+  if (!state.planRythmes) state.planRythmes = {};
+  const key = techId + '_' + semaineLundi;
+  state.planRythmes[key] = rythme;
+  saveData();
+  renderPlanSemaine();
+}
+window.setRythme = setRythme;
+
+function toggleAbsenceJour(techId, dateKey) {
+  if (!state.planRythmes) state.planRythmes = {};
+  const key = techId + '_abs_' + dateKey;
+  if (state.planRythmes[key]) {
+    delete state.planRythmes[key];
+  } else {
+    state.planRythmes[key] = true;
+  }
+  saveData();
+  renderPlanSemaine();
+}
+window.toggleAbsenceJour = toggleAbsenceJour;
+
 window.openModalEtiquettes = openModalEtiquettes;
 window.addEtiquetteLine = addEtiquetteLine;
 window.updateAddBtnEtiq = updateAddBtnEtiq;
@@ -6780,27 +6814,7 @@ function imprimerPerimes() {
     return '<tr><td style="border-left:4px solid '+type.color+';padding-left:8px">'+p.nom+'</td><td style="font-family:monospace;font-weight:bold">'+p.numero+'</td><td>'+formatDate(p.datePrep||'')+'</td><td style="color:#c0392b;font-weight:600">'+formatDate(dateRef||'')+'</td><td>'+(cat.emplacement||'—')+'</td></tr>';
   }).join('') : '<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun réactif périmé</td></tr>';
   const win = window.open('', '_blank', 'width=800,height=600');
-  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Réactifs périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs à éliminer</h1><p style="color:#666;font-size:12px">'+dateStr+'</p><table><thead><tr><th>Réactif</th><th>N° interne</th><th>Date préparation</th><th>Date de validité</th><th>Emplacement</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script>
-<!-- MODAL ÉTIQUETTES PLANNING -->
-<div class="modal-overlay" id="modal-etiquettes" style="display:none">
-  <div class="modal" style="max-width:500px">
-    <div class="modal-header">
-      <i class="ti ti-tag" style="font-size:18px;color:#FF9800"></i>
-      <h3>Créer des étiquettes à planifier</h3>
-      <button class="close-btn" onclick="closeModal('modal-etiquettes')"><i class="ti ti-x"></i></button>
-    </div>
-    <div class="modal-body">
-      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes à glisser dans le planning.</p>
-      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:10px"></div>
-      <button class="btn" onclick="addEtiquetteLine()" id="btn-add-etiq-line" style="margin-top:12px;font-size:12px"><i class="ti ti-plus"></i> Ajouter une ligne</button>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" onclick="closeModal('modal-etiquettes')">Annuler</button>
-      <button class="btn btn-primary" onclick="saveEtiquettes()"><i class="ti ti-check"></i> Créer les étiquettes</button>
-    </div>
-  </div>
-</div>
-</body></html>');
+  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Réactifs périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs à éliminer</h1><p style="color:#666;font-size:12px">'+dateStr+'</p><table><thead><tr><th>Réactif</th><th>N° interne</th><th>Date préparation</th><th>Date de validité</th><th>Emplacement</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script></body></html>');
   win.document.close();
 }
 
