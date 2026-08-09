@@ -768,14 +768,8 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [
-        {
-          "label": "Teneur en Bupivacaïne",
-          "type": "numerique",
-          "unite": "mg/mL"
-        }
-      ],
-      "resultatRequis": true
+      "champsResultats": [],
+      "resultatRequis": false
     },
     {
       "id": 1785247569532,
@@ -1479,11 +1473,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Tampon pH 9 lot HC56730103",
-      "time": "08/08 18:46"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Methylparaben (PHBM)",
       "time": "08/08 18:50"
@@ -1727,6 +1716,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Lidocaine Hydrochloride",
       "time": "09/08 12:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 Bupivacaïne",
+      "time": "09/08 16:25"
     }
   ],
   "spq": [
