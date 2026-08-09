@@ -1780,20 +1780,6 @@
       "note": ""
     },
     {
-      "id": 1786287147953,
-      "date": null,
-      "techId": null,
-      "desc": "Poste des Eaux - STEP",
-      "analyseNom": "Poste des Eaux - STEP",
-      "analyseId": null,
-      "echId": null,
-      "lot": "",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": "",
-      "manuel": true
-    },
-    {
       "id": 1786287147954,
       "date": null,
       "techId": null,
