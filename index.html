@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v267 — Physico-Chimie</title>
+<title>LabManager v268 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4812,13 +4812,14 @@ function renderPlanSemaine() {
       
       cellTasks.forEach(task => {
         const type = PLAN_TYPES[task.type] || PLAN_TYPES.analyse;
+        const taskBg = (task.color && task.color.bg) ? task.color.bg : type.bg;
+        const taskBorder = (task.color && task.color.border) ? task.color.border : type.color;
         html += '<div draggable="true" ';
         html += 'ondragstart="onPlanDragStart(event,' + task.id + ')" ';
         html += 'onclick="event.stopPropagation();editPlanTask(' + task.id + ')" ';
-        html += 'style="background:' + type.bg + ';border-left:3px solid ' + type.color + ';border-radius:4px;padding:5px 8px;margin-bottom:4px;cursor:grab;font-size:11px;line-height:1.4">';
-        html += '<div style="font-weight:700;color:' + type.text + '">' + type.label + '</div>';
-        html += '<div style="color:' + type.text + ';opacity:0.85">' + (task.desc || '') + '</div>';
-        if (task.lot) html += '<div style="color:var(--text3);font-size:10px">' + task.lot + '</div>';
+        html += 'style="background:' + taskBg + ';border-left:3px solid ' + taskBorder + ';border-radius:4px;padding:5px 8px;margin-bottom:4px;cursor:grab;font-size:11px;line-height:1.4">';
+        html += '<div style="font-weight:700;color:' + taskBorder + '">' + (task.analyseNom || task.desc || '') + '</div>';
+        if (task.note) html += '<div style="color:var(--text3);font-size:10px;font-style:italic">' + task.note + '</div>';
         html += '</div>';
       });
       
@@ -4962,7 +4963,7 @@ function onDropNewTask(event, date, techId) {
   // Créer une tâche pour l'analyse principale
   state.planTasks.push({
     id: Date.now(),
-    date, techId: techId || null,
+    date, techId: techId ? String(techId) : null,
     desc: e.nom + (e.lot ? ' — Lot ' + e.lot : ''),
     analyseNom: e.nom,
     analyseId: e.analyseId,
