@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v288 — Physico-Chimie</title>
+<title>LabManager v289 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4798,7 +4798,7 @@ function renderPlanSemaine() {
   
   allRows.forEach(tech => {
     html += '<tr>';
-    html += '<td style="padding:8px 14px;border:1px solid var(--border);vertical-align:top;background:var(--bg2);min-width:140px">';
+    html += '<td style="padding:8px 14px;border:1px solid var(--border);vertical-align:top;background:var(--bg2);min-width:180px">';
     if (tech.id) {
       const rKey = tech.id + '_' + dateToKey(days[0]); // clé semaine = techId_lundi
       const rythme = (state.planRythmes||{})[rKey] || 'matin';
@@ -4831,7 +4831,7 @@ function renderPlanSemaine() {
       const absKey = tech.id ? (tech.id + '_abs_' + key) : null;
       const absJour = absKey ? !!((state.planRythmes||{})[absKey]) : false;
       const cellBg = absJour || rythme2 === 'absent' ? 'rgba(244,67,54,0.07)' : isToday ? 'rgba(5,80,174,0.03)' : 'var(--bg)';
-      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:80px;background:' + cellBg + '" ';
+      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:100px;background:' + cellBg + '" ';
       html += 'ondragover="event.preventDefault()" ';
       html += "ondrop=\"onPlanDrop(event,'" + key + "','" + (tech.id || 'null') + "')\""+ ' ';
       html += "onclick=\"openModalPlanTask('" + key + "','" + (tech.id || 'null') + "')\""+ '>';
