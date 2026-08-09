@@ -1012,7 +1012,8 @@
       "resultatRequis": false,
       "sousAnalyses": [
         "TCC0065 - Conditionnement Colonne & Détecteur",
-        "TCC0065 -"
+        "Retraitement TCC0065 - MPEG",
+        "Vérificication TCC0065 - MPEG"
       ]
     }
   ],
@@ -1554,11 +1555,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot HC56730103",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot HC46017601",
       "time": "08/08 21:09"
     },
@@ -1801,6 +1797,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0065 - MPEG",
       "time": "09/08 20:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0065 - MPEG",
+      "time": "09/08 20:46"
     }
   ],
   "spq": [
