@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v276 — Physico-Chimie</title>
+<title>LabManager v279 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -434,7 +434,7 @@
       </div>
       <div style="overflow-x:auto">
       <table style="table-layout:fixed;min-width:900px">
-        <thead id="rc-thead"><tr>
+        <thead id="rc-archives-thead"><tr>
           <th style="width:180px">Produit<br><input class="filter-input" id="fa-produit" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
           <th style="width:110px">N Lot<br><input class="filter-input" id="fa-lot" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
           <th style="width:120px">Fournisseur<br><input class="filter-input" id="fa-fourn" placeholder="Filtrer..." oninput="renderArchivesTable()"></th>
@@ -698,29 +698,21 @@
 </div>
 <div class="toast-container" id="toast-container"></div>
 </div>
-<div class="toast-container" id="toast-container"></div>
 </div>
-<div class="toast-container" id="toast-container"></div>
 </div>
-<div class="toast-container" id="toast-container"></div>
 </div>
-<div class="toast-container" id="toast-container"></div>
 </div>
 
-<div class="toast-container" id="toast-container"></div>
 
 </div>
 
-<div class="toast-container" id="toast-container"></div>
 
 </div>
 
-<div class="toast-container" id="toast-container"></div>
 
 </div>
 
 <!-- TOAST CONTAINER -->
-<div class="toast-container" id="toast-container"></div>
 
 <!-- MODAL CATALOGUE ANALYSE -->
 <div class="modal-overlay" id="modal-analyse">
@@ -4932,26 +4924,9 @@ function buildEtiquettesAPlanifier() {
         t.sousKey === sousKey && t.date
       );
       if (dejaPlannee) return;
-      // Chercher ou créer une planTask sans date pour cette sous-analyse
-      let existingTask = (state.planTasks||[]).find(t => t.sousKey === sousKey);
-      if (!existingTask) {
-        if (!state.planTasks) state.planTasks = [];
-        existingTask = {
-          id: Date.now() + sousIdx + Math.random()*1000|0,
-          date: null, techId: null,
-          desc: sousNom,
-          analyseNom: sousNom,
-          analyseId: info.analyseId,
-          sousKey,
-          echId: info.echIds[0],
-          type: 'analyse',
-          sousAnalyses: [],
-          color: autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
-          isSous: true,
-          parentNom: nom,
-        };
-        state.planTasks.push(existingTask);
-      }
+      // Vérifier si déjà planifiée via sousKey
+      const existingTask = (state.planTasks||[]).find(t => t.sousKey === sousKey && t.date);
+      if (existingTask) return; // déjà dans le planning
       etiquettes.push({
         nom: sousNom,
         echId: info.echIds[0],
@@ -4961,8 +4936,7 @@ function buildEtiquettesAPlanifier() {
         sousAnalyses: [],
         isSous: true,
         parentNom: nom,
-        color: existingTask.color || autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
-        planTaskId: existingTask.id,
+        color: autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
       });
     });
   });
@@ -4984,33 +4958,28 @@ function buildEtiquettesAPlanifier() {
 
   // Étiquettes fixes "Poste des Eaux - STEP" × 5 par semaine
   const semaineKey = dateToKey(planSemaineStartDate || new Date());
+  // Compter combien sont déjà planifiées cette semaine
+  const stepPrefix = 'step_' + semaineKey + '_';
+  let stepCount = 0;
   for (let i = 0; i < 5; i++) {
-    const stepKey = 'step_' + semaineKey + '_' + i;
-    let stepTask = (state.planTasks||[]).find(t => t.sousKey === stepKey);
-    if (!stepTask) {
-      if (!state.planTasks) state.planTasks = [];
-      stepTask = {
-        id: Date.now() + 10000 + i,
-        date: null, techId: null,
-        desc: 'Poste des Eaux - STEP',
-        analyseNom: 'Poste des Eaux - STEP',
-        sousKey: stepKey,
-        type: 'analyse',
-        color: { bg:'#E0F7FA', border:'#00BCD4' },
-        isSous: false,
-        manuel: true,
-      };
-      state.planTasks.push(stepTask);
-    }
-    if (!stepTask.date) {
+    const stepKey = stepPrefix + i;
+    const placed = (state.planTasks||[]).find(t => t.sousKey === stepKey && t.date);
+    if (!placed) stepCount++;
+  }
+  // Afficher seulement les non-planifiées (max 5)
+  let shown = 0;
+  for (let i = 0; i < 5 && shown < stepCount; i++) {
+    const stepKey = stepPrefix + i;
+    const placed = (state.planTasks||[]).find(t => t.sousKey === stepKey && t.date);
+    if (!placed) {
       etiquettes.push({
         nom: 'Poste des Eaux - STEP',
         sousKey: stepKey,
-        planTaskId: stepTask.id,
-        color: stepTask.color || { bg:'#E0F7FA', border:'#00BCD4' },
+        color: { bg:'#E0F7FA', border:'#00BCD4' },
         isSous: false,
         sousAnalyses: [],
       });
+      shown++;
     }
   }
 
