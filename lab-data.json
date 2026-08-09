@@ -1612,6 +1612,16 @@
       "habilitations": [],
       "date": "2026-08-09",
       "statut": "actif"
+    },
+    {
+      "id": 1786302857477,
+      "prenom": "Coraline",
+      "nom": "GALLARD",
+      "visa": "CGR",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "2026-08-09",
+      "statut": "actif"
     }
   ],
   "commandesStatut": {
@@ -1624,11 +1634,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R14640",
-      "time": "08/08 21:09"
-    },
     {
       "icon": "trash",
       "text": "Contenant supprime : lot R14640",
@@ -1873,6 +1878,11 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Corentin AUBOIS",
       "time": "09/08 21:13"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Coraline GALLARD",
+      "time": "09/08 21:14"
     }
   ],
   "spq": [
