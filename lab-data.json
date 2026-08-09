@@ -1244,6 +1244,28 @@
           "terminee": "08/08/2026"
         }
       }
+    },
+    {
+      "id": 1786287282137,
+      "code": "TEST 2",
+      "lot": "TEST 2",
+      "articleId": 1785247590600,
+      "articleCode": "M76013000",
+      "produitId": 1785247590600,
+      "marcheIds": [],
+      "analysesIds": [],
+      "analysesParMarche": {},
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0054",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-08-09",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1324,11 +1346,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Methylparaben (PHBM) lot R098B0",
-      "time": "08/08 18:50"
-    },
     {
       "icon": "trash",
       "text": "Contenant supprime : lot R098B0",
@@ -1573,6 +1590,11 @@
       "icon": "trash",
       "text": "Lot supprime : TEST (2 entrees)",
       "time": "09/08 16:51"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Marcaïne 2,5 mg/mL SC — 1 entrée(s) — 0 analyse(s)",
+      "time": "09/08 16:54"
     }
   ],
   "spq": [
