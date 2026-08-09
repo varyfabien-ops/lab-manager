@@ -773,6 +773,24 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST-3"
+    },
+    {
+      "id": 1786301809768.3396,
+      "nom": "Osmolalité",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-09",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1786301809768.018,
+      "nom": "TCC0065 - MPEG",
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-09",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: AAAAAAA"
     }
   ],
   "catalogue": [
@@ -1482,6 +1500,40 @@
       "date": "2026-08-09",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1786301809768,
+      "code": "AAAAAAA",
+      "lot": "AAAAAAA",
+      "articleId": 1786301271905,
+      "articleCode": "MYYYYYYYY",
+      "produitId": 1786301271905,
+      "marcheIds": [
+        1785169908180
+      ],
+      "analysesIds": [
+        1785169966496,
+        1786301151090
+      ],
+      "analysesParMarche": {
+        "1785169966496": [
+          1785169908180
+        ],
+        "1786301151090": [
+          1785169908180
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQxxxx",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-08-09",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -1562,11 +1614,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:09"
-    },
     {
       "icon": "trash",
       "text": "Contenant supprime : lot R098B0",
@@ -1811,6 +1858,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
       "time": "09/08 20:55"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 2 analyse(s)",
+      "time": "09/08 20:56"
     }
   ],
   "spq": [
