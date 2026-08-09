@@ -2257,6 +2257,454 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
+    },
+    {
+      "id": -404037884,
+      "date": "2026-08-21",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-17_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404042236,
+      "date": "2026-08-21",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-17_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404037769,
+      "date": "2026-08-21",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-17_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404042244,
+      "date": "2026-08-21",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-17_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404042347,
+      "date": "2026-08-28",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-24_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404037392,
+      "date": "2026-08-28",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-24_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404042704,
+      "date": "2026-08-28",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-24_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404037947,
+      "date": "2026-08-28",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-24_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404037334,
+      "date": "2026-09-04",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-31_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404043542,
+      "date": "2026-09-04",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-31_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404038582,
+      "date": "2026-09-04",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-31_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404044300,
+      "date": "2026-09-04",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-31_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404042672,
+      "date": "2026-09-11",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-07_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404035096,
+      "date": "2026-09-11",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-07_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404039047,
+      "date": "2026-09-11",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-07_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404037409,
+      "date": "2026-09-11",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-07_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404041882,
+      "date": "2026-09-18",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-14_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404038405,
+      "date": "2026-09-18",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-14_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404040614,
+      "date": "2026-09-18",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-14_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404035980,
+      "date": "2026-09-18",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-14_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404043157,
+      "date": "2026-09-25",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-21_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404039333,
+      "date": "2026-09-25",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-21_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404039216,
+      "date": "2026-09-25",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-21_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404036120,
+      "date": "2026-09-25",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-21_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404034410,
+      "date": "2026-10-02",
+      "techId": "1785175077562",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-28_1785175077562",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404038619,
+      "date": "2026-10-02",
+      "techId": "1786178865689",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-28_1786178865689",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404035244,
+      "date": "2026-10-02",
+      "techId": "1786178889272",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-28_1786178889272",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -404043471,
+      "date": "2026-10-02",
+      "techId": "1786271486368",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-28_1786271486368",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
     }
   ],
   "planRythmes": {
