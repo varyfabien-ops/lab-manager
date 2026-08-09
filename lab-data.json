@@ -2056,6 +2056,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "B2",
       "desc": ""
+    },
+    {
+      "id": 1786271095306,
+      "nom": "Potassium Iodide TS",
+      "type": "usp",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "RP - P",
+      "desc": ""
     }
   ],
   "profils": [
