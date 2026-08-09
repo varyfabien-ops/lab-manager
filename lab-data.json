@@ -1007,6 +1007,19 @@
       "qteCmde": "5",
       "note": "",
       "bvs": true
+    },
+    {
+      "id": 1786272630780,
+      "nom": "Phenol",
+      "fournisseur": "MERCK",
+      "ref": "PHR1047-1G",
+      "localisation": "FRIGO",
+      "fc": "0",
+      "conditionnement": "1g",
+      "stockMin": "3",
+      "qteCmde": "3",
+      "note": "",
+      "bvs": false
     }
   ],
   "contenants": [
@@ -1445,11 +1458,6 @@
       "time": "08/08 16:02"
     },
     {
-      "icon": "shopping-cart",
-      "text": "Commande mise a jour : LCK339",
-      "time": "08/08 16:02"
-    },
-    {
       "icon": "package",
       "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
       "time": "08/08 16:37"
@@ -1688,6 +1696,11 @@
       "icon": "flask",
       "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
       "time": "09/08 12:31"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Phenol",
+      "time": "09/08 12:50"
     }
   ],
   "spq": [
