@@ -1840,6 +1840,21 @@
         "bg": "#FFF8E1",
         "border": "#FF9800"
       }
+    },
+    {
+      "id": 1786289636662,
+      "date": "2026-08-04",
+      "techId": "1786271486368",
+      "desc": "TCC0004 Bupivacaïne",
+      "analyseNom": "TCC0004 Bupivacaïne",
+      "analyseId": 1785247529863,
+      "echId": 1785349276514,
+      "type": "analyse",
+      "sousAnalyses": [
+        "Retraitement TCC0004 Bupivacaïne",
+        "Vérification TCC0004 Bupivacaïne"
+      ],
+      "note": "↳ Retraitement TCC0004 Bupivacaïne · Vérification TCC0004 Bupivacaïne"
     }
   ],
   "planRythmes": {
