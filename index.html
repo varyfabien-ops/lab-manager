@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v226 — Physico-Chimie</title>
+<title>LabManager v229 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1237,6 +1237,12 @@
 </div>
 
 <!-- ÉCRAN D'ACCUEIL PROFILS -->
+<div id="profile-welcome" style="display:none">
+  <div id="profile-welcome-inner" style="padding:40px 28px;display:flex;flex-direction:column;align-items:center;gap:32px">
+    <div id="profile-welcome-header" style="text-align:center"></div>
+    <div id="profile-welcome-grid" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center;max-width:900px"></div>
+  </div>
+</div>
 <div id="home-screen" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:10000;flex-direction:column;align-items:center;justify-content:center;gap:32px;pointer-events:none">
   <div style="text-align:center;margin-bottom:8px">
     <div style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:4px">LabManager</div>
@@ -3043,8 +3049,9 @@ function renderAll() {
 // NAVIGATION
 // ============================================================
 function goTo(page, el) {
-  // Masquer le clone sticky RC si on quitte la page RC
   destroyRcStickyHeader();
+  const pw = document.getElementById('profile-welcome');
+  if(pw) pw.style.display = 'none';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const target = document.getElementById('page-' + page);
@@ -3514,6 +3521,7 @@ function togglePlanningMenu(e) {
 function goToPlanning(view) {
   updateNavActive('plan-'+view);
   destroyRcStickyHeader();
+  const pw=document.getElementById('profile-welcome'); if(pw) pw.style.display='none';
   currentPlanningView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-planning');
@@ -4194,6 +4202,7 @@ function toggleEchMenu(e) {
 function goToEch(view) {
   updateNavActive('ech-'+view);
   destroyRcStickyHeader();
+  const pw=document.getElementById('profile-welcome'); if(pw) pw.style.display='none';
   currentEchView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-echantillons');
@@ -5786,17 +5795,16 @@ function resetEchFiltres() {
 // ============================================================
 
 const ALL_MODULES = [
-  { key:'dashboard',     label:'Tableau de bord' },
-  { key:'planning',      label:'Planification' },
-  { key:'reactifs',      label:'Réactifs' },
-  { key:'echantillons',  label:'Échantillons' },
-  { key:'articles',      label:'Codes articles & SPQ' },
-  { key:'habilitations', label:'Habilitations' },
-  { key:'activity',      label:"Journal d'activité" },
-  { key:'stabilites',    label:'Stabilités' },
-  { key:'tendances',     label:'Tendances' },
-  { key:'commandes',     label:'Commandes' },
-  { key:'profils-config',label:'Profils' },
+  { key:'dashboard',     label:'Tableau de bord',      icon:'ti-layout-dashboard' },
+  { key:'planning',      label:'Planning',              icon:'ti-layout-columns' },
+  { key:'reactifs',      label:'Réactifs Commerciaux', icon:'ti-package' },
+  { key:'echantillons',  label:'Réception',             icon:'ti-inbox' },
+  { key:'articles',      label:'Articles & SPQ',        icon:'ti-barcode' },
+  { key:'habilitations', label:'Habilitations',         icon:'ti-certificate' },
+  { key:'activity',      label:'Journal',               icon:'ti-history' },
+  { key:'stabilites',    label:'Stabilités',            icon:'ti-chart-line' },
+  { key:'commandes',     label:'Commandes',             icon:'ti-shopping-cart' },
+  { key:'profils-config',label:'Profils',               icon:'ti-users' },
 ];
 
 let activeProfile = null;
@@ -5832,9 +5840,59 @@ function selectProfile(id) {
   applyProfile(p);
   const hs = document.getElementById('home-screen');
   if(hs){ hs.style.display='none'; hs.style.pointerEvents='none'; }
-  const firstModule = (p.modules||[])[0] || 'dashboard';
-  goTo(firstModule, null);
+  showProfileWelcome(p);
 }
+
+function showProfileWelcome(p) {
+  // Cacher toutes les pages
+  document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+  const color = p.color || 'var(--cyan)';
+
+  // Header
+  const hdr = document.getElementById('profile-welcome-header');
+  if(hdr) hdr.innerHTML = '<i class="ti '+(p.icone||'ti-user')+'" style="font-size:48px;color:'+color+';margin-bottom:8px"></i>'
+    + '<h2 style="font-size:22px;font-weight:600;color:var(--text);margin:0">Bonjour — '+p.nom+'</h2>'
+    + '<p style="color:var(--text2);margin:4px 0 0">Choisissez un module</p>';
+
+  // Tuiles modules autorisés
+  const grid = document.getElementById('profile-welcome-grid');
+  if(!grid) return;
+  grid.innerHTML = (p.modules||[]).map(key => {
+    const mod = ALL_MODULES.find(m=>m.key===key);
+    if(!mod) return '';
+    return `<div onclick="gotoModule('${key}')" style="cursor:pointer;width:160px;height:130px;background:var(--bg2);border:2px solid ${color}22;border-top:4px solid ${color};border-radius:var(--radius-lg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:all 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.06)" onmouseover="this.style.background='${color}18';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--bg2)';this.style.transform='none'">`
+      + `<i class="ti ${mod.icon}" style="font-size:32px;color:${color}"></i>`
+      + `<span style="font-size:13px;font-weight:600;color:var(--text);text-align:center;padding:0 8px">${mod.label}</span>`
+      + '</div>';
+  }).join('');
+
+  const pw = document.getElementById('profile-welcome');
+  if(pw) pw.style.display = 'block';
+  // Mettre profile-welcome comme page active
+  document.querySelectorAll('.page').forEach(pg => pg.classList.remove('active'));
+  // Garder le label profil à jour
+  const lbl = document.getElementById('profile-label');
+  if(lbl) lbl.textContent = p.nom;
+}
+window.showProfileWelcome = showProfileWelcome;
+
+function gotoModule(key) {
+  const actions = {
+    'dashboard':     ()=>goTo('dashboard',null),
+    'planning':      ()=>goToPlanning('semaine'),
+    'reactifs':      ()=>goToReactifs('contenants'),
+    'echantillons':  ()=>goToEch('reception'),
+    'articles':      ()=>goTo('articles',null),
+    'habilitations': ()=>goTo('habilitations',null),
+    'activity':      ()=>goTo('audit',null),
+    'stabilites':    ()=>goTo('stabilites',null),
+    'commandes':     ()=>goTo('commandes',null),
+    'profils-config':()=>goTo('profils-config',null),
+  };
+  if(actions[key]) actions[key]();
+}
+window.gotoModule = gotoModule;
+
 
 function enterAdmin() {
   activeProfile = null;
