@@ -1555,11 +1555,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot HC46017601",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot HC57833622",
       "time": "08/08 21:09"
     },
@@ -1802,6 +1797,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQxxxx",
       "time": "09/08 20:47"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : MYYYYYYYY",
+      "time": "09/08 20:47"
     }
   ],
   "spq": [
@@ -1965,6 +1965,13 @@
       "code": "M78004100",
       "nom": "Xylocard 50 mg/mL",
       "spqId": 1785343255909
+    },
+    {
+      "id": 1786301271905,
+      "code": "MYYYYYYYY",
+      "nom": "Setmelanotide 10 mg/mL",
+      "type": "pif_stab",
+      "spqId": 1786301246939
     }
   ],
   "planTasks": [
