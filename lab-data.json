@@ -1940,17 +1940,6 @@
       "dateRestrictive": ""
     },
     {
-      "id": 1786271450984,
-      "catId": 1786271040157,
-      "nom": "10N Ammonium Hydroxide",
-      "numero": "2026/0153",
-      "datePrep": "2026-07-10",
-      "datePerm": "2027-01-10",
-      "dateRestrictive": "2026-11-29",
-      "techId": null,
-      "comment": ""
-    },
-    {
       "id": 1786271508082,
       "catId": 1786271040157,
       "nom": "10N Ammonium Hydroxide",
