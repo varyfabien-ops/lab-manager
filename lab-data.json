@@ -2193,6 +2193,15 @@
         "echantillons",
         "articles"
       ]
+    },
+    {
+      "id": 1786295495092,
+      "nom": "Planification",
+      "icone": "ti-user",
+      "color": "#9C27B0",
+      "modules": [
+        "planning"
+      ]
     }
   ],
   "commandesArchives": [
