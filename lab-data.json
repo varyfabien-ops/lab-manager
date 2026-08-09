@@ -837,16 +837,16 @@
         "Balance",
         "Pipettes"
       ],
+      "duree": "",
+      "code": "",
       "produitsIds": [],
-      "champsResultats": [
-        {
-          "label": "Résultat",
-          "type": "numerique",
-          "unite": ""
-        }
-      ],
+      "description": "",
+      "champsResultats": [],
       "resultatRequis": false,
-      "description": ""
+      "sousAnalyses": [
+        "Retraitement TCC0004 Mépivacaïne",
+        "Vérification TCC0004 Mépivacaïne"
+      ]
     },
     {
       "id": 1786196559426,
@@ -1348,11 +1348,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Propylparaben (PHBP) lot R14640",
-      "time": "08/08 20:04"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot HC56730103",
       "time": "08/08 21:09"
@@ -1596,6 +1591,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0002 Sodium",
       "time": "09/08 19:19"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 Mépivacaïne / PHBM",
+      "time": "09/08 19:33"
     }
   ],
   "spq": [
