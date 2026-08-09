@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v231 — Physico-Chimie</title>
+<title>LabManager v232 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5798,12 +5798,13 @@ const ALL_MODULES = [
   { key:'dashboard',     label:'Tableau de bord',      icon:'ti-layout-dashboard' },
   { key:'planning',      label:'Planning',              icon:'ti-layout-columns' },
   { key:'reactifs',      label:'Réactifs Commerciaux', icon:'ti-package' },
+  { key:'preparations',  label:'Préparations',          icon:'ti-flask' },
+  { key:'commandes',     label:'Commandes',             icon:'ti-shopping-cart' },
   { key:'echantillons',  label:'Réception',             icon:'ti-inbox' },
   { key:'articles',      label:'Articles & SPQ',        icon:'ti-barcode' },
   { key:'habilitations', label:'Habilitations',         icon:'ti-certificate' },
   { key:'activity',      label:'Journal',               icon:'ti-history' },
   { key:'stabilites',    label:'Stabilités',            icon:'ti-chart-line' },
-  { key:'commandes',     label:'Commandes',             icon:'ti-shopping-cart' },
   { key:'profils-config',label:'Profils',               icon:'ti-users' },
 ];
 
@@ -5881,16 +5882,20 @@ function showProfileWelcome(p) {
 window.showProfileWelcome = showProfileWelcome;
 
 function gotoModule(key) {
+  // Cacher le profile-welcome avant de naviguer
+  const pw = document.getElementById('profile-welcome');
+  if(pw) pw.style.display = 'none';
   const actions = {
     'dashboard':     ()=>goTo('dashboard',null),
     'planning':      ()=>goToPlanning('semaine'),
     'reactifs':      ()=>goToReactifs('contenants'),
+    'preparations':  ()=>goToReactifs('preparations'),
+    'commandes':     ()=>goTo('commandes',null),
     'echantillons':  ()=>goToEch('reception'),
     'articles':      ()=>goTo('articles',null),
     'habilitations': ()=>goTo('habilitations',null),
     'activity':      ()=>goTo('audit',null),
     'stabilites':    ()=>goTo('stabilites',null),
-    'commandes':     ()=>goTo('commandes',null),
     'profils-config':()=>goTo('profils-config',null),
   };
   if(actions[key]) actions[key]();
@@ -5921,13 +5926,14 @@ function applyProfile(p) {
   const navMap = {
     'dashboard':     ['nav-dashboard'],
     'planning':      ['nav-plan-semaine','nav-plan-calendar','nav-plan-catalogue'],
-    'reactifs':      ['nav-contenants','nav-preparations','nav-commandes'],
+    'reactifs':      ['nav-contenants'],
+    'preparations':  ['nav-preparations'],
+    'commandes':     ['nav-commandes'],
     'echantillons':  ['nav-reception','nav-marches','nav-liberes'],
     'articles':      ['nav-articles'],
     'habilitations': ['nav-habilitations'],
     'activity':      ['nav-audit'],
     'stabilites':    ['nav-stabilites'],
-    'commandes':     ['nav-commandes'],
     'profils-config':['nav-profils-config'],
   };
   const visibleIds = new Set();
