@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v281 — Physico-Chimie</title>
+<title>LabManager v282 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4957,32 +4957,25 @@ function buildEtiquettesAPlanifier() {
     }
   });
 
-  // Étiquettes fixes "Poste des Eaux - STEP" × 5 par semaine
+  // Étiquettes fixes par semaine
   const semaineKey = dateToKey(planSemaineStartDate || new Date());
-  // Compter combien sont déjà planifiées cette semaine
-  const stepPrefix = 'step_' + semaineKey + '_';
-  let stepCount = 0;
-  for (let i = 0; i < 5; i++) {
-    const stepKey = stepPrefix + i;
-    const placed = (state.planTasks||[]).find(t => t.sousKey === stepKey && t.date);
-    if (!placed) stepCount++;
-  }
-  // Afficher seulement les non-planifiées (max 5)
-  let shown = 0;
-  for (let i = 0; i < 5 && shown < stepCount; i++) {
-    const stepKey = stepPrefix + i;
-    const placed = (state.planTasks||[]).find(t => t.sousKey === stepKey && t.date);
-    if (!placed) {
-      etiquettes.push({
-        nom: 'Poste des Eaux - STEP',
-        sousKey: stepKey,
-        color: { bg:'#E0F7FA', border:'#00BCD4' },
-        isSous: false,
-        sousAnalyses: [],
-      });
-      shown++;
+
+  const fixedEtiquettes = [
+    { nom: 'Poste des Eaux - STEP',         count: 5, prefix: 'step',  color: { bg:'#E0F7FA', border:'#00BCD4' } },
+    { nom: 'Poste des Eaux - Conductivité', count: 2, prefix: 'cond',  color: { bg:'#E3F2FD', border:'#2196F3' } },
+    { nom: 'Poste des Eaux - EDR',          count: 4, prefix: 'edr',   color: { bg:'#E3F2FD', border:'#1565C0' } },
+  ];
+
+  fixedEtiquettes.forEach(({nom, count, prefix, color}) => {
+    const keyPrefix = prefix + '_' + semaineKey + '_';
+    for (let i = 0; i < count; i++) {
+      const sousKey = keyPrefix + i;
+      const placed = (state.planTasks||[]).find(t => t.sousKey === sousKey && t.date);
+      if (!placed) {
+        etiquettes.push({ nom, sousKey, color, isSous: false, sousAnalyses: [] });
+      }
     }
-  }
+  });
 
   window._etiquettesCache = etiquettes;
   return etiquettes;
