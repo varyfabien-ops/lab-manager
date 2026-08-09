@@ -1020,6 +1020,19 @@
       "qteCmde": "3",
       "note": "",
       "bvs": false
+    },
+    {
+      "id": 1786272744080,
+      "nom": "Alcool Benzylique",
+      "fournisseur": "MERCK - SUPELCO",
+      "ref": "PHR1019-1G",
+      "localisation": "FRIGO",
+      "fc": "0",
+      "conditionnement": "",
+      "stockMin": "3",
+      "qteCmde": "3",
+      "note": "TCC0044",
+      "bvs": false
     }
   ],
   "contenants": [
@@ -1453,11 +1466,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "shopping-cart",
-      "text": "Commande mise a jour : LCK339",
-      "time": "08/08 16:02"
-    },
-    {
       "icon": "package",
       "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
       "time": "08/08 16:37"
@@ -1701,6 +1709,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Phenol",
       "time": "09/08 12:50"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Alcool Benzylique",
+      "time": "09/08 12:52"
     }
   ],
   "spq": [
