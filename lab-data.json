@@ -2065,6 +2065,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "RP - P",
       "desc": ""
+    },
+    {
+      "id": 1786271198605,
+      "nom": "Solution à 1000 ppm de Sulfate R",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "RP - S",
+      "desc": "5002800"
     }
   ],
   "profils": [
