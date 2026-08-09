@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v263 — Physico-Chimie</title>
+<title>LabManager v265 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4839,7 +4839,7 @@ function renderPlanSemaine() {
     etiquettes.forEach((e, idx) => {
       const bg = e.color ? e.color.bg : (e.isSous ? '#F3E5F5' : '#FFF8E1');
       const border = e.color ? e.color.border : (e.isSous ? '#9C27B0' : '#FF9800');
-      html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
+      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
       html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
       html += '</div>';
     });
@@ -4847,6 +4847,11 @@ function renderPlanSemaine() {
   html += '</div></div>';
   
   grid.innerHTML = html;
+  // Attacher drag listeners après rendu
+  document.querySelectorAll('.a-planifier-tag[data-etiq-idx]').forEach(el => {
+    const idx = parseInt(el.getAttribute('data-etiq-idx'));
+    el.addEventListener('dragstart', (event) => { onDragNewTask(event, idx); });
+  });
 }
 
 
@@ -5016,8 +5021,8 @@ function addEtiquetteLine() {
   div.style.cssText = 'display:flex;flex-direction:column;gap:6px;padding:10px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)';
   div.innerHTML = `
     <div style="display:flex;gap:8px;align-items:center">
-      <input id="etiq-nom-${idx}" placeholder="Nom de l'analyse..." style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
-      <button class="icon-btn danger" onclick="this.closest('div[style]').remove();updateAddBtnEtiq()" style="flex-shrink:0"><i class="ti ti-x"></i></button>
+      <input id="etiq-nom-${idx}" data-etiq-idx="${idx}" placeholder="Nom de l'analyse..." style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
+      <button class="icon-btn danger" onclick="this.closest('[data-etiq-row]').remove();updateAddBtnEtiq()" style="flex-shrink:0"><i class="ti ti-x"></i></button>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
       <span style="font-size:11px;color:var(--text2)">Couleur :</span>
@@ -5026,6 +5031,7 @@ function addEtiquetteLine() {
       <input type="hidden" id="etiq-border-${idx}" value="#FF9800">
     </div>
   `;
+  div.setAttribute('data-etiq-row', idx);
   // Sélectionner la première couleur par défaut
   lines.appendChild(div);
   const firstSwatch = div.querySelector('[onclick^="selectEtiqColor"]');
@@ -5060,9 +5066,9 @@ function saveEtiquettes() {
   inputs.forEach(inp => {
     const nom = inp.value.trim();
     if (!nom) return;
-    const row = inp.closest('div[style]');
-    const bgInput = row ? row.querySelector('input[id^="etiq-bg-"]') : null;
-    const borderInput = row ? row.querySelector('input[id^="etiq-border-"]') : null;
+    const etiqIdx = inp.getAttribute('data-etiq-idx');
+    const bgInput = etiqIdx ? document.getElementById('etiq-bg-'+etiqIdx) : null;
+    const borderInput = etiqIdx ? document.getElementById('etiq-border-'+etiqIdx) : null;
     const bg = bgInput ? bgInput.value : '#FFF8E1';
     const border = borderInput ? borderInput.value : '#FF9800';
     const cat = (state.catalogue || []).find(c => c.nom.toLowerCase() === nom.toLowerCase());
