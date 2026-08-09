@@ -3523,6 +3523,25 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1786296145467,
+      "date": "2026-08-11",
+      "techId": "1786271486368",
+      "desc": "Vérification TCC0002 Sodium",
+      "analyseNom": "Vérification TCC0002 Sodium",
+      "analyseId": 1785247382413,
+      "sousKey": "1785247382413_sous_0",
+      "echId": 1785349276514,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E8F5E9",
+        "border": "#4CAF50"
+      },
+      "isSous": true,
+      "parentNom": "TCC0002 Sodium",
+      "manuel": false
     }
   ],
   "planRythmes": {
