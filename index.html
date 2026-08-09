@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v250 — Physico-Chimie</title>
+<title>LabManager v251 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5369,10 +5369,10 @@ function renderPlanSemaine() {
     html += '<div style="font-size:12px;color:var(--text3);font-style:italic;align-self:center">✓ Toutes les analyses sont planifiées</div>';
   } else {
     etiquettes.forEach((e, idx) => {
-      html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" title="Glisser vers une cellule du planning">';
-      html += '<div style="font-weight:600">' + e.nom + '</div>';
-      if (e.lot) html += '<div class="sous">Lot : ' + e.lot + '</div>';
-      if (e.sousAnalyses && e.sousAnalyses.length) html += '<div class="sous">↳ ' + e.sousAnalyses.join(' · ') + '</div>';
+      const bg = e.isSous ? '#F3E5F5' : '#FFF8E1';
+      const border = e.isSous ? '#9C27B0' : '#FF9800';
+      html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
+      html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
       html += '</div>';
     });
   }
@@ -5391,20 +5391,19 @@ function buildEtiquettesAPlanifier() {
   const etiquettes = [];
   const echActifs = (state.echantillons || []).filter(e => e.statut !== 'archive');
 
+  // Regrouper par nom d'analyse (dédupliquer les lots)
+  const analyseMap = {}; // nom -> {analyseId, echIds, sousAnalyses}
+
   echActifs.forEach(ech => {
     const statuts = ech.analyseStatuts || {};
     const analysesIds = ech.analysesIds || [];
 
     analysesIds.forEach(aId => {
       const statut = statuts[aId] || 'a_faire';
-      // Seulement les analyses non terminées / non vérifiées
       if (['terminee','verifiee'].includes(statut)) return;
 
-      // Chercher l'analyse dans le catalogue
       const cat = (state.catalogue || []).find(c => Number(c.id) === Number(aId));
       if (!cat) return;
-
-      const sousAnalyses = cat.sousAnalyses || [];
 
       // Vérifier si déjà planifiée
       const dejaPlannee = (state.planTasks || []).some(t =>
@@ -5412,13 +5411,34 @@ function buildEtiquettesAPlanifier() {
       );
       if (dejaPlannee) return;
 
+      if (!analyseMap[cat.nom]) {
+        analyseMap[cat.nom] = { analyseId: aId, sousAnalyses: cat.sousAnalyses || [], echIds: [] };
+      }
+      analyseMap[cat.nom].echIds.push(ech.id);
+    });
+  });
+
+  // Créer une étiquette par analyse unique + une par sous-analyse
+  Object.entries(analyseMap).forEach(([nom, info]) => {
+    // Étiquette principale
+    etiquettes.push({
+      nom,
+      echId: info.echIds[0],
+      analyseId: info.analyseId,
+      echIds: info.echIds,
+      sousAnalyses: info.sousAnalyses,
+      isSous: false,
+    });
+    // Étiquettes sous-analyses (séparées)
+    (info.sousAnalyses || []).forEach(sousNom => {
       etiquettes.push({
-        nom: cat.nom,
-        lot: ech.lot || '',
-        echId: ech.id,
-        analyseId: aId,
-        echCode: ech.code || '',
-        sousAnalyses,
+        nom: sousNom,
+        echId: info.echIds[0],
+        analyseId: info.analyseId,
+        echIds: info.echIds,
+        sousAnalyses: [],
+        isSous: true,
+        parentNom: nom,
       });
     });
   });
@@ -5428,12 +5448,11 @@ function buildEtiquettesAPlanifier() {
     if (!t.date && t.manuel) {
       etiquettes.push({
         nom: t.analyseNom || t.desc,
-        lot: t.lot || '',
         echId: null,
         analyseId: t.analyseId,
-        echCode: '',
-        sousAnalyses: t.sousAnalyses || [],
-        planTaskId: t.id, // référence à la tâche existante
+        sousAnalyses: [],
+        isSous: false,
+        planTaskId: t.id,
       });
     }
   });
@@ -5445,7 +5464,8 @@ function buildEtiquettesAPlanifier() {
 function onDragNewTask(event, idx) {
   planDraggedNew = window._etiquettesCache[idx];
   planDraggedTask = null;
-  event.dataTransfer.effectAllowed = 'copy';
+  event.dataTransfer.effectAllowed = 'move';
+  event.dataTransfer.setData('text/plain', String(idx));
 }
 
 function onDropNewTask(event, date, techId) {
