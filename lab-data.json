@@ -1033,6 +1033,19 @@
       "qteCmde": "3",
       "note": "TCC0044",
       "bvs": false
+    },
+    {
+      "id": 1786273038045,
+      "nom": "Lidocaine Hydrochloride",
+      "fournisseur": "USP",
+      "ref": "1366013",
+      "localisation": "Salle CPG",
+      "fc": "0",
+      "conditionnement": "150 mg",
+      "stockMin": "10",
+      "qteCmde": "10",
+      "note": "",
+      "bvs": true
     }
   ],
   "contenants": [
@@ -1466,11 +1479,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "1x Methylparaben (PHBM) lot R098B0 receptionne(s)",
-      "time": "08/08 18:42"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : Tampon pH 9 lot HC56730103",
       "time": "08/08 18:46"
@@ -1714,6 +1722,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Phenol",
       "time": "09/08 12:52"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Lidocaine Hydrochloride",
+      "time": "09/08 12:57"
     }
   ],
   "spq": [
