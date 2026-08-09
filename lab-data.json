@@ -1867,6 +1867,23 @@
       "type": "analyse",
       "sousAnalyses": [],
       "note": ""
+    },
+    {
+      "id": 1786289949055,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      }
     }
   ],
   "planRythmes": {
