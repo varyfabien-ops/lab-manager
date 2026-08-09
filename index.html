@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v239 — Physico-Chimie</title>
+<title>LabManager v242 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -149,6 +149,11 @@
   .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--cyan3); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--cyan); flex-shrink: 0; }
   .tech-name { font-weight: 600; font-size: 14px; }
   .tech-role { font-size: 12px; color: var(--text2); }
+  .a-planifier-zone { width: 220px; min-width: 220px; background: var(--bg2); border-right: 2px solid var(--border); padding: 8px; vertical-align: top; }
+  .a-planifier-tag { background: var(--amber-dim,#FFF8E1); border: 1.5px solid var(--amber,#FF9800); border-radius: 6px; padding: 5px 8px; margin-bottom: 6px; font-size: 11px; font-weight: 600; cursor: grab; color: var(--text); user-select: none; line-height: 1.4; }
+  .a-planifier-tag:hover { background: var(--amber,#FF9800); color: white; }
+  .a-planifier-tag .sous { font-weight: 400; font-size: 10px; color: var(--text2); margin-top: 2px; }
+  .a-planifier-tag:hover .sous { color: rgba(255,255,255,0.8); }
   .hab-list { display: flex; flex-wrap: wrap; gap: 5px; }
   .filter-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 4px 6px; color: var(--text); font-size: 11px; margin-top: 4px; font-family: inherit; }
   .filter-input:focus { outline: none; border-color: var(--cyan); }
@@ -730,6 +735,7 @@
           </div>
           <div id="a-resultats-list" style="display:flex;flex-direction:column;gap:8px"></div>
         </div>
+        <div class="form-group full"><label>Sous-analyses planning <span style="color:var(--text3);font-weight:400">(séparées par des virgules — apparaissent dans le planning semaine)</span></label><input id="a-sous-analyses" placeholder="Ex: Retraitement TCC0004, Vérification TCC0004"></div>
         <div class="form-group full"><label>Description / Norme applicable</label><textarea id="a-desc" placeholder="Ex: Dosage par HPLC selon Ph.Eur. 2.2.29"></textarea></div>
       </div>
     </div>
@@ -3602,7 +3608,8 @@ function saveAnalyse() {
   // Récupérer les champs de résultats
   const champsResultats = typeof getChampResultats === 'function' ? getChampResultats() : [];
   const resultatRequis = document.getElementById('a-resultat-requis')?.checked !== false;
-  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, resultatRequis, description: document.getElementById('a-desc').value };
+  const sousAnalyses = document.getElementById('a-sous-analyses')?.value.split(',').map(s=>s.trim()).filter(Boolean)||[];
+  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, resultatRequis, sousAnalyses, description: document.getElementById('a-desc').value };
   if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
   editingId = null;
@@ -3634,6 +3641,7 @@ function editAnalyse(id) {
   const a = (state.catalogue||[]).find(x=>x.id===id); if(!a) return;
   editingId = id;
   document.getElementById('a-nom').value = a.nom||'';
+  if(document.getElementById('a-sous-analyses')) document.getElementById('a-sous-analyses').value = (a.sousAnalyses||[]).join(', ');
   
   document.getElementById('a-duree').value = a.duree||'';
   document.getElementById('a-code').value = a.code||'';
@@ -4737,7 +4745,7 @@ function populateTechSelects() {
   ['p-tech','e-tech'].forEach(id => {
     const sel = document.getElementById(id); if(!sel) return;
     const cur = sel.value;
-    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif').map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
+    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif' && (t.role||'').toLowerCase().includes('cq')).map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
     sel.value = cur;
   });
 }
@@ -5203,6 +5211,7 @@ const PLAN_TYPES = {
 
 let planSemaineStartDate = null;
 let planDraggedTask = null;
+let planDraggedNew = null; // étiquette depuis "À planifier" 
 
 function initPlanSemaine() {
   if (!planSemaineStartDate) {
@@ -5255,12 +5264,33 @@ function renderPlanSemaine() {
     lbl.textContent = s.getDate() + ' ' + monthNames[s.getMonth()] + ' – ' + e.getDate() + ' ' + monthNames[e.getMonth()] + ' ' + e.getFullYear();
   }
 
-  const techs = state.techniciens || [];
+  const techs = (state.techniciens || []).filter(t => t.statut === 'actif' && (t.role||'').toLowerCase().includes('cq'));
   const tasks = state.planTasks || [];
   const today = dateToKey(new Date());
 
-  // Construire la grille
-  let html = '<table style="width:100%;border-collapse:collapse;table-layout:fixed">';
+  // Construire les étiquettes À planifier
+  const etiquettes = buildEtiquettesAPlanifier();
+
+  // Construire la grille (table dans un flex)
+  let html = '<div style="display:flex;gap:0;align-items:stretch">';
+  
+  // Colonne À planifier
+  html += '<div class="a-planifier-zone" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
+  html += '<div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">À planifier</div>';
+  if (etiquettes.length === 0) {
+    html += '<div style="font-size:11px;color:var(--text3);font-style:italic">Aucune analyse en attente</div>';
+  } else {
+    etiquettes.forEach((e, idx) => {
+      html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" title="Glisser vers le planning">';
+      html += '<div>' + e.nom + '</div>';
+      if (e.lot) html += '<div class="sous">Lot: ' + e.lot + '</div>';
+      if (e.sousAnalyses && e.sousAnalyses.length) html += '<div class="sous">↳ ' + e.sousAnalyses.join(', ') + '</div>';
+      html += '</div>';
+    });
+  }
+  html += '</div>';
+  
+  html += '<table style="flex:1;border-collapse:collapse;table-layout:fixed">';
   
   // Header
   html += '<thead><tr><th style="width:140px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);text-align:left;font-size:12px;color:var(--text2)">TECHNICIEN</th>';
@@ -5319,9 +5349,93 @@ function renderPlanSemaine() {
     html += '</tr>';
   });
   
-  html += '</tbody></table>';
+  html += '</tbody></table></div>';
   grid.innerHTML = html;
 }
+
+
+// ============================================================
+// ÉTIQUETTES À PLANIFIER (depuis échantillons À FAIRE)
+// ============================================================
+window._etiquettesCache = [];
+
+function buildEtiquettesAPlanifier() {
+  const etiquettes = [];
+  const echAFaire = (state.echantillons || []).filter(e => e.statut !== 'archive');
+  
+  echAFaire.forEach(ech => {
+    (ech.analyses || []).forEach(a => {
+      if (a.statut && a.statut !== 'a_faire') return; // seulement "à faire"
+      // Chercher dans le catalogue pour les sous-analyses
+      const catalogue = (state.catalogue || []).find(c => c.nom === a.nom || c.nom.toLowerCase() === (a.nom||'').toLowerCase());
+      const sousAnalyses = catalogue?.sousAnalyses || [];
+      
+      // Vérifier si déjà planifiée (dans planTasks)
+      const dejaPlannee = (state.planTasks || []).some(t => 
+        t.echId === ech.id && t.analyseNom === a.nom
+      );
+      if (dejaPlannee) return;
+      
+      etiquettes.push({
+        nom: a.nom,
+        lot: ech.lot || '',
+        echId: ech.id,
+        echCode: ech.code || '',
+        sousAnalyses,
+      });
+    });
+  });
+  
+  window._etiquettesCache = etiquettes;
+  return etiquettes;
+}
+
+function onDragNewTask(event, idx) {
+  planDraggedNew = window._etiquettesCache[idx];
+  planDraggedTask = null;
+  event.dataTransfer.effectAllowed = 'copy';
+}
+
+function onDropNewTask(event, date, techId) {
+  event.preventDefault();
+  if (!planDraggedNew) return;
+  if (!state.planTasks) state.planTasks = [];
+  
+  const e = planDraggedNew;
+  // Créer une tâche pour l'analyse principale
+  state.planTasks.push({
+    id: Date.now(),
+    date, techId: techId || null,
+    desc: e.nom + (e.lot ? ' — Lot ' + e.lot : ''),
+    analyseNom: e.nom,
+    echId: e.echId,
+    type: 'analyse',
+    sousAnalyses: e.sousAnalyses,
+    note: e.sousAnalyses.length ? '↳ ' + e.sousAnalyses.join(', ') : '',
+  });
+  
+  planDraggedNew = null;
+  saveData();
+  renderPlanSemaine();
+}
+
+function onDropBackToList(event) {
+  event.preventDefault();
+  // Si on redépose une tâche analyse dans la zone À planifier, la supprimer du planning
+  if (planDraggedTask) {
+    const task = (state.planTasks||[]).find(t => t.id === planDraggedTask);
+    if (task && task.echId) {
+      state.planTasks = state.planTasks.filter(t => t.id !== planDraggedTask);
+      saveData();
+      renderPlanSemaine();
+    }
+    planDraggedTask = null;
+  }
+}
+window.buildEtiquettesAPlanifier = buildEtiquettesAPlanifier;
+window.onDragNewTask = onDragNewTask;
+window.onDropNewTask = onDropNewTask;
+window.onDropBackToList = onDropBackToList;
 
 function onPlanDragStart(event, taskId) {
   planDraggedTask = taskId;
@@ -5330,6 +5444,7 @@ function onPlanDragStart(event, taskId) {
 
 function onPlanDrop(event, date, techId) {
   event.preventDefault();
+  if (planDraggedNew) { onDropNewTask(event, date, techId); return; }
   if (!planDraggedTask) return;
   if (!state.planTasks) state.planTasks = [];
   const task = state.planTasks.find(t => t.id === planDraggedTask);
