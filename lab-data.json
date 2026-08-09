@@ -890,7 +890,7 @@
     },
     {
       "id": 1785247529863,
-      "nom": "TCC0004 Bupivacaïne",
+      "nom": "TCC0004 - Bupivacaïne",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -903,8 +903,8 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
-        "Retraitement TCC0004 Bupivacaïne",
-        "Vérification TCC0004 Bupivacaïne"
+        "Retraitement TCC0004 - Bupivacaïne",
+        "Vérification TCC0004 - Bupivacaïne"
       ]
     },
     {
@@ -1565,11 +1565,6 @@
     },
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot HC46017601",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot HC57833622",
       "time": "08/08 21:09"
     },
@@ -1802,6 +1797,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
       "time": "09/08 20:46"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
+      "time": "09/08 20:47"
     }
   ],
   "spq": [
