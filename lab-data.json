@@ -1440,11 +1440,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutee au catalogue : L*a*b",
-      "time": "08/08 15:42"
-    },
-    {
       "icon": "shopping-cart",
       "text": "Commande mise a jour : LCK339",
       "time": "08/08 16:02"
@@ -1687,6 +1682,11 @@
     {
       "icon": "certificate",
       "text": "Technicien ajoute : Himidati MOUENDHOIMU",
+      "time": "09/08 12:31"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
       "time": "09/08 12:31"
     }
   ],
@@ -1948,6 +1948,17 @@
       "datePerm": "2027-01-10",
       "dateRestrictive": "2026-11-29",
       "techId": null,
+      "comment": ""
+    },
+    {
+      "id": 1786271508082,
+      "catId": 1786271040157,
+      "nom": "10N Ammonium Hydroxide",
+      "numero": "2026/0153",
+      "datePrep": "2026-07-10",
+      "datePerm": "2027-01-10",
+      "dateRestrictive": "2026-11-29",
+      "techId": 1786271486368,
       "comment": ""
     }
   ],
