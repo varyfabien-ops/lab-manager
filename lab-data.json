@@ -2098,6 +2098,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I4",
       "desc": ""
+    },
+    {
+      "id": 1786272460330,
+      "nom": "Solutions Mères Lidocaïne",
+      "type": "autre",
+      "peremption": 1,
+      "format": "HCPCxxxx-x p.xx-x",
+      "emplacement": "FRIGO",
+      "desc": "TCC0004"
     }
   ],
   "profils": [
