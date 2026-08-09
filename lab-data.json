@@ -1874,6 +1874,18 @@
         "bg": "#E0F7FA",
         "border": "#00BCD4"
       }
+    },
+    {
+      "id": 1786290821128,
+      "date": "2026-08-05",
+      "techId": "1786271486368",
+      "desc": "Vérification TCC0004 Bupivacaïne",
+      "analyseNom": "Vérification TCC0004 Bupivacaïne",
+      "analyseId": 1785247529863,
+      "echId": 1785349276514,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": ""
     }
   ],
   "planRythmes": {
