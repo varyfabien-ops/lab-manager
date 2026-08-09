@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v254 — Physico-Chimie</title>
+<title>LabManager v255 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -7344,7 +7344,8 @@ saveAnalyse = function(){
   const produitsIds=[];
   const resultatRequis = document.getElementById('a-resultat-requis')?.checked !== false;
   const champsResultats=resultatRequis?(typeof getChampResultats==='function'?getChampResultats():((state.catalogue||[]).find(x=>x.id===editingId)||{}).champsResultats||[]):[]; 
-  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:'', code:'', produitsIds, description:document.getElementById('a-desc').value, champsResultats, resultatRequis};
+  const sousAnalyses=(document.getElementById('a-sous-analyses')?.value||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const entry={id:editingId||Date.now(), nom, habilitations:habs, duree:'', code:'', produitsIds, description:document.getElementById('a-desc').value, champsResultats, resultatRequis, sousAnalyses};
   if(editingId){ const i=state.catalogue.findIndex(x=>x.id===editingId); if(i>=0) state.catalogue[i]=entry; addActivity('book','Analyse modifiée : '+nom); }
   else { state.catalogue.push(entry); addActivity('book','Analyse ajoutée au catalogue : '+nom); }
   editingId=null; closeModal('modal-analyse'); renderCatalogue(); populateCatalogueSelect(); saveData(); toast('Analyse enregistrée','success');
@@ -7365,6 +7366,7 @@ editAnalyse = function(id){
   document.getElementById('a-nom').value=a.nom||'';
   document.getElementById('a-desc').value=a.description||'';
   if(document.getElementById('a-habs')) document.getElementById('a-habs').value=(a.habilitations||[]).join(', ');
+  if(document.getElementById('a-sous-analyses')) document.getElementById('a-sous-analyses').value=(a.sousAnalyses||[]).join(', ');
   openModal('modal-analyse');
   setTimeout(()=>{
 
