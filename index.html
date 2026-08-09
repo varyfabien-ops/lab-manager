@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v290 — Physico-Chimie</title>
+<title>LabManager v294 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -197,7 +197,7 @@
     <button class="nav-btn" onclick="goTo('dashboard',this)" id="nav-dashboard"><i class="ti ti-layout-dashboard"></i> Tableau de bord</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToPlanning('semaine')" id="nav-plan-semaine"><i class="ti ti-layout-columns"></i> Planning</button>
-    <button class="nav-btn" onclick="goToPlanning('calendar')" id="nav-plan-calendar"><i class="ti ti-calendar-event"></i> Calendrier</button>
+    
     <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> Réactifs Commerciaux</button>
@@ -4731,7 +4731,7 @@ function planSemaineNav(dir) {
 function cleanOldFixedEtiquettes() {
   // Supprimer les étiquettes fixes sans date qui ne sont pas de la semaine courante
   const currentKey = dateToKey(planSemaineStartDate);
-  const prefixes = ['step_', 'cond_', 'edr_'];
+  const prefixes = ['step_', 'cond_', 'edr_', 'menage_'];
   state.planTasks = (state.planTasks||[]).filter(t => {
     if (!t.sousKey) return true;
     const isFixed = prefixes.some(p => t.sousKey.startsWith(p));
@@ -4867,8 +4867,10 @@ function renderPlanSemaine() {
     etiquettes.forEach((e, idx) => {
       const bg = e.color ? e.color.bg : (e.isSous ? '#F3E5F5' : '#FFF8E1');
       const border = e.color ? e.color.border : (e.isSous ? '#9C27B0' : '#FF9800');
-      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
+      const tagTextColor = (bg === '#212121' || bg === '#000000') ? 'white' : 'inherit';
+      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + ';color:' + tagTextColor + '" title="Glisser vers une cellule du planning">';
       html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
+
       html += '</div>';
     });
   }
@@ -4995,6 +4997,35 @@ function buildEtiquettesAPlanifier() {
     }
   });
 
+  // Ménage Hebdomadaire : créer directement dans planTasks pour le vendredi
+  const vendredi = new Date(planSemaineStartDate || new Date());
+  vendredi.setDate(vendredi.getDate() + 4);
+  const vendKey = dateToKey(vendredi);
+  const techsCQ = (state.techniciens||[]).filter(t => t.statut === 'actif' && (t.role||'').toLowerCase().includes('cq'));
+  let menageSaved = false;
+  techsCQ.forEach(tech => {
+    const sousKey = 'menage_' + semaineKey + '_' + tech.id;
+    const exists = (state.planTasks||[]).find(t => t.sousKey === sousKey);
+    if (!exists) {
+      if (!state.planTasks) state.planTasks = [];
+      state.planTasks.push({
+        id: Date.now() + Math.random()*10000|0,
+        date: vendKey,
+        techId: String(tech.id),
+        desc: 'Ménage Hebdomadaire',
+        analyseNom: 'Ménage Hebdomadaire',
+        sousKey,
+        type: 'analyse',
+        color: { bg:'#ECEFF1', border:'#455A64' },
+        isSous: false,
+        sousAnalyses: [],
+        manuel: false,
+      });
+      menageSaved = true;
+    }
+  });
+  if (menageSaved) saveData();
+
   window._etiquettesCache = etiquettes;
   return etiquettes;
 }
@@ -5022,11 +5053,13 @@ function onDropNewTask(event, date, techId) {
     renderPlanSemaine();
     return;
   }
+  // Ménage : utiliser techId suggéré si pas de techId fourni
+  const finalTechId = techId || e.suggestTechId || null;
   
   // Créer une tâche pour l'analyse principale
   state.planTasks.push({
     id: Date.now(),
-    date, techId: techId ? String(techId) : null,
+    date, techId: (techId || e.suggestTechId) ? String(techId || e.suggestTechId) : null,
     desc: e.nom,
     analyseNom: e.nom,
     analyseId: e.analyseId,
