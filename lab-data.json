@@ -3294,22 +3294,6 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
-    },
-    {
-      "id": 1786304169947,
-      "date": "2026-08-04",
-      "techId": "1786302857477",
-      "desc": "Limpidité / Coloration PE",
-      "analyseNom": "Limpidité / Coloration PE",
-      "analyseId": 1785247477146,
-      "sousKey": null,
-      "echId": 1786298382051,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
     }
   ],
   "planRythmes": {
@@ -3320,7 +3304,8 @@
     "1786178889272_2026-08-10": "matin",
     "1786302857477_2026-08-10": "absent",
     "1786178865689_2026-08-03": "am",
-    "1786302857477_2026-08-03": "am"
+    "1786302857477_2026-08-03": "am",
+    "1786302857477_abs_2026-08-04": true
   },
   "preparations": [
     {
