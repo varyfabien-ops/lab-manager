@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v268 — Physico-Chimie</title>
+<title>LabManager v272 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4797,7 +4797,7 @@ function renderPlanSemaine() {
     days.forEach(d => {
       const key = dateToKey(d);
       const isToday = key === today;
-      const cellTasks = tasks.filter(t => t.date === key && (tech.id ? t.techId === tech.id : !t.techId));
+      const cellTasks = tasks.filter(t => t.date === key && (tech.id ? String(t.techId) === String(tech.id) : !t.techId));
       
       const rKey2 = tech.id ? (tech.id + '_' + dateToKey(days[0])) : null;
       const rythme2 = rKey2 ? ((state.planRythmes||{})[rKey2]||'matin') : 'matin';
@@ -4895,6 +4895,7 @@ function buildEtiquettesAPlanifier() {
   // Créer une étiquette par analyse unique + une par sous-analyse
   Object.entries(analyseMap).forEach(([nom, info]) => {
     // Étiquette principale
+    const autoColMain = getAutoColor(nom);
     etiquettes.push({
       nom,
       echId: info.echIds[0],
@@ -4902,9 +4903,11 @@ function buildEtiquettesAPlanifier() {
       echIds: info.echIds,
       sousAnalyses: info.sousAnalyses,
       isSous: false,
+      color: autoColMain || null,
     });
-    // Étiquettes sous-analyses (séparées)
+    // Étiquettes sous-analyses (séparées, indépendantes)
     (info.sousAnalyses || []).forEach(sousNom => {
+      const autoCol = getAutoColor(sousNom);
       etiquettes.push({
         nom: sousNom,
         echId: info.echIds[0],
@@ -4913,6 +4916,7 @@ function buildEtiquettesAPlanifier() {
         sousAnalyses: [],
         isSous: true,
         parentNom: nom,
+        color: autoCol || { bg:'#F3E5F5', border:'#9C27B0' },
       });
     });
   });
@@ -4999,6 +5003,19 @@ function onDropBackToList(event) {
 }
 window.buildEtiquettesAPlanifier = buildEtiquettesAPlanifier;
 
+function getAutoColor(nom) {
+  const n = (nom||'').toLowerCase();
+  if (n.includes('vérification') || n.includes('verification'))
+    return { bg:'#E8F5E9', border:'#4CAF50' };
+  if (n.includes('retraitement'))
+    return { bg:'#FCE4EC', border:'#E91E63' };
+  if (n.includes('hplc') || n.includes('dosage'))
+    return { bg:'#E3F2FD', border:'#2196F3' };
+  return null; // pas de couleur automatique
+}
+window.getAutoColor = getAutoColor;
+
+
 // ============================================================
 // MODAL ÉTIQUETTES PLANNING
 // ============================================================
@@ -5045,8 +5062,9 @@ function selectEtiqColor(el, bg, border) {
   container.querySelectorAll('div').forEach(d => { d.style.transform=''; d.style.boxShadow=''; });
   el.style.transform = 'scale(1.3)';
   el.style.boxShadow = '0 0 0 2px white, 0 0 0 4px ' + border;
-  // Stocker dans les hidden inputs
-  const row = container.closest('div[style]');
+  // Stocker dans les hidden inputs via data-etiq-row
+  const row = container.closest('[data-etiq-row]');
+  if (!row) return;
   const bgInput = row.querySelector('input[id^="etiq-bg-"]');
   const borderInput = row.querySelector('input[id^="etiq-border-"]');
   if (bgInput) bgInput.value = bg;
@@ -5072,6 +5090,7 @@ function saveEtiquettes() {
     const borderInput = etiqIdx ? document.getElementById('etiq-border-'+etiqIdx) : null;
     const bg = bgInput ? bgInput.value : '#FFF8E1';
     const border = borderInput ? borderInput.value : '#FF9800';
+    const autoC = getAutoColor(nom); // override si pattern connu (Vérification, etc.)
     const cat = (state.catalogue || []).find(c => c.nom.toLowerCase() === nom.toLowerCase());
     const sousAnalyses = cat?.sousAnalyses || [];
     if (!state.planTasks) state.planTasks = [];
@@ -5086,7 +5105,7 @@ function saveEtiquettes() {
       sousAnalyses,
       note: sousAnalyses.length ? '↳ ' + sousAnalyses.join(' · ') : '',
       manuel: true,
-      color: { bg, border },
+      color: autoC || { bg: bg, border: border },
     });
     count++;
   });
@@ -6670,14 +6689,25 @@ function getProductNamesForAnalyse(a){
   return ids.map(id => (state.produitsEch||[]).find(p=>p.id===id)).filter(Boolean).map(p=>p.nom);
 }
 
-const __openWizard_v104 = typeof openWizard === 'function' ? openWizard : null;
 var openWizard;
 openWizard = function(){
+  // Ouvrir le wizard : reset + affichage modal
+  wizardStep = 1;
   ensureMpCardInWizard();
-  if(__openWizard_v104) __openWizard_v104();
-  ensureMpCardInWizard();
-  const mp = document.getElementById('w-type-mp'); if(mp) mp.checked=false;
-  const mpCard=document.getElementById('w-mp-card'); if(mpCard){ mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
+  // Reset types
+  ['pif','stab','mp'].forEach(t=>{
+    const cb=document.getElementById('w-type-'+t); if(cb) cb.checked=false;
+    const card=document.getElementById('w-'+t+'-card');
+    if(card){ card.style.border='2px solid var(--border)'; card.style.background=''; }
+  });
+  ['w-pif-options','w-stab-options','w-mp-options'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.style.display='none';
+  });
+  const refMarchesEl=document.getElementById('w-ref-marches-check'); if(refMarchesEl) refMarchesEl.innerHTML='';
+  window._selectedStabEtudeId = null;
+  window._wizardArticle = null;
+  wizardRender();
+  openModal('modal-echantillon');
 };
 
 var toggleTypeCard;
@@ -7101,39 +7131,7 @@ function updateRefVisibilityV106(){
   // Les blocs sont maintenant gérés directement dans toggleTypeCard
 }
 
-const __openWizard_v106 = openWizard;
-openWizard = function(){
-  __openWizard_v106?.();
-  ensureRefsAndTimepointsV106();
-  // Reset tous les champs de saisie
-  ['w-ref-spq','w-ref-ptc','w-pif-spq','w-mp-spq','w-stab-echeance','w-stab-temps','w-stab-ptc'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
-  const nbSeries=document.getElementById('w-pif-nb-series'); if(nbSeries) nbSeries.value=1;
-  const nbMp=document.getElementById('w-mp-contenants'); if(nbMp) nbMp.value=1;
-  // Décocher tous les marchés
-  document.querySelectorAll('#w-pif-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
-  document.querySelectorAll('#w-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
-  const refMarchesEl=document.getElementById('w-ref-marches-check'); if(refMarchesEl) refMarchesEl.innerHTML='';
-  window._selectedStabEtudeId = null;
-  // Vider preview sous-séries
-  const prev=document.getElementById('w-pif-series-preview'); if(prev) prev.innerHTML='';
-  // Reset complet : décocher les types et remettre les cartes à zéro
-  ['pif','stab','mp'].forEach(t=>{
-    const cb=document.getElementById('w-type-'+t); if(cb) cb.checked=false;
-    const card=document.getElementById('w-'+t+'-card');
-    if(card){ card.style.border='2px solid var(--border)'; card.style.background=''; }
-  });
-  // Masquer options PIF/STAB/MP
-  ['w-pif-options','w-stab-options','w-mp-options'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.style.display='none';
-  });
-  // Décocher tous les marchés et vider SPQ
-  document.querySelectorAll('#w-ref-marches-check input[type=checkbox]').forEach(cb=>cb.checked=false);
-  ['w-ref-spq','w-mp-spq','w-ref-ptc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
-  const nb=document.getElementById('w-pif-nb-series'); if(nb) nb.value=1;
-  const nbMp2=document.getElementById('w-mp-contenants'); if(nbMp2) nbMp2.value=1;
-};
+// openWizard v106 fusionné dans la version principale
 
 // toggleTypeCard v106 fusionné dans le toggleTypeCard principal
 
