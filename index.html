@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v243 — Physico-Chimie</title>
+<title>LabManager v245 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -248,7 +248,8 @@
         <button class="btn" onclick="planSemaineToday()"><i class="ti ti-calendar-today"></i> Cette semaine</button>
         <button class="btn" onclick="planSemaineNav(1)"><i class="ti ti-chevron-right"></i></button>
         <span id="plan-semaine-label" style="font-size:14px;font-weight:600;color:var(--text2);margin-left:8px"></span>
-        <button class="btn btn-primary" onclick="openModalPlanTask(null,null)" style="margin-left:8px"><i class="ti ti-plus"></i> Ajouter</button>
+        <button class="btn" onclick="openModalEtiquettes()" style="margin-left:8px;background:#FFF8E1;border-color:#FF9800;color:#E65100"><i class="ti ti-tag"></i> + Étiquettes</button>
+        <button class="btn btn-primary" onclick="openModalPlanTask(null,null)" style="margin-left:4px"><i class="ti ti-plus"></i> Ajouter</button>
       </div>
     </div>
     <div class="table-card" style="padding:0;overflow-x:auto">
@@ -5054,7 +5055,27 @@ function imprimerPerimesContenants() {
     return '<tr><td>'+( p.nom||'—')+'</td><td style="font-family:monospace">'+(c.lot||'—')+'</td><td>'+(p.fournisseur||'—')+'</td><td>'+formatDate(c.ouverture||'')+'</td><td style="color:#c0392b;font-weight:600">'+formatDate(dateRef)+'</td><td>'+(p.localisation||'—')+'</td></tr>';
   }).join('') : '<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun contenant périmé</td></tr>';
   const win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Contenants périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs commerciaux à éliminer</h1><p style="color:#666">'+dateStr+'</p><table><thead><tr><th>Produit</th><th>Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script></body></html>');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Contenants périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs commerciaux à éliminer</h1><p style="color:#666">'+dateStr+'</p><table><thead><tr><th>Produit</th><th>Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script>
+<!-- MODAL ÉTIQUETTES PLANNING -->
+<div class="modal-overlay" id="modal-etiquettes" style="display:none">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <i class="ti ti-tag" style="font-size:18px;color:#FF9800"></i>
+      <h3>Créer des étiquettes à planifier</h3>
+      <button class="close-btn" onclick="closeModal('modal-etiquettes')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes à glisser dans le planning.</p>
+      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:10px"></div>
+      <button class="btn" onclick="addEtiquetteLine()" id="btn-add-etiq-line" style="margin-top:12px;font-size:12px"><i class="ti ti-plus"></i> Ajouter une ligne</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-etiquettes')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveEtiquettes()"><i class="ti ti-check"></i> Créer les étiquettes</button>
+    </div>
+  </div>
+</div>
+</body></html>');
   win.document.close();
 }
 window.imprimerPerimesContenants = imprimerPerimesContenants;
@@ -5360,31 +5381,55 @@ window._etiquettesCache = [];
 
 function buildEtiquettesAPlanifier() {
   const etiquettes = [];
-  const echAFaire = (state.echantillons || []).filter(e => e.statut !== 'archive');
-  
-  echAFaire.forEach(ech => {
-    (ech.analyses || []).forEach(a => {
-      if (a.statut && !['a_faire',''].includes(a.statut)) return; // seulement non terminées
-      // Chercher dans le catalogue pour les sous-analyses
-      const catalogue = (state.catalogue || []).find(c => c.nom === a.nom || c.nom.toLowerCase() === (a.nom||'').toLowerCase());
-      const sousAnalyses = catalogue?.sousAnalyses || [];
-      
-      // Vérifier si déjà planifiée (dans planTasks)
-      const dejaPlannee = (state.planTasks || []).some(t => 
-        t.echId === ech.id && t.analyseNom === a.nom
+  const echActifs = (state.echantillons || []).filter(e => e.statut !== 'archive');
+
+  echActifs.forEach(ech => {
+    const statuts = ech.analyseStatuts || {};
+    const analysesIds = ech.analysesIds || [];
+
+    analysesIds.forEach(aId => {
+      const statut = statuts[aId] || 'a_faire';
+      // Seulement les analyses non terminées / non vérifiées
+      if (['terminee','verifiee'].includes(statut)) return;
+
+      // Chercher l'analyse dans le catalogue
+      const cat = (state.catalogue || []).find(c => Number(c.id) === Number(aId));
+      if (!cat) return;
+
+      const sousAnalyses = cat.sousAnalyses || [];
+
+      // Vérifier si déjà planifiée
+      const dejaPlannee = (state.planTasks || []).some(t =>
+        t.echId === ech.id && Number(t.analyseId) === Number(aId)
       );
       if (dejaPlannee) return;
-      
+
       etiquettes.push({
-        nom: a.nom,
+        nom: cat.nom,
         lot: ech.lot || '',
         echId: ech.id,
+        analyseId: aId,
         echCode: ech.code || '',
         sousAnalyses,
       });
     });
   });
-  
+
+  // Ajouter les tâches manuelles sans date assignée
+  (state.planTasks || []).forEach(t => {
+    if (!t.date && t.manuel) {
+      etiquettes.push({
+        nom: t.analyseNom || t.desc,
+        lot: t.lot || '',
+        echId: null,
+        analyseId: t.analyseId,
+        echCode: '',
+        sousAnalyses: t.sousAnalyses || [],
+        planTaskId: t.id, // référence à la tâche existante
+      });
+    }
+  });
+
   window._etiquettesCache = etiquettes;
   return etiquettes;
 }
@@ -5401,16 +5446,29 @@ function onDropNewTask(event, date, techId) {
   if (!state.planTasks) state.planTasks = [];
   
   const e = planDraggedNew;
+  
+  // Si c'est une étiquette manuelle déjà dans planTasks, juste mettre à jour date/tech
+  if (e.planTaskId) {
+    const t = state.planTasks.find(t => t.id === e.planTaskId);
+    if (t) { t.date = date; t.techId = techId || null; }
+    planDraggedNew = null;
+    saveData();
+    renderPlanSemaine();
+    return;
+  }
+  
   // Créer une tâche pour l'analyse principale
   state.planTasks.push({
     id: Date.now(),
     date, techId: techId || null,
     desc: e.nom + (e.lot ? ' — Lot ' + e.lot : ''),
     analyseNom: e.nom,
+    analyseId: e.analyseId,
     echId: e.echId,
+    echCode: e.echCode,
     type: 'analyse',
     sousAnalyses: e.sousAnalyses,
-    note: e.sousAnalyses.length ? '↳ ' + e.sousAnalyses.join(', ') : '',
+    note: e.sousAnalyses.length ? '↳ ' + e.sousAnalyses.join(' · ') : '',
   });
   
   planDraggedNew = null;
@@ -5420,11 +5478,16 @@ function onDropNewTask(event, date, techId) {
 
 function onDropBackToList(event) {
   event.preventDefault();
-  // Si on redépose une tâche analyse dans la zone À planifier, la supprimer du planning
   if (planDraggedTask) {
     const task = (state.planTasks||[]).find(t => t.id === planDraggedTask);
-    if (task && task.echId) {
-      state.planTasks = state.planTasks.filter(t => t.id !== planDraggedTask);
+    if (task) {
+      if (task.manuel) {
+        // Étiquette manuelle : remettre sans date
+        task.date = null; task.techId = null;
+      } else if (task.echId) {
+        // Étiquette depuis réception : supprimer du planning
+        state.planTasks = state.planTasks.filter(t => t.id !== planDraggedTask);
+      }
       saveData();
       renderPlanSemaine();
     }
@@ -5432,6 +5495,78 @@ function onDropBackToList(event) {
   }
 }
 window.buildEtiquettesAPlanifier = buildEtiquettesAPlanifier;
+
+// ============================================================
+// MODAL ÉTIQUETTES PLANNING
+// ============================================================
+function openModalEtiquettes() {
+  const lines = document.getElementById('etiquettes-lines');
+  lines.innerHTML = '';
+  addEtiquetteLine(); // commencer avec 1 ligne
+  openModal('modal-etiquettes');
+}
+
+function addEtiquetteLine() {
+  const lines = document.getElementById('etiquettes-lines');
+  const count = lines.children.length;
+  if (count >= 5) { toast('Maximum 5 étiquettes à la fois', 'error'); return; }
+  const idx = Date.now();
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:8px;align-items:center';
+  div.innerHTML = `
+    <input id="etiq-nom-${idx}" placeholder="Nom de l'analyse..." style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
+    <input id="etiq-lot-${idx}" placeholder="Lot (optionnel)" style="width:120px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
+    <button class="icon-btn danger" onclick="this.parentElement.remove();updateAddBtnEtiq()" style="flex-shrink:0"><i class="ti ti-x"></i></button>
+  `;
+  lines.appendChild(div);
+  updateAddBtnEtiq();
+}
+
+function updateAddBtnEtiq() {
+  const lines = document.getElementById('etiquettes-lines');
+  const btn = document.getElementById('btn-add-etiq-line');
+  if (btn) btn.style.display = lines.children.length >= 5 ? 'none' : '';
+}
+
+function saveEtiquettes() {
+  const lines = document.getElementById('etiquettes-lines');
+  const inputs = lines.querySelectorAll('input[id^="etiq-nom-"]');
+  let count = 0;
+  inputs.forEach(inp => {
+    const nom = inp.value.trim();
+    if (!nom) return;
+    const lotInp = inp.nextElementSibling;
+    const lot = lotInp ? lotInp.value.trim() : '';
+    // Chercher les sous-analyses dans le catalogue
+    const cat = (state.catalogue || []).find(c => c.nom.toLowerCase() === nom.toLowerCase());
+    const sousAnalyses = cat?.sousAnalyses || [];
+    if (!state.planTasks) state.planTasks = [];
+    state.planTasks.push({
+      id: Date.now() + count,
+      date: null, techId: null,
+      desc: nom + (lot ? ' — Lot ' + lot : ''),
+      analyseNom: nom,
+      analyseId: cat?.id || null,
+      echId: null,
+      lot,
+      type: 'analyse',
+      sousAnalyses,
+      note: sousAnalyses.length ? '↳ ' + sousAnalyses.join(' · ') : '',
+      manuel: true, // créé manuellement
+    });
+    count++;
+  });
+  if (count === 0) { toast('Aucun nom saisi', 'error'); return; }
+  saveData();
+  closeModal('modal-etiquettes');
+  renderPlanSemaine();
+  toast(count + ' étiquette(s) créée(s)', 'success');
+}
+window.openModalEtiquettes = openModalEtiquettes;
+window.addEtiquetteLine = addEtiquetteLine;
+window.updateAddBtnEtiq = updateAddBtnEtiq;
+window.saveEtiquettes = saveEtiquettes;
+
 window.onDragNewTask = onDragNewTask;
 window.onDropNewTask = onDropNewTask;
 window.onDropBackToList = onDropBackToList;
@@ -6645,7 +6780,27 @@ function imprimerPerimes() {
     return '<tr><td style="border-left:4px solid '+type.color+';padding-left:8px">'+p.nom+'</td><td style="font-family:monospace;font-weight:bold">'+p.numero+'</td><td>'+formatDate(p.datePrep||'')+'</td><td style="color:#c0392b;font-weight:600">'+formatDate(dateRef||'')+'</td><td>'+(cat.emplacement||'—')+'</td></tr>';
   }).join('') : '<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun réactif périmé</td></tr>';
   const win = window.open('', '_blank', 'width=800,height=600');
-  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Réactifs périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs à éliminer</h1><p style="color:#666;font-size:12px">'+dateStr+'</p><table><thead><tr><th>Réactif</th><th>N° interne</th><th>Date préparation</th><th>Date de validité</th><th>Emplacement</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script></body></html>');
+  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Réactifs périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs à éliminer</h1><p style="color:#666;font-size:12px">'+dateStr+'</p><table><thead><tr><th>Réactif</th><th>N° interne</th><th>Date préparation</th><th>Date de validité</th><th>Emplacement</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script>
+<!-- MODAL ÉTIQUETTES PLANNING -->
+<div class="modal-overlay" id="modal-etiquettes" style="display:none">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <i class="ti ti-tag" style="font-size:18px;color:#FF9800"></i>
+      <h3>Créer des étiquettes à planifier</h3>
+      <button class="close-btn" onclick="closeModal('modal-etiquettes')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes à glisser dans le planning.</p>
+      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:10px"></div>
+      <button class="btn" onclick="addEtiquetteLine()" id="btn-add-etiq-line" style="margin-top:12px;font-size:12px"><i class="ti ti-plus"></i> Ajouter une ligne</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-etiquettes')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveEtiquettes()"><i class="ti ti-check"></i> Créer les étiquettes</button>
+    </div>
+  </div>
+</div>
+</body></html>');
   win.document.close();
 }
 
@@ -7662,6 +7817,26 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
         <button class="btn" onclick="closeModal('modal-prep')">Annuler</button>
         <button class="btn btn-primary" onclick="savePreparation()"><i class="ti ti-check"></i> Enregistrer</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ÉTIQUETTES PLANNING -->
+<div class="modal-overlay" id="modal-etiquettes" style="display:none">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <i class="ti ti-tag" style="font-size:18px;color:#FF9800"></i>
+      <h3>Créer des étiquettes à planifier</h3>
+      <button class="close-btn" onclick="closeModal('modal-etiquettes')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes à glisser dans le planning.</p>
+      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:10px"></div>
+      <button class="btn" onclick="addEtiquetteLine()" id="btn-add-etiq-line" style="margin-top:12px;font-size:12px"><i class="ti ti-plus"></i> Ajouter une ligne</button>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-etiquettes')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveEtiquettes()"><i class="ti ti-check"></i> Créer les étiquettes</button>
     </div>
   </div>
 </div>
