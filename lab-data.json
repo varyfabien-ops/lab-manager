@@ -1023,7 +1023,7 @@
     },
     {
       "id": 1786272744080,
-      "nom": "Alcool Benzylique",
+      "nom": "Alcool Benzylique (BnOH)",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "PHR1019-1G",
       "localisation": "FRIGO",
@@ -1466,11 +1466,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
-      "time": "08/08 16:37"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Methylparaben (PHBM)",
       "time": "08/08 18:40"
@@ -1713,6 +1708,11 @@
     {
       "icon": "flask-2",
       "text": "Produit ajoute : Alcool Benzylique",
+      "time": "09/08 12:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Alcool Benzylique (BnOH)",
       "time": "09/08 12:52"
     }
   ],
