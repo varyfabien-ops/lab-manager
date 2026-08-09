@@ -4812,9 +4812,8 @@ function renderPlanSemaine() {
       const rKey = tech.id + '_' + dateToKey(days[0]); // clé semaine = techId_lundi
       const rythme = (state.planRythmes||{})[rKey] || 'matin';
 
-      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
-      html += '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0] + tech.nom[0]) + '</div>';
-      html += '<div style="font-size:12px;font-weight:600">' + tech.prenom + ' ' + tech.nom + '</div>';
+      html += '<div style="display:flex;align-items:center;margin-bottom:6px">';
+      html += '<div style="width:32px;height:32px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0] + tech.nom[0]) + '</div>';
       html += '</div>';
       // Rythme géré dans la colonne dédiée
     } else {
@@ -4827,14 +4826,14 @@ function renderPlanSemaine() {
       const rKey = tech.id + '_' + dateToKey(days[0]);
       const rythme = (state.planRythmes||{})[rKey] || 'matin';
       const rOptions = [
-        { key:'matin',  label:'☀️ Matin',  sub:'5h–13h',  bg:'#E3F2FD', color:'#1565C0' },
-        { key:'am',     label:'🌙 AM',      sub:'13h–21h', bg:'#EDE7F6', color:'#6A1B9A' },
-        { key:'absent', label:'🚫 Absent',  sub:'',        bg:'#FFEBEE', color:'#B71C1C' },
+        { key:'matin',  label:'☀️ Matin',  bg:'#E3F2FD', color:'#1565C0' },
+        { key:'am',     label:'🌙 Après-Midi', bg:'#EDE7F6', color:'#6A1B9A' },
+        { key:'absent', label:'🚫 Absent',  bg:'#FFEBEE', color:'#B71C1C' },
       ];
       html += '<td style="padding:6px;border:1px solid var(--border);background:var(--bg2);text-align:center;vertical-align:middle;width:90px">';
       rOptions.forEach(opt => {
         const active = rythme === opt.key;
-        html += '<div onclick="setRythme(' + tech.id + ',\'' + dateToKey(days[0]) + '\',\'' + opt.key + '\')" style="cursor:pointer;padding:4px 6px;border-radius:6px;margin-bottom:3px;font-size:11px;font-weight:600;background:' + (active ? opt.bg : 'transparent') + ';color:' + (active ? opt.color : 'var(--text3)') + ';border:1.5px solid ' + (active ? opt.color : 'var(--border)') + ';transition:all 0.15s">' + opt.label + (opt.sub && active ? '<div style="font-size:9px;font-weight:400;opacity:0.8">' + opt.sub + '</div>' : '') + '</div>';
+        html += '<div onclick="setRythme(' + tech.id + ',\'' + dateToKey(days[0]) + '\',\'' + opt.key + '\')" style="cursor:pointer;padding:4px 6px;border-radius:6px;margin-bottom:3px;font-size:11px;font-weight:600;background:' + (active ? opt.bg : 'transparent') + ';color:' + (active ? opt.color : 'var(--text3)') + ';border:1.5px solid ' + (active ? opt.color : 'var(--border)') + ';transition:all 0.15s">' + opt.label + '</div>';
       });
       html += '</td>';
     } else {
@@ -4851,11 +4850,21 @@ function renderPlanSemaine() {
       // Absence ponctuelle sur ce jour spécifique
       const absKey = tech.id ? (tech.id + '_abs_' + key) : null;
       const absJour = absKey ? !!((state.planRythmes||{})[absKey]) : false;
-      const cellBg = absJour || rythme2 === 'absent' ? 'rgba(244,67,54,0.07)' : isToday ? 'rgba(5,80,174,0.03)' : 'var(--bg)';
-      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:100px;background:' + cellBg + '" ';
-      html += 'ondragover="event.preventDefault()" ';
-      html += "ondrop=\"onPlanDrop(event,'" + key + "','" + (tech.id || 'null') + "')\""+ ' ';
-      html += "onclick=\"openModalPlanTask('" + key + "','" + (tech.id || 'null') + "')\""+ '>';
+      const isAbsentCell = absJour || rythme2 === 'absent';
+      const cellBg = isAbsentCell ? 'rgba(244,67,54,0.07)' : isToday ? 'rgba(5,80,174,0.03)' : 'var(--bg)';
+      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:100px;background:' + cellBg + (isAbsentCell ? ';cursor:not-allowed' : '') + '" ';
+      if (isAbsentCell) {
+        html += 'ondragover="event.preventDefault()" ';
+        html += "ondrop=\"onPlanDrop(event,'" + key + "','" + (tech.id || 'null') + "')\""+ '>';
+      } else {
+        html += 'ondragover="event.preventDefault()" ';
+        html += "ondrop=\"onPlanDrop(event,'" + key + "','" + (tech.id || 'null') + "')\""+ ' ';
+        html += "onclick=\"openModalPlanTask('" + key + "','" + (tech.id || 'null') + "')\""+ '>';
+      }
+      
+      if (tech.id) {
+        html += '<div onclick="event.stopPropagation();toggleAbsenceJour(' + tech.id + ',\'' + key + '\')" title="' + (absJour ? 'Annuler l\'absence de ce jour' : 'Marquer absent ce jour') + '" style="cursor:pointer;text-align:right;font-size:13px;line-height:1;margin-bottom:4px;opacity:' + (absJour ? '1' : '0.3') + '">🚫</div>';
+      }
       
       cellTasks.forEach(task => {
         const type = PLAN_TYPES[task.type] || PLAN_TYPES.analyse;
@@ -5289,6 +5298,14 @@ function deleteEtiquette(idx) {
 window.deleteEtiquette = deleteEtiquette;
 
 
+function isTechAbsent(techId, dateKey) {
+  if (!techId) return false;
+  const weekKey = dateToKey(planSemaineStartDate || new Date());
+  const rythme = (state.planRythmes||{})[techId + '_' + weekKey] || 'matin';
+  const absJour = !!((state.planRythmes||{})[techId + '_abs_' + dateKey]);
+  return rythme === 'absent' || absJour;
+}
+
 function onPlanDragStart(event, taskId) {
   planDraggedTask = taskId;
   event.dataTransfer.effectAllowed = 'move';
@@ -5298,6 +5315,12 @@ function onPlanDrop(event, date, techId) {
   event.preventDefault();
   event.stopPropagation();
   if (!planDraggedTask && !planDraggedNew) return;
+  if (techId && isTechAbsent(techId, date)) {
+    planDraggedTask = null;
+    planDraggedNew = null;
+    alert("Ce technicien est absent : impossible d'assigner une tâche ce jour-là.");
+    return;
+  }
   if (planDraggedNew) { onDropNewTask(event, date, techId); return; }
   if (!state.planTasks) state.planTasks = [];
   const task = state.planTasks.find(t => t.id === planDraggedTask);
@@ -5327,6 +5350,10 @@ function selectPlanType(type) {
 }
 
 function openModalPlanTask(date, techId) {
+  if (techId && techId !== 'null' && isTechAbsent(techId, date)) {
+    alert("Ce technicien est absent : impossible d'assigner une tâche ce jour-là.");
+    return;
+  }
   document.getElementById('modal-plan-task-title').textContent = 'Nouvelle tâche';
   document.getElementById('plan-task-type').value = '';
   document.getElementById('plan-task-desc').value = '';
@@ -5339,7 +5366,9 @@ function openModalPlanTask(date, techId) {
   (state.techniciens || []).forEach(t => {
     const opt = document.createElement('option');
     opt.value = t.id;
-    opt.textContent = (t.visa ? '[' + t.visa + '] ' : '') + t.prenom + ' ' + t.nom;
+    const absent = isTechAbsent(t.id, date || dateToKey(new Date()));
+    opt.textContent = (t.visa ? '[' + t.visa + '] ' : '') + t.prenom + ' ' + t.nom + (absent ? ' (absent)' : '');
+    if (absent) opt.disabled = true;
     if (techId && t.id === techId) opt.selected = true;
     sel.appendChild(opt);
   });
@@ -5420,6 +5449,11 @@ function savePlanTask() {
   const date = document.getElementById('plan-task-date').value;
   const lot = document.getElementById('plan-task-lot').value;
   const note = document.getElementById('plan-task-note').value.trim();
+
+  if (type !== 'absence' && techId && isTechAbsent(techId, date)) {
+    toast('Ce technicien est absent à cette date', 'error');
+    return;
+  }
 
   if (!state.planTasks) state.planTasks = [];
 
