@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v242 — Physico-Chimie</title>
+<title>LabManager v243 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -149,11 +149,10 @@
   .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--cyan3); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: var(--cyan); flex-shrink: 0; }
   .tech-name { font-weight: 600; font-size: 14px; }
   .tech-role { font-size: 12px; color: var(--text2); }
-  .a-planifier-zone { width: 220px; min-width: 220px; background: var(--bg2); border-right: 2px solid var(--border); padding: 8px; vertical-align: top; }
-  .a-planifier-tag { background: var(--amber-dim,#FFF8E1); border: 1.5px solid var(--amber,#FF9800); border-radius: 6px; padding: 5px 8px; margin-bottom: 6px; font-size: 11px; font-weight: 600; cursor: grab; color: var(--text); user-select: none; line-height: 1.4; }
-  .a-planifier-tag:hover { background: var(--amber,#FF9800); color: white; }
-  .a-planifier-tag .sous { font-weight: 400; font-size: 10px; color: var(--text2); margin-top: 2px; }
-  .a-planifier-tag:hover .sous { color: rgba(255,255,255,0.8); }
+  .a-planifier-tag { background: #FFF8E1; border: 1.5px solid #FF9800; border-radius: 8px; padding: 8px 12px; font-size: 12px; cursor: grab; color: var(--text); user-select: none; line-height: 1.4; min-width: 160px; max-width: 240px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .a-planifier-tag:hover { background: #FF9800; color: white; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(255,152,0,0.3); }
+  .a-planifier-tag .sous { font-weight: 400; font-size: 10px; color: var(--text2); margin-top: 3px; }
+  .a-planifier-tag:hover .sous { color: rgba(255,255,255,0.85); }
   .hab-list { display: flex; flex-wrap: wrap; gap: 5px; }
   .filter-input { width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: 4px; padding: 4px 6px; color: var(--text); font-size: 11px; margin-top: 4px; font-family: inherit; }
   .filter-input:focus { outline: none; border-color: var(--cyan); }
@@ -5271,26 +5270,8 @@ function renderPlanSemaine() {
   // Construire les étiquettes À planifier
   const etiquettes = buildEtiquettesAPlanifier();
 
-  // Construire la grille (table dans un flex)
-  let html = '<div style="display:flex;gap:0;align-items:stretch">';
-  
-  // Colonne À planifier
-  html += '<div class="a-planifier-zone" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
-  html += '<div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px">À planifier</div>';
-  if (etiquettes.length === 0) {
-    html += '<div style="font-size:11px;color:var(--text3);font-style:italic">Aucune analyse en attente</div>';
-  } else {
-    etiquettes.forEach((e, idx) => {
-      html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" title="Glisser vers le planning">';
-      html += '<div>' + e.nom + '</div>';
-      if (e.lot) html += '<div class="sous">Lot: ' + e.lot + '</div>';
-      if (e.sousAnalyses && e.sousAnalyses.length) html += '<div class="sous">↳ ' + e.sousAnalyses.join(', ') + '</div>';
-      html += '</div>';
-    });
-  }
-  html += '</div>';
-  
-  html += '<table style="flex:1;border-collapse:collapse;table-layout:fixed">';
+  // Construire la grille
+  let html = '<table style="width:100%;border-collapse:collapse;table-layout:fixed">';
   
   // Header
   html += '<thead><tr><th style="width:140px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);text-align:left;font-size:12px;color:var(--text2)">TECHNICIEN</th>';
@@ -5349,7 +5330,25 @@ function renderPlanSemaine() {
     html += '</tr>';
   });
   
-  html += '</tbody></table></div>';
+  html += '</tbody></table>';
+
+  // Zone À planifier sous le tableau
+  html += '<div style="margin-top:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);padding:16px">';
+  html += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:8px"><i class="ti ti-clock" style="color:var(--amber)"></i>Analyses à planifier</div>';
+  html += '<div style="display:flex;flex-wrap:wrap;gap:8px;min-height:48px" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
+  if (etiquettes.length === 0) {
+    html += '<div style="font-size:12px;color:var(--text3);font-style:italic;align-self:center">✓ Toutes les analyses sont planifiées</div>';
+  } else {
+    etiquettes.forEach((e, idx) => {
+      html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" title="Glisser vers une cellule du planning">';
+      html += '<div style="font-weight:600">' + e.nom + '</div>';
+      if (e.lot) html += '<div class="sous">Lot : ' + e.lot + '</div>';
+      if (e.sousAnalyses && e.sousAnalyses.length) html += '<div class="sous">↳ ' + e.sousAnalyses.join(' · ') + '</div>';
+      html += '</div>';
+    });
+  }
+  html += '</div></div>';
+  
   grid.innerHTML = html;
 }
 
@@ -5365,7 +5364,7 @@ function buildEtiquettesAPlanifier() {
   
   echAFaire.forEach(ech => {
     (ech.analyses || []).forEach(a => {
-      if (a.statut && a.statut !== 'a_faire') return; // seulement "à faire"
+      if (a.statut && !['a_faire',''].includes(a.statut)) return; // seulement non terminées
       // Chercher dans le catalogue pour les sous-analyses
       const catalogue = (state.catalogue || []).find(c => c.nom === a.nom || c.nom.toLowerCase() === (a.nom||'').toLowerCase());
       const sousAnalyses = catalogue?.sousAnalyses || [];
