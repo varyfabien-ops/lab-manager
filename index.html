@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v297 — Physico-Chimie</title>
+<title>LabManager v299 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4803,9 +4803,7 @@ function renderPlanSemaine() {
   // Lignes techniciens
   html += '<tbody>';
   
-  // Ligne sans technicien
-  const allRows = [{id: null, prenom: '—', nom: 'Non assigné', visa: '?'}].concat(techs);
-  
+  const allRows = techs;
   allRows.forEach(tech => {
     html += '<tr>';
     html += '<td style="padding:8px 14px;border:1px solid var(--border);vertical-align:top;background:var(--bg2);min-width:180px">';
@@ -4822,6 +4820,25 @@ function renderPlanSemaine() {
       html += '<div style="font-size:12px;color:var(--text3);padding:4px 0">Non assigné</div>';
     }
     html += '</td>';
+
+    // Colonne Rythme
+    if (tech.id) {
+      const rKey = tech.id + '_' + dateToKey(days[0]);
+      const rythme = (state.planRythmes||{})[rKey] || 'matin';
+      const rOptions = [
+        { key:'matin',  label:'☀️ Matin',  sub:'5h–13h',  bg:'#E3F2FD', color:'#1565C0' },
+        { key:'am',     label:'🌙 AM',      sub:'13h–21h', bg:'#EDE7F6', color:'#6A1B9A' },
+        { key:'absent', label:'🚫 Absent',  sub:'',        bg:'#FFEBEE', color:'#B71C1C' },
+      ];
+      html += '<td style="padding:6px;border:1px solid var(--border);background:var(--bg2);text-align:center;vertical-align:middle;width:90px">';
+      rOptions.forEach(opt => {
+        const active = rythme === opt.key;
+        html += '<div onclick="setRythme(' + tech.id + ',\'' + dateToKey(days[0]) + '\',\'' + opt.key + '\')" style="cursor:pointer;padding:4px 6px;border-radius:6px;margin-bottom:3px;font-size:11px;font-weight:600;background:' + (active ? opt.bg : 'transparent') + ';color:' + (active ? opt.color : 'var(--text3)') + ';border:1.5px solid ' + (active ? opt.color : 'var(--border)') + ';transition:all 0.15s">' + opt.label + (opt.sub && active ? '<div style="font-size:9px;font-weight:400;opacity:0.8">' + opt.sub + '</div>' : '') + '</div>';
+      });
+      html += '</td>';
+    } else {
+      html += '<td style="border:1px solid var(--border);background:var(--bg2)"></td>';
+    }
     
     days.forEach(d => {
       const key = dateToKey(d);
