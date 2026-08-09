@@ -3294,19 +3294,6 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
-    },
-    {
-      "id": 1786303234835,
-      "type": "absence",
-      "desc": "Absence",
-      "techId": null,
-      "date": "2026-08-10",
-      "lot": "",
-      "note": "",
-      "color": {
-        "bg": "#FFEBEE",
-        "border": "#f44336"
-      }
     }
   ],
   "planRythmes": {
