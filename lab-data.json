@@ -1184,91 +1184,7 @@
       "code": "DK"
     }
   ],
-  "echantillons": [
-    {
-      "id": 1785349276514,
-      "code": "TEST 2",
-      "lot": "TEST 2",
-      "articleId": 1785247590600,
-      "articleCode": "M76013000",
-      "produitId": 1785247590600,
-      "marcheIds": [
-        1785336252486
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785170145444,
-        1785247382413,
-        1785247477146,
-        1785247529863
-      ],
-      "analysesParMarche": {
-        "1785170122728": [
-          1785336252486
-        ],
-        "1785170145444": [
-          1785336252486
-        ],
-        "1785247382413": [
-          1785336252486
-        ],
-        "1785247477146": [
-          1785336252486
-        ],
-        "1785247529863": [
-          1785336252486
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "PTC567",
-      "stabEcheance": "T0",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-29",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785170145444": "verifiee",
-        "1785170122728": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1785170145444": {
-          "en_cours": "08/08/2026",
-          "terminee": "08/08/2026",
-          "verifiee": "08/08/2026"
-        },
-        "1785170122728": {
-          "en_cours": "08/08/2026",
-          "terminee": "08/08/2026"
-        }
-      }
-    },
-    {
-      "id": 1786287282137,
-      "code": "TEST 2",
-      "lot": "TEST 2",
-      "articleId": 1785247590600,
-      "articleCode": "M76013000",
-      "produitId": 1785247590600,
-      "marcheIds": [],
-      "analysesIds": [],
-      "analysesParMarche": {},
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-09",
-      "statut": "recu",
-      "note": ""
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -1347,11 +1263,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot HC56730103",
-      "time": "08/08 21:09"
-    },
     {
       "icon": "trash",
       "text": "Contenant supprime : lot HC56730103",
@@ -1596,6 +1507,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 Mépivacaïne / PHBM",
       "time": "09/08 19:33"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST 2 (2 entrees)",
+      "time": "09/08 19:40"
     }
   ],
   "spq": [
