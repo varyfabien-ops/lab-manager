@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v255 — Physico-Chimie</title>
+<title>LabManager v259 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1276,47 +1276,8 @@ const WIZARD_TOTAL = 5;
 // Steps dynamiques selon le type
 // 1=Type, 2=CodeArticle, 3=Marchés(PIF), 4=Lot+Options, 5=Récap
 
-function wizardIsPifSelected(){ return !!document.getElementById('w-type-pif')?.checked; }
-function wizardIsStabSelected(){ return !!document.getElementById('w-type-stab')?.checked; }
-function wizardIsMpSelected(){ return !!document.getElementById('w-type-mp')?.checked; }
-function wizardIsStabOnly(){ return wizardIsStabSelected() && !wizardIsPifSelected() && !wizardIsMpSelected(); }
 function wizardIsMpOnly(){ return wizardIsMpSelected() && !wizardIsPifSelected() && !wizardIsStabSelected(); }
 
-function openWizard() {
-  wizardStep = 1;
-  window._selectedStabEtudeId = null;
-  window._wizardArticle = null;
-  // Reset type cards
-  ['pif','stab','mp'].forEach(t => {
-    const cb = document.getElementById('w-type-'+t); if(cb) cb.checked=false;
-    const card = document.getElementById('w-'+t+'-card');
-    if(card){ card.style.border='2px solid var(--border)'; card.style.background=''; }
-  });
-  // Reset champs
-  ['w-code-article','w-lot','w-ref-spq','w-ref-ptc','w-mp-spq','w-stab-temps'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
-  const dt=document.getElementById('w-date'); if(dt) dt.value=new Date().toISOString().slice(0,10);
-  const nb=document.getElementById('w-pif-nb-series'); if(nb) nb.value=1;
-  const nbc=document.getElementById('w-mp-contenants'); if(nbc) nbc.value=1;
-  const art=document.getElementById('w-article-select');
-  if(art) {
-    const wizTypes = [];
-    if(wizardIsPifSelected()) wizTypes.push('pif_stab');
-    if(wizardIsStabSelected()) wizTypes.push('pif_stab');
-    if(wizardIsMpSelected()) wizTypes.push('mp');
-    const filteredArts = (state.articles||[]).filter(a => !a.type || wizTypes.includes(a.type) || wizTypes.length===0);
-    art.innerHTML='<option value="">— Choisir un article —</option>'
-      +filteredArts.map(a=>'<option value="'+a.id+'">'+a.code+' — '+a.nom+'</option>').join('');
-  }
-  document.getElementById('w-article-info').style.display='none';
-  // Masquer options
-  ['w4-pif-opts','w4-stab-opts','w4-mp-opts'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.style.display='none';
-  });
-  wizardRender();
-  openModal('modal-echantillon');
-}
 
 function wizardStepsForType() {
   // Retourne la liste des steps à afficher selon le type sélectionné
@@ -1374,25 +1335,7 @@ function wizardRender() {
   if(wizardStep===5) wizardRecap();
 }
 
-function wizardNext() {
-  if(!wizardValidate()) return;
-  if(wizardStep===5){ wizardConfirm(); return; }
-  const steps = wizardStepsForType();
-  const idx = wizardCurrentStepIdx();
-  if(idx < steps.length-1) {
-    wizardStep = steps[idx+1];
-    wizardRender();
-  }
-}
 
-function wizardPrev() {
-  const steps = wizardStepsForType();
-  const idx = wizardCurrentStepIdx();
-  if(idx > 0) {
-    wizardStep = steps[idx-1];
-    wizardRender();
-  }
-}
 
 function wizardValidate() {
   if(wizardStep===1) {
@@ -1423,27 +1366,6 @@ function wizardValidate() {
   return true;
 }
 
-function toggleTypeCard(type) {
-  const cb = document.getElementById('w-type-'+type);
-  if(!cb) return;
-  cb.checked = !cb.checked;
-  // MP exclusif
-  if(type==='mp' && cb.checked) {
-    ['pif','stab'].forEach(t=>{
-      const c=document.getElementById('w-type-'+t); if(c) c.checked=false;
-      const ca=document.getElementById('w-'+t+'-card');
-      if(ca){ca.style.border='2px solid var(--border)';ca.style.background='';}
-    });
-  } else if((type==='pif'||type==='stab')&&cb.checked) {
-    const c=document.getElementById('w-type-mp'); if(c) c.checked=false;
-    const ca=document.getElementById('w-mp-card');
-    if(ca){ca.style.border='2px solid var(--border)';ca.style.background='';}
-  }
-  const colors={pif:['var(--amber)','var(--amber-dim)'],stab:['var(--purple)','var(--purple-dim)'],mp:['var(--green)','var(--green-dim)']};
-  const card=document.getElementById('w-'+type+'-card');
-  const [c,bg]=colors[type]||['var(--cyan)','var(--cyan-dim)'];
-  if(card){card.style.border=cb.checked?'2px solid '+c:'2px solid var(--border)';card.style.background=cb.checked?bg:'';}
-}
 
 function onWizardCodeArticleChange() {
   const code = (document.getElementById('w-code-article')?.value||'').trim().toUpperCase();
@@ -1470,32 +1392,6 @@ function onWizardArticleSelect() {
   }
 }
 
-function wizardLoadMarches() {
-  const art = window._wizardArticle;
-  const spq = art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
-  const container = document.getElementById('w-marches-spq');
-  const noMsg = document.getElementById('w-no-marches-msg');
-  if(!spq||!spq.marches||!spq.marches.length) {
-    if(container) container.innerHTML='';
-    if(noMsg) noMsg.style.display='block';
-    return;
-  }
-  if(noMsg) noMsg.style.display='none';
-  const marches = spq.marches.map(sm=>{
-    const m=(state.marches||[]).find(x=>x.id===sm.marcheId);
-    return m?{...m,analyses:sm.analyses||[]}:null;
-  }).filter(Boolean);
-  if(container) {
-    container.innerHTML = marches.map(m=>
-      '<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 14px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">'
-      +'<input type="checkbox" class="w-marche-cb" value="'+m.id+'" style="flex-shrink:0">'
-      +'<span style="font-size:14px;font-weight:600">'+m.nom+'</span>'
-      +(m.code?'<span class="badge badge-blue" style="font-size:11px">'+m.code+'</span>':'')
-      +'<span style="font-size:11px;color:var(--text3);margin-left:auto">'+m.analyses.length+' analyse'+(m.analyses.length>1?'s':'')+'</span>'
-      +'</label>'
-    ).join('');
-  }
-}
 
 function wizardLoadStep4() {
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
@@ -1719,120 +1615,12 @@ function wizardPrev() {
 
 // wizardValidate remplacée par la nouvelle version
 
-function wizardUpdateProduit() {
-  const id = parseInt(document.getElementById('w-produit').value);
-  const p = (state.produitsEch||[]).find(x=>x.id===id);
-  const info = document.getElementById('w-produit-info');
-  const prev = document.getElementById('w-produit-analyses-preview');
-  const list = document.getElementById('w-produit-analyses-list');
-  if (p) {
-    if(info) { info.style.display='block'; info.innerHTML=`<strong>${p.nom}</strong>${p.forme?' — '+p.forme:''}${p.dosage?' '+p.dosage:''}${p.code?` <code>${p.code}</code>`:''}`; }
-    // Afficher analyses liees
-    const analyses = (state.catalogue||[]).filter(a => a.produitsIds && a.produitsIds.includes(id));
-    if(prev) prev.style.display = analyses.length ? 'block' : 'none';
-    if(list) list.innerHTML = analyses.map(a=>`<span class="badge badge-cyan" style="font-size:11px">${a.nom}</span>`).join('');
-  } else {
-    if(info) info.style.display='none';
-    if(prev) prev.style.display='none';
-  }
-}
 
-function toggleTypeCard(type) {
-  const cb = document.getElementById('w-type-'+type);
-  if(!cb) return;
-
-  // Logique d'exclusivité : MP est incompatible avec PIF et STAB
-  if (type === 'mp' && !cb.checked) {
-    // On active MP -> désactiver PIF et STAB
-    ['pif','stab'].forEach(t => {
-      const other = document.getElementById('w-type-'+t);
-      if (other) other.checked = false;
-      const otherCard = document.getElementById('w-'+t+'-card');
-      if (otherCard) { otherCard.style.border='2px solid var(--border)'; otherCard.style.background=''; }
-      const otherOpts = document.getElementById('w-'+t+'-options');
-      if (otherOpts) otherOpts.style.display='none';
-    });
-  } else if ((type === 'pif' || type === 'stab') && !cb.checked) {
-    // On active PIF ou STAB -> désactiver MP
-    const mpCb = document.getElementById('w-type-mp');
-    if (mpCb) mpCb.checked = false;
-    const mpCard = document.getElementById('w-mp-card');
-    if (mpCard) { mpCard.style.border='2px solid var(--border)'; mpCard.style.background=''; }
-    const mpOpts = document.getElementById('w-mp-options');
-    if (mpOpts) mpOpts.style.display='none';
-  }
-
-  cb.checked = !cb.checked;
-  const card = document.getElementById('w-'+type+'-card');
-  if(!card) return;
-  const colors = { pif: 'var(--amber)', stab: 'var(--purple)', mp: 'var(--green)' };
-  const bgs = { pif: 'var(--amber-dim)', stab: 'var(--purple-dim)', mp: 'var(--green-dim)' };
-  const c = colors[type]||'var(--cyan)';
-  const bg = bgs[type]||'var(--cyan-dim)';
-  card.style.border = cb.checked ? '2px solid '+c : '2px solid var(--border)';
-  card.style.background = cb.checked ? bg : '';
-  const opts = document.getElementById('w-'+type+'-options');
-  if (opts) opts.style.display = cb.checked ? 'block' : 'none';
-  if (type === 'pif' && cb.checked) { setTimeout(populatePIFMarches, 50); }
-}
 
 function previewSousSeriesPIF() { previewSousSeries(); }
-function previewSousSeries() {
-  let nb;
-  let marcheIds;
-  if (isPIFOnly()) {
-    nb = parseInt(document.getElementById('w-pif-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  } else if (isStabOnly() || isMPOnly()) {
-    nb = isStabOnly() ? 1 : (parseInt(document.getElementById('w-nb-series')?.value)||1);
-    marcheIds = []; // Pas de marché pour STAB seule ni MP
-  } else {
-    nb = parseInt(document.getElementById('w-nb-series')?.value)||1;
-    marcheIds = Array.from(document.querySelectorAll('#w-ref-marches-check input:checked')).map(cb=>parseInt(cb.value));
-  }
-  const lot = document.getElementById('w-lot')?.value || 'LOT';
-  const preview = document.getElementById('w-series-preview');
-  if (!preview) return;
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  preview.innerHTML = Array.from({length:Math.min(nb,26)},(_,i)=>
-    `<span class="badge badge-cyan">${lot}-${i+1}</span>`
-  ).join('');
-}
 
 // ancienne wizardLoadMarches supprimée
 
-function wizardLoadAnalyses() {
-  const el = document.getElementById('w-analyses-select');
-  const noA = document.getElementById('w-no-analyses');
-  if(!el) return;
-  const prodId = parseInt(document.getElementById('w-produit')?.value);
-  const pif = document.getElementById('w-type-pif')?.checked;
-  const stab = document.getElementById('w-type-stab')?.checked;
-  // Filtrer les analyses liees au produit
-  const analyses = (state.catalogue||[]).filter(a => {
-    if (!prodId) return a.produitsIds && a.produitsIds.length > 0;
-    return a.produitsIds && a.produitsIds.includes(prodId);
-  });
-  if (!analyses.length) {
-    el.innerHTML=''; el.style.display='none';
-    if(noA) noA.style.display='block';
-    return;
-  }
-  el.style.display='flex'; if(noA) noA.style.display='none';
-  el.innerHTML = analyses.map(a => `
-    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)">
-      <input type="checkbox" value="${a.id}" style="margin-top:2px;flex-shrink:0">
-      <div style="flex:1">
-        <div style="font-weight:600;font-size:13px">${a.nom}${a.code?' <code style="font-size:10px">'+a.code+'</code>':''}</div>
-
-        ${a.duree?`<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> ${a.duree}</div>`:''}
-      </div>
-      <div style="display:flex;gap:4px;flex-shrink:0">
-        ${pif?`<span class="badge badge-blue" style="font-size:10px">PIF</span>`:''}
-        ${stab?`<span class="badge badge-purple" style="font-size:10px">STAB</span>`:''}
-      </div>
-    </label>`).join('');
-}
 
 
 
@@ -1851,38 +1639,7 @@ function getMarcheAnalyses(containerId) {
   return Array.from(checks).map(cb => { const id=parseInt(cb.dataset.id); const pif=document.querySelector('#'+containerId+' .type-pif[data-id="'+id+'"]')?.checked||false; const stab=document.querySelector('#'+containerId+' .type-stab[data-id="'+id+'"]')?.checked||false; return {id,pif,stab}; });
 }
 
-function populateAnalysesChecks(containerId, selectedIds, selectedTypes) {
-  const el = document.getElementById(containerId); if(!el) return;
-  const catalogue = state.catalogue||[];
-  if (!catalogue.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucune analyse</span>'; return; }
-  el.innerHTML = catalogue.map(a => {
-    const sel = selectedIds && selectedIds.find ? selectedIds.find(s=>s.id===a.id||s===a.id) : null;
-    const selObj = sel && sel.id ? sel : null;
-    const checkedMain = selectedIds && (selectedIds.includes(a.id)||(selectedIds.some&&selectedIds.some(s=>s.id===a.id))) ? 'checked' : '';
-    const isPIF = selObj ? selObj.pif : true; const isSTAB = selObj ? selObj.stab : false;
-    return '<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:4px"><input type="checkbox" class="analyse-check" data-id="'+a.id+'" '+checkedMain+' style="flex-shrink:0"><span style="font-size:12px;flex:1">'+a.nom+(a.code?' <code style="font-size:10px">'+a.code+'</code>':'')+'</span><label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--blue);cursor:pointer"><input type="checkbox" class="type-pif" data-id="'+a.id+'" '+(isPIF?'checked':'')+'>PIF</label><label style="display:flex;align-items:center;gap:3px;font-size:11px;font-weight:600;color:var(--purple);cursor:pointer"><input type="checkbox" class="type-stab" data-id="'+a.id+'" '+(isSTAB?'checked':'')+'>STAB</label></div>';
-  }).join('');
-}
 
-function statutIcon(echId, analyseId, currentStatut, statInfo, cellType) {
-  const order = ['a_lancer','en_cours','terminee','verifiee'];
-  const curIdx = order.indexOf(currentStatut);
-  const cellIdx = order.indexOf(cellType);
-  const isDone = curIdx >= cellIdx && curIdx >= 0;
-  const isVerifiee = currentStatut === 'verifiee';
-  const date = statInfo[cellType];
-  const labels = { a_lancer:'À FAIRE', en_cours:'EN COURS', terminee:'TERMINÉE', verifiee:'VÉRIFIÉE' };
-  const colors = { en_cours:'#0550ae', terminee:'#0d7c75', verifiee:'#1a7f37' };
-  const icons  = { en_cours:'microscope', terminee:'circle-check', verifiee:'rosette' };
-  const c = colors[cellType]||'#888'; const ic = icons[cellType]||'circle';
-  if (isDone) {
-    const d = date ? '<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>' : '';
-    return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
-  } else if (cellIdx === curIdx+1 && !isVerifiee) {
-    return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-'+ic+'" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">'+(labels[cellType]||cellType)+'</span></button>';
-  }
-  return '<span style="display:block;width:24px;height:2px;background:#ddd;margin:auto"></span>';
-}
 
 function resetFiltresEch() {
   ['fech-produit','fech-lot','fech-analyse'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
@@ -2066,8 +1823,6 @@ function ouvrirModalResultat(echId, analyseId) {
     const isMultiCondition = isStab && conditions.length > 1;
 
     if (isMultiCondition) {
-      window._ssIds = null;
-      window._stabConditions = conditions;
       container.innerHTML = conditions.map((cond, cIdx) => {
         return '<div style="border:1px solid var(--purple);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:var(--purple-dim)">'
           + '<div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px"><i class="ti ti-temperature"></i> Condition : <strong>' + cond + '</strong></div>'
@@ -2075,7 +1830,6 @@ function ouvrirModalResultat(echId, analyseId) {
           + '</div>';
       }).join('');
     } else if (isMultiSS) {
-      window._stabConditions = null;
       // Une section par sous-série
       container.innerHTML = sousSeries.map((ss, ssIdx) => {
         return '<div style="border:1px solid var(--border);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:var(--bg3)">'
@@ -2111,7 +1865,6 @@ function populateStabEtudeSelect(produitId) {
 function onWizardStabEtudeChange() {
   const sel = document.getElementById('w-stab-etude');
   const etudeId = parseInt(sel.value)||null;
-  window._selectedStabEtudeId = etudeId; // Mémoriser la sélection
   const etude = etudeId ? (state.stabilites||[]).find(s=>s.id===etudeId) : null;
   if (etude) {
     // Préremplir températures depuis l'étude
@@ -2350,43 +2103,6 @@ function sauvegarderResultat() {
   if (statutAnalyse==='ok') toast('Résultat enregistré', 'success');
 }
 
-function cycleAnalyseStatut(echId, analyseId) {
-  const order = ['a_lancer','en_cours','terminee','verifiee'];
-  echId = parseInt(echId); analyseId = parseInt(analyseId);
-  const ech = (state.echantillons||[]).find(e=>e.id===echId);
-  if (!ech) return;
-  if (!ech.analyseStatuts) ech.analyseStatuts = {};
-  if (!ech.analyseStatutsInfo) ech.analyseStatutsInfo = {};
-  const cur = ech.analyseStatuts[analyseId] || 'a_lancer';
-  if (cur === 'verifiee') return;
-  const nextIdx = order.indexOf(cur) + 1;
-  if (nextIdx >= order.length) return;
-  const next = order[nextIdx];
-  // Si on passe à "terminee"
-  if (next === 'terminee') {
-    const a2 = (state.catalogue||[]).find(x=>x.id===analyseId);
-    if (a2 && a2.resultatRequis === false) {
-      // Pas de résultat requis : passer directement à terminée
-      ech.analyseStatuts[analyseId] = 'terminee';
-      if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
-      ech.analyseStatutsInfo[analyseId]['terminee'] = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-      renderEchantillonsTable(); saveData();
-      return;
-    }
-    ouvrirModalResultat(echId, analyseId);
-    return;
-  }
-  ech.analyseStatuts[analyseId] = next;
-  if (!ech.analyseStatutsInfo[analyseId]) ech.analyseStatutsInfo[analyseId] = {};
-  ech.analyseStatutsInfo[analyseId][next] = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  const ids = ech.analysesIds||[];
-  const allDone = ids.length && ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee');
-  const anyStarted = ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';});
-  ech.statut = allDone?'conforme':anyStarted?'en_analyse':'recu';
-  const a = (state.catalogue||[]).find(x=>x.id===analyseId);
-  addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next);
-  renderEchantillonsTable(); saveData();
-}
 
 let activeStabId = null;
 let editingTpIdx = null;
@@ -2394,198 +2110,10 @@ let editingTpIdx = null;
 
 // ancienne onTendProduitChange supprimée
 
-function onTendAnalyseChange() {
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-  const fAnalyse = parseInt(selAnalyse?.value) || 0;
 
-  if (selResultat) {
-    selResultat.innerHTML = '<option value="">— Sélectionner —</option>';
-    selResultat.disabled = !fAnalyse;
-  }
-  if (container) container.innerHTML = '';
 
-  if (!fAnalyse) {
-    renderTendances();
-    return;
-  }
 
-  const analyse = (state.catalogue || []).find(a => a.id === fAnalyse);
-  if (!analyse) return;
 
-  const champs = Array.isArray(analyse.champsResultats) && analyse.champsResultats.length
-    ? analyse.champsResultats
-    : [{ label: 'Résultat', type: analyse.typeResultat || 'numerique', unite: analyse.unite || '' }];
-
-  const champsNumeriques = champs
-    .map((champ, index) => ({ ...champ, index }))
-    .filter(champ => (champ.type || 'numerique') === 'numerique');
-
-  champsNumeriques.forEach(champ => {
-    const opt = document.createElement('option');
-    opt.value = champ.index;
-    opt.textContent = (champ.label || 'Résultat') + (champ.unite ? ' (' + champ.unite + ')' : '');
-    selResultat?.appendChild(opt);
-  });
-
-  if (selResultat) {
-    selResultat.disabled = champsNumeriques.length === 0;
-    // Si un seul résultat numérique existe, on le sélectionne automatiquement et le graphique s'affiche.
-    if (champsNumeriques.length === 1) selResultat.value = String(champsNumeriques[0].index);
-  }
-
-  renderTendances();
-}
-
-function resetTendances() {
-  const selProduit = document.getElementById('tend-produit');
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-
-  if (selProduit) selProduit.value = '';
-  if (selAnalyse) {
-    selAnalyse.innerHTML = '<option value="">— Sélectionner —</option>';
-    selAnalyse.disabled = true;
-  }
-  if (selResultat) {
-    selResultat.innerHTML = '<option value="">— Sélectionner —</option>';
-    selResultat.disabled = true;
-  }
-  if (container) container.innerHTML = '';
-  renderTendances();
-}
-
-function renderTendances() {
-  const selProduit = document.getElementById('tend-produit');
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-  if (selProduit) {
-    const savedVal = selProduit.value;
-    selProduit.innerHTML = '<option value="">— Sélectionner —</option>';
-    const articlesAvecPIF = (state.articles||[]).filter(art =>
-      (state.echantillons||[]).some(e=>e.typePIF && e.articleId===art.id)
-    );
-    articlesAvecPIF.forEach(art=>{
-      const opt=document.createElement('option'); opt.value=art.id; opt.textContent=art.nom; selProduit.appendChild(opt);
-    });
-    if(!articlesAvecPIF.length) {
-      const prodIds=[...new Set((state.echantillons||[]).filter(e=>e.typePIF&&!e.articleId&&e.produitId).map(e=>e.produitId))];
-      prodIds.forEach(id=>{ const p=(state.produitsEch||[]).find(x=>x.id===id); if(!p) return; const opt=document.createElement('option'); opt.value='p_'+id; opt.textContent=p.nom; selProduit.appendChild(opt); });
-    }
-    if(savedVal) selProduit.value = savedVal;
-  }
-  const fVal=selProduit?.value||'';
-  const fArticleId=parseInt(fVal)||0;
-  const fAnalyse=parseInt(selAnalyse?.value)||0;
-  const fResultat=parseInt(selResultat?.value);
-  if(!fVal){if(container)container.innerHTML='<div class="empty-state"><i class="ti ti-trending-up"></i><p>Sélectionnez un article pour afficher les tendances</p></div>';return;}
-  if(!fAnalyse){if(container)container.innerHTML='<div class="empty-state"><i class="ti ti-chart-line"></i><p>Sélectionnez une analyse</p></div>';return;}
-  if(isNaN(fResultat)){if(container)container.innerHTML='<div class="empty-state"><i class="ti ti-chart-line"></i><p>Sélectionnez un champ de résultat</p></div>';return;}
-  const analyse=(state.catalogue||[]).find(a=>a.id===fAnalyse); if(!analyse) return;
-  const champs=Array.isArray(analyse.champsResultats)&&analyse.champsResultats.length?analyse.champsResultats:[{label:'Résultat',type:'numerique',unite:analyse.unite||''}];
-  const champ=champs[fResultat]; if(!champ) return;
-  const points=[];
-  (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:true)).forEach(e=>{
-    const res=(e.resultats||{})[fAnalyse]; if(!res) return;
-    const cd=Array.isArray(res.champs)?res.champs:(res.valeur!==undefined?[{valeur:res.valeur}]:[]);
-    const raw=cd[fResultat]?.valeur;
-    const v=parseFloat(String(raw||'').replace(',','.'));
-    if(isNaN(v)) return;
-    points.push({date:e.date||'',valeur:v,lot:e.lot||'—'});
-  });
-  points.sort((a,b)=>(a.date||'').localeCompare(b.date||'')||(a.lot||'').localeCompare(b.lot||''));
-  if(!points.length){if(container)container.innerHTML='<div class="empty-state"><i class="ti ti-trending-up"></i><p>Aucun résultat PIF pour cette sélection</p></div>';return;}
-  const min=Math.min(...points.map(p=>p.valeur));
-  const max=Math.max(...points.map(p=>p.valeur));
-  const range=max-min||1;
-  const mean=points.reduce((s,p)=>s+p.valeur,0)/points.length;
-  const W=740,H=260,pad=60,padR=30,padT=30,padB=60;
-  const gW=W-pad-padR,gH=H-padT-padB;
-  const x=i=>pad+(points.length>1?i/(points.length-1)*gW:gW/2);
-  const y=v=>padT+(1-(v-min)/range)*gH;
-  const ySteps=5;
-  const yLabels=Array.from({length:ySteps+1},(_,i)=>{const v=min+(max-min)*i/ySteps;return '<text x="'+(pad-8)+'" y="'+y(v).toFixed(1)+'" text-anchor="end" font-size="11" fill="#8896a8" dominant-baseline="middle">'+v.toFixed(2)+'</text>';}).join('');
-  const gridLines=Array.from({length:ySteps+1},(_,i)=>{const v=min+(max-min)*i/ySteps;return '<line x1="'+pad+'" y1="'+y(v).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(v).toFixed(1)+'" stroke="var(--border)" stroke-width="1"/>';}).join('');
-  const meanLine='<line x1="'+pad+'" y1="'+y(mean).toFixed(1)+'" x2="'+(W-padR)+'" y2="'+y(mean).toFixed(1)+'" stroke="#FF9800" stroke-width="1.5" stroke-dasharray="6,3"/><text x="'+(W-padR+4)+'" y="'+y(mean).toFixed(1)+'" font-size="10" fill="#FF9800" dominant-baseline="middle">moy</text>';
-  const circles=points.map((p,i)=>'<circle cx="'+x(i).toFixed(1)+'" cy="'+y(p.valeur).toFixed(1)+'" r="5" fill="var(--cyan)" stroke="#fff" stroke-width="2"><title>'+p.lot+' : '+p.valeur+'</title></circle>').join('');
-  const xLabels=points.map((p,i)=>{const xi=x(i).toFixed(1);return '<text x="'+xi+'" y="'+(H-padB+16)+'" text-anchor="middle" font-size="10" fill="#8896a8" transform="rotate(-30,'+xi+','+(H-padB+16)+')">'+(p.lot)+'</text>';}).join('');
-  const valLabels=points.map((p,i)=>'<text x="'+x(i).toFixed(1)+'" y="'+(y(p.valeur)-10).toFixed(1)+'" text-anchor="middle" font-size="10" fill="var(--cyan)" font-weight="600">'+p.valeur+'</text>').join('');
-  const art=fArticleId?(state.articles||[]).find(a=>a.id===fArticleId):null;
-  const title=(art?art.nom:'Tous')+' / '+analyse.nom+(champ.unite?' ('+champ.unite+')':'');
-  container.innerHTML='<div class="table-card" style="padding:20px"><div style="font-size:14px;font-weight:700;margin-bottom:16px">'+title+'</div><div style="overflow-x:auto"><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;max-width:'+W+'px">'+gridLines+yLabels+xLabels+'<polyline points="'+points.map((p,i)=>x(i).toFixed(1)+','+y(p.valeur).toFixed(1)).join(' ')+'" fill="none" stroke="var(--cyan)" stroke-width="2.5" stroke-linejoin="round"/>'+meanLine+circles+valLabels+'</svg></div><div style="margin-top:12px;font-size:12px;color:var(--text2);display:flex;gap:16px"><span><strong>'+points.length+'</strong> lot'+(points.length>1?'s':'')+' analysé'+(points.length>1?'s':'')+'</span><span>Min : <strong>'+min.toFixed(2)+'</strong></span><span>Max : <strong>'+max.toFixed(2)+'</strong></span><span>Moy : <strong>'+mean.toFixed(2)+'</strong></span></div></div>';
-}
-
-function onTendProduitChange() {
-  const selProduit = document.getElementById('tend-produit');
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-  const fVal = selProduit?.value || '';
-  const fArticleId = parseInt(fVal) || 0;
-  if (selAnalyse) { selAnalyse.innerHTML = '<option value="">— Sélectionner —</option>'; selAnalyse.disabled = !fVal; }
-  if (selResultat) { selResultat.innerHTML = '<option value="">— Sélectionner —</option>'; selResultat.disabled = true; }
-  if (container) container.innerHTML = '';
-  if (!fVal) { renderTendances(); return; }
-  const analyseIds = new Set(
-    (state.echantillons||[]).filter(e=>e.typePIF&&(fArticleId?e.articleId===fArticleId:true))
-      .flatMap(e=>e.analysesIds||[])
-  );
-  const analyses = [...analyseIds]
-    .map(id=>(state.catalogue||[]).find(a=>a.id===id))
-    .filter(a=>{ if(!a) return false; const c=Array.isArray(a.champsResultats)&&a.champsResultats.length?a.champsResultats:[{type:'numerique'}]; return c.some(x=>(x.type||'numerique')==='numerique'); })
-    .sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-  analyses.forEach(a=>{
-    const opt=document.createElement('option'); opt.value=a.id; opt.textContent=a.nom; selAnalyse?.appendChild(opt);
-  });
-  renderTendances();
-}
-
-function onTendAnalyseChange() {
-  const selAnalyse = document.getElementById('tend-analyse');
-  const selResultat = document.getElementById('tend-resultat');
-  const container = document.getElementById('tendances-container');
-  const fAnalyse = parseInt(selAnalyse?.value) || 0;
-
-  if (selResultat) {
-    selResultat.innerHTML = '<option value="">— Sélectionner —</option>';
-    selResultat.disabled = !fAnalyse;
-  }
-  if (container) container.innerHTML = '';
-
-  if (!fAnalyse) {
-    renderTendances();
-    return;
-  }
-
-  const analyse = (state.catalogue || []).find(a => a.id === fAnalyse);
-  if (!analyse) return;
-
-  const champs = Array.isArray(analyse.champsResultats) && analyse.champsResultats.length
-    ? analyse.champsResultats
-    : [{ label: 'Résultat', type: analyse.typeResultat || 'numerique', unite: analyse.unite || '' }];
-
-  const champsNumeriques = champs
-    .map((champ, index) => ({ ...champ, index }))
-    .filter(champ => (champ.type || 'numerique') === 'numerique');
-
-  champsNumeriques.forEach(champ => {
-    const opt = document.createElement('option');
-    opt.value = champ.index;
-    opt.textContent = (champ.label || 'Résultat') + (champ.unite ? ' (' + champ.unite + ')' : '');
-    selResultat?.appendChild(opt);
-  });
-
-  if (selResultat) {
-    selResultat.disabled = champsNumeriques.length === 0;
-    // Si un seul résultat numérique existe, on le sélectionne automatiquement et le graphique s'affiche.
-    if (champsNumeriques.length === 1) selResultat.value = String(champsNumeriques[0].index);
-  }
-
-  renderTendances();
-}
 
 function resetTendances() {
   const selProduit = document.getElementById('tend-produit');
@@ -3607,63 +3135,8 @@ function chargerChampResultats(champs) {
   }
 }
 
-function saveAnalyse() {
-  const nom = document.getElementById('a-nom').value.trim();
-  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
-  if (!state.catalogue) state.catalogue = [];
-  const habs = document.getElementById('a-habs')?.value.split(',').map(h=>h.trim()).filter(Boolean)||[];
-  // Récupérer les produits cochés
-  const produitsIds = [];
-  // Récupérer les champs de résultats
-  const champsResultats = typeof getChampResultats === 'function' ? getChampResultats() : [];
-  const resultatRequis = document.getElementById('a-resultat-requis')?.checked !== false;
-  const sousAnalyses = document.getElementById('a-sous-analyses')?.value.split(',').map(s=>s.trim()).filter(Boolean)||[];
-  const entry = { id: editingId||Date.now(), nom, habilitations: habs, produitsIds, champsResultats, resultatRequis, sousAnalyses, description: document.getElementById('a-desc').value };
-  if (editingId) { const i=state.catalogue.findIndex(x=>x.id===editingId); state.catalogue[i]=entry; addActivity('book','Analyse modifiee : '+nom); }
-  else { state.catalogue.push(entry); addActivity('book','Analyse ajoutee au catalogue : '+nom); }
-  editingId = null;
-  closeModal('modal-analyse');
-  renderCatalogue();
-  populateCatalogueSelect();
-  saveData();
-  toast('Analyse enregistree', 'success');
-}
 
-function renderCatalogue() {
-  const q = (document.getElementById('search-catalogue')?.value||'').toLowerCase();
-  const rows = [...(state.catalogue||[])].filter(a => !q || a.nom.toLowerCase().includes(q) || (a.code||'').toLowerCase().includes(q)).sort((a,b)=>(a.nom||'').localeCompare(b.nom||''));
-  const tbody = document.getElementById('catalogue-tbody');
-  if (!tbody) return;
-  if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
-  tbody.innerHTML = rows.map(a => {
-    const prods = (a.produitsIds||[]).map(id=>(state.produitsEch||[]).find(p=>p.id===id)).filter(Boolean);
-    return `<tr>
-    <td><strong>${a.nom}</strong>${a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':''}</td>
-    <td>${(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')|| '<span style="color:var(--text3)">Aucune</span>'}</td>
-    <td style="font-size:12px;color:var(--text2)">${a.description||a.duree||'—'}</td>
-    <td><div class="actions"><button class="icon-btn" onclick="editAnalyse(${a.id})"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse(${a.id})"><i class="ti ti-trash"></i></button></div></td>
-  </tr>`;
-  }).join('');
-}
 
-function editAnalyse(id) {
-  const a = (state.catalogue||[]).find(x=>x.id===id); if(!a) return;
-  editingId = id;
-  document.getElementById('a-nom').value = a.nom||'';
-  if(document.getElementById('a-sous-analyses')) document.getElementById('a-sous-analyses').value = (a.sousAnalyses||[]).join(', ');
-  
-  document.getElementById('a-duree').value = a.duree||'';
-  document.getElementById('a-code').value = a.code||'';
-  document.getElementById('a-desc').value = a.description||'';
-  // Charger les produits et champs après ouverture du modal
-  setTimeout(() => {
-    if (typeof populateProduitsAnalyseCheck === 'function') populateProduitsAnalyseCheck(a.produitsIds||[]);
-    if (typeof chargerChampResultats === 'function') chargerChampResultats(a.champsResultats||null);
-  }, 80);
-
-  document.getElementById('modal-analyse-title').textContent = 'Modifier l\'analyse';
-  openModal('modal-analyse');
-}
 
 function deleteAnalyse(id) {
   const a = (state.catalogue||[]).find(x=>x.id===id);
@@ -4108,79 +3581,6 @@ function resetFiltres() {
 }
 
 // -- TABLE CONTENANTS avec filtres ----------------------------
-function renderReactifsTable() {
-  if (!state.contenants) state.contenants = [];
-  const fProduit = window._rcFilter?.produit||[];
-  const fLot = window._rcFilter?.lot||[];
-  const fFourn = window._rcFilter?.fourn||[];
-  const fReception = window._rcFilter?.reception||[];
-  const fOuverture = window._rcFilter?.ouverture||[];
-  const fPeremption = window._rcFilter?.peremption||[];
-  const fStatut = window._rcFilter?.statut||[];
-  const fValiditeSt = window._rcFilter?.validite_statut||[];
-  const today = new Date(); today.setHours(0,0,0,0);
-
-  const contenants = state.contenants.filter(c => {
-    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
-    const statAuto = getStatutAuto(c);
-    if (['archive','retire','expire'].includes(statAuto)) return false;
-    if (fProduit.length && !fProduit.includes(p.nom||'')) return false;
-    if (fLot.length && !fLot.includes(c.lot||'')) return false;
-    if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
-    if (fReception.length && !fReception.includes(formatDate(c.reception))) return false;
-    if (fOuverture.length && !fOuverture.includes(formatDate(c.ouverture))) return false;
-    if (fPeremption.length && !fPeremption.includes(formatDate(c.peremption))) return false;
-    if (fStatut.length) {
-      const label = statAuto==='en_stock'?'En stock':statAuto==='ouvert'?'Ouvert':'';
-      if(!fStatut.includes(label)) return false;
-    }
-    if (fValiditeSt.length) {
-      let label;
-      if(!c.validite) label='Non ouvert';
-      else { const dV=new Date(c.validite); const r=Math.ceil((dV-today)/(1000*60*60*24)); label=r>30?'OK':r>0?'Alerte':'Expiré'; }
-      if(!fValiditeSt.includes(label)) return false;
-    }
-    return true;
-  });
-
-  const tbody = document.getElementById('reactifs-tbody');
-  if (!tbody) return;
-  if (!contenants.length) { tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun contenant trouve</p></div></td></tr>'; return; }
-
-  tbody.innerHTML = contenants.map(c => {
-    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
-    const statAuto = getStatutAuto(c);
-    const expFab = expiryStatus(c.peremption);
-    const expVal = c.validite ? expiryStatus(c.validite) : { cls:'', badge:'<span class="badge badge-gray">-</span>' };
-    const canOpen = !c.ouverture && statAuto !== 'archive' && statAuto !== 'retire';
-    return `<tr>
-      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}</td>
-      <td style="text-align:center"><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
-      <td style="font-size:12px;color:var(--text2);text-align:center">${p.localisation||'—'}</td>
-      <td style="font-size:12px;text-align:center">${c.reception?formatDate(c.reception):'-'}</td>
-      <td style="font-size:12px;text-align:center">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
-      <td style="font-size:12px;text-align:center" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
-      <td style="font-size:12px;text-align:center">${p.bvs ? '<span class="badge" style="background:#EDE7F6;color:#7C3AED;font-size:12px;font-weight:600">Voir BVS</span>' : c.validite ? '<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>' : '<span style="color:var(--text3)">Non ouvert</span>'}</td>
-      <td>${statutContenantBadge(statAuto)}</td>
-      <td style="text-align:center;font-size:12px">${c.ouverture ? (c.ouvertPar?'<strong>'+c.ouvertPar+'</strong>':'<span style="font-size:10px;color:var(--text3)">'+formatDate(c.ouverture)+'</span>') : '<span style="color:var(--text3)">—</span>'}</td>
-      <td style="text-align:center">${c.verifiedBy ? '<span class="badge badge-green" style="font-size:11px;cursor:pointer" onclick="unverifyContenant('+c.id+')" title="Cliquer pour annuler">✓ '+c.verifiedBy+'</span>' : '<button onclick="verifyContenant('+c.id+')" style="background:none;border:2px dashed #ddd;border-radius:6px;cursor:pointer;padding:4px 8px;font-size:11px;color:#aaa">Vérifier</button>'}</td>
-      <td>
-        <div class="actions" style="opacity:1;flex-wrap:nowrap;gap:4px">
-          ${canOpen
-        ? `<button class="icon-btn" onclick="ouvrirContenant(${c.id})" title="Enregistrer l'ouverture" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>`
-        +(c.coaUrl?`<a href="${c.coaUrl}" target="_blank" class="icon-btn" title="Voir le CoA" style="color:var(--purple)"><i class="ti ti-file-certificate"></i></a>`:'')
-        : statAuto === 'ouvert'
-          ? `<button class="icon-btn danger" onclick="fermerContenant(${c.id})" title="Clôturer - passer en archive"><i class="ti ti-lock"></i></button>`
-          +(c.coaUrl?`<a href="${c.coaUrl}" target="_blank" class="icon-btn" title="Voir le CoA" style="color:var(--purple)"><i class="ti ti-file-certificate"></i></a>`:'')
-          : ''
-      }
-          <button class="icon-btn" onclick="editContenant(${c.id})" title="Modifier"><i class="ti ti-pencil"></i></button>
-          <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
-        </div>
-      </td>
-    </tr>`;
-  }).join('');
-}
 
 function isReactifCritical(r) {
   if (!r.expiry) return false;
@@ -5072,24 +4472,7 @@ window.imprimerPerimesContenants = imprimerPerimesContenants;
 
 window.renderProduitsAccordion = renderProduitsAccordion;
 window.renderPlanningTable = renderPlanningTable;
-window.renderEchantillonsTable = renderEchantillonsTableAlignedV105;
-window.approuverLot = approuverLot;
-window.ouvrirModalResultat = ouvrirModalResultat;
-window.ajouterChampResultat = ajouterChampResultat;
-window.toggleConformiteChamp = toggleConformiteChamp;
-window.sauvegarderResultat = sauvegarderResultat;
-window.renderTendances = renderTendances;
 window.resetTendances = resetTendances;
-window.onTendProduitChange = onTendProduitChange;
-window.onTendAnalyseChange = onTendAnalyseChange;
-window.onTendProduitChange = onTendProduitChange;
-window.onTendAnalyseChange = onTendAnalyseChange;
-window.selectConformite = selectConformite;
-window.selectConformite = selectConformite;
-window.renderLotsLiberes = renderLotsLiberes;
-window.updateBadgeLiberes = updateBadgeLiberes;
-window.archiverLot = archiverLot;
-window.exportLotsLiberes = exportLotsLiberes;
 window.renderTechniciens = renderTechniciens;
 window.renderDashboard = renderDashboard;
 window.renderCalendar = renderCalendar;
@@ -5205,7 +4588,6 @@ window.renderMarches = renderMarches;
 window.onProduitEchSelect = onProduitEchSelect;
 window.onMarcheEchChange = onMarcheEchChange;
 window.populateMarcheChecks = populateMarcheChecks;
-window.populateAnalysesChecks = populateAnalysesChecks;
 // ============================================================
 // PLANNING SEMAINE
 // ============================================================
@@ -5364,7 +4746,7 @@ function renderPlanSemaine() {
   // Zone À planifier sous le tableau
   html += '<div style="margin-top:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);padding:16px">';
   html += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:8px"><i class="ti ti-clock" style="color:var(--amber)"></i>Analyses à planifier</div>';
-  html += '<div id="zone-a-planifier" style="display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:4px" ondragover="event.preventDefault();event.dataTransfer.dropEffect='move';" ondrop="onDropBackToList(event)">';
+  html += '<div id="zone-a-planifier" style="display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:4px" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
   if (etiquettes.length === 0) {
     html += '<div style="font-size:12px;color:var(--text3);font-style:italic;align-self:center">✓ Toutes les analyses sont planifiées</div>';
   } else {
@@ -5694,7 +5076,6 @@ function selectPlanType(type) {
 }
 
 function openModalPlanTask(date, techId) {
-  window._editingPlanTaskId = null;
   document.getElementById('modal-plan-task-title').textContent = 'Nouvelle tâche';
   document.getElementById('plan-task-type').value = '';
   document.getElementById('plan-task-desc').value = '';
@@ -5876,7 +5257,6 @@ function addSpqMarche(marcheId, selectedAnalyses) {
 
 function openModalSPQ() {
   _editingSpqId = null;
-  window._editingSpqId = null;
   document.getElementById('modal-spq-title').textContent = 'Nouvelle SPQ';
   document.getElementById('spq-ref').value = '';
   
@@ -5951,13 +5331,8 @@ function deleteSPQ(id) {
 }
 
 
-window.openWizard = openWizard;
-window.wizardNext = wizardNext;
-window.wizardPrev = wizardPrev;
-window.toggleTypeCard = toggleTypeCard;
 window.onWizardCodeArticleChange = onWizardCodeArticleChange;
 window.onWizardArticleSelect = onWizardArticleSelect;
-window.wizardConfirm = wizardConfirm;
 
 // ============================================================
 // FILTRES STYLE EXCEL
@@ -6327,7 +5702,6 @@ function renderProfilsConfig() {
 }
 
 function openModalProfil() {
-  window._editingProfilId = null;
   document.getElementById('modal-profil-title').textContent = 'Nouveau profil';
   document.getElementById('profil-nom').value = '';
   document.getElementById('profil-icone').value = 'ti-user';
@@ -6402,7 +5776,6 @@ function deleteProfil(id) {
 window.showHomeScreen = showHomeScreen;
 window.selectProfile = selectProfile;
 window.enterAdmin = enterAdmin;
-window.exitProfile = exitProfile;
 window.renderProfilsConfig = renderProfilsConfig;
 window.openModalProfil = openModalProfil;
 window.editProfil = editProfil;
@@ -6513,7 +5886,6 @@ function onArtSpqChange() {
 }
 
 function openModalArticle() {
-  window._editingArticleId = null;
   document.getElementById('modal-article-title').textContent = 'Nouveau code article';
   document.getElementById('art-code').value = '';
   document.getElementById('art-nom').value = '';
@@ -6681,7 +6053,6 @@ function renderArchivedPreps() {
 }
 
 function openModalCataloguePrep() {
-  window._editingCatPrepId = null;
   ['cp-nom','cp-desc','cp-format','cp-emplacement'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('cp-type').value='pe';
   document.getElementById('cp-peremption').value='';
@@ -6722,7 +6093,6 @@ function deleteCataloguePrep(id) {
 }
 
 function openModalPrep() {
-  window._editingPrepId=null;
   const sel=document.getElementById('prep-reactif');
   sel.innerHTML='<option value="">— Sélectionner —</option>'+(state.cataloguePrep||[]).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
   const techSel=document.getElementById('prep-technicien');
@@ -6952,10 +6322,7 @@ window.deletePlanTask = deletePlanTask;
 window.selectPlanType = selectPlanType;
 window.onPlanDragStart = onPlanDragStart;
 window.onPlanDrop = onPlanDrop;
-window.saveAnalyse = saveAnalyse;
-window.editAnalyse = editAnalyse;
 window.deleteAnalyse = deleteAnalyse;
-window.renderCatalogue = renderCatalogue;
 window.populateCatalogueSelect = populateCatalogueSelect;
 window.onCatalogueSelect = onCatalogueSelect;
 window.populateTechSelectFiltered = populateTechSelectFiltered;
@@ -6966,7 +6333,6 @@ window.populateTechSelectFiltered = populateTechSelectFiltered;
 function destroyRcStickyHeader() {
   if (window._rcStickyHandler) {
     window.removeEventListener('scroll', window._rcStickyHandler);
-    window._rcStickyHandler = null;
   }
   const clone = document.getElementById('rc-sticky-clone');
   if (clone) clone.remove();
@@ -7123,34 +6489,18 @@ function toast(msg, type='info') {
   setTimeout(() => t.remove(), 3500);
 }
 
-window.openWizard = openWizard;
 window.wizardNext = wizardNext;
 window.wizardPrev = wizardPrev;
 window.wizardUpdateProduit = wizardUpdateProduit;
-window.toggleTypeCard = toggleTypeCard;
-window.isStabOnly = isStabOnly;
-window.isPIFOnly = isPIFOnly;
-window.isMPOnly = isMPOnly;
-window.previewSousSeriesPIF = previewSousSeriesPIF;
-window.populatePIFMarches = populatePIFMarches;
 window.previewSousSeries = previewSousSeries;
-window.wizardConfirm = wizardConfirm;
-window.wizardLoadAnalyses = wizardLoadAnalyses;
-window.cycleAnalyseStatut = cycleAnalyseStatut;
-window.statutIcon = statutIcon;
 window.resetFiltresEch = resetFiltresEch;
-window.renderEchantillonsTable = renderEchantillonsTableAlignedV105;
 window.approuverLot = approuverLot;
-window.ouvrirModalResultat = ouvrirModalResultat;
 window.ajouterChampResultat = ajouterChampResultat;
 window.toggleConformiteChamp = toggleConformiteChamp;
 window.sauvegarderResultat = sauvegarderResultat;
 window.renderTendances = renderTendances;
 window.onTendProduitChange = onTendProduitChange;
 window.onTendAnalyseChange = onTendAnalyseChange;
-window.onTendProduitChange = onTendProduitChange;
-window.onTendAnalyseChange = onTendAnalyseChange;
-window.selectConformite = selectConformite;
 window.selectConformite = selectConformite;
 window.renderLotsLiberes = renderLotsLiberes;
 window.updateBadgeLiberes = updateBadgeLiberes;
@@ -7472,15 +6822,12 @@ window.saveAnalyseResultat = sauvegarderResultat;
 window.saveAnalyse = saveAnalyse;
 window.renderCatalogue = renderCatalogue;
 window.editAnalyse = editAnalyse;
-window.openWizard = openWizard;
-window.toggleTypeCard = toggleTypeCard;
 window.isStabOnly = isStabOnly;
 window.isPIFOnly = isPIFOnly;
 window.isMPOnly = isMPOnly;
 window.previewSousSeriesPIF = previewSousSeriesPIF;
 window.populatePIFMarches = populatePIFMarches;
 window.wizardLoadAnalyses = wizardLoadAnalyses;
-window.renderEchantillonsTable = renderEchantillonsTableAlignedV105;
 window.cycleAnalyseStatut = cycleAnalyseStatut;
 window.statutIcon = statutIcon;
 
