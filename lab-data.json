@@ -2107,6 +2107,15 @@
       "format": "HCPCxxxx-x p.xx-x",
       "emplacement": "FRIGO",
       "desc": "TCC0004"
+    },
+    {
+      "id": 1786272503847,
+      "nom": "Solutions Mères Conservateurs",
+      "type": "autre",
+      "peremption": 1,
+      "format": "HCPCxxxx-x p.xx-x",
+      "emplacement": "FRIGO",
+      "desc": "TCC0013"
     }
   ],
   "profils": [
