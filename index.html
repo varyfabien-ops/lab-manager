@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v282 — Physico-Chimie</title>
+<title>LabManager v283 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -5033,11 +5033,14 @@ function onDropBackToList(event) {
   if (planDraggedTask) {
     const task = (state.planTasks||[]).find(t => t.id === planDraggedTask);
     if (task) {
-      if (task.manuel) {
+      if (task.sousKey) {
+        // Sous-analyse ou étiquette fixe (STEP, Conductivité, EDR) : supprimer du planning
+        state.planTasks = state.planTasks.filter(t => t.id !== planDraggedTask);
+      } else if (task.manuel) {
         // Étiquette manuelle : remettre sans date
         task.date = null; task.techId = null;
       } else if (task.echId) {
-        // Étiquette depuis réception : supprimer du planning
+        // Analyse depuis réception : supprimer du planning
         state.planTasks = state.planTasks.filter(t => t.id !== planDraggedTask);
       }
       saveData();
