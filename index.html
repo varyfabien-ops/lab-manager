@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v261 — Physico-Chimie</title>
+<title>LabManager v263 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4302,10 +4302,95 @@ window.computeValidite = computeValidite;
 window.getStatutAuto = getStatutAuto;
 window.populateProduitSelect = populateProduitSelect;
 window.populateTechSelects = populateTechSelects;
+
+function renderReactifsTable() {
+  if (!state.contenants) state.contenants = [];
+  const fProduit = window._rcFilter?.produit||[];
+  const fLot = window._rcFilter?.lot||[];
+  const fFourn = window._rcFilter?.fourn||[];
+  const fReception = window._rcFilter?.reception||[];
+  const fOuverture = window._rcFilter?.ouverture||[];
+  const fPeremption = window._rcFilter?.peremption||[];
+  const fStatut = window._rcFilter?.statut||[];
+  const fValiditeSt = window._rcFilter?.validite_statut||[];
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  const contenants = state.contenants.filter(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const statAuto = getStatutAuto(c);
+    if (['archive','retire','expire'].includes(statAuto)) return false;
+    if (fProduit.length && !fProduit.includes(p.nom||'')) return false;
+    if (fLot.length && !fLot.includes(c.lot||'')) return false;
+    if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
+    if (fReception.length && !fReception.includes(formatDate(c.reception))) return false;
+    if (fOuverture.length && !fOuverture.includes(formatDate(c.ouverture))) return false;
+    if (fPeremption.length && !fPeremption.includes(formatDate(c.peremption))) return false;
+    if (fStatut.length) {
+      const label = statAuto==='en_stock'?'En stock':statAuto==='ouvert'?'Ouvert':'';
+      if(!fStatut.includes(label)) return false;
+    }
+    if (fValiditeSt.length) {
+      let label;
+      if(!c.validite) label='Non ouvert';
+      else { const dV=new Date(c.validite); const r=Math.ceil((dV-today)/(1000*60*60*24)); label=r>30?'OK':r>0?'Alerte':'Expiré'; }
+      if(!fValiditeSt.includes(label)) return false;
+    }
+    return true;
+  });
+
+  const tbody = document.getElementById('reactifs-tbody');
+  if (!tbody) return;
+  if (!contenants.length) {
+    tbody.innerHTML = '<tr><td colspan="11"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun réactif trouvé</p></div></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = contenants.map(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId)||{};
+    const statAuto = getStatutAuto(c);
+    const expFab = expiryStatus(c.peremption);
+    const expVal = c.validite ? expiryStatus(c.validite) : {bg:'var(--bg3)',color:'var(--text3)'};
+    const canOpen = !c.ouverture && !['archive','retire'].includes(statAuto);
+    const statutLabel = statAuto==='ouvert'
+      ? '<span class="badge" style="background:var(--green-dim);color:var(--green)"><i class="ti ti-lock-open" style="font-size:10px"></i> Ouvert</span>'
+      : '<span class="badge" style="background:var(--cyan-dim);color:var(--cyan)"><i class="ti ti-circle-plus" style="font-size:10px"></i> En stock</span>';
+    const validCell = p.bvs
+      ? '<span class="badge" style="background:#EDE7F6;color:#7C3AED;font-size:12px;font-weight:600">Voir BVS</span>'
+      : c.validite
+        ? '<span class="badge" style="background:'+expVal.bg+';color:'+expVal.color+';font-size:12px;font-weight:600">'+formatDate(c.validite)+'</span>'
+        : '<span style="color:var(--text3)">Non ouvert</span>';
+    const ouvertureCell = c.ouverture
+      ? (c.ouvertPar ? '<strong>'+c.ouvertPar+'</strong>' : '<span style="font-size:10px;color:var(--text3)">'+formatDate(c.ouverture)+'</span>')
+      : '<span style="color:var(--text3)">—</span>';
+    const verifCell = c.verifiedBy
+      ? '<span style="color:var(--green);font-weight:600">✓'+c.verifiedBy+'</span>'
+      : '<button class="btn" style="font-size:11px;padding:3px 8px" onclick="verifierContenant('+c.id+')">Vérifier</button>';
+    return `<tr>
+      <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}</td>
+      <td style="text-align:center"><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
+      <td style="font-size:12px;color:var(--text2);text-align:center">${p.localisation||'—'}</td>
+      <td style="font-size:12px;text-align:center">${c.reception?formatDate(c.reception):'-'}</td>
+      <td style="font-size:12px;text-align:center">${c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">-</span>'}</td>
+      <td style="font-size:12px;text-align:center" class="${expFab.cls}">${c.peremption?formatDate(c.peremption):'-'}</td>
+      <td style="font-size:12px;text-align:center">${validCell}</td>
+      <td style="text-align:center">${statutLabel}</td>
+      <td style="text-align:center;font-size:12px">${ouvertureCell}</td>
+      <td style="text-align:center;font-size:12px">${verifCell}</td>
+      <td style="text-align:center">
+        <div class="actions" style="opacity:1;justify-content:center">
+          ${canOpen ? '<button class="icon-btn" onclick="ouvrirContenant('+c.id+')" title="Ouvrir" style="color:var(--cyan);border-color:var(--cyan3)"><i class="ti ti-lock-open"></i></button>' : '<button class="icon-btn" onclick="fermerContenant('+c.id+')" title="Archiver"><i class="ti ti-lock"></i></button>'}
+          ${c.coaUrl ? '<a href="'+c.coaUrl+'" target="_blank" class="icon-btn" title="CoA" style="color:var(--cyan)"><i class="ti ti-clipboard-text"></i></a>' : ''}
+          <button class="icon-btn" onclick="editContenant(${c.id})" title="Modifier"><i class="ti ti-pencil"></i></button>
+          <button class="icon-btn danger" onclick="deleteContenant(${c.id})" title="Supprimer"><i class="ti ti-trash"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+  updateRcFilterIcons();
+  setTimeout(initRcStickyHeader, 50);
+}
+
 window.renderReactifsTable = renderReactifsTable;
-var renderReactifsTable;
-const _origRenderRC = renderReactifsTable;
-renderReactifsTable = function() { _origRenderRC(); setTimeout(initRcStickyHeader, 50); };
 
 function verifyContenant(id) {
   const techs = state.techniciens||[];
