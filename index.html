@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v289 — Physico-Chimie</title>
+<title>LabManager v290 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1369,8 +1369,9 @@ function wizardLoadArticlesSelect() {
   const typePIF = wizardIsPifSelected() || wizardIsStabSelected();
   const typeMP = wizardIsMpSelected();
   const articles = (state.articles||[]).filter(a => {
-    if (typeMP) return a.type === 'MP';
-    if (typePIF) return a.type === 'PIF_STAB' || !a.type;
+    const t = (a.type||'').toLowerCase();
+    if (typeMP) return t === 'mp';
+    if (typePIF) return t === 'pif_stab' || !a.type;
     return true;
   }).sort((a,b) => (a.code||'').localeCompare(b.code||''));
   sel.innerHTML = '<option value="">— Choisir un article —</option>' +
