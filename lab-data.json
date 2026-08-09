@@ -1560,11 +1560,6 @@
     },
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot HC46017601",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot HC57833622",
       "time": "08/08 21:09"
     },
@@ -1802,6 +1797,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
       "time": "09/08 20:47"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQxxxx",
+      "time": "09/08 20:47"
     }
   ],
   "spq": [
@@ -1894,6 +1894,19 @@
       "ref": "SPQ0209",
       "produits": "",
       "marches": []
+    },
+    {
+      "id": 1786301246939,
+      "ref": "SPQxxxx",
+      "marches": [
+        {
+          "marcheId": 1785169908180,
+          "analyses": [
+            1785169966496,
+            1786301151090
+          ]
+        }
+      ]
     }
   ],
   "articles": [
