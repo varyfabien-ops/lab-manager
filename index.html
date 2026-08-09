@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v279 — Physico-Chimie</title>
+<title>LabManager v281 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -4888,32 +4888,33 @@ function buildEtiquettesAPlanifier() {
       const cat = (state.catalogue || []).find(c => Number(c.id) === Number(aId));
       if (!cat) return;
 
-      // Vérifier si déjà planifiée (seulement l'analyse principale, pas les sous-analyses)
+      // Vérifier si déjà planifiée (seulement l'analyse principale)
       const dejaPlannee = (state.planTasks || []).some(t =>
         t.echId === ech.id && Number(t.analyseId) === Number(aId) && !t.isSous && t.date
       );
-      if (dejaPlannee) return;
 
       if (!analyseMap[cat.nom]) {
-        analyseMap[cat.nom] = { analyseId: aId, sousAnalyses: cat.sousAnalyses || [], echIds: [] };
+        analyseMap[cat.nom] = { analyseId: aId, sousAnalyses: cat.sousAnalyses || [], echIds: [], planifiee: dejaPlannee };
       }
-      analyseMap[cat.nom].echIds.push(ech.id);
+      if (!dejaPlannee) analyseMap[cat.nom].echIds.push(ech.id);
     });
   });
 
   // Créer une étiquette par analyse unique + une par sous-analyse
   Object.entries(analyseMap).forEach(([nom, info]) => {
-    // Étiquette principale
-    const autoColMain = getAutoColor(nom);
-    etiquettes.push({
-      nom,
-      echId: info.echIds[0],
-      analyseId: info.analyseId,
-      echIds: info.echIds,
-      sousAnalyses: info.sousAnalyses,
-      isSous: false,
-      color: autoColMain || null,
-    });
+    // Étiquette principale (seulement si pas encore planifiée)
+    if (!info.planifiee && info.echIds.length > 0) {
+      const autoColMain = getAutoColor(nom);
+      etiquettes.push({
+        nom,
+        echId: info.echIds[0],
+        analyseId: info.analyseId,
+        echIds: info.echIds,
+        sousAnalyses: info.sousAnalyses,
+        isSous: false,
+        color: autoColMain || null,
+      });
+    }
     // Étiquettes sous-analyses (séparées, indépendantes)
     (info.sousAnalyses || []).forEach((sousNom, sousIdx) => {
       const autoCol = getAutoColor(sousNom);
