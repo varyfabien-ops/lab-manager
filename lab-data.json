@@ -1891,6 +1891,15 @@
       "date": "2026-08-10",
       "lot": "",
       "note": ""
+    },
+    {
+      "id": 1786286794988,
+      "type": "eaux",
+      "desc": "STEP",
+      "techId": null,
+      "date": "2026-08-10",
+      "lot": "",
+      "note": ""
     }
   ],
   "planRythmes": {
