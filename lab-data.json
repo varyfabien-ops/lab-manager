@@ -1876,16 +1876,38 @@
       }
     },
     {
-      "id": 1786290826978,
-      "date": "2026-08-05",
-      "techId": "1786271486368",
-      "desc": "Vérification TCC0004 Bupivacaïne",
-      "analyseNom": "Vérification TCC0004 Bupivacaïne",
-      "analyseId": 1785247529863,
-      "echId": 1785349276514,
+      "id": 1786294931437,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - Conductivité",
+      "analyseNom": "Poste des Eaux - Conductivité",
+      "analyseId": null,
+      "echId": null,
       "type": "analyse",
       "sousAnalyses": [],
-      "note": ""
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#E3F2FD",
+        "border": "#2196F3"
+      }
+    },
+    {
+      "id": 1786294931438,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - Conductivité",
+      "analyseNom": "Poste des Eaux - Conductivité",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#E3F2FD",
+        "border": "#2196F3"
+      }
     }
   ],
   "planRythmes": {
