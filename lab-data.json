@@ -841,7 +841,7 @@
     },
     {
       "id": 1785247344996,
-      "nom": "TCC0004 Lidocaïne / PHBM",
+      "nom": "TCC0004 - Lidocaïne / PHBM",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -858,7 +858,11 @@
           "unite": "mg/mL"
         }
       ],
-      "resultatRequis": true
+      "resultatRequis": true,
+      "sousAnalyses": [
+        "Retraitement TCC0004 - Lidocaïne / PHBM",
+        "Vérification TCC0004 - Lidocaïne / PHBM"
+      ]
     },
     {
       "id": 1785247382413,
@@ -1590,11 +1594,6 @@
     },
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot R14640",
       "time": "08/08 21:09"
     },
@@ -1817,6 +1816,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "09/08 20:52"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
+      "time": "09/08 20:54"
     }
   ],
   "spq": [
