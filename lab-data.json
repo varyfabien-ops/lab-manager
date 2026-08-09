@@ -769,7 +769,11 @@
       "produitsIds": [],
       "description": "",
       "champsResultats": [],
-      "resultatRequis": false
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0004 Bupivacaïne",
+        "Vérification TCC0004 Bupivacaïne"
+      ]
     },
     {
       "id": 1785247569532,
@@ -1347,11 +1351,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Methylparaben (PHBM) lot R098B0",
-      "time": "08/08 18:58"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Propylparaben (PHBP)",
       "time": "08/08 20:02"
@@ -1595,6 +1594,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Limpidité / Coloration PE",
       "time": "09/08 17:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 Bupivacaïne",
+      "time": "09/08 17:32"
     }
   ],
   "spq": [
