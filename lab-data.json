@@ -1896,6 +1896,1617 @@
         "bg": "#E0F7FA",
         "border": "#00BCD4"
       }
+    },
+    {
+      "id": -410889080,
+      "date": null,
+      "techId": null,
+      "desc": "Retraitement TCC0004 Bupivacaïne",
+      "analyseNom": "Retraitement TCC0004 Bupivacaïne",
+      "analyseId": 1785247529863,
+      "sousKey": "1785247529863_sous_0",
+      "echId": 1785349276514,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#FCE4EC",
+        "border": "#E91E63"
+      },
+      "isSous": true,
+      "parentNom": "TCC0004 Bupivacaïne"
+    },
+    {
+      "id": -410889007,
+      "date": null,
+      "techId": null,
+      "desc": "Vérification TCC0004 Bupivacaïne",
+      "analyseNom": "Vérification TCC0004 Bupivacaïne",
+      "analyseId": 1785247529863,
+      "sousKey": "1785247529863_sous_1",
+      "echId": 1785349276514,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E8F5E9",
+        "border": "#4CAF50"
+      },
+      "isSous": true,
+      "parentNom": "TCC0004 Bupivacaïne"
+    },
+    {
+      "id": 1786295515510,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-03_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295515511,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-03_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295515512,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-03_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295515513,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-03_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295515514,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-03_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295521560,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295521561,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295521562,
+      "date": "2026-11-23",
+      "techId": "1786271486368",
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295521563,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295521564,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295524277,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-17_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295524278,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-17_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295524279,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-17_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295524280,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-17_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295524281,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-17_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525109,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-24_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525110,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-24_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525111,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-24_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525112,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-24_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525113,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-24_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525942,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-31_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525943,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-31_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525944,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-31_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525946,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-31_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295525947,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-31_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526226,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-07_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526227,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-07_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526228,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-07_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526229,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-07_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526230,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-07_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526425,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-14_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526426,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-14_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526427,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-14_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526428,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-14_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526429,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-14_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526610,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-21_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526611,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-21_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526612,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-21_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526613,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-21_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526614,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-21_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526809,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-28_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526810,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-28_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526811,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-28_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526812,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-28_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526813,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-09-28_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526976,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-05_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526977,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-05_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526978,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-05_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526979,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-05_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295526980,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-05_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527160,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-12_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527161,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-12_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527162,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-12_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527163,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-12_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527164,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-12_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527376,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-19_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527377,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-19_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527378,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-19_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527379,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-19_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295527380,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-19_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530560,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-27_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530561,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-27_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530562,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-27_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530563,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-27_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530564,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-27_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530727,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-20_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530728,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-20_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530729,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-20_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530730,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-20_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530731,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-20_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530926,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-13_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530927,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-13_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530929,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-13_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530930,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-13_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295530931,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-13_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295531109,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-06_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295531110,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-06_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295531111,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-06_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295531112,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-06_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295531113,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-07-06_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552342,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-26_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552343,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-26_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552344,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-26_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552345,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-26_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552346,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-10-26_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552526,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-02_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552527,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-02_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552528,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-02_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552529,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-02_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552530,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-02_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552676,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-09_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552677,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-09_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552678,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-09_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552679,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-09_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552680,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-09_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552826,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-16_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552827,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-16_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552828,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-16_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552829,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-16_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295552830,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-16_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295555692,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-23_0",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295555693,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-23_1",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295555694,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-23_2",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295555695,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-23_3",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
+    },
+    {
+      "id": 1786295555696,
+      "date": null,
+      "techId": null,
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-11-23_4",
+      "type": "analyse",
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "manuel": true
     }
   ],
   "planRythmes": {
