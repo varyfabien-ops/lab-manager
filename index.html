@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v283 — Physico-Chimie</title>
+<title>LabManager v285 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -1342,7 +1342,9 @@ function wizardValidate() {
   }
   if(wizardStep===2) {
     const code=document.getElementById('w-code-article')?.value.trim();
-    if(!code){ toast('Saisissez un code article','error'); return false; }
+    const sel=document.getElementById('w-article-select')?.value;
+    if(!code && !sel){ toast('Saisissez ou sélectionnez un code article','error'); return false; }
+    if(!window._wizardArticle && !code){ toast('Code article non reconnu','error'); return false; }
   }
   if(wizardStep===4) {
     const lot=document.getElementById('w-lot')?.value.trim();
@@ -1394,11 +1396,10 @@ function onWizardCodeArticleChange() {
 
 function onWizardArticleSelect() {
   const sel = document.getElementById('w-article-select');
-  const art = (state.articles||[]).find(a=>a.id===parseInt(sel.value));
-  if(art) {
-    document.getElementById('w-code-article').value = art.code;
-    onWizardCodeArticleChange();
-  }
+  const code = sel.value;
+  if (!code) return;
+  document.getElementById('w-code-article').value = code;
+  onWizardCodeArticleChange();
 }
 
 
@@ -4722,8 +4723,24 @@ function planSemaineToday() {
 function planSemaineNav(dir) {
   planSemaineStartDate = new Date(planSemaineStartDate);
   planSemaineStartDate.setDate(planSemaineStartDate.getDate() + dir * 7);
+  cleanOldFixedEtiquettes();
   renderPlanSemaine();
 }
+
+function cleanOldFixedEtiquettes() {
+  // Supprimer les étiquettes fixes sans date qui ne sont pas de la semaine courante
+  const currentKey = dateToKey(planSemaineStartDate);
+  const prefixes = ['step_', 'cond_', 'edr_'];
+  state.planTasks = (state.planTasks||[]).filter(t => {
+    if (!t.sousKey) return true;
+    const isFixed = prefixes.some(p => t.sousKey.startsWith(p));
+    if (!isFixed) return true;
+    if (t.date) return true; // planifiées : garder
+    // Sans date : garder seulement si de la semaine courante
+    return t.sousKey.includes('_' + currentKey + '_');
+  });
+}
+window.cleanOldFixedEtiquettes = cleanOldFixedEtiquettes;
 
 function dateToKey(d) {
   return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
@@ -6866,7 +6883,7 @@ previewSousSeries = function(){
 
 var wizardLoadMarches;
 wizardLoadMarches = function(){
-  const el=document.getElementById('w-marches-check'); if(!el)return;
+  const el=document.getElementById('w-marches-spq'); if(!el)return;
   if(wizardIsStabOnly() || (wizardIsMpSelected() && !wizardIsPifSelected())){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Non demandé pour ce type d’enregistrement.</div>'; return; }
   const marches=state.marches||[];
   if(!marches.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marché défini. Allez dans Échantillons > Marchés.</div>'; return; }
