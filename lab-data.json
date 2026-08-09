@@ -930,26 +930,16 @@
         "Balance",
         "Pipettes"
       ],
+      "duree": "",
+      "code": "",
       "produitsIds": [],
-      "champsResultats": [
-        {
-          "label": "Teneur en Naphazoline",
-          "type": "numerique",
-          "unite": "mg/mL"
-        },
-        {
-          "label": "Teneur en PHBM",
-          "type": "numerique",
-          "unite": "mg/mL"
-        },
-        {
-          "label": "Teneur en Lidocaïne",
-          "type": "numerique",
-          "unite": "mg/mL"
-        }
-      ],
-      "resultatRequis": true,
-      "description": ""
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0015 - Lidocaïne Naphazoline",
+        "Vérification TCC0015 - Lidocaïne Naphazoline"
+      ]
     },
     {
       "id": 1785336377803,
@@ -1584,11 +1574,6 @@
     },
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot R14640",
       "time": "08/08 21:09"
     },
@@ -1821,6 +1806,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0002 - Sodium",
       "time": "09/08 20:54"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
+      "time": "09/08 20:55"
     }
   ],
   "spq": [
