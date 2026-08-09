@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v285 — Physico-Chimie</title>
+<title>LabManager v287 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -6885,9 +6885,14 @@ var wizardLoadMarches;
 wizardLoadMarches = function(){
   const el=document.getElementById('w-marches-spq'); if(!el)return;
   if(wizardIsStabOnly() || (wizardIsMpSelected() && !wizardIsPifSelected())){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Non demandé pour ce type d’enregistrement.</div>'; return; }
-  const marches=state.marches||[];
-  if(!marches.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">Aucun marché défini. Allez dans Échantillons > Marchés.</div>'; return; }
-  el.innerHTML=marches.map(m=>'<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</div>'+(m.note?'<div style="font-size:11px;color:var(--text2)">'+m.note+'</div>':'')+'</div></label>').join('');
+  const art=window._wizardArticle;
+  const spq=art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
+  // Filtrer les marchés selon ceux paramétrés dans la SPQ
+  const spqMarcheIds = spq ? (spq.marches||[]).map(sm=>sm.marcheId) : null;
+  const allMarches = state.marches||[];
+  const marches = spqMarcheIds ? allMarches.filter(m=>spqMarcheIds.includes(m.id)) : allMarches;
+  if(!marches.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">'+(spq?'Aucun marché paramétré dans la SPQ '+spq.ref+'.':'Aucun marché défini.')+'</div>'; return; }
+  el.innerHTML=marches.map(m=>'<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" class="w-marche-cb" value="'+m.id+'" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</div>'+(m.note?'<div style="font-size:11px;color:var(--text2)">'+m.note+'</div>':'')+'</div></label>').join('');
 };
 
 var wizardLoadAnalyses;
