@@ -2087,7 +2087,7 @@
     {
       "id": 1786271372451,
       "nom": "Mélange Eau / Acétonitrile (60/40)",
-      "type": "pe",
+      "type": "autre",
       "peremption": 1,
       "format": "AAAA/XXXX",
       "emplacement": "I4",
