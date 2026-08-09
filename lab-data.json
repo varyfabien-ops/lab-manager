@@ -1727,24 +1727,6 @@
       }
     },
     {
-      "id": 1786295068507,
-      "date": "2026-08-12",
-      "techId": null,
-      "desc": "Poste des Eaux - STEP",
-      "analyseNom": "Poste des Eaux - STEP",
-      "analyseId": null,
-      "echId": null,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": "",
-      "manuel": true,
-      "color": {
-        "bg": "#E0F7FA",
-        "border": "#00BCD4"
-      },
-      "lot": ""
-    },
-    {
       "id": 1786295068508,
       "date": "2026-08-13",
       "techId": "1785175077562",
