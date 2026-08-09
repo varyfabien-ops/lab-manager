@@ -1347,11 +1347,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "5x Methylparaben (PHBM) lot R098B0 receptionne(s)",
-      "time": "08/08 18:51"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : Methylparaben (PHBM) lot R098B0",
       "time": "08/08 18:58"
@@ -1594,6 +1589,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 Bupivacaïne",
+      "time": "09/08 17:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Limpidité / Coloration PE",
       "time": "09/08 17:01"
     }
   ],
