@@ -2083,6 +2083,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "I4",
       "desc": ""
+    },
+    {
+      "id": 1786271372451,
+      "nom": "Mélange Eau / Acétonitrile (60/40)",
+      "type": "pe",
+      "peremption": 1,
+      "format": "AAAA/XXXX",
+      "emplacement": "I4",
+      "desc": ""
     }
   ],
   "profils": [
