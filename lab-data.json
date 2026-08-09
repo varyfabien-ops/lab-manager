@@ -2164,25 +2164,6 @@
       "isSous": true,
       "parentNom": "TCC0065 - MPEG",
       "manuel": false
-    },
-    {
-      "id": 1786301892254,
-      "date": "2026-08-05",
-      "techId": "1786271486368",
-      "desc": "Vérification TCC0002 - Sodium",
-      "analyseNom": "Vérification TCC0002 - Sodium",
-      "analyseId": 1785247382413,
-      "sousKey": "1785247382413_sous_0",
-      "echId": 1786298382051,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E8F5E9",
-        "border": "#4CAF50"
-      },
-      "isSous": true,
-      "parentNom": "TCC0002 - Sodium",
-      "manuel": false
     }
   ],
   "planRythmes": {
