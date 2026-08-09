@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v235 — Physico-Chimie</title>
+<title>LabManager v236 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -372,16 +372,16 @@
       <div class="table-card-header"><h3>Préparations en cours</h3><div class="spacer"></div>
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-prep" placeholder="Rechercher..." oninput="renderPreparations()"></div>
       </div>
-      <table><thead><tr>
-        <th>Réactif</th>
-        <th style="width:140px;white-space:nowrap">N° interne</th>
-        <th style="width:120px;white-space:nowrap">Date de préparation</th>
-        <th style="width:120px;white-space:nowrap">Date de validité</th>
-        <th style="width:100px;white-space:nowrap">Statut</th>
-        <th style="width:120px;white-space:nowrap">Emplacement</th>
-        <th style="width:80px;white-space:nowrap">Préparation</th>
-        <th style="width:100px;white-space:nowrap">Vérification</th>
-        <th style="width:60px"></th>
+      <table id="prep-table" style="width:100%;table-layout:fixed"><thead id="prep-thead"><tr>
+        <th style="text-align:left">Réactif</th>
+        <th style="width:180px;text-align:center;white-space:nowrap">N° interne</th>
+        <th style="width:130px;text-align:center;white-space:nowrap">Date préparation</th>
+        <th style="width:130px;text-align:center;white-space:nowrap">Date validité</th>
+        <th style="width:100px;text-align:center;white-space:nowrap">Statut</th>
+        <th style="width:120px;text-align:center;white-space:nowrap">Emplacement</th>
+        <th style="width:90px;text-align:center;white-space:nowrap">Préparation</th>
+        <th style="width:110px;text-align:center;white-space:nowrap">Vérification</th>
+        <th style="width:90px"></th>
       </tr></thead>
       <tbody id="prep-tbody"></tbody></table>
     </div>
@@ -3050,6 +3050,7 @@ function renderAll() {
 // ============================================================
 function goTo(page, el) {
   destroyRcStickyHeader();
+  destroyPrepStickyHeader();
   const pw = document.getElementById('profile-welcome');
   if(pw) pw.style.display = 'none';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -3521,6 +3522,7 @@ function togglePlanningMenu(e) {
 function goToPlanning(view) {
   updateNavActive('plan-'+view);
   destroyRcStickyHeader();
+  destroyPrepStickyHeader();
   const pw=document.getElementById('profile-welcome'); if(pw) pw.style.display='none';
   currentPlanningView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -4202,6 +4204,7 @@ function toggleEchMenu(e) {
 function goToEch(view) {
   updateNavActive('ech-'+view);
   destroyRcStickyHeader();
+  destroyPrepStickyHeader();
   const pw=document.getElementById('profile-welcome'); if(pw) pw.style.display='none';
   currentEchView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -5108,7 +5111,7 @@ function goToReactifs(view) {
   if (view === 'produits') renderProduitsAccordion();
   if (view === 'contenants') { renderReactifsTable(); setTimeout(initRcStickyHeader, 100); }
   if (view === 'archives') renderArchivesTable();
-  if (view === 'preparations') renderPreparations();
+  if (view === 'preparations') { renderPreparations(); setTimeout(initPrepStickyHeader,100); }
   if (view === 'catalogue-prep') renderCataloguePrep();
   if (view === 'archives-prep') renderArchivedPreps();
 }
@@ -6448,9 +6451,9 @@ function savePreparation() {
     techId, comment:document.getElementById('prep-comment').value.trim()
   };
   if(!state.preparations) state.preparations=[];
-  if(window._editingPrepId){const i=state.preparations.findIndex(x=>x.id===window._editingPrepId);if(i>=0)state.preparations[i]=entry;}
+  if(window._editingPrepId){const i=state.preparations.findIndex(x=>Number(x.id)===Number(window._editingPrepId));if(i>=0)state.preparations[i]=entry;else state.preparations.push(entry);}
   else state.preparations.push(entry);
-  closeModal('modal-prep'); saveData(); renderPreparations();
+  closeModal('modal-prep'); saveData(); renderPreparations(); setTimeout(initPrepStickyHeader,50);
   toast('Préparation enregistrée','success');
   addActivity('flask','Préparation: '+entry.nom+' '+numero);
 }
@@ -6679,6 +6682,46 @@ function initRcStickyHeader() {
   window.addEventListener('resize', syncWidths);
 }
 window.initRcStickyHeader = initRcStickyHeader;
+
+// ============================================================
+// STICKY THEAD PRÉPARATIONS
+// ============================================================
+function initPrepStickyHeader() {
+  const table = document.getElementById('prep-table');
+  const thead = document.getElementById('prep-thead');
+  if (!thead || !table) return;
+  const old = document.getElementById('prep-sticky-clone');
+  if (old) old.remove();
+  const clone = document.createElement('table');
+  clone.id = 'prep-sticky-clone';
+  clone.style.cssText = 'display:none;position:fixed;top:100px;z-index:200;background:var(--bg2);border-collapse:collapse;table-layout:fixed;box-shadow:0 2px 8px rgba(0,0,0,0.1);pointer-events:auto;';
+  clone.innerHTML = '<thead>' + thead.innerHTML + '</thead>';
+  document.body.appendChild(clone);
+  function syncWidths() {
+    const origCells = thead.querySelectorAll('th');
+    const cloneCells = clone.querySelectorAll('th');
+    const tableRect = table.getBoundingClientRect();
+    clone.style.left = tableRect.left + 'px';
+    clone.style.width = tableRect.width + 'px';
+    origCells.forEach((th,i) => { if(cloneCells[i]) cloneCells[i].style.width = th.offsetWidth+'px'; });
+  }
+  function onScroll() {
+    const theadRect = thead.getBoundingClientRect();
+    if (theadRect.top < 100) { clone.style.display=''; syncWidths(); }
+    else { clone.style.display='none'; }
+  }
+  if(window._prepStickyHandler) window.removeEventListener('scroll', window._prepStickyHandler);
+  window._prepStickyHandler = onScroll;
+  window.addEventListener('scroll', onScroll);
+}
+function destroyPrepStickyHeader() {
+  if(window._prepStickyHandler) { window.removeEventListener('scroll', window._prepStickyHandler); window._prepStickyHandler=null; }
+  const clone = document.getElementById('prep-sticky-clone');
+  if(clone) clone.remove();
+}
+window.initPrepStickyHeader = initPrepStickyHeader;
+window.destroyPrepStickyHeader = destroyPrepStickyHeader;
+
 
 window.goToReactifs = goToReactifs;
 window.renderArchivesTable = renderArchivesTable;
