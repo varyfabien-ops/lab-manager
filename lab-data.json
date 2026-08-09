@@ -1873,17 +1873,7 @@
       "spqId": 1785343255909
     }
   ],
-  "planTasks": [
-    {
-      "id": 1785336953377,
-      "type": "eaux",
-      "desc": "edr",
-      "techId": 1785175077562,
-      "date": "2026-08-03",
-      "lot": "",
-      "note": ""
-    }
-  ],
+  "planTasks": [],
   "preparations": [
     {
       "id": 1785422900371,
