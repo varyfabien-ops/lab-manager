@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v251 — Physico-Chimie</title>
+<title>LabManager v254 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -158,7 +158,7 @@
   .rythme-btn.absent.active { background: #f44336; color: white; }
   .rythme-cell { font-size: 11px; text-align: center; padding: 2px 0; }
   .absence-dot { width: 8px; height: 8px; border-radius: 50%; background: #f44336; display: inline-block; margin-left: 4px; }
-  .a-planifier-tag { background: #FFF8E1; border: 1.5px solid #FF9800; border-radius: 8px; padding: 8px 12px; font-size: 12px; cursor: grab; color: var(--text); user-select: none; line-height: 1.4; min-width: 160px; max-width: 240px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .a-planifier-tag { background: #FFF8E1; border: 1.5px solid #FF9800; border-radius: 8px; padding: 8px 12px; font-size: 12px; cursor: grab; color: var(--text); user-select: none; line-height: 1.4; min-width: 160px; max-width: 240px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); position: relative; z-index: 1; pointer-events: auto; touch-action: none; }
   .a-planifier-tag:hover { background: #FF9800; color: white; transform: translateY(-1px); box-shadow: 0 3px 8px rgba(255,152,0,0.3); }
   .a-planifier-tag .sous { font-weight: 400; font-size: 10px; color: var(--text2); margin-top: 3px; }
   .a-planifier-tag:hover .sous { color: rgba(255,255,255,0.85); }
@@ -5064,7 +5064,7 @@ function imprimerPerimesContenants() {
     return '<tr><td>'+( p.nom||'—')+'</td><td style="font-family:monospace">'+(c.lot||'—')+'</td><td>'+(p.fournisseur||'—')+'</td><td>'+formatDate(c.ouverture||'')+'</td><td style="color:#c0392b;font-weight:600">'+formatDate(dateRef)+'</td><td>'+(p.localisation||'—')+'</td></tr>';
   }).join('') : '<tr><td colspan="6" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun contenant périmé</td></tr>';
   const win = window.open('', '_blank');
-  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Contenants périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs commerciaux à éliminer</h1><p style="color:#666">'+dateStr+'</p><table><thead><tr><th>Produit</th><th>Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script>');
+  win.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Contenants périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs commerciaux à éliminer</h1><p style="color:#666">'+dateStr+'</p><table><thead><tr><th>Produit</th><th>Lot</th><th>Fournisseur</th><th>Date ouverture</th><th>Date de validité</th><th>Localisation</th></tr></thead><tbody>'+rows+'</tbody></table><scr'+'ipt>window.onload=()=>window.print();<'+'/scr'+'ipt>');
   win.document.close();
 }
 
@@ -5364,13 +5364,13 @@ function renderPlanSemaine() {
   // Zone À planifier sous le tableau
   html += '<div style="margin-top:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);padding:16px">';
   html += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:8px"><i class="ti ti-clock" style="color:var(--amber)"></i>Analyses à planifier</div>';
-  html += '<div style="display:flex;flex-wrap:wrap;gap:8px;min-height:48px" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
+  html += '<div id="zone-a-planifier" style="display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:4px" ondragover="event.preventDefault();event.dataTransfer.dropEffect='move';" ondrop="onDropBackToList(event)">';
   if (etiquettes.length === 0) {
     html += '<div style="font-size:12px;color:var(--text3);font-style:italic;align-self:center">✓ Toutes les analyses sont planifiées</div>';
   } else {
     etiquettes.forEach((e, idx) => {
-      const bg = e.isSous ? '#F3E5F5' : '#FFF8E1';
-      const border = e.isSous ? '#9C27B0' : '#FF9800';
+      const bg = e.color ? e.color.bg : (e.isSous ? '#F3E5F5' : '#FFF8E1');
+      const border = e.color ? e.color.border : (e.isSous ? '#9C27B0' : '#FF9800');
       html += '<div class="a-planifier-tag" draggable="true" ondragstart="onDragNewTask(event,' + idx + ')" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + '" title="Glisser vers une cellule du planning">';
       html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
       html += '</div>';
@@ -5453,6 +5453,7 @@ function buildEtiquettesAPlanifier() {
         sousAnalyses: [],
         isSous: false,
         planTaskId: t.id,
+        color: t.color || { bg:'#FFF8E1', border:'#FF9800' },
       });
     }
   });
@@ -5539,16 +5540,44 @@ function addEtiquetteLine() {
   const count = lines.children.length;
   if (count >= 5) { toast('Maximum 5 étiquettes à la fois', 'error'); return; }
   const idx = Date.now();
+  const colors = [{bg:'#FFF8E1',border:'#FF9800'},{bg:'#F3E5F5',border:'#9C27B0'},{bg:'#E3F2FD',border:'#2196F3'},{bg:'#E8F5E9',border:'#4CAF50'},{bg:'#FFEBEE',border:'#f44336'},{bg:'#E0F7FA',border:'#00BCD4'}];
+  const swatches = colors.map((c,i) => 
+    `<div onclick="selectEtiqColor(this,'${c.bg}','${c.border}')" style="width:20px;height:20px;border-radius:50%;background:${c.bg};border:2px solid ${c.border};cursor:pointer;transition:transform 0.1s" title="${c.border}"></div>`
+  ).join('');
   const div = document.createElement('div');
-  div.style.cssText = 'display:flex;gap:8px;align-items:center';
+  div.style.cssText = 'display:flex;flex-direction:column;gap:6px;padding:10px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)';
   div.innerHTML = `
-    <input id="etiq-nom-${idx}" placeholder="Nom de l'analyse..." style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
-    <input id="etiq-lot-${idx}" placeholder="Lot (optionnel)" style="width:120px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
-    <button class="icon-btn danger" onclick="this.parentElement.remove();updateAddBtnEtiq()" style="flex-shrink:0"><i class="ti ti-x"></i></button>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input id="etiq-nom-${idx}" placeholder="Nom de l'analyse..." style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text)">
+      <button class="icon-btn danger" onclick="this.closest('div[style]').remove();updateAddBtnEtiq()" style="flex-shrink:0"><i class="ti ti-x"></i></button>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="font-size:11px;color:var(--text2)">Couleur :</span>
+      <div id="etiq-colors-${idx}" style="display:flex;gap:6px;align-items:center">${swatches}</div>
+      <input type="hidden" id="etiq-bg-${idx}" value="#FFF8E1">
+      <input type="hidden" id="etiq-border-${idx}" value="#FF9800">
+    </div>
   `;
+  // Sélectionner la première couleur par défaut
   lines.appendChild(div);
+  const firstSwatch = div.querySelector('[onclick^="selectEtiqColor"]');
+  if (firstSwatch) { firstSwatch.style.transform = 'scale(1.3)'; firstSwatch.style.boxShadow = '0 0 0 2px white, 0 0 0 4px #FF9800'; }
   updateAddBtnEtiq();
 }
+
+function selectEtiqColor(el, bg, border) {
+  const container = el.parentElement;
+  container.querySelectorAll('div').forEach(d => { d.style.transform=''; d.style.boxShadow=''; });
+  el.style.transform = 'scale(1.3)';
+  el.style.boxShadow = '0 0 0 2px white, 0 0 0 4px ' + border;
+  // Stocker dans les hidden inputs
+  const row = container.closest('div[style]');
+  const bgInput = row.querySelector('input[id^="etiq-bg-"]');
+  const borderInput = row.querySelector('input[id^="etiq-border-"]');
+  if (bgInput) bgInput.value = bg;
+  if (borderInput) borderInput.value = border;
+}
+window.selectEtiqColor = selectEtiqColor;
 
 function updateAddBtnEtiq() {
   const lines = document.getElementById('etiquettes-lines');
@@ -5563,24 +5592,26 @@ function saveEtiquettes() {
   inputs.forEach(inp => {
     const nom = inp.value.trim();
     if (!nom) return;
-    const lotInp = inp.nextElementSibling;
-    const lot = lotInp ? lotInp.value.trim() : '';
-    // Chercher les sous-analyses dans le catalogue
+    const row = inp.closest('div[style]');
+    const bgInput = row ? row.querySelector('input[id^="etiq-bg-"]') : null;
+    const borderInput = row ? row.querySelector('input[id^="etiq-border-"]') : null;
+    const bg = bgInput ? bgInput.value : '#FFF8E1';
+    const border = borderInput ? borderInput.value : '#FF9800';
     const cat = (state.catalogue || []).find(c => c.nom.toLowerCase() === nom.toLowerCase());
     const sousAnalyses = cat?.sousAnalyses || [];
     if (!state.planTasks) state.planTasks = [];
     state.planTasks.push({
       id: Date.now() + count,
       date: null, techId: null,
-      desc: nom + (lot ? ' — Lot ' + lot : ''),
+      desc: nom,
       analyseNom: nom,
       analyseId: cat?.id || null,
       echId: null,
-      lot,
       type: 'analyse',
       sousAnalyses,
       note: sousAnalyses.length ? '↳ ' + sousAnalyses.join(' · ') : '',
-      manuel: true, // créé manuellement
+      manuel: true,
+      color: { bg, border },
     });
     count++;
   });
@@ -5632,8 +5663,9 @@ function onPlanDragStart(event, taskId) {
 
 function onPlanDrop(event, date, techId) {
   event.preventDefault();
+  event.stopPropagation();
+  if (!planDraggedTask && !planDraggedNew) return;
   if (planDraggedNew) { onDropNewTask(event, date, techId); return; }
-  if (!planDraggedTask) return;
   if (!state.planTasks) state.planTasks = [];
   const task = state.planTasks.find(t => t.id === planDraggedTask);
   if (task) {
@@ -6834,7 +6866,7 @@ function imprimerPerimes() {
     return '<tr><td style="border-left:4px solid '+type.color+';padding-left:8px">'+p.nom+'</td><td style="font-family:monospace;font-weight:bold">'+p.numero+'</td><td>'+formatDate(p.datePrep||'')+'</td><td style="color:#c0392b;font-weight:600">'+formatDate(dateRef||'')+'</td><td>'+(cat.emplacement||'—')+'</td></tr>';
   }).join('') : '<tr><td colspan="5" style="text-align:center;padding:20px;color:#888;font-style:italic">Aucun réactif périmé</td></tr>';
   const win = window.open('', '_blank', 'width=800,height=600');
-  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Réactifs périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs à éliminer</h1><p style="color:#666;font-size:12px">'+dateStr+'</p><table><thead><tr><th>Réactif</th><th>N° interne</th><th>Date préparation</th><th>Date de validité</th><th>Emplacement</th></tr></thead><tbody>'+rows+'</tbody></table><script>window.onload=()=>window.print();<\/script></body></html>');
+  win.document.write('<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><title>Réactifs périmés</title><style>body{font-family:Arial,sans-serif;font-size:13px;margin:30px}table{width:100%;border-collapse:collapse}th{background:#f5f5f5;text-align:left;padding:8px 10px;border-bottom:2px solid #ddd;font-size:11px;text-transform:uppercase}td{padding:8px 10px;border-bottom:1px solid #eee}</style></head><body><h1>Réactifs à éliminer</h1><p style="color:#666;font-size:12px">'+dateStr+'</p><table><thead><tr><th>Réactif</th><th>N° interne</th><th>Date préparation</th><th>Date de validité</th><th>Emplacement</th></tr></thead><tbody>'+rows+'</tbody></table><scr'+'ipt>window.onload=()=>window.print();<'+'/scr'+'ipt></body></html>');
   win.document.close();
 }
 
@@ -7864,8 +7896,8 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <button class="close-btn" onclick="closeModal('modal-etiquettes')"><i class="ti ti-x"></i></button>
     </div>
     <div class="modal-body">
-      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes à glisser dans le planning.</p>
-      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:10px"></div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Ajoutez jusqu'à 5 étiquettes. Choisissez un nom et une couleur.</p>
+      <div id="etiquettes-lines" style="display:flex;flex-direction:column;gap:12px"></div>
       <button class="btn" onclick="addEtiquetteLine()" id="btn-add-etiq-line" style="margin-top:12px;font-size:12px"><i class="ti ti-plus"></i> Ajouter une ligne</button>
     </div>
     <div class="modal-footer">
