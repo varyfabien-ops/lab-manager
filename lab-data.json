@@ -1347,11 +1347,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 18:50"
-    },
-    {
       "icon": "package",
       "text": "5x Methylparaben (PHBM) lot R098B0 receptionne(s)",
       "time": "08/08 18:51"
@@ -1595,6 +1590,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 1 entrée(s) — 0 analyse(s)",
       "time": "09/08 16:54"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 Bupivacaïne",
+      "time": "09/08 17:01"
     }
   ],
   "spq": [
