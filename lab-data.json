@@ -1898,18 +1898,6 @@
         "bg": "#E0F7FA",
         "border": "#00BCD4"
       }
-    },
-    {
-      "id": 1786290786226,
-      "date": "2026-08-04",
-      "techId": "1786271486368",
-      "desc": "Retraitement TCC0004 Bupivacaïne",
-      "analyseNom": "Retraitement TCC0004 Bupivacaïne",
-      "analyseId": 1785247529863,
-      "echId": 1785349276514,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": ""
     }
   ],
   "planRythmes": {
