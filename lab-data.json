@@ -1184,74 +1184,7 @@
       "code": "DK"
     }
   ],
-  "echantillons": [
-    {
-      "id": 1786297995500,
-      "code": "TEST-1",
-      "lot": "TEST",
-      "articleId": 1785247590600,
-      "articleCode": "M76013000",
-      "produitId": 1785247590600,
-      "marcheIds": [],
-      "analysesIds": [],
-      "analysesParMarche": {},
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-09",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1786297995501,
-      "code": "TEST-2",
-      "lot": "TEST",
-      "articleId": 1785247590600,
-      "articleCode": "M76013000",
-      "produitId": 1785247590600,
-      "marcheIds": [],
-      "analysesIds": [],
-      "analysesParMarche": {},
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-09",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1786297995502,
-      "code": "TEST-3",
-      "lot": "TEST",
-      "articleId": 1785247590600,
-      "articleCode": "M76013000",
-      "produitId": 1785247590600,
-      "marcheIds": [],
-      "analysesIds": [],
-      "analysesParMarche": {},
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0054",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-09",
-      "statut": "recu",
-      "note": ""
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -1330,11 +1263,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot HC56730103",
-      "time": "08/08 21:09"
-    },
     {
       "icon": "trash",
       "text": "Contenant supprime : lot HC56730103",
@@ -1579,6 +1507,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 3 entrée(s) — 0 analyse(s)",
       "time": "09/08 19:53"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : TEST (3 entrees)",
+      "time": "09/08 19:56"
     }
   ],
   "spq": [
