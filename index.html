@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LabManager v237 — Physico-Chimie</title>
+<title>LabManager v239 — Physico-Chimie</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
@@ -193,7 +193,7 @@
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Réception</button>
     <button class="nav-btn" onclick="goToEch('marches')" id="nav-marches"><i class="ti ti-world"></i> Marchés</button>
-    <button class="nav-btn" onclick="goToEch('liberes')" id="nav-liberes"><i class="ti ti-circle-check"></i> Lots libres <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></button>
+    <button class="nav-btn" onclick="goToEch('liberes')" id="nav-liberes" style="display:none"><i class="ti ti-circle-check"></i> Lots libres <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></button>
     <button class="nav-btn" onclick="goTo('articles',null)" id="nav-articles"><i class="ti ti-barcode"></i> Articles & SPQ</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goTo('habilitations',this)" id="nav-habilitations"><i class="ti ti-certificate"></i> Habilitations</button>
@@ -453,7 +453,7 @@
         <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-ech" placeholder="Rechercher..." oninput="renderEchantillonsTable()"></div>
       </div>
     <div id="active-filters-bar" style="display:none;padding:8px 16px;border-top:1px solid var(--border);display:flex;gap:6px;flex-wrap:wrap;align-items:center;background:var(--bg3)"></div>
-      <div style="overflow-x:auto"><table style="min-width:1100px;font-size:15px;text-align:center"><thead><tr>
+      <div style="overflow-x:auto"><table id="ech-table" style="min-width:1100px;font-size:15px;text-align:center"><thead id="ech-thead"><tr>
   <th style="width:170px;text-align:center">
     <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="produit" onclick="openXlFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
     <input type="hidden" id="fech-produit" value="">
@@ -3051,6 +3051,7 @@ function renderAll() {
 function goTo(page, el) {
   destroyRcStickyHeader();
   destroyPrepStickyHeader();
+  destroyEchStickyHeader();
   const pw = document.getElementById('profile-welcome');
   if(pw) pw.style.display = 'none';
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -3523,6 +3524,7 @@ function goToPlanning(view) {
   updateNavActive('plan-'+view);
   destroyRcStickyHeader();
   destroyPrepStickyHeader();
+  destroyEchStickyHeader();
   const pw=document.getElementById('profile-welcome'); if(pw) pw.style.display='none';
   currentPlanningView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -4205,6 +4207,7 @@ function goToEch(view) {
   updateNavActive('ech-'+view);
   destroyRcStickyHeader();
   destroyPrepStickyHeader();
+  destroyEchStickyHeader();
   const pw=document.getElementById('profile-welcome'); if(pw) pw.style.display='none';
   currentEchView = view;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -4221,7 +4224,7 @@ function goToEch(view) {
   const subItems = document.querySelectorAll('#ech-submenu .nav-sub');
   const idx2 = {reception:0, 'produits-ech':1, marches:2, liberes:3};
   if (subItems[idx2[view]]) subItems[idx2[view]].classList.add('active');
-  if (view === 'reception') renderEchantillonsTable();
+  if (view === 'reception') { renderEchantillonsTable(); setTimeout(initEchStickyHeader,100); }
   if (view === 'produits-ech') renderProduitsEch();
   if (view === 'marches') renderMarches();
   if (view === 'liberes') renderLotsLiberes();
@@ -6720,6 +6723,46 @@ function destroyPrepStickyHeader() {
   if(clone) clone.remove();
 }
 window.initPrepStickyHeader = initPrepStickyHeader;
+
+// ============================================================
+// STICKY THEAD RÉCEPTION
+// ============================================================
+function initEchStickyHeader() {
+  const table = document.getElementById('ech-table');
+  const thead = document.getElementById('ech-thead');
+  if (!thead || !table) return;
+  const old = document.getElementById('ech-sticky-clone');
+  if (old) old.remove();
+  const clone = document.createElement('table');
+  clone.id = 'ech-sticky-clone';
+  clone.style.cssText = 'display:none;position:fixed;top:100px;z-index:200;background:var(--bg2);border-collapse:collapse;table-layout:fixed;box-shadow:0 2px 8px rgba(0,0,0,0.1);pointer-events:auto;';
+  clone.innerHTML = '<thead>' + thead.innerHTML + '</thead>';
+  document.body.appendChild(clone);
+  function syncWidths() {
+    const origCells = thead.querySelectorAll('th');
+    const cloneCells = clone.querySelectorAll('th');
+    const tableRect = table.getBoundingClientRect();
+    clone.style.left = tableRect.left + 'px';
+    clone.style.width = tableRect.width + 'px';
+    origCells.forEach((th,i) => { if(cloneCells[i]) cloneCells[i].style.width = th.offsetWidth+'px'; });
+  }
+  function onScroll() {
+    const theadRect = thead.getBoundingClientRect();
+    if (theadRect.top < 100) { clone.style.display=''; syncWidths(); }
+    else { clone.style.display='none'; }
+  }
+  if(window._echStickyHandler) window.removeEventListener('scroll', window._echStickyHandler);
+  window._echStickyHandler = onScroll;
+  window.addEventListener('scroll', onScroll);
+}
+function destroyEchStickyHeader() {
+  if(window._echStickyHandler) { window.removeEventListener('scroll', window._echStickyHandler); window._echStickyHandler=null; }
+  const clone = document.getElementById('ech-sticky-clone');
+  if(clone) clone.remove();
+}
+window.initEchStickyHeader = initEchStickyHeader;
+window.destroyEchStickyHeader = destroyEchStickyHeader;
+
 window.destroyPrepStickyHeader = destroyPrepStickyHeader;
 
 
