@@ -866,7 +866,7 @@
     },
     {
       "id": 1785247382413,
-      "nom": "TCC0002 Sodium",
+      "nom": "TCC0002 - Sodium",
       "habilitations": [
         "SAA",
         "Pipettes"
@@ -878,7 +878,7 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
-        "Vérification TCC0002 Sodium"
+        "Vérification TCC0002 - Sodium"
       ]
     },
     {
@@ -1589,11 +1589,6 @@
     },
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:09"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot R14640",
       "time": "08/08 21:09"
     },
@@ -1820,6 +1815,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
+      "time": "09/08 20:54"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0002 - Sodium",
       "time": "09/08 20:54"
     }
   ],
