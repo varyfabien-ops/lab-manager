@@ -2074,6 +2074,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "RP - S",
       "desc": "5002800"
+    },
+    {
+      "id": 1786271340752,
+      "nom": "Mélange Eau / Acétonitrile (40/60)",
+      "type": "autre",
+      "peremption": 1,
+      "format": "AAAA/XXXX",
+      "emplacement": "I4",
+      "desc": ""
     }
   ],
   "profils": [
