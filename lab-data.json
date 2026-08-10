@@ -1113,7 +1113,7 @@
     },
     {
       "id": 1786196502378,
-      "nom": "TCC0004 Mépivacaïne / PHBM",
+      "nom": "TCC0004 - Mépivacaïne / PHBM",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -1126,8 +1126,8 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
-        "Retraitement TCC0004 Mépivacaïne",
-        "Vérification TCC0004 Mépivacaïne"
+        "Retraitement TCC0004 - Mépivacaïne",
+        "Vérification TCC0004 - Mépivacaïne"
       ]
     },
     {
@@ -1954,11 +1954,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "5x Propylparaben (PHBP) lot R098B0 receptionne(s)",
-      "time": "08/08 21:11"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot R098B0",
       "time": "08/08 21:11"
@@ -2202,6 +2197,11 @@
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 3 entrée(s) — 5 analyse(s)",
       "time": "10/08 08:50"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Mépivacaïne / PHBM",
+      "time": "10/08 08:52"
     }
   ],
   "spq": [
@@ -3708,24 +3708,6 @@
       },
       "isSous": false,
       "sousAnalyses": [],
-      "manuel": false
-    },
-    {
-      "id": 1786344662064,
-      "date": "2026-08-13",
-      "techId": "1786178865689",
-      "desc": "Vérification TCC0065 - MPEG",
-      "analyseNom": "Vérification TCC0065 - MPEG",
-      "analyseId": 1786301151090,
-      "sousKey": "1786301151090_sous_2",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E8F5E9",
-        "border": "#4CAF50"
-      },
-      "isSous": true,
-      "parentNom": "TCC0065 - MPEG",
       "manuel": false
     }
   ],
