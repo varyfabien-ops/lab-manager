@@ -308,6 +308,19 @@
 <div class="page" id="page-kpi">
   <div class="page-header">
     <div class="page-header-text"><h1>KPI (Indicateurs)</h1><p>Suivi de l'état d'avancement des analyses planifiées</p></div>
+    <div class="page-header-actions" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <div style="display:flex;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden">
+        <button class="btn" id="kpi-mode-semaine" onclick="kpiSetMode('semaine')" style="border:none;border-radius:0">Semaine</button>
+        <button class="btn" id="kpi-mode-mois" onclick="kpiSetMode('mois')" style="border:none;border-radius:0;border-left:1px solid var(--border)">Mois</button>
+        <button class="btn" id="kpi-mode-tout" onclick="kpiSetMode('tout')" style="border:none;border-radius:0;border-left:1px solid var(--border)">Tout</button>
+      </div>
+      <div id="kpi-nav-controls" style="display:flex;gap:8px;align-items:center">
+        <button class="btn" onclick="kpiNav(-1)"><i class="ti ti-chevron-left"></i></button>
+        <button class="btn" onclick="kpiToday()"><i class="ti ti-calendar-today"></i></button>
+        <button class="btn" onclick="kpiNav(1)"><i class="ti ti-chevron-right"></i></button>
+      </div>
+      <span id="kpi-period-label" style="font-size:14px;font-weight:600;color:var(--text2)"></span>
+    </div>
   </div>
   <div class="stats-grid">
     <div class="stat-card cyan"><div class="label"><i class="ti ti-tag"></i>Étiquettes planifiées</div><div class="value" id="kpi-total">0</div><div class="sub">toutes semaines confondues</div></div>
@@ -5056,6 +5069,7 @@ function buildEtiquettesAPlanifier() {
     { nom: 'Poste des Eaux - STEP',         count: 5, prefix: 'step',  color: { bg:'#E0F7FA', border:'#00BCD4' } },
     { nom: 'Poste des Eaux - Conductivité', count: 2, prefix: 'cond',  color: { bg:'#E3F2FD', border:'#2196F3' } },
     { nom: 'Poste des Eaux - EDR',          count: 4, prefix: 'edr',   color: { bg:'#E3F2FD', border:'#1565C0' } },
+    { nom: 'Vérification - Poste des Eaux', count: 5, prefix: 'verifpe', color: { bg:'rgba(26,127,55,0.10)', border:'#1a7f37' } },
   ];
 
   fixedEtiquettes.forEach(({nom, count, prefix, color}) => {
@@ -5365,8 +5379,62 @@ function setTaskStatut(taskId, statut) {
 }
 window.setTaskStatut = setTaskStatut;
 
+let kpiPeriodMode = 'semaine';
+let kpiPeriodRef = new Date();
+const KPI_MONTH_NAMES = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+
+function kpiSetMode(mode) {
+  kpiPeriodMode = mode;
+  renderKPI();
+}
+window.kpiSetMode = kpiSetMode;
+
+function kpiNav(dir) {
+  kpiPeriodRef = new Date(kpiPeriodRef);
+  if (kpiPeriodMode === 'mois') kpiPeriodRef.setMonth(kpiPeriodRef.getMonth() + dir);
+  else kpiPeriodRef.setDate(kpiPeriodRef.getDate() + dir * 7);
+  renderKPI();
+}
+window.kpiNav = kpiNav;
+
+function kpiToday() {
+  kpiPeriodRef = new Date();
+  renderKPI();
+}
+window.kpiToday = kpiToday;
+
+function kpiGetRange() {
+  if (kpiPeriodMode === 'tout') return null;
+  if (kpiPeriodMode === 'mois') {
+    const first = new Date(kpiPeriodRef.getFullYear(), kpiPeriodRef.getMonth(), 1);
+    const last = new Date(kpiPeriodRef.getFullYear(), kpiPeriodRef.getMonth() + 1, 0);
+    return {
+      start: dateToKey(first),
+      end: dateToKey(last),
+      label: KPI_MONTH_NAMES[first.getMonth()] + ' ' + first.getFullYear(),
+    };
+  }
+  // semaine (lundi -> vendredi)
+  const d = new Date(kpiPeriodRef);
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const monday = new Date(d); monday.setDate(diff); monday.setHours(0,0,0,0);
+  const friday = new Date(monday); friday.setDate(monday.getDate() + 4);
+  return {
+    start: dateToKey(monday),
+    end: dateToKey(friday),
+    label: monday.getDate() + ' ' + KPI_MONTH_NAMES[monday.getMonth()] + ' – ' + friday.getDate() + ' ' + KPI_MONTH_NAMES[friday.getMonth()] + ' ' + friday.getFullYear(),
+  };
+}
+
 function renderKPI() {
-  const tasks = (state.planTasks || []).filter(t => t.type !== 'absence');
+  // Exclut le Ménage Hebdomadaire (pas une analyse) et les absences
+  const isMenage = t => t.sousKey && String(t.sousKey).indexOf('menage_') === 0;
+  let tasks = (state.planTasks || []).filter(t => t.type !== 'absence' && !isMenage(t));
+
+  const range = kpiGetRange();
+  if (range) tasks = tasks.filter(t => t.date && t.date >= range.start && t.date <= range.end);
+
   const total = tasks.length;
   const nbVert = tasks.filter(t => t.statutSuivi === 'vert').length;
   const nbOrange = tasks.filter(t => t.statutSuivi === 'orange').length;
@@ -5381,6 +5449,16 @@ function renderKPI() {
   setText('kpi-orange-pct', pct(nbOrange));
   setText('kpi-rouge', nbRouge);
   setText('kpi-rouge-pct', pct(nbRouge));
+
+  // Boutons de mode actifs
+  ['semaine','mois','tout'].forEach(m => {
+    const btn = document.getElementById('kpi-mode-' + m);
+    if (btn) btn.classList.toggle('btn-primary', m === kpiPeriodMode);
+  });
+  const navCtrl = document.getElementById('kpi-nav-controls');
+  if (navCtrl) navCtrl.style.display = kpiPeriodMode === 'tout' ? 'none' : 'flex';
+  const lbl = document.getElementById('kpi-period-label');
+  if (lbl) lbl.textContent = range ? range.label : 'Toutes périodes';
 
   // Répartition par technicien
   const parTech = document.getElementById('kpi-par-technicien');
