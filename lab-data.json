@@ -1069,6 +1069,25 @@
         "Retraitement TCC0012 - Prilocaïne",
         "Vérification TCC0012 - Prilocaïne"
       ]
+    },
+    {
+      "id": 1786344522393,
+      "nom": "TCC0011 - Mépivacaïne",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "Dosage de la Mépivacaïne et des Impuretés",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0011 -  Mépivacaïne",
+        "Vérification TCC0011 - Mépivacaïne"
+      ]
     }
   ],
   "stabilites": [],
@@ -1663,11 +1682,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Methylparaben (PHBM)",
-      "time": "08/08 21:10"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Propylparaben (PHBP)",
       "time": "08/08 21:10"
     },
@@ -1910,6 +1924,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
       "time": "10/08 08:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0011 - Mépivacaïne",
+      "time": "10/08 08:48"
     }
   ],
   "spq": [
