@@ -1042,6 +1042,25 @@
         "Retraitement TCC0044 - RM493 / Conservateurs / Impuretés",
         "Vérification TCC0044 - RM493 / Conservateurs / Impuretés"
       ]
+    },
+    {
+      "id": 1786344340215,
+      "nom": "TCC0012 - Prilocaïne",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0012 - Prilocaïne",
+        "Vérification TCC0012 - Prilocaïne"
+      ]
     }
   ],
   "stabilites": [],
@@ -1645,11 +1664,6 @@
       "time": "08/08 21:09"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R14640",
-      "time": "08/08 21:09"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Methylparaben (PHBM)",
       "time": "08/08 21:10"
@@ -1883,6 +1897,11 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Coraline GALLARD",
       "time": "09/08 21:14"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0012 - Prilocaïne",
+      "time": "10/08 08:45"
     }
   ],
   "spq": [
