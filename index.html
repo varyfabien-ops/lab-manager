@@ -198,6 +198,7 @@
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToPlanning('semaine')" id="nav-plan-semaine"><i class="ti ti-layout-columns"></i> Planning</button>
     
+    <button class="nav-btn" onclick="goTo('kpi',this)" id="nav-kpi"><i class="ti ti-chart-dots"></i> KPI (Indicateurs)</button>
     <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> Réactifs Commerciaux</button>
@@ -301,6 +302,35 @@
       <table><thead><tr><th>Nom de l'analyse</th><th>Habilitations</th><th>Description</th><th></th></tr></thead>
       <tbody id="catalogue-tbody"></tbody></table>
     </div>
+  </div>
+</div>
+
+<div class="page" id="page-kpi">
+  <div class="page-header">
+    <div class="page-header-text"><h1>KPI (Indicateurs)</h1><p>Suivi de l'état d'avancement des analyses planifiées</p></div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card cyan"><div class="label"><i class="ti ti-tag"></i>Étiquettes planifiées</div><div class="value" id="kpi-total">0</div><div class="sub">toutes semaines confondues</div></div>
+    <div class="stat-card green"><div class="label"><i class="ti ti-mood-smile"></i>OK</div><div class="value" id="kpi-vert">0</div><div class="sub" id="kpi-vert-pct">0%</div></div>
+    <div class="stat-card amber"><div class="label"><i class="ti ti-mood-neutral"></i>À surveiller</div><div class="value" id="kpi-orange">0</div><div class="sub" id="kpi-orange-pct">0%</div></div>
+    <div class="stat-card red"><div class="label"><i class="ti ti-mood-sad"></i>Problème</div><div class="value" id="kpi-rouge">0</div><div class="sub" id="kpi-rouge-pct">0%</div></div>
+  </div>
+
+  <div class="table-card" style="margin-bottom:20px">
+    <div class="table-card-header">
+      <h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Répartition par technicien</h3>
+    </div>
+    <div style="padding:20px 24px" id="kpi-par-technicien"></div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-card-header">
+      <h3><i class="ti ti-alert-triangle" style="margin-right:6px;color:var(--red)"></i>Analyses à surveiller / en problème</h3>
+      <div class="spacer"></div>
+      <span style="font-size:12px;color:var(--text3)" id="kpi-alertes-count"></span>
+    </div>
+    <table><thead><tr><th>Statut</th><th>Analyse</th><th>Technicien</th><th>Date</th><th>Note</th></tr></thead>
+    <tbody id="kpi-alertes-tbody"></tbody></table>
   </div>
 </div>
 
@@ -2624,6 +2654,7 @@ function goTo(page, el) {
   if (page === 'spq') renderSPQ();
   if (page === 'articles') renderArticles();
   if (page === 'dashboard') renderDashboard();
+  if (page === 'kpi') renderKPI();
 }
 
 // ============================================================
@@ -4869,11 +4900,24 @@ function renderPlanSemaine() {
         const type = PLAN_TYPES[task.type] || PLAN_TYPES.analyse;
         const taskBg = (task.color && task.color.bg) ? task.color.bg : type.bg;
         const taskBorder = (task.color && task.color.border) ? task.color.border : type.color;
+        const statutMap = {
+          vert:   { icon:'ti-mood-smile',   color:'#2E7D32', label:'OK' },
+          orange: { icon:'ti-mood-neutral', color:'#E65100', label:'À surveiller' },
+          rouge:  { icon:'ti-mood-sad',     color:'#B71C1C', label:'Problème' },
+        };
+        const stInfo = statutMap[task.statutSuivi];
+        const stIcon = stInfo ? stInfo.icon : 'ti-mood-empty';
+        const stColor = stInfo ? stInfo.color : 'var(--text3)';
+        const stOpacity = stInfo ? '1' : '0.35';
+        const stTitle = stInfo ? stInfo.label + ' — cliquer pour changer' : 'Statut non défini — cliquer pour renseigner';
         html += '<div draggable="true" ';
         html += 'ondragstart="onPlanDragStart(event,' + task.id + ')" ';
         html += 'onclick="event.stopPropagation();editPlanTask(' + task.id + ')" ';
         html += 'style="background:' + taskBg + ';border-left:3px solid ' + taskBorder + ';border-radius:4px;padding:5px 8px;margin-bottom:4px;cursor:grab;font-size:11px;line-height:1.4">';
+        html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:4px">';
         html += '<div style="font-weight:700;color:' + taskBorder + '">' + (task.analyseNom || task.desc || '') + '</div>';
+        html += '<i class="ti ' + stIcon + '" onclick="event.stopPropagation();openStatutPicker(event,' + task.id + ')" title="' + stTitle + '" style="cursor:pointer;font-size:15px;color:' + stColor + ';opacity:' + stOpacity + ';flex-shrink:0"></i>';
+        html += '</div>';
         if (task.note) html += '<div style="color:var(--text3);font-size:10px;font-style:italic">' + task.note + '</div>';
         html += '</div>';
       });
@@ -5267,6 +5311,125 @@ function toggleAbsenceJour(techId, dateKey) {
   renderPlanSemaine();
 }
 window.toggleAbsenceJour = toggleAbsenceJour;
+
+// ============================================================
+// SUIVI KPI — statut des analyses (bonhomme vert/orange/rouge)
+// ============================================================
+function closeStatutPicker() {
+  const el = document.getElementById('statut-picker-popup');
+  if (el) el.remove();
+  document.removeEventListener('click', closeStatutPicker);
+}
+
+function openStatutPicker(event, taskId) {
+  event.stopPropagation();
+  closeStatutPicker();
+  const task = (state.planTasks || []).find(t => t.id === taskId);
+  if (!task) return;
+  const rect = event.target.getBoundingClientRect();
+  const popup = document.createElement('div');
+  popup.id = 'statut-picker-popup';
+  popup.style.cssText = 'position:fixed;top:' + (rect.bottom + 4) + 'px;left:' + Math.max(4, rect.left - 90) + 'px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,0.18);z-index:9999;padding:8px;display:flex;gap:6px;align-items:center';
+  const opts = [
+    { key:'vert',   icon:'ti-mood-smile',   color:'#2E7D32', label:'OK' },
+    { key:'orange', icon:'ti-mood-neutral', color:'#E65100', label:'À surveiller' },
+    { key:'rouge',  icon:'ti-mood-sad',     color:'#B71C1C', label:'Problème' },
+  ];
+  opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.title = o.label;
+    btn.style.cssText = 'width:32px;height:32px;border-radius:50%;border:1.5px solid ' + o.color + ';background:' + (task.statutSuivi === o.key ? o.color : 'transparent') + ';color:' + (task.statutSuivi === o.key ? '#fff' : o.color) + ';cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px';
+    btn.innerHTML = '<i class="ti ' + o.icon + '"></i>';
+    btn.onclick = (e) => { e.stopPropagation(); setTaskStatut(taskId, o.key); closeStatutPicker(); };
+    popup.appendChild(btn);
+  });
+  const clearBtn = document.createElement('button');
+  clearBtn.title = 'Effacer le statut';
+  clearBtn.style.cssText = 'width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px';
+  clearBtn.innerHTML = '<i class="ti ti-x"></i>';
+  clearBtn.onclick = (e) => { e.stopPropagation(); setTaskStatut(taskId, null); closeStatutPicker(); };
+  popup.appendChild(clearBtn);
+  document.body.appendChild(popup);
+  popup.addEventListener('click', e => e.stopPropagation());
+  setTimeout(() => document.addEventListener('click', closeStatutPicker), 0);
+}
+window.openStatutPicker = openStatutPicker;
+
+function setTaskStatut(taskId, statut) {
+  const task = (state.planTasks || []).find(t => t.id === taskId);
+  if (!task) return;
+  task.statutSuivi = statut || null;
+  saveData();
+  renderPlanSemaine();
+  if (document.getElementById('page-kpi') && document.getElementById('page-kpi').classList.contains('active')) renderKPI();
+}
+window.setTaskStatut = setTaskStatut;
+
+function renderKPI() {
+  const tasks = (state.planTasks || []).filter(t => t.type !== 'absence');
+  const total = tasks.length;
+  const nbVert = tasks.filter(t => t.statutSuivi === 'vert').length;
+  const nbOrange = tasks.filter(t => t.statutSuivi === 'orange').length;
+  const nbRouge = tasks.filter(t => t.statutSuivi === 'rouge').length;
+  const pct = (n) => total ? Math.round(n / total * 100) + '%' : '0%';
+
+  const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setText('kpi-total', total);
+  setText('kpi-vert', nbVert);
+  setText('kpi-vert-pct', pct(nbVert));
+  setText('kpi-orange', nbOrange);
+  setText('kpi-orange-pct', pct(nbOrange));
+  setText('kpi-rouge', nbRouge);
+  setText('kpi-rouge-pct', pct(nbRouge));
+
+  // Répartition par technicien
+  const parTech = document.getElementById('kpi-par-technicien');
+  if (parTech) {
+    const techs = state.techniciens || [];
+    if (!techs.length || !total) {
+      parTech.innerHTML = '<div style="font-size:12px;color:var(--text3)">Aucune donnée disponible</div>';
+    } else {
+      parTech.innerHTML = techs.map(tech => {
+        const tTasks = tasks.filter(t => String(t.techId) === String(tech.id));
+        if (!tTasks.length) return '';
+        const v = tTasks.filter(t=>t.statutSuivi==='vert').length;
+        const o = tTasks.filter(t=>t.statutSuivi==='orange').length;
+        const r = tTasks.filter(t=>t.statutSuivi==='rouge').length;
+        const n = tTasks.length - v - o - r;
+        const w = (x) => tTasks.length ? (x / tTasks.length * 100) : 0;
+        return '<div style="margin-bottom:14px">'
+          + '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px"><span>' + (tech.visa || (tech.prenom+' '+tech.nom)) + '</span><span style="color:var(--text3)">' + tTasks.length + ' analyse(s)</span></div>'
+          + '<div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--bg3)">'
+          + (v ? '<div style="width:'+w(v)+'%;background:#2E7D32" title="OK: '+v+'"></div>' : '')
+          + (o ? '<div style="width:'+w(o)+'%;background:#E65100" title="À surveiller: '+o+'"></div>' : '')
+          + (r ? '<div style="width:'+w(r)+'%;background:#B71C1C" title="Problème: '+r+'"></div>' : '')
+          + (n ? '<div style="width:'+w(n)+'%;background:var(--border)" title="Non renseigné: '+n+'"></div>' : '')
+          + '</div></div>';
+      }).join('') || '<div style="font-size:12px;color:var(--text3)">Aucune donnée disponible</div>';
+    }
+  }
+
+  // Alertes (orange + rouge)
+  const alertes = tasks.filter(t => t.statutSuivi === 'orange' || t.statutSuivi === 'rouge')
+    .sort((a,b) => (a.statutSuivi === 'rouge' ? 0 : 1) - (b.statutSuivi === 'rouge' ? 0 : 1));
+  setText('kpi-alertes-count', alertes.length + ' analyse(s)');
+  const tbody = document.getElementById('kpi-alertes-tbody');
+  if (tbody) {
+    if (!alertes.length) {
+      tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><i class="ti ti-mood-smile"></i><p>Aucune analyse en alerte</p></div></td></tr>';
+    } else {
+      tbody.innerHTML = alertes.map(t => {
+        const tech = (state.techniciens||[]).find(x => x.id === t.techId);
+        const badge = t.statutSuivi === 'rouge'
+          ? '<span class="badge" style="background:#FFEBEE;color:#B71C1C"><i class="ti ti-mood-sad"></i> Problème</span>'
+          : '<span class="badge" style="background:#FFF3E0;color:#E65100"><i class="ti ti-mood-neutral"></i> À surveiller</span>';
+        return '<tr><td>' + badge + '</td><td>' + (t.analyseNom || t.desc || '—') + '</td><td>' + (tech ? (tech.visa || tech.prenom+' '+tech.nom) : '—') + '</td><td>' + (t.date ? formatDate(t.date) : '—') + '</td><td style="font-size:12px;color:var(--text2)">' + (t.note || '—') + '</td></tr>';
+      }).join('');
+    }
+  }
+}
+window.renderKPI = renderKPI;
+
 
 window.openModalEtiquettes = openModalEtiquettes;
 window.addEtiquetteLine = addEtiquetteLine;
