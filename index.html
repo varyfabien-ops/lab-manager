@@ -3160,7 +3160,7 @@ function populateCatalogueSelect() {
   const sel = document.getElementById('p-catalogue'); if(!sel) return;
   const cur = sel.value;
   sel.innerHTML = '<option value="">— Choisir dans le catalogue —</option>' +
-    (state.catalogue||[]).map(a=>'<option value="'+a.id+'">'+a.nom+(a.code?' ('+a.code+')':'')+'</option>').join('');
+    (state.catalogue||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(a=>'<option value="'+a.id+'">'+a.nom+(a.code?' ('+a.code+')':'')+'</option>').join('');
   if (cur) sel.value = cur;
 }
 
@@ -3773,7 +3773,7 @@ function populateAnalysesChecks(containerId, selectedIds) {
   const el = document.getElementById(containerId); if(!el) return;
   const catalogue = state.catalogue||[];
   if (!catalogue.length) { el.innerHTML='<span style="color:var(--text3);font-size:12px">Aucune analyse dans le catalogue</span>'; return; }
-  el.innerHTML = catalogue.map(a => {
+  el.innerHTML = catalogue.slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(a => {
     const checked = selectedIds && selectedIds.includes(a.id) ? 'checked' : '';
     return `<label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:5px 8px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">
       <input type="checkbox" value="${a.id}" ${checked}>
@@ -5518,7 +5518,7 @@ function addSpqMarche(marcheId, selectedAnalyses) {
   const container = document.getElementById('spq-marches-container');
   if (!container) return;
   const marches = state.marches || [];
-  const catalogue = state.catalogue || [];
+  const catalogue = (state.catalogue || []).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   const idx = container.children.length;
   const div = document.createElement('div');
   div.style.cssText = 'background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;position:relative';
@@ -7017,10 +7017,10 @@ saveAnalyse = function(){
 var renderCatalogue;
 renderCatalogue = function(){
   const q=(document.getElementById('search-catalogue')?.value||'').toLowerCase();
-  const rows=(state.catalogue||[]).filter(a=>!q||a.nom.toLowerCase().includes(q)||(a.code||'').toLowerCase().includes(q)||getProductNamesForAnalyse(a).join(' ').toLowerCase().includes(q));
+  const rows=(state.catalogue||[]).filter(a=>!q||a.nom.toLowerCase().includes(q)||(a.code||'').toLowerCase().includes(q)||getProductNamesForAnalyse(a).join(' ').toLowerCase().includes(q)).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   const tbody=document.getElementById('catalogue-tbody'); if(!tbody)return;
-  if(!rows.length){ tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
-  tbody.innerHTML=rows.map(a=>{ const prods=getProductNamesForAnalyse(a); return '<tr><td><strong>'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':'')+'</td><td>'+(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')+'</td><td>'+(prods.length?prods.map(p=>'<span class="badge badge-green">'+p+'</span>').join(' '):'<span class="badge badge-red">Aucun produit</span>')+'</td><td style="font-size:12px;color:var(--text2)">'+(a.description||'—')+'</td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editAnalyse('+a.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse('+a.id+')"><i class="ti ti-trash"></i></button></div></td></tr>'; }).join('');
+  if(!rows.length){ tbody.innerHTML='<tr><td colspan="4"><div class="empty-state"><i class="ti ti-book"></i><p>Aucune analyse dans le catalogue</p></div></td></tr>'; return; }
+  tbody.innerHTML=rows.map(a=>{ return '<tr><td><strong>'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:10px;background:var(--bg3);padding:1px 5px;border-radius:3px">'+a.code+'</code>':'')+'</td><td>'+(a.habilitations||[]).map(h=>'<span class="badge badge-cyan">'+h+'</span>').join(' ')+'</td><td style="font-size:12px;color:var(--text2)">'+(a.description||'—')+'</td><td><div class="actions" style="opacity:1"><button class="icon-btn" onclick="editAnalyse('+a.id+')"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteAnalyse('+a.id+')"><i class="ti ti-trash"></i></button></div></td></tr>'; }).join('');
 };
 
 var editAnalyse;
