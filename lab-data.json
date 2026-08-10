@@ -3390,23 +3390,6 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
-    },
-    {
-      "id": 1786339694117,
-      "date": "2026-08-31",
-      "techId": "1786302836845",
-      "desc": "test",
-      "analyseNom": "test",
-      "analyseId": null,
-      "echId": null,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": "",
-      "manuel": true,
-      "color": {
-        "bg": "#FFF8E1",
-        "border": "#FF9800"
-      }
     }
   ],
   "planRythmes": {
