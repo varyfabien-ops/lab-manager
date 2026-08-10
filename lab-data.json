@@ -1031,7 +1031,11 @@
     {
       "id": 1786301521786,
       "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
@@ -1659,11 +1663,6 @@
       "time": "08/08 21:09"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R14640",
-      "time": "08/08 21:09"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Methylparaben (PHBM)",
       "time": "08/08 21:10"
@@ -1901,6 +1900,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0012 - Prilocaïne",
+      "time": "10/08 08:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "10/08 08:45"
     }
   ],
