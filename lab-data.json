@@ -3531,7 +3531,8 @@
       "color": null,
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "rouge"
     },
     {
       "id": 1786302791666,
