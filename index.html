@@ -1776,39 +1776,72 @@ function approuverLot(lotKey) {
 
 function renderLotsLiberes() {
   const tbody = document.getElementById('liberes-tbody'); if(!tbody) return;
-  // Grouper les lots approuvés
+  // Grouper les lots en attente d'approbation OU déjà approuvés
   const lots = {};
-  (state.echantillons||[]).filter(e=>e.statut==='approuve').forEach(e => {
+  (state.echantillons||[]).filter(e=>e.statut==='approuve'||e.statut==='a_approuver').forEach(e => {
     const k = e.lot||String(e.id);
     if (!lots[k]) lots[k] = [];
     lots[k].push(e);
   });
   if (!Object.keys(lots).length) {
-    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-circle-check"></i><p>Aucun lot libere</p></div></td></tr>';
+    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-circle-check"></i><p>Aucun lot en attente ou libere</p></div></td></tr>';
     return;
   }
-  tbody.innerHTML = Object.entries(lots).sort((a,b)=>(b[1][0].dateApprobation||'').localeCompare(a[1][0].dateApprobation||'')).map(([lotKey, ss]) => {
+  // Tri : à approuver en premier, puis par date d'approbation décroissante
+  tbody.innerHTML = Object.entries(lots).sort((a,b) => {
+    const aWaiting = a[1][0].statut === 'a_approuver' ? 0 : 1;
+    const bWaiting = b[1][0].statut === 'a_approuver' ? 0 : 1;
+    if (aWaiting !== bWaiting) return aWaiting - bWaiting;
+    return (b[1][0].dateApprobation||'').localeCompare(a[1][0].dateApprobation||'');
+  }).map(([lotKey, ss]) => {
     const e0 = ss[0];
+    const enAttente = e0.statut === 'a_approuver';
     const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
-    const marches = (e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const article = e0.articleId ? (state.articles||[]).find(a=>a.id===e0.articleId) : null;
+    const prodNom = article?.nom || produit?.nom || '—';
+    const prodForme = article?.concentration || [produit?.forme, produit?.dosage].filter(Boolean).join(' ');
+    const allMarcheIds = [...new Set(ss.flatMap(e => e.marcheIds||[]))];
+    const marches = allMarcheIds.map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
     const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    return '<tr style="background:rgba(26,127,55,0.07)">'
-      +'<td style="font-size:14px;padding:10px 14px"><strong>'+(produit?produit.nom:'—')+'</strong>'+(produit&&produit.forme?'<br><span style="font-size:12px;color:var(--text2)">'+produit.forme+'</span>':'')+'</td>'
+    const dateCell = enAttente
+      ? '<span class="badge badge-amber" style="font-size:12px">En attente</span>'
+      : '<span class="badge badge-green" style="font-size:12px">'+(e0.dateApprobation||'—')+'</span>';
+    const actionCell = enAttente
+      ? '<button class="btn btn-primary approuver-final-btn" style="font-size:12px;padding:6px 12px" data-lot="'+String(lotKey).replace(/"/g,'&quot;')+'"><i class="ti ti-check"></i> Approuver</button>'
+      : '<button class="icon-btn danger archiver-lot-btn" title="Archiver" data-lot="'+String(lotKey).replace(/"/g,'&quot;')+'"><i class="ti ti-archive"></i></button>';
+    return '<tr style="background:'+(enAttente?'rgba(230,144,0,0.07)':'rgba(26,127,55,0.07)')+'">'
+      +'<td style="font-size:14px;padding:10px 14px"><strong>'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'
       +'<td style="font-size:14px;padding:10px 14px;text-align:center"><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotKey+'</code></td>'
       +'<td style="font-size:14px;padding:10px 14px;text-align:center"><strong style="color:var(--cyan)">'+ss.length+'</strong></td>'
       +'<td style="font-size:14px;padding:10px 14px">'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</td>'
       +'<td style="font-size:14px;padding:10px 14px">'+(e0.date?formatDate(e0.date):'—')+'</td>'
-      +'<td style="font-size:14px;padding:10px 14px"><span class="badge badge-green" style="font-size:12px">'+(e0.dateApprobation||'—')+'</span></td>'
+      +'<td style="font-size:14px;padding:10px 14px">'+dateCell+'</td>'
       +'<td style="font-size:13px;padding:10px 14px">'+analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join(' ')+'</td>'
-      +(()=>{const b=document.createElement('button');b.className='icon-btn danger';b.title='Archiver';b.innerHTML='<i class="ti ti-archive"></i>';b.onclick=(function(k){return function(){archiverLot(k);};})(lotKey);const t=document.createElement('td');t.style.padding='8px';t.appendChild(b);const d=document.createElement('tr');d.appendChild(t);return '<td style="padding:8px">'+t.innerHTML+'</td>';})()
+      +'<td style="padding:8px">'+actionCell+'</td>'
       +'</tr>';
   }).join('');
+  tbody.querySelectorAll('.archiver-lot-btn').forEach(btn => {
+    btn.onclick = function() { archiverLot(this.getAttribute('data-lot')); };
+  });
+  tbody.querySelectorAll('.approuver-final-btn').forEach(btn => {
+    btn.onclick = function() { approuverLotFinal(this.getAttribute('data-lot')); };
+  });
 }
 
+function approuverLotFinal(lotKey) {
+  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lotKey).forEach(e=>{ e.statut='approuve'; e.dateApprobation=today; });
+  addActivity('rosette', 'Lot approuvé : '+lotKey);
+  renderLotsLiberes();
+  updateBadgeLiberes();
+  renderDashboard?.();
+  saveData();
+  toast('Lot approuvé', 'success');
+}
+window.approuverLotFinal = approuverLotFinal;
+
 function updateBadgeLiberes() {
-  const count = (state.echantillons||[]).filter(e=>e.statut==='approuve').length > 0
-    ? new Set((state.echantillons||[]).filter(e=>e.statut==='approuve').map(e=>e.lot||String(e.id))).size
-    : 0;
+  const count = new Set((state.echantillons||[]).filter(e=>e.statut==='a_approuver').map(e=>e.lot||String(e.id))).size;
   const badge = document.getElementById('badge-liberes');
   if (badge) { badge.textContent = count; badge.style.display = count ? '' : 'none'; }
 }
@@ -1830,9 +1863,12 @@ function exportLotsLiberes() {
   Object.entries(lots).forEach(([lotKey, ss]) => {
     const e0=ss[0];
     const produit=(state.produitsEch||[]).find(p=>p.id===e0.produitId);
-    const marches=(e0.marcheIds||[]).map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const article=e0.articleId?(state.articles||[]).find(a=>a.id===e0.articleId):null;
+    const prodNom=article?.nom||produit?.nom||'—';
+    const allMarcheIds=[...new Set(ss.flatMap(e=>e.marcheIds||[]))];
+    const marches=allMarcheIds.map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
     const analyses=(e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
-    lines.push([(produit?.nom||'—'),lotKey,ss.length,marches.map(m=>m.nom).join(', '),(e0.date?formatDate(e0.date):'—'),(e0.dateApprobation||'—'),analyses.map(a=>a.nom).join(', ')].join('	'));
+    lines.push([prodNom,lotKey,ss.length,marches.map(m=>m.nom).join(', '),(e0.date?formatDate(e0.date):'—'),(e0.dateApprobation||'—'),analyses.map(a=>a.nom).join(', ')].join('	'));
   });
   const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
   const url=URL.createObjectURL(blob);
@@ -7734,7 +7770,7 @@ function renderEchantillonsTableAlignedV105(){
   const fVerifiee=document.getElementById('fech-verifiee')?.value||'';
 
   const lots={};
-  (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve').forEach(e=>{
+  (state.echantillons||[]).filter(e=>e.statut!=='archive'&&e.statut!=='approuve'&&e.statut!=='a_approuver').forEach(e=>{
     // Les relances ont leur propre code unique (LOT-R1, LOT-R2...) -> une ligne indépendante
     // STAB : chaque réception est une ligne distincte (même lot, échéances différentes)
     const k=e.relance ? String(e.id) : (e.typeSTAB && !e.typePIF ? String(e.id) : (e.lot||String(e.id)));
@@ -7800,7 +7836,7 @@ function renderEchantillonsTableAlignedV105(){
         if(isApproved){
           content='<span class="badge badge-green" style="font-size:12px;padding:6px 12px"><i class="ti ti-rosette"></i> Approuvé</span>';
         } else if(allVerif){
-          content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px"><i class="ti ti-check"></i> Approuver</button>';
+          content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px"><i class="ti ti-check"></i> À Approuver</button>';
         } else {
           content='<div class="actions" style="opacity:1"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
         }
@@ -7828,13 +7864,13 @@ function renderEchantillonsTableAlignedV105(){
   tbody.querySelectorAll('.approuver-btn').forEach(btn=>{
     btn.onclick=function(){
       const lot=this.getAttribute('data-lot');
-      (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lot).forEach(e=>{ e.statut='approuve'; });
-      addActivity('rosette','Lot approuvé : '+lot);
-      renderEchantillonsTable();
-      renderLotsLiberes?.();
+      (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lot).forEach(e=>{ e.statut='a_approuver'; });
+      addActivity('clock','Lot envoyé en approbation : '+lot);
       renderDashboard?.();
+      updateBadgeLiberes?.();
       saveData();
-      toast('Lot approuvé','success');
+      toast('Lot envoyé en approbation','success');
+      goToEch('liberes');
     };
   });
 }
