@@ -1480,6 +1480,19 @@
       "note": "",
       "coaUrl": "https://static.usp.org/pdf/EN/referenceStandards/certificates/1577008-R14640.pdf",
       "id": 1786216310048
+    },
+    {
+      "produitId": 1786458501179,
+      "lot": "2045653",
+      "qte": "",
+      "reception": "2026-02-20",
+      "peremption": "2027-07-12",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786458542715
     }
   ],
   "produitsEch": [
@@ -1982,11 +1995,6 @@
       "time": "08/08 21:11"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:11"
-    },
-    {
       "icon": "package",
       "text": "5x Propylparaben (PHBP) lot R14640 receptionne(s)",
       "time": "08/08 21:11"
@@ -2215,6 +2223,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Platinium Cobalt 100",
       "time": "11/08 16:28"
+    },
+    {
+      "icon": "package",
+      "text": "1x Platinium Cobalt 100 lot 2045653 receptionne(s)",
+      "time": "11/08 16:29"
     }
   ],
   "spq": [
