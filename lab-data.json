@@ -1849,11 +1849,11 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "analyseStatuts": {
         "1785169966496": "verifiee",
-        "1786301151090": "terminee"
+        "1786301151090": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785169966496": {
@@ -1863,7 +1863,8 @@
         },
         "1786301151090": {
           "en_cours": "11/08/2026",
-          "terminee": "11/08/2026"
+          "terminee": "11/08/2026",
+          "verifiee": "11/08/2026"
         }
       }
     },
@@ -2104,11 +2105,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Alcool Benzylique (BnOH)",
-      "time": "09/08 12:52"
-    },
     {
       "icon": "pencil",
       "text": "Produit modifie : Phenol",
@@ -2352,6 +2348,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — Osmolalité : verifiee",
+      "time": "11/08 20:14"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — TCC0065 - MPEG : verifiee",
       "time": "11/08 20:14"
     }
   ],
