@@ -1426,6 +1426,19 @@
       "qteCmde": "2",
       "note": "Teneur en Eau",
       "bvs": false
+    },
+    {
+      "id": 1786459104213,
+      "nom": "Poudre Zinc",
+      "fournisseur": "CARLO ERBA",
+      "ref": "493705",
+      "localisation": "E3",
+      "fc": "0.6",
+      "conditionnement": "250 g",
+      "stockMin": "1",
+      "qteCmde": "1",
+      "note": "",
+      "bvs": false
     }
   ],
   "contenants": [
@@ -2049,11 +2062,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST 2 — pH : en_cours",
-      "time": "08/08 21:21"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration US : en_cours",
       "time": "08/08 21:22"
     },
@@ -2296,6 +2304,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Titrant 5 lot HX56489610",
       "time": "11/08 16:33"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Poudre Zinc",
+      "time": "11/08 16:38"
     }
   ],
   "spq": [
