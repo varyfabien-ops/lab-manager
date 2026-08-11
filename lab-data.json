@@ -1948,8 +1948,20 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-10",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785247569532": "en_cours",
+        "1785247477146": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785247569532": {
+          "en_cours": "11/08/2026"
+        },
+        "1785247477146": {
+          "en_cours": "11/08/2026"
+        }
+      }
     },
     {
       "id": 1786344619244,
@@ -2142,16 +2154,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Marcaïne 2,5 mg/mL SC — 3 entrée(s) — 5 analyse(s)",
-      "time": "09/08 19:59"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0065 - MPEG",
-      "time": "09/08 20:45"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
@@ -2391,6 +2393,16 @@
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "11/08 21:43"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — Limpidité / Coloration US : en_cours",
+      "time": "11/08 21:50"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — Limpidité / Coloration PE : en_cours",
+      "time": "11/08 21:50"
     }
   ],
   "spq": [
