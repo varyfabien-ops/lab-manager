@@ -1727,13 +1727,25 @@
       "note": "",
       "analyseStatuts": {
         "1785247477146": "en_cours",
-        "1785170122728": "en_cours"
+        "1785170122728": "en_cours",
+        "1785247382413": "en_cours",
+        "1785247529863": "en_cours",
+        "1785170145444": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247477146": {
           "en_cours": "11/08/2026"
         },
         "1785170122728": {
+          "en_cours": "11/08/2026"
+        },
+        "1785247382413": {
+          "en_cours": "11/08/2026"
+        },
+        "1785247529863": {
+          "en_cours": "11/08/2026"
+        },
+        "1785170145444": {
           "en_cours": "11/08/2026"
         }
       }
@@ -2118,21 +2130,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : TEST (2 entrees)",
-      "time": "09/08 16:51"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Marcaïne 2,5 mg/mL SC — 1 entrée(s) — 0 analyse(s)",
-      "time": "09/08 16:54"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0004 Bupivacaïne",
-      "time": "09/08 17:01"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : Limpidité / Coloration PE",
       "time": "09/08 17:01"
@@ -2365,6 +2362,21 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — pH : en_cours",
+      "time": "11/08 21:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0002 - Sodium : en_cours",
+      "time": "11/08 21:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 - Bupivacaïne : en_cours",
+      "time": "11/08 21:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Volume Extractible : en_cours",
       "time": "11/08 21:27"
     }
   ],
