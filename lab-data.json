@@ -4189,6 +4189,25 @@
       "modules": [
         "planning"
       ]
+    },
+    {
+      "id": 1786470994736,
+      "nom": "Admin",
+      "icone": "ti-user",
+      "color": "#4CAF50",
+      "modules": [
+        "dashboard",
+        "planning",
+        "reactifs",
+        "preparations",
+        "commandes",
+        "echantillons",
+        "articles",
+        "habilitations",
+        "activity",
+        "stabilites",
+        "profils-config"
+      ]
     }
   ],
   "commandesArchives": [
