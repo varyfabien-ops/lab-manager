@@ -4268,6 +4268,7 @@
       "icone": "ti-user",
       "color": "#2196F3",
       "modules": [
+        "catalogue-analyses",
         "catalogue-reactifs",
         "articles",
         "habilitations",
