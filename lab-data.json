@@ -1723,7 +1723,7 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "conforme",
+      "statut": "a_approuver",
       "note": "",
       "analyseStatuts": {
         "1785247477146": "verifiee",
@@ -1803,7 +1803,7 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "recu",
+      "statut": "a_approuver",
       "note": ""
     },
     {
@@ -1849,7 +1849,7 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "recu",
+      "statut": "a_approuver",
       "note": ""
     },
     {
@@ -2140,11 +2140,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : TEST 2 (2 entrees)",
-      "time": "09/08 19:40"
-    },
-    {
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL SC — 3 entrée(s) — 0 analyse(s)",
       "time": "09/08 19:53"
@@ -2388,6 +2383,11 @@
       "icon": "list-check",
       "text": "TEST-1 — Volume Extractible : verifiee",
       "time": "11/08 21:27"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : TEST",
+      "time": "11/08 21:41"
     }
   ],
   "spq": [
