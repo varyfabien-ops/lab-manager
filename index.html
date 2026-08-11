@@ -655,18 +655,34 @@
   <!-- SOUS-VUE LOTS LIBERES -->
   <div id="ech-view-liberes" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Approbation</h1><p>Lots approuves et liberes au controle qualite</p></div>
+      <div class="page-header-text"><h1>Approbation</h1><p>Lots en attente et approuves au controle qualite</p></div>
       <div class="page-header-actions">
         <button class="btn" onclick="exportLotsLiberes()"><i class="ti ti-download"></i> Exporter</button>
       </div>
     </div>
-    <div class="table-card">
-      <div class="table-card-header"><h3>Lots approuves</h3></div>
-      <table><thead><tr>
-        <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
-        <th>Date reception</th><th>Date approbation</th><th>Analyses</th><th></th>
-      </tr></thead>
-      <tbody id="liberes-tbody"></tbody></table>
+    <div class="tabs" style="display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px">
+      <button class="liberes-subtab-btn" data-liberessubtab="actifs" onclick="liberesSetSubtab('actifs')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">En cours</button>
+      <button class="liberes-subtab-btn" data-liberessubtab="archives" onclick="liberesSetSubtab('archives')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Archives</button>
+    </div>
+    <div id="liberes-subview-actifs">
+      <div class="table-card">
+        <div class="table-card-header"><h3>Lots en attente et approuves</h3></div>
+        <table><thead><tr>
+          <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
+          <th>Date reception</th><th>Date approbation</th><th>Analyses</th><th></th>
+        </tr></thead>
+        <tbody id="liberes-tbody"></tbody></table>
+      </div>
+    </div>
+    <div id="liberes-subview-archives" style="display:none">
+      <div class="table-card">
+        <div class="table-card-header"><h3>Lots archives</h3></div>
+        <table><thead><tr>
+          <th>Produit</th><th>Lot</th><th>Nb s-series</th><th>Marches</th>
+          <th>Date approbation</th><th>Date archivage</th><th>Analyses</th><th></th>
+        </tr></thead>
+        <tbody id="liberes-archives-tbody"></tbody></table>
+      </div>
     </div>
   </div>
 </div>
@@ -1877,6 +1893,23 @@ function approuverLotFinal(lotKey) {
 }
 window.approuverLotFinal = approuverLotFinal;
 
+let liberesActiveSubtab = 'actifs';
+function liberesSetSubtab(tab) {
+  liberesActiveSubtab = tab;
+  ['actifs','archives'].forEach(t => {
+    const el = document.getElementById('liberes-subview-' + t);
+    if (el) el.style.display = (t === tab) ? '' : 'none';
+    const btn = document.querySelector('.liberes-subtab-btn[data-liberessubtab="' + t + '"]');
+    if (btn) {
+      btn.style.color = (t === tab) ? 'var(--cyan)' : 'var(--text2)';
+      btn.style.borderBottomColor = (t === tab) ? 'var(--cyan)' : 'transparent';
+    }
+  });
+  if (tab === 'archives') renderLotsArchivesApprobation();
+  else renderLotsLiberes();
+}
+window.liberesSetSubtab = liberesSetSubtab;
+
 function updateBadgeLiberes() {
   const count = new Set((state.echantillons||[]).filter(e=>e.statut==='a_approuver').map(e=>e.lot||String(e.id))).size;
   const badge = document.getElementById('badge-liberes');
@@ -1884,11 +1917,58 @@ function updateBadgeLiberes() {
 }
 
 function archiverLot(lotKey) {
-  (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lotKey).forEach(e=>{ e.statut='archive'; });
+  const today = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lotKey).forEach(e=>{ e.statut='archive'; e.dateArchivage=today; });
   addActivity('archive', 'Lot archive : '+lotKey);
-  renderLotsLiberes(); updateBadgeLiberes(); saveData();
+  renderLotsLiberes(); renderLotsArchivesApprobation(); updateBadgeLiberes(); saveData();
   toast('Lot archive', 'success');
 }
+
+function restaurerLotApprobation(lotKey) {
+  (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lotKey).forEach(e=>{ e.statut='approuve'; delete e.dateArchivage; });
+  addActivity('rosette', 'Lot restauré depuis les archives : '+lotKey);
+  renderLotsLiberes(); renderLotsArchivesApprobation(); updateBadgeLiberes(); saveData();
+  toast('Lot restauré', 'success');
+}
+window.restaurerLotApprobation = restaurerLotApprobation;
+
+function renderLotsArchivesApprobation() {
+  const tbody = document.getElementById('liberes-archives-tbody'); if(!tbody) return;
+  const lots = {};
+  (state.echantillons||[]).filter(e=>e.statut==='archive').forEach(e => {
+    const k = e.lot||String(e.id);
+    if (!lots[k]) lots[k] = [];
+    lots[k].push(e);
+  });
+  if (!Object.keys(lots).length) {
+    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-archive"></i><p>Aucun lot archivé</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = Object.entries(lots).sort((a,b)=>(b[1][0].dateArchivage||'').localeCompare(a[1][0].dateArchivage||'')).map(([lotKey, ss]) => {
+    const e0 = ss[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const article = e0.articleId ? (state.articles||[]).find(a=>a.id===e0.articleId) : null;
+    const prodNom = article?.nom || produit?.nom || '—';
+    const prodForme = article?.concentration || [produit?.forme, produit?.dosage].filter(Boolean).join(' ');
+    const allMarcheIds = [...new Set(ss.flatMap(e => e.marcheIds||[]))];
+    const marches = allMarcheIds.map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+    const analyses = (e0.analysesIds||[]).map(aid=>(state.catalogue||[]).find(a=>a.id===aid)).filter(Boolean);
+    return '<tr>'
+      +'<td style="font-size:14px;padding:10px 14px"><strong>'+prodNom+'</strong>'+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'
+      +'<td style="font-size:14px;padding:10px 14px;text-align:center"><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotKey+'</code></td>'
+      +'<td style="font-size:14px;padding:10px 14px;text-align:center"><strong style="color:var(--cyan)">'+ss.length+'</strong></td>'
+      +'<td style="font-size:14px;padding:10px 14px">'+marches.map(m=>'<span class="badge badge-blue">'+m.nom+'</span>').join(' ')+'</td>'
+      +'<td style="font-size:14px;padding:10px 14px"><span class="badge badge-green" style="font-size:12px">'+(e0.dateApprobation||'—')+'</span></td>'
+      +'<td style="font-size:14px;padding:10px 14px"><span class="badge badge-gray" style="font-size:12px">'+(e0.dateArchivage||'—')+'</span></td>'
+      +'<td style="font-size:13px;padding:10px 14px">'+analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a.nom+'</span>').join(' ')+'</td>'
+      +'<td style="padding:8px"><button class="icon-btn restaurer-lot-btn" title="Restaurer" data-lot="'+String(lotKey).replace(/"/g,'&quot;')+'"><i class="ti ti-rotate"></i></button></td>'
+      +'</tr>';
+  }).join('');
+  tbody.querySelectorAll('.restaurer-lot-btn').forEach(btn => {
+    btn.onclick = function() { restaurerLotApprobation(this.getAttribute('data-lot')); };
+  });
+}
+window.renderLotsArchivesApprobation = renderLotsArchivesApprobation;
 
 function exportLotsLiberes() {
   const lots = {};
@@ -3841,7 +3921,7 @@ function goToEch(view) {
   if (view === 'reception') { renderEchantillonsTable(); setTimeout(initEchStickyHeader,100); }
   if (view === 'produits-ech') renderProduitsEch();
   if (view === 'marches') renderMarches();
-  if (view === 'liberes') renderLotsLiberes();
+  if (view === 'liberes') liberesSetSubtab(liberesActiveSubtab);
 }
 
 function saveProduitEch() {
@@ -6591,10 +6671,12 @@ function resetEchFiltres() {
 const ALL_MODULES = [
   { key:'dashboard',     label:'Tableau de bord',      icon:'ti-layout-dashboard' },
   { key:'planning',      label:'Planning',              icon:'ti-layout-columns' },
+  { key:'kpi',           label:'KPI (Indicateurs)',     icon:'ti-chart-dots' },
   { key:'reactifs',      label:'Réactifs Commerciaux', icon:'ti-package' },
   { key:'preparations',  label:'Préparations',          icon:'ti-flask' },
   { key:'commandes',     label:'Commandes',             icon:'ti-shopping-cart' },
   { key:'echantillons',  label:'Réception',             icon:'ti-inbox' },
+  { key:'approbation',   label:'Approbation',           icon:'ti-circle-check' },
   { key:'articles',      label:'Articles & SPQ',        icon:'ti-barcode' },
   { key:'habilitations', label:'Habilitations',         icon:'ti-certificate' },
   { key:'activity',      label:'Journal',               icon:'ti-history' },
@@ -6695,6 +6777,8 @@ function gotoModule(key) {
     'preparations':  ()=>goToReactifs('preparations'),
     'commandes':     ()=>goTo('commandes',null),
     'echantillons':  ()=>goToEch('reception'),
+    'approbation':   ()=>goToEch('liberes'),
+    'kpi':           ()=>goTo('kpi',null),
     'articles':      ()=>goTo('articles',null),
     'habilitations': ()=>goTo('habilitations',null),
     'activity':      ()=>goTo('audit',null),
@@ -6729,10 +6813,12 @@ function applyProfile(p) {
   const navMap = {
     'dashboard':     ['nav-dashboard'],
     'planning':      ['nav-plan-semaine','nav-plan-calendar','nav-plan-catalogue'],
+    'kpi':           ['nav-kpi'],
     'reactifs':      ['nav-contenants'],
     'preparations':  ['nav-preparations'],
     'commandes':     ['nav-commandes'],
-    'echantillons':  ['nav-reception','nav-marches','nav-liberes'],
+    'echantillons':  ['nav-reception','nav-marches'],
+    'approbation':   ['nav-liberes'],
     'articles':      ['nav-articles'],
     'habilitations': ['nav-habilitations'],
     'activity':      ['nav-audit'],
