@@ -1852,13 +1852,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785169966496": "terminee",
+        "1785169966496": "verifiee",
         "1786301151090": "terminee"
       },
       "analyseStatutsInfo": {
         "1785169966496": {
           "en_cours": "11/08/2026",
-          "terminee": "11/08/2026"
+          "terminee": "11/08/2026",
+          "verifiee": "11/08/2026"
         },
         "1786301151090": {
           "en_cours": "11/08/2026",
@@ -2104,11 +2105,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Alcool Benzylique",
-      "time": "09/08 12:52"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Alcool Benzylique (BnOH)",
       "time": "09/08 12:52"
@@ -2351,6 +2347,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — TCC0065 - MPEG : en_cours",
+      "time": "11/08 20:14"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — Osmolalité : verifiee",
       "time": "11/08 20:14"
     }
   ],
