@@ -3919,6 +3919,23 @@
       "isSous": true,
       "parentNom": "TCC0065 - MPEG",
       "manuel": false
+    },
+    {
+      "id": 1786464048927,
+      "date": "2026-08-10",
+      "techId": "1786178889272",
+      "desc": "Limpidité / Coloration PE",
+      "analyseNom": "Limpidité / Coloration PE",
+      "analyseId": 1785247477146,
+      "sousKey": null,
+      "echId": 1786298382051,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": null,
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false,
+      "supplementaire": true
     }
   ],
   "planRythmes": {
