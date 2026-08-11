@@ -4261,6 +4261,15 @@
         "stabilites",
         "profils-config"
       ]
+    },
+    {
+      "id": 1786477371386,
+      "nom": "Libération",
+      "icone": "ti-user",
+      "color": "#E91E63",
+      "modules": [
+        "echantillons"
+      ]
     }
   ],
   "commandesArchives": [
