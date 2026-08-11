@@ -1849,7 +1849,7 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "conforme",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1785169966496": "verifiee",
@@ -2106,11 +2106,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : Phenol",
-      "time": "09/08 12:52"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Lidocaine Hydrochloride",
       "time": "09/08 12:57"
@@ -2353,6 +2348,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — TCC0065 - MPEG : verifiee",
+      "time": "11/08 20:14"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : AAAAAAA",
       "time": "11/08 20:14"
     }
   ],
