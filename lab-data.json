@@ -1581,12 +1581,13 @@
       "qte": "250 g",
       "reception": "2023-11-14",
       "peremption": "2029-07-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2025-11-24",
+      "validite": "2028-02-09",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1786459142083
+      "id": 1786459142083,
+      "ouvertPar": "FVY"
     }
   ],
   "produitsEch": [
@@ -2074,11 +2075,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
-      "time": "09/08 12:30"
-    },
-    {
       "icon": "certificate",
       "text": "Technicien ajoute : Himidati MOUENDHOIMU",
       "time": "09/08 12:31"
@@ -2321,6 +2317,11 @@
     {
       "icon": "package",
       "text": "1x Poudre Zinc lot V3E055123G receptionne(s)",
+      "time": "11/08 16:39"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Poudre Zinc lot V3E055123G",
       "time": "11/08 16:39"
     }
   ],
