@@ -1952,14 +1952,16 @@
       "note": "",
       "analyseStatuts": {
         "1785247569532": "en_cours",
-        "1785247477146": "en_cours"
+        "1785247477146": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785247569532": {
           "en_cours": "11/08/2026"
         },
         "1785247477146": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "11/08/2026",
+          "verifiee": "11/08/2026"
         }
       }
     },
@@ -2154,11 +2156,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0065 - MPEG",
-      "time": "09/08 20:46"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
@@ -2402,6 +2399,11 @@
     {
       "icon": "list-check",
       "text": "BBBBBB-1 — Limpidité / Coloration PE : en_cours",
+      "time": "11/08 21:50"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — Limpidité / Coloration PE : verifiee",
       "time": "11/08 21:50"
     }
   ],
