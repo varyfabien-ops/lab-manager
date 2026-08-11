@@ -1519,7 +1519,9 @@
       "note": "",
       "coaUrl": "",
       "id": 1786458542715,
-      "ouvertPar": "CAS"
+      "ouvertPar": "CAS",
+      "verifiedBy": "FVY",
+      "verifiedAt": "11/08/2026"
     },
     {
       "produitId": 1786458699090,
@@ -3914,7 +3916,8 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false,
-      "supplementaire": true
+      "supplementaire": true,
+      "statutSuivi": "vert"
     }
   ],
   "planRythmes": {
