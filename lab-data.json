@@ -1514,12 +1514,13 @@
       "qte": "1 L",
       "reception": "2026-01-23",
       "peremption": "2028-10-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-06-02",
+      "validite": "2027-11-14",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1786458742483
+      "id": 1786458742483,
+      "ouvertPar": "CPL"
     },
     {
       "produitId": 1786458699090,
@@ -2047,11 +2048,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST 2 — Volume Extractible : en_cours",
-      "time": "08/08 21:21"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST 2 — Volume Extractible : verifiee",
       "time": "08/08 21:21"
     },
@@ -2294,6 +2290,11 @@
       "icon": "package",
       "text": "2x Titrant 5 lot HX56489610 receptionne(s)",
       "time": "11/08 16:32"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Titrant 5 lot HX57784410",
+      "time": "11/08 16:33"
     }
   ],
   "spq": [
