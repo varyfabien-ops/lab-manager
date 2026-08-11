@@ -1400,6 +1400,19 @@
       "qteCmde": "10",
       "note": "",
       "bvs": true
+    },
+    {
+      "id": 1786458501179,
+      "nom": "Platinium Cobalt 100",
+      "fournisseur": "FISHER",
+      "ref": "11957965",
+      "localisation": "A4",
+      "fc": "0.6",
+      "conditionnement": "500mL",
+      "stockMin": "1",
+      "qteCmde": "1",
+      "note": "",
+      "bvs": false
     }
   ],
   "contenants": [
@@ -1974,11 +1987,6 @@
       "time": "08/08 21:11"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:11"
-    },
-    {
       "icon": "package",
       "text": "5x Propylparaben (PHBP) lot R14640 receptionne(s)",
       "time": "08/08 21:11"
@@ -2202,6 +2210,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Mépivacaïne / PHBM",
       "time": "10/08 08:52"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Platinium Cobalt 100",
+      "time": "11/08 16:28"
     }
   ],
   "spq": [
