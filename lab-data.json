@@ -1728,8 +1728,8 @@
       "analyseStatuts": {
         "1785247477146": "verifiee",
         "1785170122728": "verifiee",
-        "1785247382413": "terminee",
-        "1785247529863": "terminee",
+        "1785247382413": "verifiee",
+        "1785247529863": "verifiee",
         "1785170145444": "terminee"
       },
       "analyseStatutsInfo": {
@@ -1745,11 +1745,13 @@
         },
         "1785247382413": {
           "en_cours": "11/08/2026",
-          "terminee": "11/08/2026"
+          "terminee": "11/08/2026",
+          "verifiee": "11/08/2026"
         },
         "1785247529863": {
           "en_cours": "11/08/2026",
-          "terminee": "11/08/2026"
+          "terminee": "11/08/2026",
+          "verifiee": "11/08/2026"
         },
         "1785170145444": {
           "en_cours": "11/08/2026",
@@ -2138,16 +2140,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 Bupivacaïne",
-      "time": "09/08 17:33"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0002 Sodium",
-      "time": "09/08 19:19"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 Mépivacaïne / PHBM",
       "time": "09/08 19:33"
     },
@@ -2384,6 +2376,16 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — pH : verifiee",
+      "time": "11/08 21:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0002 - Sodium : verifiee",
+      "time": "11/08 21:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — TCC0004 - Bupivacaïne : verifiee",
       "time": "11/08 21:27"
     }
   ],
