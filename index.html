@@ -430,17 +430,17 @@
       <table style="table-layout:fixed;min-width:1100px;width:100%">
         <thead id="rc-thead"><tr>
           <th style="width:200px;text-align:left"><div style="display:flex;align-items:center;gap:4px;cursor:pointer" data-rc-col="produit" onclick="openRcFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-produit" value=""></th>
-          <th style="width:110px;text-align:center">Réf. fournisseur</th>
-          <th style="width:100px;text-align:center">N° CAS</th>
+          <th style="width:110px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="ref" onclick="openRcFilter(event,'ref')">Réf. fournisseur <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
+          <th style="width:100px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="cas" onclick="openRcFilter(event,'cas')">N° CAS <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:120px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="lot" onclick="openRcFilter(event,'lot')">N° de Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div><input type="hidden" id="f-lot" value=""></th>
-          <th style="width:110px;text-align:center">Emplacement</th>
+          <th style="width:110px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="loc" onclick="openRcFilter(event,'loc')">Emplacement <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="reception" onclick="openRcFilter(event,'reception')">Date Réception <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="ouverture" onclick="openRcFilter(event,'ouverture')">Date Ouverture <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="peremption" onclick="openRcFilter(event,'peremption')">Date Péremption <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:130px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="validite_statut" onclick="openRcFilter(event,'validite_statut')">Date Validité <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:110px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="statut" onclick="openRcFilter(event,'statut')">Statut <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
-          <th style="width:100px;text-align:center">Ouverture</th>
-          <th style="width:110px;text-align:center">Vérification</th>
+          <th style="width:100px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="ouvertPar" onclick="openRcFilter(event,'ouvertPar')">Ouverture <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
+          <th style="width:110px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-rc-col="verifiedBy" onclick="openRcFilter(event,'verifiedBy')">Vérification <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div></th>
           <th style="width:120px"></th>
         </tr></thead>
         <tbody id="reactifs-tbody"></tbody>
@@ -3697,7 +3697,7 @@ function statutContenantBadge(s) {
 }
 
 function resetFiltres() {
-  window._rcFilter = { produit:[], lot:[], fourn:[], reception:[], ouverture:[], peremption:[], statut:[], validite_statut:[] };
+  window._rcFilter = { produit:[], lot:[], fourn:[], ref:[], cas:[], loc:[], reception:[], ouverture:[], peremption:[], statut:[], validite_statut:[], ouvertPar:[], verifiedBy:[] };
   ['f-produit','f-lot','f-fourn'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
   ['f-reception','f-ouverture','f-peremption'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
   ['f-validite-statut','f-statut'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
@@ -4433,6 +4433,11 @@ function renderReactifsTable() {
   const fProduit = window._rcFilter?.produit||[];
   const fLot = window._rcFilter?.lot||[];
   const fFourn = window._rcFilter?.fourn||[];
+  const fRef = window._rcFilter?.ref||[];
+  const fCas = window._rcFilter?.cas||[];
+  const fLoc = window._rcFilter?.loc||[];
+  const fOuvertPar = window._rcFilter?.ouvertPar||[];
+  const fVerifiedBy = window._rcFilter?.verifiedBy||[];
   const fReception = window._rcFilter?.reception||[];
   const fOuverture = window._rcFilter?.ouverture||[];
   const fPeremption = window._rcFilter?.peremption||[];
@@ -4447,6 +4452,11 @@ function renderReactifsTable() {
     if (fProduit.length && !fProduit.includes(p.nom||'')) return false;
     if (fLot.length && !fLot.includes(c.lot||'')) return false;
     if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
+    if (fRef.length && !fRef.includes(p.ref || 'Non renseignée')) return false;
+    if (fCas.length && !fCas.includes(p.cas || 'Non renseigné')) return false;
+    if (fLoc.length && !fLoc.includes(p.localisation || 'Non renseigné')) return false;
+    if (fOuvertPar.length && !fOuvertPar.includes(c.ouvertPar || (c.ouverture ? 'Ouvert (sans visa)' : 'Non ouvert'))) return false;
+    if (fVerifiedBy.length && !fVerifiedBy.includes(c.verifiedBy || 'Non vérifié')) return false;
     if (fReception.length && !fReception.includes(formatDate(c.reception))) return false;
     if (fOuverture.length && !fOuverture.includes(formatDate(c.ouverture))) return false;
     if (fPeremption.length && !fPeremption.includes(formatDate(c.peremption))) return false;
@@ -4461,6 +4471,18 @@ function renderReactifsTable() {
       if(!fValiditeSt.includes(label)) return false;
     }
     return true;
+  });
+
+  // Tri : Produit (alphabétique) puis Statut (Ouvert avant En stock)
+  const statutOrder = { ouvert: 0, en_stock: 1 };
+  contenants.sort((a, b) => {
+    const pa = (state.produits||[]).find(x=>x.id===a.produitId)||{};
+    const pb = (state.produits||[]).find(x=>x.id===b.produitId)||{};
+    const nomCmp = (pa.nom||'').localeCompare(pb.nom||'', 'fr', {sensitivity:'base'});
+    if (nomCmp !== 0) return nomCmp;
+    const sa = statutOrder[getStatutAuto(a)] ?? 2;
+    const sb = statutOrder[getStatutAuto(b)] ?? 2;
+    return sa - sb;
   });
 
   const tbody = document.getElementById('reactifs-tbody');
@@ -4584,7 +4606,7 @@ window.supprimerArchiveCommande = supprimerArchiveCommande;
 // ============================================================
 // FILTRES EXCEL RÉACTIFS COMMERCIAUX
 // ============================================================
-window._rcFilter = { produit:[], lot:[], fourn:[], reception:[], ouverture:[], peremption:[], statut:[], validite_statut:[] };
+window._rcFilter = { produit:[], lot:[], fourn:[], ref:[], cas:[], loc:[], reception:[], ouverture:[], peremption:[], statut:[], validite_statut:[], ouvertPar:[], verifiedBy:[] };
 let _rcFilterOpen = null;
 
 function openRcFilter(event, col) {
@@ -4599,6 +4621,11 @@ function openRcFilter(event, col) {
     if (col==='produit') { if(p.nom) vals.add(p.nom); }
     else if (col==='lot') { if(c.lot) vals.add(c.lot); }
     else if (col==='fourn') { if(p.fournisseur) vals.add(p.fournisseur); }
+    else if (col==='ref') { vals.add(p.ref || 'Non renseignée'); }
+    else if (col==='cas') { vals.add(p.cas || 'Non renseigné'); }
+    else if (col==='loc') { vals.add(p.localisation || 'Non renseigné'); }
+    else if (col==='ouvertPar') { vals.add(c.ouvertPar || (c.ouverture ? 'Ouvert (sans visa)' : 'Non ouvert')); }
+    else if (col==='verifiedBy') { vals.add(c.verifiedBy || 'Non vérifié'); }
     else if (col==='reception') { if(c.reception) vals.add(formatDate(c.reception)); }
     else if (col==='ouverture') { if(c.ouverture) vals.add(formatDate(c.ouverture)); }
     else if (col==='peremption') { if(c.peremption) vals.add(formatDate(c.peremption)); }
@@ -4662,7 +4689,7 @@ function closeRcFilter() {
 }
 
 function updateRcFilterIcons() {
-  ['produit','lot','fourn','reception','ouverture','peremption','statut','validite_statut'].forEach(col => {
+  ['produit','lot','fourn','ref','cas','loc','reception','ouverture','peremption','statut','validite_statut','ouvertPar','verifiedBy'].forEach(col => {
     const active = (window._rcFilter[col]||[]).length > 0;
     const el = document.querySelector('[data-rc-col="'+col+'"]');
     if(el) { const icon=el.querySelector('.ti-filter'); if(icon) icon.style.color=active?'var(--cyan)':'var(--text3)'; }
