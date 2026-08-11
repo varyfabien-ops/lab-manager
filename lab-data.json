@@ -3880,24 +3880,6 @@
       "isSous": true,
       "parentNom": "TCC0065 - MPEG",
       "manuel": false
-    },
-    {
-      "id": 1786464109144,
-      "date": "2026-08-10",
-      "techId": "1786302836845",
-      "desc": "pH",
-      "analyseNom": "pH",
-      "analyseId": 1785170122728,
-      "sousKey": null,
-      "echId": 1786298382051,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false,
-      "supplementaire": true,
-      "statutSuivi": "rouge"
     }
   ],
   "planRythmes": {
