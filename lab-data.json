@@ -4264,21 +4264,12 @@
     },
     {
       "id": 1786470994736,
-      "nom": "Admin",
+      "nom": "Paramétrages",
       "icone": "ti-user",
-      "color": "#4CAF50",
+      "color": "#2196F3",
       "modules": [
-        "dashboard",
-        "planning",
-        "reactifs",
-        "preparations",
-        "commandes",
-        "echantillons",
-        "articles",
-        "habilitations",
-        "activity",
-        "stabilites",
-        "profils-config"
+        "catalogue-reactifs",
+        "articles"
       ]
     },
     {
