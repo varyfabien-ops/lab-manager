@@ -1726,27 +1726,33 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785247477146": "en_cours",
-        "1785170122728": "en_cours",
-        "1785247382413": "en_cours",
-        "1785247529863": "en_cours",
-        "1785170145444": "en_cours"
+        "1785247477146": "verifiee",
+        "1785170122728": "terminee",
+        "1785247382413": "terminee",
+        "1785247529863": "terminee",
+        "1785170145444": "terminee"
       },
       "analyseStatutsInfo": {
         "1785247477146": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "11/08/2026",
+          "verifiee": "11/08/2026"
         },
         "1785170122728": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "11/08/2026"
         },
         "1785247382413": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "11/08/2026"
         },
         "1785247529863": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "11/08/2026"
         },
         "1785170145444": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "11/08/2026"
         }
       }
     },
@@ -2131,11 +2137,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : Limpidité / Coloration PE",
-      "time": "09/08 17:01"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 Bupivacaïne",
       "time": "09/08 17:32"
     },
@@ -2377,6 +2378,11 @@
     {
       "icon": "list-check",
       "text": "TEST-1 — Volume Extractible : en_cours",
+      "time": "11/08 21:27"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST-1 — Limpidité / Coloration PE : verifiee",
       "time": "11/08 21:27"
     }
   ],
