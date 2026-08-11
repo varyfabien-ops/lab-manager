@@ -1588,6 +1588,19 @@
       "coaUrl": "",
       "id": 1786459142083,
       "ouvertPar": "FVY"
+    },
+    {
+      "produitId": 1786459104213,
+      "lot": "V5A048265B",
+      "qte": "250 g",
+      "reception": "2026-01-22",
+      "peremption": "2031-02-28",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786459266876
     }
   ],
   "produitsEch": [
@@ -2075,11 +2088,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Himidati MOUENDHOIMU",
-      "time": "09/08 12:31"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
       "time": "09/08 12:31"
@@ -2323,6 +2331,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Poudre Zinc lot V3E055123G",
       "time": "11/08 16:39"
+    },
+    {
+      "icon": "package",
+      "text": "1x Poudre Zinc lot V5A048265B receptionne(s)",
+      "time": "11/08 16:41"
     }
   ],
   "spq": [
