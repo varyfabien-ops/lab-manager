@@ -203,6 +203,7 @@
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> Réactifs Commerciaux</button>
     <button class="nav-btn" onclick="goToReactifs('preparations')" id="nav-preparations"><i class="ti ti-flask"></i> Préparations</button>
+    <button class="nav-btn" onclick="goToReactifs('produits')" id="nav-catalogue-reactifs"><i class="ti ti-database"></i> Catalogue Réactifs</button>
     <button class="nav-btn" onclick="goTo('commandes',null)" id="nav-commandes"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge-h" id="badge-commandes" style="display:none">0</span></button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Réception</button>
@@ -429,8 +430,12 @@
 <div class="page" id="page-reactifs">
   <div id="reactifs-view-produits" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Catalogue réactifs</h1><p>Catalogue des reactifs du laboratoire</p></div>
-      <div class="page-header-actions"><button class="btn" onclick="goToReactifs('contenants')" style="margin-right:8px"><i class="ti ti-arrow-left"></i> Retour</button><button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau réactif</button></div>
+      <div class="page-header-text"><h1>Catalogue Réactifs</h1><p>Base de données des réactifs commerciaux et solutions préparées</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModal('modal-reactif')"><i class="ti ti-plus"></i> Nouveau réactif commercial</button></div>
+    </div>
+    <div class="tabs" style="display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px">
+      <button class="catref-subtab-btn" data-catrefsubtab="produits" onclick="goToReactifs('produits')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--cyan);border-bottom:2px solid var(--cyan)">Réactifs commerciaux</button>
+      <button class="catref-subtab-btn" data-catrefsubtab="catalogue-prep" onclick="goToReactifs('catalogue-prep')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Solutions préparées</button>
     </div>
     <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;display:flex;align-items:center;gap:10px">
       <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Produits enregistres</h3>
@@ -445,7 +450,6 @@
       <div class="page-header-actions">
         <button class="btn" onclick="imprimerPerimesContenants()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
         <button class="btn" onclick="goToReactifs('archives')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
-        <button class="btn" onclick="goToReactifs('produits')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
         <button class="btn btn-primary" onclick="openModal('modal-contenant')"><i class="ti ti-plus"></i> Nouveau réactif</button>
       </div>
     </div>
@@ -496,7 +500,6 @@
       <div class="page-header-actions">
         <button class="btn" onclick="imprimerPerimes()" style="margin-right:8px"><i class="ti ti-printer"></i> Imprimer périmés</button>
         <button class="btn" onclick="goToReactifs('archives-prep')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
-        <button class="btn" onclick="goToReactifs('catalogue-prep')" style="margin-right:8px"><i class="ti ti-database"></i> Catalogue</button>
         <button class="btn btn-primary" onclick="openModalPrep()"><i class="ti ti-plus"></i> Nouvelle préparation</button>
       </div>
     </div>
@@ -528,11 +531,12 @@
   <!-- VUE CATALOGUE RÉACTIFS PRÉPARÉS -->
   <div id="reactifs-view-catalogue-prep" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Catalogue des réactifs</h1><p>Base de données des réactifs préparables</p></div>
-      <div class="page-header-actions">
-        <button class="btn" onclick="goToReactifs('preparations')" style="margin-right:8px"><i class="ti ti-arrow-left"></i> Retour</button>
-        <button class="btn btn-primary" onclick="openModalCataloguePrep()"><i class="ti ti-plus"></i> Nouveau réactif</button>
-      </div>
+      <div class="page-header-text"><h1>Catalogue Réactifs</h1><p>Base de données des réactifs commerciaux et solutions préparées</p></div>
+      <div class="page-header-actions"><button class="btn btn-primary" onclick="openModalCataloguePrep()"><i class="ti ti-plus"></i> Nouvelle solution préparée</button></div>
+    </div>
+    <div class="tabs" style="display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px">
+      <button class="catref-subtab-btn" data-catrefsubtab="produits" onclick="goToReactifs('produits')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Réactifs commerciaux</button>
+      <button class="catref-subtab-btn" data-catrefsubtab="catalogue-prep" onclick="goToReactifs('catalogue-prep')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--cyan);border-bottom:2px solid var(--cyan)">Solutions préparées</button>
     </div>
     <div class="table-card">
       <div class="table-card-header"><h3>Réactifs enregistrés</h3></div>
@@ -6674,6 +6678,7 @@ const ALL_MODULES = [
   { key:'kpi',           label:'KPI (Indicateurs)',     icon:'ti-chart-dots' },
   { key:'reactifs',      label:'Réactifs Commerciaux', icon:'ti-package' },
   { key:'preparations',  label:'Préparations',          icon:'ti-flask' },
+  { key:'catalogue-reactifs', label:'Catalogue Réactifs', icon:'ti-database' },
   { key:'commandes',     label:'Commandes',             icon:'ti-shopping-cart' },
   { key:'echantillons',  label:'Réception',             icon:'ti-inbox' },
   { key:'approbation',   label:'Approbation',           icon:'ti-circle-check' },
@@ -6774,6 +6779,7 @@ function gotoModule(key) {
     'dashboard':     ()=>goTo('dashboard',null),
     'planning':      ()=>goToPlanning('semaine'),
     'reactifs':      ()=>goToReactifs('contenants'),
+    'catalogue-reactifs': ()=>goToReactifs('produits'),
     'preparations':  ()=>goToReactifs('preparations'),
     'commandes':     ()=>goTo('commandes',null),
     'echantillons':  ()=>goToEch('reception'),
@@ -6816,6 +6822,7 @@ function applyProfile(p) {
     'kpi':           ['nav-kpi'],
     'reactifs':      ['nav-contenants'],
     'preparations':  ['nav-preparations'],
+    'catalogue-reactifs': ['nav-catalogue-reactifs'],
     'commandes':     ['nav-commandes'],
     'echantillons':  ['nav-reception','nav-marches'],
     'approbation':   ['nav-liberes'],
@@ -6989,8 +6996,8 @@ function updateNavActive(page) {
     'reactifs-contenants':  'nav-contenants',
     'reactifs-preparations':'nav-preparations',
     'reactifs-archives':    'nav-contenants',
-    'reactifs-produits':    'nav-contenants',
-    'reactifs-catalogue-prep':'nav-preparations',
+    'reactifs-produits':    'nav-catalogue-reactifs',
+    'reactifs-catalogue-prep':'nav-catalogue-reactifs',
     'reactifs-archives-prep':'nav-preparations',
     'ech-reception':        'nav-reception',
     'ech-marches':          'nav-marches',
