@@ -197,13 +197,13 @@
     <button class="nav-btn" onclick="goTo('dashboard',this)" id="nav-dashboard"><i class="ti ti-layout-dashboard"></i> Tableau de bord</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToPlanning('semaine')" id="nav-plan-semaine"><i class="ti ti-layout-columns"></i> Planning</button>
-    
     <button class="nav-btn" onclick="goTo('kpi',this)" id="nav-kpi"><i class="ti ti-chart-dots"></i> KPI (Indicateurs)</button>
-    <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue</button>
+    <div class="nav-sep"></div>
+    <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue Analyses</button>
+    <button class="nav-btn" onclick="goToReactifs('produits')" id="nav-catalogue-reactifs"><i class="ti ti-database"></i> Catalogue Réactifs</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToReactifs('contenants')" id="nav-contenants"><i class="ti ti-package"></i> Réactifs Commerciaux</button>
     <button class="nav-btn" onclick="goToReactifs('preparations')" id="nav-preparations"><i class="ti ti-flask"></i> Préparations</button>
-    <button class="nav-btn" onclick="goToReactifs('produits')" id="nav-catalogue-reactifs"><i class="ti ti-database"></i> Catalogue Réactifs</button>
     <button class="nav-btn" onclick="goTo('commandes',null)" id="nav-commandes"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge-h" id="badge-commandes" style="display:none">0</span></button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Réception</button>
@@ -6675,6 +6675,7 @@ function resetEchFiltres() {
 const ALL_MODULES = [
   { key:'dashboard',     label:'Tableau de bord',      icon:'ti-layout-dashboard' },
   { key:'planning',      label:'Planning',              icon:'ti-layout-columns' },
+  { key:'catalogue-analyses', label:'Catalogue Analyses', icon:'ti-book' },
   { key:'kpi',           label:'KPI (Indicateurs)',     icon:'ti-chart-dots' },
   { key:'reactifs',      label:'Réactifs Commerciaux', icon:'ti-package' },
   { key:'preparations',  label:'Préparations',          icon:'ti-flask' },
@@ -6778,6 +6779,7 @@ function gotoModule(key) {
   const actions = {
     'dashboard':     ()=>goTo('dashboard',null),
     'planning':      ()=>goToPlanning('semaine'),
+    'catalogue-analyses': ()=>goToPlanning('catalogue'),
     'reactifs':      ()=>goToReactifs('contenants'),
     'catalogue-reactifs': ()=>goToReactifs('produits'),
     'preparations':  ()=>goToReactifs('preparations'),
@@ -6818,7 +6820,8 @@ function applyProfile(p) {
   if (!p) return;
   const navMap = {
     'dashboard':     ['nav-dashboard'],
-    'planning':      ['nav-plan-semaine','nav-plan-calendar','nav-plan-catalogue'],
+    'planning':      ['nav-plan-semaine','nav-plan-calendar'],
+    'catalogue-analyses': ['nav-plan-catalogue'],
     'kpi':           ['nav-kpi'],
     'reactifs':      ['nav-contenants'],
     'preparations':  ['nav-preparations'],
@@ -6873,6 +6876,7 @@ function renderProfilsConfig() {
 }
 
 function openModalProfil() {
+  window._editingProfilId = null;
   document.getElementById('modal-profil-title').textContent = 'Nouveau profil';
   document.getElementById('profil-nom').value = '';
   document.getElementById('profil-icone').value = 'ti-user';
