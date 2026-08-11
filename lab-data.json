@@ -1507,6 +1507,32 @@
       "coaUrl": "",
       "id": 1786458542715,
       "ouvertPar": "CAS"
+    },
+    {
+      "produitId": 1786458699090,
+      "lot": "HX57784410",
+      "qte": "1 L",
+      "reception": "2026-01-23",
+      "peremption": "2028-10-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786458742483
+    },
+    {
+      "produitId": 1786458699090,
+      "lot": "HX57784410",
+      "qte": "1 L",
+      "reception": "2026-01-23",
+      "peremption": "2028-10-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786458742484
     }
   ],
   "produitsEch": [
@@ -1994,11 +2020,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:11"
-    },
-    {
       "icon": "package",
       "text": "5x Propylparaben (PHBP) lot R14640 receptionne(s)",
       "time": "08/08 21:11"
@@ -2242,6 +2263,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Titrant 5",
       "time": "11/08 16:31"
+    },
+    {
+      "icon": "package",
+      "text": "2x Titrant 5 lot HX57784410 receptionne(s)",
+      "time": "11/08 16:32"
     }
   ],
   "spq": [
