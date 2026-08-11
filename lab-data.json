@@ -1413,6 +1413,19 @@
       "qteCmde": "1",
       "note": "",
       "bvs": false
+    },
+    {
+      "id": 1786458699090,
+      "nom": "Titrant 5",
+      "fournisseur": "MERCK",
+      "ref": "1.88010.1000",
+      "localisation": "I9",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "1",
+      "qteCmde": "2",
+      "note": "Teneur en Eau",
+      "bvs": false
     }
   ],
   "contenants": [
@@ -1986,11 +1999,6 @@
       "time": "08/08 21:11"
     },
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot R098B0",
-      "time": "08/08 21:11"
-    },
-    {
       "icon": "package",
       "text": "5x Propylparaben (PHBP) lot R14640 receptionne(s)",
       "time": "08/08 21:11"
@@ -2229,6 +2237,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Platinium Cobalt 100 lot 2045653",
       "time": "11/08 16:29"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Titrant 5",
+      "time": "11/08 16:31"
     }
   ],
   "spq": [
