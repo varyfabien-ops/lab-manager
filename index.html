@@ -259,7 +259,7 @@
         <button class="btn" onclick="planSemaineNav(1)"><i class="ti ti-chevron-right"></i></button>
         <span id="plan-semaine-label" style="font-size:14px;font-weight:600;color:var(--text2);margin-left:8px"></span>
         <button class="btn" onclick="openModalEtiquettes()" style="margin-left:8px;background:#FFF8E1;border-color:#FF9800;color:#E65100"><i class="ti ti-tag"></i> + Étiquettes</button>
-        <button class="btn btn-primary" onclick="openModalPlanTask(null,null)" style="margin-left:4px"><i class="ti ti-plus"></i> Ajouter</button>
+        <button class="btn btn-primary" onclick="openModalPlanTask(null,null)" id="btn-nouvelle-tache" style="margin-left:4px"><i class="ti ti-plus"></i> Ajouter</button>
       </div>
     </div>
     <div class="table-card" style="padding:0;overflow-x:auto">
@@ -322,28 +322,81 @@
       <span id="kpi-period-label" style="font-size:14px;font-weight:600;color:var(--text2)"></span>
     </div>
   </div>
-  <div class="stats-grid">
-    <div class="stat-card cyan"><div class="label"><i class="ti ti-tag"></i>Étiquettes planifiées</div><div class="value" id="kpi-total">0</div><div class="sub">toutes semaines confondues</div></div>
-    <div class="stat-card green"><div class="label"><i class="ti ti-mood-smile"></i>OK</div><div class="value" id="kpi-vert">0</div><div class="sub" id="kpi-vert-pct">0%</div></div>
-    <div class="stat-card amber"><div class="label"><i class="ti ti-mood-neutral"></i>À surveiller</div><div class="value" id="kpi-orange">0</div><div class="sub" id="kpi-orange-pct">0%</div></div>
-    <div class="stat-card red"><div class="label"><i class="ti ti-mood-sad"></i>Problème</div><div class="value" id="kpi-rouge">0</div><div class="sub" id="kpi-rouge-pct">0%</div></div>
+
+  <div class="tabs" style="display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:20px">
+    <button class="kpi-tab-btn" data-kpitab="overview" onclick="kpiSetTab('overview')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Vue d'ensemble</button>
+    <button class="kpi-tab-btn" data-kpitab="adherence" onclick="kpiSetTab('adherence')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Adhérence Planning</button>
+    <button class="kpi-tab-btn" data-kpitab="rft" onclick="kpiSetTab('rft')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Bon du 1er coup</button>
+    <button class="kpi-tab-btn" data-kpitab="initiative" onclick="kpiSetTab('initiative')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Taux d'initiative</button>
   </div>
 
-  <div class="table-card" style="margin-bottom:20px">
-    <div class="table-card-header">
-      <h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Répartition par technicien</h3>
+  <!-- VUE D'ENSEMBLE -->
+  <div id="kpi-tab-overview">
+    <div class="stats-grid">
+      <div class="stat-card cyan"><div class="label"><i class="ti ti-tag"></i>Étiquettes planifiées</div><div class="value" id="kpi-total">0</div><div class="sub">toutes semaines confondues</div></div>
+      <div class="stat-card green"><div class="label"><i class="ti ti-mood-smile"></i>OK</div><div class="value" id="kpi-vert">0</div><div class="sub" id="kpi-vert-pct">0%</div></div>
+      <div class="stat-card amber"><div class="label"><i class="ti ti-mood-neutral"></i>À surveiller</div><div class="value" id="kpi-orange">0</div><div class="sub" id="kpi-orange-pct">0%</div></div>
+      <div class="stat-card red"><div class="label"><i class="ti ti-mood-sad"></i>Problème</div><div class="value" id="kpi-rouge">0</div><div class="sub" id="kpi-rouge-pct">0%</div></div>
     </div>
-    <div style="padding:20px 24px" id="kpi-par-technicien"></div>
+
+    <div class="table-card" style="margin-bottom:20px">
+      <div class="table-card-header">
+        <h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Répartition par technicien</h3>
+      </div>
+      <div style="padding:20px 24px" id="kpi-par-technicien"></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3><i class="ti ti-alert-triangle" style="margin-right:6px;color:var(--red)"></i>Analyses à surveiller / en problème</h3>
+        <div class="spacer"></div>
+        <span style="font-size:12px;color:var(--text3)" id="kpi-alertes-count"></span>
+      </div>
+      <table><thead><tr><th>Statut</th><th>Analyse</th><th>Technicien</th><th>Date</th><th>Note</th></tr></thead>
+      <tbody id="kpi-alertes-tbody"></tbody></table>
+    </div>
   </div>
 
-  <div class="table-card">
-    <div class="table-card-header">
-      <h3><i class="ti ti-alert-triangle" style="margin-right:6px;color:var(--red)"></i>Analyses à surveiller / en problème</h3>
-      <div class="spacer"></div>
-      <span style="font-size:12px;color:var(--text3)" id="kpi-alertes-count"></span>
+  <!-- ADHÉRENCE PLANNING -->
+  <div id="kpi-tab-adherence" style="display:none">
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card cyan"><div class="label"><i class="ti ti-calendar-stats"></i>Adhérence Planning</div><div class="value" id="adh-pct">0%</div><div class="sub">analyses traitées / planifiées</div></div>
+      <div class="stat-card green"><div class="label"><i class="ti ti-checks"></i>Traitées</div><div class="value" id="adh-traitees">0</div><div class="sub" id="adh-traitees-sub"></div></div>
+      <div class="stat-card amber"><div class="label"><i class="ti ti-clock"></i>Non traitées</div><div class="value" id="adh-non-traitees">0</div><div class="sub">sans statut renseigné</div></div>
     </div>
-    <table><thead><tr><th>Statut</th><th>Analyse</th><th>Technicien</th><th>Date</th><th>Note</th></tr></thead>
-    <tbody id="kpi-alertes-tbody"></tbody></table>
+    <div class="info-box" style="margin-bottom:20px">Adhérence Planning = nombre d'analyses planifiées ayant reçu un statut (🟢/🟠/🔴) ÷ nombre total d'analyses planifiées sur la période.</div>
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Par technicien</h3></div>
+      <div style="padding:20px 24px" id="adh-par-technicien"></div>
+    </div>
+  </div>
+
+  <!-- BON DU 1ER COUP -->
+  <div id="kpi-tab-rft" style="display:none">
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card green"><div class="label"><i class="ti ti-rosette"></i>Bon du 1er coup</div><div class="value" id="rft-pct">0%</div><div class="sub">OK / analyses traitées</div></div>
+      <div class="stat-card amber"><div class="label"><i class="ti ti-mood-neutral"></i>À surveiller</div><div class="value" id="rft-orange">0</div><div class="sub" id="rft-orange-sub"></div></div>
+      <div class="stat-card red"><div class="label"><i class="ti ti-mood-sad"></i>Problème</div><div class="value" id="rft-rouge">0</div><div class="sub" id="rft-rouge-sub"></div></div>
+    </div>
+    <div class="info-box" style="margin-bottom:20px">Bon du 1er coup = nombre d'analyses en statut 🟢 OK ÷ nombre d'analyses traitées (🟢+🟠+🔴) sur la période.</div>
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Par technicien</h3></div>
+      <div style="padding:20px 24px" id="rft-par-technicien"></div>
+    </div>
+  </div>
+
+  <!-- TAUX D'INITIATIVE -->
+  <div id="kpi-tab-initiative" style="display:none">
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card purple"><div class="label"><i class="ti ti-bolt"></i>Taux d'initiative</div><div class="value" id="init-pct">0%</div><div class="sub">suppl. / analyses totales</div></div>
+      <div class="stat-card cyan"><div class="label"><i class="ti ti-list-check"></i>Analyses planifiées</div><div class="value" id="init-planifiees">0</div><div class="sub">colonnes Lun–Ven</div></div>
+      <div class="stat-card purple"><div class="label"><i class="ti ti-bolt"></i>Activités supplémentaires</div><div class="value" id="init-suppl">0</div><div class="sub">colonne dédiée</div></div>
+    </div>
+    <div class="info-box" style="margin-bottom:20px">Taux d'initiative = analyses supplémentaires (déposées dans la colonne "Activités supplémentaires" du planning) ÷ analyses totales (planifiées + supplémentaires) sur la période.</div>
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Par technicien</h3></div>
+      <div style="padding:20px 24px" id="init-par-technicien"></div>
+    </div>
   </div>
 </div>
 
@@ -2570,6 +2623,8 @@ window.onload = async () => {
   loadGithubConfig();
   await loadData();
   renderAll();
+  const btnNouvelleTache = document.getElementById('btn-nouvelle-tache');
+  if (btnNouvelleTache) btnNouvelleTache.style.display = PLAN_TASK_MODULE_ENABLED ? '' : 'none';
   // Ouvrir le sous-menu reactifs par defaut
   reactifsMenuOpen = true;
   const menu = document.getElementById('reactifs-submenu');
@@ -2667,7 +2722,7 @@ function goTo(page, el) {
   if (page === 'spq') renderSPQ();
   if (page === 'articles') renderArticles();
   if (page === 'dashboard') renderDashboard();
-  if (page === 'kpi') renderKPI();
+  if (page === 'kpi') { renderKPI(); kpiSetTab(kpiActiveTab); }
 }
 
 // ============================================================
@@ -4418,8 +4473,8 @@ function renderReactifsTable() {
       ? (c.ouvertPar ? '<strong>'+c.ouvertPar+'</strong>' : '<span style="font-size:10px;color:var(--text3)">'+formatDate(c.ouverture)+'</span>')
       : '<span style="color:var(--text3)">—</span>';
     const verifCell = c.verifiedBy
-      ? '<span style="color:var(--green);font-weight:600">✓'+c.verifiedBy+'</span>'
-      : '<button class="btn" style="font-size:11px;padding:3px 8px" onclick="verifierContenant('+c.id+')">Vérifier</button>';
+      ? '<span style="color:var(--green);font-weight:600;cursor:pointer" onclick="unverifyContenant('+c.id+')" title="Cliquer pour annuler">✓ '+c.verifiedBy+'</span>'
+      : '<button class="btn" style="font-size:11px;padding:3px 8px" onclick="verifyContenant('+c.id+')">Vérifier</button>';
     return `<tr>
       <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}</td>
       <td style="text-align:center"><code style="font-size:11px;background:var(--bg3);padding:2px 5px;border-radius:4px">${c.lot||'-'}</code></td>
@@ -4548,12 +4603,23 @@ function openRcFilter(event, col) {
   const dropdown = document.createElement('div');
   dropdown.id = 'rc-filter-dropdown';
   dropdown.style.cssText = 'position:fixed;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,0.15);z-index:9999;min-width:220px;max-height:320px;overflow-y:auto;font-size:13px';
-  dropdown.innerHTML = '<div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px"><button id="rc-btn-all" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Tout</button><button id="rc-btn-none" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Aucun</button></div>'
-    + '<div style="padding:4px 0">'
-    + sorted.map(v => '<label style="display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer"><input type="checkbox" class="rc-cb" data-col="'+col+'" data-val="'+v+'" '+(current.includes(v)?'checked':'')+'><span>'+v+'</span></label>').join('')
+  dropdown.innerHTML = '<div style="padding:8px 12px;border-bottom:1px solid var(--border)">'
+    + '<input type="text" id="rc-filter-search" placeholder="Rechercher..." style="width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;background:var(--bg2);color:var(--text);box-sizing:border-box">'
+    + '</div>'
+    + '<div style="padding:8px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px"><button id="rc-btn-all" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Tout</button><button id="rc-btn-none" style="flex:1;font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);cursor:pointer">Aucun</button></div>'
+    + '<div id="rc-filter-list" style="padding:4px 0">'
+    + sorted.map(v => '<label class="rc-filter-row" data-search="'+v.toLowerCase()+'" style="display:flex;align-items:center;gap:8px;padding:5px 12px;cursor:pointer"><input type="checkbox" class="rc-cb" data-col="'+col+'" data-val="'+v+'" '+(current.includes(v)?'checked':'')+'><span>'+v+'</span></label>').join('')
     + '</div>';
   document.body.appendChild(dropdown);
   dropdown.addEventListener('click', e => e.stopPropagation());
+  const searchInput = dropdown.querySelector('#rc-filter-search');
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    dropdown.querySelectorAll('.rc-filter-row').forEach(row => {
+      row.style.display = !q || row.dataset.search.includes(q) ? 'flex' : 'none';
+    });
+  });
+  setTimeout(() => searchInput.focus(), 0);
   dropdown.querySelector('#rc-btn-all').onclick = () => { dropdown.querySelectorAll('.rc-cb').forEach(cb=>cb.checked=false); window._rcFilter[col]=[]; updateRcFilterIcons(); renderReactifsTable(); };
   dropdown.querySelector('#rc-btn-none').onclick = () => { dropdown.querySelectorAll('.rc-cb').forEach(cb=>cb.checked=false); window._rcFilter[col]=[]; updateRcFilterIcons(); renderReactifsTable(); };
   dropdown.querySelectorAll('.rc-cb').forEach(cb => {
@@ -4733,6 +4799,10 @@ window.populateMarcheChecks = populateMarcheChecks;
 // PLANNING SEMAINE
 // ============================================================
 
+// Feature flag : module "Nouvelle tâche" (création + modification manuelle)
+// Repasser à true pour réactiver la création/modification manuelle de tâches.
+const PLAN_TASK_MODULE_ENABLED = false;
+
 const PLAN_TYPES = {
   analyse:       { label: 'Analyse',           color: '#F5C400', bg: '#FFF9C4', text: '#7a6000' },
   hplc:          { label: 'Retraitement HPLC', color: '#E91E63', bg: '#FCE4EC', text: '#880E4F' },
@@ -4843,8 +4913,10 @@ function renderPlanSemaine() {
     html += '<div style="font-weight:400;font-size:11px">' + d.getDate() + ' ' + monthNames[d.getMonth()] + ' ' + d.getFullYear() + '</div>';
     html += '</th>';
   });
+  html += '<th style="width:150px;padding:10px 8px;background:var(--bg3);border:1px solid var(--border);text-align:center;font-size:12px;color:var(--text2)">ACTIVITÉS<br>SUPPLÉMENTAIRES</th>';
   html += '</tr></thead>';
-
+  // Ajout header colonne "Activités supplémentaires" (initiative)
+  
   // Lignes techniciens
   html += '<tbody>';
   
@@ -4902,7 +4974,8 @@ function renderPlanSemaine() {
       } else {
         html += 'ondragover="event.preventDefault()" ';
         html += "ondrop=\"onPlanDrop(event,'" + key + "','" + (tech.id || 'null') + "')\""+ ' ';
-        html += "onclick=\"openModalPlanTask('" + key + "','" + (tech.id || 'null') + "')\""+ '>';
+        if (PLAN_TASK_MODULE_ENABLED) html += "onclick=\"openModalPlanTask('" + key + "','" + (tech.id || 'null') + "')\""+ '>';
+        else html += '>';
       }
       
       if (tech.id) {
@@ -4925,11 +4998,16 @@ function renderPlanSemaine() {
         const stTitle = stInfo ? stInfo.label + ' — cliquer pour changer' : 'Statut non défini — cliquer pour renseigner';
         html += '<div draggable="true" ';
         html += 'ondragstart="onPlanDragStart(event,' + task.id + ')" ';
-        html += 'onclick="event.stopPropagation();editPlanTask(' + task.id + ')" ';
+        if (PLAN_TASK_MODULE_ENABLED) html += 'onclick="event.stopPropagation();editPlanTask(' + task.id + ')" ';
         html += 'style="background:' + taskBg + ';border-left:3px solid ' + taskBorder + ';border-radius:4px;padding:5px 8px;margin-bottom:4px;cursor:grab;font-size:11px;line-height:1.4">';
         html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:4px">';
         html += '<div style="font-weight:700;color:' + taskBorder + '">' + (task.analyseNom || task.desc || '') + '</div>';
-        html += '<i class="ti ' + stIcon + '" onclick="event.stopPropagation();openStatutPicker(event,' + task.id + ')" title="' + stTitle + '" style="cursor:pointer;font-size:15px;color:' + stColor + ';opacity:' + stOpacity + ';flex-shrink:0"></i>';
+        html += '<div style="display:flex;align-items:center;gap:4px;flex-shrink:0">';
+        html += '<i class="ti ' + stIcon + '" onclick="event.stopPropagation();openStatutPicker(event,' + task.id + ')" title="' + stTitle + '" style="cursor:pointer;font-size:15px;color:' + stColor + ';opacity:' + stOpacity + '"></i>';
+        if (!PLAN_TASK_MODULE_ENABLED) {
+          html += '<i class="ti ti-x" onclick="event.stopPropagation();quickDeletePlanTask(' + task.id + ')" title="Retirer cette étiquette" style="cursor:pointer;font-size:14px;color:var(--text3);opacity:0.5"></i>';
+        }
+        html += '</div>';
         html += '</div>';
         if (task.note) html += '<div style="color:var(--text3);font-size:10px;font-style:italic">' + task.note + '</div>';
         html += '</div>';
@@ -4937,6 +5015,43 @@ function renderPlanSemaine() {
       
       html += '</td>';
     });
+
+    // Colonne "Activités supplémentaires" (taux d'initiative)
+    {
+      const weekKey = dateToKey(days[0]);
+      const suppTasks = tasks.filter(t => t.supplementaire && t.date === weekKey && (tech.id ? String(t.techId) === String(tech.id) : !t.techId));
+      html += '<td style="padding:6px;border:1px solid var(--border);vertical-align:top;min-height:100px;background:rgba(124,58,237,0.04)" ';
+      html += 'ondragover="event.preventDefault()" ';
+      html += "ondrop=\"onPlanDropSupp(event,'" + weekKey + "','" + (tech.id || 'null') + "')\"" + '>';
+      suppTasks.forEach(task => {
+        const type = PLAN_TYPES[task.type] || PLAN_TYPES.analyse;
+        const taskBg = (task.color && task.color.bg) ? task.color.bg : type.bg;
+        const taskBorder = (task.color && task.color.border) ? task.color.border : type.color;
+        const statutMap = {
+          vert:   { icon:'ti-mood-smile',   color:'#2E7D32', label:'OK' },
+          orange: { icon:'ti-mood-neutral', color:'#E65100', label:'À surveiller' },
+          rouge:  { icon:'ti-mood-sad',     color:'#B71C1C', label:'Problème' },
+        };
+        const stInfo = statutMap[task.statutSuivi];
+        const stIcon = stInfo ? stInfo.icon : 'ti-mood-empty';
+        const stColor = stInfo ? stInfo.color : 'var(--text3)';
+        const stOpacity = stInfo ? '1' : '0.35';
+        const stTitle = stInfo ? stInfo.label + ' — cliquer pour changer' : 'Statut non défini — cliquer pour renseigner';
+        html += '<div draggable="true" ';
+        html += 'ondragstart="onPlanDragStart(event,' + task.id + ')" ';
+        html += 'style="background:' + taskBg + ';border-left:3px solid #7C3AED;border-radius:4px;padding:5px 8px;margin-bottom:4px;cursor:grab;font-size:11px;line-height:1.4">';
+        html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:4px">';
+        html += '<div style="font-weight:700;color:' + taskBorder + '"><i class="ti ti-bolt" style="font-size:11px;color:#7C3AED"></i> ' + (task.analyseNom || task.desc || '') + '</div>';
+        html += '<div style="display:flex;align-items:center;gap:4px;flex-shrink:0">';
+        html += '<i class="ti ' + stIcon + '" onclick="event.stopPropagation();openStatutPicker(event,' + task.id + ')" title="' + stTitle + '" style="cursor:pointer;font-size:15px;color:' + stColor + ';opacity:' + stOpacity + '"></i>';
+        html += '<i class="ti ti-x" onclick="event.stopPropagation();quickDeletePlanTask(' + task.id + ')" title="Retirer cette étiquette" style="cursor:pointer;font-size:14px;color:var(--text3);opacity:0.5"></i>';
+        html += '</div>';
+        html += '</div>';
+        if (task.note) html += '<div style="color:var(--text3);font-size:10px;font-style:italic">' + task.note + '</div>';
+        html += '</div>';
+      });
+      html += '</td>';
+    }
     html += '</tr>';
   });
   
@@ -5216,7 +5331,7 @@ function addEtiquetteLine() {
   const count = lines.children.length;
   if (count >= 5) { toast('Maximum 5 étiquettes à la fois', 'error'); return; }
   const idx = Date.now();
-  const colors = [{bg:'#FFF8E1',border:'#FF9800'},{bg:'#F3E5F5',border:'#9C27B0'},{bg:'#E3F2FD',border:'#2196F3'},{bg:'#E8F5E9',border:'#4CAF50'},{bg:'#FFEBEE',border:'#f44336'},{bg:'#E0F7FA',border:'#00BCD4'}];
+  const colors = [{bg:'#FFF8E1',border:'#FF9800'},{bg:'#FFE0B2',border:'#F57C00'},{bg:'#F3E5F5',border:'#9C27B0'},{bg:'#E3F2FD',border:'#2196F3'},{bg:'#E8F5E9',border:'#4CAF50'},{bg:'#FFEBEE',border:'#f44336'},{bg:'#E0F7FA',border:'#00BCD4'}];
   const swatches = colors.map((c,i) => 
     `<div onclick="selectEtiqColor(this,'${c.bg}','${c.border}')" style="width:20px;height:20px;border-radius:50%;background:${c.bg};border:2px solid ${c.border};cursor:pointer;transition:transform 0.1s" title="${c.border}"></div>`
   ).join('');
@@ -5505,8 +5620,106 @@ function renderKPI() {
       }).join('');
     }
   }
+  // ============================================================
+  // ADHÉRENCE PLANNING / BON DU 1ER COUP / TAUX D'INITIATIVE
+  // ============================================================
+  const planifiees = tasks.filter(t => !t.supplementaire);
+  const suppl = tasks.filter(t => t.supplementaire);
+  const techs2 = state.techniciens || [];
+
+  // --- Adhérence Planning ---
+  const adhTotal = planifiees.length;
+  const adhTraitees = planifiees.filter(t => !!t.statutSuivi).length;
+  const adhNonTraitees = adhTotal - adhTraitees;
+  const adhPct = adhTotal ? Math.round(adhTraitees / adhTotal * 100) : 0;
+  setText('adh-pct', adhPct + '%');
+  setText('adh-traitees', adhTraitees);
+  setText('adh-traitees-sub', adhTotal ? adhTraitees + ' / ' + adhTotal + ' planifiées' : '—');
+  setText('adh-non-traitees', adhNonTraitees);
+  const adhParTech = document.getElementById('adh-par-technicien');
+  if (adhParTech) {
+    const rows = techs2.map(tech => {
+      const tTasks = planifiees.filter(t => String(t.techId) === String(tech.id));
+      if (!tTasks.length) return '';
+      const tr = tTasks.filter(t => !!t.statutSuivi).length;
+      const p = Math.round(tr / tTasks.length * 100);
+      return '<div style="margin-bottom:14px">'
+        + '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px"><span>' + (tech.visa || (tech.prenom+' '+tech.nom)) + '</span><span style="color:var(--text3)">' + tr + ' / ' + tTasks.length + ' (' + p + '%)</span></div>'
+        + '<div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--bg3)">'
+        + '<div style="width:' + p + '%;background:var(--cyan)"></div>'
+        + '</div></div>';
+    }).join('');
+    adhParTech.innerHTML = rows || '<div style="font-size:12px;color:var(--text3)">Aucune donnée disponible</div>';
+  }
+
+  // --- Bon du 1er coup ---
+  const rftVert = planifiees.filter(t => t.statutSuivi === 'vert').length;
+  const rftOrange = planifiees.filter(t => t.statutSuivi === 'orange').length;
+  const rftRouge = planifiees.filter(t => t.statutSuivi === 'rouge').length;
+  const rftTraitees = rftVert + rftOrange + rftRouge;
+  const rftPct = rftTraitees ? Math.round(rftVert / rftTraitees * 100) : 0;
+  setText('rft-pct', rftPct + '%');
+  setText('rft-orange', rftOrange);
+  setText('rft-orange-sub', rftTraitees ? Math.round(rftOrange/rftTraitees*100) + '% des traitées' : '—');
+  setText('rft-rouge', rftRouge);
+  setText('rft-rouge-sub', rftTraitees ? Math.round(rftRouge/rftTraitees*100) + '% des traitées' : '—');
+  const rftParTech = document.getElementById('rft-par-technicien');
+  if (rftParTech) {
+    const rows = techs2.map(tech => {
+      const tTasks = planifiees.filter(t => String(t.techId) === String(tech.id) && !!t.statutSuivi);
+      if (!tTasks.length) return '';
+      const v = tTasks.filter(t=>t.statutSuivi==='vert').length;
+      const p = Math.round(v / tTasks.length * 100);
+      return '<div style="margin-bottom:14px">'
+        + '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px"><span>' + (tech.visa || (tech.prenom+' '+tech.nom)) + '</span><span style="color:var(--text3)">' + v + ' / ' + tTasks.length + ' (' + p + '%)</span></div>'
+        + '<div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--bg3)">'
+        + '<div style="width:' + p + '%;background:var(--green)"></div>'
+        + '</div></div>';
+    }).join('');
+    rftParTech.innerHTML = rows || '<div style="font-size:12px;color:var(--text3)">Aucune donnée disponible</div>';
+  }
+
+  // --- Taux d'initiative ---
+  const initPlanifiees = planifiees.length;
+  const initSuppl = suppl.length;
+  const initTotal = initPlanifiees + initSuppl;
+  const initPct = initTotal ? Math.round(initSuppl / initTotal * 100) : 0;
+  setText('init-pct', initPct + '%');
+  setText('init-planifiees', initPlanifiees);
+  setText('init-suppl', initSuppl);
+  const initParTech = document.getElementById('init-par-technicien');
+  if (initParTech) {
+    const rows = techs2.map(tech => {
+      const p1 = planifiees.filter(t => String(t.techId) === String(tech.id)).length;
+      const s1 = suppl.filter(t => String(t.techId) === String(tech.id)).length;
+      const tot = p1 + s1;
+      if (!tot) return '';
+      const p = Math.round(s1 / tot * 100);
+      return '<div style="margin-bottom:14px">'
+        + '<div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px"><span>' + (tech.visa || (tech.prenom+' '+tech.nom)) + '</span><span style="color:var(--text3)">' + s1 + ' suppl. / ' + tot + ' (' + p + '%)</span></div>'
+        + '<div style="display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--bg3)">'
+        + '<div style="width:' + p + '%;background:#7C3AED"></div>'
+        + '</div></div>';
+    }).join('');
+    initParTech.innerHTML = rows || '<div style="font-size:12px;color:var(--text3)">Aucune donnée disponible</div>';
+  }
 }
 window.renderKPI = renderKPI;
+
+let kpiActiveTab = 'overview';
+function kpiSetTab(tab) {
+  kpiActiveTab = tab;
+  ['overview','adherence','rft','initiative'].forEach(t => {
+    const el = document.getElementById('kpi-tab-' + t);
+    if (el) el.style.display = (t === tab) ? '' : 'none';
+    const btn = document.querySelector('.kpi-tab-btn[data-kpitab="' + t + '"]');
+    if (btn) {
+      btn.style.color = (t === tab) ? 'var(--cyan)' : 'var(--text2)';
+      btn.style.borderBottomColor = (t === tab) ? 'var(--cyan)' : 'transparent';
+    }
+  });
+}
+window.kpiSetTab = kpiSetTab;
 
 
 window.openModalEtiquettes = openModalEtiquettes;
@@ -5567,11 +5780,66 @@ function onPlanDrop(event, date, techId) {
   if (task) {
     task.date = date;
     task.techId = techId || null;
+    task.supplementaire = false;
     saveData();
     renderPlanSemaine();
   }
   planDraggedTask = null;
 }
+
+function onPlanDropSupp(event, weekKey, techId) {
+  event.preventDefault();
+  event.stopPropagation();
+  if (!planDraggedTask && !planDraggedNew) return;
+  if (!state.planTasks) state.planTasks = [];
+
+  if (planDraggedTask) {
+    const task = state.planTasks.find(t => t.id === planDraggedTask);
+    if (task) {
+      task.date = weekKey;
+      task.techId = techId || null;
+      task.supplementaire = true;
+      saveData();
+      renderPlanSemaine();
+    }
+    planDraggedTask = null;
+    return;
+  }
+
+  if (planDraggedNew) {
+    const e = planDraggedNew;
+    if (e.planTaskId) {
+      const t = state.planTasks.find(t => t.id === e.planTaskId);
+      if (t) { t.date = weekKey; t.techId = techId || null; t.supplementaire = true; }
+      planDraggedNew = null;
+      saveData();
+      renderPlanSemaine();
+      return;
+    }
+    const finalTechId = techId || e.suggestTechId || null;
+    state.planTasks.push({
+      id: Date.now(),
+      date: weekKey, techId: finalTechId ? String(finalTechId) : null,
+      desc: e.nom,
+      analyseNom: e.nom,
+      analyseId: e.analyseId,
+      sousKey: e.sousKey || null,
+      echId: e.echId,
+      echCode: e.echCode,
+      type: 'analyse',
+      sousAnalyses: e.sousAnalyses || [],
+      color: e.color || null,
+      isSous: e.isSous || false,
+      parentNom: e.parentNom || null,
+      manuel: e.planTaskId ? true : false,
+      supplementaire: true,
+    });
+    planDraggedNew = null;
+    saveData();
+    renderPlanSemaine();
+  }
+}
+window.onPlanDropSupp = onPlanDropSupp;
 
 function selectPlanType(type) {
   document.getElementById('plan-task-type').value = type;
@@ -5590,6 +5858,7 @@ function selectPlanType(type) {
 }
 
 function openModalPlanTask(date, techId) {
+  if (!PLAN_TASK_MODULE_ENABLED) return;
   if (techId && techId !== 'null' && isTechAbsent(techId, date)) {
     alert("Ce technicien est absent : impossible d'assigner une tâche ce jour-là.");
     return;
@@ -5637,6 +5906,7 @@ function openModalPlanTask(date, techId) {
 }
 
 function editPlanTask(taskId) {
+  if (!PLAN_TASK_MODULE_ENABLED) return;
   if (!state.planTasks) return;
   const task = state.planTasks.find(t => t.id === taskId);
   if (!task) return;
@@ -5721,6 +5991,18 @@ function deletePlanTask(taskId) {
   saveData();
   renderPlanSemaine();
 }
+
+function quickDeletePlanTask(taskId) {
+  if (!state.planTasks) return;
+  const task = state.planTasks.find(t => t.id === taskId);
+  if (!task) return;
+  if (!confirm('Retirer "' + (task.analyseNom || task.desc || 'cette étiquette') + '" de la planification ?')) return;
+  state.planTasks = state.planTasks.filter(t => t.id !== taskId);
+  saveData();
+  renderPlanSemaine();
+  if (document.getElementById('page-kpi') && document.getElementById('page-kpi').classList.contains('active')) renderKPI();
+}
+window.quickDeletePlanTask = quickDeletePlanTask;
 
 
 
