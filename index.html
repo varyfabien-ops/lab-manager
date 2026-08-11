@@ -328,6 +328,7 @@
     <button class="kpi-tab-btn" data-kpitab="adherence" onclick="kpiSetTab('adherence')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Adhérence Planning</button>
     <button class="kpi-tab-btn" data-kpitab="rft" onclick="kpiSetTab('rft')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Bon du 1er coup</button>
     <button class="kpi-tab-btn" data-kpitab="initiative" onclick="kpiSetTab('initiative')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Taux d'initiative</button>
+    <button class="kpi-tab-btn" data-kpitab="lots" onclick="kpiSetTab('lots')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Suivi des lots</button>
   </div>
 
   <!-- VUE D'ENSEMBLE -->
@@ -396,6 +397,31 @@
     <div class="table-card">
       <div class="table-card-header"><h3><i class="ti ti-chart-bar" style="margin-right:6px;color:var(--cyan)"></i>Par technicien</h3></div>
       <div style="padding:20px 24px" id="init-par-technicien"></div>
+    </div>
+  </div>
+
+  <!-- SUIVI DES LOTS -->
+  <div id="kpi-tab-lots" style="display:none">
+    <div class="table-card" style="margin-bottom:20px">
+      <div style="padding:20px 24px">
+        <label style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;display:block">Rechercher un lot</label>
+        <div style="position:relative;max-width:400px">
+          <i class="ti ti-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text3)"></i>
+          <input type="text" id="lots-search" placeholder="Ex: BBBBBB" oninput="renderSuiviLots()" style="width:100%;padding:10px 12px 10px 36px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg2);color:var(--text);box-sizing:border-box">
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card amber"><div class="label"><i class="ti ti-hourglass-empty"></i>En attente d'analyse</div><div class="value" id="lots-attente">0</div><div class="sub">aucune analyse débutée</div></div>
+      <div class="stat-card cyan"><div class="label"><i class="ti ti-flask"></i>En cours d'analyse</div><div class="value" id="lots-en-cours">0</div><div class="sub">au moins une analyse débutée</div></div>
+      <div class="stat-card purple"><div class="label"><i class="ti ti-rosette"></i>En attente d'approbation</div><div class="value" id="lots-a-approuver">0</div><div class="sub">dans l'onglet Approbation</div></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-list-details" style="margin-right:6px;color:var(--cyan)"></i>Tous les lots</h3></div>
+      <table><thead><tr><th>Produit</th><th>Lot</th><th>Statut</th><th>Date réception</th><th>Analyses</th><th></th></tr></thead>
+      <tbody id="lots-suivi-tbody"></tbody></table>
     </div>
   </div>
 </div>
@@ -1215,6 +1241,17 @@
 </div>
 
 <!-- MODAL RÉSULTAT ANALYSE -->
+<div class="modal-overlay" id="modal-lot-detail">
+  <div class="modal" style="width:600px;max-height:85vh;overflow-y:auto">
+    <div class="modal-header">
+      <i class="ti ti-timeline" style="font-size:18px;color:var(--cyan)"></i>
+      <h3 id="modal-lot-detail-title">Vie du lot</h3>
+      <button class="close-btn" onclick="closeModal('modal-lot-detail')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="modal-lot-detail-body"></div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="modal-resultat">
   <div class="modal" style="width:480px">
     <div class="modal-header">
@@ -5789,7 +5826,7 @@ window.renderKPI = renderKPI;
 let kpiActiveTab = 'overview';
 function kpiSetTab(tab) {
   kpiActiveTab = tab;
-  ['overview','adherence','rft','initiative'].forEach(t => {
+  ['overview','adherence','rft','initiative','lots'].forEach(t => {
     const el = document.getElementById('kpi-tab-' + t);
     if (el) el.style.display = (t === tab) ? '' : 'none';
     const btn = document.querySelector('.kpi-tab-btn[data-kpitab="' + t + '"]');
@@ -5798,8 +5835,156 @@ function kpiSetTab(tab) {
       btn.style.borderBottomColor = (t === tab) ? 'var(--cyan)' : 'transparent';
     }
   });
+  if (tab === 'lots') renderSuiviLots();
 }
 window.kpiSetTab = kpiSetTab;
+
+// ============================================================
+// SUIVI DES LOTS
+// ============================================================
+function getLotCategory(ss) {
+  const e0 = ss[0];
+  if (e0.statut === 'archive') return 'archive';
+  if (e0.statut === 'approuve') return 'approuve';
+  if (e0.statut === 'a_approuver') return 'a_approuver';
+  const allStatuts = ss.flatMap(e => (e.analysesIds||[]).map(aid => (e.analyseStatuts||{})[aid] || 'a_lancer'));
+  if (!allStatuts.length) return 'attente';
+  const anyStarted = allStatuts.some(s => s !== 'a_lancer');
+  return anyStarted ? 'en_cours' : 'attente';
+}
+
+const LOT_CAT_LABELS = {
+  attente:     { label: "En attente d'analyse",     cls: 'badge-amber' },
+  en_cours:    { label: "En cours d'analyse",        cls: 'badge-cyan' },
+  a_approuver: { label: "En attente d'approbation",  cls: 'badge-purple' },
+  approuve:    { label: 'Approuvé',                  cls: 'badge-green' },
+  archive:     { label: 'Archivé',                   cls: 'badge-gray' },
+};
+
+function renderSuiviLots() {
+  const q = (document.getElementById('lots-search')?.value||'').trim().toLowerCase();
+  const lots = {};
+  (state.echantillons||[]).forEach(e => {
+    const k = e.lot || String(e.id);
+    if (!lots[k]) lots[k] = [];
+    lots[k].push(e);
+  });
+
+  let nbAttente = 0, nbEnCours = 0, nbAApprouver = 0;
+  const rows = [];
+  Object.entries(lots).forEach(([lotKey, ss]) => {
+    const cat = getLotCategory(ss);
+    if (cat === 'attente') nbAttente++;
+    if (cat === 'en_cours') nbEnCours++;
+    if (cat === 'a_approuver') nbAApprouver++;
+
+    if (q && !lotKey.toLowerCase().includes(q)) return;
+
+    const e0 = ss[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const article = e0.articleId ? (state.articles||[]).find(a=>a.id===e0.articleId) : null;
+    const prodNom = article?.nom || produit?.nom || '—';
+    const allAnalyseIds = [...new Set(ss.flatMap(e=>e.analysesIds||[]))];
+    rows.push({ lotKey, prodNom, date: e0.date, nbAnalyses: allAnalyseIds.length, cat });
+  });
+
+  rows.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+
+  const setV = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setV('lots-attente', nbAttente);
+  setV('lots-en-cours', nbEnCours);
+  setV('lots-a-approuver', nbAApprouver);
+
+  const tbody = document.getElementById('lots-suivi-tbody');
+  if (!tbody) return;
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><i class="ti ti-search"></i><p>Aucun lot trouvé</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(r => {
+    const c = LOT_CAT_LABELS[r.cat] || LOT_CAT_LABELS.attente;
+    return '<tr>'
+      + '<td style="font-size:13px"><strong>' + r.prodNom + '</strong></td>'
+      + '<td style="font-size:13px;text-align:center"><code style="font-size:12px;background:var(--bg3);padding:3px 8px;border-radius:4px">' + r.lotKey + '</code></td>'
+      + '<td style="text-align:center"><span class="badge ' + c.cls + '" style="font-size:11px">' + c.label + '</span></td>'
+      + '<td style="font-size:13px;text-align:center">' + (r.date ? formatDate(r.date) : '—') + '</td>'
+      + '<td style="font-size:13px;text-align:center">' + r.nbAnalyses + '</td>'
+      + '<td style="text-align:center"><button class="icon-btn voir-lot-btn" data-lot="' + String(r.lotKey).replace(/"/g,'&quot;') + '" title="Voir la vie du lot"><i class="ti ti-eye"></i></button></td>'
+      + '</tr>';
+  }).join('');
+  tbody.querySelectorAll('.voir-lot-btn').forEach(btn => {
+    btn.onclick = function(){ openLotDetail(this.getAttribute('data-lot')); };
+  });
+}
+window.renderSuiviLots = renderSuiviLots;
+
+function openLotDetail(lotKey) {
+  const ss = (state.echantillons||[]).filter(e => (e.lot||String(e.id)) === lotKey);
+  if (!ss.length) return;
+  const e0 = ss[0];
+  const cat = getLotCategory(ss);
+  const c = LOT_CAT_LABELS[cat] || LOT_CAT_LABELS.attente;
+  const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+  const article = e0.articleId ? (state.articles||[]).find(a=>a.id===e0.articleId) : null;
+  const prodNom = article?.nom || produit?.nom || '—';
+  const allMarcheIds = [...new Set(ss.flatMap(e => e.marcheIds||[]))];
+  const marches = allMarcheIds.map(mid=>(state.marches||[]).find(m=>m.id===mid)).filter(Boolean);
+
+  document.getElementById('modal-lot-detail-title').textContent = 'Lot ' + lotKey;
+
+  const statutLabels = { a_lancer:'À faire', en_cours:'En cours', terminee:'Terminée', verifiee:'Vérifiée' };
+  const statutBadge = { a_lancer:'badge-gray', en_cours:'badge-amber', terminee:'badge-cyan', verifiee:'badge-green' };
+
+  // Analyses détaillées, dédupliquées sur l'ensemble des sous-séries
+  const allAnalyseIds = [...new Set(ss.flatMap(e=>e.analysesIds||[]))];
+  const analysesRows = allAnalyseIds.map(aid => {
+    const a = (state.catalogue||[]).find(x=>x.id===aid);
+    // On prend la sous-série qui porte cette analyse pour son statut
+    const eOwner = ss.find(e => (e.analysesIds||[]).includes(aid)) || e0;
+    const st = (eOwner.analyseStatuts||{})[aid] || 'a_lancer';
+    const info = (eOwner.analyseStatutsInfo||{})[aid] || {};
+    const dates = ['en_cours','terminee','verifiee'].filter(s => info[s]).map(s => statutLabels[s]+' : '+info[s]).join(' · ');
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">'
+      + '<div><div style="font-size:13px;font-weight:600">' + (a?a.nom:'—') + '</div>' + (dates?'<div style="font-size:11px;color:var(--text3)">'+dates+'</div>':'') + '</div>'
+      + '<span class="badge ' + (statutBadge[st]||'badge-gray') + '" style="font-size:11px">' + (statutLabels[st]||st) + '</span>'
+      + '</div>';
+  }).join('') || '<div style="font-size:12px;color:var(--text3)">Aucune analyse</div>';
+
+  // Activités planning liées à ce lot
+  const planTasksLot = (state.planTasks||[]).filter(t => t.lot === lotKey);
+  const statutSuiviMap = { vert:{icon:'ti-mood-smile',color:'#2E7D32',label:'OK'}, orange:{icon:'ti-mood-neutral',color:'#E65100',label:'À surveiller'}, rouge:{icon:'ti-mood-sad',color:'#B71C1C',label:'Problème'} };
+  const planRows = planTasksLot.map(t => {
+    const tech = (state.techniciens||[]).find(x => String(x.id)===String(t.techId));
+    const st = statutSuiviMap[t.statutSuivi];
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px">'
+      + '<div>' + (t.analyseNom||t.desc||'—') + ' <span style="color:var(--text3)">— ' + (tech?(tech.visa||tech.prenom+' '+tech.nom):'—') + ' — ' + (t.date?formatDate(t.date):'—') + '</span></div>'
+      + (st ? '<i class="ti '+st.icon+'" style="color:'+st.color+'" title="'+st.label+'"></i>' : '<span style="color:var(--text3);font-size:10px">Sans statut</span>')
+      + '</div>';
+  }).join('') || '<div style="font-size:12px;color:var(--text3)">Aucune activité liée dans le planning</div>';
+
+  document.getElementById('modal-lot-detail-body').innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">'
+    + '<div><div style="font-size:16px;font-weight:700">' + prodNom + '</div>'
+    + '<div style="font-size:12px;color:var(--text3);margin-top:2px">' + (marches.length?marches.map(m=>m.nom).join(', '):'—') + '</div></div>'
+    + '<span class="badge ' + c.cls + '" style="font-size:12px;padding:6px 12px">' + c.label + '</span>'
+    + '</div>'
+    + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;font-size:12px">'
+    + '<div><div style="color:var(--text3)">Date réception</div><div style="font-weight:600">' + (e0.date?formatDate(e0.date):'—') + '</div></div>'
+    + '<div><div style="color:var(--text3)">Nb sous-séries</div><div style="font-weight:600">' + ss.length + '</div></div>'
+    + '<div><div style="color:var(--text3)">Date d\'approbation</div><div style="font-weight:600">' + (e0.dateApprobation||'—') + '</div></div>'
+    + '<div><div style="color:var(--text3)">Statut</div><div style="font-weight:600">' + c.label + '</div></div>'
+    + '</div>'
+    + '<h4 style="font-size:13px;margin-bottom:8px">Analyses</h4>'
+    + analysesRows
+    + '<h4 style="font-size:13px;margin:16px 0 8px">Activités planning liées</h4>'
+    + planRows;
+
+  const el = document.getElementById('modal-lot-detail');
+  el.classList.add('open');
+  el.style.display = 'flex';
+}
+window.openLotDetail = openLotDetail;
+
 
 
 window.openModalEtiquettes = openModalEtiquettes;
