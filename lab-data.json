@@ -1574,6 +1574,19 @@
       "note": "",
       "coaUrl": "",
       "id": 1786458778668
+    },
+    {
+      "produitId": 1786459104213,
+      "lot": "V3E055123G",
+      "qte": "250 g",
+      "reception": "2023-11-14",
+      "peremption": "2029-07-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786459142083
     }
   ],
   "produitsEch": [
@@ -2061,11 +2074,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "TEST-1 — Limpidité / Coloration US : en_cours",
-      "time": "08/08 21:22"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: 10N Ammonium Hydroxide 2026/0153",
       "time": "09/08 12:30"
@@ -2309,6 +2317,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Poudre Zinc",
       "time": "11/08 16:38"
+    },
+    {
+      "icon": "package",
+      "text": "1x Poudre Zinc lot V3E055123G receptionne(s)",
+      "time": "11/08 16:39"
     }
   ],
   "spq": [
