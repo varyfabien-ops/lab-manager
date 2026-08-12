@@ -2472,7 +2472,7 @@
       "note": "",
       "analyseStatuts": {
         "1785247344996": "en_cours",
-        "1785170122728": "terminee"
+        "1785170122728": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247344996": {
@@ -2480,8 +2480,7 @@
         },
         "1786520419939": {},
         "1785170122728": {
-          "en_cours": "12/08/2026",
-          "terminee": "12/08/2026"
+          "en_cours": "12/08/2026"
         }
       }
     },
@@ -2630,11 +2629,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0052",
-      "time": "12/08 11:09"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0052",
@@ -2878,6 +2872,11 @@
     {
       "icon": "list-check",
       "text": "9956904 — Identification Lidocaïne USP : retour à À faire",
+      "time": "12/08 16:04"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956904 — pH : retour à En cours",
       "time": "12/08 16:04"
     }
   ],
