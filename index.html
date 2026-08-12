@@ -3003,6 +3003,81 @@ function openGithubConfig() {
 let _lastKnownSha = null;
 let _autoSyncTimer = null;
 let _lastLocalSaveAt = 0;
+let _baseline = null; // dernier état connu comme étant synchronisé avec GitHub (référence pour la fusion)
+
+// Champs de state.* qui sont des tableaux d'objets avec un id (fusion par id)
+const MERGE_ARRAY_FIELDS_BY_ID = ['planning','catalogue','stabilites','reactifs','produits','contenants',
+  'produitsEch','marches','echantillons','techniciens','planTasks','spq','articles','preparations',
+  'cataloguePrep','profils','commandesArchives','enregistrements'];
+// Champs de state.* qui sont des objets clé/valeur (fusion par clé)
+const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut'];
+// Champs de state.* qui sont des tableaux sans id fiable (journal) — fusion par contenu, style log
+const MERGE_LOG_FIELDS = ['activity'];
+
+function snapshotState() {
+  return JSON.parse(JSON.stringify(state));
+}
+
+// Fusionne une collection (tableau d'objets avec .id) : privilégie la version locale
+// pour tout ce qui a été ajouté/modifié/supprimé localement depuis la baseline,
+// et récupère depuis le distant tout ce que quelqu'un d'autre a changé pendant ce temps.
+function mergeArrayById(remoteArr, baselineArr, localArr) {
+  remoteArr = remoteArr || []; baselineArr = baselineArr || []; localArr = localArr || [];
+  const baselineMap = new Map(baselineArr.map(x => [x.id, JSON.stringify(x)]));
+  const localMap = new Map(localArr.map(x => [x.id, x]));
+  const remoteMap = new Map(remoteArr.map(x => [x.id, x]));
+
+  const deletedByUs = new Set();
+  baselineMap.forEach((_, id) => { if (!localMap.has(id)) deletedByUs.add(id); });
+
+  const changedByUs = new Set();
+  localMap.forEach((val, id) => {
+    const baselineJson = baselineMap.get(id);
+    if (baselineJson === undefined || baselineJson !== JSON.stringify(val)) changedByUs.add(id);
+  });
+
+  const result = [];
+  const seen = new Set();
+  remoteMap.forEach((val, id) => {
+    if (deletedByUs.has(id)) return;
+    result.push(changedByUs.has(id) ? localMap.get(id) : val);
+    seen.add(id);
+  });
+  changedByUs.forEach(id => { if (!seen.has(id)) { result.push(localMap.get(id)); seen.add(id); } });
+  return result;
+}
+
+// Fusionne un objet clé/valeur simple
+function mergeMapField(remoteObj, baselineObj, localObj) {
+  remoteObj = remoteObj || {}; baselineObj = baselineObj || {}; localObj = localObj || {};
+  const result = Object.assign({}, remoteObj);
+  Object.keys(localObj).forEach(k => {
+    if (JSON.stringify(baselineObj[k]) !== JSON.stringify(localObj[k])) result[k] = localObj[k];
+  });
+  Object.keys(baselineObj).forEach(k => {
+    if (!(k in localObj) && (k in result)) delete result[k];
+  });
+  return result;
+}
+
+// Fusionne un journal (tableau sans id fiable) : union par contenu, tronqué aux 50 plus récents
+function mergeLogField(remoteArr, baselineArr, localArr) {
+  remoteArr = remoteArr || []; baselineArr = baselineArr || []; localArr = localArr || [];
+  const baselineSet = new Set(baselineArr.map(x => JSON.stringify(x)));
+  const localOnly = localArr.filter(x => !baselineSet.has(JSON.stringify(x)));
+  const remoteSet = new Set(remoteArr.map(x => JSON.stringify(x)));
+  const merged = remoteArr.concat(localOnly.filter(x => !remoteSet.has(JSON.stringify(x))));
+  return merged.slice(-50);
+}
+
+// Fusionne l'état local avec l'état distant, en se basant sur la dernière référence connue (_baseline)
+function mergeStates(remoteState, baselineState, localState) {
+  const merged = {};
+  MERGE_ARRAY_FIELDS_BY_ID.forEach(f => { merged[f] = mergeArrayById(remoteState[f], baselineState?.[f], localState[f]); });
+  MERGE_MAP_FIELDS.forEach(f => { merged[f] = mergeMapField(remoteState[f], baselineState?.[f], localState[f]); });
+  MERGE_LOG_FIELDS.forEach(f => { merged[f] = mergeLogField(remoteState[f], baselineState?.[f], localState[f]); });
+  return merged;
+}
 
 async function loadData(silent) {
   if (!githubConfig) return;
@@ -3020,7 +3095,10 @@ async function loadData(silent) {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    state = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[] };
+    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[] };
+    // Fusion avec l'état local courant, pour ne jamais perdre un travail local pas encore sauvegardé
+    state = _baseline ? mergeStates(remoteState, _baseline, state) : remoteState;
+    _baseline = snapshotState();
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     renderAll();
     updateBadges();
@@ -3068,11 +3146,30 @@ async function saveData() {
   setSyncStatus('syncing', 'Sauvegarde...');
   try {
     let sha = null;
+    let mergedState = state;
+    let mergeChangedSomething = false;
     const rGet = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
       headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
     });
-    if (rGet.ok) { const d = await rGet.json(); sha = d.sha; }
-    const json = JSON.stringify(state, null, 2);
+    if (rGet.ok) {
+      const d = await rGet.json();
+      sha = d.sha;
+      // Fusion avec le contenu distant le plus récent, pour ne pas écraser le travail de quelqu'un d'autre
+      if (_baseline) {
+        try {
+          const b64 = d.content.replace(/\n/g,'');
+          const binStr0 = atob(b64);
+          const bytes0 = new Uint8Array(binStr0.length);
+          for (let i = 0; i < binStr0.length; i++) bytes0[i] = binStr0.charCodeAt(i);
+          const remoteDecoded = JSON.parse(new TextDecoder().decode(bytes0));
+          const beforeJson = JSON.stringify(state);
+          mergedState = mergeStates(remoteDecoded, _baseline, state);
+          mergeChangedSomething = JSON.stringify(mergedState) !== beforeJson;
+          state = mergedState; // l'UI reflète aussi la fusion (récupère les nouveautés des autres)
+        } catch(e) { /* si la fusion échoue pour une raison quelconque, on sauvegarde l'état local tel quel */ }
+      }
+    }
+    const json = JSON.stringify(mergedState, null, 2);
     const bytes = new TextEncoder().encode(json);
     const binStr = Array.from(bytes).map(b => String.fromCharCode(b)).join('');
     const content = btoa(binStr);
@@ -3087,8 +3184,14 @@ async function saveData() {
     const dPut = await rPut.json();
     if (dPut?.content?.sha) _lastKnownSha = dPut.content.sha;
     _lastLocalSaveAt = Date.now();
+    _baseline = snapshotState();
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
-    toast('Sauvegarde sur GitHub', 'success');
+    if (mergeChangedSomething) {
+      toast('Sauvegarde effectuée (fusionnée avec des changements récents d\'un autre utilisateur)', 'success');
+      renderAll();
+    } else {
+      toast('Sauvegarde sur GitHub', 'success');
+    }
   } catch(e) { setSyncStatus('error', 'Erreur sauvegarde'); toast('Erreur sauvegarde : ' + e.message, 'error'); }
 }
 
@@ -8051,7 +8154,7 @@ var statutIcon;
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
   const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const labels={a_lancer:'À FAIRE',en_cours:'EN COURS',terminee:'TERMINÉE',verifiee:'VÉRIFIÉE'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
-  const undoBtn='<i class="ti ti-arrow-back-up" onclick="event.stopPropagation();revertAnalyseStatut('+echId+','+analyseId+')" title="Revenir au statut précédent (erreur de clic)" style="position:absolute;top:1px;right:1px;font-size:11px;color:var(--text3);cursor:pointer;opacity:0.45"></i>';
+  const undoBtn='<i class="ti ti-arrow-back-up" onclick="event.stopPropagation();revertAnalyseStatut('+echId+','+analyseId+')" title="Revenir au statut précédent (erreur de clic)" style="position:absolute;top:-6px;right:-6px;font-size:12px;color:#fff;background:#78716c;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.35);z-index:2"></i>';
   if(isDone){
     const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'';
     if(cellType==='terminee'){
