@@ -2567,11 +2567,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock",
-      "text": "Cloture : Chloroforme lot K57089345 546",
-      "time": "12/08 08:38"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Chloroforme",
       "time": "12/08 08:40"
@@ -2815,6 +2810,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0018",
       "time": "12/08 13:21"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M76015000",
+      "time": "12/08 13:32"
     }
   ],
   "spq": [
@@ -3318,6 +3318,13 @@
       "nom": "Citanest 5 mg/mL (SC)",
       "type": "pif_stab",
       "spqId": 1785343005994
+    },
+    {
+      "id": 1786534331186,
+      "code": "M76015000",
+      "nom": "Xylocaïne 10 mg/mL (AC)",
+      "type": "pif_stab",
+      "spqId": 1785343233743
     }
   ],
   "planTasks": [
