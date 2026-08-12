@@ -5163,6 +5163,7 @@
       "modules": [
         "reactifs",
         "preparations",
+        "solutions-titrees",
         "commandes"
       ]
     },
