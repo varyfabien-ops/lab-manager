@@ -2448,11 +2448,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST-1 — pH : en_cours",
-      "time": "11/08 21:27"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST-1 — TCC0002 - Sodium : en_cours",
       "time": "11/08 21:27"
     },
@@ -2695,6 +2690,11 @@
       "icon": "barcode",
       "text": "Article modifié : M77511000",
       "time": "12/08 11:05"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M74011000",
+      "time": "12/08 11:06"
     }
   ],
   "spq": [
@@ -2900,6 +2900,13 @@
       "nom": "Xylocaïne 20 mg/mL + Adrénaline (SC)",
       "type": "pif_stab",
       "spqId": 1786520529756
+    },
+    {
+      "id": 1786525582768,
+      "code": "M74011000",
+      "nom": "Carbocaïne 10 mg/mL (SC)",
+      "type": "pif_stab",
+      "spqId": 1785335987687
     }
   ],
   "planTasks": [
