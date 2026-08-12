@@ -4079,6 +4079,23 @@
       "isSous": true,
       "parentNom": "Identification Lidocaïne USP",
       "manuel": false
+    },
+    {
+      "id": 1786520690725,
+      "date": "2026-08-10",
+      "techId": "1786178865689",
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_1",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "planRythmes": {
