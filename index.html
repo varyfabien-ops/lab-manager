@@ -977,6 +977,10 @@
         <div class="form-group"><label>Stock minimum (contenants)</label><input id="r-stock-min" type="number" min="0" placeholder="Ex: 2"></div>
         <div class="form-group"><label>Quantité à commander</label><input id="r-qte-cmd" type="number" min="0" placeholder="Ex: 5"></div>
         <div class="form-group full"><label>Remarques / Conditions de stockage</label><textarea id="r-note" placeholder="Précautions, température, lumière..."></textarea></div>
+        <div class="form-group full" style="display:flex;align-items:center;gap:8px">
+          <input type="checkbox" id="r-titrage" style="width:16px;height:16px;cursor:pointer">
+          <label for="r-titrage" style="cursor:pointer;margin:0">Solution titrée <span style="color:var(--text3);font-weight:400">(nécessite un titrage, valable 1 mois)</span></label>
+        </div>
       </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-reactif')">Annuler</button><button class="btn btn-primary" onclick="saveProduit()"><i class="ti ti-check"></i> Enregistrer</button></div>
@@ -3801,7 +3805,7 @@ function saveProduit() {
   const nom = document.getElementById('r-nom').value.trim();
   if (!nom) { toast('Le nom du reactif est obligatoire', 'error'); return; }
   if (!state.produits) state.produits = [];
-  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, cas: document.getElementById('r-cas').value.trim(), localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, stockMin: document.getElementById('r-stock-min').value, qteCmde: document.getElementById('r-qte-cmd').value, note: document.getElementById('r-note').value, bvs: document.getElementById('r-bvs')?.checked||false };
+  const entry = { id: editingId||Date.now(), nom, fournisseur: document.getElementById('r-fourn').value, ref: document.getElementById('r-ref').value, cas: document.getElementById('r-cas').value.trim(), localisation: document.getElementById('r-loc').value, fc: document.getElementById('r-fc').value, conditionnement: document.getElementById('r-cond').value, stockMin: document.getElementById('r-stock-min').value, qteCmde: document.getElementById('r-qte-cmd').value, note: document.getElementById('r-note').value, bvs: document.getElementById('r-bvs')?.checked||false, estTitree: document.getElementById('r-titrage')?.checked||false };
   if (editingId) { const i=state.produits.findIndex(x=>x.id===editingId); state.produits[i]=entry; addActivity('pencil','Produit modifie : '+nom); }
   else { state.produits.push(entry); addActivity('flask-2','Produit ajoute : '+nom); }
   editingId = null;
@@ -3824,6 +3828,7 @@ function editProduit(id) {
   document.getElementById('r-qte-cmd').value = p.qteCmde||'';
   document.getElementById('r-note').value = p.note||'';
   if(document.getElementById('r-bvs')) document.getElementById('r-bvs').checked = p.bvs||false;
+  if(document.getElementById('r-titrage')) document.getElementById('r-titrage').checked = p.estTitree||false;
   document.getElementById('modal-reactif-title').textContent = 'Modifier le produit';
   openModal('modal-reactif');
 }
@@ -4717,6 +4722,10 @@ function openModal(id) {
   if (id === 'modal-ouverture') { /* gere dans ouvrirContenant */ }
   if (id === 'modal-reactif') {
     document.getElementById('modal-reactif-title').textContent = editingId ? 'Modifier le produit' : 'Nouveau produit';
+    if (!editingId) {
+      if(document.getElementById('r-bvs')) document.getElementById('r-bvs').checked = false;
+      if(document.getElementById('r-titrage')) document.getElementById('r-titrage').checked = false;
+    }
   }
   if (id === 'modal-enregistrement' && !editingId) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
@@ -5638,7 +5647,7 @@ function buildEtiquettesAPlanifier() {
   (state.solutionsTitrees||[]).filter(s => !s.archive).forEach(sol => {
     const st = getTitrageStatut(sol);
     if (!st.expire) return; // titre encore valide, rien à faire
-    const cat = (state.cataloguePrep||[]).find(c => c.id === sol.catId);
+    const cat = (state.produits||[]).find(c => c.id === sol.catId);
     const cycleTag = st.dernier ? st.dernier.date : 'jamais';
     const sousKey = 'titrage_' + sol.id + '_' + cycleTag;
     const placed = (state.planTasks||[]).find(t => t.sousKey === sousKey && t.date);
@@ -7529,12 +7538,12 @@ window.goToSolutionsTitrees = goToSolutionsTitrees;
 function renderSolutionsTitrees() {
   const tbody = document.getElementById('st-tbody'); if (!tbody) return;
   const sols = (state.solutionsTitrees||[]).filter(s=>!s.archive).slice().sort((a,b)=>{
-    const ca=(state.cataloguePrep||[]).find(x=>x.id===a.catId); const cb=(state.cataloguePrep||[]).find(x=>x.id===b.catId);
+    const ca=(state.produits||[]).find(x=>x.id===a.catId); const cb=(state.produits||[]).find(x=>x.id===b.catId);
     return (ca?.nom||'').localeCompare(cb?.nom||'', 'fr', {sensitivity:'base'});
   });
   if (!sols.length) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée enregistrée</p></td></tr>'; return; }
   tbody.innerHTML = sols.map(s => {
-    const cat = (state.cataloguePrep||[]).find(c=>c.id===s.catId);
+    const cat = (state.produits||[]).find(c=>c.id===s.catId);
     const tech = (state.techniciens||[]).find(t=>t.id===s.techId);
     const st = getTitrageStatut(s);
     const valeurTxt = st.dernier ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' : '<span style="color:var(--text3)">—</span>';
@@ -7556,12 +7565,12 @@ window.renderSolutionsTitrees = renderSolutionsTitrees;
 function renderSolutionsTitreesArchives() {
   const tbody = document.getElementById('st-archives-tbody'); if (!tbody) return;
   const sols = (state.solutionsTitrees||[]).filter(s=>s.archive).slice().sort((a,b)=>{
-    const ca=(state.cataloguePrep||[]).find(x=>x.id===a.catId); const cb=(state.cataloguePrep||[]).find(x=>x.id===b.catId);
+    const ca=(state.produits||[]).find(x=>x.id===a.catId); const cb=(state.produits||[]).find(x=>x.id===b.catId);
     return (ca?.nom||'').localeCompare(cb?.nom||'', 'fr', {sensitivity:'base'});
   });
   if (!sols.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><i class="ti ti-archive"></i><p>Aucune archive</p></td></tr>'; return; }
   tbody.innerHTML = sols.map(s => {
-    const cat = (state.cataloguePrep||[]).find(c=>c.id===s.catId);
+    const cat = (state.produits||[]).find(c=>c.id===s.catId);
     const tech = (state.techniciens||[]).find(t=>t.id===s.techId);
     const st = getTitrageStatut(s);
     const valeurTxt = st.dernier ? st.dernier.valeur+' ('+formatDate(st.dernier.date)+')' : '—';
@@ -7587,7 +7596,7 @@ window.updateBadgeTitrage = updateBadgeTitrage;
 function openModalSolutionTitree(id) {
   window._editingSolTitreeId = id || null;
   const catSel = document.getElementById('st-catalogue');
-  catSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.cataloguePrep||[]).filter(c=>c.estTitree).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
+  catSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.produits||[]).filter(c=>c.estTitree).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
   const techSel = document.getElementById('st-technicien');
   techSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
   if (id) {
@@ -7606,8 +7615,8 @@ function openModalSolutionTitree(id) {
     document.getElementById('st-emplacement').value = '';
     document.getElementById('st-delete-btn').style.display = 'none';
   }
-  if (!(state.cataloguePrep||[]).some(c=>c.estTitree)) {
-    toast('Aucun réactif marqué "Solution titrée" dans le catalogue — cochez-le dans Catalogue Réactifs > Solutions préparées', 'info');
+  if (!(state.produits||[]).some(c=>c.estTitree)) {
+    toast('Aucun réactif marqué "Solution titrée" — cochez-le dans Réactifs Commerciaux > fiche produit', 'info');
   }
   openModal('modal-solution-titree');
 }
@@ -7665,7 +7674,7 @@ window.restaurerSolutionTitree = restaurerSolutionTitree;
 
 function openModalTitrage(solId) {
   const s = (state.solutionsTitrees||[]).find(x=>x.id===solId); if (!s) return;
-  const cat = (state.cataloguePrep||[]).find(c=>c.id===s.catId);
+  const cat = (state.produits||[]).find(c=>c.id===s.catId);
   window._titrageForSolId = solId;
   document.getElementById('titrage-info').textContent = (cat?.nom||'Solution') + ' — Lot ' + (s.numero||'—');
   document.getElementById('titrage-valeur').value = '';
@@ -7697,7 +7706,7 @@ function saveTitrage() {
   if (!date) { toast('La date est obligatoire', 'error'); return; }
   if (!s.titrages) s.titrages = [];
   s.titrages.push({ id: Date.now(), valeur, date, techId });
-  const cat = (state.cataloguePrep||[]).find(c=>c.id===s.catId);
+  const cat = (state.produits||[]).find(c=>c.id===s.catId);
   addActivity('droplet', 'Titrage enregistré pour ' + (cat?.nom||'solution') + ' — Lot ' + (s.numero||'—') + ' (' + valeur + ')');
   closeModal('modal-titrage');
   saveData();
@@ -7777,7 +7786,6 @@ function openModalCataloguePrep() {
   ['cp-nom','cp-desc','cp-format','cp-emplacement'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('cp-type').value='pe';
   document.getElementById('cp-peremption').value='';
-  document.getElementById('cp-titrage').checked=false;
   document.getElementById('cp-delete-btn').style.display='none';
   openModal('modal-cat-prep');
 }
@@ -7790,7 +7798,6 @@ function editCataloguePrep(id) {
   document.getElementById('cp-peremption').value=c.peremption||'';
   document.getElementById('cp-format').value=c.format||'';
   if(document.getElementById('cp-emplacement')) document.getElementById('cp-emplacement').value=c.emplacement||'';
-  document.getElementById('cp-titrage').checked=!!c.estTitree;
   document.getElementById('cp-desc').value=c.desc||'';
   document.getElementById('cp-delete-btn').style.display='inline-flex';
   openModal('modal-cat-prep');
@@ -7801,7 +7808,7 @@ function saveCataloguePrep() {
   const per=parseInt(document.getElementById('cp-peremption').value)||0;
   if(!nom){toast('Le nom est obligatoire','error');return;}
   if(!per){toast('La durée de validité est obligatoire','error');return;}
-  const entry={id:window._editingCatPrepId||Date.now(),nom,type:document.getElementById('cp-type').value,peremption:per,format:document.getElementById('cp-format').value.trim()||'AAAA/XXXX',emplacement:document.getElementById('cp-emplacement')?.value.trim()||'',estTitree:document.getElementById('cp-titrage').checked,desc:document.getElementById('cp-desc').value.trim()};
+  const entry={id:window._editingCatPrepId||Date.now(),nom,type:document.getElementById('cp-type').value,peremption:per,format:document.getElementById('cp-format').value.trim()||'AAAA/XXXX',emplacement:document.getElementById('cp-emplacement')?.value.trim()||'',desc:document.getElementById('cp-desc').value.trim()};
   if(!state.cataloguePrep) state.cataloguePrep=[];
   if(window._editingCatPrepId){const i=state.cataloguePrep.findIndex(x=>x.id===window._editingCatPrepId);if(i>=0)state.cataloguePrep[i]=entry;}
   else state.cataloguePrep.push(entry);
@@ -8928,12 +8935,6 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       </div>
       <div class="form-group"><label>Format N° interne</label><input id="cp-format" placeholder="AAAA/XXXX"></div>
       <div class="form-group"><label>Emplacement</label><input id="cp-emplacement" placeholder="Ex: Armoire A, Frigo 1..."></div>
-      <div class="form-group">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:400">
-          <input type="checkbox" id="cp-titrage" style="width:auto">
-          Solution titrée (nécessite un titrage, valable 1 mois)
-        </label>
-      </div>
       <div class="form-group"><label>Description / Notes</label><textarea id="cp-desc" placeholder="Conditions de préparation..."></textarea></div>
     </div>
     <div class="modal-footer" style="display:flex;justify-content:space-between">
