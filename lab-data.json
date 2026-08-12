@@ -1967,6 +1967,32 @@
       "ouvertPar": "CPL",
       "verifiedBy": "FVY",
       "verifiedAt": "12/08/2026"
+    },
+    {
+      "produitId": 1786563219289,
+      "lot": "YYYYY",
+      "qte": "1 L",
+      "reception": "2024-12-12",
+      "peremption": "2034-01-01",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786564862583
+    },
+    {
+      "produitId": 1786563219289,
+      "lot": "YYYYY",
+      "qte": "1 L",
+      "reception": "2024-12-12",
+      "peremption": "2034-01-01",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786564862584
     }
   ],
   "produitsEch": [
@@ -5270,11 +5296,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article modifié : M74517000",
-      "time": "12/08 12:07"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0058",
       "time": "12/08 12:08"
@@ -5518,6 +5539,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot TEST",
       "time": "12/08 21:50"
+    },
+    {
+      "icon": "package",
+      "text": "2x Thiosulfate de Sodium 0,1M lot YYYYY receptionne(s)",
+      "time": "12/08 22:01"
     }
   ]
 }
