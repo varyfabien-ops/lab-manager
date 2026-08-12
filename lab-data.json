@@ -1759,7 +1759,15 @@
       "qteCmde": "2",
       "note": "",
       "bvs": false,
-      "estTitree": true
+      "estTitree": true,
+      "titrages": [
+        {
+          "id": 1786564142551,
+          "valeur": "1.000",
+          "date": "2026-08-12",
+          "techId": 1786178889272
+        }
+      ]
     }
   ],
   "contenants": [
@@ -5225,18 +5233,6 @@
   ],
   "enregistrements": [],
   "etiquettesLibres": [],
-  "solutionsTitrees": [
-    {
-      "id": 1786563251163,
-      "catId": 1786563219289,
-      "numero": "XXXXX",
-      "datePrep": "2026-08-12",
-      "techId": null,
-      "emplacement": "",
-      "titrages": [],
-      "archive": true
-    }
-  ],
   "planRythmes": {
     "1785175077562_2026-08-03": "matin",
     "1786178889272_2026-08-03": "am",
@@ -5273,11 +5269,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0055",
-      "time": "12/08 11:36"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0055",
@@ -5522,6 +5513,11 @@
       "icon": "pencil",
       "text": "Contenant modifie : lot HX57784410",
       "time": "12/08 21:48"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M (1.000)",
+      "time": "12/08 21:49"
     }
   ]
 }
