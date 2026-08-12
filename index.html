@@ -3192,7 +3192,16 @@ function startAutoSync() {
   _autoSyncTimer = setInterval(checkForRemoteChanges, 25000);
 }
 
-async function saveData() {
+// Sérialise les sauvegardes : si un clic rapide déclenche plusieurs sauvegardes,
+// elles s'exécutent une par une (jamais en parallèle), pour éviter qu'une sauvegarde
+// lente ne vienne écraser le résultat d'une sauvegarde plus rapide terminée entre-temps.
+let _saveQueue = Promise.resolve();
+function saveData() {
+  _saveQueue = _saveQueue.then(() => _saveDataInternal()).catch(() => {});
+  return _saveQueue;
+}
+
+async function _saveDataInternal() {
   if (!githubConfig) { toast('Configurez GitHub d\'abord', 'info'); return; }
   setSyncStatus('syncing', 'Sauvegarde...');
   try {
