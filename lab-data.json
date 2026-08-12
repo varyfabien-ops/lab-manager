@@ -2513,11 +2513,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "archive",
-      "text": "Lot archive : AAAAAAA",
-      "time": "11/08 21:53"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: 2N Sodium Hydroxide TS 2026/0176",
       "time": "12/08 07:38"
@@ -2761,6 +2756,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0055",
       "time": "12/08 11:38"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M70517000",
+      "time": "12/08 12:07"
     }
   ],
   "spq": [
@@ -3145,7 +3145,8 @@
     {
       "id": 1785342995411,
       "code": "M70517000",
-      "nom": "Citanest 5 mg/mL SC",
+      "nom": "Citanest 5 mg/mL (SC)",
+      "type": "pif_stab",
       "spqId": 1785343005994
     },
     {
