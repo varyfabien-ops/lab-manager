@@ -4045,25 +4045,6 @@
       "manuel": false
     },
     {
-      "id": 1786354368942,
-      "date": "2026-08-11",
-      "techId": "1786302836845",
-      "desc": "TCC0004 - Bupivacaïne",
-      "analyseNom": "TCC0004 - Bupivacaïne",
-      "analyseId": 1785247529863,
-      "sousKey": null,
-      "echId": 1786298382051,
-      "type": "analyse",
-      "sousAnalyses": [
-        "Retraitement TCC0004 - Bupivacaïne",
-        "Vérification TCC0004 - Bupivacaïne"
-      ],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
-    },
-    {
       "id": 1786354370907,
       "date": "2026-08-12",
       "techId": "1786302836845",
