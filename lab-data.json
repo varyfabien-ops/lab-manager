@@ -4117,6 +4117,24 @@
       "isSous": true,
       "parentNom": "TCC0065 - MPEG",
       "manuel": false
+    },
+    {
+      "id": 1786520633853,
+      "date": "2026-08-12",
+      "techId": "1785175077562",
+      "desc": "Identification Lidocaïne USP",
+      "analyseNom": "Identification Lidocaïne USP",
+      "analyseId": 1786520419939,
+      "sousKey": null,
+      "echId": 1786520583228,
+      "type": "analyse",
+      "sousAnalyses": [
+        "Identification Lidocaïne USP - J2"
+      ],
+      "color": null,
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "planRythmes": {
