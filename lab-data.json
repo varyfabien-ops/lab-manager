@@ -2527,7 +2527,7 @@
       "visa": "VT",
       "role": "Responsable Support",
       "habilitations": [],
-      "date": "2026-08-08",
+      "date": "1996-01-02",
       "statut": "actif"
     },
     {
@@ -2581,11 +2581,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : BBBBBB",
-      "time": "12/08 09:55"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0054",
@@ -2830,6 +2825,11 @@
       "icon": "pencil",
       "text": "Technicien modifie : Julie MUGICA-DEBRAY",
       "time": "12/08 13:49"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Valérie THOMAS",
+      "time": "12/08 13:50"
     }
   ],
   "spq": [
