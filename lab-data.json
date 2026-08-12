@@ -1844,6 +1844,11 @@
       "id": 1786525852376,
       "nom": "SUEDE",
       "code": "SE"
+    },
+    {
+      "id": 1786526124777,
+      "nom": "GLOBAL",
+      "code": "G"
     }
   ],
   "echantillons": [
