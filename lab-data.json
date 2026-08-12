@@ -4045,24 +4045,6 @@
       "manuel": false
     },
     {
-      "id": 1786354364425,
-      "date": "2026-08-10",
-      "techId": "1786178889272",
-      "desc": "TCC0002 - Sodium",
-      "analyseNom": "TCC0002 - Sodium",
-      "analyseId": 1785247382413,
-      "sousKey": null,
-      "echId": 1786298382051,
-      "type": "analyse",
-      "sousAnalyses": [
-        "Vérification TCC0002 - Sodium"
-      ],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
-    },
-    {
       "id": 1786354368942,
       "date": "2026-08-11",
       "techId": "1786302836845",
