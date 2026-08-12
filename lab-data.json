@@ -1745,6 +1745,21 @@
       "qteCmde": "3",
       "note": "",
       "bvs": false
+    },
+    {
+      "id": 1786563219289,
+      "nom": "Thiosulfate de Sodium 0,1M",
+      "fournisseur": "MERCK",
+      "ref": "XXXXX",
+      "cas": "",
+      "localisation": "",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "2",
+      "qteCmde": "2",
+      "note": "",
+      "bvs": false,
+      "estTitree": true
     }
   ],
   "contenants": [
@@ -5209,6 +5224,7 @@
   ],
   "enregistrements": [],
   "etiquettesLibres": [],
+  "solutionsTitrees": [],
   "planRythmes": {
     "1785175077562_2026-08-03": "matin",
     "1786178889272_2026-08-03": "am",
@@ -5245,11 +5261,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article modifié : M74012000",
-      "time": "12/08 11:25"
-    },
     {
       "icon": "barcode",
       "text": "Article modifié : M77512000",
@@ -5494,6 +5505,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Titrage Thiosulfate de Sodium 0,1M",
       "time": "12/08 19:15"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Thiosulfate de Sodium 0,1M",
+      "time": "12/08 21:33"
     }
   ]
 }
