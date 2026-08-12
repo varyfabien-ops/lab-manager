@@ -2469,13 +2469,17 @@
       "note": "",
       "analyseStatuts": {
         "1785247344996": "en_cours",
-        "1786520419939": "en_cours"
+        "1786520419939": "en_cours",
+        "1785170122728": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247344996": {
           "en_cours": "12/08/2026"
         },
         "1786520419939": {
+          "en_cours": "12/08/2026"
+        },
+        "1785170122728": {
           "en_cours": "12/08/2026"
         }
       }
@@ -2625,11 +2629,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0052",
-      "time": "12/08 11:07"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0011 - Mépivacaïne",
@@ -2874,6 +2873,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Titrage Thiosulfate de Sodium 0,1M",
       "time": "12/08 14:05"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956904 — pH : en_cours",
+      "time": "12/08 15:53"
     }
   ],
   "spq": [
