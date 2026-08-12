@@ -971,6 +971,51 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 9956904"
+    },
+    {
+      "id": 1786521095468.9092,
+      "nom": "L*a*b",
+      "echantillonCode": "9956970",
+      "date": "2026-07-23",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956970"
+    },
+    {
+      "id": 1786521095468.1794,
+      "nom": "Osmolalité",
+      "echantillonCode": "9956970",
+      "date": "2026-07-23",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956970"
+    },
+    {
+      "id": 1786521095468.183,
+      "nom": "pH",
+      "echantillonCode": "9956970",
+      "date": "2026-07-23",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956970"
+    },
+    {
+      "id": 1786521095468.1914,
+      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "echantillonCode": "9956970",
+      "date": "2026-07-23",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956970"
+    },
+    {
+      "id": 1786521095468.8662,
+      "nom": "TCC0065 - MPEG",
+      "echantillonCode": "9956970",
+      "date": "2026-07-23",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956970"
     }
   ],
   "catalogue": [
@@ -2225,6 +2270,52 @@
           "en_cours": "12/08/2026"
         }
       }
+    },
+    {
+      "id": 1786521095468,
+      "code": "9956970",
+      "lot": "9956970",
+      "articleId": 1786301271905,
+      "articleCode": "M75862417",
+      "produitId": 1786301271905,
+      "marcheIds": [
+        1785169908180
+      ],
+      "analysesIds": [
+        1786196559426,
+        1785169966496,
+        1785170122728,
+        1786301521786,
+        1786301151090
+      ],
+      "analysesParMarche": {
+        "1786196559426": [
+          1785169908180
+        ],
+        "1785169966496": [
+          1785169908180
+        ],
+        "1785170122728": [
+          1785169908180
+        ],
+        "1786301521786": [
+          1785169908180
+        ],
+        "1786301151090": [
+          1785169908180
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0545",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-07-23",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2325,11 +2416,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Titrant 5 lot HX57784410",
-      "time": "11/08 16:33"
-    },
     {
       "icon": "lock-open",
       "text": "Ouverture : Titrant 5 lot HX56489610",
@@ -2574,6 +2660,11 @@
       "icon": "barcode",
       "text": "Article modifié : M75862417",
       "time": "12/08 09:49"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 5 analyse(s)",
+      "time": "12/08 09:51"
     }
   ],
   "spq": [
