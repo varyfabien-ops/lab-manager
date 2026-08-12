@@ -5328,6 +5328,14 @@
         "bg": "#FFE0B2",
         "border": "#F57C00"
       }
+    },
+    {
+      "id": 1786566189508,
+      "nom": "Documentation",
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      }
     }
   ],
   "planRythmes": {
