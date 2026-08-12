@@ -2644,10 +2644,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785247477146": "en_cours"
+        "1785247477146": "en_cours",
+        "1786520419939": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247477146": {
+          "en_cours": "12/08/2026"
+        },
+        "1786520419939": {
           "en_cours": "12/08/2026"
         }
       }
@@ -2793,11 +2797,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0013 - Conservateurs",
-      "time": "12/08 11:21"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0010 - ASA",
@@ -3041,6 +3040,11 @@
     {
       "icon": "list-check",
       "text": "TEST 3 — Limpidité / Coloration PE : en_cours",
+      "time": "12/08 18:12"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 3 — Identification Lidocaïne USP : en_cours",
       "time": "12/08 18:12"
     }
   ],
