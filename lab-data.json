@@ -2327,11 +2327,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "2x Titrant 5 lot HX57784410 receptionne(s)",
-      "time": "11/08 16:32"
-    },
-    {
-      "icon": "package",
       "text": "2x Titrant 5 lot HX56489610 receptionne(s)",
       "time": "11/08 16:32"
     },
@@ -2574,6 +2569,11 @@
       "icon": "list-check",
       "text": "9956904 — Identification Lidocaïne USP : en_cours",
       "time": "12/08 09:46"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ modifiée : SPQ0545",
+      "time": "12/08 09:48"
     }
   ],
   "spq": [
@@ -2669,12 +2669,15 @@
     },
     {
       "id": 1786301246939,
-      "ref": "SPQxxxx",
+      "ref": "SPQ0545",
       "marches": [
         {
           "marcheId": 1785169908180,
           "analyses": [
+            1786196559426,
             1785169966496,
+            1785170122728,
+            1786301521786,
             1786301151090
           ]
         }
