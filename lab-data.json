@@ -2513,11 +2513,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: 2N Sodium Hydroxide TS 2026/0176",
-      "time": "12/08 07:38"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Chloroforme",
       "time": "12/08 08:11"
@@ -2760,6 +2755,11 @@
     {
       "icon": "barcode",
       "text": "Article modifié : M70517000",
+      "time": "12/08 12:07"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M74517000",
       "time": "12/08 12:07"
     }
   ],
@@ -3144,8 +3144,8 @@
     },
     {
       "id": 1785342995411,
-      "code": "M70517000",
-      "nom": "Citanest 5 mg/mL (SC)",
+      "code": "M74517000",
+      "nom": "Citanest 5 mg/mL (PM)",
       "type": "pif_stab",
       "spqId": 1785343005994
     },
