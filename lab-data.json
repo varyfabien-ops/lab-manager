@@ -1640,12 +1640,13 @@
       "qte": "1 L",
       "reception": "2026-03-13",
       "peremption": "2028-10-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-07-23",
+      "validite": "2027-12-04",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1786516710273
+      "id": 1786516710273,
+      "ouvertPar": "CPL"
     }
   ],
   "produitsEch": [
@@ -2205,11 +2206,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0012 - Prilocaïne",
-      "time": "10/08 08:45"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "10/08 08:45"
     },
@@ -2451,6 +2447,11 @@
     {
       "icon": "package",
       "text": "1x Chloroforme lot K57089345 546 receptionne(s)",
+      "time": "12/08 08:38"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Chloroforme lot K57089345 546",
       "time": "12/08 08:38"
     }
   ],
