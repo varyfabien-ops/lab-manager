@@ -1439,6 +1439,20 @@
       "qteCmde": "1",
       "note": "",
       "bvs": false
+    },
+    {
+      "id": 1786515073344,
+      "nom": "Chloroforme",
+      "fournisseur": "MERCK - SUPELCO",
+      "ref": "1.02455.1000",
+      "cas": "67-66-3",
+      "localisation": "E12",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "2",
+      "qteCmde": "4",
+      "note": "",
+      "bvs": false
     }
   ],
   "contenants": [
@@ -2162,11 +2176,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
-      "time": "09/08 20:54"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0002 - Sodium",
       "time": "09/08 20:54"
     },
@@ -2409,6 +2418,11 @@
       "icon": "flask",
       "text": "Préparation: 2N Sodium Hydroxide TS 2026/0176",
       "time": "12/08 07:38"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Chloroforme",
+      "time": "12/08 08:11"
     }
   ],
   "spq": [
