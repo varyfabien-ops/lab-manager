@@ -1642,7 +1642,7 @@
       "peremption": "2028-10-31",
       "ouverture": "2026-07-23",
       "validite": "2027-12-04",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "coaUrl": "",
       "id": 1786516710273,
@@ -2208,11 +2208,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "10/08 08:45"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
       "time": "10/08 08:45"
     },
@@ -2454,6 +2449,11 @@
     {
       "icon": "lock-open",
       "text": "Ouverture : Chloroforme lot K57089345 546",
+      "time": "12/08 08:38"
+    },
+    {
+      "icon": "lock",
+      "text": "Cloture : Chloroforme lot K57089345 546",
       "time": "12/08 08:38"
     }
   ],
