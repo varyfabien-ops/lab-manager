@@ -2641,8 +2641,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-12",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785247477146": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785247477146": {
+          "en_cours": "12/08/2026"
+        }
+      }
     },
     {
       "id": 1786551127051,
@@ -2785,11 +2793,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0052",
-      "time": "12/08 11:21"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0013 - Conservateurs",
@@ -3033,6 +3036,11 @@
     {
       "icon": "package",
       "text": "Réception: Xylocaïne 10 mg/mL (AC) — 1 entrée(s) — 4 analyse(s)",
+      "time": "12/08 18:12"
+    },
+    {
+      "icon": "list-check",
+      "text": "TEST 3 — Limpidité / Coloration PE : en_cours",
       "time": "12/08 18:12"
     }
   ],
