@@ -1397,7 +1397,12 @@
     {
       "id": 1786533442513,
       "nom": "TCC0023 - Adrénaline",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes",
+        "pH"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
@@ -2576,11 +2581,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article modifié : M75862417",
-      "time": "12/08 09:49"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 5 analyse(s)",
       "time": "12/08 09:51"
@@ -2823,6 +2823,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0013 - Conservateurs",
+      "time": "12/08 13:46"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0023 - Adrénaline",
       "time": "12/08 13:46"
     }
   ],
