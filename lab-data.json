@@ -2533,11 +2533,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Chloroforme lot K57089345 546",
-      "time": "12/08 08:37"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot K57089345 546",
       "time": "12/08 08:37"
@@ -2781,6 +2776,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0058",
       "time": "12/08 12:10"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M70517000",
+      "time": "12/08 12:11"
     }
   ],
   "spq": [
@@ -3256,6 +3256,13 @@
       "nom": "Carbocaïne 20 mg/mL (SC)",
       "type": "pif_stab",
       "spqId": 1785342945228
+    },
+    {
+      "id": 1786529504133,
+      "code": "M70517000",
+      "nom": "Citanest 5 mg/mL (SC)",
+      "type": "pif_stab",
+      "spqId": 1785343005994
     }
   ],
   "planTasks": [
