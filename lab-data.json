@@ -5296,6 +5296,14 @@
         "bg": "#FFF8E1",
         "border": "#FF9800"
       }
+    },
+    {
+      "id": 1786566050142,
+      "nom": "Vérification - Thiosulfate de Sodium 0,1 M",
+      "color": {
+        "bg": "#E8F5E9",
+        "border": "#4CAF50"
+      }
     }
   ],
   "planRythmes": {
