@@ -5245,11 +5245,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0010 - ASA",
-      "time": "12/08 11:23"
-    },
-    {
       "icon": "barcode",
       "text": "Article modifié : M74012000",
       "time": "12/08 11:25"
@@ -5493,6 +5488,11 @@
       "icon": "list-check",
       "text": "TEST 3 — Identification Lidocaïne USP : en_cours",
       "time": "12/08 18:12"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Titrage Thiosulfate de Sodium 0,1M",
+      "time": "12/08 19:15"
     }
   ]
 }
