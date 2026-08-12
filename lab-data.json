@@ -1389,6 +1389,21 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786533442513,
+      "nom": "TCC0023 - Adrénaline",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0023 - Adrénaline",
+        "Vérification TCC0023 - Adrénaline"
+      ]
     }
   ],
   "stabilites": [],
@@ -2547,11 +2562,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "1x Chloroforme lot K57089345 546 receptionne(s)",
-      "time": "12/08 08:38"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : Chloroforme lot K57089345 546",
       "time": "12/08 08:38"
@@ -2795,6 +2805,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0003 - Métabisulfite de Sodium",
       "time": "12/08 13:16"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0023 - Adrénaline",
+      "time": "12/08 13:17"
     }
   ],
   "spq": [
