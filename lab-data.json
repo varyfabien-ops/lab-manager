@@ -2108,7 +2108,8 @@
       "note": "",
       "analyseStatuts": {
         "1785247569532": "en_cours",
-        "1785247477146": "verifiee"
+        "1785247477146": "verifiee",
+        "1785247529863": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247569532": {
@@ -2118,6 +2119,9 @@
           "en_cours": "11/08/2026",
           "terminee": "11/08/2026",
           "verifiee": "11/08/2026"
+        },
+        "1785247529863": {
+          "en_cours": "12/08/2026"
         }
       }
     },
@@ -2417,11 +2421,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Titrant 5 lot HX56489610",
-      "time": "11/08 16:33"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Poudre Zinc",
       "time": "11/08 16:38"
@@ -2665,6 +2664,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 5 analyse(s)",
       "time": "12/08 09:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — TCC0004 - Bupivacaïne : en_cours",
+      "time": "12/08 09:55"
     }
   ],
   "spq": [
