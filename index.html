@@ -444,11 +444,11 @@
     <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#E3F2FD;border:1.5px solid #2196F3;display:inline-block"></span> Matin</span>
     <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#EDE7F6;border:1.5px solid #6A1B9A;display:inline-block"></span> Après-Midi</span>
     <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#FFEBEE;border:1.5px solid #B71C1C;display:inline-block"></span> Absent</span>
-    <span style="color:var(--text3);margin-left:auto">Clic sur une case pour changer le rythme de la semaine · Molette / défilement horizontal pour voir toute l'année</span>
+    <span style="color:var(--text3);margin-left:auto">Clic sur une case pour changer le rythme de la semaine</span>
   </div>
 
-  <div class="table-card" style="padding:20px;overflow-x:auto">
-    <div id="rythmes-grid" style="min-width:max-content"></div>
+  <div class="table-card" style="padding:20px">
+    <div id="rythmes-grid" style="width:100%"></div>
   </div>
 </div>
 
@@ -6075,11 +6075,18 @@ function renderRythmesAnnee() {
   const grid = document.getElementById('rythmes-grid');
   if (!grid) return;
 
-  const techs = (state.techniciens||[]).filter(t => t.statut === 'actif').slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  const seenIds = new Set();
+  const techs = (state.techniciens||[]).filter(t => {
+    if (t.statut !== 'actif') return false;
+    if (seenIds.has(t.id)) return false; // sécurité anti-doublon (même id présent 2x)
+    seenIds.add(t.id);
+    return true;
+  }).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if (!techs.length) { grid.innerHTML = '<div class="empty-state"><i class="ti ti-users"></i><p>Aucun technicien actif</p></div>'; return; }
 
   const mondays = getYearMondays(rythmesAnnee);
-  const cellW = 15, cellGap = 2, labelColW = 130;
+  const nbWeeks = mondays.length;
+  const labelColW = 150;
 
   // Groupes par mois pour l'en-tête
   const monthGroups = [];
@@ -6090,21 +6097,25 @@ function renderRythmesAnnee() {
     else monthGroups.push({ mIdx, count: 1 });
   });
 
-  let html = '';
-  // En-tête mois
-  html += '<div style="display:flex;margin-bottom:4px">';
-  html += '<div style="width:' + labelColW + 'px;flex-shrink:0"></div>';
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  let html = '<div style="display:grid;grid-template-columns:' + labelColW + 'px repeat(' + nbWeeks + ',1fr);gap:2px;width:100%">';
+
+  // Ligne 1 : mois
+  html += '<div></div>';
   monthGroups.forEach(g => {
-    const w = g.count * (cellW + cellGap);
-    html += '<div style="width:' + w + 'px;flex-shrink:0;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;padding-left:2px">' + RYTHME_MOIS[g.mIdx] + '</div>';
+    html += '<div style="grid-column:span ' + g.count + ';font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;text-align:center;padding-bottom:2px">' + RYTHME_MOIS[g.mIdx] + '</div>';
   });
-  html += '</div>';
+
+  // Ligne 2 : numéros de semaine
+  html += '<div></div>';
+  mondays.forEach((m, i) => {
+    html += '<div style="font-size:9px;color:var(--text3);text-align:center;padding-bottom:4px;border-bottom:1px solid var(--border)">S' + (i+1) + '</div>';
+  });
 
   // Une ligne par technicien
-  const today = new Date(); today.setHours(0,0,0,0);
   techs.forEach(tech => {
-    html += '<div style="display:flex;align-items:center;margin-bottom:3px">';
-    html += '<div style="width:' + labelColW + 'px;flex-shrink:0;display:flex;align-items:center;gap:8px">';
+    html += '<div style="display:flex;align-items:center;gap:8px;padding:4px 0">';
     html += '<div style="width:26px;height:26px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0]+tech.nom[0]) + '</div>';
     html += '<span style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + tech.prenom + ' ' + tech.nom + '</span>';
     html += '</div>';
@@ -6112,14 +6123,15 @@ function renderRythmesAnnee() {
       const mondayKey = dateToKey(m);
       const rythme = (state.planRythmes||{})[tech.id + '_' + mondayKey] || 'matin';
       const st = RYTHME_STATES.find(s => s.key === rythme) || RYTHME_STATES[0];
+      const shortLabel = rythme === 'matin' ? 'M' : rythme === 'am' ? 'AM' : 'ABS';
       const sunday = new Date(m); sunday.setDate(sunday.getDate() + 6);
       const isCurrentWeek = today >= m && today <= sunday;
       const title = 'Semaine du ' + m.getDate() + ' ' + RYTHME_MOIS[m.getMonth()] + ' — ' + st.label + ' (clic pour changer)';
-      html += '<div onclick="cycleRythmeAnnuel(' + tech.id + ',\'' + mondayKey + '\')" title="' + title + '" style="width:' + cellW + 'px;height:' + cellW + 'px;margin-right:' + cellGap + 'px;flex-shrink:0;border-radius:3px;background:' + st.bg + ';border:1.5px solid ' + (isCurrentWeek ? 'var(--text)' : st.border) + ';cursor:pointer;box-sizing:border-box"></div>';
+      html += '<div onclick="cycleRythmeAnnuel(' + tech.id + ',\'' + mondayKey + '\')" title="' + title + '" style="display:flex;align-items:center;justify-content:center;min-height:28px;border-radius:3px;background:' + st.bg + ';border:1.5px solid ' + (isCurrentWeek ? 'var(--text)' : st.border) + ';cursor:pointer;box-sizing:border-box;font-size:9px;font-weight:700;color:' + st.border + '">' + shortLabel + '</div>';
     });
-    html += '</div>';
   });
 
+  html += '</div>';
   grid.innerHTML = html;
 }
 window.renderRythmesAnnee = renderRythmesAnnee;
