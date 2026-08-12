@@ -1831,12 +1831,13 @@
       "qte": "250 g",
       "reception": "2026-01-22",
       "peremption": "2031-02-28",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-12",
+      "validite": "2029-05-05",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1786459266876
+      "id": 1786459266876,
+      "ouvertPar": "KBT"
     },
     {
       "produitId": 1786515073344,
@@ -2630,11 +2631,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0011 - Mépivacaïne",
-      "time": "12/08 11:09"
-    },
-    {
       "icon": "trash",
       "text": "Analyse supprimee : TCC0011 - Mépivacaïne",
       "time": "12/08 11:09"
@@ -2878,6 +2874,11 @@
       "icon": "list-check",
       "text": "9956904 — pH : en_cours",
       "time": "12/08 15:53"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Poudre Zinc lot V5A048265B",
+      "time": "12/08 15:54"
     }
   ],
   "spq": [
