@@ -441,6 +441,7 @@
     <div class="table-card-header" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:14px 18px;display:flex;align-items:center;gap:10px">
       <h3><i class="ti ti-database" style="margin-right:6px;color:var(--cyan)"></i>Produits enregistres</h3>
       <div class="spacer"></div>
+      <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);cursor:pointer;white-space:nowrap"><input type="checkbox" id="show-produits-archives" onchange="renderProduitsAccordion()" style="width:auto"> Afficher les archivés</label>
       <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-produits" placeholder="Rechercher..." oninput="renderProduitsAccordion()"></div>
     </div>
     <div id="produits-list" style="border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius-lg) var(--radius-lg);overflow:hidden;"></div>
@@ -3451,7 +3452,7 @@ function renderAuditTrail() {
     'trash':'ti-trash', 'book':'ti-book', 'certificate':'ti-certificate',
     'list-check':'ti-list-check', 'lock-open':'ti-lock-open', 'lock':'ti-lock',
     'chart-line':'ti-chart-line', 'world':'ti-world', 'pill':'ti-pill',
-    'shopping-cart':'ti-shopping-cart', 'history':'ti-history', 'file-description':'ti-file-description', 'droplet':'ti-droplet'
+    'shopping-cart':'ti-shopping-cart', 'history':'ti-history', 'file-description':'ti-file-description', 'droplet':'ti-droplet', 'archive':'ti-archive', 'rotate':'ti-rotate'
   };
   log.innerHTML = activity.map(a => {
     const ic = icons[a.icon] || 'ti-point';
@@ -3775,7 +3776,7 @@ function calcValidite() {
 function populateProduitSelect() {
   const sel = document.getElementById('c-produit'); if(!sel) return;
   const cur = sel.value;
-  sel.innerHTML = '<option value="">- Choisir un produit -</option>' + (state.produits||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
+  sel.innerHTML = '<option value="">- Choisir un produit -</option>' + (state.produits||[]).filter(p=>!p.archive).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
   if (cur) sel.value = cur;
 }
 
@@ -3824,22 +3825,28 @@ function deleteProduit(id) {
 function renderProduitsAccordion() {
   const el = document.getElementById('produits-list'); if(!el) return;
   const qProd = (document.getElementById('search-produits')?.value||'').toLowerCase();
-  const produits = (state.produits||[]).filter(p => !qProd || (p.nom||'').toLowerCase().includes(qProd) || (p.fournisseur||'').toLowerCase().includes(qProd)).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
-  if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun produit enregistre</p></div>'; return; }
+  const showArchives = document.getElementById('show-produits-archives')?.checked || false;
+  const produits = (state.produits||[]).filter(p => (showArchives ? !!p.archive : !p.archive) && (!qProd || (p.nom||'').toLowerCase().includes(qProd) || (p.fournisseur||'').toLowerCase().includes(qProd))).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>'+(showArchives?'Aucun produit archivé':'Aucun produit enregistre')+'</p></div>'; return; }
   el.innerHTML = produits.map(p => {
     const contenants = (state.contenants||[]).filter(c=>c.produitId===p.id);
-    return `<div style="border-bottom:1px solid var(--border);">
+    return `<div style="border-bottom:1px solid var(--border);${p.archive?'opacity:0.6':''}">
       <div style="display:flex;align-items:center;gap:10px;padding:12px 18px;cursor:pointer;background:var(--bg2);" onclick="toggleAccordion(${p.id})">
         <i class="ti ti-flask-2" style="color:var(--cyan);font-size:16px"></i>
         <strong style="font-size:13px">${p.nom}</strong>
         ${p.ref?`<code style="font-size:11px;background:var(--bg3);padding:1px 6px;border-radius:4px">${p.ref}</code>`:''}
         ${p.fc?`<span class="badge badge-purple">FC ${p.fc}</span>`:''}
+        ${p.estTitree?`<span class="badge" style="background:#E0F7FA;color:#00838F"><i class="ti ti-droplet"></i> Titrée</span>`:''}
+        ${p.archive?`<span class="badge badge-gray">Archivé</span>`:''}
         ${p.localisation?`<span style="font-size:11px;color:var(--text3)"><i class="ti ti-map-pin" style="font-size:11px"></i> ${p.localisation}</span>`:''}
         <span class="badge badge-gray" style="margin-left:4px">${contenants.length} contenant${contenants.length>1?'s':''}</span>
         <div style="margin-left:auto;display:flex;gap:6px">
-          <button class="icon-btn" onclick="event.stopPropagation();addContenantForProduit(${p.id})" title="Ajouter un contenant"><i class="ti ti-plus"></i></button>
+          ${p.archive
+            ? `<button class="icon-btn" onclick="event.stopPropagation();restaurerProduit(${p.id})" title="Restaurer"><i class="ti ti-rotate"></i></button>`
+            : `<button class="icon-btn" onclick="event.stopPropagation();addContenantForProduit(${p.id})" title="Ajouter un contenant"><i class="ti ti-plus"></i></button>
           <button class="icon-btn" onclick="event.stopPropagation();editProduit(${p.id})"><i class="ti ti-pencil"></i></button>
-          <button class="icon-btn danger" onclick="event.stopPropagation();deleteProduit(${p.id})"><i class="ti ti-trash"></i></button>
+          <button class="icon-btn" onclick="event.stopPropagation();archiverProduit(${p.id})" title="Archiver"><i class="ti ti-archive"></i></button>`}
+          <button class="icon-btn danger" onclick="event.stopPropagation();deleteProduit(${p.id})" title="Supprimer définitivement"><i class="ti ti-trash"></i></button>
         </div>
       </div>
       <div id="acc-${p.id}" style="display:none;padding:0 18px 12px;background:var(--bg3);">
@@ -3852,6 +3859,30 @@ function renderProduitsAccordion() {
     </div>`;
   }).join('');
 }
+
+function archiverProduit(id) {
+  const p = (state.produits||[]).find(x=>x.id===id); if (!p) return;
+  p.archive = true;
+  addActivity('archive', 'Produit archivé : ' + p.nom);
+  saveData();
+  renderProduitsAccordion();
+  renderReactifsTable();
+  renderSolutionsTitrees();
+  toast('Produit archivé', 'success');
+}
+window.archiverProduit = archiverProduit;
+
+function restaurerProduit(id) {
+  const p = (state.produits||[]).find(x=>x.id===id); if (!p) return;
+  p.archive = false;
+  addActivity('rotate', 'Produit restauré : ' + p.nom);
+  saveData();
+  renderProduitsAccordion();
+  renderReactifsTable();
+  renderSolutionsTitrees();
+  toast('Produit restauré', 'success');
+}
+window.restaurerProduit = restaurerProduit;
 
 function toggleAccordion(id) {
   const el = document.getElementById('acc-'+id);
@@ -5623,7 +5654,7 @@ function buildEtiquettesAPlanifier() {
   });
 
   // Titrages de solutions titrées expirés ou jamais titrés : rappel dans les analyses à planifier
-  (state.produits||[]).filter(p => p.estTitree).forEach(prod => {
+  (state.produits||[]).filter(p => p.estTitree && !p.archive).forEach(prod => {
     const st = getTitrageStatut(prod);
     if (!st.expire) return; // titre encore valide, rien à faire
     const cycleTag = st.dernier ? st.dernier.date : 'jamais';
@@ -7523,11 +7554,14 @@ window.goToSolutionsTitrees = goToSolutionsTitrees;
 
 function renderSolutionsTitrees() {
   const tbody = document.getElementById('st-tbody'); if (!tbody) return;
-  const sols = (state.produits||[]).filter(p=>p.estTitree).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  const sols = (state.produits||[]).filter(p=>p.estTitree && !p.archive).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if (!sols.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée — cochez "Solution titrée" sur une fiche produit dans Réactifs Commerciaux</p></td></tr>'; return; }
   tbody.innerHTML = sols.map(p => {
     const st = getTitrageStatut(p);
-    const valeurTxt = st.dernier ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' : '<span style="color:var(--text3)">—</span>';
+    const nonVerifie = st.dernier && !st.dernier.verifiePar;
+    const valeurTxt = st.dernier
+      ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' + (nonVerifie ? '<br><span class="badge badge-amber" style="font-size:9px;margin-top:2px">Non vérifié</span>' : '')
+      : '<span style="color:var(--text3)">—</span>';
     return '<tr>'
       + '<td style="font-size:13px"><strong>'+(p.nom||'—')+'</strong>'+(p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':'')+'</td>'
       + '<td style="font-size:12px;text-align:center;color:var(--text2)">'+(p.localisation||'—')+'</td>'
@@ -7541,7 +7575,7 @@ function renderSolutionsTitrees() {
 window.renderSolutionsTitrees = renderSolutionsTitrees;
 
 function updateBadgeTitrage() {
-  const count = (state.produits||[]).filter(p=>p.estTitree && getTitrageStatut(p).expire).length;
+  const count = (state.produits||[]).filter(p=>p.estTitree && !p.archive && getTitrageStatut(p).expire).length;
   const badge = document.getElementById('badge-titrage');
   if (badge) { badge.textContent = count; badge.style.display = count ? '' : 'none'; }
 }
@@ -7552,16 +7586,31 @@ function openModalTitrage(produitId) {
   window._titrageForProduitId = produitId;
   document.getElementById('titrage-info').textContent = p.nom || 'Solution';
   document.getElementById('titrage-valeur').value = '';
+  document.getElementById('titrage-numero').value = '';
   document.getElementById('titrage-date').value = new Date().toISOString().slice(0,10);
+  const techs = (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   const techSel = document.getElementById('titrage-technicien');
-  techSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
+  techSel.innerHTML = '<option value="">— Sélectionner —</option>' + techs.map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
   const hist = document.getElementById('titrage-historique');
   const titrages = (p.titrages||[]).slice().reverse();
   if (titrages.length) {
     hist.innerHTML = '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Historique des titrages</div>'
       + titrages.map(t => {
           const tech = t.techId ? (state.techniciens||[]).find(x=>x.id===t.techId) : null;
-          return '<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:1px solid var(--border)"><span><strong>'+t.valeur+'</strong> — '+formatDate(t.date)+'</span><span style="color:var(--text3)">'+(tech?(tech.visa||tech.prenom+' '+tech.nom):'')+'</span></div>';
+          const verifTech = t.verifiePar ? (state.techniciens||[]).find(x=>x.id===t.verifiePar) : null;
+          const verifBlock = verifTech
+            ? '<div style="font-size:10px;color:var(--green);margin-top:3px"><i class="ti ti-check"></i> Vérifié par '+(verifTech.visa||verifTech.prenom+' '+verifTech.nom)+' le '+t.verifieLe+'</div>'
+            : '<div style="display:flex;gap:4px;align-items:center;margin-top:4px">'
+              + '<select id="verif-sel-'+t.id+'" style="font-size:11px;flex:1;padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);color:var(--text)">'
+              + '<option value="">Vérifié par...</option>'
+              + techs.filter(x=>x.id!==t.techId).map(x=>'<option value="'+x.id+'">'+(x.visa||x.prenom+' '+x.nom)+'</option>').join('')
+              + '</select>'
+              + '<button class="icon-btn" style="flex-shrink:0" title="Confirmer la vérification" onclick="verifierTitrageEntry('+produitId+','+t.id+')"><i class="ti ti-check" style="font-size:13px"></i></button>'
+              + '</div>';
+          return '<div style="padding:6px 0;border-bottom:1px solid var(--border)">'
+            + '<div style="display:flex;justify-content:space-between;font-size:12px"><span><strong>'+t.valeur+'</strong> — '+formatDate(t.date)+(t.numero?'<br><span style="color:var(--text3);font-size:10px">'+t.numero+'</span>':'')+'</span><span style="color:var(--text3);white-space:nowrap">'+(tech?(tech.visa||tech.prenom+' '+tech.nom):'')+'</span></div>'
+            + verifBlock
+            + '</div>';
         }).join('');
   } else {
     hist.innerHTML = '<div style="font-size:12px;color:var(--text3)">Aucun titrage enregistré pour l\'instant.</div>';
@@ -7570,22 +7619,41 @@ function openModalTitrage(produitId) {
 }
 window.openModalTitrage = openModalTitrage;
 
+function verifierTitrageEntry(produitId, titrageId) {
+  const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
+  const t = (p.titrages||[]).find(x=>x.id===titrageId); if (!t) return;
+  const sel = document.getElementById('verif-sel-'+titrageId);
+  const verifId = parseInt(sel?.value)||null;
+  if (!verifId) { toast('Sélectionnez le technicien vérificateur', 'error'); return; }
+  if (verifId === t.techId) { toast('Le titrage doit être vérifié par un second technicien, différent de celui qui l\'a réalisé', 'error'); return; }
+  t.verifiePar = verifId;
+  t.verifieLe = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  addActivity('droplet', 'Titrage vérifié pour ' + p.nom);
+  saveData();
+  openModalTitrage(produitId);
+  renderSolutionsTitrees();
+  toast('Titrage vérifié', 'success');
+}
+window.verifierTitrageEntry = verifierTitrageEntry;
+
 function saveTitrage() {
   const produitId = window._titrageForProduitId;
   const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
   const valeur = document.getElementById('titrage-valeur').value.trim();
   const date = document.getElementById('titrage-date').value;
   const techId = parseInt(document.getElementById('titrage-technicien').value)||null;
+  const numero = document.getElementById('titrage-numero').value.trim();
   if (!valeur) { toast('La valeur du titre est obligatoire', 'error'); return; }
   if (!date) { toast('La date est obligatoire', 'error'); return; }
+  if (!numero) { toast('Le n° interne est obligatoire', 'error'); return; }
   if (!p.titrages) p.titrages = [];
-  p.titrages.push({ id: Date.now(), valeur, date, techId });
+  p.titrages.push({ id: Date.now(), valeur, date, techId, numero, verifiePar: null, verifieLe: null });
   addActivity('droplet', 'Titrage enregistré pour ' + p.nom + ' (' + valeur + ')');
-  closeModal('modal-titrage');
   saveData();
   renderSolutionsTitrees();
   renderPlanSemaine();
-  toast('Titrage enregistré', 'success');
+  openModalTitrage(produitId);
+  toast('Titrage enregistré — en attente de vérification par un second technicien', 'success');
 }
 window.saveTitrage = saveTitrage;
 
@@ -8919,6 +8987,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
         <div class="form-group"><label>Date du titrage *</label><input type="date" id="titrage-date"></div>
       </div>
       <div class="form-group"><label>Technicien</label><select id="titrage-technicien"><option value="">— Sélectionner —</option></select></div>
+      <div class="form-group"><label>N° interne *</label><input id="titrage-numero" placeholder="Ex: HCPC1234-1 p.12-3"></div>
       <div id="titrage-historique" style="margin-top:16px"></div>
     </div>
     <div class="modal-footer" style="display:flex;justify-content:flex-end;gap:8px">
