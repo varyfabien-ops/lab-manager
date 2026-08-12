@@ -5272,7 +5272,16 @@
     }
   ],
   "enregistrements": [],
-  "etiquettesLibres": [],
+  "etiquettesLibres": [
+    {
+      "id": 1786565853590,
+      "nom": "Réunion",
+      "color": {
+        "bg": "#F3E5F5",
+        "border": "#9C27B0"
+      }
+    }
+  ],
   "planRythmes": {
     "1785175077562_2026-08-03": "matin",
     "1786178889272_2026-08-03": "am",
