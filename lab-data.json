@@ -1344,6 +1344,22 @@
         "Retraitement TCC0013 - Conservateurs",
         "Vérification TCC0013 - Conservateurs"
       ]
+    },
+    {
+      "id": 1786526583089,
+      "nom": "TCC0010 - ASA",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Préparation TCC010 - ASA",
+        "Retraitement TCC0010 - ASA",
+        "Vérification TCC0010 - ASA"
+      ]
     }
   ],
   "stabilites": [],
@@ -2472,11 +2488,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "rosette",
-      "text": "Lot approuvé : TEST",
-      "time": "11/08 21:41"
-    },
-    {
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "11/08 21:43"
@@ -2720,6 +2731,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0013 - Conservateurs",
       "time": "12/08 11:21"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0010 - ASA",
+      "time": "12/08 11:23"
     }
   ],
   "spq": [
