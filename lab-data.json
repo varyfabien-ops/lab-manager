@@ -5246,7 +5246,7 @@
       "techId": null,
       "emplacement": "",
       "titrages": [],
-      "archive": false
+      "archive": true
     }
   ],
   "planRythmes": {
