@@ -591,7 +591,9 @@
   </div>
   <table><thead><tr>
     <th>Nom</th>
-    <th style="width:130px">Emplacement</th>
+    <th style="width:110px">N° Lot</th>
+    <th style="width:110px">Date ouverture</th>
+    <th style="width:110px">Date validité</th>
     <th style="width:150px">Statut du titre</th>
     <th style="width:140px">Dernier titrage</th>
     <th style="width:90px"></th>
@@ -4909,6 +4911,7 @@ function renderReactifsTable() {
   }).join('');
   updateRcFilterIcons();
   setTimeout(initRcStickyHeader, 50);
+  if (typeof renderSolutionsTitrees === 'function') renderSolutionsTitrees();
 }
 
 window.renderReactifsTable = renderReactifsTable;
@@ -5654,26 +5657,27 @@ function buildEtiquettesAPlanifier() {
   });
 
   // Titrages de solutions titrées expirés ou jamais titrés : rappel dans les analyses à planifier
-  (state.produits||[]).filter(p => p.estTitree && !p.archive).forEach(prod => {
-    const st = getTitrageStatut(prod);
+  getSolutionsTitreesContenants().forEach(cont => {
+    const st = getTitrageStatut(cont);
     if (!st.expire) return; // titre encore valide, rien à faire
+    const prod = (state.produits||[]).find(x=>x.id===cont.produitId);
     const cycleTag = st.dernier ? st.dernier.date : 'jamais';
-    const baseKey = 'titrage_' + prod.id + '_' + cycleTag;
+    const baseKey = 'titrage_' + cont.id + '_' + cycleTag;
     const placedTitrage = (state.planTasks||[]).find(t => t.sousKey === baseKey && t.date);
     if (!placedTitrage) {
       etiquettes.push({
-        nom: 'Titrage — ' + (prod.nom||'Solution'),
+        nom: 'Titrage — ' + (prod?.nom||'Solution'),
         sousKey: baseKey,
         color: { bg: '#E0F7FA', border: '#00838F' },
         isSous: false, sousAnalyses: [],
         isTitrage: true,
       });
     }
-    const verifKey = 'verif_titrage_' + prod.id + '_' + cycleTag;
+    const verifKey = 'verif_titrage_' + cont.id + '_' + cycleTag;
     const placedVerif = (state.planTasks||[]).find(t => t.sousKey === verifKey && t.date);
     if (!placedVerif) {
       etiquettes.push({
-        nom: 'Vérification — ' + (prod.nom||'Solution'),
+        nom: 'Vérification — ' + (prod?.nom||'Solution'),
         sousKey: verifKey,
         color: { bg: '#E1F5FE', border: '#0277BD' },
         isSous: false, sousAnalyses: [],
@@ -7528,8 +7532,8 @@ function getPrepStatut(prep) {
 // cochés "Solution titrée" — pur suivi, aucune fiche à créer séparément)
 // ============================================================
 
-function getTitrageStatut(produit) {
-  const titrages = produit.titrages || [];
+function getTitrageStatut(contenant) {
+  const titrages = contenant.titrages || [];
   if (!titrages.length) return { label: 'Non titrée', color: '#f44336', bg: '#FFEBEE', dernier: null, expire: true };
   const dernier = titrages[titrages.length - 1];
   const today = new Date(); today.setHours(0,0,0,0);
@@ -7552,22 +7556,36 @@ function goToSolutionsTitrees() {
 }
 window.goToSolutionsTitrees = goToSolutionsTitrees;
 
+function getSolutionsTitreesContenants() {
+  return (state.contenants||[]).filter(c => {
+    if (['archive','retire'].includes(c.statut)) return false;
+    const p = (state.produits||[]).find(x=>x.id===c.produitId);
+    return p && p.estTitree && !p.archive;
+  });
+}
+
 function renderSolutionsTitrees() {
   const tbody = document.getElementById('st-tbody'); if (!tbody) return;
-  const sols = (state.produits||[]).filter(p=>p.estTitree && !p.archive).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
-  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée — cochez "Solution titrée" sur une fiche produit dans Réactifs Commerciaux</p></td></tr>'; return; }
-  tbody.innerHTML = sols.map(p => {
-    const st = getTitrageStatut(p);
+  const sols = getSolutionsTitreesContenants().slice().sort((a,b) => {
+    const pa = (state.produits||[]).find(x=>x.id===a.produitId); const pb = (state.produits||[]).find(x=>x.id===b.produitId);
+    return (pa?.nom||'').localeCompare(pb?.nom||'', 'fr', {sensitivity:'base'});
+  });
+  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée — cochez "Solution titrée" sur une fiche produit dans Réactifs Commerciaux</p></td></tr>'; return; }
+  tbody.innerHTML = sols.map(c => {
+    const p = (state.produits||[]).find(x=>x.id===c.produitId);
+    const st = getTitrageStatut(c);
     const nonVerifie = st.dernier && !st.dernier.verifiePar;
     const valeurTxt = st.dernier
       ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' + (nonVerifie ? '<br><span class="badge badge-amber" style="font-size:9px;margin-top:2px">Non vérifié</span>' : '')
       : '<span style="color:var(--text3)">—</span>';
     return '<tr>'
-      + '<td style="font-size:13px"><strong>'+(p.nom||'—')+'</strong>'+(p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':'')+'</td>'
-      + '<td style="font-size:12px;text-align:center;color:var(--text2)">'+(p.localisation||'—')+'</td>'
-      + '<td style="text-align:center"><span class="badge" style="background:'+st.bg+';color:'+st.color+';font-size:11px;cursor:pointer" onclick="openModalTitrage('+p.id+')" title="Cliquer pour enregistrer un titrage">'+st.label+'</span></td>'
+      + '<td style="font-size:13px"><strong>'+(p?.nom||'—')+'</strong>'+(p?.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':'')+'</td>'
+      + '<td style="font-size:12px;text-align:center"><code style="background:var(--bg3);padding:1px 5px;border-radius:3px">'+(c.lot||'—')+'</code></td>'
+      + '<td style="font-size:12px;text-align:center">'+(c.ouverture?formatDate(c.ouverture):'<span style="color:var(--text3)">Non ouvert</span>')+'</td>'
+      + '<td style="font-size:12px;text-align:center">'+(c.validite?formatDate(c.validite):'—')+'</td>'
+      + '<td style="text-align:center"><span class="badge" style="background:'+st.bg+';color:'+st.color+';font-size:11px;cursor:pointer" onclick="openModalTitrage('+c.id+')" title="Cliquer pour enregistrer un titrage">'+st.label+'</span></td>'
       + '<td style="text-align:center;font-size:12px">'+valeurTxt+'</td>'
-      + '<td style="text-align:center"><button class="icon-btn" title="Titrer" onclick="openModalTitrage('+p.id+')"><i class="ti ti-droplet"></i></button></td>'
+      + '<td style="text-align:center"><button class="icon-btn" title="Titrer" onclick="openModalTitrage('+c.id+')"><i class="ti ti-droplet"></i></button></td>'
       + '</tr>';
   }).join('');
   updateBadgeTitrage();
@@ -7575,16 +7593,17 @@ function renderSolutionsTitrees() {
 window.renderSolutionsTitrees = renderSolutionsTitrees;
 
 function updateBadgeTitrage() {
-  const count = (state.produits||[]).filter(p=>p.estTitree && !p.archive && getTitrageStatut(p).expire).length;
+  const count = getSolutionsTitreesContenants().filter(c => getTitrageStatut(c).expire).length;
   const badge = document.getElementById('badge-titrage');
   if (badge) { badge.textContent = count; badge.style.display = count ? '' : 'none'; }
 }
 window.updateBadgeTitrage = updateBadgeTitrage;
 
-function openModalTitrage(produitId) {
-  const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
-  window._titrageForProduitId = produitId;
-  document.getElementById('titrage-info').textContent = p.nom || 'Solution';
+function openModalTitrage(contenantId) {
+  const c = (state.contenants||[]).find(x=>x.id===contenantId); if (!c) return;
+  const p = (state.produits||[]).find(x=>x.id===c.produitId);
+  window._titrageForContenantId = contenantId;
+  document.getElementById('titrage-info').textContent = (p?.nom || 'Solution') + (c.lot ? ' — Lot ' + c.lot : '');
   document.getElementById('titrage-valeur').value = '';
   document.getElementById('titrage-numero').value = '';
   document.getElementById('titrage-date').value = new Date().toISOString().slice(0,10);
@@ -7592,7 +7611,7 @@ function openModalTitrage(produitId) {
   const techSel = document.getElementById('titrage-technicien');
   techSel.innerHTML = '<option value="">— Sélectionner —</option>' + techs.map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
   const hist = document.getElementById('titrage-historique');
-  const titrages = (p.titrages||[]).slice().reverse();
+  const titrages = (c.titrages||[]).slice().reverse();
   if (titrages.length) {
     hist.innerHTML = '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Historique des titrages</div>'
       + titrages.map(t => {
@@ -7605,7 +7624,7 @@ function openModalTitrage(produitId) {
               + '<option value="">Vérifié par...</option>'
               + techs.filter(x=>x.id!==t.techId).map(x=>'<option value="'+x.id+'">'+(x.visa||x.prenom+' '+x.nom)+'</option>').join('')
               + '</select>'
-              + '<button class="icon-btn" style="flex-shrink:0" title="Confirmer la vérification" onclick="verifierTitrageEntry('+produitId+','+t.id+')"><i class="ti ti-check" style="font-size:13px"></i></button>'
+              + '<button class="icon-btn" style="flex-shrink:0" title="Confirmer la vérification" onclick="verifierTitrageEntry('+contenantId+','+t.id+')"><i class="ti ti-check" style="font-size:13px"></i></button>'
               + '</div>';
           return '<div style="padding:6px 0;border-bottom:1px solid var(--border)">'
             + '<div style="display:flex;justify-content:space-between;font-size:12px"><span><strong>'+t.valeur+'</strong> — '+formatDate(t.date)+(t.numero?'<br><span style="color:var(--text3);font-size:10px">'+t.numero+'</span>':'')+'</span><span style="color:var(--text3);white-space:nowrap">'+(tech?(tech.visa||tech.prenom+' '+tech.nom):'')+'</span></div>'
@@ -7619,26 +7638,27 @@ function openModalTitrage(produitId) {
 }
 window.openModalTitrage = openModalTitrage;
 
-function verifierTitrageEntry(produitId, titrageId) {
-  const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
-  const t = (p.titrages||[]).find(x=>x.id===titrageId); if (!t) return;
+function verifierTitrageEntry(contenantId, titrageId) {
+  const c = (state.contenants||[]).find(x=>x.id===contenantId); if (!c) return;
+  const t = (c.titrages||[]).find(x=>x.id===titrageId); if (!t) return;
   const sel = document.getElementById('verif-sel-'+titrageId);
   const verifId = parseInt(sel?.value)||null;
   if (!verifId) { toast('Sélectionnez le technicien vérificateur', 'error'); return; }
   if (verifId === t.techId) { toast('Le titrage doit être vérifié par un second technicien, différent de celui qui l\'a réalisé', 'error'); return; }
   t.verifiePar = verifId;
   t.verifieLe = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  addActivity('droplet', 'Titrage vérifié pour ' + p.nom);
+  const p = (state.produits||[]).find(x=>x.id===c.produitId);
+  addActivity('droplet', 'Titrage vérifié pour ' + (p?.nom||'solution') + (c.lot?' — Lot '+c.lot:''));
   saveData();
-  openModalTitrage(produitId);
+  openModalTitrage(contenantId);
   renderSolutionsTitrees();
   toast('Titrage vérifié', 'success');
 }
 window.verifierTitrageEntry = verifierTitrageEntry;
 
 function saveTitrage() {
-  const produitId = window._titrageForProduitId;
-  const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
+  const contenantId = window._titrageForContenantId;
+  const c = (state.contenants||[]).find(x=>x.id===contenantId); if (!c) return;
   const valeur = document.getElementById('titrage-valeur').value.trim();
   const date = document.getElementById('titrage-date').value;
   const techId = parseInt(document.getElementById('titrage-technicien').value)||null;
@@ -7646,13 +7666,14 @@ function saveTitrage() {
   if (!valeur) { toast('La valeur du titre est obligatoire', 'error'); return; }
   if (!date) { toast('La date est obligatoire', 'error'); return; }
   if (!numero) { toast('Le n° interne est obligatoire', 'error'); return; }
-  if (!p.titrages) p.titrages = [];
-  p.titrages.push({ id: Date.now(), valeur, date, techId, numero, verifiePar: null, verifieLe: null });
-  addActivity('droplet', 'Titrage enregistré pour ' + p.nom + ' (' + valeur + ')');
+  if (!c.titrages) c.titrages = [];
+  c.titrages.push({ id: Date.now(), valeur, date, techId, numero, verifiePar: null, verifieLe: null });
+  const p = (state.produits||[]).find(x=>x.id===c.produitId);
+  addActivity('droplet', 'Titrage enregistré pour ' + (p?.nom||'solution') + (c.lot?' — Lot '+c.lot:'') + ' (' + valeur + ')');
   saveData();
   renderSolutionsTitrees();
   renderPlanSemaine();
-  openModalTitrage(produitId);
+  openModalTitrage(contenantId);
   toast('Titrage enregistré — en attente de vérification par un second technicien', 'success');
 }
 window.saveTitrage = saveTitrage;
