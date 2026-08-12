@@ -1982,7 +1982,18 @@
       "id": 1786564862583,
       "ouvertPar": "CGR",
       "verifiedBy": "VT",
-      "verifiedAt": "12/08/2026"
+      "verifiedAt": "12/08/2026",
+      "titrages": [
+        {
+          "id": 1786565545523,
+          "valeur": "1,000",
+          "date": "2026-08-12",
+          "techId": 1786178889272,
+          "numero": "HCPC0077-I p.12-3",
+          "verifiePar": null,
+          "verifieLe": null
+        }
+      ]
     },
     {
       "produitId": 1786563219289,
@@ -5299,11 +5310,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0004 - Prilocaïne / PHBM",
-      "time": "12/08 12:09"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0058",
       "time": "12/08 12:09"
@@ -5547,6 +5553,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Thiosulfate de Sodium 0,1M lot YYYYY",
       "time": "12/08 22:01"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot YYYYY (1,000)",
+      "time": "12/08 22:12"
     }
   ]
 }
