@@ -5280,6 +5280,14 @@
         "bg": "#F3E5F5",
         "border": "#9C27B0"
       }
+    },
+    {
+      "id": 1786565869125,
+      "nom": "Analyse Spéciale",
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      }
     }
   ],
   "planRythmes": {
