@@ -1052,6 +1052,42 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: TEST 3"
+    },
+    {
+      "id": 1786551127051.7512,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "TEST 44",
+      "date": "2026-08-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 44"
+    },
+    {
+      "id": 1786551127051.8357,
+      "nom": "pH",
+      "echantillonCode": "TEST 44",
+      "date": "2026-08-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 44"
+    },
+    {
+      "id": 1786551127051.7664,
+      "nom": "TCC0002 - Sodium",
+      "echantillonCode": "TEST 44",
+      "date": "2026-08-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 44"
+    },
+    {
+      "id": 1786551127051.9065,
+      "nom": "TCC0004 - Lidocaïne / PHBM",
+      "echantillonCode": "TEST 44",
+      "date": "2026-08-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: TEST 44"
     }
   ],
   "catalogue": [
@@ -2607,6 +2643,48 @@
       "date": "2026-08-12",
       "statut": "recu",
       "note": ""
+    },
+    {
+      "id": 1786551127051,
+      "code": "TEST 44",
+      "lot": "TEST 44",
+      "articleId": 1786534331186,
+      "articleCode": "M76015000",
+      "produitId": 1786534331186,
+      "marcheIds": [
+        1786525368760
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1785247344996
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786525368760
+        ],
+        "1785170122728": [
+          1786525368760
+        ],
+        "1785247382413": [
+          1786525368760
+        ],
+        "1785247344996": [
+          1786525368760
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0049",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-08-12",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -2707,11 +2785,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0011 - Conservateurs",
-      "time": "12/08 11:16"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0052",
@@ -2956,6 +3029,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne 10 mg/mL (AC) — 1 entrée(s) — 4 analyse(s)",
       "time": "12/08 18:11"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 10 mg/mL (AC) — 1 entrée(s) — 4 analyse(s)",
+      "time": "12/08 18:12"
     }
   ],
   "spq": [
