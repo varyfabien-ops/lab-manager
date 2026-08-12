@@ -2472,16 +2472,13 @@
       "note": "",
       "analyseStatuts": {
         "1785247344996": "en_cours",
-        "1786520419939": "en_cours",
         "1785170122728": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247344996": {
           "en_cours": "12/08/2026"
         },
-        "1786520419939": {
-          "en_cours": "12/08/2026"
-        },
+        "1786520419939": {},
         "1785170122728": {
           "en_cours": "12/08/2026"
         }
@@ -2632,11 +2629,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "trash",
-      "text": "Analyse supprimee : TCC0011 - Mépivacaïne",
-      "time": "12/08 11:09"
-    },
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0052",
@@ -2881,6 +2873,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Poudre Zinc lot V5A048265B",
       "time": "12/08 15:54"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956904 — Identification Lidocaïne USP : retour à À faire",
+      "time": "12/08 16:04"
     }
   ],
   "spq": [
