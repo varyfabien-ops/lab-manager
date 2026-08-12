@@ -1329,21 +1329,6 @@
       "sousAnalyses": [
         "Identification Lidocaïne USP - J2"
       ]
-    },
-    {
-      "id": 1786525759145,
-      "nom": "TCC0011 - Mépivacaïne",
-      "habilitations": [],
-      "duree": "",
-      "code": "",
-      "produitsIds": [],
-      "description": "",
-      "champsResultats": [],
-      "resultatRequis": false,
-      "sousAnalyses": [
-        "Retraitement TCC0011 - Mépivacaïne",
-        "Vérification TCC0011 - Mépivacaïne"
-      ]
     }
   ],
   "stabilites": [],
@@ -2463,11 +2448,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST-1 — Volume Extractible : en_cours",
-      "time": "11/08 21:27"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST-1 — Limpidité / Coloration PE : verifiee",
       "time": "11/08 21:27"
     },
@@ -2709,6 +2689,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0011 - Mépivacaïne",
+      "time": "12/08 11:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Analyse supprimee : TCC0011 - Mépivacaïne",
       "time": "12/08 11:09"
     }
   ],
