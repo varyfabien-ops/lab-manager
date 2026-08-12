@@ -4060,7 +4060,8 @@
       "color": null,
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "vert"
     },
     {
       "id": 1786520638253,
