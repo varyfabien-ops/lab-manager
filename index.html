@@ -197,6 +197,7 @@
     <button class="nav-btn" onclick="goTo('dashboard',this)" id="nav-dashboard"><i class="ti ti-layout-dashboard"></i> Tableau de bord</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToPlanning('semaine')" id="nav-plan-semaine"><i class="ti ti-layout-columns"></i> Planning</button>
+    <button class="nav-btn" onclick="goTo('rythmes',this)" id="nav-rythmes"><i class="ti ti-calendar-stats"></i> Rythmes</button>
     <button class="nav-btn" onclick="goTo('kpi',this)" id="nav-kpi"><i class="ti ti-chart-dots"></i> KPI (Indicateurs)</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goToPlanning('catalogue')" id="nav-plan-catalogue"><i class="ti ti-book"></i> Catalogue Analyses</button>
@@ -425,6 +426,29 @@
       <table><thead><tr><th>Produit</th><th>Lot</th><th>Statut</th><th>Date réception</th><th>Analyses</th><th></th></tr></thead>
       <tbody id="lots-suivi-tbody"></tbody></table>
     </div>
+  </div>
+</div>
+
+<div class="page" id="page-rythmes">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Rythmes</h1><p>Planification annuelle des rythmes de travail par technicien</p></div>
+    <div class="page-header-actions" style="display:flex;gap:8px;align-items:center">
+      <button class="btn" onclick="rythmesNav(-1)"><i class="ti ti-chevron-left"></i></button>
+      <button class="btn" onclick="rythmesToday()" id="rythmes-annee-label" style="font-weight:700;min-width:70px"></button>
+      <button class="btn" onclick="rythmesNav(1)"><i class="ti ti-chevron-right"></i></button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:16px;align-items:center;margin-bottom:18px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px">
+    <span style="font-weight:700;color:var(--text2)">Légende :</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#E3F2FD;border:1.5px solid #2196F3;display:inline-block"></span> Matin</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#EDE7F6;border:1.5px solid #6A1B9A;display:inline-block"></span> Après-Midi</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#FFEBEE;border:1.5px solid #B71C1C;display:inline-block"></span> Absent</span>
+    <span style="color:var(--text3);margin-left:auto">Clic sur une case pour changer le rythme de la semaine · Molette / défilement horizontal pour voir toute l'année</span>
+  </div>
+
+  <div class="table-card" style="padding:20px;overflow-x:auto">
+    <div id="rythmes-grid" style="min-width:max-content"></div>
   </div>
 </div>
 
@@ -2925,6 +2949,7 @@ function goTo(page, el) {
   if (page === 'dashboard') renderDashboard();
   if (page === 'kpi') { renderKPI(); kpiSetTab(kpiActiveTab); }
   if (page === 'solutions-titrees') goToSolutionsTitrees();
+  if (page === 'rythmes') renderRythmesAnnee();
 }
 
 // ============================================================
@@ -5996,6 +6021,109 @@ function setRythme(techId, semaineLundi, rythme) {
 }
 window.setRythme = setRythme;
 
+// ============================================================
+// RYTHMES — vue annuelle
+// ============================================================
+let rythmesAnnee = new Date().getFullYear();
+const RYTHME_MOIS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+const RYTHME_STATES = [
+  { key: 'matin',   bg: '#E3F2FD', border: '#2196F3', label: 'Matin' },
+  { key: 'am',      bg: '#EDE7F6', border: '#6A1B9A', label: 'Après-Midi' },
+  { key: 'absent',  bg: '#FFEBEE', border: '#B71C1C', label: 'Absent' },
+];
+
+function getYearMondays(year) {
+  const mondays = [];
+  const jan1 = new Date(year, 0, 1);
+  const day = jan1.getDay();
+  const diff = jan1.getDate() - day + (day === 0 ? -6 : 1);
+  let monday = new Date(year, 0, diff);
+  const dec31 = new Date(year, 11, 31);
+  while (monday <= dec31) {
+    mondays.push(new Date(monday));
+    monday = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + 7);
+  }
+  return mondays;
+}
+
+function rythmesNav(dir) {
+  rythmesAnnee += dir;
+  renderRythmesAnnee();
+}
+window.rythmesNav = rythmesNav;
+
+function rythmesToday() {
+  rythmesAnnee = new Date().getFullYear();
+  renderRythmesAnnee();
+}
+window.rythmesToday = rythmesToday;
+
+function cycleRythmeAnnuel(techId, mondayKey) {
+  if (!state.planRythmes) state.planRythmes = {};
+  const cur = state.planRythmes[techId + '_' + mondayKey] || 'matin';
+  const idx = RYTHME_STATES.findIndex(s => s.key === cur);
+  const next = RYTHME_STATES[(idx + 1) % RYTHME_STATES.length].key;
+  state.planRythmes[techId + '_' + mondayKey] = next;
+  saveData();
+  renderRythmesAnnee();
+}
+window.cycleRythmeAnnuel = cycleRythmeAnnuel;
+
+function renderRythmesAnnee() {
+  const label = document.getElementById('rythmes-annee-label');
+  if (label) label.textContent = rythmesAnnee;
+  const grid = document.getElementById('rythmes-grid');
+  if (!grid) return;
+
+  const techs = (state.techniciens||[]).filter(t => t.statut === 'actif').slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  if (!techs.length) { grid.innerHTML = '<div class="empty-state"><i class="ti ti-users"></i><p>Aucun technicien actif</p></div>'; return; }
+
+  const mondays = getYearMondays(rythmesAnnee);
+  const cellW = 15, cellGap = 2, labelColW = 130;
+
+  // Groupes par mois pour l'en-tête
+  const monthGroups = [];
+  mondays.forEach(m => {
+    const mIdx = m.getMonth();
+    const last = monthGroups[monthGroups.length - 1];
+    if (last && last.mIdx === mIdx) last.count++;
+    else monthGroups.push({ mIdx, count: 1 });
+  });
+
+  let html = '';
+  // En-tête mois
+  html += '<div style="display:flex;margin-bottom:4px">';
+  html += '<div style="width:' + labelColW + 'px;flex-shrink:0"></div>';
+  monthGroups.forEach(g => {
+    const w = g.count * (cellW + cellGap);
+    html += '<div style="width:' + w + 'px;flex-shrink:0;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;padding-left:2px">' + RYTHME_MOIS[g.mIdx] + '</div>';
+  });
+  html += '</div>';
+
+  // Une ligne par technicien
+  const today = new Date(); today.setHours(0,0,0,0);
+  techs.forEach(tech => {
+    html += '<div style="display:flex;align-items:center;margin-bottom:3px">';
+    html += '<div style="width:' + labelColW + 'px;flex-shrink:0;display:flex;align-items:center;gap:8px">';
+    html += '<div style="width:26px;height:26px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">' + (tech.visa || tech.prenom[0]+tech.nom[0]) + '</div>';
+    html += '<span style="font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + tech.prenom + ' ' + tech.nom + '</span>';
+    html += '</div>';
+    mondays.forEach(m => {
+      const mondayKey = dateToKey(m);
+      const rythme = (state.planRythmes||{})[tech.id + '_' + mondayKey] || 'matin';
+      const st = RYTHME_STATES.find(s => s.key === rythme) || RYTHME_STATES[0];
+      const sunday = new Date(m); sunday.setDate(sunday.getDate() + 6);
+      const isCurrentWeek = today >= m && today <= sunday;
+      const title = 'Semaine du ' + m.getDate() + ' ' + RYTHME_MOIS[m.getMonth()] + ' — ' + st.label + ' (clic pour changer)';
+      html += '<div onclick="cycleRythmeAnnuel(' + tech.id + ',\'' + mondayKey + '\')" title="' + title + '" style="width:' + cellW + 'px;height:' + cellW + 'px;margin-right:' + cellGap + 'px;flex-shrink:0;border-radius:3px;background:' + st.bg + ';border:1.5px solid ' + (isCurrentWeek ? 'var(--text)' : st.border) + ';cursor:pointer;box-sizing:border-box"></div>';
+    });
+    html += '</div>';
+  });
+
+  grid.innerHTML = html;
+}
+window.renderRythmesAnnee = renderRythmesAnnee;
+
 function toggleAbsenceJour(techId, dateKey) {
   if (!state.planRythmes) state.planRythmes = {};
   const key = techId + '_abs_' + dateKey;
@@ -7052,6 +7180,7 @@ function resetEchFiltres() {
 const ALL_MODULES = [
   { key:'dashboard',     label:'Tableau de bord',      icon:'ti-layout-dashboard' },
   { key:'planning',      label:'Planning',              icon:'ti-layout-columns' },
+  { key:'rythmes',       label:'Rythmes',                icon:'ti-calendar-stats' },
   { key:'catalogue-analyses', label:'Catalogue Analyses', icon:'ti-book' },
   { key:'kpi',           label:'KPI (Indicateurs)',     icon:'ti-chart-dots' },
   { key:'reactifs',      label:'Réactifs Commerciaux', icon:'ti-package' },
@@ -7158,6 +7287,7 @@ function gotoModule(key) {
   const actions = {
     'dashboard':     ()=>goTo('dashboard',null),
     'planning':      ()=>goToPlanning('semaine'),
+    'rythmes':       ()=>goTo('rythmes',null),
     'catalogue-analyses': ()=>goToPlanning('catalogue'),
     'reactifs':      ()=>goToReactifs('contenants'),
     'catalogue-reactifs': ()=>goToReactifs('produits'),
@@ -7202,6 +7332,7 @@ function applyProfile(p) {
   const navMap = {
     'dashboard':     ['nav-dashboard'],
     'planning':      ['nav-plan-semaine','nav-plan-calendar'],
+    'rythmes':       ['nav-rythmes'],
     'catalogue-analyses': ['nav-plan-catalogue'],
     'kpi':           ['nav-kpi'],
     'reactifs':      ['nav-contenants'],
