@@ -5224,7 +5224,18 @@
   ],
   "enregistrements": [],
   "etiquettesLibres": [],
-  "solutionsTitrees": [],
+  "solutionsTitrees": [
+    {
+      "id": 1786563251163,
+      "catId": 1786563219289,
+      "numero": "XXXXX",
+      "datePrep": "2026-08-12",
+      "techId": null,
+      "emplacement": "",
+      "titrages": [],
+      "archive": false
+    }
+  ],
   "planRythmes": {
     "1785175077562_2026-08-03": "matin",
     "1786178889272_2026-08-03": "am",
