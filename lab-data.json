@@ -5320,6 +5320,14 @@
         "bg": "#E8F5E9",
         "border": "#4CAF50"
       }
+    },
+    {
+      "id": 1786566181408,
+      "nom": "Enregistrement",
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      }
     }
   ],
   "planRythmes": {
