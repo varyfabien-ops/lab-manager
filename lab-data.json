@@ -1868,7 +1868,7 @@
       "validite": "",
       "statut": "en_stock",
       "note": "",
-      "coaUrl": "",
+      "coaUrl": "https://www.merckmillipore.com/Web-FR-Site/fr_FR/-/EUR/ShowDocument-GetCOACOQ?COAOrderNumber=1.88010.1000&BatchNumber=HX57784410&Origin=FINDER_COA",
       "id": 1786458742484
     },
     {
@@ -5274,11 +5274,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : M74012000",
-      "time": "12/08 11:28"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0055",
       "time": "12/08 11:36"
@@ -5522,6 +5517,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot XXXX",
       "time": "12/08 21:45"
+    },
+    {
+      "icon": "pencil",
+      "text": "Contenant modifie : lot HX57784410",
+      "time": "12/08 21:48"
     }
   ]
 }
