@@ -2107,13 +2107,15 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785247569532": "en_cours",
+        "1785247569532": "terminee",
         "1785247477146": "verifiee",
-        "1785247529863": "en_cours"
+        "1785247529863": "verifiee",
+        "1785170122728": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785247569532": {
-          "en_cours": "11/08/2026"
+          "en_cours": "11/08/2026",
+          "terminee": "12/08/2026"
         },
         "1785247477146": {
           "en_cours": "11/08/2026",
@@ -2121,7 +2123,14 @@
           "verifiee": "11/08/2026"
         },
         "1785247529863": {
-          "en_cours": "12/08/2026"
+          "en_cours": "12/08/2026",
+          "terminee": "12/08/2026",
+          "verifiee": "12/08/2026"
+        },
+        "1785170122728": {
+          "en_cours": "12/08/2026",
+          "terminee": "12/08/2026",
+          "verifiee": "12/08/2026"
         }
       }
     },
@@ -2421,21 +2430,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Poudre Zinc",
-      "time": "11/08 16:38"
-    },
-    {
-      "icon": "package",
-      "text": "1x Poudre Zinc lot V3E055123G receptionne(s)",
-      "time": "11/08 16:39"
-    },
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Poudre Zinc lot V3E055123G",
-      "time": "11/08 16:39"
-    },
-    {
       "icon": "package",
       "text": "1x Poudre Zinc lot V5A048265B receptionne(s)",
       "time": "11/08 16:41"
@@ -2668,6 +2662,21 @@
     {
       "icon": "list-check",
       "text": "BBBBBB-1 — TCC0004 - Bupivacaïne : en_cours",
+      "time": "12/08 09:55"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — pH : en_cours",
+      "time": "12/08 09:55"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — TCC0004 - Bupivacaïne : verifiee",
+      "time": "12/08 09:55"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB-1 — pH : verifiee",
       "time": "12/08 09:55"
     }
   ],
