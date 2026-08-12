@@ -2162,11 +2162,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "09/08 20:52"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
       "time": "09/08 20:54"
     },
@@ -2409,6 +2404,11 @@
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "11/08 21:53"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: 2N Sodium Hydroxide TS 2026/0176",
+      "time": "12/08 07:38"
     }
   ],
   "spq": [
@@ -4045,6 +4045,17 @@
       "datePerm": "2027-01-10",
       "dateRestrictive": "2026-11-29",
       "techId": 1786271486368,
+      "comment": ""
+    },
+    {
+      "id": 1786513109231,
+      "catId": 1786270966376,
+      "nom": "2N Sodium Hydroxide TS",
+      "numero": "2026/0176",
+      "datePrep": "2026-08-12",
+      "datePerm": "2027-02-12",
+      "dateRestrictive": "2027-10-29",
+      "techId": 1785175077562,
       "comment": ""
     }
   ],
