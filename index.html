@@ -586,36 +586,16 @@
 
 <div class="page" id="page-solutions-titrees">
   <div class="page-header">
-    <div class="page-header-text"><h1>Solutions Titrées</h1><p>Suivi des titres et de leur validité</p></div>
-    <div class="page-header-actions">
-      <button class="btn" onclick="goToSolutionsTitrees('archives')" style="margin-right:8px"><i class="ti ti-archive"></i> Archives</button>
-      <button class="btn btn-primary" onclick="openModalSolutionTitree()"><i class="ti ti-plus"></i> Nouvelle solution</button>
-    </div>
+    <div class="page-header-text"><h1>Solutions Titrées</h1><p>Suivi des titres et de leur validité — dérivé automatiquement des réactifs commerciaux cochés "Solution titrée"</p></div>
   </div>
-  <div id="st-view-actives">
-    <table><thead><tr>
-      <th>Nom</th>
-      <th style="width:110px">N° Lot</th>
-      <th style="width:110px">Date préparation</th>
-      <th style="width:120px">Technicien</th>
-      <th style="width:100px">Emplacement</th>
-      <th style="width:150px">Statut du titre</th>
-      <th style="width:140px">Dernier titrage</th>
-      <th style="width:90px"></th>
-    </tr></thead>
-    <tbody id="st-tbody"></tbody></table>
-  </div>
-  <div id="st-view-archives" style="display:none">
-    <div class="page-header" style="padding:0 0 16px 0">
-      <div class="page-header-text"><p style="margin:0">Solutions titrées archivées</p></div>
-      <div class="page-header-actions"><button class="btn" onclick="goToSolutionsTitrees('actives')"><i class="ti ti-arrow-left"></i> Retour</button></div>
-    </div>
-    <table><thead><tr>
-      <th>Nom</th><th style="width:110px">N° Lot</th><th style="width:110px">Date préparation</th>
-      <th style="width:120px">Technicien</th><th style="width:140px">Dernier titrage</th><th style="width:90px"></th>
-    </tr></thead>
-    <tbody id="st-archives-tbody"></tbody></table>
-  </div>
+  <table><thead><tr>
+    <th>Nom</th>
+    <th style="width:130px">Emplacement</th>
+    <th style="width:150px">Statut du titre</th>
+    <th style="width:140px">Dernier titrage</th>
+    <th style="width:90px"></th>
+  </tr></thead>
+  <tbody id="st-tbody"></tbody></table>
 </div>
 
 <div class="page" id="page-echantillons">
@@ -2817,7 +2797,6 @@ let state = {
   profils: [],
   commandesArchives: [],
   etiquettesLibres: [],
-  solutionsTitrees: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -2941,7 +2920,7 @@ function goTo(page, el) {
   if (page === 'articles') renderArticles();
   if (page === 'dashboard') renderDashboard();
   if (page === 'kpi') { renderKPI(); kpiSetTab(kpiActiveTab); }
-  if (page === 'solutions-titrees') goToSolutionsTitrees(_stActiveView || 'actives');
+  if (page === 'solutions-titrees') goToSolutionsTitrees();
 }
 
 // ============================================================
@@ -3051,7 +3030,7 @@ let _baseline = null; // dernier état connu comme étant synchronisé avec GitH
 // Champs de state.* qui sont des tableaux d'objets avec un id (fusion par id)
 const MERGE_ARRAY_FIELDS_BY_ID = ['planning','catalogue','stabilites','reactifs','produits','contenants',
   'produitsEch','marches','echantillons','techniciens','planTasks','spq','articles','preparations',
-  'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres','solutionsTitrees'];
+  'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres'];
 // Champs de state.* qui sont des objets clé/valeur (fusion par clé)
 const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut'];
 // Champs de state.* qui sont des tableaux sans id fiable (journal) — fusion par contenu, style log
@@ -3138,7 +3117,7 @@ async function loadData(silent) {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[], solutionsTitrees: decoded.solutionsTitrees||[] };
+    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
     // Fusion avec l'état local courant, pour ne jamais perdre un travail local pas encore sauvegardé
     state = _baseline ? mergeStates(remoteState, _baseline, state) : remoteState;
     _baseline = snapshotState();
@@ -4731,7 +4710,7 @@ function openModal(id) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
     const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
-  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep' && id !== 'modal-solution-titree' && id !== 'modal-titrage') {
+  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep' && id !== 'modal-titrage') {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
     inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
     const sels = document.querySelectorAll('#'+id+' select');
@@ -5644,18 +5623,28 @@ function buildEtiquettesAPlanifier() {
   });
 
   // Titrages de solutions titrées expirés ou jamais titrés : rappel dans les analyses à planifier
-  (state.solutionsTitrees||[]).filter(s => !s.archive).forEach(sol => {
-    const st = getTitrageStatut(sol);
+  (state.produits||[]).filter(p => p.estTitree).forEach(prod => {
+    const st = getTitrageStatut(prod);
     if (!st.expire) return; // titre encore valide, rien à faire
-    const cat = (state.produits||[]).find(c => c.id === sol.catId);
     const cycleTag = st.dernier ? st.dernier.date : 'jamais';
-    const sousKey = 'titrage_' + sol.id + '_' + cycleTag;
-    const placed = (state.planTasks||[]).find(t => t.sousKey === sousKey && t.date);
-    if (!placed) {
+    const baseKey = 'titrage_' + prod.id + '_' + cycleTag;
+    const placedTitrage = (state.planTasks||[]).find(t => t.sousKey === baseKey && t.date);
+    if (!placedTitrage) {
       etiquettes.push({
-        nom: 'Titrage — ' + (cat?.nom||'Solution') + (sol.numero ? ' (Lot ' + sol.numero + ')' : ''),
-        sousKey,
+        nom: 'Titrage — ' + (prod.nom||'Solution'),
+        sousKey: baseKey,
         color: { bg: '#E0F7FA', border: '#00838F' },
+        isSous: false, sousAnalyses: [],
+        isTitrage: true,
+      });
+    }
+    const verifKey = 'verif_titrage_' + prod.id + '_' + cycleTag;
+    const placedVerif = (state.planTasks||[]).find(t => t.sousKey === verifKey && t.date);
+    if (!placedVerif) {
+      etiquettes.push({
+        nom: 'Vérification — ' + (prod.nom||'Solution'),
+        sousKey: verifKey,
+        color: { bg: '#E1F5FE', border: '#0277BD' },
         isSous: false, sousAnalyses: [],
         isTitrage: true,
       });
@@ -7504,12 +7493,12 @@ function getPrepStatut(prep) {
 }
 
 // ============================================================
-// SOLUTIONS TITRÉES
+// SOLUTIONS TITRÉES (dérivées automatiquement des réactifs commerciaux
+// cochés "Solution titrée" — pur suivi, aucune fiche à créer séparément)
 // ============================================================
-let _stActiveView = 'actives';
 
-function getTitrageStatut(sol) {
-  const titrages = sol.titrages || [];
+function getTitrageStatut(produit) {
+  const titrages = produit.titrages || [];
   if (!titrages.length) return { label: 'Non titrée', color: '#f44336', bg: '#FFEBEE', dernier: null, expire: true };
   const dernier = titrages[titrages.length - 1];
   const today = new Date(); today.setHours(0,0,0,0);
@@ -7522,167 +7511,52 @@ function getTitrageStatut(sol) {
 }
 window.getTitrageStatut = getTitrageStatut;
 
-function goToSolutionsTitrees(view) {
-  _stActiveView = view;
+function goToSolutionsTitrees() {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById('page-solutions-titrees');
   if (page) page.classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(n => n.classList.remove('active'));
   const navBtn = document.getElementById('nav-solutions-titrees'); if (navBtn) navBtn.classList.add('active');
-  document.getElementById('st-view-actives').style.display = view === 'archives' ? 'none' : '';
-  document.getElementById('st-view-archives').style.display = view === 'archives' ? '' : 'none';
-  if (view === 'archives') renderSolutionsTitreesArchives(); else renderSolutionsTitrees();
+  renderSolutionsTitrees();
 }
 window.goToSolutionsTitrees = goToSolutionsTitrees;
 
 function renderSolutionsTitrees() {
   const tbody = document.getElementById('st-tbody'); if (!tbody) return;
-  const sols = (state.solutionsTitrees||[]).filter(s=>!s.archive).slice().sort((a,b)=>{
-    const ca=(state.produits||[]).find(x=>x.id===a.catId); const cb=(state.produits||[]).find(x=>x.id===b.catId);
-    return (ca?.nom||'').localeCompare(cb?.nom||'', 'fr', {sensitivity:'base'});
-  });
-  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée enregistrée</p></td></tr>'; return; }
-  tbody.innerHTML = sols.map(s => {
-    const cat = (state.produits||[]).find(c=>c.id===s.catId);
-    const tech = (state.techniciens||[]).find(t=>t.id===s.techId);
-    const st = getTitrageStatut(s);
+  const sols = (state.produits||[]).filter(p=>p.estTitree).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée — cochez "Solution titrée" sur une fiche produit dans Réactifs Commerciaux</p></td></tr>'; return; }
+  tbody.innerHTML = sols.map(p => {
+    const st = getTitrageStatut(p);
     const valeurTxt = st.dernier ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' : '<span style="color:var(--text3)">—</span>';
     return '<tr>'
-      + '<td style="font-size:13px"><strong>'+(cat?.nom||'—')+'</strong></td>'
-      + '<td style="font-size:13px;text-align:center">'+(s.numero||'—')+'</td>'
-      + '<td style="font-size:13px;text-align:center">'+(s.datePrep?formatDate(s.datePrep):'—')+'</td>'
-      + '<td style="font-size:13px;text-align:center">'+(tech?(tech.visa||tech.prenom+' '+tech.nom):'—')+'</td>'
-      + '<td style="font-size:12px;text-align:center;color:var(--text2)">'+(s.emplacement||cat?.emplacement||'—')+'</td>'
-      + '<td style="text-align:center"><span class="badge" style="background:'+st.bg+';color:'+st.color+';font-size:11px;cursor:pointer" onclick="openModalTitrage('+s.id+')" title="Cliquer pour enregistrer un titrage">'+st.label+'</span></td>'
+      + '<td style="font-size:13px"><strong>'+(p.nom||'—')+'</strong>'+(p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':'')+'</td>'
+      + '<td style="font-size:12px;text-align:center;color:var(--text2)">'+(p.localisation||'—')+'</td>'
+      + '<td style="text-align:center"><span class="badge" style="background:'+st.bg+';color:'+st.color+';font-size:11px;cursor:pointer" onclick="openModalTitrage('+p.id+')" title="Cliquer pour enregistrer un titrage">'+st.label+'</span></td>'
       + '<td style="text-align:center;font-size:12px">'+valeurTxt+'</td>'
-      + '<td style="text-align:center"><div style="display:flex;gap:4px;justify-content:center"><button class="icon-btn" title="Titrer" onclick="openModalTitrage('+s.id+')"><i class="ti ti-droplet"></i></button><button class="icon-btn danger" title="Archiver" onclick="archiverSolutionTitree('+s.id+')"><i class="ti ti-archive"></i></button></div></td>'
+      + '<td style="text-align:center"><button class="icon-btn" title="Titrer" onclick="openModalTitrage('+p.id+')"><i class="ti ti-droplet"></i></button></td>'
       + '</tr>';
   }).join('');
   updateBadgeTitrage();
 }
 window.renderSolutionsTitrees = renderSolutionsTitrees;
 
-function renderSolutionsTitreesArchives() {
-  const tbody = document.getElementById('st-archives-tbody'); if (!tbody) return;
-  const sols = (state.solutionsTitrees||[]).filter(s=>s.archive).slice().sort((a,b)=>{
-    const ca=(state.produits||[]).find(x=>x.id===a.catId); const cb=(state.produits||[]).find(x=>x.id===b.catId);
-    return (ca?.nom||'').localeCompare(cb?.nom||'', 'fr', {sensitivity:'base'});
-  });
-  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><i class="ti ti-archive"></i><p>Aucune archive</p></td></tr>'; return; }
-  tbody.innerHTML = sols.map(s => {
-    const cat = (state.produits||[]).find(c=>c.id===s.catId);
-    const tech = (state.techniciens||[]).find(t=>t.id===s.techId);
-    const st = getTitrageStatut(s);
-    const valeurTxt = st.dernier ? st.dernier.valeur+' ('+formatDate(st.dernier.date)+')' : '—';
-    return '<tr>'
-      + '<td style="font-size:13px"><strong>'+(cat?.nom||'—')+'</strong></td>'
-      + '<td style="font-size:13px;text-align:center">'+(s.numero||'—')+'</td>'
-      + '<td style="font-size:13px;text-align:center">'+(s.datePrep?formatDate(s.datePrep):'—')+'</td>'
-      + '<td style="font-size:13px;text-align:center">'+(tech?(tech.visa||tech.prenom+' '+tech.nom):'—')+'</td>'
-      + '<td style="font-size:12px;text-align:center">'+valeurTxt+'</td>'
-      + '<td style="text-align:center"><button class="icon-btn" title="Restaurer" onclick="restaurerSolutionTitree('+s.id+')"><i class="ti ti-rotate"></i></button></td>'
-      + '</tr>';
-  }).join('');
-}
-window.renderSolutionsTitreesArchives = renderSolutionsTitreesArchives;
-
 function updateBadgeTitrage() {
-  const count = (state.solutionsTitrees||[]).filter(s=>!s.archive && getTitrageStatut(s).expire).length;
+  const count = (state.produits||[]).filter(p=>p.estTitree && getTitrageStatut(p).expire).length;
   const badge = document.getElementById('badge-titrage');
   if (badge) { badge.textContent = count; badge.style.display = count ? '' : 'none'; }
 }
 window.updateBadgeTitrage = updateBadgeTitrage;
 
-function openModalSolutionTitree(id) {
-  window._editingSolTitreeId = id || null;
-  const catSel = document.getElementById('st-catalogue');
-  catSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.produits||[]).filter(c=>c.estTitree).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
-  const techSel = document.getElementById('st-technicien');
-  techSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
-  if (id) {
-    const s = (state.solutionsTitrees||[]).find(x=>x.id===id); if (!s) return;
-    document.getElementById('modal-solution-titree-title').textContent = 'Modifier la solution';
-    catSel.value = s.catId||'';
-    document.getElementById('st-numero').value = s.numero||'';
-    document.getElementById('st-date-prep').value = s.datePrep||'';
-    techSel.value = s.techId||'';
-    document.getElementById('st-emplacement').value = s.emplacement||'';
-    document.getElementById('st-delete-btn').style.display = 'inline-flex';
-  } else {
-    document.getElementById('modal-solution-titree-title').textContent = 'Nouvelle solution titrée';
-    document.getElementById('st-numero').value = '';
-    document.getElementById('st-date-prep').value = new Date().toISOString().slice(0,10);
-    document.getElementById('st-emplacement').value = '';
-    document.getElementById('st-delete-btn').style.display = 'none';
-  }
-  if (!(state.produits||[]).some(c=>c.estTitree)) {
-    toast('Aucun réactif marqué "Solution titrée" — cochez-le dans Réactifs Commerciaux > fiche produit', 'info');
-  }
-  openModal('modal-solution-titree');
-}
-window.openModalSolutionTitree = openModalSolutionTitree;
-
-function saveSolutionTitree() {
-  const catId = parseInt(document.getElementById('st-catalogue').value)||null;
-  if (!catId) { toast('Le réactif est obligatoire', 'error'); return; }
-  const numero = document.getElementById('st-numero').value.trim();
-  const datePrep = document.getElementById('st-date-prep').value;
-  const techId = parseInt(document.getElementById('st-technicien').value)||null;
-  const emplacement = document.getElementById('st-emplacement').value.trim();
-  if (!state.solutionsTitrees) state.solutionsTitrees = [];
-  if (window._editingSolTitreeId) {
-    const s = state.solutionsTitrees.find(x=>x.id===window._editingSolTitreeId);
-    if (s) { s.catId=catId; s.numero=numero; s.datePrep=datePrep; s.techId=techId; s.emplacement=emplacement; }
-  } else {
-    state.solutionsTitrees.push({ id: Date.now(), catId, numero, datePrep, techId, emplacement, titrages: [], archive: false });
-  }
-  closeModal('modal-solution-titree');
-  saveData();
-  renderSolutionsTitrees();
-  toast('Solution titrée enregistrée', 'success');
-}
-window.saveSolutionTitree = saveSolutionTitree;
-
-function deleteSolutionTitree(id) {
-  if (!id) return;
-  if (!confirm('Supprimer définitivement cette solution titrée ?')) return;
-  state.solutionsTitrees = (state.solutionsTitrees||[]).filter(x=>x.id!==id);
-  closeModal('modal-solution-titree');
-  saveData();
-  renderSolutionsTitrees();
-  toast('Solution supprimée', 'success');
-}
-window.deleteSolutionTitree = deleteSolutionTitree;
-
-function archiverSolutionTitree(id) {
-  const s = (state.solutionsTitrees||[]).find(x=>x.id===id); if (!s) return;
-  s.archive = true;
-  saveData();
-  renderSolutionsTitrees();
-  toast('Solution archivée', 'success');
-}
-window.archiverSolutionTitree = archiverSolutionTitree;
-
-function restaurerSolutionTitree(id) {
-  const s = (state.solutionsTitrees||[]).find(x=>x.id===id); if (!s) return;
-  s.archive = false;
-  saveData();
-  renderSolutionsTitreesArchives();
-  toast('Solution restaurée', 'success');
-}
-window.restaurerSolutionTitree = restaurerSolutionTitree;
-
-function openModalTitrage(solId) {
-  const s = (state.solutionsTitrees||[]).find(x=>x.id===solId); if (!s) return;
-  const cat = (state.produits||[]).find(c=>c.id===s.catId);
-  window._titrageForSolId = solId;
-  document.getElementById('titrage-info').textContent = (cat?.nom||'Solution') + ' — Lot ' + (s.numero||'—');
+function openModalTitrage(produitId) {
+  const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
+  window._titrageForProduitId = produitId;
+  document.getElementById('titrage-info').textContent = p.nom || 'Solution';
   document.getElementById('titrage-valeur').value = '';
   document.getElementById('titrage-date').value = new Date().toISOString().slice(0,10);
   const techSel = document.getElementById('titrage-technicien');
   techSel.innerHTML = '<option value="">— Sélectionner —</option>' + (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
   const hist = document.getElementById('titrage-historique');
-  const titrages = (s.titrages||[]).slice().reverse();
+  const titrages = (p.titrages||[]).slice().reverse();
   if (titrages.length) {
     hist.innerHTML = '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Historique des titrages</div>'
       + titrages.map(t => {
@@ -7697,17 +7571,16 @@ function openModalTitrage(solId) {
 window.openModalTitrage = openModalTitrage;
 
 function saveTitrage() {
-  const solId = window._titrageForSolId;
-  const s = (state.solutionsTitrees||[]).find(x=>x.id===solId); if (!s) return;
+  const produitId = window._titrageForProduitId;
+  const p = (state.produits||[]).find(x=>x.id===produitId); if (!p) return;
   const valeur = document.getElementById('titrage-valeur').value.trim();
   const date = document.getElementById('titrage-date').value;
   const techId = parseInt(document.getElementById('titrage-technicien').value)||null;
   if (!valeur) { toast('La valeur du titre est obligatoire', 'error'); return; }
   if (!date) { toast('La date est obligatoire', 'error'); return; }
-  if (!s.titrages) s.titrages = [];
-  s.titrages.push({ id: Date.now(), valeur, date, techId });
-  const cat = (state.produits||[]).find(c=>c.id===s.catId);
-  addActivity('droplet', 'Titrage enregistré pour ' + (cat?.nom||'solution') + ' — Lot ' + (s.numero||'—') + ' (' + valeur + ')');
+  if (!p.titrages) p.titrages = [];
+  p.titrages.push({ id: Date.now(), valeur, date, techId });
+  addActivity('droplet', 'Titrage enregistré pour ' + p.nom + ' (' + valeur + ')');
   closeModal('modal-titrage');
   saveData();
   renderSolutionsTitrees();
@@ -9027,33 +8900,6 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-etiquettes-libres')">Fermer</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL NOUVELLE SOLUTION TITRÉE -->
-<div class="modal-overlay" id="modal-solution-titree">
-  <div class="modal" style="max-width:480px">
-    <div class="modal-header">
-      <i class="ti ti-droplet" style="font-size:18px;color:var(--cyan)"></i>
-      <h3 id="modal-solution-titree-title">Nouvelle solution titrée</h3>
-      <button class="close-btn" onclick="closeModal('modal-solution-titree')"><i class="ti ti-x"></i></button>
-    </div>
-    <div class="modal-body">
-      <div class="form-group"><label>Réactif (catalogue) *</label><select id="st-catalogue"></select></div>
-      <div class="form-grid">
-        <div class="form-group"><label>N° de lot</label><input id="st-numero" placeholder="Ex: 2026/0042"></div>
-        <div class="form-group"><label>Date de préparation</label><input type="date" id="st-date-prep"></div>
-      </div>
-      <div class="form-group"><label>Technicien</label><select id="st-technicien"></select></div>
-      <div class="form-group"><label>Emplacement</label><input id="st-emplacement" placeholder="Ex: Armoire A, Frigo 1..."></div>
-    </div>
-    <div class="modal-footer" style="display:flex;justify-content:space-between">
-      <button class="btn btn-danger" id="st-delete-btn" onclick="deleteSolutionTitree(window._editingSolTitreeId)" style="display:none"><i class="ti ti-trash"></i></button>
-      <div style="display:flex;gap:8px;margin-left:auto">
-        <button class="btn" onclick="closeModal('modal-solution-titree')">Annuler</button>
-        <button class="btn btn-primary" onclick="saveSolutionTitree()"><i class="ti ti-check"></i> Enregistrer</button>
-      </div>
     </div>
   </div>
 </div>
