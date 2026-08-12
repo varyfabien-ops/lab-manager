@@ -1450,7 +1450,7 @@
       "fc": "0.6",
       "conditionnement": "1 L",
       "stockMin": "2",
-      "qteCmde": "4",
+      "qteCmde": "3",
       "note": "",
       "bvs": false
     }
@@ -2208,11 +2208,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0065 - MPEG",
-      "time": "10/08 08:45"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0011 - Mépivacaïne",
       "time": "10/08 08:48"
     },
@@ -2455,6 +2450,11 @@
       "icon": "lock",
       "text": "Cloture : Chloroforme lot K57089345 546",
       "time": "12/08 08:38"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Chloroforme",
+      "time": "12/08 08:40"
     }
   ],
   "spq": [
