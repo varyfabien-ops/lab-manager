@@ -2488,11 +2488,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "archive",
-      "text": "Lot archive : AAAAAAA",
-      "time": "11/08 21:43"
-    },
-    {
       "icon": "list-check",
       "text": "BBBBBB-1 — Limpidité / Coloration US : en_cours",
       "time": "11/08 21:50"
@@ -2736,6 +2731,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0010 - ASA",
       "time": "12/08 11:23"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M74012000",
+      "time": "12/08 11:25"
     }
   ],
   "spq": [
@@ -2930,7 +2930,8 @@
     {
       "id": 1785342931395,
       "code": "M74012000",
-      "nom": "Carbocaïne 20 mg/mL SC",
+      "nom": "Carbocaïne 20 mg/mL (SC)",
+      "type": "pif_stab",
       "spqId": 1785342945228
     },
     {
