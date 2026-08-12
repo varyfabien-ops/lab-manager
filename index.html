@@ -439,12 +439,14 @@
     </div>
   </div>
 
-  <div style="display:flex;gap:16px;align-items:center;margin-bottom:18px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px">
+  <div style="display:flex;gap:16px;align-items:center;margin-bottom:18px;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;flex-wrap:wrap">
     <span style="font-weight:700;color:var(--text2)">Légende :</span>
     <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#E3F2FD;border:1.5px solid #2196F3;display:inline-block"></span> Matin</span>
     <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#EDE7F6;border:1.5px solid #6A1B9A;display:inline-block"></span> Après-Midi</span>
     <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:#FFEBEE;border:1.5px solid #B71C1C;display:inline-block"></span> Absent</span>
-    <span style="color:var(--text3);margin-left:auto">Clic sur une case pour changer le rythme de la semaine</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:14px;border-radius:3px;background:var(--bg2);border:1.5px solid var(--border);display:inline-block"></span> Non défini</span>
+    <span style="display:flex;align-items:center;gap:6px"><i class="ti ti-lock" style="color:#B71C1C"></i> Verrouillé (protégé contre un changement)</span>
+    <span style="color:var(--text3);margin-left:auto">Clic sur une case : Vide → Matin → Après-Midi → Absent → Vide · Clic sur le cadenas pour verrouiller/déverrouiller</span>
   </div>
 
   <div class="table-card" style="padding:20px">
@@ -2817,7 +2819,7 @@ let state = {
   produitsEch: [], marches: [],
   echantillons: [],
   techniciens: [],
-  planTasks: [], planRythmes: {},
+  planTasks: [], planRythmes: {}, planRythmesLocked: {},
   spq: [],
   articles: [],
   preparations: [],
@@ -3061,7 +3063,7 @@ const MERGE_ARRAY_FIELDS_BY_ID = ['planning','catalogue','stabilites','reactifs'
   'produitsEch','marches','echantillons','techniciens','planTasks','spq','articles','preparations',
   'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres'];
 // Champs de state.* qui sont des objets clé/valeur (fusion par clé)
-const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut'];
+const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut','planRythmesLocked'];
 // Champs de state.* qui sont des tableaux sans id fiable (journal) — fusion par contenu, style log
 const MERGE_LOG_FIELDS = ['activity'];
 
@@ -3146,7 +3148,7 @@ async function loadData(silent) {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
+    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, planRythmesLocked: decoded.planRythmesLocked||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
     // Fusion avec l'état local courant, pour ne jamais perdre un travail local pas encore sauvegardé
     state = _baseline ? mergeStates(remoteState, _baseline, state) : remoteState;
     _baseline = snapshotState();
@@ -6068,15 +6070,33 @@ function rythmesToday() {
 window.rythmesToday = rythmesToday;
 
 function cycleRythmeAnnuel(techId, mondayKey) {
+  const lockKey = techId + '_' + mondayKey;
+  if ((state.planRythmesLocked||{})[lockKey]) {
+    toast('Cette semaine est verrouillée — déverrouillez-la (cadenas) avant de la modifier', 'info');
+    return;
+  }
   if (!state.planRythmes) state.planRythmes = {};
-  const cur = state.planRythmes[techId + '_' + mondayKey] || 'matin';
-  const idx = RYTHME_STATES.findIndex(s => s.key === cur);
-  const next = RYTHME_STATES[(idx + 1) % RYTHME_STATES.length].key;
-  state.planRythmes[techId + '_' + mondayKey] = next;
+  const order = ['matin','am','absent',''];
+  const cur = state.planRythmes[lockKey] || '';
+  const idx = order.indexOf(cur);
+  const next = order[(idx + 1) % order.length];
+  if (next === '') delete state.planRythmes[lockKey];
+  else state.planRythmes[lockKey] = next;
   saveData();
   renderRythmesAnnee();
 }
 window.cycleRythmeAnnuel = cycleRythmeAnnuel;
+
+function toggleRythmeLock(event, techId, mondayKey) {
+  event.stopPropagation();
+  if (!state.planRythmesLocked) state.planRythmesLocked = {};
+  const lockKey = techId + '_' + mondayKey;
+  if (state.planRythmesLocked[lockKey]) delete state.planRythmesLocked[lockKey];
+  else state.planRythmesLocked[lockKey] = true;
+  saveData();
+  renderRythmesAnnee();
+}
+window.toggleRythmeLock = toggleRythmeLock;
 
 function renderRythmesAnnee() {
   const label = document.getElementById('rythmes-annee-label');
@@ -6087,6 +6107,7 @@ function renderRythmesAnnee() {
   const seenIds = new Set();
   const techs = (state.techniciens||[]).filter(t => {
     if (t.statut !== 'actif') return false;
+    if (!(t.role||'').toLowerCase().includes('cq')) return false; // seuls les techniciens CQ suivent un rythme
     if (seenIds.has(t.id)) return false; // sécurité anti-doublon (même id présent 2x)
     seenIds.add(t.id);
     return true;
@@ -6107,6 +6128,7 @@ function renderRythmesAnnee() {
   });
 
   const today = new Date(); today.setHours(0,0,0,0);
+  const EMPTY_STATE = { key:'', bg:'var(--bg2)', border:'var(--border)', label:'Non défini' };
 
   let html = '<div style="display:grid;grid-template-columns:' + labelColW + 'px repeat(' + nbWeeks + ',1fr);gap:2px;width:100%">';
 
@@ -6130,13 +6152,18 @@ function renderRythmesAnnee() {
     html += '</div>';
     mondays.forEach(m => {
       const mondayKey = dateToKey(m);
-      const rythme = (state.planRythmes||{})[tech.id + '_' + mondayKey] || 'matin';
-      const st = RYTHME_STATES.find(s => s.key === rythme) || RYTHME_STATES[0];
-      const shortLabel = rythme === 'matin' ? 'M' : rythme === 'am' ? 'AM' : 'ABS';
+      const lockKey = tech.id + '_' + mondayKey;
+      const rythme = (state.planRythmes||{})[lockKey] || '';
+      const st = rythme ? (RYTHME_STATES.find(s => s.key === rythme) || EMPTY_STATE) : EMPTY_STATE;
+      const shortLabel = rythme === 'matin' ? 'M' : rythme === 'am' ? 'AM' : rythme === 'absent' ? 'ABS' : '';
+      const isLocked = !!(state.planRythmesLocked||{})[lockKey];
       const sunday = new Date(m); sunday.setDate(sunday.getDate() + 6);
       const isCurrentWeek = today >= m && today <= sunday;
-      const title = 'Semaine du ' + m.getDate() + ' ' + RYTHME_MOIS[m.getMonth()] + ' — ' + st.label + ' (clic pour changer)';
+      const title = 'Semaine du ' + m.getDate() + ' ' + RYTHME_MOIS[m.getMonth()] + ' — ' + (st.label) + (isLocked ? ' (verrouillé)' : ' (clic pour changer)');
+      html += '<div style="position:relative">';
       html += '<div onclick="cycleRythmeAnnuel(' + tech.id + ',\'' + mondayKey + '\')" title="' + title + '" style="display:flex;align-items:center;justify-content:center;min-height:28px;border-radius:3px;background:' + st.bg + ';border:1.5px solid ' + (isCurrentWeek ? 'var(--text)' : st.border) + ';cursor:pointer;box-sizing:border-box;font-size:9px;font-weight:700;color:' + st.border + '">' + shortLabel + '</div>';
+      html += '<i class="ti ' + (isLocked ? 'ti-lock' : 'ti-lock-open') + '" onclick="toggleRythmeLock(event,' + tech.id + ',\'' + mondayKey + '\')" title="' + (isLocked ? 'Déverrouiller' : 'Verrouiller ce rythme') + '" style="position:absolute;top:-4px;right:-4px;font-size:9px;color:' + (isLocked ? '#fff' : 'var(--text3)') + ';background:' + (isLocked ? '#B71C1C' : 'var(--bg2)') + ';border:1px solid ' + (isLocked ? '#B71C1C' : 'var(--border)') + ';border-radius:50%;width:12px;height:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:' + (isLocked ? '1' : '0.5') + '"></i>';
+      html += '</div>';
     });
   });
 
