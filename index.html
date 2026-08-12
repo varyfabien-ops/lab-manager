@@ -596,6 +596,7 @@
     <th style="width:110px">Date validité</th>
     <th style="width:150px">Statut du titre</th>
     <th style="width:140px">Dernier titrage</th>
+    <th style="width:110px">Vérification</th>
     <th style="width:90px"></th>
   </tr></thead>
   <tbody id="st-tbody"></tbody></table>
@@ -5656,36 +5657,6 @@ function buildEtiquettesAPlanifier() {
     }
   });
 
-  // Titrages de solutions titrées expirés ou jamais titrés : rappel dans les analyses à planifier
-  getSolutionsTitreesContenants().forEach(cont => {
-    const st = getTitrageStatut(cont);
-    if (!st.expire) return; // titre encore valide, rien à faire
-    const prod = (state.produits||[]).find(x=>x.id===cont.produitId);
-    const cycleTag = st.dernier ? st.dernier.date : 'jamais';
-    const baseKey = 'titrage_' + cont.id + '_' + cycleTag;
-    const placedTitrage = (state.planTasks||[]).find(t => t.sousKey === baseKey && t.date);
-    if (!placedTitrage) {
-      etiquettes.push({
-        nom: 'Titrage — ' + (prod?.nom||'Solution'),
-        sousKey: baseKey,
-        color: { bg: '#E0F7FA', border: '#00838F' },
-        isSous: false, sousAnalyses: [],
-        isTitrage: true,
-      });
-    }
-    const verifKey = 'verif_titrage_' + cont.id + '_' + cycleTag;
-    const placedVerif = (state.planTasks||[]).find(t => t.sousKey === verifKey && t.date);
-    if (!placedVerif) {
-      etiquettes.push({
-        nom: 'Vérification — ' + (prod?.nom||'Solution'),
-        sousKey: verifKey,
-        color: { bg: '#E1F5FE', border: '#0277BD' },
-        isSous: false, sousAnalyses: [],
-        isTitrage: true,
-      });
-    }
-  });
-
   // Ménage Hebdomadaire : créer directement dans planTasks pour le vendredi
   const vendredi = new Date(planSemaineStartDate || new Date());
   vendredi.setDate(vendredi.getDate() + 4);
@@ -5808,6 +5779,7 @@ window.getAutoColor = getAutoColor;
 // MODAL ÉTIQUETTES PLANNING
 // ============================================================
 function openModalEtiquettesLibres() {
+  window._editingEtiquetteLibreId = null;
   document.getElementById('el-nom').value = '';
   const colors = [{bg:'#FFF8E1',border:'#FF9800'},{bg:'#FFE0B2',border:'#F57C00'},{bg:'#F3E5F5',border:'#9C27B0'},{bg:'#E3F2FD',border:'#2196F3'},{bg:'#E8F5E9',border:'#4CAF50'},{bg:'#FFEBEE',border:'#f44336'},{bg:'#E0F7FA',border:'#00BCD4'}];
   const colorsEl = document.getElementById('el-colors');
@@ -5818,6 +5790,9 @@ function openModalEtiquettesLibres() {
   document.getElementById('el-border').value = colors[2].border;
   const firstSwatch = colorsEl.children[2];
   if (firstSwatch) { firstSwatch.style.transform = 'scale(1.3)'; firstSwatch.style.boxShadow = '0 0 0 2px white, 0 0 0 4px #9C27B0'; }
+  document.getElementById('el-form-label').style.display = 'none';
+  document.getElementById('el-cancel-btn').style.display = 'none';
+  document.getElementById('el-save-btn').innerHTML = '<i class="ti ti-plus"></i> Ajouter';
   renderEtiquettesLibresList();
   openModal('modal-etiquettes-libres');
 }
@@ -5843,29 +5818,68 @@ function renderEtiquettesLibresList() {
   list.innerHTML = items.slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(e =>
     '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:'+(e.color?.bg||'#F3E5F5')+';border:1px solid '+(e.color?.border||'#9C27B0')+';border-radius:var(--radius)">'
     + '<span style="font-weight:600;font-size:13px">'+e.nom+'</span>'
-    + '<button class="icon-btn danger" onclick="deleteEtiquetteLibre('+e.id+')" style="background:rgba(255,255,255,0.6)"><i class="ti ti-trash"></i></button>'
+    + '<div style="display:flex;gap:4px">'
+    + '<button class="icon-btn" onclick="editEtiquetteLibre('+e.id+')" style="background:rgba(255,255,255,0.6)" title="Modifier"><i class="ti ti-pencil"></i></button>'
+    + '<button class="icon-btn danger" onclick="deleteEtiquetteLibre('+e.id+')" style="background:rgba(255,255,255,0.6)" title="Supprimer"><i class="ti ti-trash"></i></button>'
+    + '</div>'
     + '</div>'
   ).join('');
 }
 
-function addEtiquetteLibre() {
+function editEtiquetteLibre(id) {
+  const e = (state.etiquettesLibres||[]).find(x=>x.id===id); if (!e) return;
+  window._editingEtiquetteLibreId = id;
+  document.getElementById('el-nom').value = e.nom || '';
+  const bg = e.color?.bg || '#F3E5F5';
+  const border = e.color?.border || '#9C27B0';
+  document.getElementById('el-bg').value = bg;
+  document.getElementById('el-border').value = border;
+  const colorsEl = document.getElementById('el-colors');
+  colorsEl.querySelectorAll('div').forEach(d => {
+    d.style.transform = ''; d.style.boxShadow = '';
+    if (d.getAttribute('onclick')?.includes(border)) { d.style.transform = 'scale(1.3)'; d.style.boxShadow = '0 0 0 2px white, 0 0 0 4px ' + border; }
+  });
+  document.getElementById('el-form-label').style.display = 'block';
+  document.getElementById('el-cancel-btn').style.display = '';
+  document.getElementById('el-save-btn').innerHTML = '<i class="ti ti-check"></i> Enregistrer';
+  document.getElementById('el-nom').focus();
+}
+window.editEtiquetteLibre = editEtiquetteLibre;
+
+function cancelEditEtiquetteLibre() {
+  window._editingEtiquetteLibreId = null;
+  document.getElementById('el-nom').value = '';
+  document.getElementById('el-form-label').style.display = 'none';
+  document.getElementById('el-cancel-btn').style.display = 'none';
+  document.getElementById('el-save-btn').innerHTML = '<i class="ti ti-plus"></i> Ajouter';
+}
+window.cancelEditEtiquetteLibre = cancelEditEtiquetteLibre;
+
+function saveEtiquetteLibre() {
   const nom = document.getElementById('el-nom').value.trim();
   if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
   if (!state.etiquettesLibres) state.etiquettesLibres = [];
   const bg = document.getElementById('el-bg').value;
   const border = document.getElementById('el-border').value;
-  state.etiquettesLibres.push({ id: Date.now(), nom, color: { bg, border } });
-  document.getElementById('el-nom').value = '';
+  if (window._editingEtiquetteLibreId) {
+    const e = state.etiquettesLibres.find(x=>x.id===window._editingEtiquetteLibreId);
+    if (e) { e.nom = nom; e.color = { bg, border }; }
+    toast('Étiquette libre modifiée', 'success');
+  } else {
+    state.etiquettesLibres.push({ id: Date.now(), nom, color: { bg, border } });
+    toast('Étiquette libre ajoutée', 'success');
+  }
+  cancelEditEtiquetteLibre();
   saveData();
   renderEtiquettesLibresList();
   renderPlanSemaine();
-  toast('Étiquette libre ajoutée', 'success');
 }
-window.addEtiquetteLibre = addEtiquetteLibre;
+window.saveEtiquetteLibre = saveEtiquetteLibre;
 
 function deleteEtiquetteLibre(id) {
   if (!confirm('Supprimer cette étiquette libre ? Les instances déjà placées dans le planning ne seront pas retirées.')) return;
   state.etiquettesLibres = (state.etiquettesLibres||[]).filter(e => e.id !== id);
+  if (window._editingEtiquetteLibreId === id) cancelEditEtiquetteLibre();
   saveData();
   renderEtiquettesLibresList();
   renderPlanSemaine();
@@ -7570,14 +7584,19 @@ function renderSolutionsTitrees() {
     const pa = (state.produits||[]).find(x=>x.id===a.produitId); const pb = (state.produits||[]).find(x=>x.id===b.produitId);
     return (pa?.nom||'').localeCompare(pb?.nom||'', 'fr', {sensitivity:'base'});
   });
-  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée — cochez "Solution titrée" sur une fiche produit dans Réactifs Commerciaux</p></td></tr>'; return; }
+  if (!sols.length) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state"><i class="ti ti-droplet"></i><p>Aucune solution titrée — cochez "Solution titrée" sur une fiche produit dans Réactifs Commerciaux</p></td></tr>'; return; }
   tbody.innerHTML = sols.map(c => {
     const p = (state.produits||[]).find(x=>x.id===c.produitId);
     const st = getTitrageStatut(c);
-    const nonVerifie = st.dernier && !st.dernier.verifiePar;
     const valeurTxt = st.dernier
-      ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' + (nonVerifie ? '<br><span class="badge badge-amber" style="font-size:9px;margin-top:2px">Non vérifié</span>' : '')
+      ? '<strong>'+st.dernier.valeur+'</strong><br><span style="font-size:10px;color:var(--text3)">'+formatDate(st.dernier.date)+'</span>' + (st.dernier.numero ? '<br><span style="font-size:10px;color:var(--text3)">'+st.dernier.numero+'</span>' : '')
       : '<span style="color:var(--text3)">—</span>';
+    const verifTechName = st.dernier?.verifiePar ? (() => { const vt=(state.techniciens||[]).find(x=>x.id===st.dernier.verifiePar); return vt?(vt.visa||vt.prenom+' '+vt.nom):''; })() : '';
+    const verifCell = !st.dernier
+      ? '<span style="color:var(--text3);font-size:11px">—</span>'
+      : st.dernier.verifiePar
+        ? '<span style="color:var(--green);font-weight:600;cursor:pointer;font-size:12px" onclick="unverifyTitrage('+c.id+')" title="Cliquer pour annuler">✓ '+verifTechName+'</span>'
+        : '<button class="btn" style="font-size:11px;padding:3px 8px" onclick="verifyTitrage('+c.id+')">Vérifier</button>';
     return '<tr>'
       + '<td style="font-size:13px"><strong>'+(p?.nom||'—')+'</strong>'+(p?.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':'')+'</td>'
       + '<td style="font-size:12px;text-align:center"><code style="background:var(--bg3);padding:1px 5px;border-radius:3px">'+(c.lot||'—')+'</code></td>'
@@ -7585,12 +7604,57 @@ function renderSolutionsTitrees() {
       + '<td style="font-size:12px;text-align:center">'+(c.validite?formatDate(c.validite):'—')+'</td>'
       + '<td style="text-align:center"><span class="badge" style="background:'+st.bg+';color:'+st.color+';font-size:11px;cursor:pointer" onclick="openModalTitrage('+c.id+')" title="Cliquer pour enregistrer un titrage">'+st.label+'</span></td>'
       + '<td style="text-align:center;font-size:12px">'+valeurTxt+'</td>'
+      + '<td style="text-align:center">'+verifCell+'</td>'
       + '<td style="text-align:center"><button class="icon-btn" title="Titrer" onclick="openModalTitrage('+c.id+')"><i class="ti ti-droplet"></i></button></td>'
       + '</tr>';
   }).join('');
   updateBadgeTitrage();
 }
 window.renderSolutionsTitrees = renderSolutionsTitrees;
+
+function verifyTitrage(contenantId) {
+  const c0 = (state.contenants||[]).find(x=>x.id===contenantId);
+  if (!c0 || !(c0.titrages||[]).length) { toast('Aucun titrage à vérifier', 'error'); return; }
+  const dernier = c0.titrages[c0.titrages.length-1];
+  const techs = (state.techniciens||[]).filter(t=>t.id!==dernier.techId).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  if (!techs.length) { toast('Aucun technicien disponible (différent de celui qui a titré)', 'error'); return; }
+  const popup = document.createElement('div');
+  popup.id = 'verify-titrage-popup';
+  popup.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,0.2);min-width:280px';
+  popup.innerHTML = '<div style="font-weight:700;margin-bottom:12px">Vérification du titre par :</div>'
+    +'<select id="verify-titrage-sel" style="width:100%;margin-bottom:12px"><option value="">— Sélectionner —</option>'
+    +techs.map(t=>'<option value="'+t.id+'">['+(t.visa||'?')+'] '+t.prenom+' '+t.nom+'</option>').join('')
+    +'</select><div style="display:flex;gap:8px;justify-content:flex-end">'
+    +'<button id="vt-cancel" class="btn">Annuler</button>'
+    +'<button id="vt-ok" class="btn btn-primary">Confirmer</button></div>';
+  document.body.appendChild(popup);
+  popup.querySelector('#vt-cancel').onclick = () => popup.remove();
+  popup.querySelector('#vt-ok').onclick = () => {
+    const verifId = parseInt(document.getElementById('verify-titrage-sel')?.value)||null;
+    if (!verifId) { toast('Sélectionnez un technicien', 'error'); return; }
+    const c = (state.contenants||[]).find(x=>x.id===contenantId);
+    const t = c?.titrages?.[c.titrages.length-1];
+    if (t) {
+      t.verifiePar = verifId;
+      t.verifieLe = new Date().toLocaleDateString('fr-FR');
+      const p = (state.produits||[]).find(x=>x.id===c.produitId);
+      addActivity('droplet', 'Titrage vérifié pour ' + (p?.nom||'solution') + (c.lot?' — Lot '+c.lot:''));
+      saveData();
+      renderSolutionsTitrees();
+    }
+    popup.remove();
+    toast('Titrage vérifié', 'success');
+  };
+  popup.addEventListener('click', e=>e.stopPropagation());
+}
+window.verifyTitrage = verifyTitrage;
+
+function unverifyTitrage(contenantId) {
+  const c = (state.contenants||[]).find(x=>x.id===contenantId); if (!c) return;
+  const t = c.titrages?.[c.titrages.length-1];
+  if (t) { delete t.verifiePar; delete t.verifieLe; saveData(); renderSolutionsTitrees(); }
+}
+window.unverifyTitrage = unverifyTitrage;
 
 function updateBadgeTitrage() {
   const count = getSolutionsTitreesContenants().filter(c => getTitrageStatut(c).expire).length;
@@ -7619,13 +7683,7 @@ function openModalTitrage(contenantId) {
           const verifTech = t.verifiePar ? (state.techniciens||[]).find(x=>x.id===t.verifiePar) : null;
           const verifBlock = verifTech
             ? '<div style="font-size:10px;color:var(--green);margin-top:3px"><i class="ti ti-check"></i> Vérifié par '+(verifTech.visa||verifTech.prenom+' '+verifTech.nom)+' le '+t.verifieLe+'</div>'
-            : '<div style="display:flex;gap:4px;align-items:center;margin-top:4px">'
-              + '<select id="verif-sel-'+t.id+'" style="font-size:11px;flex:1;padding:3px 4px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);color:var(--text)">'
-              + '<option value="">Vérifié par...</option>'
-              + techs.filter(x=>x.id!==t.techId).map(x=>'<option value="'+x.id+'">'+(x.visa||x.prenom+' '+x.nom)+'</option>').join('')
-              + '</select>'
-              + '<button class="icon-btn" style="flex-shrink:0" title="Confirmer la vérification" onclick="verifierTitrageEntry('+contenantId+','+t.id+')"><i class="ti ti-check" style="font-size:13px"></i></button>'
-              + '</div>';
+            : '<div style="font-size:10px;color:var(--amber);margin-top:3px"><i class="ti ti-clock"></i> Non vérifié — bouton "Vérifier" depuis le tableau</div>';
           return '<div style="padding:6px 0;border-bottom:1px solid var(--border)">'
             + '<div style="display:flex;justify-content:space-between;font-size:12px"><span><strong>'+t.valeur+'</strong> — '+formatDate(t.date)+(t.numero?'<br><span style="color:var(--text3);font-size:10px">'+t.numero+'</span>':'')+'</span><span style="color:var(--text3);white-space:nowrap">'+(tech?(tech.visa||tech.prenom+' '+tech.nom):'')+'</span></div>'
             + verifBlock
@@ -7637,24 +7695,6 @@ function openModalTitrage(contenantId) {
   openModal('modal-titrage');
 }
 window.openModalTitrage = openModalTitrage;
-
-function verifierTitrageEntry(contenantId, titrageId) {
-  const c = (state.contenants||[]).find(x=>x.id===contenantId); if (!c) return;
-  const t = (c.titrages||[]).find(x=>x.id===titrageId); if (!t) return;
-  const sel = document.getElementById('verif-sel-'+titrageId);
-  const verifId = parseInt(sel?.value)||null;
-  if (!verifId) { toast('Sélectionnez le technicien vérificateur', 'error'); return; }
-  if (verifId === t.techId) { toast('Le titrage doit être vérifié par un second technicien, différent de celui qui l\'a réalisé', 'error'); return; }
-  t.verifiePar = verifId;
-  t.verifieLe = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  const p = (state.produits||[]).find(x=>x.id===c.produitId);
-  addActivity('droplet', 'Titrage vérifié pour ' + (p?.nom||'solution') + (c.lot?' — Lot '+c.lot:''));
-  saveData();
-  openModalTitrage(contenantId);
-  renderSolutionsTitrees();
-  toast('Titrage vérifié', 'success');
-}
-window.verifierTitrageEntry = verifierTitrageEntry;
 
 function saveTitrage() {
   const contenantId = window._titrageForContenantId;
@@ -8979,12 +9019,14 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     <div class="modal-body">
       <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Étiquettes réutilisables non liées à une analyse ou un produit (réunion, formation, tâche administrative...). Elles réapparaissent automatiquement chaque semaine dans le tiroir "Étiquettes libres" du planning.</p>
       <div id="etiquettes-libres-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+      <div id="el-form-label" style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;display:none">Modification de l'étiquette</div>
       <div style="display:flex;gap:8px;align-items:center;border-top:1px solid var(--border);padding-top:14px">
         <input id="el-nom" placeholder="Nom de l'étiquette (ex: Réunion équipe)" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg2);color:var(--text)">
         <div id="el-colors" style="display:flex;gap:6px;align-items:center"></div>
         <input type="hidden" id="el-bg" value="#F3E5F5">
         <input type="hidden" id="el-border" value="#9C27B0">
-        <button class="btn btn-primary" style="font-size:12px;padding:8px 12px;flex-shrink:0" onclick="addEtiquetteLibre()"><i class="ti ti-plus"></i> Ajouter</button>
+        <button class="btn" id="el-cancel-btn" style="font-size:12px;padding:8px 12px;flex-shrink:0;display:none" onclick="cancelEditEtiquetteLibre()">Annuler</button>
+        <button class="btn btn-primary" id="el-save-btn" style="font-size:12px;padding:8px 12px;flex-shrink:0" onclick="saveEtiquetteLibre()"><i class="ti ti-plus"></i> Ajouter</button>
       </div>
     </div>
     <div class="modal-footer">
