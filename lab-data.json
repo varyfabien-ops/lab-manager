@@ -4082,7 +4082,7 @@
     },
     {
       "id": 1786520690725,
-      "date": "2026-08-10",
+      "date": "2026-08-13",
       "techId": "1786178865689",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
@@ -4095,7 +4095,8 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1786520692413,
@@ -4114,6 +4115,23 @@
       "parentNom": null,
       "manuel": false,
       "supplementaire": false
+    },
+    {
+      "id": 1786520699396,
+      "date": "2026-08-14",
+      "techId": "1786178865689",
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-10_0",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "planRythmes": {
