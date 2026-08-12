@@ -206,7 +206,7 @@
     <button class="nav-btn" onclick="goToReactifs('preparations')" id="nav-preparations"><i class="ti ti-flask"></i> Préparations</button>
     <button class="nav-btn" onclick="goTo('commandes',null)" id="nav-commandes"><i class="ti ti-shopping-cart"></i> Commandes <span class="nav-badge-h" id="badge-commandes" style="display:none">0</span></button>
     <div class="nav-sep"></div>
-    <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Réception</button>
+    <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Enregistrement</button>
     <button class="nav-btn" onclick="goToEch('marches')" id="nav-marches"><i class="ti ti-world"></i> Marchés</button>
     <button class="nav-btn" onclick="goToEch('liberes')" id="nav-liberes"><i class="ti ti-circle-check"></i> Approbation <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></button>
     <button class="nav-btn" onclick="goTo('articles',null)" id="nav-articles"><i class="ti ti-barcode"></i> Articles & SPQ</button>
@@ -586,7 +586,7 @@
 <div class="page" id="page-echantillons">
   <div id="ech-view-reception" style="display:none">
     <div class="page-header">
-      <div class="page-header-text"><h1>Reception des echantillons</h1><p>Enregistrement et suivi</p></div>
+      <div class="page-header-text"><h1>Enregistrement des echantillons</h1><p>Enregistrement et suivi</p></div>
       <div class="page-header-actions"><button class="btn" onclick="goToReactifs('contenants')" style="margin-right:8px"><i class="ti ti-arrow-left"></i> Retour</button><button class="btn btn-primary" onclick="openWizard()"><i class="ti ti-plus"></i> Enregistrer</button></div>
     </div>
     <div class="table-card">
@@ -1588,7 +1588,7 @@ function wizardLoadStep4() {
     const etudesSel=document.getElementById('w-stab-etude');
     if(etudesSel) {
       etudesSel.innerHTML='<option value="">— Aucune —</option>'
-        +(state.stabilites||[]).map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
+        +(state.stabilites||[]).slice().sort((a,b)=>(a.num||'').localeCompare(b.num||'', 'fr', {numeric:true, sensitivity:'base'})).map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
       if(window._selectedStabEtudeId) etudesSel.value=window._selectedStabEtudeId;
     }
   }
@@ -1654,6 +1654,20 @@ function wizardRecap() {
   recap.innerHTML=html;
 }
 
+// Résout la liste d'analyses pour un marché donné, avec priorité à une
+// éventuelle exception définie pour un produit (article) précis.
+function getSpqAnalysesForMarche(spq, marcheId, articleId) {
+  if (!spq) return [];
+  const marches = spq.marches || [];
+  if (articleId) {
+    const override = marches.find(m => m.marcheId === marcheId && m.articleId === articleId);
+    if (override) return override.analyses || [];
+  }
+  const def = marches.find(m => m.marcheId === marcheId && !m.articleId);
+  return def ? (def.analyses || []) : [];
+}
+window.getSpqAnalysesForMarche = getSpqAnalysesForMarche;
+
 function getWizardAnalyses() {
   const pif=wizardIsPifSelected(), stab=wizardIsStabSelected(), mp=wizardIsMpSelected();
   const art=window._wizardArticle;
@@ -1663,22 +1677,23 @@ function getWizardAnalyses() {
 
   if(pif&&spq) {
     const marcheIds=Array.from(document.querySelectorAll('.w-marche-cb:checked')).map(cb=>parseInt(cb.value));
-    (spq.marches||[]).forEach(sm=>{
-      if(marcheIds.includes(sm.marcheId)) {
-        (sm.analyses||[]).forEach(id=>{
-          analyseIds.add(id);
-          if(!analysesParMarche[id]) analysesParMarche[id]=[];
-          if(!analysesParMarche[id].includes(sm.marcheId)) analysesParMarche[id].push(sm.marcheId);
-        });
-      }
+    marcheIds.forEach(marcheId=>{
+      getSpqAnalysesForMarche(spq, marcheId, art?.id).forEach(id=>{
+        analyseIds.add(id);
+        if(!analysesParMarche[id]) analysesParMarche[id]=[];
+        if(!analysesParMarche[id].includes(marcheId)) analysesParMarche[id].push(marcheId);
+      });
     });
   }
   if(mp&&spq&&!pif) {
-    (spq.marches||[]).forEach(sm=>(sm.analyses||[]).forEach(id=>{
-      analyseIds.add(id);
-      if(!analysesParMarche[id]) analysesParMarche[id]=[];
-      if(!analysesParMarche[id].includes(sm.marcheId)) analysesParMarche[id].push(sm.marcheId);
-    }));
+    const marcheIdsUniques=[...new Set((spq.marches||[]).map(sm=>sm.marcheId))];
+    marcheIdsUniques.forEach(marcheId=>{
+      getSpqAnalysesForMarche(spq, marcheId, art?.id).forEach(id=>{
+        analyseIds.add(id);
+        if(!analysesParMarche[id]) analysesParMarche[id]=[];
+        if(!analysesParMarche[id].includes(marcheId)) analysesParMarche[id].push(marcheId);
+      });
+    });
   }
 
   window._wizardAnalysesParMarche = analysesParMarche;
@@ -1737,7 +1752,7 @@ function wizardConfirm() {
 
 function populatePIFMarches() {
   const el = document.getElementById('w-pif-marches-check'); if(!el) return;
-  const marches = state.marches||[];
+  const marches = (state.marches||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if (!marches.length) { el.innerHTML='<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>'; return; }
   el.innerHTML = marches.map(m => '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)">'
     +'<input type="checkbox" value="'+m.id+'" style="flex-shrink:0">'
@@ -2122,7 +2137,7 @@ function ouvrirModalResultat(echId, analyseId) {
 
 function populateStabEtudeSelect(produitId) {
   const sel = document.getElementById('w-stab-etude'); if(!sel) return;
-  const etudes = (state.stabilites||[]).filter(s => !produitId || (s.produitsIds||[]).includes(produitId) || !s.produitsIds?.length);
+  const etudes = (state.stabilites||[]).filter(s => !produitId || (s.produitsIds||[]).includes(produitId) || !s.produitsIds?.length).sort((a,b)=>(a.num||'').localeCompare(b.num||'', 'fr', {numeric:true, sensitivity:'base'}));
   sel.innerHTML = '<option value="">— Aucune étude sélectionnée —</option>'
     + etudes.map(s=>'<option value="'+s.id+'">'+s.num+(s.produits?' — '+s.produits:'')+'</option>').join('');
   // Restaurer la sélection mémorisée
@@ -2588,7 +2603,7 @@ function resetTendances() {
 
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
-  const stabs=(state.stabilites||[]).filter(s=>!q||(s.num||'').toLowerCase().includes(q)||(s.produits||'').toLowerCase().includes(q));
+  const stabs=(state.stabilites||[]).filter(s=>!q||(s.num||'').toLowerCase().includes(q)||(s.produits||'').toLowerCase().includes(q)).sort((a,b)=>(a.num||'').localeCompare(b.num||'', 'fr', {numeric:true, sensitivity:'base'}));
   const tbody=document.getElementById('stab-tbody'); if(!tbody) return;
   if(!stabs.length){tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune etude</p></div></td></tr>';return;}
   const sb={en_cours:'badge-amber',termine:'badge-green',suspendu:'badge-red'};
@@ -2782,6 +2797,7 @@ window.onload = async () => {
   document.getElementById('dash-date').textContent = new Date().toLocaleDateString('fr-FR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
   loadGithubConfig();
   await loadData();
+  startAutoSync();
   renderAll();
   const btnNouvelleTache = document.getElementById('btn-nouvelle-tache');
   if (btnNouvelleTache) btnNouvelleTache.style.display = PLAN_TASK_MODULE_ENABLED ? '' : 'none';
@@ -2984,9 +3000,13 @@ function openGithubConfig() {
   openModal('modal-github');
 }
 
-async function loadData() {
+let _lastKnownSha = null;
+let _autoSyncTimer = null;
+let _lastLocalSaveAt = 0;
+
+async function loadData(silent) {
   if (!githubConfig) return;
-  setSyncStatus('syncing', 'Chargement...');
+  if (!silent) setSyncStatus('syncing', 'Chargement...');
   try {
     const r = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
       headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
@@ -2994,6 +3014,7 @@ async function loadData() {
     if (r.status === 404) { setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`); return; }
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
+    _lastKnownSha = data.sha;
     const b64 = data.content.replace(/\n/g,'');
     const binStr2 = atob(b64);
     const bytes2 = new Uint8Array(binStr2.length);
@@ -3011,8 +3032,35 @@ async function loadData() {
     } else if (lastPage) {
       goTo(lastPage, null);
     }
-    toast('Données synchronisées', 'success');
-  } catch(e) { setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); }
+    if (!silent) toast('Données synchronisées', 'success');
+    else toast('Données mises à jour par un autre utilisateur', 'info');
+  } catch(e) { if(!silent){ setSyncStatus('error', 'Erreur sync'); toast('Erreur chargement : ' + e.message, 'error'); } }
+}
+
+async function checkForRemoteChanges() {
+  if (!githubConfig) return;
+  // Ne jamais recharger juste après une sauvegarde locale : laisser le temps a GitHub de propager
+  if (Date.now() - _lastLocalSaveAt < 60000) return;
+  // Ne jamais interrompre une saisie en cours
+  const modalOuverte = Array.from(document.querySelectorAll('.modal-overlay')).some(m => {
+    const s = getComputedStyle(m);
+    return s.display !== 'none';
+  });
+  if (modalOuverte) return;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${githubConfig.owner}/${githubConfig.repo}/contents/${githubConfig.path}`, {
+      headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json' }
+    });
+    if (!r.ok) return;
+    const data = await r.json();
+    if (!_lastKnownSha || data.sha === _lastKnownSha) return; // rien de neuf, ou pas encore de référence
+    await loadData(true);
+  } catch(e) { /* on retentera au prochain cycle, silencieusement */ }
+}
+
+function startAutoSync() {
+  if (_autoSyncTimer) return;
+  _autoSyncTimer = setInterval(checkForRemoteChanges, 25000);
 }
 
 async function saveData() {
@@ -3036,6 +3084,9 @@ async function saveData() {
       body: JSON.stringify(body)
     });
     if (!rPut.ok) throw new Error('HTTP ' + rPut.status);
+    const dPut = await rPut.json();
+    if (dPut?.content?.sha) _lastKnownSha = dPut.content.sha;
+    _lastLocalSaveAt = Date.now();
     setSyncStatus('ok', `${githubConfig.owner}/${githubConfig.repo}`);
     toast('Sauvegarde sur GitHub', 'success');
   } catch(e) { setSyncStatus('error', 'Erreur sauvegarde'); toast('Erreur sauvegarde : ' + e.message, 'error'); }
@@ -3496,7 +3547,7 @@ function renderPlanningTable() {
   const rows = state.planning.filter(p => !q || p.nom.toLowerCase().includes(q) || (p.technicien||'').toLowerCase().includes(q));
   const tbody = document.getElementById('planning-tbody');
   if (!rows.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="ti ti-calendar"></i><p>Aucune analyse planifiee</p></div></td></tr>`; return; }
-  tbody.innerHTML = rows.sort((a,b)=>a.date.localeCompare(b.date)).map(p => `
+  tbody.innerHTML = rows.sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(p => `
     <tr>
       <td><strong>${p.nom}</strong>${p.relance?`<span class="badge badge-amber" style="font-size:10px;margin-left:4px">Relance #${p.relanceNum} ${p.relanceType}</span>`:''}<br><span style="font-size:11px;color:var(--text3)">${p.echantillonCode||''} ${p.note?'— '+p.note:''}</span></td>
       <td>${p.technicien||'-'}</td>
@@ -3599,7 +3650,7 @@ function calcValidite() {
 function populateProduitSelect() {
   const sel = document.getElementById('c-produit'); if(!sel) return;
   const cur = sel.value;
-  sel.innerHTML = '<option value="">- Choisir un produit -</option>' + (state.produits||[]).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
+  sel.innerHTML = '<option value="">- Choisir un produit -</option>' + (state.produits||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(p=>`<option value="${p.id}">${p.nom}${p.ref?' ('+p.ref+')':''}</option>`).join('');
   if (cur) sel.value = cur;
 }
 
@@ -3647,7 +3698,7 @@ function deleteProduit(id) {
 function renderProduitsAccordion() {
   const el = document.getElementById('produits-list'); if(!el) return;
   const qProd = (document.getElementById('search-produits')?.value||'').toLowerCase();
-  const produits = (state.produits||[]).filter(p => !qProd || (p.nom||'').toLowerCase().includes(qProd) || (p.fournisseur||'').toLowerCase().includes(qProd));
+  const produits = (state.produits||[]).filter(p => !qProd || (p.nom||'').toLowerCase().includes(qProd) || (p.fournisseur||'').toLowerCase().includes(qProd)).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if (!produits.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-flask-2"></i><p>Aucun produit enregistre</p></div>'; return; }
   el.innerHTML = produits.map(p => {
     const contenants = (state.contenants||[]).filter(c=>c.produitId===p.id);
@@ -3802,7 +3853,7 @@ function ouvrirContenant(id) {
   const ouvTechSel = document.getElementById('ouv-tech');
   if(ouvTechSel) {
     ouvTechSel.innerHTML = '<option value="">— Sélectionner —</option>'
-      + (state.techniciens||[]).map(t=>'<option value="'+(t.visa||t.prenom[0]+t.nom[0])+'">['+(t.visa||'?')+'] '+t.prenom+' '+t.nom+'</option>').join('');
+      + (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>'<option value="'+(t.visa||t.prenom[0]+t.nom[0])+'">['+(t.visa||'?')+'] '+t.prenom+' '+t.nom+'</option>').join('');
   }
   const el = document.getElementById('modal-ouverture');
   el.classList.add('open'); el.style.display = 'flex';
@@ -3943,7 +3994,7 @@ function saveProduitEch() {
 
 function renderProduitsEch() {
   const q = (document.getElementById('search-produits-ech')?.value||'').toLowerCase();
-  const rows = (state.produitsEch||[]).filter(p => !q || p.nom.toLowerCase().includes(q));
+  const rows = (state.produitsEch||[]).filter(p => !q || p.nom.toLowerCase().includes(q)).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   const tbody = document.getElementById('produits-ech-tbody');
   if (!tbody) return;
   if (!rows.length) { tbody.innerHTML='<tr><td colspan="5"><div class="empty-state"><i class="ti ti-pill"></i><p>Aucun produit enregistre</p></div></td></tr>'; return; }
@@ -4002,7 +4053,7 @@ function saveMarche() {
 
 function renderMarches() {
   const el = document.getElementById('marches-list'); if(!el) return;
-  const marches = state.marches||[];
+  const marches = (state.marches||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if (!marches.length) { el.innerHTML='<div class="empty-state"><i class="ti ti-world"></i><p>Aucun marche enregistre</p></div>'; return; }
   el.innerHTML = marches.map(m => {
     const analyses = (m.analyses||[]).map(id => (state.catalogue||[]).find(a=>a.id===id)).filter(Boolean);
@@ -4149,7 +4200,7 @@ function getProduitsSousMin() {
     const min = parseInt(p.stockMin);
     if (!min && min !== 0) return false;
     return getStockActif(p.id) < min;
-  });
+  }).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
 }
 
 function renderCommandes() {
@@ -4394,7 +4445,8 @@ function renderTechniciens() {
   const grid = document.getElementById('tech-grid');
   if (!state.techniciens.length) { grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><i class="ti ti-certificate"></i><p>Aucun technicien enregistre</p></div>`; return; }
   const statutCls = { actif:'badge-green', formation:'badge-amber', inactif:'badge-gray' };
-  grid.innerHTML = state.techniciens.map(t => `
+  const techsSorted = state.techniciens.slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}) || (a.prenom||'').localeCompare(b.prenom||'', 'fr', {sensitivity:'base'}));
+  grid.innerHTML = techsSorted.map(t => `
     <div class="tech-card">
       <div class="tech-card-header">
         <div class="avatar" style="font-size:11px;font-weight:800;letter-spacing:1px">${t.visa||t.prenom[0]+t.nom[0]}</div>
@@ -4437,7 +4489,7 @@ function populateTechSelects() {
   ['p-tech','e-tech'].forEach(id => {
     const sel = document.getElementById(id); if(!sel) return;
     const cur = sel.value;
-    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif' && (t.role||'').toLowerCase().includes('cq')).map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
+    sel.innerHTML = '<option value="">- Choisir -</option>' + state.techniciens.filter(t=>t.statut==='actif' && (t.role||'').toLowerCase().includes('cq')).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>`<option value="${t.prenom} ${t.nom}">${t.prenom} ${t.nom}</option>`).join('');
     sel.value = cur;
   });
 }
@@ -4668,7 +4720,9 @@ function renderReactifsTable() {
       : '<span style="color:var(--text3)">—</span>';
     const verifCell = c.verifiedBy
       ? '<span style="color:var(--green);font-weight:600;cursor:pointer" onclick="unverifyContenant('+c.id+')" title="Cliquer pour annuler">✓ '+c.verifiedBy+'</span>'
-      : '<button class="btn" style="font-size:11px;padding:3px 8px" onclick="verifyContenant('+c.id+')">Vérifier</button>';
+      : c.ouverture
+        ? '<button class="btn" style="font-size:11px;padding:3px 8px" onclick="verifyContenant('+c.id+')">Vérifier</button>'
+        : '<span style="color:var(--text3);font-size:11px">—</span>';
     return `<tr>
       <td style="font-size:12px"><strong>${p.nom||'-'}</strong>${p.fournisseur?'<br><span style="font-size:11px;color:var(--text3)">'+p.fournisseur+'</span>':''}</td>
       <td style="font-size:12px;text-align:center;color:var(--text2)">${p.ref||'—'}</td>
@@ -4699,7 +4753,9 @@ function renderReactifsTable() {
 window.renderReactifsTable = renderReactifsTable;
 
 function verifyContenant(id) {
-  const techs = state.techniciens||[];
+  const c0 = (state.contenants||[]).find(x=>x.id===id);
+  if (!c0 || !c0.ouverture) { toast('Le contenant doit être ouvert avant de pouvoir être vérifié', 'error'); return; }
+  const techs = (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!techs.length){toast('Aucun technicien enregistré','error');return;}
   const popup = document.createElement('div');
   popup.id = 'verify-popup';
@@ -4734,7 +4790,7 @@ window.unverifyContenant = unverifyContenant;
 
 function renderCommandesArchives() {
   const tbody = document.getElementById('commandes-archives-tbody'); if(!tbody) return;
-  const archives = [...(state.commandesArchives||[])].reverse();
+  const archives = [...(state.commandesArchives||[])].sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!archives.length) {
     tbody.innerHTML='<tr><td colspan="7" class="empty-state"><i class="ti ti-archive"></i><p>Aucune commande archivée</p></td></tr>';
     return;
@@ -4943,6 +4999,10 @@ function renderArchivesTable() {
     if (fFourn.length && !fFourn.includes(p.fournisseur||'')) return false;
     if (fStatut && s !== fStatut) return false;
     return true;
+  }).sort((a,b) => {
+    const pa = (state.produits||[]).find(x=>x.id===a.produitId)||{};
+    const pb = (state.produits||[]).find(x=>x.id===b.produitId)||{};
+    return (pa.nom||'').localeCompare(pb.nom||'', 'fr', {sensitivity:'base'});
   });
   const tbody = document.getElementById('archives-tbody');
   if (!tbody) return;
@@ -5779,7 +5839,7 @@ function renderKPI() {
   // Répartition par technicien
   const parTech = document.getElementById('kpi-par-technicien');
   if (parTech) {
-    const techs = state.techniciens || [];
+    const techs = (state.techniciens || []).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
     if (!techs.length || !total) {
       parTech.innerHTML = '<div style="font-size:12px;color:var(--text3)">Aucune donnée disponible</div>';
     } else {
@@ -5826,7 +5886,7 @@ function renderKPI() {
   // ============================================================
   const planifiees = tasks.filter(t => !t.supplementaire);
   const suppl = tasks.filter(t => t.supplementaire);
-  const techs2 = state.techniciens || [];
+  const techs2 = (state.techniciens || []).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
 
   // --- Adhérence Planning ---
   const adhTotal = planifiees.length;
@@ -5972,7 +6032,7 @@ function renderSuiviLots() {
     rows.push({ lotKey, prodNom, date: e0.date, nbAnalyses: allAnalyseIds.length, cat });
   });
 
-  rows.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+  rows.sort((a,b) => (a.prodNom||'').localeCompare(b.prodNom||'', 'fr', {sensitivity:'base'}));
 
   const setV = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
   setV('lots-attente', nbAttente);
@@ -6365,7 +6425,7 @@ function renderSPQ() {
   const tbody = document.getElementById('spq-tbody');
   if (!tbody) return;
   const q = (document.getElementById('search-spq')?.value || '').toLowerCase();
-  const spqs = (state.spq || []).filter(s => !q || s.ref.toLowerCase().includes(q) || (s.produits||'').toLowerCase().includes(q));
+  const spqs = (state.spq || []).filter(s => !q || s.ref.toLowerCase().includes(q) || (s.produits||'').toLowerCase().includes(q)).sort((a,b)=>(a.ref||'').localeCompare(b.ref||'', 'fr', {numeric:true, sensitivity:'base'}));
   if (!spqs.length) {
     tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="ti ti-file-certificate"></i><p>Aucune SPQ</p></td></tr>';
     return;
@@ -6386,7 +6446,7 @@ function renderSPQ() {
   }).join('');
 }
 
-function addSpqMarche(marcheId, selectedAnalyses) {
+function addSpqMarche(marcheId, selectedAnalyses, articleId, spqId) {
   const container = document.getElementById('spq-marches-container');
   if (!container) return;
   const marches = state.marches || [];
@@ -6395,10 +6455,15 @@ function addSpqMarche(marcheId, selectedAnalyses) {
   const div = document.createElement('div');
   div.style.cssText = 'background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px;position:relative';
   div.dataset.idx = idx;
-  
+
   const marchesOpts = marches.map(m =>
     '<option value="' + m.id + '"' + (marcheId && m.id === marcheId ? ' selected' : '') + '>' + m.nom + (m.code ? ' (' + m.code + ')' : '') + '</option>'
   ).join('');
+
+  // Produits liés à cette SPQ, pour permettre une exception par produit
+  const articlesLies = spqId ? (state.articles||[]).filter(a => a.spqId === spqId) : [];
+  const articleOpts = '<option value="">— Tous les produits (par défaut) —</option>'
+    + articlesLies.map(a => '<option value="' + a.id + '"' + (articleId && a.id === articleId ? ' selected' : '') + '>Exception pour : ' + a.nom + ' (' + a.code + ')</option>').join('');
 
   const analysesHtml = catalogue.map(a =>
     '<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:12px;padding:3px 0">'
@@ -6411,14 +6476,16 @@ function addSpqMarche(marcheId, selectedAnalyses) {
     + '<select class="spq-marche-sel" style="flex:1"><option value="">— Sélectionner un marché —</option>' + marchesOpts + '</select>'
     + '<button type="button" class="icon-btn danger" onclick="this.parentElement.parentElement.remove()" style="flex-shrink:0"><i class="ti ti-x"></i></button>'
     + '</div>'
+    + (articlesLies.length ? '<div style="margin-bottom:10px"><select class="spq-article-sel" style="width:100%;font-size:12px">' + articleOpts + '</select></div>' : '<input type="hidden" class="spq-article-sel" value="">')
     + '<div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Analyses requises :</div>'
     + '<div style="display:flex;flex-wrap:wrap;gap:4px 16px">' + analysesHtml + '</div>';
-  
+
   container.appendChild(div);
 }
 
 function openModalSPQ() {
   _editingSpqId = null;
+  window._editingSpqId = null;
   document.getElementById('modal-spq-title').textContent = 'Nouvelle SPQ';
   document.getElementById('spq-ref').value = '';
   
@@ -6438,7 +6505,7 @@ function editSPQ(id) {
   document.getElementById('modal-spq-title').textContent = 'Modifier SPQ — ' + s.ref;
   document.getElementById('spq-ref').value = s.ref || '';
   document.getElementById('spq-marches-container').innerHTML = '';
-  (s.marches||[]).forEach(m => addSpqMarche(m.marcheId, m.analyses||[]));
+  (s.marches||[]).forEach(m => addSpqMarche(m.marcheId, m.analyses||[], m.articleId||null, id));
   const delBtn = document.getElementById('spq-delete-btn');
   if (delBtn) delBtn.style.display = 'inline-flex';
 }
@@ -6452,7 +6519,8 @@ function saveSPQ() {
     const marcheId = parseInt(div.querySelector('.spq-marche-sel')?.value)||null;
     if (!marcheId) return;
     const analyses = Array.from(div.querySelectorAll('.spq-analyse-cb:checked')).map(cb => parseInt(cb.value));
-    marches.push({ marcheId, analyses });
+    const articleId = parseInt(div.querySelector('.spq-article-sel')?.value)||null;
+    marches.push({ marcheId, analyses, articleId });
   });
 
   if (!state.spq) state.spq = [];
@@ -6474,9 +6542,11 @@ function saveSPQ() {
     const lastSpq = (state.spq||[]).slice(-1)[0];
     const art = (state.articles||[]).find(a=>a.id===window._spqForArticleId);
     if (art && lastSpq && !_editingSpqId) { art.spqId = lastSpq.id; saveData(); }
-    const panelId = window._spqPanelArticleId;
     window._spqForArticleId = null;
-    if (panelId) openSpqPanel(panelId);
+  }
+  // Rafraîchir le panneau de détail SPQ s'il était ouvert
+  if (window._spqPanelArticleId) {
+    openSpqPanel(window._spqPanelArticleId);
   }
   toast('SPQ enregistrée', 'success');
 }
@@ -6681,7 +6751,7 @@ const ALL_MODULES = [
   { key:'preparations',  label:'Préparations',          icon:'ti-flask' },
   { key:'catalogue-reactifs', label:'Catalogue Réactifs', icon:'ti-database' },
   { key:'commandes',     label:'Commandes',             icon:'ti-shopping-cart' },
-  { key:'echantillons',  label:'Réception',             icon:'ti-inbox' },
+  { key:'echantillons',  label:'Enregistrement',        icon:'ti-inbox' },
   { key:'marches',       label:'Marchés',                icon:'ti-world' },
   { key:'approbation',   label:'Approbation',           icon:'ti-circle-check' },
   { key:'articles',      label:'Articles & SPQ',        icon:'ti-barcode' },
@@ -6703,7 +6773,7 @@ function goBack() {
 window.goBack = goBack;
 
 function showHomeScreen() {
-  const profils = state.profils || [];
+  const profils = (state.profils || []).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   const home = document.getElementById('home-screen');
   if (!home) return;
   home.style.display = 'flex';
@@ -6857,7 +6927,7 @@ function initHomeScreen() {
 function renderProfilsConfig() {
   const grid = document.getElementById('profils-grid');
   if (!grid) return;
-  const profils = state.profils || [];
+  const profils = (state.profils || []).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if (!profils.length) {
     grid.innerHTML = '<div class="empty-state"><i class="ti ti-users"></i><p>Aucun profil configuré</p></div>';
     return;
@@ -7025,7 +7095,7 @@ function renderArticles() {
   const tbody = document.getElementById('articles-tbody');
   if (!tbody) return;
   const q = (document.getElementById('search-articles')?.value || '').toLowerCase();
-  const arts = (state.articles || []).filter(a => !q || a.code.toLowerCase().includes(q) || (a.nom||'').toLowerCase().includes(q));
+  const arts = (state.articles || []).filter(a => !q || a.code.toLowerCase().includes(q) || (a.nom||'').toLowerCase().includes(q)).sort((a,b)=>(a.code||'').localeCompare(b.code||'', 'fr', {numeric:true, sensitivity:'base'}));
   if (!arts.length) {
     tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><i class="ti ti-barcode"></i><p>Aucun code article</p></td></tr>';
     return;
@@ -7051,7 +7121,7 @@ function populateSpqSelect(selId, selectedId) {
   const sel = document.getElementById(selId);
   if (!sel) return;
   sel.innerHTML = '<option value="">— Aucune SPQ —</option>'
-    + (state.spq||[]).map(s => '<option value="' + s.id + '"' + (s.id === selectedId ? ' selected' : '') + '>' + s.ref + '</option>').join('');
+    + (state.spq||[]).slice().sort((a,b)=>(a.ref||'').localeCompare(b.ref||'', 'fr', {numeric:true, sensitivity:'base'})).map(s => '<option value="' + s.id + '"' + (s.id === selectedId ? ' selected' : '') + '>' + s.ref + '</option>').join('');
 }
 
 function onArtSpqChange() {
@@ -7166,7 +7236,7 @@ function renderPreparations() {
   const q = (document.getElementById('search-prep')?.value||'').toLowerCase();
   const preps = (state.preparations||[]).filter(p=>!p.archive&&(!q||(p.nom||'').toLowerCase().includes(q)||(p.numero||'').toLowerCase().includes(q)));
   if(!preps.length) { tbody.innerHTML='<tr><td colspan="9" class="empty-state"><i class="ti ti-flask"></i><p>Aucune préparation</p></td></tr>'; return; }
-  preps.sort((a,b)=>(b.datePerm||'').localeCompare(a.datePerm||''));
+  preps.sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   tbody.innerHTML = preps.map(p=>{
     const cat = (state.cataloguePrep||[]).find(c=>c.id===p.catId)||{};
     const type = PREP_TYPES[cat.type]||PREP_TYPES.autre;
@@ -7196,10 +7266,7 @@ function renderPreparations() {
 
 function renderCataloguePrep() {
   const tbody = document.getElementById('cat-prep-tbody'); if(!tbody) return;
-  const typeOrder = {pe:0, usp:1, autre:2};
-  const cats = [...(state.cataloguePrep||[])].sort((a,b)=>
-    (typeOrder[a.type]??3)-(typeOrder[b.type]??3) || (a.nom||'').localeCompare(b.nom||'')
-  );
+  const cats = [...(state.cataloguePrep||[])].sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!cats.length) { tbody.innerHTML='<tr><td colspan="6" class="empty-state"><i class="ti ti-database"></i><p>Aucun réactif</p></td></tr>'; return; }
   tbody.innerHTML = cats.map(c=>{
     const type=PREP_TYPES[c.type]||PREP_TYPES.autre;
@@ -7216,7 +7283,7 @@ function renderCataloguePrep() {
 
 function renderArchivedPreps() {
   const tbody=document.getElementById('prep-archives-tbody'); if(!tbody) return;
-  const archived=(state.preparations||[]).filter(p=>p.archive);
+  const archived=(state.preparations||[]).filter(p=>p.archive).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!archived.length){tbody.innerHTML='<tr><td colspan="6" class="empty-state"><i class="ti ti-archive"></i><p>Aucun réactif archivé</p></td></tr>';return;}
   tbody.innerHTML=archived.map(p=>{
     return '<tr style="opacity:0.7;border-left:4px solid #aaa">'
@@ -7272,9 +7339,9 @@ function deleteCataloguePrep(id) {
 
 function openModalPrep() {
   const sel=document.getElementById('prep-reactif');
-  sel.innerHTML='<option value="">— Sélectionner —</option>'+(state.cataloguePrep||[]).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
+  sel.innerHTML='<option value="">— Sélectionner —</option>'+(state.cataloguePrep||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(c=>'<option value="'+c.id+'">'+c.nom+'</option>').join('');
   const techSel=document.getElementById('prep-technicien');
-  techSel.innerHTML='<option value="">— Sélectionner —</option>'+(state.techniciens||[]).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
+  techSel.innerHTML='<option value="">— Sélectionner —</option>'+(state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(t=>'<option value="'+t.id+'">'+(t.visa?'['+t.visa+'] ':'')+t.prenom+' '+t.nom+'</option>').join('');
   document.getElementById('prep-numero').value='';
   document.getElementById('prep-date-prep').value=new Date().toISOString().slice(0,10);
   document.getElementById('prep-date-perm').value='';
@@ -7363,7 +7430,7 @@ function supprimerArchivePrep(id) {
 }
 
 function verifyPrep(id) {
-  const techs = state.techniciens||[];
+  const techs = (state.techniciens||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!techs.length){toast('Aucun technicien enregistré','error');return;}
   const existing = document.getElementById('verify-popup');
   if(existing) existing.remove();
@@ -7457,12 +7524,15 @@ function openSpqPanel(articleId) {
   if (!spq.marches || !spq.marches.length) {
     h += '<div style="color:var(--text3)">Aucun marché défini.</div>';
   } else {
-    spq.marches.forEach(sm => {
-      const m = (state.marches||[]).find(x=>x.id===sm.marcheId);
-      const analyses = (sm.analyses||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)?.nom).filter(Boolean);
+    const marcheIdsUniques = [...new Set(spq.marches.map(sm=>sm.marcheId))];
+    marcheIdsUniques.forEach(marcheId => {
+      const m = (state.marches||[]).find(x=>x.id===marcheId);
+      const isOverride = spq.marches.some(sm => sm.marcheId===marcheId && sm.articleId===articleId);
+      const analyseIds = getSpqAnalysesForMarche(spq, marcheId, articleId);
+      const analyses = analyseIds.map(id=>(state.catalogue||[]).find(a=>a.id===id)?.nom).filter(Boolean);
       h += '<div style="background:var(--bg3);border-radius:var(--radius);padding:12px;margin-bottom:10px">';
-      h += '<div style="font-weight:600;font-size:13px;margin-bottom:8px">'+(m?m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':''):'Marché inconnu')+'</div>';
-      h += '<div style="display:flex;flex-wrap:wrap;gap:6px">'+analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a+'</span>').join('')+'</div>';
+      h += '<div style="font-weight:600;font-size:13px;margin-bottom:8px;display:flex;align-items:center;gap:8px">'+(m?m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':''):'Marché inconnu')+(isOverride?'<span class="badge badge-amber" style="font-size:10px">Spécifique à ce produit</span>':'')+'</div>';
+      h += analyses.length ? '<div style="display:flex;flex-wrap:wrap;gap:6px">'+analyses.map(a=>'<span class="badge badge-cyan" style="font-size:11px">'+a+'</span>').join('')+'</div>' : '<div style="color:var(--text3);font-size:12px">Aucune analyse définie</div>';
       h += '</div>';
     });
   }
@@ -7810,7 +7880,7 @@ toggleTypeCard = function(type) {
     const marchesWrap=document.getElementById('w-ref-marches-wrap');
     if(marchesWrap) marchesWrap.style.display='block';
     if(marchesEl) {
-      const marches=state.marches||[];
+      const marches=(state.marches||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
       marchesEl.innerHTML=marches.length
         ? marches.map(m=>'<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+m.id+'" style="flex-shrink:0"><span style="font-size:13px;font-weight:500">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</span></label>').join('')
         : '<div style="color:var(--text3);font-size:12px">Aucun marché défini</div>';
@@ -7869,9 +7939,9 @@ wizardLoadMarches = function(){
   const art=window._wizardArticle;
   const spq=art?.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
   // Filtrer les marchés selon ceux paramétrés dans la SPQ
-  const spqMarcheIds = spq ? (spq.marches||[]).map(sm=>sm.marcheId) : null;
+  const spqMarcheIds = spq ? [...new Set((spq.marches||[]).map(sm=>sm.marcheId))] : null;
   const allMarches = state.marches||[];
-  const marches = spqMarcheIds ? allMarches.filter(m=>spqMarcheIds.includes(m.id)) : allMarches;
+  const marches = (spqMarcheIds ? allMarches.filter(m=>spqMarcheIds.includes(m.id)) : allMarches).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!marches.length){ el.innerHTML='<div style="color:var(--text3);font-size:12px;padding:8px">'+(spq?'Aucun marché paramétré dans la SPQ '+spq.ref+'.':'Aucun marché défini.')+'</div>'; return; }
   el.innerHTML=marches.map(m=>'<label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" class="w-marche-cb" value="'+m.id+'" style="flex-shrink:0"><div><div style="font-weight:600;font-size:13px">'+m.nom+(m.code?' <span class="badge badge-blue">'+m.code+'</span>':'')+'</div>'+(m.note?'<div style="font-size:11px;color:var(--text2)">'+m.note+'</div>':'')+'</div></label>').join('');
 };
@@ -7880,7 +7950,7 @@ var wizardLoadAnalyses;
 wizardLoadAnalyses = function(){
   const el=document.getElementById('w-analyses-select'); const noA=document.getElementById('w-no-analyses'); if(!el)return;
   const prodId=parseInt(document.getElementById('w-produit')?.value);
-  const analyses=getAnalysesForProduct(prodId);
+  const analyses=getAnalysesForProduct(prodId).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
   if(!analyses.length){ el.innerHTML=''; el.style.display='none'; if(noA){ noA.style.display='block'; noA.textContent='Aucune analyse liée à ce produit. Créez d’abord l’analyse dans Planification > Catalogue et cochez ce produit.'; } return; }
   el.style.display='flex'; if(noA)noA.style.display='none';
   el.innerHTML=analyses.map(a=>'<label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border)"><input type="checkbox" value="'+a.id+'" style="margin-top:2px;flex-shrink:0"><div style="flex:1"><div style="font-weight:600;font-size:13px">'+a.nom+(a.code?' <code style="font-size:10px">'+a.code+'</code>':'')+'</div>'+(a.habilitations&&a.habilitations.length?'<div style="margin-top:3px">'+a.habilitations.map(h=>'<span class="badge badge-cyan" style="font-size:10px">'+h+'</span>').join(' ')+'</div>':'')+(a.duree?'<div style="font-size:11px;color:var(--text3);margin-top:2px"><i class="ti ti-clock" style="font-size:10px"></i> '+a.duree+'</div>':'')+'</div><div style="display:flex;gap:4px;flex-shrink:0">'+(wizardIsPifSelected()?'<span class="badge badge-yellow" style="font-size:10px">PIF</span>':'')+(wizardIsMpSelected()?'<span class="badge badge-green" style="font-size:10px">MP</span>':'')+(wizardIsStabSelected()?'<span class="badge badge-purple" style="font-size:10px">STAB</span>':'')+'</div></label>').join('');
@@ -7981,19 +8051,20 @@ var statutIcon;
 statutIcon = function(echId, analyseId, currentStatut, statInfo, cellType){
   const order=['a_lancer','en_cours','terminee','verifiee']; const curIdx=order.indexOf(currentStatut); const cellIdx=order.indexOf(cellType); const isDone=curIdx>=cellIdx&&curIdx>=0; const date=statInfo[cellType];
   const colors={en_cours:'#0550ae',terminee:'#0d7c75',verifiee:'#1a7f37'}; const icons={en_cours:'microscope',terminee:'circle-check',verifiee:'rosette'}; const labels={a_lancer:'À FAIRE',en_cours:'EN COURS',terminee:'TERMINÉE',verifiee:'VÉRIFIÉE'}; const c=colors[cellType]||'#888'; const ic=icons[cellType]||'circle';
+  const undoBtn='<i class="ti ti-arrow-back-up" onclick="event.stopPropagation();revertAnalyseStatut('+echId+','+analyseId+')" title="Revenir au statut précédent (erreur de clic)" style="position:absolute;top:1px;right:1px;font-size:11px;color:var(--text3);cursor:pointer;opacity:0.45"></i>';
   if(isDone){
     const d=date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'';
     if(cellType==='terminee'){
       const a2=(state.catalogue||[]).find(x=>x.id===analyseId);
-      if(a2?.resultatRequis===false) return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-circle-check" style="font-size:20px;color:'+c+'"></i>'+(date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'')+'</div>';
+      if(a2?.resultatRequis===false) return '<div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px">'+undoBtn+'<i class="ti ti-circle-check" style="font-size:20px;color:'+c+'"></i>'+(date?'<span style="font-size:10px;font-weight:600;color:'+c+'">'+date+'</span>':'')+'</div>';
       const ech2=(state.echantillons||[]).find(e=>e.id===echId);
       const res2=ech2?.resultats?.[analyseId]; const st2=res2?.statutAnalyse||'ok';
       let badge='';
       if(st2==='oot') badge='<span class="badge badge-amber" style="font-size:9px;margin-top:2px">OOT</span>';
       if(st2==='oos') badge='<span class="badge badge-red" style="font-size:9px;margin-top:2px">OOS</span>';
-      return '<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+badge+'</button>';
+      return '<div style="position:relative">'+undoBtn+'<button onclick="openAnalyseResultat('+echId+','+analyseId+')" title="Saisir / modifier le résultat" style="background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px;width:100%"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+badge+'</button></div>';
     }
-    return '<div style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px"><i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
+    return '<div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px">'+undoBtn+'<i class="ti ti-'+ic+'" style="font-size:20px;color:'+c+'"></i>'+d+'</div>';
   }
   if(cellType==='en_cours' && currentStatut==='a_lancer') {
     return '<button onclick="cycleAnalyseStatut('+echId+','+analyseId+')" style="background:none;border:2px dashed #ddd;border-radius:8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;width:100%"><i class="ti ti-clock" style="font-size:18px;color:#aaa"></i><span style="font-size:9px;color:#aaa">À FAIRE</span></button>';
@@ -8020,6 +8091,28 @@ cycleAnalyseStatut = function(echId, analyseId){
   const ids=ech.analysesIds||[]; const allDone=ids.length&&ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee'); const anyStarted=ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';}); ech.statut=allDone?'conforme':anyStarted?'en_analyse':'recu';
   const a=(state.catalogue||[]).find(x=>x.id===analyseId); addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : '+next); renderEchantillonsTable(); saveData();
 };
+
+var revertAnalyseStatut;
+revertAnalyseStatut = function(echId, analyseId){
+  echId=parseInt(echId); analyseId=parseInt(analyseId);
+  const order=['a_lancer','en_cours','terminee','verifiee'];
+  const labels={a_lancer:'À faire',en_cours:'En cours',terminee:'Terminée',verifiee:'Vérifiée'};
+  const ech=(state.echantillons||[]).find(e=>e.id===echId); if(!ech)return;
+  if(!ech.analyseStatuts)ech.analyseStatuts={};
+  const cur=ech.analyseStatuts[analyseId]||'a_lancer';
+  const curIdx=order.indexOf(cur);
+  if(curIdx<=0) return; // déjà "à faire", rien à annuler
+  const prev=order[curIdx-1];
+  if(!confirm('Revenir au statut "'+labels[prev]+'" pour cette analyse (erreur de clic) ?')) return;
+  if(prev==='a_lancer'){ delete ech.analyseStatuts[analyseId]; }
+  else { ech.analyseStatuts[analyseId]=prev; }
+  if(ech.analyseStatutsInfo?.[analyseId]) delete ech.analyseStatutsInfo[analyseId][cur];
+  const ids=ech.analysesIds||[]; const allDone=ids.length&&ids.every(id=>(ech.analyseStatuts[id]||'a_lancer')==='verifiee'); const anyStarted=ids.some(id=>{const s=ech.analyseStatuts[id]||'a_lancer';return s!=='a_lancer';}); ech.statut=allDone?'conforme':anyStarted?'en_analyse':'recu';
+  const a=(state.catalogue||[]).find(x=>x.id===analyseId); addActivity('list-check',ech.code+' — '+(a?.nom||'analyse')+' : retour à '+labels[prev]);
+  renderEchantillonsTable(); saveData();
+  toast('Statut ramené à "'+labels[prev]+'"', 'info');
+};
+window.revertAnalyseStatut = revertAnalyseStatut;
 
 window.openAnalyseResultat = ouvrirModalResultat;
 window.ouvrirModalResultat = ouvrirModalResultat;
@@ -8291,7 +8384,7 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <div class="form-group" style="margin-top:16px">
         <label style="font-size:14px;font-weight:700;margin-bottom:12px;display:block">Marchés et analyses requises</label>
         <div id="spq-marches-container" style="display:flex;flex-direction:column;gap:12px"></div>
-        <button type="button" class="btn" onclick="addSpqMarche()" style="margin-top:10px;font-size:12px"><i class="ti ti-plus"></i> Ajouter un marché</button>
+        <button type="button" class="btn" onclick="addSpqMarche(null,[],null,window._editingSpqId)" style="margin-top:10px;font-size:12px"><i class="ti ti-plus"></i> Ajouter un marché</button>
       </div>
     </div>
     <div class="modal-footer">
