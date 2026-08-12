@@ -1360,6 +1360,21 @@
         "Retraitement TCC0010 - ASA",
         "Vérification TCC0010 - ASA"
       ]
+    },
+    {
+      "id": 1786529364293,
+      "nom": "TCC0004 - Prilocaïne / PHBM",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0004 - Prilocaïne / PHBM",
+        "Vérification TCC0004 - Prilocaïne / PHBM"
+      ]
     }
   ],
   "stabilites": [],
@@ -2513,11 +2528,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "package",
-      "text": "1x Chloroforme lot K57089345 546 receptionne(s)",
-      "time": "12/08 08:11"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : Chloroforme lot K57089345 546",
       "time": "12/08 08:12"
@@ -2761,6 +2771,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0058",
       "time": "12/08 12:08"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0004 - Prilocaïne / PHBM",
+      "time": "12/08 12:09"
     }
   ],
   "spq": [
