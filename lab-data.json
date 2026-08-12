@@ -2488,11 +2488,6 @@
   "enregistrements": [],
   "activity": [
     {
-      "icon": "list-check",
-      "text": "BBBBBB-1 — Limpidité / Coloration PE : verifiee",
-      "time": "11/08 21:50"
-    },
-    {
       "icon": "archive",
       "text": "Lot archive : TEST",
       "time": "11/08 21:53"
@@ -2736,6 +2731,11 @@
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0053",
       "time": "12/08 11:26"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M74012000",
+      "time": "12/08 11:28"
     }
   ],
   "spq": [
@@ -3031,6 +3031,13 @@
       "nom": "Carbocaïne 10 mg/mL (SC)",
       "type": "pif_stab",
       "spqId": 1785335987687
+    },
+    {
+      "id": 1786526904667,
+      "code": "M74012000",
+      "nom": "Carbocaïne 20 mg/mL (SC)",
+      "type": "pif_stab",
+      "spqId": 1785342945228
     }
   ],
   "planTasks": [
