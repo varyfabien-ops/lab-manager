@@ -4135,6 +4135,24 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1786520638253,
+      "date": "2026-08-13",
+      "techId": "1785175077562",
+      "desc": "Identification Lidocaïne USP - J2",
+      "analyseNom": "Identification Lidocaïne USP - J2",
+      "analyseId": 1786520419939,
+      "sousKey": "1786520419939_sous_0",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#F3E5F5",
+        "border": "#9C27B0"
+      },
+      "isSous": true,
+      "parentNom": "Identification Lidocaïne USP",
+      "manuel": false
     }
   ],
   "planRythmes": {
