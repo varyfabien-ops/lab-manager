@@ -2211,8 +2211,16 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785247344996": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785247344996": {
+          "en_cours": "12/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -2313,11 +2321,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "lock-open",
-      "text": "Ouverture : Platinium Cobalt 100 lot 2045653",
-      "time": "11/08 16:29"
-    },
     {
       "icon": "flask-2",
       "text": "Produit ajoute : Titrant 5",
@@ -2561,6 +2564,11 @@
     {
       "icon": "package",
       "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 5 analyse(s)",
+      "time": "12/08 09:43"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956904 — TCC0004 - Lidocaïne / PHBM : en_cours",
       "time": "12/08 09:43"
     }
   ],
