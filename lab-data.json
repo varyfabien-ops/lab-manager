@@ -5166,6 +5166,7 @@
       "modules": [
         "catalogue-analyses",
         "catalogue-reactifs",
+        "marches",
         "articles",
         "habilitations",
         "profils-config"
