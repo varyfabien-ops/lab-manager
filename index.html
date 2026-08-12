@@ -1015,7 +1015,7 @@
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group"><label>Pays / Marché *</label><input id="m-nom" placeholder="Ex: France, USA, Europe..."></div>
-        <div class="form-group"><label>Abréviation</label><input id="m-code" placeholder="Ex: FR, US, EU" maxlength="5" style="text-transform:uppercase"></div>
+        <div class="form-group"><label>Abréviation</label><input id="m-code" placeholder="Ex: FR, US, DAN/IS" maxlength="12" style="text-transform:uppercase"></div>
       </div>
     </div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-marche')">Annuler</button><button class="btn btn-primary" onclick="saveMarche()"><i class="ti ti-check"></i> Enregistrer</button></div>
@@ -2777,6 +2777,7 @@ let state = {
   cataloguePrep: [],
   profils: [],
   commandesArchives: [],
+  etiquettesLibres: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -3008,7 +3009,7 @@ let _baseline = null; // dernier état connu comme étant synchronisé avec GitH
 // Champs de state.* qui sont des tableaux d'objets avec un id (fusion par id)
 const MERGE_ARRAY_FIELDS_BY_ID = ['planning','catalogue','stabilites','reactifs','produits','contenants',
   'produitsEch','marches','echantillons','techniciens','planTasks','spq','articles','preparations',
-  'cataloguePrep','profils','commandesArchives','enregistrements'];
+  'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres'];
 // Champs de state.* qui sont des objets clé/valeur (fusion par clé)
 const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut'];
 // Champs de state.* qui sont des tableaux sans id fiable (journal) — fusion par contenu, style log
@@ -3095,7 +3096,7 @@ async function loadData(silent) {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[] };
+    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
     // Fusion avec l'état local courant, pour ne jamais perdre un travail local pas encore sauvegardé
     state = _baseline ? mergeStates(remoteState, _baseline, state) : remoteState;
     _baseline = snapshotState();
@@ -5210,7 +5211,7 @@ function planSemaineNav(dir) {
 function cleanOldFixedEtiquettes() {
   // Supprimer les étiquettes fixes sans date qui ne sont pas de la semaine courante
   const currentKey = dateToKey(planSemaineStartDate);
-  const prefixes = ['step_', 'cond_', 'edr_', 'menage_'];
+  const prefixes = ['step_', 'cond_', 'edr_', 'menage_', 'verifpe_', 'libre_'];
   state.planTasks = (state.planTasks||[]).filter(t => {
     if (!t.sousKey) return true;
     const isFixed = prefixes.some(p => t.sousKey.startsWith(p));
@@ -5422,19 +5423,43 @@ function renderPlanSemaine() {
   html += '</tbody></table>';
 
   // Zone À planifier sous le tableau
+  const etiquettesAnalyses = etiquettes.filter(e => !e.isLibre);
+  const etiquettesLibresSemaine = etiquettes.filter(e => e.isLibre);
+
   html += '<div style="margin-top:20px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);padding:16px">';
   html += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:8px"><i class="ti ti-clock" style="color:var(--amber)"></i>Analyses à planifier</div>';
   html += '<div id="zone-a-planifier" style="display:flex;flex-wrap:wrap;gap:8px;min-height:60px;padding:4px" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
-  if (etiquettes.length === 0) {
+  if (etiquettesAnalyses.length === 0) {
     html += '<div style="font-size:12px;color:var(--text3);font-style:italic;align-self:center">✓ Toutes les analyses sont planifiées</div>';
   } else {
-    etiquettes.forEach((e, idx) => {
+    etiquettesAnalyses.forEach((e) => {
+      const idx = etiquettes.indexOf(e);
       const bg = e.color ? e.color.bg : (e.isSous ? '#F3E5F5' : '#FFF8E1');
       const border = e.color ? e.color.border : (e.isSous ? '#9C27B0' : '#FF9800');
       const tagTextColor = (bg === '#212121' || bg === '#000000') ? 'white' : 'inherit';
       html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + ';' + (e.isSous ? 'font-style:italic;' : '') + ';color:' + tagTextColor + '" title="Glisser vers une cellule du planning">';
       html += '<span style="font-weight:600;font-size:12px">' + (e.isSous ? '↳ ' : '') + e.nom + '</span>';
+      html += '</div>';
+    });
+  }
+  html += '</div></div>';
 
+  // Zone Étiquettes libres (réunion, formation, tâches diverses...)
+  html += '<div style="margin-top:14px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg2);padding:16px">';
+  html += '<div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;justify-content:space-between">';
+  html += '<span style="display:flex;align-items:center;gap:8px"><i class="ti ti-tags" style="color:var(--purple)"></i>Étiquettes libres</span>';
+  html += '<button class="btn" style="font-size:11px;padding:4px 10px" onclick="openModalEtiquettesLibres()"><i class="ti ti-settings"></i> Gérer</button>';
+  html += '</div>';
+  html += '<div id="zone-etiquettes-libres" style="display:flex;flex-wrap:wrap;gap:8px;min-height:50px;padding:4px" ondragover="event.preventDefault()" ondrop="onDropBackToList(event)">';
+  if (etiquettesLibresSemaine.length === 0) {
+    html += '<div style="font-size:12px;color:var(--text3);font-style:italic;align-self:center">Aucune étiquette libre définie — clique sur "Gérer" pour en créer</div>';
+  } else {
+    etiquettesLibresSemaine.forEach((e) => {
+      const idx = etiquettes.indexOf(e);
+      const bg = e.color ? e.color.bg : '#F3E5F5';
+      const border = e.color ? e.color.border : '#9C27B0';
+      html += '<div class="a-planifier-tag" draggable="true" data-etiq-idx="' + idx + '" style="background:' + bg + ';border-color:' + border + '" title="Glisser vers une cellule du planning">';
+      html += '<span style="font-weight:600;font-size:12px">' + e.nom + '</span>';
       html += '</div>';
     });
   }
@@ -5562,6 +5587,15 @@ function buildEtiquettesAPlanifier() {
     }
   });
 
+  // Étiquettes libres (réunion, formation, tâche administrative...) — régénérées chaque semaine
+  (state.etiquettesLibres||[]).forEach(el => {
+    const sousKey = 'libre_' + semaineKey + '_' + el.id;
+    const placed = (state.planTasks||[]).find(t => t.sousKey === sousKey && t.date);
+    if (!placed) {
+      etiquettes.push({ nom: el.nom, sousKey, color: el.color, isSous: false, sousAnalyses: [], isLibre: true });
+    }
+  });
+
   // Ménage Hebdomadaire : créer directement dans planTasks pour le vendredi
   const vendredi = new Date(planSemaineStartDate || new Date());
   vendredi.setDate(vendredi.getDate() + 4);
@@ -5683,6 +5717,72 @@ window.getAutoColor = getAutoColor;
 // ============================================================
 // MODAL ÉTIQUETTES PLANNING
 // ============================================================
+function openModalEtiquettesLibres() {
+  document.getElementById('el-nom').value = '';
+  const colors = [{bg:'#FFF8E1',border:'#FF9800'},{bg:'#FFE0B2',border:'#F57C00'},{bg:'#F3E5F5',border:'#9C27B0'},{bg:'#E3F2FD',border:'#2196F3'},{bg:'#E8F5E9',border:'#4CAF50'},{bg:'#FFEBEE',border:'#f44336'},{bg:'#E0F7FA',border:'#00BCD4'}];
+  const colorsEl = document.getElementById('el-colors');
+  colorsEl.innerHTML = colors.map((c,i) =>
+    '<div onclick="selectElColor(this,\''+c.bg+'\',\''+c.border+'\')" style="width:18px;height:18px;border-radius:50%;background:'+c.bg+';border:2px solid '+c.border+';cursor:pointer" title="'+c.border+'"></div>'
+  ).join('');
+  document.getElementById('el-bg').value = colors[2].bg;
+  document.getElementById('el-border').value = colors[2].border;
+  const firstSwatch = colorsEl.children[2];
+  if (firstSwatch) { firstSwatch.style.transform = 'scale(1.3)'; firstSwatch.style.boxShadow = '0 0 0 2px white, 0 0 0 4px #9C27B0'; }
+  renderEtiquettesLibresList();
+  openModal('modal-etiquettes-libres');
+}
+window.openModalEtiquettesLibres = openModalEtiquettesLibres;
+
+function selectElColor(el, bg, border) {
+  const container = el.parentElement;
+  container.querySelectorAll('div').forEach(d => { d.style.transform=''; d.style.boxShadow=''; });
+  el.style.transform = 'scale(1.3)';
+  el.style.boxShadow = '0 0 0 2px white, 0 0 0 4px ' + border;
+  document.getElementById('el-bg').value = bg;
+  document.getElementById('el-border').value = border;
+}
+window.selectElColor = selectElColor;
+
+function renderEtiquettesLibresList() {
+  const list = document.getElementById('etiquettes-libres-list');
+  const items = state.etiquettesLibres || [];
+  if (!items.length) {
+    list.innerHTML = '<div style="font-size:12px;color:var(--text3);font-style:italic">Aucune étiquette libre créée pour l\'instant.</div>';
+    return;
+  }
+  list.innerHTML = items.slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'})).map(e =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:'+(e.color?.bg||'#F3E5F5')+';border:1px solid '+(e.color?.border||'#9C27B0')+';border-radius:var(--radius)">'
+    + '<span style="font-weight:600;font-size:13px">'+e.nom+'</span>'
+    + '<button class="icon-btn danger" onclick="deleteEtiquetteLibre('+e.id+')" style="background:rgba(255,255,255,0.6)"><i class="ti ti-trash"></i></button>'
+    + '</div>'
+  ).join('');
+}
+
+function addEtiquetteLibre() {
+  const nom = document.getElementById('el-nom').value.trim();
+  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
+  if (!state.etiquettesLibres) state.etiquettesLibres = [];
+  const bg = document.getElementById('el-bg').value;
+  const border = document.getElementById('el-border').value;
+  state.etiquettesLibres.push({ id: Date.now(), nom, color: { bg, border } });
+  document.getElementById('el-nom').value = '';
+  saveData();
+  renderEtiquettesLibresList();
+  renderPlanSemaine();
+  toast('Étiquette libre ajoutée', 'success');
+}
+window.addEtiquetteLibre = addEtiquetteLibre;
+
+function deleteEtiquetteLibre(id) {
+  if (!confirm('Supprimer cette étiquette libre ? Les instances déjà placées dans le planning ne seront pas retirées.')) return;
+  state.etiquettesLibres = (state.etiquettesLibres||[]).filter(e => e.id !== id);
+  saveData();
+  renderEtiquettesLibresList();
+  renderPlanSemaine();
+  toast('Étiquette libre supprimée', 'success');
+}
+window.deleteEtiquetteLibre = deleteEtiquetteLibre;
+
 function openModalEtiquettes() {
   const lines = document.getElementById('etiquettes-lines');
   lines.innerHTML = '';
@@ -8622,6 +8722,29 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-etiquettes')">Annuler</button>
       <button class="btn btn-primary" onclick="saveEtiquettes()"><i class="ti ti-check"></i> Créer les étiquettes</button>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-etiquettes-libres" style="display:none">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <i class="ti ti-tags" style="font-size:18px;color:var(--purple)"></i>
+      <h3>Étiquettes libres</h3>
+      <button class="close-btn" onclick="closeModal('modal-etiquettes-libres')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px">Étiquettes réutilisables non liées à une analyse ou un produit (réunion, formation, tâche administrative...). Elles réapparaissent automatiquement chaque semaine dans le tiroir "Étiquettes libres" du planning.</p>
+      <div id="etiquettes-libres-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+      <div style="display:flex;gap:8px;align-items:center;border-top:1px solid var(--border);padding-top:14px">
+        <input id="el-nom" placeholder="Nom de l'étiquette (ex: Réunion équipe)" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg2);color:var(--text)">
+        <div id="el-colors" style="display:flex;gap:6px;align-items:center"></div>
+        <input type="hidden" id="el-bg" value="#F3E5F5">
+        <input type="hidden" id="el-border" value="#9C27B0">
+        <button class="btn btn-primary" style="font-size:12px;padding:8px 12px;flex-shrink:0" onclick="addEtiquetteLibre()"><i class="ti ti-plus"></i> Ajouter</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-etiquettes-libres')">Fermer</button>
     </div>
   </div>
 </div>
