@@ -2598,11 +2598,6 @@
   "activity": [
     {
       "icon": "barcode",
-      "text": "Article modifié : M74011000",
-      "time": "12/08 11:04"
-    },
-    {
-      "icon": "barcode",
       "text": "Article modifié : M77511000",
       "time": "12/08 11:05"
     },
@@ -2844,6 +2839,11 @@
     {
       "icon": "barcode",
       "text": "Article créé : M70026001",
+      "time": "12/08 14:00"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M76226001",
       "time": "12/08 14:00"
     }
   ],
@@ -3454,6 +3454,13 @@
       "id": 1786536010853,
       "code": "M70026001",
       "nom": "Xylocaïne 20 mg/mL + Adrénaline (SC)",
+      "type": "pif_stab",
+      "spqId": 1786520529756
+    },
+    {
+      "id": 1786536054261,
+      "code": "M76226001",
+      "nom": "Xylocaïne 20 mg/mL + Adrénaline (AC)",
       "type": "pif_stab",
       "spqId": 1786520529756
     }
