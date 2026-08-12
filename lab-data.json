@@ -2489,11 +2489,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB-1 — Limpidité / Coloration US : en_cours",
-      "time": "11/08 21:50"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB-1 — Limpidité / Coloration PE : en_cours",
       "time": "11/08 21:50"
     },
@@ -2736,6 +2731,11 @@
       "icon": "barcode",
       "text": "Article modifié : M74012000",
       "time": "12/08 11:25"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M77512000",
+      "time": "12/08 11:25"
     }
   ],
   "spq": [
@@ -2929,8 +2929,8 @@
     },
     {
       "id": 1785342931395,
-      "code": "M74012000",
-      "nom": "Carbocaïne 20 mg/mL (SC)",
+      "code": "M77512000",
+      "nom": "Carbocaïne 20 mg/mL (PM)",
       "type": "pif_stab",
       "spqId": 1785342945228
     },
