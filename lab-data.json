@@ -2547,7 +2547,7 @@
       "visa": "HMU",
       "role": "Technicien CQ",
       "habilitations": [],
-      "date": "2026-08-13",
+      "date": "2026-05-18",
       "statut": "actif"
     },
     {
@@ -2581,11 +2581,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB-1 — Amines Tertiaires : verifiee",
-      "time": "12/08 09:55"
-    },
     {
       "icon": "list-check",
       "text": "BBBBBB-1 — Limpidité / Coloration US : verifiee",
@@ -2829,6 +2824,11 @@
     {
       "icon": "pencil",
       "text": "Technicien modifie : Corentin AUBOIS",
+      "time": "12/08 13:49"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Himidati MOUENDHOIMU",
       "time": "12/08 13:49"
     }
   ],
