@@ -2537,7 +2537,7 @@
       "visa": "JMD",
       "role": "Chargée Base de Données",
       "habilitations": [],
-      "date": "2026-08-08",
+      "date": "2021-11-22",
       "statut": "actif"
     },
     {
@@ -2581,11 +2581,6 @@
   },
   "enregistrements": [],
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "BBBBBB-1 — Limpidité / Coloration US : verifiee",
-      "time": "12/08 09:55"
-    },
     {
       "icon": "clock",
       "text": "Lot envoyé en approbation : BBBBBB",
@@ -2829,6 +2824,11 @@
     {
       "icon": "pencil",
       "text": "Technicien modifie : Himidati MOUENDHOIMU",
+      "time": "12/08 13:49"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Julie MUGICA-DEBRAY",
       "time": "12/08 13:49"
     }
   ],
