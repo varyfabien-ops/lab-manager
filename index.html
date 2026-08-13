@@ -7617,7 +7617,7 @@ function selectProfileFromDashboard(id) {
   activeProfile = p;
   applyProfile(p);
   renderDashboardProfils();
-  toast('Profil "'+p.nom+'" activé', 'success');
+  showProfileWelcome(p);
 }
 window.selectProfileFromDashboard = selectProfileFromDashboard;
 
