@@ -3063,7 +3063,7 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786624072580": "terminee",
+        "1786624072580": "verifiee",
         "1785169966496": "terminee",
         "1785247477146": "terminee",
         "1785170122728": "terminee",
@@ -3072,7 +3072,8 @@
       "analyseStatutsInfo": {
         "1786624072580": {
           "en_cours": "13/08/2026",
-          "terminee": "13/08/2026"
+          "terminee": "13/08/2026",
+          "verifiee": "13/08/2026"
         },
         "1785169966496": {
           "en_cours": "13/08/2026",
@@ -6150,11 +6151,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956970 — Apparence : en_cours",
-      "time": "13/08 14:34"
-    },
-    {
-      "icon": "list-check",
       "text": "9956970 — Limpidité / Coloration PE : en_cours",
       "time": "13/08 14:34"
     },
@@ -6397,6 +6393,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - UT",
       "time": "13/08 18:26"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956970 — Apparence : verifiee",
+      "time": "13/08 20:21"
     }
   ]
 }
