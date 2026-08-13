@@ -1761,7 +1761,13 @@
     {
       "id": 1786637253094,
       "nom": "TCC0086 - 2.6 DMA",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes",
+        "pH",
+        "ECD"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
@@ -5927,11 +5933,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : Titrage Thiosulfate de Sodium 0,1M",
-      "time": "12/08 19:15"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Thiosulfate de Sodium 0,1M",
       "time": "12/08 21:33"
@@ -6174,6 +6175,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0086 - 2.6 DMA",
+      "time": "13/08 18:07"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0086 - 2.6 DMA",
       "time": "13/08 18:07"
     }
   ]
