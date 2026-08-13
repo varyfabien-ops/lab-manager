@@ -645,6 +645,7 @@
     <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="produit" onclick="openXlFilter(event,'produit')">Produit <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
     <input type="hidden" id="fech-produit" value="">
   </th>
+  <th style="width:80px;text-align:center">Type</th>
   <th style="width:120px;text-align:center">
     <div style="display:flex;align-items:center;justify-content:center;gap:4px;cursor:pointer" data-filter-col="lot" onclick="openXlFilter(event,'lot')">Lot <i class="ti ti-filter" style="font-size:11px;color:var(--text3)"></i></div>
     <input type="hidden" id="fech-lot" value="">
@@ -1121,17 +1122,12 @@
       <!-- STEP 2 : CODE ARTICLE -->
       <div id="wstep-2" style="display:none">
         <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Saisissez le code article</div>
-        <div class="form-group">
+        <div class="form-group" style="position:relative">
           <label>Code article *</label>
-          <input id="w-code-article" placeholder="Ex: M000001" style="text-transform:uppercase;font-family:monospace;font-size:15px;font-weight:700" oninput="onWizardCodeArticleChange()">
+          <input id="w-code-article" placeholder="Ex: M000001" autocomplete="off" style="text-transform:uppercase;font-family:monospace;font-size:15px;font-weight:700" oninput="onWizardCodeArticleChange()" onfocus="onWizardCodeArticleChange()" onblur="setTimeout(()=>{const s=document.getElementById('w-article-suggestions');if(s)s.style.display='none';},150)">
+          <div id="w-article-suggestions" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:20;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 16px rgba(0,0,0,0.15);max-height:220px;overflow-y:auto;margin-top:2px"></div>
         </div>
         <div id="w-article-info" style="display:none;margin-top:10px;background:var(--cyan-dim);border:1px solid var(--cyan3);border-radius:var(--radius);padding:12px;font-size:13px"></div>
-        <div style="margin-top:12px">
-          <label style="font-size:12px;color:var(--text2)">Ou sélectionnez depuis la liste</label>
-          <select id="w-article-select" style="margin-top:6px" onchange="onWizardArticleSelect()">
-            <option value="">— Choisir un article —</option>
-          </select>
-        </div>
       </div>
 
       <!-- STEP 3 : MARCHÉS (PIF uniquement) -->
@@ -1527,7 +1523,7 @@ function wizardRender() {
   }
 
   // Actions par step
-  if(wizardStep===2) wizardLoadArticlesSelect();
+  if(wizardStep===2) onWizardCodeArticleChange();
   if(wizardStep===3) wizardLoadMarches();
   if(wizardStep===4) wizardLoadStep4();
   if(wizardStep===5) wizardRecap();
@@ -1547,9 +1543,8 @@ function wizardValidate() {
   }
   if(wizardStep===2) {
     const code=document.getElementById('w-code-article')?.value.trim();
-    const sel=document.getElementById('w-article-select')?.value;
-    if(!code && !sel){ toast('Saisissez ou sélectionnez un code article','error'); return false; }
-    if(!window._wizardArticle && !code){ toast('Code article non reconnu','error'); return false; }
+    if(!code){ toast('Saisissez un code article','error'); return false; }
+    if(!window._wizardArticle){ toast('Code article non reconnu','error'); return false; }
   }
   if(wizardStep===4) {
     const lot=document.getElementById('w-lot')?.value.trim();
@@ -1568,28 +1563,45 @@ function wizardValidate() {
 
 
 
-function wizardLoadArticlesSelect() {
-  const sel = document.getElementById('w-article-select');
-  if (!sel) return;
-  const typePIF = wizardIsPifSelected() || wizardIsStabSelected();
-  const typeMP = wizardIsMpSelected();
-  const articles = (state.articles||[]).filter(a => {
-    const t = (a.type||'').toLowerCase();
-    if (typeMP) return t === 'mp';
-    if (typePIF) return t === 'pif_stab' || !a.type;
-    return true;
-  }).sort((a,b) => (a.code||'').localeCompare(b.code||''));
-  sel.innerHTML = '<option value="">— Choisir un article —</option>' +
-    articles.map(a => `<option value="${a.code}">${a.code} — ${a.designation||a.nom||''}</option>`).join('');
-}
-window.wizardLoadArticlesSelect = wizardLoadArticlesSelect;
 
 function onWizardCodeArticleChange() {
-  const code = (document.getElementById('w-code-article')?.value||'').trim().toUpperCase();
-  if(!code) { document.getElementById('w-article-info').style.display='none'; return; }
+  const raw = document.getElementById('w-code-article')?.value||'';
+  const code = raw.trim().toUpperCase();
+  const infoEl = document.getElementById('w-article-info');
+  const sugEl = document.getElementById('w-article-suggestions');
+
+  if(!code) {
+    infoEl.style.display='none';
+    if (sugEl) sugEl.style.display='none';
+    window._wizardArticle = null;
+    return;
+  }
+
+  const typePIF = wizardIsPifSelected() || wizardIsStabSelected();
+  const typeMP = wizardIsMpSelected();
+  const q = code.toLowerCase();
+  const matches = (state.articles||[]).filter(a => {
+    const t = (a.type||'').toLowerCase();
+    if (typeMP && t !== 'mp') return false;
+    if (typePIF && t !== 'pif_stab' && a.type) return false;
+    return (a.code||'').toLowerCase().includes(q) || (a.designation||a.nom||'').toLowerCase().includes(q);
+  }).sort((a,b) => (a.code||'').localeCompare(b.code||'')).slice(0, 8);
+
+  // Suggestions live : apparaissent/disparaissent au fil de la saisie
+  if (sugEl) {
+    const exact = (state.articles||[]).find(a=>a.code===code);
+    if (matches.length && !(matches.length===1 && exact)) {
+      sugEl.style.display = 'block';
+      sugEl.innerHTML = matches.map(a =>
+        '<div onmousedown="selectWizardArticle(\''+a.code.replace(/'/g,"\\'")+'\')" style="padding:8px 12px;cursor:pointer;font-size:13px;border-bottom:1px solid var(--border)" onmouseover="this.style.background=\'var(--bg3)\'" onmouseout="this.style.background=\'\'"><strong style="font-family:monospace">'+a.code+'</strong> — '+(a.designation||a.nom||'')+'</div>'
+      ).join('');
+    } else {
+      sugEl.style.display = 'none';
+    }
+  }
+
   const art = (state.articles||[]).find(a=>a.code===code);
   window._wizardArticle = art||null;
-  const infoEl = document.getElementById('w-article-info');
   if(art) {
     const spq = art.spqId?(state.spq||[]).find(s=>s.id===art.spqId):null;
     infoEl.style.display='block';
@@ -1600,13 +1612,14 @@ function onWizardCodeArticleChange() {
   }
 }
 
-function onWizardArticleSelect() {
-  const sel = document.getElementById('w-article-select');
-  const code = sel.value;
-  if (!code) return;
-  document.getElementById('w-code-article').value = code;
+function selectWizardArticle(code) {
+  const input = document.getElementById('w-code-article');
+  input.value = code;
+  const sugEl = document.getElementById('w-article-suggestions');
+  if (sugEl) sugEl.style.display = 'none';
   onWizardCodeArticleChange();
 }
+window.selectWizardArticle = selectWizardArticle;
 
 
 function wizardLoadStep4() {
@@ -8895,7 +8908,8 @@ function renderEchantillonsTableAlignedV105(){
 
       rows.push(
         '<tr style="'+borderT+rowBg+'">'+
-        '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodCode?'<br><span style="font-size:10px;color:var(--text3);font-family:monospace">'+prodCode+'</span>':'')+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'<br><span style="display:inline-flex;gap:4px;flex-wrap:wrap;margin-top:4px">'+typeBadgesForEntry(e0)+'</span></td>'+
+        '<td '+TD+'><strong style="font-size:15px">'+prodNom+'</strong>'+(prodCode?'<br><span style="font-size:10px;color:var(--text3);font-family:monospace">'+prodCode+'</span>':'')+(prodForme?'<br><span style="font-size:12px;color:var(--text2)">'+prodForme+'</span>':'')+'</td>'+
+        '<td '+TD+'><span style="display:inline-flex;gap:4px;flex-wrap:wrap;justify-content:center">'+typeBadgesForEntry(e0)+'</span></td>'+
         '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
         '<td '+TD+'>'+getLotSousSerieContenantDisplay(e0,group)+'</td>'+
         '<td '+TD+'>'+getMarcheDisplay(e0, a?.id)+'</td>'+
@@ -8909,7 +8923,7 @@ function renderEchantillonsTableAlignedV105(){
     });
   });
 
-  tbody.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="11"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon</p></div></td></tr>';
+  tbody.innerHTML = rows.length ? rows.join('') : '<tr><td colspan="12"><div class="empty-state"><i class="ti ti-package"></i><p>Aucun échantillon</p></div></td></tr>';
 
   tbody.querySelectorAll('.approuver-btn').forEach(btn=>{
     btn.onclick=function(){
