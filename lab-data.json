@@ -1825,6 +1825,21 @@
         "Retraitement TCC0004 - Lidocaïne Nébuliseur - DM",
         "Vérification TCC0004 - Lidocaïne Nébuliseur - DM"
       ]
+    },
+    {
+      "id": 1786637563418,
+      "nom": "TCC0004 - Lidocaïne Nébuliseur - UT",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0004 - Lidocaïne Nébuliseur - UT",
+        "Vérification TCC0004 - Lidocaïne Nébuliseur - UT"
+      ]
     }
   ],
   "stabilites": [],
@@ -5980,11 +5995,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M (1.000)",
-      "time": "12/08 21:49"
-    },
-    {
       "icon": "package",
       "text": "1x Thiosulfate de Sodium 0,1M lot TEST receptionne(s)",
       "time": "12/08 21:50"
@@ -6228,6 +6238,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0004 - Lidocaïne Nébuliseur - DM",
       "time": "13/08 18:11"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0004 - Lidocaïne Nébuliseur - UT",
+      "time": "13/08 18:12"
     }
   ]
 }
