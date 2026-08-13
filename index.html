@@ -235,7 +235,7 @@
   <div class="stats-grid">
     <div class="stat-card cyan"><div class="label"><i class="ti ti-calendar"></i>Analyses planifiees</div><div class="value" id="stat-planning">0</div><div class="sub">cette semaine</div></div>
     <div class="stat-card green"><div class="label"><i class="ti ti-package"></i>Echantillons recus</div><div class="value" id="stat-ech">0</div><div class="sub">en attente d'analyse</div></div>
-    <div class="stat-card amber"><div class="label"><i class="ti ti-clock" ></i>Réactifs expirant bientôt</div><div class="value" id="stat-reactifs">0</div><div class="sub">dans les 30 jours</div></div>
+    <div class="stat-card amber"><div class="label"><i class="ti ti-clock" ></i>Réactifs expirant bientôt</div><div class="value" id="stat-reactifs">0</div><div class="sub">dans les 15 jours</div></div>
     <div class="stat-card amber" style="cursor:pointer" onclick="goTo('commandes',null)"><div class="label"><i class="ti ti-shopping-cart"></i>Produits à commander</div><div class="value" id="stat-commandes">0</div><div class="sub">sous le stock minimum</div></div>
     <div class="stat-card red" style="cursor:pointer" onclick="goToEch('liberes')"><div class="label"><i class="ti ti-circle-check"></i>À approuver</div><div class="value" id="stat-approbation">0</div><div class="sub">lots en attente</div></div>
     <div class="stat-card cyan" style="cursor:pointer" onclick="goTo('solutions-titrees',null)"><div class="label"><i class="ti ti-droplet"></i>Titres à renouveler</div><div class="value" id="stat-titrage">0</div><div class="sub">solutions titrées</div></div>
@@ -247,8 +247,8 @@
       <div id="dash-reactifs-expirants" style="padding:8px 20px"></div>
     </div>
     <div class="table-card">
-      <div class="table-card-header"><h3><i class="ti ti-users" style="margin-right:6px;color:var(--blue)"></i>Qui fait quoi aujourd'hui</h3></div>
-      <div id="dash-qui-fait-quoi" style="padding:8px 20px"></div>
+      <div class="table-card-header"><h3><i class="ti ti-shopping-cart" style="margin-right:6px;color:var(--amber)"></i>Réactifs à commander</h3></div>
+      <div id="dash-a-commander" style="padding:8px 20px"></div>
     </div>
   </div>
 
@@ -3320,16 +3320,28 @@ function exportData() {
 // GRAPHIQUE DASHBOARD
 // ============================================================
 function renderDashboardChart() {
-  // Calculer les statuts de toutes les analyses
+  // Calculer les statuts de toutes les analyses — même regroupement par lot
+  // et même déduplication des analyses que le tableau Enregistrement, pour
+  // que les chiffres restent parfaitement cohérents entre les deux écrans.
   const statuts = { a_lancer: 0, en_cours: 0, terminee: 0, verifiee: 0 };
   const produitCounts = {};
 
+  const lots = {};
   (state.echantillons||[]).filter(e => !['archive','approuve','a_approuver'].includes(e.statut)).forEach(e => {
-    const produit = (state.produitsEch||[]).find(p=>p.id===e.produitId);
-    const prodNom = produit ? produit.nom : 'Inconnu';
-    const analyses = (e.analysesIds||[]);
-    analyses.forEach(aid => {
-      const s = (e.analyseStatuts||{})[aid] || 'a_lancer';
+    const k = e.relance ? String(e.id) : (e.typeSTAB && !e.typePIF ? String(e.id) : (e.lot||String(e.id)));
+    if (!lots[k]) lots[k] = [];
+    lots[k].push(e);
+  });
+
+  Object.values(lots).forEach(group => {
+    const avecSuffixe = group.filter(e => /^.+-\d+$/.test(e.code||''));
+    const e0 = avecSuffixe.length > 0 ? avecSuffixe[0] : group[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const article = e0.articleId ? (state.articles||[]).find(a=>a.id===e0.articleId) : null;
+    const prodNom = article?.nom || produit?.nom || 'Inconnu';
+    const allAnalyseIds = [...new Set(group.flatMap(e=>e.analysesIds||[]))];
+    allAnalyseIds.forEach(aid => {
+      const s = (e0.analyseStatuts||{})[aid] || 'a_lancer';
       statuts[s] = (statuts[s]||0) + 1;
       if (!produitCounts[prodNom]) produitCounts[prodNom] = { a_lancer:0, en_cours:0, terminee:0, verifiee:0 };
       produitCounts[prodNom][s] = (produitCounts[prodNom][s]||0) + 1;
@@ -3562,8 +3574,16 @@ function renderDashboard() {
   document.getElementById('stat-planning').textContent = thisWeek.length;
   const pending = state.echantillons.filter(e => e.statut === 'recu' || e.statut === 'en_analyse');
   document.getElementById('stat-ech').textContent = pending.length;
-  const critical = (state.contenants||[]).filter(c => isContenantCritical(c) && c.statut !== 'archive' && c.statut !== 'retire');
-  document.getElementById('stat-reactifs').textContent = critical.length;
+  const criticalContenants = (state.contenants||[]).filter(c => isContenantCritical(c) && c.statut !== 'archive' && c.statut !== 'retire');
+  const t0dash = new Date(); t0dash.setHours(0,0,0,0);
+  const criticalPreps = (state.preparations||[]).filter(p => {
+    if (p.archive) return false;
+    let permDate = new Date((p.datePerm||'')+'T12:00:00');
+    if (p.dateRestrictive) { const dr = new Date(p.dateRestrictive+'T12:00:00'); if (dr < permDate) permDate = dr; }
+    const days = Math.ceil((permDate - t0dash) / 86400000);
+    return !isNaN(days) && days <= 15;
+  });
+  document.getElementById('stat-reactifs').textContent = criticalContenants.length + criticalPreps.length;
   const elCmd = document.getElementById('stat-commandes'); if (elCmd) elCmd.textContent = getProduitsSousMin().length;
 
   const nbApprobation = new Set((state.echantillons||[]).filter(e=>e.statut==='a_approuver').map(e=>e.lot||String(e.id))).size;
@@ -3578,55 +3598,62 @@ function renderDashboard() {
 
   renderDashboardChart();
   renderDashboardReactifsExpirants();
-  renderDashboardQuiFaitQuoi();
+  renderDashboardACommander();
   renderDashboardKpiApercu();
 }
 
 function renderDashboardReactifsExpirants() {
   const el = document.getElementById('dash-reactifs-expirants'); if (!el) return;
-  const items = (state.contenants||[])
+  const t0 = new Date(); t0.setHours(0,0,0,0);
+  const SEUIL_JOURS = 15;
+
+  const itemsCommerciaux = (state.contenants||[])
     .filter(c => !['archive','retire'].includes(c.statut) && isContenantCritical(c))
     .map(c => {
       const p = (state.produits||[]).find(x=>x.id===c.produitId);
       const dateRef = c.validite || c.peremption;
-      const d = new Date(dateRef+'T12:00:00'); const t0 = new Date(); t0.setHours(0,0,0,0);
+      const d = new Date(dateRef+'T12:00:00');
       const days = Math.ceil((d - t0) / 86400000);
-      return { nom: p?.nom||'—', lot: c.lot||'—', days };
+      return { nom: p?.nom||'—', lot: c.lot||'—', days, type: 'Commercial' };
+    });
+
+  const itemsPreparations = (state.preparations||[])
+    .filter(p => !p.archive)
+    .map(p => {
+      let permDate = new Date((p.datePerm||'')+'T12:00:00');
+      if (p.dateRestrictive) { const dr = new Date(p.dateRestrictive+'T12:00:00'); if (dr < permDate) permDate = dr; }
+      const days = Math.ceil((permDate - t0) / 86400000);
+      return { nom: p.nom||'—', lot: p.numero||'—', days, type: 'Préparé' };
     })
-    .sort((a,b) => a.days - b.days)
-    .slice(0, 8);
+    .filter(it => !isNaN(it.days) && it.days <= SEUIL_JOURS);
+
+  const items = itemsCommerciaux.concat(itemsPreparations).sort((a,b) => a.days - b.days).slice(0, 8);
+
   if (!items.length) {
     el.innerHTML = '<div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0"><i class="ti ti-mood-smile" style="font-size:24px;display:block;margin-bottom:6px;color:var(--green)"></i>Rien à signaler</div>';
     return;
   }
   el.innerHTML = items.map(it => {
     const badge = it.days < 0 ? '<span class="badge badge-red">Expiré</span>' : '<span class="badge badge-amber">'+it.days+'j</span>';
-    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px"><span><strong>'+it.nom+'</strong> <span style="color:var(--text3)">— Lot '+it.lot+'</span></span>'+badge+'</div>';
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px"><span><strong>'+it.nom+'</strong> <span style="color:var(--text3)">— '+it.type+' '+it.lot+'</span></span>'+badge+'</div>';
   }).join('');
 }
 
-function renderDashboardQuiFaitQuoi() {
-  const el = document.getElementById('dash-qui-fait-quoi'); if (!el) return;
-  const todayD = new Date(); todayD.setHours(0,0,0,0);
-  const day = todayD.getDay();
-  const diff = todayD.getDate() - day + (day === 0 ? -6 : 1);
-  const monday = new Date(todayD.getFullYear(), todayD.getMonth(), diff);
-  const mondayKey = dateToKey(monday);
-  const todayKey = dateToKey(todayD);
-
-  const techs = (state.techniciens||[]).filter(t => t.statut === 'actif' && (t.role||'').toLowerCase().includes('cq')).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
-  if (!techs.length) { el.innerHTML = '<div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0">Aucun technicien</div>'; return; }
-
-  const labels = { matin:{t:'Matin',c:'#2196F3'}, am:{t:'Après-Midi',c:'#6A1B9A'}, absent:{t:'Absent',c:'#B71C1C'} };
-  el.innerHTML = techs.map(t => {
-    const absJour = !!((state.planRythmes||{})[t.id+'_abs_'+todayKey]);
-    const rythme = absJour ? 'absent' : ((state.planRythmes||{})[t.id+'_'+mondayKey] || '');
-    const info = labels[rythme] || { t:'Non défini', c:'var(--text3)' };
-    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px">'
-      + '<span style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:50%;background:var(--blue-dim);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800">'+(t.visa||t.prenom[0]+t.nom[0])+'</div>'+t.prenom+' '+t.nom+'</span>'
-      + '<span style="font-weight:600;color:'+info.c+'">'+info.t+'</span>'
-      + '</div>';
-  }).join('');
+function renderDashboardACommander() {
+  const el = document.getElementById('dash-a-commander'); if (!el) return;
+  const items = getProduitsSousMin().map(p => ({
+    nom: p.nom,
+    stock: getStockActif(p.id),
+    seuil: parseInt(p.stockMin)||0,
+  })).sort((a,b) => (a.stock - a.seuil) - (b.stock - b.seuil));
+  if (!items.length) {
+    el.innerHTML = '<div style="font-size:13px;color:var(--text3);text-align:center;padding:24px 0"><i class="ti ti-mood-smile" style="font-size:24px;display:block;margin-bottom:6px;color:var(--green)"></i>Rien à commander</div>';
+    return;
+  }
+  el.innerHTML = items.slice(0, 8).map(it => {
+    const badge = it.stock === 0 ? '<span class="badge badge-red">Rupture</span>' : '<span class="badge badge-amber">'+it.stock+' / '+it.seuil+'</span>';
+    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px"><strong>'+it.nom+'</strong>'+badge+'</div>';
+  }).join('') + (items.length > 8 ? '<div style="text-align:center;padding-top:8px;font-size:11px;color:var(--text3)">+ '+(items.length-8)+' autre(s) — voir Commandes</div>' : '');
 }
 
 function renderDashboardKpiApercu() {
@@ -4245,7 +4272,7 @@ function isContenantCritical(c) {
   const dateRef = c.validite || c.peremption;
   if (!dateRef) return false;
   const d = new Date(dateRef); const today = new Date(); today.setHours(0,0,0,0);
-  return Math.ceil((d-today)/(1000*60*60*24)) <= 30;
+  return Math.ceil((d-today)/(1000*60*60*24)) <= 15;
 }
 
 function expiryStatus(expiry) {
