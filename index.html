@@ -211,6 +211,7 @@
     <button class="nav-btn" onclick="goToEch('reception')" id="nav-reception"><i class="ti ti-package"></i> Enregistrement</button>
     <button class="nav-btn" onclick="goToEch('marches')" id="nav-marches"><i class="ti ti-world"></i> Marchés</button>
     <button class="nav-btn" onclick="goToEch('liberes')" id="nav-liberes"><i class="ti ti-circle-check"></i> Approbation <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></button>
+    <button class="nav-btn" onclick="goTo('lead-time',this)" id="nav-lead-time"><i class="ti ti-hourglass"></i> Lead-time</button>
     <button class="nav-btn" onclick="goTo('articles',null)" id="nav-articles"><i class="ti ti-barcode"></i> Articles & SPQ</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goTo('habilitations',this)" id="nav-habilitations"><i class="ti ti-certificate"></i> Habilitations</button>
@@ -757,6 +758,22 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="page" id="page-lead-time">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Lead-time</h1><p>Suivi des délais de traitement des lots, de la réception à la libération</p></div>
+  </div>
+  <table><thead><tr>
+    <th>Produit</th>
+    <th style="width:110px">Lot</th>
+    <th style="width:110px">Réception</th>
+    <th style="width:120px">Mise à dispo. approbation</th>
+    <th style="width:110px">Approbation</th>
+    <th style="width:150px">Libération estimée</th>
+    <th style="width:220px">Avancement</th>
+  </tr></thead>
+  <tbody id="lead-time-tbody"></tbody></table>
 </div>
 
 <div class="page" id="page-stabilites">
@@ -2074,6 +2091,65 @@ function renderLotsArchivesApprobation() {
 }
 window.renderLotsArchivesApprobation = renderLotsArchivesApprobation;
 
+// ============================================================
+// LEAD-TIME
+// ============================================================
+function getLeadTimeLotKey(e) {
+  return e.relance ? String(e.id) : (e.typeSTAB && !e.typePIF ? String(e.id) : (e.lot||String(e.id)));
+}
+
+function renderLeadTime() {
+  const tbody = document.getElementById('lead-time-tbody'); if (!tbody) return;
+  const lots = {};
+  (state.echantillons||[]).filter(e => e.statut !== 'archive').forEach(e => {
+    const k = getLeadTimeLotKey(e);
+    if (!lots[k]) lots[k] = [];
+    lots[k].push(e);
+  });
+
+  const entries = Object.entries(lots).sort((a,b) => (b[1][0].date||'').localeCompare(a[1][0].date||''));
+  if (!entries.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="ti ti-hourglass"></i><p>Aucun lot enregistré</p></div></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = entries.map(([lotKey, group]) => {
+    const avecSuffixe = group.filter(e => /^.+-\d+$/.test(e.code||''));
+    const e0 = avecSuffixe.length > 0 ? avecSuffixe[0] : group[0];
+    const produit = (state.produitsEch||[]).find(p=>p.id===e0.produitId);
+    const article = e0.articleId ? (state.articles||[]).find(a=>a.id===e0.articleId) : null;
+    const prodNom = article?.nom || produit?.nom || '—';
+
+    let stage = 1;
+    if (e0.dateMiseADispo) stage = 2;
+    if (e0.dateApprobation) stage = 3;
+
+    const stageLabels = ['Réception', 'À approuver', 'Approuvé', 'Libéré'];
+    const gaugeBars = stageLabels.map((lbl, i) => '<div style="flex:1;height:6px;border-radius:3px;background:' + (stage >= i+1 ? 'var(--green)' : 'var(--border)') + '"></div>').join('');
+    const gaugeLabels = stageLabels.map((lbl, i) => '<span' + (stage>=i+1?' style="color:var(--green);font-weight:600"':'') + '>' + lbl + '</span>').join('');
+    const gaugeHtml = '<div style="display:flex;gap:2px;margin-bottom:4px">' + gaugeBars + '</div>'
+      + '<div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3)">' + gaugeLabels + '</div>';
+
+    return '<tr>'
+      + '<td style="font-size:13px"><strong>'+prodNom+'</strong></td>'
+      + '<td style="font-size:12px;text-align:center"><code style="background:var(--bg3);padding:1px 5px;border-radius:3px">'+lotKey+'</code></td>'
+      + '<td style="font-size:12px;text-align:center">'+(e0.date?formatDate(e0.date):'—')+'</td>'
+      + '<td style="font-size:12px;text-align:center">'+(e0.dateMiseADispo||'—')+'</td>'
+      + '<td style="font-size:12px;text-align:center">'+(e0.dateApprobation||'—')+'</td>'
+      + '<td style="text-align:center"><input type="date" value="'+(e0.dateLiberationEstimee||'')+'" onchange="setDateLiberationEstimee(\''+String(lotKey).replace(/'/g,"\\'")+'\',this.value)" style="font-size:12px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);color:var(--text)"></td>'
+      + '<td>'+gaugeHtml+'</td>'
+      + '</tr>';
+  }).join('');
+}
+window.renderLeadTime = renderLeadTime;
+
+function setDateLiberationEstimee(lotKey, value) {
+  (state.echantillons||[]).filter(e => getLeadTimeLotKey(e) === lotKey).forEach(e => { e.dateLiberationEstimee = value; });
+  saveData();
+  toast('Date de libération estimée enregistrée', 'success');
+}
+window.setDateLiberationEstimee = setDateLiberationEstimee;
+
 function exportLotsLiberes() {
   const lots = {};
   (state.echantillons||[]).filter(e=>e.statut==='approuve').forEach(e => {
@@ -2989,6 +3065,7 @@ function goTo(page, el) {
   if (page === 'kpi') { renderKPI(); kpiSetTab(kpiActiveTab); }
   if (page === 'solutions-titrees') goToSolutionsTitrees();
   if (page === 'rythmes') renderRythmesAnnee();
+  if (page === 'lead-time') renderLeadTime();
 }
 
 // ============================================================
@@ -7429,6 +7506,7 @@ const ALL_MODULES = [
   { key:'echantillons',  label:'Enregistrement',        icon:'ti-inbox' },
   { key:'marches',       label:'Marchés',                icon:'ti-world' },
   { key:'approbation',   label:'Approbation',           icon:'ti-circle-check' },
+  { key:'lead-time',     label:'Lead-time',             icon:'ti-hourglass' },
   { key:'articles',      label:'Articles & SPQ',        icon:'ti-barcode' },
   { key:'habilitations', label:'Habilitations',         icon:'ti-certificate' },
   { key:'activity',      label:'Journal',               icon:'ti-history' },
@@ -7535,6 +7613,7 @@ function gotoModule(key) {
     'echantillons':  ()=>goToEch('reception'),
     'marches':       ()=>goToEch('marches'),
     'approbation':   ()=>goToEch('liberes'),
+    'lead-time':     ()=>goTo('lead-time',null),
     'kpi':           ()=>goTo('kpi',null),
     'articles':      ()=>goTo('articles',null),
     'habilitations': ()=>goTo('habilitations',null),
@@ -7581,6 +7660,7 @@ function applyProfile(p) {
     'echantillons':  ['nav-reception'],
     'marches':       ['nav-marches'],
     'approbation':   ['nav-liberes'],
+    'lead-time':     ['nav-lead-time'],
     'articles':      ['nav-articles'],
     'habilitations': ['nav-habilitations'],
     'activity':      ['nav-audit'],
@@ -9161,10 +9241,12 @@ function renderEchantillonsTableAlignedV105(){
   tbody.querySelectorAll('.approuver-btn').forEach(btn=>{
     btn.onclick=function(){
       const lot=this.getAttribute('data-lot');
-      (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lot).forEach(e=>{ e.statut='a_approuver'; });
+      const today=new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+      (state.echantillons||[]).filter(e=>(e.lot||String(e.id))===lot).forEach(e=>{ e.statut='a_approuver'; e.dateMiseADispo=today; });
       addActivity('clock','Lot envoyé en approbation : '+lot);
       renderDashboard?.();
       updateBadgeLiberes?.();
+      renderLeadTime?.();
       saveData();
       toast('Lot envoyé en approbation','success');
       goToEch('liberes');
