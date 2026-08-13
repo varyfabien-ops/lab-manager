@@ -1757,6 +1757,21 @@
         "Retraitement TCC0087 - Adrénaline",
         "Vérification TCC0087 - Adrénaline"
       ]
+    },
+    {
+      "id": 1786637253094,
+      "nom": "TCC0086 - 2.6 DMA",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0086 - 2.6 DMA",
+        "Vérification TCC0086 - 2.6 DMA"
+      ]
     }
   ],
   "stabilites": [],
@@ -5912,11 +5927,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "TEST 3 — Identification Lidocaïne USP : en_cours",
-      "time": "12/08 18:12"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : Titrage Thiosulfate de Sodium 0,1M",
       "time": "12/08 19:15"
@@ -6160,6 +6170,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
       "time": "13/08 18:05"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0086 - 2.6 DMA",
+      "time": "13/08 18:07"
     }
   ]
 }
