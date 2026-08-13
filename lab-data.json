@@ -1464,7 +1464,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de la Lidocaïne, du PHBM, du Nitrate de Naphazoline, de l'APB et du Nitrate de Naphazoline (XYLOCAÏNE 5% NAPHAZOLINE)",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5913,11 +5913,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "TEST 3 — Limpidité / Coloration PE : en_cours",
-      "time": "12/08 18:12"
-    },
-    {
-      "icon": "list-check",
       "text": "TEST 3 — Identification Lidocaïne USP : en_cours",
       "time": "12/08 18:12"
     },
@@ -6160,6 +6155,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0087 - Adrénaline",
       "time": "13/08 18:04"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
+      "time": "13/08 18:05"
     }
   ]
 }
