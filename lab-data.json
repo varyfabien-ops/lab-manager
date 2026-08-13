@@ -3373,6 +3373,16 @@
       "habilitations": [],
       "date": "2021-11-08",
       "statut": "actif"
+    },
+    {
+      "id": 1786637713091,
+      "prenom": "Julie",
+      "nom": "GASNIER",
+      "visa": "JGA",
+      "role": "Chargée Equipements",
+      "habilitations": [],
+      "date": "2021-11-08",
+      "statut": "actif"
     }
   ],
   "planTasks": [
@@ -6032,11 +6042,6 @@
   "activity": [
     {
       "icon": "droplet",
-      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot YYYYY (1,000)",
-      "time": "12/08 22:12"
-    },
-    {
-      "icon": "droplet",
       "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot YYYYY",
       "time": "13/08 12:48"
     },
@@ -6279,6 +6284,11 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Géraldine SANTIN",
       "time": "13/08 18:14"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Julie GASNIER",
+      "time": "13/08 18:15"
     }
   ]
 }
