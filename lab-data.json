@@ -5951,6 +5951,15 @@
         "kpi",
         "approbation"
       ]
+    },
+    {
+      "id": 1786644522980,
+      "nom": "Tableau de Bord",
+      "icone": "ti-user",
+      "color": "#4CAF50",
+      "modules": [
+        "dashboard"
+      ]
     }
   ],
   "commandesArchives": [
