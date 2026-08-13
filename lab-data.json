@@ -5920,13 +5920,14 @@
     },
     {
       "id": 1786295495092,
-      "nom": "Planification",
-      "icone": "ti-user",
+      "nom": "PLANIFICATION / HABILITATIONS",
+      "icone": "ti-layout-columns",
       "color": "#9C27B0",
       "modules": [
         "planning",
         "rythmes",
-        "kpi"
+        "kpi",
+        "habilitations"
       ]
     },
     {
