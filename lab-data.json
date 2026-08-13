@@ -5911,8 +5911,8 @@
     },
     {
       "id": 1786176046538,
-      "nom": "Enregistrement",
-      "icone": "ti-user",
+      "nom": "ENREGISTREMENT / SUIVI DES ANALYSES",
+      "icone": "ti-clipboard-list",
       "color": "#FF9800",
       "modules": [
         "echantillons"
