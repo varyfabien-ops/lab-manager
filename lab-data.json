@@ -5120,6 +5120,23 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1786650544017,
+      "date": "2026-08-17",
+      "techId": "1786178889272",
+      "desc": "Vérification - Poste des Eaux",
+      "analyseNom": "Vérification - Poste des Eaux",
+      "sousKey": "verifpe_2026-08-17_4",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "rgba(26,127,55,0.10)",
+        "border": "#1a7f37"
+      },
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "spq": [
