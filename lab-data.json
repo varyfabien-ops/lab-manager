@@ -5338,6 +5338,7 @@
           "marcheId": 1785169908180,
           "analyses": [
             1786624072580,
+            1786637588269,
             1786196559426,
             1785247477146,
             1785169966496,
@@ -5352,6 +5353,7 @@
           "marcheId": 1785170017612,
           "analyses": [
             1786624072580,
+            1786637588269,
             1786196559426,
             1785247477146,
             1785169966496,
@@ -6009,11 +6011,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot TEST",
-      "time": "12/08 21:50"
-    },
-    {
       "icon": "package",
       "text": "2x Thiosulfate de Sodium 0,1M lot YYYYY receptionne(s)",
       "time": "12/08 22:01"
@@ -6256,6 +6253,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Identification CMC",
+      "time": "13/08 18:13"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ modifiée : SPQ0545",
       "time": "13/08 18:13"
     }
   ]
