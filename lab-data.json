@@ -5945,8 +5945,8 @@
     },
     {
       "id": 1786477371386,
-      "nom": "Libération",
-      "icone": "ti-user",
+      "nom": "APPROBATION / LIBÉRATION",
+      "icone": "ti-circle-check",
       "color": "#E91E63",
       "modules": [
         "kpi",
