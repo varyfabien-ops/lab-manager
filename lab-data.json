@@ -1792,6 +1792,20 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786637416398,
+      "nom": "TCC0041 - Indice d'Acide",
+      "habilitations": [
+        "Titrimétrie"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -5947,11 +5961,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot XXXX",
-      "time": "12/08 21:45"
-    },
-    {
       "icon": "pencil",
       "text": "Contenant modifie : lot HX57784410",
       "time": "12/08 21:48"
@@ -6195,6 +6204,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "13/08 18:09"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0041 - Indice d'Acide",
+      "time": "13/08 18:10"
     }
   ]
 }
