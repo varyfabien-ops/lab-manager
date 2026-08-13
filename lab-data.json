@@ -1788,7 +1788,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de l'Iode Totale (LIPIODOL)",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
@@ -5947,11 +5947,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "1x Thiosulfate de Sodium 0,1M lot XXXX receptionne(s)",
-      "time": "12/08 21:35"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot XXXX",
       "time": "12/08 21:45"
@@ -6194,6 +6189,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0041 - Iode Totale",
+      "time": "13/08 18:09"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "13/08 18:09"
     }
   ]
