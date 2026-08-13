@@ -1160,6 +1160,78 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
+    },
+    {
+      "id": 1786624337357.8003,
+      "nom": "Apparence",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.2937,
+      "nom": "L*a*b",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.9128,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.3914,
+      "nom": "Osmolalité",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.6428,
+      "nom": "pH",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.7363,
+      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.362,
+      "nom": "TCC0065 - MPEG",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
+    },
+    {
+      "id": 1786624337357.9905,
+      "nom": "Volume Extractible",
+      "echantillonCode": "9956968",
+      "date": "2026-07-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: 9956968"
     }
   ],
   "catalogue": [
@@ -2834,6 +2906,64 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-12",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1786624337357,
+      "code": "9956968",
+      "lot": "9956968",
+      "articleId": 1786301271905,
+      "articleCode": "M75862417",
+      "produitId": 1786301271905,
+      "marcheIds": [
+        1785169908180
+      ],
+      "analysesIds": [
+        1786624072580,
+        1786196559426,
+        1785247477146,
+        1785169966496,
+        1785170122728,
+        1786301521786,
+        1786301151090,
+        1785170145444
+      ],
+      "analysesParMarche": {
+        "1786624072580": [
+          1785169908180
+        ],
+        "1786196559426": [
+          1785169908180
+        ],
+        "1785247477146": [
+          1785169908180
+        ],
+        "1785169966496": [
+          1785169908180
+        ],
+        "1785170122728": [
+          1785169908180
+        ],
+        "1786301521786": [
+          1785169908180
+        ],
+        "1786301151090": [
+          1785169908180
+        ],
+        "1785170145444": [
+          1785169908180
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0545",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "date": "2026-07-20",
       "statut": "recu",
       "note": ""
     }
@@ -5567,11 +5697,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article modifié : M76515100",
-      "time": "12/08 13:34"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0049",
       "time": "12/08 13:36"
@@ -5815,6 +5940,11 @@
       "icon": "trash",
       "text": "Lot supprime : 995968",
       "time": "13/08 14:31"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
+      "time": "13/08 14:32"
     }
   ]
 }
