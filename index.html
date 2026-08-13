@@ -433,9 +433,11 @@
   <div class="page-header">
     <div class="page-header-text"><h1>Rythmes</h1><p>Planification annuelle des rythmes de travail par technicien</p></div>
     <div class="page-header-actions" style="display:flex;gap:8px;align-items:center">
+      <span id="rythmes-dirty-badge" class="badge badge-amber" style="display:none"><i class="ti ti-alert-triangle"></i> Modifications non enregistrées</span>
       <button class="btn" onclick="rythmesNav(-1)"><i class="ti ti-chevron-left"></i></button>
       <button class="btn" onclick="rythmesToday()" id="rythmes-annee-label" style="font-weight:700;min-width:70px"></button>
       <button class="btn" onclick="rythmesNav(1)"><i class="ti ti-chevron-right"></i></button>
+      <button class="btn" id="rythmes-save-btn" onclick="saveRythmes()" disabled><i class="ti ti-device-floppy"></i> Enregistrer</button>
     </div>
   </div>
 
@@ -6088,6 +6090,40 @@ function rythmesToday() {
 }
 window.rythmesToday = rythmesToday;
 
+let rythmesDirty = false;
+
+function markRythmesDirty() {
+  rythmesDirty = true;
+  const btn = document.getElementById('rythmes-save-btn');
+  if (btn) {
+    btn.disabled = false;
+    btn.classList.add('btn-primary');
+    btn.innerHTML = '<i class="ti ti-device-floppy"></i> Enregistrer les modifications';
+  }
+  const badge = document.getElementById('rythmes-dirty-badge');
+  if (badge) badge.style.display = '';
+}
+
+function saveRythmes() {
+  if (!rythmesDirty) return;
+  saveData();
+  rythmesDirty = false;
+  const btn = document.getElementById('rythmes-save-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.remove('btn-primary');
+    btn.innerHTML = '<i class="ti ti-check"></i> Enregistré';
+    setTimeout(() => { if (btn) btn.innerHTML = '<i class="ti ti-device-floppy"></i> Enregistrer'; }, 1500);
+  }
+  const badge = document.getElementById('rythmes-dirty-badge');
+  if (badge) badge.style.display = 'none';
+}
+window.saveRythmes = saveRythmes;
+
+window.addEventListener('beforeunload', function(e) {
+  if (rythmesDirty) { e.preventDefault(); e.returnValue = ''; }
+});
+
 function cycleRythmeAnnuel(techId, mondayKey) {
   const lockKey = techId + '_' + mondayKey;
   if ((state.planRythmesLocked||{})[lockKey]) {
@@ -6101,7 +6137,7 @@ function cycleRythmeAnnuel(techId, mondayKey) {
   const next = order[(idx + 1) % order.length];
   if (next === '') delete state.planRythmes[lockKey];
   else state.planRythmes[lockKey] = next;
-  saveData();
+  markRythmesDirty();
   renderRythmesAnnee();
 }
 window.cycleRythmeAnnuel = cycleRythmeAnnuel;
@@ -6112,7 +6148,7 @@ function toggleRythmeLock(event, techId, mondayKey) {
   const lockKey = techId + '_' + mondayKey;
   if (state.planRythmesLocked[lockKey]) delete state.planRythmesLocked[lockKey];
   else state.planRythmesLocked[lockKey] = true;
-  saveData();
+  markRythmesDirty();
   renderRythmesAnnee();
 }
 window.toggleRythmeLock = toggleRythmeLock;
