@@ -1556,7 +1556,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage du RM493, de l'Alcool Benzylique, du Phenol et des Impuretés dans le SETMELANOTIDE\n",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5907,11 +5907,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Technicien modifie : Valérie THOMAS",
-      "time": "12/08 13:50"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : M70026001",
       "time": "12/08 14:00"
@@ -6154,6 +6149,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0023 - Adrénaline",
+      "time": "13/08 17:58"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "13/08 17:58"
     }
   ]
