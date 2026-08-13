@@ -1741,7 +1741,12 @@
     {
       "id": 1786637036922,
       "nom": "TCC0087 - Adrénaline",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes",
+        "ECD"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
@@ -5907,11 +5912,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Xylocaïne 10 mg/mL (AC) — 1 entrée(s) — 4 analyse(s)",
-      "time": "12/08 18:12"
-    },
-    {
       "icon": "list-check",
       "text": "TEST 3 — Limpidité / Coloration PE : en_cours",
       "time": "12/08 18:12"
@@ -6155,6 +6155,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0087 - Adrénaline",
       "time": "13/08 18:03"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0087 - Adrénaline",
+      "time": "13/08 18:04"
     }
   ]
 }
