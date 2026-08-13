@@ -5961,6 +5961,32 @@
       "modules": [
         "dashboard"
       ]
+    },
+    {
+      "id": 1786649210434,
+      "nom": "ADMIN",
+      "icone": "ti-user",
+      "color": "#00BCD4",
+      "modules": [
+        "dashboard",
+        "planning",
+        "rythmes",
+        "catalogue-analyses",
+        "kpi",
+        "reactifs",
+        "preparations",
+        "solutions-titrees",
+        "catalogue-reactifs",
+        "commandes",
+        "echantillons",
+        "marches",
+        "approbation",
+        "articles",
+        "habilitations",
+        "activity",
+        "stabilites",
+        "profils-config"
+      ]
     }
   ],
   "commandesArchives": [
