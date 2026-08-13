@@ -6198,7 +6198,8 @@
       "color": "#E91E63",
       "modules": [
         "kpi",
-        "approbation"
+        "approbation",
+        "lead-time"
       ]
     },
     {
