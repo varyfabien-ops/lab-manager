@@ -1704,7 +1704,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de l'Adrénaline",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5908,11 +5908,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Technicien modifie : Julie MUGICA-DEBRAY",
-      "time": "12/08 13:49"
-    },
-    {
-      "icon": "pencil",
       "text": "Technicien modifie : Valérie THOMAS",
       "time": "12/08 13:50"
     },
@@ -6155,6 +6150,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0010 - ASA",
       "time": "13/08 17:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0023 - Adrénaline",
+      "time": "13/08 17:58"
     }
   ]
 }
