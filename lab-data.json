@@ -1890,7 +1890,7 @@
         "HPLC",
         "Balance",
         "Pipettes",
-        "pH"
+        "ECD"
       ],
       "duree": "",
       "code": "",
@@ -6109,11 +6109,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
-      "time": "13/08 14:31"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : 995968",
       "time": "13/08 14:31"
@@ -6357,6 +6352,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0086 - Toluidine",
       "time": "13/08 18:24"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0086 - Toluidine",
+      "time": "13/08 18:25"
     }
   ]
 }
