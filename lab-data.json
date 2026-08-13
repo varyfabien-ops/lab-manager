@@ -1962,13 +1962,13 @@
     },
     {
       "produitId": 1786563219289,
-      "lot": "YYYYY",
+      "lot": "HC45819847",
       "qte": "1 L",
-      "reception": "2024-12-12",
-      "peremption": "2034-01-01",
-      "ouverture": "2026-08-12",
-      "validite": "2031-01-18",
-      "statut": "ouvert",
+      "reception": "2025-04-11",
+      "peremption": "2027-11-30",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
       "note": "",
       "coaUrl": "",
       "id": 1786564862583,
@@ -5454,11 +5454,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : M70517000",
-      "time": "12/08 12:11"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0003 - Métabisulfite de Sodium",
       "time": "12/08 13:16"
@@ -5702,6 +5697,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Thiosulfate de Sodium 0,1M",
       "time": "13/08 12:54"
+    },
+    {
+      "icon": "pencil",
+      "text": "Contenant modifie : lot HC45819847",
+      "time": "13/08 12:55"
     }
   ]
 }
