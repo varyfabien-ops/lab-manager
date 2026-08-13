@@ -1830,7 +1830,11 @@
     {
       "id": 1786637563418,
       "nom": "TCC0004 - Lidocaïne Nébuliseur - UT",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
@@ -6124,11 +6128,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
-      "time": "13/08 14:33"
-    },
-    {
       "icon": "list-check",
       "text": "9956970 — Apparence : en_cours",
       "time": "13/08 14:34"
@@ -6371,6 +6370,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Particules Visibles",
+      "time": "13/08 18:26"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - UT",
       "time": "13/08 18:26"
     }
   ]
