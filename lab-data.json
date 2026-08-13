@@ -2883,7 +2883,16 @@
       "stabEtudeId": null,
       "date": "2026-07-23",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "analyseStatuts": {
+        "1786624072580": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1786624072580": {
+          "en_cours": "13/08/2026",
+          "terminee": "13/08/2026"
+        }
+      }
     },
     {
       "id": 1786551075328,
@@ -5829,11 +5838,6 @@
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0049",
-      "time": "12/08 13:41"
-    },
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0049",
       "time": "12/08 13:42"
     },
     {
@@ -6075,6 +6079,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
       "time": "13/08 14:33"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956970 — Apparence : en_cours",
+      "time": "13/08 14:34"
     }
   ]
 }
