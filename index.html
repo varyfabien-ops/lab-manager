@@ -81,11 +81,11 @@
   .stat-card .label i { font-size: 14px; }
   .stat-card .value { font-size: 28px; font-weight: 600; line-height: 1; }
   .stat-card .sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
-  .stat-card.cyan { border-left: 3px solid var(--cyan); }
-  .stat-card.green { border-left: 3px solid var(--green); }
-  .stat-card.amber { border-left: 3px solid var(--amber); }
-  .stat-card.red { border-left: 3px solid var(--red); }
-  .stat-card.purple { border-left: 3px solid var(--purple); }
+  .stat-card.cyan { }
+  .stat-card.green { }
+  .stat-card.amber { }
+  .stat-card.red { }
+  .stat-card.purple { }
   .table-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
   .table-card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
   .table-card-header h3 { font-size: 14px; font-weight: 600; }
@@ -1449,6 +1449,7 @@
           <label style="cursor:pointer"><input type="radio" name="profil-color" value="#9C27B0" style="display:none"><span class="color-swatch" style="background:#9C27B0;width:28px;height:28px;border-radius:50%;display:inline-block;border:3px solid transparent"></span></label>
           <label style="cursor:pointer"><input type="radio" name="profil-color" value="#FF9800" style="display:none"><span class="color-swatch" style="background:#FF9800;width:28px;height:28px;border-radius:50%;display:inline-block;border:3px solid transparent"></span></label>
           <label style="cursor:pointer"><input type="radio" name="profil-color" value="#E91E63" style="display:none"><span class="color-swatch" style="background:#E91E63;width:28px;height:28px;border-radius:50%;display:inline-block;border:3px solid transparent"></span></label>
+          <label style="cursor:pointer"><input type="radio" name="profil-color" value="#f44336" style="display:none"><span class="color-swatch" style="background:#f44336;width:28px;height:28px;border-radius:50%;display:inline-block;border:3px solid transparent"></span></label>
         </div>
       </div>
       <div class="form-group" style="margin-top:16px">
@@ -2972,9 +2973,10 @@ function goTo(page, el) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const target = document.getElementById('page-' + page);
   if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   if (el) el.classList.add('active');
   sessionStorage.setItem('labmanager_page', page);
-  updateNavActive(page);
+  if (!el) updateNavActive(page);
   if (page === 'commandes') renderCommandes();
   if (page === 'stabilites') renderStabilites();
   if (page === 'tendances') renderTendances();
@@ -7590,7 +7592,46 @@ function applyProfile(p) {
   document.querySelectorAll('.nav-btn[id]').forEach(el => {
     if(!visibleIds.has(el.id)) el.style.display = 'none';
   });
+  cleanupNavSeparators();
 }
+
+// Masque les séparateurs de menu ("nav-sep") devenus orphelins : ceux sans
+// bouton visible avant eux, sans bouton visible après eux, ou consécutifs
+// à un autre séparateur visible (plus aucun bouton entre les deux).
+function cleanupNavSeparators() {
+  const nav = document.getElementById('header-nav');
+  if (!nav) return;
+  const items = Array.from(nav.children);
+  const isVisibleBtn = el => el.classList.contains('nav-btn') && el.style.display !== 'none';
+  const isSep = el => el.classList.contains('nav-sep');
+
+  // Réinitialiser tous les séparateurs à visible avant de recalculer
+  items.filter(isSep).forEach(el => el.style.display = '');
+
+  let sawVisibleBefore = false;
+  items.forEach(el => {
+    if (isSep(el)) el.style.display = sawVisibleBefore ? '' : 'none';
+    else if (isVisibleBtn(el)) sawVisibleBefore = true;
+  });
+
+  let sawVisibleAfter = false;
+  for (let i = items.length - 1; i >= 0; i--) {
+    const el = items[i];
+    if (isSep(el)) { if (!sawVisibleAfter) el.style.display = 'none'; }
+    else if (isVisibleBtn(el)) sawVisibleAfter = true;
+  }
+
+  let lastWasVisibleSep = false;
+  items.forEach(el => {
+    if (isSep(el) && el.style.display !== 'none') {
+      if (lastWasVisibleSep) el.style.display = 'none';
+      else lastWasVisibleSep = true;
+    } else if (isVisibleBtn(el)) {
+      lastWasVisibleSep = false;
+    }
+  });
+}
+window.cleanupNavSeparators = cleanupNavSeparators;
 
 function initHomeScreen() {
   renderDashboardProfils();
@@ -7606,7 +7647,7 @@ function renderDashboardProfils() {
     const active = activeProfile && activeProfile.id === p.id;
     return '<div onclick="selectProfileFromDashboard('+p.id+')" style="cursor:pointer;flex:1;min-width:200px;background:var(--bg2);border:2px solid '+color+';'+(active?'box-shadow:0 0 0 3px '+color+'33;':'')+'border-radius:var(--radius-lg);padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all 0.15s" onmouseover="this.style.transform=\'translateY(-2px)\'" onmouseout="this.style.transform=\'none\'">'
       + '<i class="ti '+(p.icone||'ti-user')+'" style="font-size:28px;color:'+color+';flex-shrink:0"></i>'
-      + '<div><div style="font-size:15px;font-weight:700;color:var(--text)">'+p.nom+'</div>'+(active?'<div style="font-size:11px;color:'+color+';font-weight:600">Profil actif</div>':'<div style="font-size:11px;color:var(--text3)">Cliquer pour activer</div>')+'</div>'
+      + '<div><div style="font-size:15px;font-weight:700;color:var(--text)">'+p.nom+'</div>'+(active?'<div style="font-size:11px;color:'+color+';font-weight:600">Profil actif</div>':'')+'</div>'
       + '</div>';
   }).join('');
 }
@@ -7764,6 +7805,9 @@ function updateNavActive(page) {
     'commandes':            'nav-commandes',
     'commandes-archives':   'nav-commandes',
     'articles':             'nav-articles',
+    'kpi':                  'nav-kpi',
+    'rythmes':              'nav-rythmes',
+    'solutions-titrees':    'nav-solutions-titrees',
     'plan-semaine':         'nav-plan-semaine',
     'plan-calendar':        'nav-plan-calendar',
     'plan-catalogue':       'nav-plan-catalogue',
