@@ -3367,7 +3367,7 @@
     {
       "id": 1786637672820,
       "prenom": "Géraldine",
-      "nom": "SANTIN",
+      "nom": "SANTI",
       "visa": "GSI",
       "role": "Chargée Projets",
       "habilitations": [],
@@ -6052,11 +6052,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Thiosulfate de Sodium 0,1M",
-      "time": "13/08 12:54"
-    },
-    {
-      "icon": "pencil",
       "text": "Contenant modifie : lot HC45819847",
       "time": "13/08 12:55"
     },
@@ -6298,6 +6293,11 @@
     {
       "icon": "certificate",
       "text": "Technicien ajoute : Vanessa GOURAULT",
+      "time": "13/08 18:15"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Géraldine SANTI",
       "time": "13/08 18:15"
     }
   ]
