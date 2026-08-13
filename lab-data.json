@@ -1556,7 +1556,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "Dosage du RM493, de l'Alcool Benzylique, du Phenol et des Impuretés dans le SETMELANOTIDE\n",
+      "description": "Dosage du RM493, de l'Alcool Benzylique, du Phenol et des Impuretés (SETMELANOTIDE)\n",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5908,11 +5908,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : SO2",
-      "time": "12/08 14:01"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : Titrage Thiosulfate de Sodium 0,1M",
       "time": "12/08 14:05"
     },
@@ -6154,6 +6149,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
+      "time": "13/08 17:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "13/08 17:59"
     }
   ]
