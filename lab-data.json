@@ -2882,18 +2882,31 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-23",
-      "statut": "recu",
+      "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
         "1786624072580": "terminee",
-        "1785247477146": "en_cours"
+        "1785169966496": "terminee",
+        "1785247477146": "en_cours",
+        "1785170122728": "en_cours",
+        "1785170145444": "en_cours"
       },
       "analyseStatutsInfo": {
         "1786624072580": {
           "en_cours": "13/08/2026",
           "terminee": "13/08/2026"
         },
+        "1785169966496": {
+          "en_cours": "13/08/2026",
+          "terminee": "13/08/2026"
+        },
         "1785247477146": {
+          "en_cours": "13/08/2026"
+        },
+        "1785170122728": {
+          "en_cours": "13/08/2026"
+        },
+        "1785170145444": {
           "en_cours": "13/08/2026"
         }
       }
@@ -3049,8 +3062,29 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-20",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1786624072580": "en_cours",
+        "1785247477146": "terminee",
+        "1785169966496": "en_cours",
+        "1785170122728": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1786624072580": {
+          "en_cours": "13/08/2026"
+        },
+        "1785247477146": {
+          "en_cours": "13/08/2026",
+          "terminee": "13/08/2026"
+        },
+        "1785169966496": {
+          "en_cours": "13/08/2026"
+        },
+        "1785170122728": {
+          "en_cours": "13/08/2026"
+        }
+      }
     },
     {
       "id": 1786624397684,
@@ -5840,41 +5874,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0012 - Prilocaïne",
-      "time": "12/08 13:46"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0013 - Conservateurs",
-      "time": "12/08 13:46"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0023 - Adrénaline",
-      "time": "12/08 13:46"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0012 - Prilocaïne",
-      "time": "12/08 13:47"
-    },
-    {
-      "icon": "pencil",
-      "text": "Technicien modifie : Fabien VARY",
-      "time": "12/08 13:48"
-    },
-    {
-      "icon": "pencil",
-      "text": "Technicien modifie : Camille PAAL",
-      "time": "12/08 13:48"
-    },
-    {
-      "icon": "pencil",
-      "text": "Technicien modifie : Kévin BERTHELOT",
-      "time": "12/08 13:48"
-    },
-    {
       "icon": "pencil",
       "text": "Technicien modifie : Coraline GALLARD",
       "time": "12/08 13:48"
@@ -6087,6 +6086,41 @@
     {
       "icon": "list-check",
       "text": "9956970 — Limpidité / Coloration PE : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956970 — Osmolalité : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956970 — pH : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956970 — Volume Extractible : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956968 — Apparence : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956968 — Limpidité / Coloration PE : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956968 — Osmolalité : en_cours",
+      "time": "13/08 14:34"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956968 — pH : en_cours",
       "time": "13/08 14:34"
     }
   ]
