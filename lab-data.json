@@ -5047,6 +5047,23 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1786650498401,
+      "date": "2026-08-20",
+      "techId": "1785175077562",
+      "desc": "Poste des Eaux - STEP",
+      "analyseNom": "Poste des Eaux - STEP",
+      "sousKey": "step_2026-08-17_2",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E0F7FA",
+        "border": "#00BCD4"
+      },
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "spq": [
