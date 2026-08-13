@@ -1903,6 +1903,20 @@
         "Retraitement TCC0086 - Toluidine",
         "Vérification TCC0086 - Toluidine"
       ]
+    },
+    {
+      "id": 1786638360226,
+      "nom": "Particules Visibles",
+      "habilitations": [
+        "Particules"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -6112,11 +6126,6 @@
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
-      "time": "13/08 14:32"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
       "time": "13/08 14:33"
     },
     {
@@ -6358,6 +6367,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
       "time": "13/08 18:25"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Particules Visibles",
+      "time": "13/08 18:26"
     }
   ]
 }
