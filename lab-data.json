@@ -1871,7 +1871,7 @@
     },
     {
       "id": 1786638217013,
-      "nom": "InfraRouge",
+      "nom": "Infrarouge",
       "habilitations": [
         "IR"
       ],
@@ -6089,11 +6089,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Apparence",
-      "time": "13/08 14:27"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0545",
       "time": "13/08 14:28"
@@ -6336,6 +6331,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : InfraRouge",
+      "time": "13/08 18:23"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Infrarouge",
       "time": "13/08 18:23"
     }
   ]
