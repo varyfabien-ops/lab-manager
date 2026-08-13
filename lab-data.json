@@ -1670,7 +1670,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "Dosage la Prilocaïne et des Impuretés\n",
+      "description": "Dosage la Prilocaïne et des Impuretés (CITANEST)\n",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5893,11 +5893,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956904 — Identification Lidocaïne USP : retour à À faire",
-      "time": "12/08 16:04"
-    },
-    {
-      "icon": "list-check",
       "text": "9956904 — pH : retour à En cours",
       "time": "12/08 16:04"
     },
@@ -6139,6 +6134,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Mépivacaïne / PHBM",
+      "time": "13/08 18:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Prilocaïne / PHBM",
       "time": "13/08 18:02"
     }
   ]
