@@ -1536,7 +1536,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage du MPEG dans le SETMELANOTIDE",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5908,11 +5908,6 @@
   "activity": [
     {
       "icon": "barcode",
-      "text": "Article créé : M70026001",
-      "time": "12/08 14:00"
-    },
-    {
-      "icon": "barcode",
       "text": "Article créé : M76226001",
       "time": "12/08 14:00"
     },
@@ -6155,6 +6150,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "13/08 17:58"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0065 - MPEG",
+      "time": "13/08 17:59"
     }
   ]
 }
