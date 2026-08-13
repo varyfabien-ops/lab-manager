@@ -1657,11 +1657,15 @@
     {
       "id": 1786529364293,
       "nom": "TCC0004 - Prilocaïne / PHBM",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage la Prilocaïne et des Impuretés\n",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5899,11 +5903,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Technicien modifie : Corentin AUBOIS",
-      "time": "12/08 13:49"
-    },
-    {
-      "icon": "pencil",
       "text": "Technicien modifie : Himidati MOUENDHOIMU",
       "time": "12/08 13:49"
     },
@@ -6146,6 +6145,11 @@
       "icon": "list-check",
       "text": "9956968 — Volume Extractible : en_cours",
       "time": "13/08 16:17"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Prilocaïne / PHBM",
+      "time": "13/08 17:56"
     }
   ]
 }
