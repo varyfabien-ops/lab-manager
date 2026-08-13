@@ -5899,8 +5899,8 @@
   "profils": [
     {
       "id": 1785742830183,
-      "nom": "Réactifs / Commandes",
-      "icone": "ti-user",
+      "nom": "GESTION DES RÉACTIFS",
+      "icone": "ti-flask",
       "color": "#00BCD4",
       "modules": [
         "reactifs",
