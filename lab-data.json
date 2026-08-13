@@ -1886,7 +1886,12 @@
     {
       "id": 1786638279844,
       "nom": "TCC0086 - Toluidine",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes",
+        "pH"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
@@ -6104,11 +6109,6 @@
   },
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0545",
-      "time": "13/08 14:29"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
       "time": "13/08 14:31"
@@ -6351,6 +6351,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0086 - Toluidine",
+      "time": "13/08 18:24"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0086 - Toluidine",
       "time": "13/08 18:24"
     }
   ]
