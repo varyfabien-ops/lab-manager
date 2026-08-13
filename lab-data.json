@@ -1500,7 +1500,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de la Mépivacaïne, du PHBM et des Impuretés (CARBOCAÏNE)",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5892,11 +5892,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Poudre Zinc lot V5A048265B",
-      "time": "12/08 15:54"
-    },
-    {
       "icon": "list-check",
       "text": "9956904 — Identification Lidocaïne USP : retour à À faire",
       "time": "12/08 16:04"
@@ -6140,6 +6135,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
       "time": "13/08 18:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Mépivacaïne / PHBM",
+      "time": "13/08 18:02"
     }
   ]
 }
