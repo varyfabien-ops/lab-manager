@@ -5954,15 +5954,6 @@
       ]
     },
     {
-      "id": 1786644522980,
-      "nom": "Tableau de Bord",
-      "icone": "ti-user",
-      "color": "#4CAF50",
-      "modules": [
-        "dashboard"
-      ]
-    },
-    {
       "id": 1786649210434,
       "nom": "ADMIN",
       "icone": "ti-user",
