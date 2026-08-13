@@ -5275,6 +5275,7 @@
       "color": "#9C27B0",
       "modules": [
         "planning",
+        "rythmes",
         "kpi"
       ]
     },
