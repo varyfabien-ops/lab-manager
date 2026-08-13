@@ -1641,11 +1641,16 @@
     {
       "id": 1786526583089,
       "nom": "TCC0010 - ASA",
-      "habilitations": [],
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes",
+        "pH"
+      ],
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de l'ASA (Impureté Adrénaline)",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5903,11 +5908,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Technicien modifie : Himidati MOUENDHOIMU",
-      "time": "12/08 13:49"
-    },
-    {
-      "icon": "pencil",
       "text": "Technicien modifie : Julie MUGICA-DEBRAY",
       "time": "12/08 13:49"
     },
@@ -6150,6 +6150,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Prilocaïne / PHBM",
       "time": "13/08 17:56"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0010 - ASA",
+      "time": "13/08 17:57"
     }
   ]
 }
