@@ -3203,9 +3203,10 @@ function saveData() {
   return _saveQueue;
 }
 
-async function _saveDataInternal() {
+async function _saveDataInternal(attempt) {
+  attempt = attempt || 0;
   if (!githubConfig) { toast('Configurez GitHub d\'abord', 'info'); return; }
-  setSyncStatus('syncing', 'Sauvegarde...');
+  setSyncStatus('syncing', attempt ? 'Nouvelle tentative...' : 'Sauvegarde...');
   try {
     let sha = null;
     let mergedState = state;
@@ -3242,6 +3243,11 @@ async function _saveDataInternal() {
       headers: { Authorization: `token ${githubConfig.token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
+    if (rPut.status === 409 && attempt < 4) {
+      // Conflit de version (sauvegarde concurrente) : on retente avec la version la plus fraîche
+      await new Promise(r => setTimeout(r, 350 + attempt * 300));
+      return _saveDataInternal(attempt + 1);
+    }
     if (!rPut.ok) throw new Error('HTTP ' + rPut.status);
     const dPut = await rPut.json();
     if (dPut?.content?.sha) _lastKnownSha = dPut.content.sha;
