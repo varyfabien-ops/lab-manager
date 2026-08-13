@@ -1990,8 +1990,8 @@
           "date": "2026-08-12",
           "techId": 1786178889272,
           "numero": "HCPC0077-I p.12-3",
-          "verifiePar": null,
-          "verifieLe": null
+          "verifiePar": 1785175077562,
+          "verifieLe": "13/08/2026"
         }
       ]
     },
@@ -5464,11 +5464,6 @@
     {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0058",
-      "time": "12/08 12:09"
-    },
-    {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0058",
       "time": "12/08 12:10"
     },
     {
@@ -5710,6 +5705,11 @@
       "icon": "droplet",
       "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot YYYYY (1,000)",
       "time": "12/08 22:12"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot YYYYY",
+      "time": "13/08 12:48"
     }
   ]
 }
