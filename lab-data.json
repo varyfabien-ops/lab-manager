@@ -1434,7 +1434,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de la Bupivacaïne et Impuretés (MARCAÏNE)",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5907,11 +5907,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : M76226001",
-      "time": "12/08 14:00"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : SO2",
       "time": "12/08 14:01"
@@ -6154,6 +6149,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
+      "time": "13/08 17:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
       "time": "13/08 17:59"
     }
   ]
