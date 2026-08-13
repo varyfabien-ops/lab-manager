@@ -1749,25 +1749,17 @@
     {
       "id": 1786563219289,
       "nom": "Thiosulfate de Sodium 0,1M",
-      "fournisseur": "MERCK",
-      "ref": "XXXXX",
+      "fournisseur": "MERCK - VWR",
+      "ref": "1.09147.1000",
       "cas": "",
-      "localisation": "",
+      "localisation": "E10",
       "fc": "0.6",
       "conditionnement": "1 L",
-      "stockMin": "2",
-      "qteCmde": "2",
+      "stockMin": "3",
+      "qteCmde": "3",
       "note": "",
       "bvs": false,
-      "estTitree": true,
-      "titrages": [
-        {
-          "id": 1786564142551,
-          "valeur": "1.000",
-          "date": "2026-08-12",
-          "techId": 1786178889272
-        }
-      ]
+      "estTitree": true
     }
   ],
   "contenants": [
@@ -5462,11 +5454,6 @@
   },
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ modifiée : SPQ0058",
-      "time": "12/08 12:10"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : M70517000",
       "time": "12/08 12:11"
@@ -5710,6 +5697,11 @@
       "icon": "droplet",
       "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot YYYYY",
       "time": "13/08 12:48"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Thiosulfate de Sodium 0,1M",
+      "time": "13/08 12:54"
     }
   ]
 }
