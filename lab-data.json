@@ -5931,8 +5931,8 @@
     },
     {
       "id": 1786470994736,
-      "nom": "Paramétrages",
-      "icone": "ti-user",
+      "nom": "PARAMÈTRAGES",
+      "icone": "ti-settings",
       "color": "#2196F3",
       "modules": [
         "catalogue-analyses",
