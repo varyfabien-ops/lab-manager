@@ -1595,7 +1595,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "Dosage de la Mépivacaïne et des Impuretés",
+      "description": "Dosage de la Mépivacaïne et des Impuretés (CARBOCAÏNE)",
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
@@ -5892,11 +5892,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "9956904 — pH : retour à En cours",
-      "time": "12/08 16:04"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0049",
       "time": "12/08 18:10"
@@ -6139,6 +6134,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Prilocaïne / PHBM",
+      "time": "13/08 18:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0011 - Mépivacaïne",
       "time": "13/08 18:02"
     }
   ]
