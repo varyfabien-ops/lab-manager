@@ -1983,7 +1983,9 @@
           "verifiePar": 1786302836845,
           "verifieLe": "13/08/2026"
         }
-      ]
+      ],
+      "verifiedBy": "CAS",
+      "verifiedAt": "13/08/2026"
     },
     {
       "produitId": 1786563219289,
