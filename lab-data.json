@@ -3383,6 +3383,16 @@
       "habilitations": [],
       "date": "2021-11-08",
       "statut": "actif"
+    },
+    {
+      "id": 1786637744940,
+      "prenom": "Vanessa",
+      "nom": "GOURAULT",
+      "visa": "VGT",
+      "role": "Aide-Laboratoire",
+      "habilitations": [],
+      "date": "2021-11-08",
+      "statut": "actif"
     }
   ],
   "planTasks": [
@@ -6041,11 +6051,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot YYYYY",
-      "time": "13/08 12:48"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Thiosulfate de Sodium 0,1M",
       "time": "13/08 12:54"
@@ -6288,6 +6293,11 @@
     {
       "icon": "certificate",
       "text": "Technicien ajoute : Julie GASNIER",
+      "time": "13/08 18:15"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Vanessa GOURAULT",
       "time": "13/08 18:15"
     }
   ]
