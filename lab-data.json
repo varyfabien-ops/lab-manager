@@ -1737,6 +1737,21 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786637036922,
+      "nom": "TCC0087 - Adrénaline",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0087 - Adrénaline",
+        "Vérification TCC0087 - Adrénaline"
+      ]
     }
   ],
   "stabilites": [],
@@ -5894,11 +5909,6 @@
     {
       "icon": "package",
       "text": "Réception: Xylocaïne 10 mg/mL (AC) — 1 entrée(s) — 4 analyse(s)",
-      "time": "12/08 18:11"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Xylocaïne 10 mg/mL (AC) — 1 entrée(s) — 4 analyse(s)",
       "time": "12/08 18:12"
     },
     {
@@ -6140,6 +6150,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0012 - Prilocaïne",
       "time": "13/08 18:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0087 - Adrénaline",
+      "time": "13/08 18:03"
     }
   ]
 }
