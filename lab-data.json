@@ -1868,6 +1868,20 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786638217013,
+      "nom": "InfraRouge",
+      "habilitations": [
+        "IR"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -6075,11 +6089,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot HC45819847",
-      "time": "13/08 12:56"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Apparence",
       "time": "13/08 14:27"
@@ -6322,6 +6331,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Absorbance",
+      "time": "13/08 18:23"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : InfraRouge",
       "time": "13/08 18:23"
     }
   ]
