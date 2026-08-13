@@ -1981,7 +1981,9 @@
           "valeur": "1,000",
           "date": "2026-08-12",
           "techId": 1786178889272,
-          "numero": "HCPC0077-I p.12-3"
+          "numero": "HCPC0077-I p.12-3",
+          "verifiePar": 1786302836845,
+          "verifieLe": "13/08/2026"
         }
       ]
     },
@@ -5452,11 +5454,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0023 - Adrénaline",
-      "time": "12/08 13:17"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ modifiée : SPQ0018",
       "time": "12/08 13:21"
@@ -5699,6 +5696,11 @@
     {
       "icon": "lock-open",
       "text": "Ouverture : Thiosulfate de Sodium 0,1M lot HC45819847",
+      "time": "13/08 12:56"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot HC45819847",
       "time": "13/08 12:56"
     }
   ]
