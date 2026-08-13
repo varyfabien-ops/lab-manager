@@ -1854,6 +1854,20 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786638196863,
+      "nom": "Absorbance",
+      "habilitations": [
+        "UV"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -6061,11 +6075,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Thiosulfate de Sodium 0,1M lot HC45819847",
-      "time": "13/08 12:56"
-    },
-    {
       "icon": "droplet",
       "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot HC45819847",
       "time": "13/08 12:56"
@@ -6309,6 +6318,11 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Marion RICROT",
       "time": "13/08 18:16"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Absorbance",
+      "time": "13/08 18:23"
     }
   ]
 }
