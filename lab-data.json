@@ -1806,6 +1806,25 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786637506133,
+      "nom": "TCC0004 - Lidocaïne Nébuliseur - DM",
+      "habilitations": [
+        "HPLC",
+        "Balance",
+        "Pipettes"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": [
+        "Retraitement TCC0004 - Lidocaïne Nébuliseur - DM",
+        "Vérification TCC0004 - Lidocaïne Nébuliseur - DM"
+      ]
     }
   ],
   "stabilites": [],
@@ -5961,11 +5980,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Contenant modifie : lot HX57784410",
-      "time": "12/08 21:48"
-    },
-    {
       "icon": "droplet",
       "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M (1.000)",
       "time": "12/08 21:49"
@@ -6209,6 +6223,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0041 - Indice d'Acide",
       "time": "13/08 18:10"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : TCC0004 - Lidocaïne Nébuliseur - DM",
+      "time": "13/08 18:11"
     }
   ]
 }
