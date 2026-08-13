@@ -5978,6 +5978,15 @@
         "stabilites",
         "profils-config"
       ]
+    },
+    {
+      "id": 1786649510519,
+      "nom": "KPI / INDICATEURS",
+      "icone": "ti-chart-dots",
+      "color": "#4CAF50",
+      "modules": [
+        "kpi"
+      ]
     }
   ],
   "commandesArchives": [
