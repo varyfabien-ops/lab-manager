@@ -1381,7 +1381,7 @@
       "duree": "",
       "code": "",
       "produitsIds": [],
-      "description": "",
+      "description": "Dosage de la Lidocaïne, du PHBM et des Impuretés (XYLOCAÏNE)",
       "champsResultats": [
         {
           "label": "Teneur en Lidocaïne",
@@ -5892,11 +5892,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "9956904 — pH : en_cours",
-      "time": "12/08 15:53"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : Poudre Zinc lot V5A048265B",
       "time": "12/08 15:54"
@@ -6140,6 +6135,11 @@
       "icon": "trash",
       "text": "Analyse supprimee : Titrage Thiosulfate de Sodium 0,1M",
       "time": "13/08 18:00"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
+      "time": "13/08 18:01"
     }
   ]
 }
