@@ -6430,7 +6430,8 @@
   },
   "planningProduction": {
     "B3_2026-08-03": {
-      "lotsPrevus": 5
+      "lotsPrevus": 5,
+      "lotsEffectues": 6
     }
   },
   "activity": [
