@@ -6431,7 +6431,7 @@
   "planningProduction": {
     "B3_2026-08-03": {
       "lotsPrevus": 5,
-      "lotsEffectues": 6,
+      "lotsEffectues": 5,
       "rendement": 65
     }
   },
