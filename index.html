@@ -353,6 +353,8 @@
     <button class="kpi-tab-btn" data-kpitab="rft" onclick="kpiSetTab('rft')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Bon du 1er coup</button>
     <button class="kpi-tab-btn" data-kpitab="initiative" onclick="kpiSetTab('initiative')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Taux d'initiative</button>
     <button class="kpi-tab-btn" data-kpitab="lots" onclick="kpiSetTab('lots')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Suivi des lots</button>
+    <button class="kpi-tab-btn" data-kpitab="qualite" onclick="kpiSetTab('qualite')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Suivi Qualité</button>
+    <button class="kpi-tab-btn" data-kpitab="production" onclick="kpiSetTab('production')" style="padding:10px 16px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);border-bottom:2px solid transparent">Planning Production</button>
   </div>
 
   <!-- VUE D'ENSEMBLE -->
@@ -446,6 +448,28 @@
       <div class="table-card-header"><h3><i class="ti ti-list-details" style="margin-right:6px;color:var(--cyan)"></i>Tous les lots</h3></div>
       <table><thead><tr><th>Produit</th><th>Lot</th><th>Statut</th><th>Date réception</th><th>Analyses</th><th></th></tr></thead>
       <tbody id="lots-suivi-tbody"></tbody></table>
+    </div>
+  </div>
+
+  <!-- SUIVI QUALITÉ (à définir) -->
+  <div id="kpi-tab-qualite" style="display:none">
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-shield-check" style="margin-right:6px;color:var(--cyan)"></i>Suivi Qualité</h3></div>
+      <div style="padding:40px 24px;text-align:center;color:var(--text3)">
+        <i class="ti ti-tools" style="font-size:32px;display:block;margin-bottom:10px"></i>
+        Cet onglet est prêt, son contenu reste à définir.
+      </div>
+    </div>
+  </div>
+
+  <!-- PLANNING PRODUCTION (à définir) -->
+  <div id="kpi-tab-production" style="display:none">
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-calendar-stats" style="margin-right:6px;color:var(--cyan)"></i>Planning Production</h3></div>
+      <div style="padding:40px 24px;text-align:center;color:var(--text3)">
+        <i class="ti ti-tools" style="font-size:32px;display:block;margin-bottom:10px"></i>
+        Cet onglet est prêt, son contenu reste à définir.
+      </div>
     </div>
   </div>
 </div>
@@ -770,8 +794,9 @@
     <th style="width:110px">Réception</th>
     <th style="width:120px">Mise à dispo. approbation</th>
     <th style="width:110px">Approbation</th>
-    <th style="width:150px">Libération estimée</th>
-    <th style="width:220px">Avancement</th>
+    <th style="width:130px">Libération estimée</th>
+    <th style="width:200px">Avancement</th>
+    <th style="width:60px"></th>
   </tr></thead>
   <tbody id="lead-time-tbody"></tbody></table>
 </div>
@@ -2109,7 +2134,7 @@ function renderLeadTime() {
 
   const entries = Object.entries(lots).sort((a,b) => (b[1][0].date||'').localeCompare(a[1][0].date||''));
   if (!entries.length) {
-    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><i class="ti ti-hourglass"></i><p>Aucun lot enregistré</p></div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><i class="ti ti-hourglass"></i><p>Aucun lot enregistré</p></div></td></tr>';
     return;
   }
 
@@ -2136,19 +2161,42 @@ function renderLeadTime() {
       + '<td style="font-size:12px;text-align:center">'+(e0.date?formatDate(e0.date):'—')+'</td>'
       + '<td style="font-size:12px;text-align:center">'+(e0.dateMiseADispo||'—')+'</td>'
       + '<td style="font-size:12px;text-align:center">'+(e0.dateApprobation||'—')+'</td>'
-      + '<td style="text-align:center"><input type="date" value="'+(e0.dateLiberationEstimee||'')+'" onchange="setDateLiberationEstimee(\''+String(lotKey).replace(/'/g,"\\'")+'\',this.value)" style="font-size:12px;padding:4px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);color:var(--text)"></td>'
+      + '<td style="text-align:center;cursor:pointer" onclick="openModalLeadTime(\''+String(lotKey).replace(/'/g,"\\'")+'\')" title="Cliquer pour modifier">'
+        + (e0.dateLiberationEstimee ? '<span style="font-size:12px;font-weight:600;color:var(--cyan)">'+formatDate(e0.dateLiberationEstimee)+'</span>' : '<span class="btn" style="font-size:11px;padding:3px 8px"><i class="ti ti-calendar-plus"></i> Définir</span>')
+        + (e0.commentaireLeadTime ? '<div style="font-size:10px;color:var(--text3);font-style:italic;margin-top:2px;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" title="'+e0.commentaireLeadTime.replace(/"/g,'&quot;')+'"><i class="ti ti-message-2" style="font-size:10px"></i> '+e0.commentaireLeadTime+'</div>' : '')
+      + '</td>'
       + '<td>'+gaugeHtml+'</td>'
+      + '<td style="text-align:center"><button class="icon-btn" title="Modifier date / commentaire" onclick="openModalLeadTime(\''+String(lotKey).replace(/'/g,"\\'")+'\')"><i class="ti ti-pencil"></i></button></td>'
       + '</tr>';
   }).join('');
 }
 window.renderLeadTime = renderLeadTime;
 
-function setDateLiberationEstimee(lotKey, value) {
-  (state.echantillons||[]).filter(e => getLeadTimeLotKey(e) === lotKey).forEach(e => { e.dateLiberationEstimee = value; });
-  saveData();
-  toast('Date de libération estimée enregistrée', 'success');
+function openModalLeadTime(lotKey) {
+  const group = (state.echantillons||[]).filter(e => getLeadTimeLotKey(e) === lotKey);
+  if (!group.length) return;
+  const e0 = group[0];
+  window._leadTimeLotKey = lotKey;
+  document.getElementById('lt-date').value = e0.dateLiberationEstimee || '';
+  document.getElementById('lt-commentaire').value = e0.commentaireLeadTime || '';
+  openModal('modal-lead-time');
 }
-window.setDateLiberationEstimee = setDateLiberationEstimee;
+window.openModalLeadTime = openModalLeadTime;
+
+function saveLeadTime() {
+  const lotKey = window._leadTimeLotKey; if (!lotKey) return;
+  const date = document.getElementById('lt-date').value;
+  const commentaire = document.getElementById('lt-commentaire').value.trim();
+  (state.echantillons||[]).filter(e => getLeadTimeLotKey(e) === lotKey).forEach(e => {
+    e.dateLiberationEstimee = date;
+    e.commentaireLeadTime = commentaire;
+  });
+  closeModal('modal-lead-time');
+  saveData();
+  renderLeadTime();
+  toast('Lead-time mis à jour', 'success');
+}
+window.saveLeadTime = saveLeadTime;
 
 function exportLotsLiberes() {
   const lots = {};
@@ -5013,7 +5061,7 @@ function openModal(id) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
     const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
-  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep' && id !== 'modal-titrage') {
+  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep' && id !== 'modal-titrage' && id !== 'modal-lead-time') {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
     inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
     const sels = document.querySelectorAll('#'+id+' select');
@@ -6720,7 +6768,7 @@ window.renderKPI = renderKPI;
 let kpiActiveTab = 'overview';
 function kpiSetTab(tab) {
   kpiActiveTab = tab;
-  ['overview','adherence','rft','initiative','lots'].forEach(t => {
+  ['overview','adherence','rft','initiative','lots','qualite','production'].forEach(t => {
     const el = document.getElementById('kpi-tab-' + t);
     if (el) el.style.display = (t === tab) ? '' : 'none';
     const btn = document.querySelector('.kpi-tab-btn[data-kpitab="' + t + '"]');
@@ -9545,6 +9593,25 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     </div>
     <div class="modal-footer">
       <button class="btn" onclick="closeModal('modal-etiquettes-libres')">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL LEAD-TIME -->
+<div class="modal-overlay" id="modal-lead-time">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <i class="ti ti-hourglass" style="font-size:18px;color:var(--cyan)"></i>
+      <h3>Libération estimée</h3>
+      <button class="close-btn" onclick="closeModal('modal-lead-time')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Date de libération estimée</label><input type="date" id="lt-date"></div>
+      <div class="form-group"><label>Commentaire</label><textarea id="lt-commentaire" rows="4" placeholder="Précisions, cause d'un retard, remarque..."></textarea></div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn" onclick="closeModal('modal-lead-time')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveLeadTime()"><i class="ti ti-check"></i> Enregistrer</button>
     </div>
   </div>
 </div>
