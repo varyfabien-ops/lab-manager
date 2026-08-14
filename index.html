@@ -464,12 +464,24 @@
 
   <!-- PLANNING PRODUCTION (à définir) -->
   <div id="kpi-tab-production" style="display:none">
-    <div class="table-card">
-      <div class="table-card-header"><h3><i class="ti ti-calendar-stats" style="margin-right:6px;color:var(--cyan)"></i>Planning Production</h3></div>
-      <div style="padding:40px 24px;text-align:center;color:var(--text3)">
-        <i class="ti ti-tools" style="font-size:32px;display:block;margin-bottom:10px"></i>
-        Cet onglet est prêt, son contenu reste à définir.
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:13px;color:var(--text2)">Suivi hebdomadaire par ligne de production</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn" onclick="prodNav(-1)"><i class="ti ti-chevron-left"></i></button>
+        <button class="btn" onclick="prodToday()" id="prod-semaine-label" style="font-weight:700;min-width:160px"></button>
+        <button class="btn" onclick="prodNav(1)"><i class="ti ti-chevron-right"></i></button>
       </div>
+    </div>
+    <div class="table-card">
+      <table><thead><tr>
+        <th>Ligne de production</th>
+        <th style="width:130px;text-align:center" id="prod-th-prevu-n1">Lots prévus (S. N-1)</th>
+        <th style="width:130px;text-align:center">Lots effectués (S. N-1)</th>
+        <th style="width:100px;text-align:center">%</th>
+        <th style="width:120px;text-align:center">Rendement (%)</th>
+        <th style="width:150px;text-align:center" id="prod-th-prevu-n">Lots prévus (S. N)</th>
+      </tr></thead>
+      <tbody id="prod-tbody"></tbody></table>
     </div>
   </div>
 </div>
@@ -2979,7 +2991,7 @@ let state = {
   produitsEch: [], marches: [],
   echantillons: [],
   techniciens: [],
-  planTasks: [], planRythmes: {}, planRythmesLocked: {},
+  planTasks: [], planRythmes: {}, planRythmesLocked: {}, planningProduction: {},
   spq: [],
   articles: [],
   preparations: [],
@@ -3225,7 +3237,7 @@ const MERGE_ARRAY_FIELDS_BY_ID = ['planning','catalogue','stabilites','reactifs'
   'produitsEch','marches','echantillons','techniciens','planTasks','spq','articles','preparations',
   'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres'];
 // Champs de state.* qui sont des objets clé/valeur (fusion par clé)
-const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut','planRythmesLocked'];
+const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut','planRythmesLocked','planningProduction'];
 // Champs de state.* qui sont des tableaux sans id fiable (journal) — fusion par contenu, style log
 const MERGE_LOG_FIELDS = ['activity'];
 
@@ -3310,7 +3322,7 @@ async function loadData(silent) {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, planRythmesLocked: decoded.planRythmesLocked||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
+    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, planRythmesLocked: decoded.planRythmesLocked||{}, planningProduction: decoded.planningProduction||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
     // Fusion avec l'état local courant, pour ne jamais perdre un travail local pas encore sauvegardé
     state = _baseline ? mergeStates(remoteState, _baseline, state) : remoteState;
     _baseline = snapshotState();
@@ -6778,6 +6790,7 @@ function kpiSetTab(tab) {
     }
   });
   if (tab === 'lots') renderSuiviLots();
+  if (tab === 'production') renderPlanningProduction();
 }
 window.kpiSetTab = kpiSetTab;
 
@@ -6802,6 +6815,86 @@ const LOT_CAT_LABELS = {
   approuve:    { label: 'Approuvé',                  cls: 'badge-green' },
   archive:     { label: 'Archivé',                   cls: 'badge-gray' },
 };
+
+// ============================================================
+// PLANNING PRODUCTION
+// ============================================================
+const PROD_LIGNES = ['B3', 'B+S', 'ROTA', 'DARA', 'ZALKIN'];
+let prodSemaineRef = new Date();
+
+function getMondayOf(d) {
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  const m = new Date(d.getFullYear(), d.getMonth(), diff);
+  m.setHours(0,0,0,0);
+  return m;
+}
+
+function prodNav(dir) {
+  prodSemaineRef = new Date(prodSemaineRef);
+  prodSemaineRef.setDate(prodSemaineRef.getDate() + dir * 7);
+  renderPlanningProduction();
+}
+window.prodNav = prodNav;
+
+function prodToday() {
+  prodSemaineRef = new Date();
+  renderPlanningProduction();
+}
+window.prodToday = prodToday;
+
+function updateProdValue(ligne, mondayKey, field, value) {
+  if (!state.planningProduction) state.planningProduction = {};
+  const key = ligne + '_' + mondayKey;
+  if (!state.planningProduction[key]) state.planningProduction[key] = {};
+  state.planningProduction[key][field] = value === '' ? null : parseFloat(value);
+  saveData();
+  renderPlanningProduction();
+}
+window.updateProdValue = updateProdValue;
+
+function renderPlanningProduction() {
+  const tbody = document.getElementById('prod-tbody'); if (!tbody) return;
+
+  const mondayN = getMondayOf(prodSemaineRef);
+  const mondayNm1 = new Date(mondayN); mondayNm1.setDate(mondayNm1.getDate() - 7);
+  const keyN = dateToKey(mondayN);
+  const keyNm1 = dateToKey(mondayNm1);
+
+  const sundayN = new Date(mondayN); sundayN.setDate(sundayN.getDate()+4);
+  const sundayNm1 = new Date(mondayNm1); sundayNm1.setDate(sundayNm1.getDate()+4);
+  const fmtShort = d => d.getDate() + '/' + String(d.getMonth()+1).padStart(2,'0');
+
+  const label = document.getElementById('prod-semaine-label');
+  if (label) label.textContent = fmtShort(mondayN) + ' – ' + fmtShort(sundayN);
+  const thN1 = document.getElementById('prod-th-prevu-n1');
+  if (thN1) thN1.textContent = 'Lots prévus (S. ' + fmtShort(mondayNm1) + ')';
+  const thN = document.getElementById('prod-th-prevu-n');
+  if (thN) thN.textContent = 'Lots prévus (S. ' + fmtShort(mondayN) + ')';
+
+  const data = state.planningProduction || {};
+
+  tbody.innerHTML = PROD_LIGNES.map(ligne => {
+    const recNm1 = data[ligne + '_' + keyNm1] || {};
+    const recN = data[ligne + '_' + keyN] || {};
+    const prevu = recNm1.lotsPrevus;
+    const effectue = recNm1.lotsEffectues;
+    const pct = (prevu && effectue !== null && effectue !== undefined) ? Math.round(effectue / prevu * 100) : null;
+    const pctColor = pct === null ? 'var(--text3)' : (pct >= 95 ? 'var(--green)' : pct >= 80 ? 'var(--amber)' : 'var(--red)');
+
+    const numInput = (val, onchange, ph) => '<input type="number" min="0" value="'+(val===null||val===undefined?'':val)+'" placeholder="'+(ph||'')+'" onchange="'+onchange+'" style="width:80px;padding:5px 6px;border:1px solid var(--border);border-radius:4px;background:var(--bg2);color:var(--text);text-align:center;font-size:13px">';
+
+    return '<tr>'
+      + '<td style="font-size:14px;font-weight:700">'+ligne+'</td>'
+      + '<td style="text-align:center">'+numInput(prevu, "updateProdValue('"+ligne+"','"+keyNm1+"','lotsPrevus',this.value)")+'</td>'
+      + '<td style="text-align:center">'+numInput(effectue, "updateProdValue('"+ligne+"','"+keyNm1+"','lotsEffectues',this.value)")+'</td>'
+      + '<td style="text-align:center;font-size:15px;font-weight:700;color:'+pctColor+'">'+(pct===null?'—':pct+'%')+'</td>'
+      + '<td style="text-align:center">'+numInput(recNm1.rendement, "updateProdValue('"+ligne+"','"+keyNm1+"','rendement',this.value)", '%')+'</td>'
+      + '<td style="text-align:center">'+numInput(recN.lotsPrevus, "updateProdValue('"+ligne+"','"+keyN+"','lotsPrevus',this.value)")+'</td>'
+      + '</tr>';
+  }).join('');
+}
+window.renderPlanningProduction = renderPlanningProduction;
 
 function renderSuiviLots() {
   const q = (document.getElementById('lots-search')?.value||'').trim().toLowerCase();
