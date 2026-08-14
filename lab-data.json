@@ -6428,6 +6428,11 @@
     "1785175077562_2026-10-12": true,
     "1786178865689_2026-05-18": true
   },
+  "planningProduction": {
+    "B3_2026-08-03": {
+      "lotsPrevus": 5
+    }
+  },
   "activity": [
     {
       "icon": "list-check",
