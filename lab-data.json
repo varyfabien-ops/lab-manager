@@ -2485,8 +2485,14 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "conforme",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": []
     },
     {
@@ -7419,11 +7425,6 @@
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajoute : Anouk DUFFAUD",
-      "time": "13/08 18:14"
-    },
-    {
-      "icon": "certificate",
       "text": "Technicien ajoute : Géraldine SANTIN",
       "time": "13/08 18:14"
     },
@@ -7666,6 +7667,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 10 analyse(s)",
       "time": "15/08 16:13"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Apparence",
+      "time": "15/08 16:16"
     }
   ]
 }
