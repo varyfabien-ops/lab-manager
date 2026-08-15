@@ -2054,6 +2054,102 @@
       "stabEcheance": "T0",
       "echeanceId": 1786779461576,
       "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.87,
+      "nom": "Apparence",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.686,
+      "nom": "L*a*b",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.9592,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.5037,
+      "nom": "Osmolalité",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.7263,
+      "nom": "Particules Visibles",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.189,
+      "nom": "pH",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.4097,
+      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786803522550.0955,
+      "nom": "TCC0065 - MPEG",
+      "echantillonId": 1786803522550,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: XXXXXX"
     }
   ],
   "catalogue": [
@@ -4087,6 +4183,46 @@
       "conditionIds": [],
       "echeanceId": 1786779461576,
       "date": "2026-08-15",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1786803522550,
+      "code": "XXXXXX",
+      "lot": "XXXXXX",
+      "articleId": 1786301271905,
+      "articleCode": "M75862417",
+      "produitId": 1786301271905,
+      "marcheIds": [
+        null
+      ],
+      "analysesIds": [
+        1786624072580,
+        1786196559426,
+        1785247477146,
+        1785169966496,
+        1786638360226,
+        1785170122728,
+        1786301521786,
+        1786301151090
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC-SET",
+      "stabEcheance": "T6M",
+      "stabTemps": "5°C, 40°C",
+      "stabEtudeId": 1786803055027,
+      "ptcId": 1786803022644,
+      "conditionId": 1786779408487,
+      "conditionIds": [
+        1786779408487,
+        1786779435869
+      ],
+      "echeanceId": 1786779469460,
+      "date": "2026-08-16",
       "statut": "recu",
       "note": ""
     }
@@ -7453,11 +7589,6 @@
   },
   "activity": [
     {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Vanessa GOURAULT",
-      "time": "13/08 18:15"
-    },
-    {
       "icon": "pencil",
       "text": "Technicien modifie : Géraldine SANTI",
       "time": "13/08 18:15"
@@ -7700,6 +7831,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "15/08 16:18"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
       "time": "15/08 16:18"
     }
   ]
