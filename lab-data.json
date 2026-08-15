@@ -1682,6 +1682,69 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.8328,
+      "nom": "Amines Tertiaires",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.8647,
+      "nom": "Identification Lidocaïne USP",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.7878,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.1064,
+      "nom": "Osmolalité",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.6821,
+      "nom": "TCC0002 - Sodium",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.9126,
+      "nom": "TCC0003 - Métabisulfite de Sodium",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786789175569.0867,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-16",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
     }
   ],
   "catalogue": [
@@ -3749,6 +3812,44 @@
       ],
       "echeanceId": 1786779453854,
       "date": "2026-08-15",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1786789175569,
+      "code": "XXXXXX",
+      "lot": "XXXXXX",
+      "articleId": 1786529504133,
+      "articleCode": "M70517000",
+      "produitId": 1786529504133,
+      "marcheIds": [],
+      "analysesIds": [
+        1785336377803,
+        1786520419939,
+        1785247477146,
+        1785169966496,
+        1785247382413,
+        1786533393826,
+        1786637416398
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCAAAA",
+      "stabEcheance": "T6M",
+      "stabTemps": "5°C, 15°C, 25°C",
+      "stabEtudeId": 1786780207343,
+      "ptcId": 1786780253826,
+      "conditionId": 1786779408487,
+      "conditionIds": [
+        1786779408487,
+        1786779415237,
+        1786779420753
+      ],
+      "echeanceId": 1786779469460,
+      "date": "2026-08-16",
       "statut": "recu",
       "note": ""
     }
