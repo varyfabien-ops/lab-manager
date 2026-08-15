@@ -5057,7 +5057,10 @@ function deleteEchantillon(id) {
   const lot = e.lot || String(e.id);
   // Une réception STAB seule représente une échéance indépendante : ne jamais
   // supprimer les autres échéances qui partagent le même numéro de lot.
-  const isIndependentEntry = (e.typeSTAB && !e.typePIF) || e.relance;
+  // Les anciennes réceptions peuvent ne pas avoir tous les booléens typeSTAB/typePIF.
+  // La présence d'une échéance ou d'un PTC suffit donc à identifier une ligne STAB.
+  const hasStabIdentity = !!(e.typeSTAB || e.stabEcheance || e.echeanceId || e.ptcId || e.stabEtudeId);
+  const isIndependentEntry = e.relance || (hasStabIdentity && e.typePIF !== true);
   const toDelete = isIndependentEntry
     ? [e]
     : state.echantillons.filter(x => (x.lot||String(x.id)) === lot);
@@ -5074,12 +5077,15 @@ function deleteEchantillon(id) {
   const detail = isIndependentEntry && e.stabEcheance ? ' — '+e.stabEcheance : '';
   addActivity('trash', 'Réception supprimée : ' + lot + detail + (toDelete.length > 1 ? ' (' + toDelete.length + ' entrées)' : ''));
   renderEchantillonsTable(); renderDashboard(); saveData();
+  const remainingSameLot = (state.echantillons||[]).filter(x=>(x.lot||String(x.id))===lot).length;
+  toast('Réception supprimée'+(remainingSameLot?' — '+remainingSameLot+' autre(s) échéance(s) conservée(s)':''),'success');
 }
 
 function editReception(id) {
   const e = (state.echantillons||[]).find(x=>x.id===parseInt(id));
   if (!e) return;
-  const group = (e.typeSTAB && !e.typePIF)
+  const hasStabIdentity = !!(e.typeSTAB || e.stabEcheance || e.echeanceId || e.ptcId || e.stabEtudeId);
+  const group = (hasStabIdentity && e.typePIF !== true)
     ? [e]
     : (state.echantillons||[]).filter(x=>(x.lot||String(x.id))===(e.lot||String(e.id)));
   window._editingReceptionIds = group.map(x=>x.id);
