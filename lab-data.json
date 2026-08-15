@@ -6381,7 +6381,7 @@
     {
       "id": 1786780207343,
       "numero": "STAB-TEST",
-      "ptcId": null
+      "ptcId": 1786780253826
     }
   ],
   "ptc": [
@@ -6588,11 +6588,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9956968 — Osmolalité : en_cours",
-      "time": "13/08 14:34"
-    },
     {
       "icon": "list-check",
       "text": "9956968 — pH : en_cours",
@@ -6836,6 +6831,11 @@
     {
       "icon": "file-description",
       "text": "PTC créé : PTCAAAA",
+      "time": "15/08 09:50"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : STAB-TEST",
       "time": "15/08 09:50"
     }
   ]
