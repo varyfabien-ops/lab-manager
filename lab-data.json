@@ -4491,7 +4491,80 @@
       "echeanceId": 1786779469460,
       "date": "2026-08-20",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1786301521786": {
+          "conditions": [
+            {
+              "condition": "5°C",
+              "champs": [
+                {
+                  "label": "Teneur en RM493",
+                  "valeur": "101.0",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Alcool Benzylique",
+                  "valeur": "98",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Phenol",
+                  "valeur": "102",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Impureté A",
+                  "valeur": "< LOQ",
+                  "unite": "% (m/m)"
+                },
+                {
+                  "label": "Teneur en Impureté B",
+                  "valeur": "0,2",
+                  "unite": "% (m/m)"
+                },
+                {
+                  "label": "Teneur en Impureté C",
+                  "valeur": "",
+                  "unite": "% (m/m)"
+                },
+                {
+                  "label": "Teneur en Impureté D",
+                  "valeur": "",
+                  "unite": "% (m/m)"
+                },
+                {
+                  "label": "Teneur en Impureté F",
+                  "valeur": "",
+                  "unite": "% (m/m)"
+                },
+                {
+                  "label": "Teneur en Dimère E1",
+                  "valeur": "",
+                  "unite": "% (m/m)"
+                },
+                {
+                  "label": "Teneur en Dimère E1",
+                  "valeur": "",
+                  "unite": "% (m/m)"
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "15/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1786301521786": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1786301521786": {
+          "terminee": "15/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
