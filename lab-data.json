@@ -6236,7 +6236,8 @@
       },
       "isSous": true,
       "parentNom": "TCC0004 - Bupivacaïne",
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "orange"
     }
   ],
   "spq": [
