@@ -6331,6 +6331,15 @@
       }
     }
   ],
+  "stabConditions": [
+    {
+      "id": 1786779408487,
+      "nom": "5°C"
+    }
+  ],
+  "stabEcheances": [],
+  "etudesStab": [],
+  "ptc": [],
   "planRythmes": {
     "1785175077562_2026-08-03": "matin",
     "1786178889272_2026-08-03": "absent",
