@@ -352,33 +352,6 @@
       "note": "Auto: TEST 2-2"
     },
     {
-      "id": 1785262754887.891,
-      "nom": "pH",
-      "echantillonCode": "TEST 3",
-      "date": "2026-07-28",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
-    },
-    {
-      "id": 1785262754887.2773,
-      "nom": "Limpidité / Coloration PE",
-      "echantillonCode": "TEST 3",
-      "date": "2026-07-28",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
-    },
-    {
-      "id": 1785262754887.2146,
-      "nom": "TCC0015 - Lidocaïne Naphazoline",
-      "echantillonCode": "TEST 3",
-      "date": "2026-07-28",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
-    },
-    {
       "id": 1785336521386.4358,
       "nom": "pH",
       "echantillonCode": "TEST-1",
@@ -1016,42 +989,6 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786551075328.9136,
-      "nom": "Identification Lidocaïne USP",
-      "echantillonCode": "TEST 3",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
-    },
-    {
-      "id": 1786551075328.516,
-      "nom": "Limpidité / Coloration PE",
-      "echantillonCode": "TEST 3",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
-    },
-    {
-      "id": 1786551075328.1099,
-      "nom": "pH",
-      "echantillonCode": "TEST 3",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
-    },
-    {
-      "id": 1786551075328.86,
-      "nom": "TCC0004 - Lidocaïne / PHBM",
-      "echantillonCode": "TEST 3",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 3"
     },
     {
       "id": 1786551127051.7512,
@@ -3821,62 +3758,6 @@
           "terminee": "13/08/2026"
         }
       }
-    },
-    {
-      "id": 1786551075328,
-      "code": "TEST 3",
-      "lot": "TEST 3",
-      "articleId": 1786534331186,
-      "articleCode": "M76015000",
-      "produitId": 1786534331186,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1786520419939,
-        1785247477146,
-        1785170122728,
-        1785247344996
-      ],
-      "analysesParMarche": {
-        "1786520419939": [
-          1785170017612
-        ],
-        "1785247477146": [
-          1785170017612
-        ],
-        "1785170122728": [
-          1785170017612
-        ],
-        "1785247344996": [
-          1785170017612
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0049",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-12",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785247477146": "en_cours",
-        "1786520419939": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1785247477146": {
-          "en_cours": "12/08/2026"
-        },
-        "1786520419939": {
-          "en_cours": "12/08/2026"
-        }
-      },
-      "dateLiberationEstimee": "2026-08-14",
-      "commentaireLeadTime": ""
     },
     {
       "id": 1786551127051,
@@ -7332,11 +7213,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - Iode Totale",
-      "time": "13/08 18:09"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0041 - Indice d'Acide",
       "time": "13/08 18:10"
     },
@@ -7578,6 +7454,11 @@
     {
       "icon": "trash",
       "text": "Réception supprimée : XXXXXX — T3M",
+      "time": "15/08 16:06"
+    },
+    {
+      "icon": "trash",
+      "text": "Réception supprimée : TEST 3",
       "time": "15/08 16:06"
     }
   ]
