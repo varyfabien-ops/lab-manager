@@ -4064,83 +4064,6 @@
       "date": "2026-07-23",
       "statut": "recu",
       "note": ""
-    },
-    {
-      "id": 1786789778971,
-      "code": "XXXXXX",
-      "lot": "XXXXXX",
-      "articleId": 1786529504133,
-      "articleCode": "M70517000",
-      "produitId": 1786529504133,
-      "marcheIds": [],
-      "analysesIds": [
-        1786520419939,
-        1785247477146,
-        1785169966496,
-        1785247382413,
-        1786533393826,
-        1786637416398,
-        1785336377803,
-        1786637253094
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCAAAA",
-      "stabEcheance": "T3M",
-      "stabTemps": "5°C, 15°C, 25°C",
-      "stabEtudeId": 1786780207343,
-      "ptcId": 1786780253826,
-      "conditionId": 1786779408487,
-      "conditionIds": [
-        1786779408487,
-        1786779415237,
-        1786779420753
-      ],
-      "echeanceId": 1786779453854,
-      "date": "2026-08-15",
-      "statut": "recu",
-      "note": "",
-      "resultats": {
-        "1785336377803": {
-          "conditions": [
-            {
-              "condition": "5°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "conforme",
-                  "unite": ""
-                }
-              ]
-            },
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "conforme",
-                  "unite": ""
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "15/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      },
-      "analyseStatuts": {
-        "1785336377803": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1785336377803": {
-          "terminee": "15/08/2026"
-        }
-      }
     }
   ],
   "techniciens": [
@@ -7409,11 +7332,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0041 - Iode Totale",
-      "time": "13/08 18:09"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "13/08 18:09"
     },
@@ -7655,6 +7573,11 @@
     {
       "icon": "trash",
       "text": "Réception supprimée : XXXXXX — T6M",
+      "time": "15/08 16:06"
+    },
+    {
+      "icon": "trash",
+      "text": "Réception supprimée : XXXXXX — T3M",
       "time": "15/08 16:06"
     }
   ]
