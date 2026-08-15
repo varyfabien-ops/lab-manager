@@ -2264,16 +2264,29 @@
       "habilitations": [
         "UV"
       ],
+      "duree": "",
+      "code": "",
       "produitsIds": [],
+      "description": "",
       "champsResultats": [
         {
-          "label": "Résultat",
+          "label": "L*",
+          "type": "numerique",
+          "unite": ""
+        },
+        {
+          "label": "a*",
+          "type": "numerique",
+          "unite": ""
+        },
+        {
+          "label": "b*",
           "type": "numerique",
           "unite": ""
         }
       ],
-      "resultatRequis": false,
-      "description": ""
+      "resultatRequis": true,
+      "sousAnalyses": []
     },
     {
       "id": 1786301151090,
@@ -7425,11 +7438,6 @@
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajoute : Géraldine SANTIN",
-      "time": "13/08 18:14"
-    },
-    {
-      "icon": "certificate",
       "text": "Technicien ajoute : Julie GASNIER",
       "time": "13/08 18:15"
     },
@@ -7671,6 +7679,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Apparence",
+      "time": "15/08 16:16"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : L*a*b",
       "time": "15/08 16:16"
     }
   ]
