@@ -6197,6 +6197,25 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
+    },
+    {
+      "id": 1786820253911,
+      "date": "2026-08-14",
+      "techId": "1785175077562",
+      "desc": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "analyseNom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "analyseId": 1786301521786,
+      "sousKey": null,
+      "echId": 1786521095468,
+      "type": "analyse",
+      "sousAnalyses": [
+        "Retraitement TCC0044 - RM493 / Conservateurs / Impuretés",
+        "Vérification TCC0044 - RM493 / Conservateurs / Impuretés"
+      ],
+      "color": null,
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "spq": [
