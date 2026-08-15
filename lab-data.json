@@ -4103,45 +4103,6 @@
       "date": "2026-08-15",
       "statut": "recu",
       "note": ""
-    },
-    {
-      "id": 1786789798339,
-      "code": "XXXXXX",
-      "lot": "XXXXXX",
-      "articleId": 1786529504133,
-      "articleCode": "M70517000",
-      "produitId": 1786529504133,
-      "marcheIds": [],
-      "analysesIds": [
-        1785336377803,
-        1786520419939,
-        1785247477146,
-        1785169966496,
-        1785247382413,
-        1786533393826,
-        1786637416398,
-        1786637253094
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCAAAA",
-      "stabEcheance": "T6M",
-      "stabTemps": "5°C, 15°C, 25°C",
-      "stabEtudeId": 1786780207343,
-      "ptcId": 1786780253826,
-      "conditionId": 1786779408487,
-      "conditionIds": [
-        1786779408487,
-        1786779415237,
-        1786779420753
-      ],
-      "echeanceId": 1786779469460,
-      "date": "2026-08-16",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -7410,11 +7371,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
-      "time": "13/08 18:05"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0086 - 2.6 DMA",
       "time": "13/08 18:07"
     },
@@ -7657,6 +7613,11 @@
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
       "time": "15/08 12:29"
+    },
+    {
+      "icon": "trash",
+      "text": "Réception supprimée : XXXXXX — T6M",
+      "time": "15/08 12:30"
     }
   ]
 }
