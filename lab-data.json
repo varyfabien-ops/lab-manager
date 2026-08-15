@@ -4223,8 +4223,16 @@
       ],
       "echeanceId": 1786779469460,
       "date": "2026-08-16",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1786301521786": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1786301521786": {
+          "en_cours": "15/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -7589,11 +7597,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Technicien modifie : Géraldine SANTI",
-      "time": "13/08 18:15"
-    },
-    {
       "icon": "certificate",
       "text": "Technicien ajoute : Marion RICROT",
       "time": "13/08 18:16"
@@ -7836,6 +7839,11 @@
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
+      "time": "15/08 16:18"
+    },
+    {
+      "icon": "list-check",
+      "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
       "time": "15/08 16:18"
     }
   ]
