@@ -4226,11 +4226,62 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786301521786": "en_cours"
+        "1786301521786": "terminee"
       },
       "analyseStatutsInfo": {
         "1786301521786": {
-          "en_cours": "15/08/2026"
+          "en_cours": "15/08/2026",
+          "terminee": "15/08/2026"
+        }
+      },
+      "resultats": {
+        "1786301521786": {
+          "conditions": [
+            {
+              "condition": "5°C",
+              "champs": [
+                {
+                  "label": "Teneur en RM493",
+                  "valeur": "100.5",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Alcool Benzylique",
+                  "valeur": "99",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Phenol",
+                  "valeur": "98",
+                  "unite": "%"
+                }
+              ]
+            },
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Teneur en RM493",
+                  "valeur": "101.2",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Alcool Benzylique",
+                  "valeur": "98",
+                  "unite": "%"
+                },
+                {
+                  "label": "Teneur en Phenol",
+                  "valeur": "96",
+                  "unite": "%"
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "15/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       }
     }
