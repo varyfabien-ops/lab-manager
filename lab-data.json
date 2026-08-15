@@ -7589,6 +7589,22 @@
             1786301151090
           ]
         }
+      },
+      "specifications": {
+        "1786196559426": {
+          "0": "Pour Information",
+          "1": "Pour Information",
+          "2": "Pour Information"
+        },
+        "1785169966496": {
+          "0": "270 mOsmol/kg - 330 mOsmol/kg"
+        },
+        "1785170122728": {
+          "0": "5,0 - 6,0"
+        },
+        "1786637588269": {
+          "0": "Positive"
+        }
       }
     }
   ],
@@ -7687,11 +7703,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Infrarouge",
-      "time": "13/08 18:23"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0086 - Toluidine",
@@ -7936,6 +7947,11 @@
       "icon": "list-check",
       "text": "9956968 — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
       "time": "15/08 16:20"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC-SET",
+      "time": "15/08 18:16"
     }
   ]
 }
