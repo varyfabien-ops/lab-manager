@@ -817,30 +817,25 @@
 
 <div class="page" id="page-stabilites">
   <div class="page-header">
-    <div class="page-header-text"><h1>Etudes de Stabilite</h1><p>Suivi et preparation des rapports finaux</p></div>
-    <div class="page-header-actions">
-      <button class="btn btn-primary" onclick="openModal('modal-stab')"><i class="ti ti-plus"></i> Nouvelle etude</button>
-    </div>
+    <div class="page-header-text"><h1>Rapports de stabilité</h1><p>Saisie et suivi des résultats par étude, échéance et condition</p></div>
   </div>
   <div class="table-card" style="margin-bottom:24px">
     <div class="table-card-header">
-      <h3>Etudes enregistrees</h3>
+      <h3>Études à suivre</h3>
       <div class="spacer"></div>
       <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-stab" placeholder="Rechercher..." oninput="renderStabilites()"></div>
     </div>
     <table><thead><tr>
-      <th>N Etude</th><th>Produit(s)</th><th>Lot(s)</th><th>Temperatures</th>
-      <th>Echeance</th><th>Statut</th><th></th>
+      <th>N° étude</th><th>Code article</th><th>Produit</th><th>Lots</th>
+      <th>Réceptions</th><th>Avancement</th><th></th>
     </tr></thead>
     <tbody id="stab-tbody"></tbody></table>
   </div>
   <div id="stab-detail" style="display:none">
     <div class="table-card">
       <div class="table-card-header">
-        <h3 id="stab-detail-title">Fiche etude</h3>
+        <h3 id="stab-detail-title">Rapport de résultats</h3>
         <div class="spacer"></div>
-        <button class="btn" onclick="exportStabWord()"><i class="ti ti-download"></i> Exporter</button>
-        
         <button class="btn" style="color:var(--text3)" onclick="closeStabDetail()"><i class="ti ti-x"></i></button>
       </div>
       <div id="stab-detail-content" style="padding:20px"></div>
@@ -2608,7 +2603,8 @@ function ouvrirModalResultat(echId, analyseId) {
   const t = document.getElementById('modal-resultat-title');
   if(t) t.textContent = 'Résultat — ' + a.nom;
   const info = document.getElementById('modal-resultat-info');
-  const prodNom = (state.produitsEch||[]).find(p=>p.id===ech.produitId)?.nom||'—';
+  const articleResultat = ech.articleId ? (state.articles||[]).find(x=>x.id===ech.articleId) : null;
+  const prodNom = articleResultat?.nom || (state.produitsEch||[]).find(p=>p.id===ech.produitId)?.nom || '—';
   if(info) info.innerHTML = '<strong>' + prodNom + '</strong> — Lot : <code>' + (ech.lot||'—') + '</code>'
     + (isMultiSS ? ' <span class="badge badge-yellow" style="font-size:11px">'+sousSeries.length+' sous-séries</span>' : '');
 
@@ -2828,6 +2824,7 @@ function sauvegarderResultat() {
   const echRef = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
   if (echRef && echRef.resultats && echRef.resultats[_resultatAnalyseId]) {
     echRef.resultats[_resultatAnalyseId].statutAnalyse = statutAnalyse;
+    echRef.resultats[_resultatAnalyseId].technicien = activeProfile?.nom || echRef.resultats[_resultatAnalyseId].technicien || '';
   }
   // Sauvegarde STAB multi-conditions
   if (window._stabConditions && window._stabConditions.length) {
@@ -2913,6 +2910,7 @@ function sauvegarderResultat() {
   closeModal('modal-resultat');
   renderEchantillonsTable();
   if(typeof renderPlanningTable==='function') renderPlanningTable();
+  if(window._activeStabReportId && typeof openStabReport==='function') openStabReport(window._activeStabReportId);
   saveData();
   if (statutAnalyse==='ok') toast('Résultat enregistré', 'success');
 }
@@ -10283,6 +10281,102 @@ window.wizardValidate=wizardValidate;
 window.wizardRecap=wizardRecap;
 window.wizardConfirm=wizardConfirm;
 setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e); } }, 0);
+
+// ============================================================
+// RAPPORTS DE STABILITÉ — études issues du référentiel Études & PTC
+// ============================================================
+function escapeStabReportHtml(value) {
+  return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function getStabReportReceptions(etudeId) {
+  return (state.echantillons||[]).filter(e=>e.stabEtudeId===etudeId && e.typeSTAB && !e.typePIF && !e.relance);
+}
+
+function getStabReportProgress(receptions) {
+  const pairs=[];
+  receptions.forEach(e=>(e.analysesIds||[]).forEach(aid=>pairs.push({e,aid})));
+  const done=pairs.filter(x=>['terminee','verifiee'].includes((x.e.analyseStatuts||{})[x.aid])).length;
+  return {done,total:pairs.length,pct:pairs.length?Math.round(done/pairs.length*100):0};
+}
+
+function renderStabilitesReports() {
+  const tbody=document.getElementById('stab-tbody'); if(!tbody)return;
+  const q=(document.getElementById('search-stab')?.value||'').trim().toLowerCase();
+  const studies=(state.etudesStab||[]).filter(s=>{
+    const a=s.articleId?(state.articles||[]).find(x=>x.id===s.articleId):null;
+    return !q||(s.numero||'').toLowerCase().includes(q)||(a?.code||s.articleCode||'').toLowerCase().includes(q)||(a?.nom||s.produitNom||'').toLowerCase().includes(q);
+  }).sort((a,b)=>(a.numero||'').localeCompare(b.numero||'','fr',{numeric:true,sensitivity:'base'}));
+  if(!studies.length){tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><i class="ti ti-chart-line"></i><p>Aucune étude de stabilité créée dans Études & PTC</p></div></td></tr>';return;}
+  tbody.innerHTML=studies.map(s=>{
+    const article=s.articleId?(state.articles||[]).find(a=>a.id===s.articleId):null;
+    const rec=getStabReportReceptions(s.id);
+    const lots=[...new Set(rec.map(e=>e.lot).filter(Boolean))];
+    const progress=getStabReportProgress(rec);
+    const progressColor=progress.pct===100?'var(--green)':progress.pct?'var(--cyan)':'var(--text3)';
+    return '<tr>'
+      +'<td><strong style="font-family:monospace">'+escapeStabReportHtml(s.numero)+'</strong></td>'
+      +'<td><code>'+escapeStabReportHtml(article?.code||s.articleCode||'—')+'</code></td>'
+      +'<td><strong>'+escapeStabReportHtml(article?.nom||s.produitNom||'—')+'</strong></td>'
+      +'<td>'+(lots.length?lots.map(l=>'<span class="badge badge-purple">'+escapeStabReportHtml(l)+'</span>').join(' '):'<span style="color:var(--text3)">—</span>')+'</td>'
+      +'<td><strong>'+rec.length+'</strong></td>'
+      +'<td style="min-width:170px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>'+progress.done+' / '+progress.total+' tests</span><strong style="color:'+progressColor+'">'+progress.pct+'%</strong></div><div class="progress-bar"><div class="progress-fill" style="width:'+progress.pct+'%;background:'+progressColor+'"></div></div></td>'
+      +'<td><button class="btn btn-primary" style="font-size:12px" onclick="openStabReport('+s.id+')"><i class="ti ti-report-analytics"></i> Ouvrir le rapport</button></td>'
+      +'</tr>';
+  }).join('');
+}
+
+function formatStabResultSummary(result) {
+  if(!result)return '<span style="color:var(--text3)">Non saisi</span>';
+  const values=[];
+  if(Array.isArray(result.conditions)) result.conditions.forEach(c=>(c.champs||[]).forEach(ch=>{if(ch.valeur!=='')values.push((c.condition?c.condition+' : ':'')+ch.valeur+(ch.unite?' '+ch.unite:''));}));
+  else (result.champs||[]).forEach(ch=>{if(ch.valeur!=='')values.push(ch.valeur+(ch.unite?' '+ch.unite:''));});
+  const status=result.statutAnalyse==='oos'?'badge-red':result.statutAnalyse==='oot'?'badge-amber':'badge-green';
+  return (values.length?values.map(v=>'<div>'+escapeStabReportHtml(v)+'</div>').join(''):'<span style="color:var(--text3)">Résultat enregistré</span>')
+    +' <span class="badge '+status+'" style="font-size:10px">'+escapeStabReportHtml((result.statutAnalyse||'ok').toUpperCase())+'</span>'
+    +(result.technicien?'<div style="font-size:10px;color:var(--text3);margin-top:3px"><i class="ti ti-user"></i> '+escapeStabReportHtml(result.technicien)+'</div>':'');
+}
+
+function openStabReport(etudeId) {
+  const study=(state.etudesStab||[]).find(s=>s.id===etudeId); if(!study)return;
+  window._activeStabReportId=etudeId;
+  const article=study.articleId?(state.articles||[]).find(a=>a.id===study.articleId):null;
+  const ptc=study.ptcId?(state.ptc||[]).find(p=>p.id===study.ptcId):null;
+  const receptions=getStabReportReceptions(etudeId).slice().sort((a,b)=>{
+    const lotCmp=(a.lot||'').localeCompare(b.lot||'','fr',{numeric:true,sensitivity:'base'}); if(lotCmp)return lotCmp;
+    return (a.stabEcheance||'').localeCompare(b.stabEcheance||'','fr',{numeric:true,sensitivity:'base'});
+  });
+  document.getElementById('stab-detail').style.display='block';
+  document.getElementById('stab-detail-title').textContent='Rapport — '+study.numero;
+  let h='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;background:var(--bg3);padding:14px;border-radius:var(--radius);margin-bottom:18px">'
+    +'<div><span style="font-size:10px;color:var(--text3);text-transform:uppercase">Étude</span><br><strong>'+escapeStabReportHtml(study.numero)+'</strong></div>'
+    +'<div><span style="font-size:10px;color:var(--text3);text-transform:uppercase">Produit</span><br><strong>'+escapeStabReportHtml(article?.nom||study.produitNom||'—')+'</strong></div>'
+    +'<div><span style="font-size:10px;color:var(--text3);text-transform:uppercase">Code article</span><br><code>'+escapeStabReportHtml(article?.code||study.articleCode||'—')+'</code></div>'
+    +'<div><span style="font-size:10px;color:var(--text3);text-transform:uppercase">PTC</span><br><span class="badge badge-purple">'+escapeStabReportHtml(ptc?.ref||'—')+'</span></div></div>';
+  if(!receptions.length) h+='<div class="empty-state"><i class="ti ti-flask-off"></i><p>Aucune réception enregistrée pour cette étude.</p></div>';
+  receptions.forEach(e=>{
+    const echeance=e.echeanceId?(state.stabEcheances||[]).find(x=>x.id===e.echeanceId)?.nom:e.stabEcheance;
+    h+='<div style="border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:16px;overflow:hidden">'
+      +'<div style="padding:12px 14px;background:var(--purple-dim);display:flex;align-items:center;gap:10px"><strong>Lot '+escapeStabReportHtml(e.lot||'—')+'</strong><span class="badge badge-purple">'+escapeStabReportHtml(echeance||'—')+'</span><span style="font-size:12px;color:var(--text2)">'+(e.date?formatDate(e.date):'')+'</span></div>'
+      +'<div style="overflow-x:auto"><table><thead><tr><th>Analyse</th><th>Conditions prévues</th><th>Résultat</th><th>Statut</th><th></th></tr></thead><tbody>';
+    (e.analysesIds||[]).map(id=>(state.catalogue||[]).find(a=>a.id===id)).filter(Boolean).sort((a,b)=>(a.nom||'').localeCompare(b.nom||'','fr',{sensitivity:'base'})).forEach(a=>{
+      const st=(e.analyseStatuts||{})[a.id]||'a_lancer';
+      const result=(e.resultats||{})[a.id];
+      const badge=st==='verifiee'?'badge-cyan':st==='terminee'?'badge-green':st==='en_cours'?'badge-blue':'badge-gray';
+      h+='<tr><td><strong>'+escapeStabReportHtml(a.nom)+'</strong></td><td>'+getEcheanceConditionDisplay(e,a.id)+'</td><td>'+formatStabResultSummary(result)+'</td><td><span class="badge '+badge+'">'+escapeStabReportHtml(st.replace('_',' ').toUpperCase())+'</span></td><td><button class="btn btn-primary" style="font-size:11px" onclick="ouvrirModalResultat('+e.id+','+a.id+')"><i class="ti ti-pencil"></i> '+(result?'Modifier':'Saisir')+'</button></td></tr>';
+    });
+    h+='</tbody></table></div></div>';
+  });
+  document.getElementById('stab-detail-content').innerHTML=h;
+  document.getElementById('stab-detail').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+renderStabilites=renderStabilitesReports;
+window.renderStabilites=renderStabilitesReports;
+window.openStabReport=openStabReport;
+var closeStabDetailBase=closeStabDetail;
+closeStabDetail=function(){window._activeStabReportId=null;const el=document.getElementById('stab-detail');if(el)el.style.display='none';};
+window.closeStabDetail=closeStabDetail;
 
 </script>
 <div class="modal-overlay" id="modal-plan-task">
