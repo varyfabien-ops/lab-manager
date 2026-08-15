@@ -5762,7 +5762,8 @@
       },
       "isSous": true,
       "parentNom": "Identification Lidocaïne USP",
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "vert"
     },
     {
       "id": 1786520690725,
