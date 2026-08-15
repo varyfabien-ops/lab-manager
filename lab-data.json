@@ -4186,11 +4186,38 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786301521786": "en_cours"
+        "1786301521786": "terminee"
       },
       "analyseStatutsInfo": {
         "1786301521786": {
-          "en_cours": "15/08/2026"
+          "en_cours": "15/08/2026",
+          "terminee": "15/08/2026"
+        }
+      },
+      "resultats": {
+        "1786301521786": {
+          "champs": [
+            {
+              "label": "Teneur en RM493",
+              "valeur": "100.4",
+              "unite": "%"
+            },
+            {
+              "label": "Teneur en Alcool Benzylique",
+              "valeur": "99",
+              "unite": "%"
+            },
+            {
+              "label": "Teneur en Phenol",
+              "valeur": "99",
+              "unite": "%"
+            }
+          ],
+          "commentaire": "",
+          "date": "15/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok",
+          "technicien": ""
         }
       }
     },
@@ -7657,11 +7684,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Absorbance",
-      "time": "13/08 18:23"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : InfraRouge",
       "time": "13/08 18:23"
     },
@@ -7903,6 +7925,11 @@
     {
       "icon": "list-check",
       "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
+      "time": "15/08 16:19"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "TCC0044 - RM493 / Conservateurs / Impuretés — lot XXXXXX",
       "time": "15/08 16:19"
     }
   ]
