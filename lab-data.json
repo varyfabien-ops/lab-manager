@@ -3650,90 +3650,6 @@
       "date": "2026-07-23",
       "statut": "recu",
       "note": ""
-    },
-    {
-      "id": 1786788354067,
-      "code": "XXXXXX",
-      "lot": "XXXXXX",
-      "articleId": 1786529504133,
-      "articleCode": "M70517000",
-      "produitId": 1786529504133,
-      "marcheIds": [],
-      "analysesIds": [
-        1786520419939,
-        1785247477146,
-        1785169966496,
-        1785247382413,
-        1786533393826,
-        1786637416398,
-        1785336377803
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCAAAA",
-      "stabEcheance": "T3M",
-      "stabTemps": "5°C, 15°C, 25°C",
-      "stabEtudeId": 1786780207343,
-      "ptcId": 1786780253826,
-      "conditionId": 1786779408487,
-      "conditionIds": [
-        1786779408487,
-        1786779415237,
-        1786779420753
-      ],
-      "echeanceId": 1786779453854,
-      "date": "2026-08-15",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785247382413": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1785247382413": {
-          "en_cours": "15/08/2026"
-        }
-      }
-    },
-    {
-      "id": 1786788865153,
-      "code": "XXXXXX",
-      "lot": "XXXXXX",
-      "articleId": 1786529504133,
-      "articleCode": "M70517000",
-      "produitId": 1786529504133,
-      "marcheIds": [],
-      "analysesIds": [
-        1785336377803,
-        1786520419939,
-        1785247477146,
-        1785169966496,
-        1785247382413,
-        1786533393826,
-        1786637416398
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCAAAA",
-      "stabEcheance": "T6M",
-      "stabTemps": "5°C, 15°C, 25°C",
-      "stabEtudeId": 1786780207343,
-      "ptcId": 1786780253826,
-      "conditionId": 1786779408487,
-      "conditionIds": [
-        1786779408487,
-        1786779415237,
-        1786779420753
-      ],
-      "echeanceId": 1786779469460,
-      "date": "2026-08-18",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -6991,11 +6907,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Analyse supprimee : Titrage Thiosulfate de Sodium 0,1M",
-      "time": "13/08 18:00"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
       "time": "13/08 18:01"
@@ -7238,6 +7149,11 @@
     {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
+      "time": "15/08 12:14"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : XXXXXX (2 entrees)",
       "time": "15/08 12:14"
     }
   ]
