@@ -1329,17 +1329,15 @@
 
       <!-- STEP STAB-PTC : PTC, CONDITION & ÉCHÉANCE (STAB seule) -->
       <div id="wstep-stab-ptc" style="display:none">
-        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Sélectionnez le PTC, la condition et l'échéance de cet enregistrement</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--text2)">Sélectionnez le PTC, une ou plusieurs conditions, puis l'échéance de cet enregistrement</div>
         <div class="form-grid">
           <div class="form-group full"><label>PTC *</label>
             <select id="w-stab-ptc-select" onchange="onWizardPtcSelect()">
               <option value="">— Sélectionner —</option>
             </select>
           </div>
-          <div class="form-group"><label>Condition *</label>
-            <select id="w-stab-condition-select" onchange="onWizardConditionEcheanceChange()">
-              <option value="">— Sélectionner —</option>
-            </select>
+          <div class="form-group"><label>Conditions * <span style="color:var(--text3);font-weight:400">(plusieurs choix possibles)</span></label>
+            <div id="w-stab-conditions-check" style="display:flex;flex-direction:column;gap:6px;padding:8px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);max-height:180px;overflow-y:auto"></div>
           </div>
           <div class="form-group"><label>Échéance *</label>
             <select id="w-stab-echeance-select" onchange="onWizardConditionEcheanceChange()">
@@ -1665,7 +1663,7 @@ function wizardRender() {
   const stabOnly = isStabOnly();
 
   // Labels
-  const names = {1:'Type', 2: stabOnly ? 'Étude de stabilité' : 'Code article', 3:'Marchés', 4:'Lot & Options', 'stab-ptc':'PTC, condition & échéance', 5:'Récapitulatif'};
+  const names = {1:'Type', 2: stabOnly ? 'Étude de stabilité' : 'Code article', 3:'Marchés', 4:'Lot & Options', 'stab-ptc':'PTC, conditions & échéance', 5:'Récapitulatif'};
   const lbl = document.getElementById('wizard-step-label');
   const nm = document.getElementById('wizard-step-name');
   const prog = document.getElementById('wizard-progress');
@@ -1749,7 +1747,7 @@ function wizardValidate() {
   }
   if(wizardStep==='stab-ptc') {
     if (!window._wizardPtcId) { toast('Sélectionnez un PTC', 'error'); return false; }
-    if (!window._wizardConditionId) { toast('Sélectionnez une condition', 'error'); return false; }
+    if (!(window._wizardConditionIds||[]).length) { toast('Sélectionnez au moins une condition', 'error'); return false; }
     if (!window._wizardEcheanceId) { toast('Sélectionnez une échéance', 'error'); return false; }
   }
   return true;
@@ -1920,18 +1918,22 @@ function onWizardPtcSelect() {
   window._wizardPtcId = ptcId;
   const ptc = ptcId ? (state.ptc||[]).find(p => p.id === ptcId) : null;
 
-  const condSel = document.getElementById('w-stab-condition-select');
+  const condEl = document.getElementById('w-stab-conditions-check');
   const echSel = document.getElementById('w-stab-echeance-select');
   if (!ptc) {
-    if (condSel) condSel.innerHTML = '<option value="">— Sélectionner —</option>';
+    if (condEl) condEl.innerHTML = '<span style="color:var(--text3);font-size:12px">Sélectionnez d’abord un PTC</span>';
     if (echSel) echSel.innerHTML = '<option value="">— Sélectionner —</option>';
     return;
   }
   const conditions = (ptc.conditions||[]).map(id => (state.stabConditions||[]).find(c => c.id === id)).filter(Boolean);
   const echeances = (ptc.echeances||[]).map(id => (state.stabEcheances||[]).find(e => e.id === id)).filter(Boolean);
-  if (condSel) {
-    condSel.innerHTML = '<option value="">— Sélectionner —</option>' + conditions.map(c => '<option value="'+c.id+'">'+c.nom+'</option>').join('');
-    if (window._wizardConditionId) condSel.value = window._wizardConditionId;
+  if (condEl) {
+    const selectedIds = window._wizardConditionIds||[];
+    condEl.innerHTML = conditions.length ? conditions.map(c =>
+      '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:7px 9px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);font-size:13px">'
+      +'<input type="checkbox" class="w-stab-condition-cb" value="'+c.id+'" onchange="onWizardConditionEcheanceChange()"'+(selectedIds.includes(c.id)?' checked':'')+'> '
+      +'<span>'+c.nom+'</span></label>'
+    ).join('') : '<span style="color:var(--text3);font-size:12px">Aucune condition configurée pour ce PTC</span>';
   }
   if (echSel) {
     echSel.innerHTML = '<option value="">— Sélectionner —</option>' + echeances.map(e => '<option value="'+e.id+'">'+e.nom+'</option>').join('');
@@ -1942,16 +1944,17 @@ function onWizardPtcSelect() {
 window.onWizardPtcSelect = onWizardPtcSelect;
 
 function onWizardConditionEcheanceChange() {
-  const condId = parseInt(document.getElementById('w-stab-condition-select')?.value) || null;
+  const condIds = Array.from(document.querySelectorAll('.w-stab-condition-cb:checked')).map(cb => parseInt(cb.value)).filter(Boolean);
   const echId = parseInt(document.getElementById('w-stab-echeance-select')?.value) || null;
-  window._wizardConditionId = condId;
+  window._wizardConditionIds = condIds;
+  window._wizardConditionId = condIds[0]||null;
   window._wizardEcheanceId = echId;
 
   const previewEl = document.getElementById('w-stab-analyses-preview');
   const listEl = document.getElementById('w-stab-analyses-list');
-  if (!condId || !echId || !window._wizardPtcId) { if (previewEl) previewEl.style.display = 'none'; return; }
+  if (!condIds.length || !echId || !window._wizardPtcId) { if (previewEl) previewEl.style.display = 'none'; return; }
   const ptc = (state.ptc||[]).find(p => p.id === window._wizardPtcId);
-  const analyseIds = ptc?.matrix?.[condId]?.[echId] || [];
+  const analyseIds = [...new Set(condIds.flatMap(condId => ptc?.matrix?.[condId]?.[echId] || []))];
   const analyses = analyseIds.map(id => (state.catalogue||[]).find(a => a.id === id)).filter(Boolean);
   if (previewEl) previewEl.style.display = 'block';
   if (listEl) {
@@ -2018,12 +2021,12 @@ function wizardRecap() {
     +'</div>';
   // Condition & échéance (STAB seule)
   if (stabOnly) {
-    const condition = window._wizardConditionId ? (state.stabConditions||[]).find(c=>c.id===window._wizardConditionId) : null;
+    const conditions = (window._wizardConditionIds||[]).map(id=>(state.stabConditions||[]).find(c=>c.id===id)).filter(Boolean);
     const echeance = window._wizardEcheanceId ? (state.stabEcheances||[]).find(e=>e.id===window._wizardEcheanceId) : null;
     html+='<div style="background:var(--bg3);border-radius:var(--radius);padding:12px 14px">'
       +'<div style="font-size:11px;text-transform:uppercase;color:var(--text3);margin-bottom:6px">CONDITION & ÉCHÉANCE</div>'
       +'<div style="display:flex;gap:6px;flex-wrap:wrap">'
-      +(condition?'<span class="badge badge-cyan">'+condition.nom+'</span>':'')
+      +conditions.map(condition=>'<span class="badge badge-cyan">'+condition.nom+'</span>').join('')
       +(echeance?'<span class="badge badge-purple">'+echeance.nom+'</span>':'')
       +'</div></div>';
   }
@@ -2087,7 +2090,7 @@ function getWizardAnalyses() {
   }
   if(stab&&isStabOnly()) {
     const ptc = window._wizardPtcId ? (state.ptc||[]).find(p => p.id === window._wizardPtcId) : null;
-    const ids = ptc?.matrix?.[window._wizardConditionId]?.[window._wizardEcheanceId] || [];
+    const ids = [...new Set((window._wizardConditionIds||[]).flatMap(conditionId => ptc?.matrix?.[conditionId]?.[window._wizardEcheanceId] || []))];
     ids.forEach(id => analyseIds.add(id));
   }
 
@@ -2110,13 +2113,14 @@ function wizardConfirm() {
   const prodId=art?.id||null;
   const stabEtudeId=stab?(stabOnly?window._wizardEtudeStabId:(window._selectedStabEtudeId||parseInt(document.getElementById('w-stab-etude')?.value)||null)):null;
   const ptcId=stabOnly?(window._wizardPtcId||null):null;
-  const conditionId=stabOnly?(window._wizardConditionId||null):null;
+  const conditionIds=stabOnly?(window._wizardConditionIds||[]):[];
+  const conditionId=stabOnly?(conditionIds[0]||null):null;
   const echeanceId=stabOnly?(window._wizardEcheanceId||null):null;
   const ptcObj=ptcId?(state.ptc||[]).find(p=>p.id===ptcId):null;
-  const conditionObj=conditionId?(state.stabConditions||[]).find(c=>c.id===conditionId):null;
+  const conditionObjs=conditionIds.map(id=>(state.stabConditions||[]).find(c=>c.id===id)).filter(Boolean);
   const echeanceObj=echeanceId?(state.stabEcheances||[]).find(e=>e.id===echeanceId):null;
   const echeance=stabOnly?(echeanceObj?.nom||''):(document.getElementById('w-stab-echeance')?.value||'');
-  const condition=stabOnly?(conditionObj?.nom||''):(document.getElementById('w-stab-temps')?.value||'');
+  const condition=stabOnly?conditionObjs.map(c=>c.nom).join(', '):(document.getElementById('w-stab-temps')?.value||'');
   const spqRef=document.getElementById('w-ref-spq')?.value.trim()||document.getElementById('w-mp-spq')?.value.trim()||'';
   const ptc=stabOnly?(ptcObj?.ref||''):(document.getElementById('w-ref-ptc')?.value.trim()||'');
   const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -2137,7 +2141,7 @@ function wizardConfirm() {
       typePIF:pif, typeSTAB:stab, typeMP:mp,
       nbContenants, refSPQ:spqRef, refPTC:ptc,
       stabEcheance:echeance, stabTemps:condition, stabEtudeId,
-      ptcId, conditionId, echeanceId,
+      ptcId, conditionId, conditionIds, echeanceId,
       date, statut:'recu', note:''
     });
     analyses.forEach(a=>state.planning.push({
@@ -9623,6 +9627,7 @@ openWizard = function(){
   window._wizardEtudeStabId = null;
   window._wizardPtcId = null;
   window._wizardConditionId = null;
+  window._wizardConditionIds = [];
   window._wizardEcheanceId = null;
   wizardRender();
   openModal('modal-echantillon');
