@@ -6497,12 +6497,19 @@ function buildEtiquettesAPlanifier() {
   });
   if (menageSaved) saveData();
 
-  // Présenter les étiquettes par ordre alphabétique sans modifier leur ordre
-  // de stockage. Le tri français ignore la casse et les accents, et gère les nombres.
-  etiquettes.sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {
-    sensitivity:'base',
-    numeric:true,
-  }));
+  // Trier les analyses principales par ordre alphabétique tout en gardant leurs
+  // sous-étiquettes immédiatement à leur suite.
+  const compareEtiquetteNames=(x,y)=>(x||'').localeCompare(y||'', 'fr', {
+    sensitivity:'base', numeric:true,
+  });
+  etiquettes.sort((a,b)=>{
+    const groupA=a.isSous ? (a.parentNom||a.nom||'') : (a.nom||'');
+    const groupB=b.isSous ? (b.parentNom||b.nom||'') : (b.nom||'');
+    const groupCompare=compareEtiquetteNames(groupA,groupB);
+    if(groupCompare) return groupCompare;
+    if(!!a.isSous!==!!b.isSous) return a.isSous ? 1 : -1;
+    return compareEtiquetteNames(a.nom,b.nom);
+  });
 
   window._etiquettesCache = etiquettes;
   return etiquettes;
