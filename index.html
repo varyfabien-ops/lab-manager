@@ -213,10 +213,12 @@
     <button class="nav-btn" onclick="goToEch('liberes')" id="nav-liberes"><i class="ti ti-circle-check"></i> Approbation <span class="nav-badge-h" id="badge-liberes" style="display:none">0</span></button>
     <button class="nav-btn" onclick="goTo('lead-time',this)" id="nav-lead-time"><i class="ti ti-hourglass"></i> Lead-time</button>
     <button class="nav-btn" onclick="goTo('articles',null)" id="nav-articles"><i class="ti ti-barcode"></i> Articles & SPQ</button>
+    <button class="nav-btn" onclick="goTo('etudes-ptc',null)" id="nav-etudes-ptc"><i class="ti ti-file-certificate"></i> Études & PTC</button>
     <div class="nav-sep"></div>
     <button class="nav-btn" onclick="goTo('habilitations',this)" id="nav-habilitations"><i class="ti ti-certificate"></i> Habilitations</button>
     <button class="nav-btn" onclick="goTo('audit',this)" id="nav-audit"><i class="ti ti-history"></i> Journal</button>
     <button class="nav-btn" onclick="goTo('stabilites',this)" id="nav-stabilites"><i class="ti ti-chart-line"></i> Stabilités</button>
+    <button class="nav-btn" onclick="goTo('stab-conditions',this)" id="nav-stab-conditions"><i class="ti ti-adjustments"></i> Conditions / Échéances</button>
     <button class="nav-btn" onclick="goTo('profils-config',this)" id="nav-profils-config"><i class="ti ti-users"></i> Profils</button>
   </div>
 </header>
@@ -846,6 +848,29 @@
   </div>
 </div>
 
+<div class="page" id="page-stab-conditions">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Conditions / Échéances</h1><p>Référentiel utilisé pour créer les études de stabilité</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-thermometer" style="margin-right:6px;color:var(--cyan)"></i>Conditions de stockage</h3></div>
+      <div id="stab-conditions-list" style="padding:0"></div>
+      <div style="display:flex;gap:8px;padding:14px 18px;border-top:1px solid var(--border)">
+        <input id="stab-condition-input" placeholder="Ex: 25°C/60%HR" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg2);color:var(--text)" onkeydown="if(event.key==='Enter')addStabCondition()">
+        <button class="btn btn-primary" onclick="addStabCondition()"><i class="ti ti-plus"></i> Ajouter</button>
+      </div>
+    </div>
+    <div class="table-card">
+      <div class="table-card-header"><h3><i class="ti ti-clock" style="margin-right:6px;color:var(--cyan)"></i>Échéances</h3></div>
+      <div id="stab-echeances-list" style="padding:0"></div>
+      <div style="display:flex;gap:8px;padding:14px 18px;border-top:1px solid var(--border)">
+        <input id="stab-echeance-input" placeholder="Ex: T3M" style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg2);color:var(--text)" onkeydown="if(event.key==='Enter')addStabEcheance()">
+        <button class="btn btn-primary" onclick="addStabEcheance()"><i class="ti ti-plus"></i> Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="page" id="page-tendances">
   <div class="page-header">
@@ -920,6 +945,32 @@
         <button class="btn" onclick="closeSpqPanel()"><i class="ti ti-x"></i></button>
       </div>
       <div id="spq-detail-content" style="padding:20px"></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-etudes-ptc">
+  <div class="page-header">
+    <div class="page-header-text"><h1>Études & PTC</h1><p>Numéros d'études liés à un PTC (conditions et échéances à réaliser)</p></div>
+    <div class="page-header-actions"><button class="btn" onclick="openModalPTC()" style="margin-right:8px;background:var(--purple-dim);color:var(--purple);border-color:var(--purple)"><i class="ti ti-plus"></i> Nouveau PTC</button><button class="btn btn-primary" onclick="openModalEtudeStab()"><i class="ti ti-plus"></i> Nouvelle étude</button></div>
+  </div>
+  <div class="table-card">
+    <div class="table-card-header"><h3>Études enregistrées</h3><div class="spacer"></div>
+      <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-etudes-ptc" placeholder="Rechercher..." oninput="renderEtudesStab()"></div>
+    </div>
+    <table><thead><tr><th>N° d'étude</th><th>PTC liée</th><th></th></tr></thead>
+    <tbody id="etudes-ptc-tbody"></tbody></table>
+  </div>
+
+  <!-- SECTION PTC intégrée -->
+  <div id="ptc-detail-panel" style="display:none;margin-top:20px">
+    <div class="table-card">
+      <div class="table-card-header">
+        <h3 id="ptc-detail-title">PTC — </h3>
+        <div class="spacer"></div>
+        <button class="btn" onclick="closePtcPanel()"><i class="ti ti-x"></i></button>
+      </div>
+      <div id="ptc-detail-content" style="padding:20px"></div>
     </div>
   </div>
 </div>
@@ -2822,6 +2873,81 @@ function resetTendances() {
 
 // ancienne renderTendances supprimée
 
+// ============================================================
+// CONDITIONS / ÉCHÉANCES (référentiel pour les études de stabilité)
+// ============================================================
+function renderStabConditions() {
+  const el = document.getElementById('stab-conditions-list'); if (!el) return;
+  const items = (state.stabConditions||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base', numeric:true}));
+  if (!items.length) { el.innerHTML = '<div style="padding:20px 18px;font-size:13px;color:var(--text3);font-style:italic">Aucune condition définie</div>'; return; }
+  el.innerHTML = items.map(c =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--border)">'
+    + '<span style="font-size:13px;font-weight:600">'+c.nom+'</span>'
+    + '<button class="icon-btn danger" onclick="deleteStabCondition('+c.id+')"><i class="ti ti-trash"></i></button>'
+    + '</div>'
+  ).join('');
+}
+window.renderStabConditions = renderStabConditions;
+
+function addStabCondition() {
+  const input = document.getElementById('stab-condition-input');
+  const nom = input.value.trim();
+  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
+  if (!state.stabConditions) state.stabConditions = [];
+  if (state.stabConditions.some(c => c.nom.toLowerCase() === nom.toLowerCase())) { toast('Cette condition existe déjà', 'error'); return; }
+  state.stabConditions.push({ id: Date.now(), nom });
+  input.value = '';
+  saveData();
+  renderStabConditions();
+  toast('Condition ajoutée', 'success');
+}
+window.addStabCondition = addStabCondition;
+
+function deleteStabCondition(id) {
+  if (!confirm('Supprimer cette condition ?')) return;
+  state.stabConditions = (state.stabConditions||[]).filter(c => c.id !== id);
+  saveData();
+  renderStabConditions();
+  toast('Condition supprimée', 'success');
+}
+window.deleteStabCondition = deleteStabCondition;
+
+function renderStabEcheances() {
+  const el = document.getElementById('stab-echeances-list'); if (!el) return;
+  const items = (state.stabEcheances||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base', numeric:true}));
+  if (!items.length) { el.innerHTML = '<div style="padding:20px 18px;font-size:13px;color:var(--text3);font-style:italic">Aucune échéance définie</div>'; return; }
+  el.innerHTML = items.map(c =>
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--border)">'
+    + '<span style="font-size:13px;font-weight:600">'+c.nom+'</span>'
+    + '<button class="icon-btn danger" onclick="deleteStabEcheance('+c.id+')"><i class="ti ti-trash"></i></button>'
+    + '</div>'
+  ).join('');
+}
+window.renderStabEcheances = renderStabEcheances;
+
+function addStabEcheance() {
+  const input = document.getElementById('stab-echeance-input');
+  const nom = input.value.trim();
+  if (!nom) { toast('Le nom est obligatoire', 'error'); return; }
+  if (!state.stabEcheances) state.stabEcheances = [];
+  if (state.stabEcheances.some(c => c.nom.toLowerCase() === nom.toLowerCase())) { toast('Cette échéance existe déjà', 'error'); return; }
+  state.stabEcheances.push({ id: Date.now(), nom });
+  input.value = '';
+  saveData();
+  renderStabEcheances();
+  toast('Échéance ajoutée', 'success');
+}
+window.addStabEcheance = addStabEcheance;
+
+function deleteStabEcheance(id) {
+  if (!confirm('Supprimer cette échéance ?')) return;
+  state.stabEcheances = (state.stabEcheances||[]).filter(c => c.id !== id);
+  saveData();
+  renderStabEcheances();
+  toast('Échéance supprimée', 'success');
+}
+window.deleteStabEcheance = deleteStabEcheance;
+
 function renderStabilites() {
   const q=(document.getElementById('search-stab')?.value||'').toLowerCase();
   const stabs=(state.stabilites||[]).filter(s=>!q||(s.num||'').toLowerCase().includes(q)||(s.produits||'').toLowerCase().includes(q)).sort((a,b)=>(a.num||'').localeCompare(b.num||'', 'fr', {numeric:true, sensitivity:'base'}));
@@ -2999,6 +3125,10 @@ let state = {
   profils: [],
   commandesArchives: [],
   etiquettesLibres: [],
+  stabConditions: [],
+  stabEcheances: [],
+  etudesStab: [],
+  ptc: [],
   commandesStatut: {},
   enregistrements: [],
   activity: []
@@ -3126,6 +3256,8 @@ function goTo(page, el) {
   if (page === 'solutions-titrees') goToSolutionsTitrees();
   if (page === 'rythmes') renderRythmesAnnee();
   if (page === 'lead-time') renderLeadTime();
+  if (page === 'stab-conditions') { renderStabConditions(); renderStabEcheances(); }
+  if (page === 'etudes-ptc') renderEtudesStab();
 }
 
 // ============================================================
@@ -3235,7 +3367,7 @@ let _baseline = null; // dernier état connu comme étant synchronisé avec GitH
 // Champs de state.* qui sont des tableaux d'objets avec un id (fusion par id)
 const MERGE_ARRAY_FIELDS_BY_ID = ['planning','catalogue','stabilites','reactifs','produits','contenants',
   'produitsEch','marches','echantillons','techniciens','planTasks','spq','articles','preparations',
-  'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres'];
+  'cataloguePrep','profils','commandesArchives','enregistrements','etiquettesLibres','stabConditions','stabEcheances','etudesStab','ptc'];
 // Champs de state.* qui sont des objets clé/valeur (fusion par clé)
 const MERGE_MAP_FIELDS = ['planRythmes','commandesStatut','planRythmesLocked','planningProduction'];
 // Champs de state.* qui sont des tableaux sans id fiable (journal) — fusion par contenu, style log
@@ -3322,7 +3454,7 @@ async function loadData(silent) {
     const bytes2 = new Uint8Array(binStr2.length);
     for (let i = 0; i < binStr2.length; i++) bytes2[i] = binStr2.charCodeAt(i);
     const decoded = JSON.parse(new TextDecoder().decode(bytes2));
-    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, planRythmesLocked: decoded.planRythmesLocked||{}, planningProduction: decoded.planningProduction||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[] };
+    const remoteState = { planning: decoded.planning||[], catalogue: decoded.catalogue||[], stabilites: decoded.stabilites||[], reactifs: decoded.reactifs||[], produits: decoded.produits||[], contenants: decoded.contenants||[], produitsEch: decoded.produitsEch||[], marches: decoded.marches||[], echantillons: decoded.echantillons||[], techniciens: decoded.techniciens||[], commandesStatut: decoded.commandesStatut||{}, enregistrements: decoded.enregistrements||[], activity: decoded.activity||[], spq: decoded.spq||[], articles: decoded.articles||[], planTasks: decoded.planTasks||[], planRythmes: decoded.planRythmes||{}, planRythmesLocked: decoded.planRythmesLocked||{}, planningProduction: decoded.planningProduction||{}, preparations: decoded.preparations||[], cataloguePrep: decoded.cataloguePrep||[], profils: decoded.profils||[], commandesArchives: decoded.commandesArchives||[], etiquettesLibres: decoded.etiquettesLibres||[], stabConditions: decoded.stabConditions||[], stabEcheances: decoded.stabEcheances||[], etudesStab: decoded.etudesStab||[], ptc: decoded.ptc||[] };
     // Fusion avec l'état local courant, pour ne jamais perdre un travail local pas encore sauvegardé
     state = _baseline ? mergeStates(remoteState, _baseline, state) : remoteState;
     _baseline = snapshotState();
@@ -7652,6 +7784,8 @@ const ALL_MODULES = [
   { key:'habilitations', label:'Habilitations',         icon:'ti-certificate' },
   { key:'activity',      label:'Journal',               icon:'ti-history' },
   { key:'stabilites',    label:'Stabilités',            icon:'ti-chart-line' },
+  { key:'stab-conditions', label:'Conditions / Échéances', icon:'ti-adjustments' },
+  { key:'etudes-ptc',    label:'Études & PTC',           icon:'ti-file-certificate' },
   { key:'profils-config',label:'Profils',               icon:'ti-users' },
 ];
 
@@ -7760,6 +7894,8 @@ function gotoModule(key) {
     'habilitations': ()=>goTo('habilitations',null),
     'activity':      ()=>goTo('audit',null),
     'stabilites':    ()=>goTo('stabilites',null),
+    'stab-conditions': ()=>goTo('stab-conditions',null),
+    'etudes-ptc':    ()=>goTo('etudes-ptc',null),
     'profils-config':()=>goTo('profils-config',null),
   };
   if(actions[key]) actions[key]();
@@ -7806,6 +7942,8 @@ function applyProfile(p) {
     'habilitations': ['nav-habilitations'],
     'activity':      ['nav-audit'],
     'stabilites':    ['nav-stabilites'],
+    'stab-conditions': ['nav-stab-conditions'],
+    'etudes-ptc':    ['nav-etudes-ptc'],
     'profils-config':['nav-profils-config'],
   };
   const visibleIds = new Set();
@@ -8159,6 +8297,214 @@ function deleteArticle(id) {
   toast('Article supprimé', 'info');
   addActivity('trash', 'Article supprimé : ' + (a?.code||''));
 }
+
+// ============================================================
+// ÉTUDES & PTC
+// ============================================================
+function renderEtudesStab() {
+  const tbody = document.getElementById('etudes-ptc-tbody');
+  if (!tbody) return;
+  const q = (document.getElementById('search-etudes-ptc')?.value || '').toLowerCase();
+  const etudes = (state.etudesStab || []).filter(e => !q || (e.numero||'').toLowerCase().includes(q)).sort((a,b)=>(a.numero||'').localeCompare(b.numero||'', 'fr', {numeric:true, sensitivity:'base'}));
+  if (!etudes.length) {
+    tbody.innerHTML = '<tr><td colspan="3" class="empty-state"><i class="ti ti-file-certificate"></i><p>Aucune étude enregistrée</p></td></tr>';
+    return;
+  }
+  tbody.innerHTML = etudes.map(e => {
+    const ptc = (state.ptc||[]).find(p => p.id === e.ptcId);
+    return '<tr>'
+      + '<td><strong style="font-family:monospace">' + e.numero + '</strong></td>'
+      + '<td>' + (ptc ? '<span class="badge badge-purple" style="font-size:11px;cursor:pointer" onclick="openPtcPanel(' + e.id + ')">' + ptc.ref + '</span>' : '<span style="color:var(--text3)">—</span>') + '</td>'
+      + '<td><div class="actions" style="opacity:1">'
+      + '<button class="icon-btn" onclick="openPtcPanel(' + e.id + ')" title="Voir le PTC"><i class="ti ti-file-certificate"></i></button>'
+      + '<button class="icon-btn" onclick="editEtudeStab(' + e.id + ')"><i class="ti ti-pencil"></i></button>'
+      + '<button class="icon-btn danger" onclick="deleteEtudeStab(' + e.id + ')"><i class="ti ti-trash"></i></button>'
+      + '</div></td>'
+      + '</tr>';
+  }).join('');
+}
+window.renderEtudesStab = renderEtudesStab;
+
+function populatePtcSelect(selId, selectedId) {
+  const sel = document.getElementById(selId);
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Aucun PTC —</option>'
+    + (state.ptc||[]).slice().sort((a,b)=>(a.ref||'').localeCompare(b.ref||'', 'fr', {numeric:true, sensitivity:'base'})).map(p => '<option value="' + p.id + '"' + (p.id === selectedId ? ' selected' : '') + '>' + p.ref + '</option>').join('');
+}
+
+function openModalEtudeStab() {
+  window._editingEtudeStabId = null;
+  document.getElementById('modal-etude-stab-title').textContent = 'Nouvelle étude';
+  document.getElementById('etude-stab-numero').value = '';
+  populatePtcSelect('etude-stab-ptc', null);
+  document.getElementById('etude-stab-delete-btn').style.display = 'none';
+  openModal('modal-etude-stab');
+}
+window.openModalEtudeStab = openModalEtudeStab;
+
+function editEtudeStab(id) {
+  const e = (state.etudesStab||[]).find(x => x.id === id);
+  if (!e) return;
+  window._editingEtudeStabId = id;
+  document.getElementById('modal-etude-stab-title').textContent = 'Modifier — ' + e.numero;
+  document.getElementById('etude-stab-numero').value = e.numero || '';
+  populatePtcSelect('etude-stab-ptc', e.ptcId);
+  document.getElementById('etude-stab-delete-btn').style.display = 'inline-flex';
+  openModal('modal-etude-stab');
+}
+window.editEtudeStab = editEtudeStab;
+
+function saveEtudeStab() {
+  const numero = document.getElementById('etude-stab-numero').value.trim();
+  if (!numero) { toast('Le n° d\'étude est obligatoire', 'error'); return; }
+  const ptcId = parseInt(document.getElementById('etude-stab-ptc').value) || null;
+  const entry = { id: window._editingEtudeStabId || Date.now(), numero, ptcId };
+  if (!state.etudesStab) state.etudesStab = [];
+  if (window._editingEtudeStabId) {
+    const idx = state.etudesStab.findIndex(x => x.id === window._editingEtudeStabId);
+    if (idx >= 0) state.etudesStab[idx] = entry;
+    addActivity('file-description', 'Étude modifiée : ' + numero);
+  } else {
+    if (state.etudesStab.find(x => x.numero === numero)) { toast('Ce n° d\'étude existe déjà', 'error'); return; }
+    state.etudesStab.push(entry);
+    addActivity('file-description', 'Étude créée : ' + numero);
+  }
+  closeModal('modal-etude-stab');
+  saveData();
+  renderEtudesStab();
+  toast('Étude enregistrée', 'success');
+}
+window.saveEtudeStab = saveEtudeStab;
+
+function deleteEtudeStab(id) {
+  if (!id || !state.etudesStab) return;
+  const e = state.etudesStab.find(x => x.id === id);
+  state.etudesStab = state.etudesStab.filter(x => x.id !== id);
+  closeModal('modal-etude-stab');
+  saveData();
+  renderEtudesStab();
+  toast('Étude supprimée', 'info');
+  addActivity('trash', 'Étude supprimée : ' + (e?.numero||''));
+}
+window.deleteEtudeStab = deleteEtudeStab;
+
+function openModalPTC() {
+  window._editingPtcId = null;
+  document.getElementById('modal-ptc-title').textContent = 'Nouveau PTC';
+  document.getElementById('ptc-ref').value = '';
+  buildPtcCheckboxes([], [], []);
+  document.getElementById('ptc-delete-btn').style.display = 'none';
+  openModal('modal-ptc');
+}
+window.openModalPTC = openModalPTC;
+
+function editPTC(id) {
+  const p = (state.ptc||[]).find(x => x.id === id);
+  if (!p) return;
+  window._editingPtcId = id;
+  document.getElementById('modal-ptc-title').textContent = 'Modifier — ' + p.ref;
+  document.getElementById('ptc-ref').value = p.ref || '';
+  buildPtcCheckboxes(p.conditions||[], p.echeances||[], p.analyses||[]);
+  document.getElementById('ptc-delete-btn').style.display = 'inline-flex';
+  openModal('modal-ptc');
+}
+window.editPTC = editPTC;
+
+function buildPtcCheckboxes(selectedConditions, selectedEcheances, selectedAnalyses) {
+  const condEl = document.getElementById('ptc-conditions-check');
+  const echEl = document.getElementById('ptc-echeances-check');
+  const anaEl = document.getElementById('ptc-analyses-check');
+  const chkStyle = 'display:flex;align-items:center;gap:5px;cursor:pointer;padding:5px 10px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);font-size:13px';
+  const conditions = (state.stabConditions||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base', numeric:true}));
+  const echeances = (state.stabEcheances||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base', numeric:true}));
+  const analyses = (state.catalogue||[]).slice().sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {sensitivity:'base'}));
+  condEl.innerHTML = conditions.length
+    ? conditions.map(c => '<label style="'+chkStyle+'"><input type="checkbox" value="'+c.id+'" class="ptc-cond-cb"'+(selectedConditions.includes(c.id)?' checked':'')+'> '+c.nom+'</label>').join('')
+    : '<div style="font-size:12px;color:var(--text3)">Aucune condition définie — <a href="#" onclick="closeModal(\'modal-ptc\');goTo(\'stab-conditions\',null);return false;" style="color:var(--cyan)">en créer une</a></div>';
+  echEl.innerHTML = echeances.length
+    ? echeances.map(e => '<label style="'+chkStyle+'"><input type="checkbox" value="'+e.id+'" class="ptc-ech-cb"'+(selectedEcheances.includes(e.id)?' checked':'')+'> '+e.nom+'</label>').join('')
+    : '<div style="font-size:12px;color:var(--text3)">Aucune échéance définie — <a href="#" onclick="closeModal(\'modal-ptc\');goTo(\'stab-conditions\',null);return false;" style="color:var(--cyan)">en créer une</a></div>';
+  anaEl.innerHTML = analyses.length
+    ? analyses.map(a => '<label style="'+chkStyle+'"><input type="checkbox" value="'+a.id+'" class="ptc-ana-cb"'+(selectedAnalyses.includes(a.id)?' checked':'')+'> '+a.nom+'</label>').join('')
+    : '<div style="font-size:12px;color:var(--text3)">Aucune analyse dans le catalogue — <a href="#" onclick="closeModal(\'modal-ptc\');goToPlanning(\'catalogue\');return false;" style="color:var(--cyan)">en créer une</a></div>';
+}
+
+function savePTC() {
+  const ref = document.getElementById('ptc-ref').value.trim();
+  if (!ref) { toast('La référence PTC est obligatoire', 'error'); return; }
+  const conditions = Array.from(document.querySelectorAll('.ptc-cond-cb:checked')).map(cb => parseInt(cb.value));
+  const echeances = Array.from(document.querySelectorAll('.ptc-ech-cb:checked')).map(cb => parseInt(cb.value));
+  const analyses = Array.from(document.querySelectorAll('.ptc-ana-cb:checked')).map(cb => parseInt(cb.value));
+  const entry = { id: window._editingPtcId || Date.now(), ref, conditions, echeances, analyses };
+  if (!state.ptc) state.ptc = [];
+  if (window._editingPtcId) {
+    const idx = state.ptc.findIndex(x => x.id === window._editingPtcId);
+    if (idx >= 0) state.ptc[idx] = entry;
+    addActivity('file-description', 'PTC modifié : ' + ref);
+  } else {
+    if (state.ptc.find(x => x.ref === ref)) { toast('Ce PTC existe déjà', 'error'); return; }
+    state.ptc.push(entry);
+    addActivity('file-description', 'PTC créé : ' + ref);
+  }
+  closeModal('modal-ptc');
+  saveData();
+  renderEtudesStab();
+  if (document.getElementById('ptc-detail-panel')?.style.display !== 'none') renderPtcPanelContent();
+  toast('PTC enregistré', 'success');
+}
+window.savePTC = savePTC;
+
+function deletePTC(id) {
+  if (!id || !state.ptc) return;
+  if (!confirm('Supprimer ce PTC ? Les études qui y sont liées perdront ce lien.')) return;
+  const p = state.ptc.find(x => x.id === id);
+  state.ptc = state.ptc.filter(x => x.id !== id);
+  (state.etudesStab||[]).forEach(e => { if (e.ptcId === id) e.ptcId = null; });
+  closeModal('modal-ptc');
+  closePtcPanel();
+  saveData();
+  renderEtudesStab();
+  toast('PTC supprimé', 'info');
+  addActivity('trash', 'PTC supprimé : ' + (p?.ref||''));
+}
+window.deletePTC = deletePTC;
+
+function openPtcPanel(etudeId) {
+  const e = (state.etudesStab||[]).find(x => x.id === etudeId);
+  if (!e || !e.ptcId) { toast('Aucun PTC lié à cette étude', 'info'); return; }
+  window._ptcPanelEtudeId = etudeId;
+  renderPtcPanelContent();
+  document.getElementById('ptc-detail-panel').style.display = 'block';
+}
+window.openPtcPanel = openPtcPanel;
+
+function renderPtcPanelContent() {
+  const etudeId = window._ptcPanelEtudeId;
+  const e = (state.etudesStab||[]).find(x => x.id === etudeId);
+  if (!e) return;
+  const ptc = (state.ptc||[]).find(x => x.id === e.ptcId);
+  if (!ptc) { closePtcPanel(); return; }
+  document.getElementById('ptc-detail-title').textContent = 'PTC — ' + ptc.ref + ' (' + e.numero + ')';
+  const conditions = (ptc.conditions||[]).map(id => (state.stabConditions||[]).find(c => c.id === id)).filter(Boolean);
+  const echeances = (ptc.echeances||[]).map(id => (state.stabEcheances||[]).find(c => c.id === id)).filter(Boolean);
+  const analyses = (ptc.analyses||[]).map(id => (state.catalogue||[]).find(a => a.id === id)).filter(Boolean);
+  const content = document.getElementById('ptc-detail-content');
+  content.innerHTML = '<div style="display:flex;gap:8px;margin-bottom:16px"><button class="btn" onclick="editPTC(' + ptc.id + ')"><i class="ti ti-pencil"></i> Modifier le PTC</button></div>'
+    + '<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Conditions de stockage</div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:6px">' + (conditions.length ? conditions.map(c => '<span class="badge badge-cyan" style="font-size:12px">' + c.nom + '</span>').join('') : '<span style="color:var(--text3);font-size:13px">Aucune</span>') + '</div></div>'
+    + '<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Échéances</div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:6px">' + (echeances.length ? echeances.map(e2 => '<span class="badge badge-purple" style="font-size:12px">' + e2.nom + '</span>').join('') : '<span style="color:var(--text3);font-size:13px">Aucune</span>') + '</div></div>'
+    + '<div><div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Analyses à effectuer</div>'
+    + '<div style="display:flex;flex-wrap:wrap;gap:6px">' + (analyses.length ? analyses.map(a => '<span class="badge badge-green" style="font-size:12px">' + a.nom + '</span>').join('') : '<span style="color:var(--text3);font-size:13px">Aucune</span>') + '</div></div>';
+}
+
+function closePtcPanel() {
+  const panel = document.getElementById('ptc-detail-panel');
+  if (panel) panel.style.display = 'none';
+  window._ptcPanelEtudeId = null;
+}
+window.closePtcPanel = closePtcPanel;
+
 
 
 window.renderSPQ = renderSPQ;
@@ -9565,6 +9911,65 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <div style="display:flex;gap:8px;margin-left:auto">
         <button class="btn" onclick="closeModal('modal-article')">Annuler</button>
         <button class="btn btn-primary" onclick="saveArticle()"><i class="ti ti-check"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOUVELLE ÉTUDE (Études & PTC) -->
+<div class="modal-overlay" id="modal-etude-stab">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-header">
+      <i class="ti ti-file-certificate" style="font-size:18px;color:var(--blue)"></i>
+      <h3 id="modal-etude-stab-title">Nouvelle étude</h3>
+      <button class="close-btn" onclick="closeModal('modal-etude-stab')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>N° d'étude *</label><input id="etude-stab-numero" placeholder="Ex: STAB-2026-001" style="font-weight:700;font-family:monospace"></div>
+        <div class="form-group full"><label>PTC liée</label>
+          <select id="etude-stab-ptc"><option value="">— Aucun PTC —</option></select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn btn-danger" id="etude-stab-delete-btn" onclick="deleteEtudeStab(window._editingEtudeStabId)" style="display:none"><i class="ti ti-trash"></i> Supprimer</button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="btn" onclick="closeModal('modal-etude-stab')">Annuler</button>
+        <button class="btn btn-primary" onclick="saveEtudeStab()"><i class="ti ti-check"></i> Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL NOUVEAU PTC -->
+<div class="modal-overlay" id="modal-ptc">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-header">
+      <i class="ti ti-file-certificate" style="font-size:18px;color:var(--purple)"></i>
+      <h3 id="modal-ptc-title">Nouveau PTC</h3>
+      <button class="close-btn" onclick="closeModal('modal-ptc')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Référence PTC *</label><input id="ptc-ref" placeholder="Ex: PTC-2026-001" style="font-weight:700;font-family:monospace"></div>
+      <div class="form-group full">
+        <label>Conditions de stockage <span style="color:var(--text3);font-weight:400">(cochez celles à réaliser)</span></label>
+        <div id="ptc-conditions-check" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
+      </div>
+      <div class="form-group full">
+        <label>Échéances <span style="color:var(--text3);font-weight:400">(cochez celles à réaliser)</span></label>
+        <div id="ptc-echeances-check" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px"></div>
+      </div>
+      <div class="form-group full">
+        <label>Analyses à effectuer <span style="color:var(--text3);font-weight:400">(cochez celles requises)</span></label>
+        <div id="ptc-analyses-check" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;max-height:200px;overflow-y:auto;padding:4px"></div>
+      </div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn btn-danger" id="ptc-delete-btn" onclick="deletePTC(window._editingPtcId)" style="display:none"><i class="ti ti-trash"></i> Supprimer</button>
+      <div style="display:flex;gap:8px;margin-left:auto">
+        <button class="btn" onclick="closeModal('modal-ptc')">Annuler</button>
+        <button class="btn btn-primary" onclick="savePTC()"><i class="ti ti-check"></i> Enregistrer</button>
       </div>
     </div>
   </div>
