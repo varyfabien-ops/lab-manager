@@ -4183,8 +4183,16 @@
       "conditionIds": [],
       "echeanceId": 1786779461576,
       "date": "2026-08-15",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1786301521786": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1786301521786": {
+          "en_cours": "15/08/2026"
+        }
+      }
     },
     {
       "id": 1786803522550,
@@ -7648,11 +7656,6 @@
   },
   "activity": [
     {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Marion RICROT",
-      "time": "13/08 18:16"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Absorbance",
       "time": "13/08 18:23"
@@ -7896,6 +7899,11 @@
       "icon": "list-check",
       "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
       "time": "15/08 16:18"
+    },
+    {
+      "icon": "list-check",
+      "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
+      "time": "15/08 16:19"
     }
   ]
 }
