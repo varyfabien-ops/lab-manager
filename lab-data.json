@@ -2432,6 +2432,41 @@
           "label": "Teneur en Phenol",
           "type": "numerique",
           "unite": "%"
+        },
+        {
+          "label": "Teneur en Impureté A",
+          "type": "texte",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Impureté B",
+          "type": "texte",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Impureté C",
+          "type": "texte",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Impureté D",
+          "type": "texte",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Impureté F",
+          "type": "texte",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Dimère E1",
+          "type": "texte",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Dimère E1",
+          "type": "texte",
+          "unite": "% (m/m)"
         }
       ],
       "resultatRequis": true,
@@ -7641,11 +7676,6 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0086 - Toluidine",
-      "time": "13/08 18:24"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0086 - Toluidine",
       "time": "13/08 18:25"
     },
     {
@@ -7887,6 +7917,11 @@
       "icon": "trash",
       "text": "PTC supprimé : PTCAAAA",
       "time": "15/08 19:10"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "15/08 21:04"
     }
   ]
 }
