@@ -3623,8 +3623,16 @@
       ],
       "echeanceId": 1786779453854,
       "date": "2026-08-15",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785247382413": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785247382413": {
+          "en_cours": "15/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -6883,11 +6891,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
-      "time": "13/08 17:59"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "13/08 17:59"
     },
@@ -7130,6 +7133,11 @@
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 12:05"
+    },
+    {
+      "icon": "list-check",
+      "text": "XXXXXX — TCC0002 - Sodium : en_cours",
+      "time": "15/08 12:12"
     }
   ]
 }
