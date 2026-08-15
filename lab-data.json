@@ -2321,8 +2321,24 @@
       "code": "",
       "produitsIds": [],
       "description": "Dosage du RM493, de l'Alcool Benzylique, du Phenol et des Impuretés (SETMELANOTIDE)\n",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Teneur en RM493",
+          "type": "numerique",
+          "unite": "%"
+        },
+        {
+          "label": "Teneur en Alcool Benzylique",
+          "type": "numerique",
+          "unite": "%"
+        },
+        {
+          "label": "Teneur en Phenol",
+          "type": "numerique",
+          "unite": "%"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": [
         "Retraitement TCC0044 - RM493 / Conservateurs / Impuretés",
         "Vérification TCC0044 - RM493 / Conservateurs / Impuretés"
@@ -7438,11 +7454,6 @@
   "activity": [
     {
       "icon": "certificate",
-      "text": "Technicien ajoute : Julie GASNIER",
-      "time": "13/08 18:15"
-    },
-    {
-      "icon": "certificate",
       "text": "Technicien ajoute : Vanessa GOURAULT",
       "time": "13/08 18:15"
     },
@@ -7685,6 +7696,11 @@
       "icon": "book",
       "text": "Analyse modifiée : L*a*b",
       "time": "15/08 16:16"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "15/08 16:18"
     }
   ]
 }
