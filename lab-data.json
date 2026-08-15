@@ -4102,7 +4102,45 @@
       "echeanceId": 1786779453854,
       "date": "2026-08-15",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1785336377803": {
+          "conditions": [
+            {
+              "condition": "5°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "conforme",
+                  "unite": ""
+                }
+              ]
+            },
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "conforme",
+                  "unite": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "15/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1785336377803": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785336377803": {
+          "terminee": "15/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
