@@ -5205,7 +5205,7 @@ function openModal(id) {
     const t = document.getElementById('modal-enregistrement-title'); if(t) t.textContent = 'Nouvel enregistrement';
     const d = document.getElementById('rec-date'); if(d) d.value = new Date().toISOString().slice(0,10);
   }
-  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep' && id !== 'modal-titrage' && id !== 'modal-lead-time') {
+  if (!editingId && id !== 'modal-spq' && id !== 'modal-plan-task' && id !== 'modal-article' && id !== 'modal-profil' && id !== 'modal-cat-prep' && id !== 'modal-prep' && id !== 'modal-titrage' && id !== 'modal-lead-time' && id !== 'modal-ptc' && id !== 'modal-etude-stab' && id !== 'modal-ptc-matrix') {
     const inputs = document.querySelectorAll('#'+id+' input, #'+id+' textarea');
     inputs.forEach(i => { if(i.type!=='date'&&i.type!=='hidden') i.value=''; });
     const sels = document.querySelectorAll('#'+id+' select');
@@ -8429,30 +8429,110 @@ function buildPtcCheckboxes(selectedConditions, selectedEcheances, selectedAnaly
     : '<div style="font-size:12px;color:var(--text3)">Aucune analyse dans le catalogue — <a href="#" onclick="closeModal(\'modal-ptc\');goToPlanning(\'catalogue\');return false;" style="color:var(--cyan)">en créer une</a></div>';
 }
 
-function savePTC() {
+function openPtcMatrixStep() {
   const ref = document.getElementById('ptc-ref').value.trim();
   if (!ref) { toast('La référence PTC est obligatoire', 'error'); return; }
   const conditions = Array.from(document.querySelectorAll('.ptc-cond-cb:checked')).map(cb => parseInt(cb.value));
   const echeances = Array.from(document.querySelectorAll('.ptc-ech-cb:checked')).map(cb => parseInt(cb.value));
   const analyses = Array.from(document.querySelectorAll('.ptc-ana-cb:checked')).map(cb => parseInt(cb.value));
-  const entry = { id: window._editingPtcId || Date.now(), ref, conditions, echeances, analyses };
+  if (!conditions.length || !echeances.length || !analyses.length) {
+    toast('Sélectionnez au moins une condition, une échéance et une analyse', 'error');
+    return;
+  }
+  // Récupérer la matrice existante (si modification d'un PTC déjà configuré)
+  const existing = window._editingPtcId ? (state.ptc||[]).find(x => x.id === window._editingPtcId) : null;
+  window._ptcDraft = { ref, conditions, echeances, analyses };
+  window._ptcMatrixDraft = (existing && existing.matrix) ? JSON.parse(JSON.stringify(existing.matrix)) : {};
+  // Compléter la matrice : par défaut tout coché pour les nouvelles combinaisons
+  conditions.forEach(cId => {
+    if (!window._ptcMatrixDraft[cId]) window._ptcMatrixDraft[cId] = {};
+    echeances.forEach(eId => {
+      if (!window._ptcMatrixDraft[cId][eId]) window._ptcMatrixDraft[cId][eId] = analyses.slice();
+    });
+  });
+  closeModal('modal-ptc');
+  window._ptcMatrixActiveCondition = conditions[0];
+  renderPtcMatrixModal();
+  openModal('modal-ptc-matrix');
+}
+window.openPtcMatrixStep = openPtcMatrixStep;
+
+function backToPtcStep() {
+  closeModal('modal-ptc-matrix');
+  openModal('modal-ptc');
+  // Les champs/cases du formulaire principal sont déjà tels que laissés (ref, cases cochées) — pas de reperte
+  document.getElementById('ptc-ref').value = window._ptcDraft?.ref || '';
+}
+window.backToPtcStep = backToPtcStep;
+
+function renderPtcMatrixModal() {
+  const draft = window._ptcDraft;
+  const matrix = window._ptcMatrixDraft;
+  const conditions = draft.conditions.map(id => (state.stabConditions||[]).find(c => c.id === id)).filter(Boolean);
+  const echeances = draft.echeances.map(id => (state.stabEcheances||[]).find(e => e.id === id)).filter(Boolean);
+  const analyses = draft.analyses.map(id => (state.catalogue||[]).find(a => a.id === id)).filter(Boolean);
+
+  const tabsEl = document.getElementById('ptc-matrix-tabs');
+  tabsEl.innerHTML = conditions.map(c =>
+    '<button class="ptc-matrix-tab-btn" onclick="switchPtcMatrixTab(' + c.id + ')" style="padding:8px 14px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;color:' + (window._ptcMatrixActiveCondition === c.id ? 'var(--cyan)' : 'var(--text2)') + ';border-bottom:2px solid ' + (window._ptcMatrixActiveCondition === c.id ? 'var(--cyan)' : 'transparent') + '">' + c.nom + '</button>'
+  ).join('');
+
+  const activeCondId = window._ptcMatrixActiveCondition;
+  const tableEl = document.getElementById('ptc-matrix-table');
+  let html = '<table style="width:100%;font-size:13px"><thead><tr><th style="text-align:left;padding:8px">Analyse</th>';
+  echeances.forEach(e => { html += '<th style="text-align:center;padding:8px;min-width:60px">' + e.nom + '</th>'; });
+  html += '</tr></thead><tbody>';
+  analyses.forEach(a => {
+    html += '<tr style="border-top:1px solid var(--border)"><td style="padding:8px;font-weight:600">' + a.nom + '</td>';
+    echeances.forEach(e => {
+      const checked = (matrix[activeCondId]?.[e.id]||[]).includes(a.id);
+      html += '<td style="text-align:center;padding:8px"><input type="checkbox" ' + (checked?'checked':'') + ' onchange="togglePtcMatrixCell(' + activeCondId + ',' + e.id + ',' + a.id + ',this.checked)" style="width:16px;height:16px;cursor:pointer"></td>';
+    });
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  tableEl.innerHTML = html;
+}
+
+function switchPtcMatrixTab(condId) {
+  window._ptcMatrixActiveCondition = condId;
+  renderPtcMatrixModal();
+}
+window.switchPtcMatrixTab = switchPtcMatrixTab;
+
+function togglePtcMatrixCell(condId, echId, anaId, checked) {
+  const matrix = window._ptcMatrixDraft;
+  if (!matrix[condId]) matrix[condId] = {};
+  if (!matrix[condId][echId]) matrix[condId][echId] = [];
+  const list = matrix[condId][echId];
+  const idx = list.indexOf(anaId);
+  if (checked && idx === -1) list.push(anaId);
+  if (!checked && idx !== -1) list.splice(idx, 1);
+}
+window.togglePtcMatrixCell = togglePtcMatrixCell;
+
+function savePTCFinal() {
+  const draft = window._ptcDraft;
+  const entry = { id: window._editingPtcId || Date.now(), ref: draft.ref, conditions: draft.conditions, echeances: draft.echeances, analyses: draft.analyses, matrix: window._ptcMatrixDraft };
   if (!state.ptc) state.ptc = [];
   if (window._editingPtcId) {
     const idx = state.ptc.findIndex(x => x.id === window._editingPtcId);
     if (idx >= 0) state.ptc[idx] = entry;
-    addActivity('file-description', 'PTC modifié : ' + ref);
+    addActivity('file-description', 'PTC modifié : ' + draft.ref);
   } else {
-    if (state.ptc.find(x => x.ref === ref)) { toast('Ce PTC existe déjà', 'error'); return; }
+    if (state.ptc.find(x => x.ref === draft.ref)) { toast('Ce PTC existe déjà', 'error'); return; }
     state.ptc.push(entry);
-    addActivity('file-description', 'PTC créé : ' + ref);
+    addActivity('file-description', 'PTC créé : ' + draft.ref);
   }
-  closeModal('modal-ptc');
+  closeModal('modal-ptc-matrix');
+  window._ptcDraft = null;
+  window._ptcMatrixDraft = null;
   saveData();
   renderEtudesStab();
   if (document.getElementById('ptc-detail-panel')?.style.display !== 'none') renderPtcPanelContent();
   toast('PTC enregistré', 'success');
 }
-window.savePTC = savePTC;
+window.savePTCFinal = savePTCFinal;
 
 function deletePTC(id) {
   if (!id || !state.ptc) return;
@@ -9969,8 +10049,28 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
       <button class="btn btn-danger" id="ptc-delete-btn" onclick="deletePTC(window._editingPtcId)" style="display:none"><i class="ti ti-trash"></i> Supprimer</button>
       <div style="display:flex;gap:8px;margin-left:auto">
         <button class="btn" onclick="closeModal('modal-ptc')">Annuler</button>
-        <button class="btn btn-primary" onclick="savePTC()"><i class="ti ti-check"></i> Enregistrer</button>
+        <button class="btn btn-primary" onclick="openPtcMatrixStep()"><i class="ti ti-arrow-right"></i> Suivant</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RÉPARTITION ANALYSES × CONDITION × ÉCHÉANCE -->
+<div class="modal-overlay" id="modal-ptc-matrix">
+  <div class="modal" style="max-width:720px">
+    <div class="modal-header">
+      <i class="ti ti-table" style="font-size:18px;color:var(--purple)"></i>
+      <h3>Répartition des analyses</h3>
+      <button class="close-btn" onclick="closeModal('modal-ptc-matrix')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:14px">Pour chaque condition, cochez les analyses à réaliser à chaque échéance. Par défaut, tout est coché — décochez les exceptions.</p>
+      <div id="ptc-matrix-tabs" style="display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:16px;flex-wrap:wrap"></div>
+      <div id="ptc-matrix-table" style="overflow-x:auto"></div>
+    </div>
+    <div class="modal-footer" style="display:flex;justify-content:space-between;align-items:center">
+      <button class="btn" onclick="backToPtcStep()"><i class="ti ti-arrow-left"></i> Retour</button>
+      <button class="btn btn-primary" onclick="savePTCFinal()"><i class="ti ti-check"></i> Enregistrer le PTC</button>
     </div>
   </div>
 </div>
