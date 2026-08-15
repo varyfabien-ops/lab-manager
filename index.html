@@ -3757,6 +3757,9 @@ async function loadData(silent) {
 
 async function checkForRemoteChanges() {
   if (!githubConfig) return;
+  // Ne jamais remplacer/fusionner l'état pendant qu'une sauvegarde locale est
+  // en attente ou en cours : la version distante ne contient pas encore ces données.
+  if (_pendingSaveCount > 0) return;
   // Ne jamais recharger juste après une sauvegarde locale : laisser le temps a GitHub de propager
   if (Date.now() - _lastLocalSaveAt < 60000) return;
   // Ne jamais interrompre une saisie en cours
@@ -3785,8 +3788,16 @@ function startAutoSync() {
 // elles s'exécutent une par une (jamais en parallèle), pour éviter qu'une sauvegarde
 // lente ne vienne écraser le résultat d'une sauvegarde plus rapide terminée entre-temps.
 let _saveQueue = Promise.resolve();
+let _pendingSaveCount = 0;
 function saveData() {
-  _saveQueue = _saveQueue.then(() => _saveDataInternal()).catch(() => {});
+  // Incrémenter immédiatement (avant l'exécution asynchrone) afin que l'auto-sync
+  // soit bloquée dès que la modification locale est validée.
+  _pendingSaveCount++;
+  _lastLocalSaveAt = Date.now();
+  _saveQueue = _saveQueue
+    .then(() => _saveDataInternal())
+    .catch(() => {})
+    .finally(() => { _pendingSaveCount = Math.max(0,_pendingSaveCount-1); });
   return _saveQueue;
 }
 
@@ -3850,7 +3861,11 @@ async function _saveDataInternal(attempt) {
   } catch(e) { setSyncStatus('error', 'Erreur sauvegarde'); toast('Erreur sauvegarde : ' + e.message, 'error'); }
 }
 
-async function syncNow() { await loadData(); }
+async function syncNow() {
+  // Une synchronisation manuelle attend elle aussi la fin des écritures locales.
+  await _saveQueue;
+  await loadData();
+}
 
 function setSyncStatus(state, label) {
   const dot = document.getElementById('sync-dot');
