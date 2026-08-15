@@ -2159,7 +2159,8 @@ function wizardConfirm() {
 
   for(let i=0;i<entryCount;i++){
     const code=mpOnly?lot:(stab&&!pif?lot:(entryCount>1?lot+'-'+(i+1):lot));
-    const entryId=Date.now()+i;
+    let entryId=Date.now()+i;
+    while ((state.echantillons||[]).some(x=>x.id===entryId)) entryId++;
     const nbContenants=mpOnly?nbMp:undefined;
     const analysesParMarche=window._wizardAnalysesParMarche||{};
     state.echantillons.push({
@@ -2176,6 +2177,7 @@ function wizardConfirm() {
     analyses.forEach(a=>state.planning.push({
       id:Date.now()+Math.random(), nom:a.nom,
       echantillonId:entryId, echantillonCode:code, date, priorite:'normale', statut:'planifie',
+      stabEcheance:echeance, echeanceId,
       note:'Auto: '+code
     }));
   }
@@ -5054,6 +5056,17 @@ function editEchantillon(id) {
 function deleteEchantillon(id) {
   const e = state.echantillons.find(x=>x.id===id);
   if (!e) return;
+  deleteEchantillonEntry(e);
+}
+
+function deleteEchantillonAt(index) {
+  const e = (state.echantillons||[])[parseInt(index)];
+  if (!e) return;
+  deleteEchantillonEntry(e);
+}
+window.deleteEchantillonAt = deleteEchantillonAt;
+
+function deleteEchantillonEntry(e) {
   const lot = e.lot || String(e.id);
   // Une réception STAB seule représente une échéance indépendante : ne jamais
   // supprimer les autres échéances qui partagent le même numéro de lot.
@@ -5064,12 +5077,21 @@ function deleteEchantillon(id) {
   const toDelete = isIndependentEntry
     ? [e]
     : state.echantillons.filter(x => (x.lot||String(x.id)) === lot);
+  // Supprimer les objets exacts, pas toutes les entrées portant le même id :
+  // certaines anciennes données peuvent contenir des identifiants dupliqués.
+  const objectsToDelete = new Set(toDelete);
   const idsToDelete = new Set(toDelete.map(x=>x.id));
-  state.echantillons = state.echantillons.filter(x => !idsToDelete.has(x.id));
+  state.echantillons = state.echantillons.filter(x => !objectsToDelete.has(x));
   // Retirer uniquement les tâches de planning liées aux entrées réellement supprimées.
   const deletedCodes = new Set(toDelete.map(x=>x.code).filter(Boolean));
   state.planning = (state.planning||[]).filter(p => {
-    if (p.echantillonId != null) return !idsToDelete.has(p.echantillonId);
+    if (p.echantillonId != null) {
+      // En cas d'ancien identifiant dupliqué, le code et l'échéance empêchent
+      // de retirer les tâches d'une autre réception du même lot.
+      if (!idsToDelete.has(p.echantillonId)) return true;
+      if (isIndependentEntry && p.stabEcheance && p.stabEcheance!==e.stabEcheance) return true;
+      return false;
+    }
     // Anciennes données : le code seul n'identifie pas une échéance STAB lorsque
     // plusieurs échéances partagent le même lot. On les conserve donc par sécurité.
     return isIndependentEntry ? true : !deletedCodes.has(p.echantillonCode);
@@ -6474,6 +6496,13 @@ function buildEtiquettesAPlanifier() {
     }
   });
   if (menageSaved) saveData();
+
+  // Présenter les étiquettes par ordre alphabétique sans modifier leur ordre
+  // de stockage. Le tri français ignore la casse et les accents, et gère les nombres.
+  etiquettes.sort((a,b)=>(a.nom||'').localeCompare(b.nom||'', 'fr', {
+    sensitivity:'base',
+    numeric:true,
+  }));
 
   window._etiquettesCache = etiquettes;
   return etiquettes;
@@ -10147,7 +10176,7 @@ function renderEchantillonsTableAlignedV105(){
         } else if(allVerif){
           content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px"><i class="ti ti-check"></i> À Approuver</button>';
         } else {
-          content='<div class="actions" style="opacity:1"><button class="icon-btn" onclick="editReception('+e0.id+')" title="Modifier la réception"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
+          content='<div class="actions" style="opacity:1"><button class="icon-btn" onclick="editReception('+e0.id+')" title="Modifier la réception"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillonAt('+state.echantillons.indexOf(e0)+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
         }
         actionCell='<td rowspan="'+toShow.length+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';
       }
