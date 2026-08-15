@@ -1367,6 +1367,69 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.844,
+      "nom": "Amines Tertiaires",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.858,
+      "nom": "Identification Lidocaïne USP",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.126,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.0652,
+      "nom": "Osmolalité",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.2498,
+      "nom": "TCC0002 - Sodium",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.0884,
+      "nom": "TCC0003 - Métabisulfite de Sodium",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786787728904.4128,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
     }
   ],
   "catalogue": [
@@ -3396,6 +3459,44 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-07-23",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1786787728904,
+      "code": "XXXXXX",
+      "lot": "XXXXXX",
+      "articleId": null,
+      "articleCode": "",
+      "produitId": null,
+      "marcheIds": [],
+      "analysesIds": [
+        1785336377803,
+        1786520419939,
+        1785247477146,
+        1785169966496,
+        1785247382413,
+        1786533393826,
+        1786637416398
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCAAAA",
+      "stabEcheance": "T6M",
+      "stabTemps": "5°C, 15°C, 25°C",
+      "stabEtudeId": 1786780207343,
+      "ptcId": 1786780253826,
+      "conditionId": 1786779408487,
+      "conditionIds": [
+        1786779408487,
+        1786779415237,
+        1786779420753
+      ],
+      "echeanceId": 1786779469460,
+      "date": "2026-08-15",
       "statut": "recu",
       "note": ""
     }
@@ -6653,11 +6754,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - Prilocaïne / PHBM",
-      "time": "13/08 17:56"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0010 - ASA",
       "time": "13/08 17:57"
     },
@@ -6900,6 +6996,11 @@
       "icon": "trash",
       "text": "Lot supprime : XXXXXX",
       "time": "15/08 10:12"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
+      "time": "15/08 11:55"
     }
   ]
 }
