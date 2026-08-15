@@ -6570,6 +6570,9 @@
     {
       "id": 1786780207343,
       "numero": "STAB-TEST",
+      "articleId": 1786529504133,
+      "articleCode": "M70517000",
+      "produitNom": "Citanest 5 mg/mL (SC)",
       "ptcId": 1786780253826
     }
   ],
@@ -6777,11 +6780,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "13/08 17:58"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
@@ -7026,6 +7024,11 @@
       "icon": "trash",
       "text": "Lot supprime : XXXXXX (2 entrees)",
       "time": "15/08 11:58"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : STAB-TEST",
+      "time": "15/08 12:05"
     }
   ]
 }
