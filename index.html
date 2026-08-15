@@ -1370,6 +1370,29 @@
 </div>
 
 <!-- MODAL STABILITE -->
+<div class="modal-overlay" id="modal-edit-reception">
+  <div class="modal" style="width:520px">
+    <div class="modal-header">
+      <i class="ti ti-pencil" style="font-size:18px;color:var(--cyan)"></i>
+      <h3>Modifier la réception</h3>
+      <button class="close-btn" onclick="closeModal('modal-edit-reception')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div id="edit-reception-info" style="margin-bottom:14px;padding:10px 12px;background:var(--bg3);border-radius:var(--radius);font-size:13px;color:var(--text2)"></div>
+      <div class="form-grid">
+        <div class="form-group"><label>Numéro de lot *</label><input id="edit-reception-lot" style="font-weight:700"></div>
+        <div class="form-group"><label>Date de réception</label><input type="date" id="edit-reception-date"></div>
+        <div class="form-group full"><label>Note</label><textarea id="edit-reception-note" placeholder="Remarque concernant la réception..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-edit-reception')">Annuler</button>
+      <button class="btn btn-primary" onclick="saveReceptionEdit()"><i class="ti ti-check"></i> Enregistrer les modifications</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL STABILITE -->
 <div class="modal-overlay" id="modal-stab">
   <div class="modal" style="width:620px">
     <div class="modal-header">
@@ -5036,6 +5059,53 @@ function deleteEchantillon(id) {
   addActivity('trash', 'Lot supprime : ' + lot + (toDelete.length > 1 ? ' (' + toDelete.length + ' entrees)' : ''));
   renderEchantillonsTable(); renderDashboard(); saveData();
 }
+
+function editReception(id) {
+  const e = (state.echantillons||[]).find(x=>x.id===parseInt(id));
+  if (!e) return;
+  const group = (e.typeSTAB && !e.typePIF)
+    ? [e]
+    : (state.echantillons||[]).filter(x=>(x.lot||String(x.id))===(e.lot||String(e.id)));
+  window._editingReceptionIds = group.map(x=>x.id);
+  window._editingReceptionOldCodes = Object.fromEntries(group.map(x=>[x.id,x.code||'']));
+  document.getElementById('edit-reception-lot').value = e.lot||'';
+  document.getElementById('edit-reception-date').value = e.date||'';
+  document.getElementById('edit-reception-note').value = e.note||'';
+  const article = e.articleId ? (state.articles||[]).find(a=>a.id===e.articleId) : null;
+  const info = document.getElementById('edit-reception-info');
+  if (info) info.innerHTML = '<strong>'+(article?.nom||'Réception')+'</strong>'
+    +(article?.code?' — <code>'+article.code+'</code>':'')
+    +(group.length>1?'<br><span style="color:var(--cyan)">'+group.length+' sous-séries seront modifiées ensemble.</span>':'');
+  openModal('modal-edit-reception');
+}
+window.editReception = editReception;
+
+function saveReceptionEdit() {
+  const ids = window._editingReceptionIds||[];
+  const group = (state.echantillons||[]).filter(e=>ids.includes(e.id));
+  if (!group.length) return;
+  const newLot = document.getElementById('edit-reception-lot').value.trim();
+  if (!newLot) { toast('Le numéro de lot est obligatoire','error'); return; }
+  const date = document.getElementById('edit-reception-date').value;
+  const note = document.getElementById('edit-reception-note').value;
+  const oldCodes = window._editingReceptionOldCodes||{};
+  group.forEach((e,idx)=>{
+    const oldCode = oldCodes[e.id]||e.code||'';
+    e.lot = newLot;
+    e.date = date;
+    e.note = note;
+    if (group.length>1 && /-\d+$/.test(oldCode)) e.code = newLot+'-'+oldCode.match(/-(\d+)$/)[1];
+    else e.code = newLot;
+    (state.planning||[]).forEach(p=>{ if(p.echantillonCode===oldCode) p.echantillonCode=e.code; });
+  });
+  addActivity('pencil','Réception modifiée : '+newLot);
+  window._editingReceptionIds = [];
+  window._editingReceptionOldCodes = {};
+  closeModal('modal-edit-reception');
+  renderEchantillonsTable(); renderPlanningTable(); renderDashboard(); saveData();
+  toast('Réception modifiée','success');
+}
+window.saveReceptionEdit = saveReceptionEdit;
 
 
 // ============================================================
@@ -9850,14 +9920,28 @@ function getMarcheDisplay(e0, analyseId){
   const marches=ids.map(id=>(state.marches||[]).find(m=>m.id===id)).filter(Boolean);
   return marches.length ? marches.map(m=>'<span class="badge badge-blue" style="font-size:11px">'+m.nom+'</span>').join(' ') : '<span style="color:var(--text3);font-size:12px">—</span>';
 }
-function getEcheanceConditionDisplay(e0){
+function getEcheanceConditionDisplay(e0, analyseId){
   const parts=[];
   if(e0?.typeSTAB && e0?.stabEcheance) {
     const isT0 = e0.stabEcheance === 'T0';
     const col = 'badge-purple';
     parts.push('<span class="badge '+col+'" style="font-size:11px">'+e0.stabEcheance+'</span>');
   }
-  if(e0?.typeSTAB && e0?.stabTemps) parts.push('<span class="badge badge-purple" style="font-size:11px">'+e0.stabTemps+'</span>');
+  if(e0?.typeSTAB && e0?.stabTemps) {
+    const allNames=(e0.stabTemps||'').split(',').map(n=>n.trim()).filter(Boolean);
+    let visibleNames=allNames;
+    if(analyseId && e0.ptcId && e0.echeanceId) {
+      const ptc=(state.ptc||[]).find(p=>p.id===e0.ptcId);
+      const storedIds=Array.isArray(e0.conditionIds)&&e0.conditionIds.length ? e0.conditionIds : [];
+      visibleNames=allNames.filter((name,idx)=>{
+        const conditionId=storedIds[idx]
+          || (state.stabConditions||[]).find(c=>(c.nom||'').trim().toLowerCase()===name.toLowerCase())?.id
+          || (allNames.length===1 ? e0.conditionId : null);
+        return !!conditionId && (ptc?.matrix?.[conditionId]?.[e0.echeanceId]||[]).includes(analyseId);
+      });
+    }
+    if(visibleNames.length) parts.push('<span class="badge badge-purple" style="font-size:11px">'+visibleNames.join(', ')+'</span>');
+  }
   if(e0?.stabEtudeId) {
     const etude=(state.stabilites||[]).find(s=>s.id===e0.stabEtudeId);
     if(etude) parts.push('<span style="font-size:10px;color:var(--purple)"><i class="ti ti-clipboard-list"></i> '+etude.num+'</span>');
@@ -10039,7 +10123,7 @@ function renderEchantillonsTableAlignedV105(){
         } else if(allVerif){
           content='<button data-lot="'+lotKey+'" class="btn btn-primary approuver-btn" style="font-size:13px;padding:8px 14px"><i class="ti ti-check"></i> À Approuver</button>';
         } else {
-          content='<div class="actions" style="opacity:1"><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
+          content='<div class="actions" style="opacity:1"><button class="icon-btn" onclick="editReception('+e0.id+')" title="Modifier la réception"><i class="ti ti-pencil"></i></button><button class="icon-btn danger" onclick="deleteEchantillon('+e0.id+')" title="Supprimer"><i class="ti ti-trash"></i></button></div>';
         }
         actionCell='<td rowspan="'+toShow.length+'" style="padding:12px 8px;border-bottom:2px solid var(--cyan3);vertical-align:middle;text-align:center">'+content+'</td>';
       }
@@ -10051,7 +10135,7 @@ function renderEchantillonsTableAlignedV105(){
         '<td '+TD+'><code style="font-size:13px;background:var(--bg3);padding:3px 8px;border-radius:4px">'+lotCode+'</code></td>'+
         '<td '+TD+'>'+getLotSousSerieContenantDisplay(e0,group)+'</td>'+
         '<td '+TD+'>'+getMarcheDisplay(e0, a?.id)+'</td>'+
-        '<td '+TD+'>'+getEcheanceConditionDisplay(e0)+'</td>'+
+        '<td '+TD+'>'+getEcheanceConditionDisplay(e0, a?.id)+'</td>'+
         '<td '+TD+'>'+(e0.date?formatDate(e0.date):'—')+'</td>'+
         '<td '+TD+'>'+(a?'<strong style="font-size:14px">'+a.nom+'</strong>'+(a.code?'<br><code style="font-size:12px;color:var(--text3)">'+a.code+'</code>':'')+(r&&r.valeur?'<br><span class="badge '+(r.conformite==='non_conforme'?'badge-red':(r.conformite==='a_surveiller'?'badge-amber':'badge-green'))+'" style="font-size:10px;margin-top:4px">'+r.valeur+(r.unite?' '+r.unite:'')+'</span>':''):'—')+'</td>'+
         (a?'<td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'en_cours')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'terminee')+'</td><td style="text-align:center;padding:8px;border-bottom:1px solid var(--border)">'+statutIcon(e0.id,a.id,statut,statInfo,'verifiee')+'</td>':'<td colspan="3" style="text-align:center;border-bottom:1px solid var(--border);color:var(--text3)">—</td>')+
