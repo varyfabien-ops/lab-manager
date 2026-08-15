@@ -6375,7 +6375,13 @@
       "nom": "T6M"
     }
   ],
-  "etudesStab": [],
+  "etudesStab": [
+    {
+      "id": 1786779530435,
+      "numero": "STAB-TEST",
+      "ptcId": 1786779510719
+    }
+  ],
   "ptc": [
     {
       "id": 1786779510719,
@@ -6487,11 +6493,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9956970 — Osmolalité : en_cours",
-      "time": "13/08 14:34"
-    },
     {
       "icon": "list-check",
       "text": "9956970 — pH : en_cours",
@@ -6735,6 +6736,11 @@
     {
       "icon": "file-description",
       "text": "PTC créé : PTCAAAA",
+      "time": "15/08 09:38"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude créée : STAB-TEST",
       "time": "15/08 09:38"
     }
   ]
