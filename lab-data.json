@@ -3398,39 +3398,6 @@
       "date": "2026-07-23",
       "statut": "recu",
       "note": ""
-    },
-    {
-      "id": 1786781385437,
-      "code": "XXXXXX",
-      "lot": "XXXXXX",
-      "articleId": null,
-      "articleCode": "",
-      "produitId": null,
-      "marcheIds": [],
-      "analysesIds": [
-        1785336377803,
-        1786520419939,
-        1785247477146,
-        1785169966496,
-        1785247382413,
-        1786533393826,
-        1786637416398
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTCAAAA",
-      "stabEcheance": "T6M",
-      "stabTemps": "15°C",
-      "stabEtudeId": 1786780207343,
-      "ptcId": 1786780253826,
-      "conditionId": 1786779415237,
-      "echeanceId": 1786779469460,
-      "date": "2026-08-15",
-      "statut": "recu",
-      "note": ""
     }
   ],
   "techniciens": [
@@ -6685,11 +6652,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "9956968 — Volume Extractible : en_cours",
-      "time": "13/08 16:17"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Prilocaïne / PHBM",
       "time": "13/08 17:56"
@@ -6933,6 +6895,11 @@
       "icon": "package",
       "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 10:09"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprime : XXXXXX",
+      "time": "15/08 10:12"
     }
   ]
 }
