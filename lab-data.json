@@ -6353,7 +6353,12 @@
       "nom": "40°C"
     }
   ],
-  "stabEcheances": [],
+  "stabEcheances": [
+    {
+      "id": 1786779442119,
+      "nom": "TO"
+    }
+  ],
   "etudesStab": [],
   "ptc": [],
   "planRythmes": {
