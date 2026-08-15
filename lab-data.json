@@ -7229,6 +7229,17 @@
       "modules": [
         "kpi"
       ]
+    },
+    {
+      "id": 1786813365167,
+      "nom": "STABILITES",
+      "icone": "ti-user",
+      "color": "#f44336",
+      "modules": [
+        "stabilites",
+        "stab-conditions",
+        "etudes-ptc"
+      ]
     }
   ],
   "commandesArchives": [
