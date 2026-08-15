@@ -2150,6 +2150,102 @@
       "stabEcheance": "T6M",
       "echeanceId": 1786779469460,
       "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786822060925.373,
+      "nom": "Apparence",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.0864,
+      "nom": "L*a*b",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.482,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.8645,
+      "nom": "Osmolalité",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.366,
+      "nom": "Particules Visibles",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.1091,
+      "nom": "pH",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.327,
+      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786822060925.835,
+      "nom": "TCC0065 - MPEG",
+      "echantillonId": 1786822060925,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-08-20",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: YYYYYYY"
     }
   ],
   "catalogue": [
@@ -4359,6 +4455,43 @@
           "statutAnalyse": "ok"
         }
       }
+    },
+    {
+      "id": 1786822060925,
+      "code": "YYYYYYY",
+      "lot": "YYYYYYY",
+      "articleId": 1786301271905,
+      "articleCode": "M75862417",
+      "produitId": 1786301271905,
+      "marcheIds": [],
+      "analysesIds": [
+        1786624072580,
+        1786196559426,
+        1785247477146,
+        1785169966496,
+        1786638360226,
+        1785170122728,
+        1786301521786,
+        1786301151090
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC-SET",
+      "stabEcheance": "T6M",
+      "stabTemps": "5°C",
+      "stabEtudeId": 1786803055027,
+      "ptcId": 1786803022644,
+      "conditionId": 1786779408487,
+      "conditionIds": [
+        1786779408487
+      ],
+      "echeanceId": 1786779469460,
+      "date": "2026-08-20",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7680,11 +7813,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0065 - MPEG",
-      "time": "13/08 18:25"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : Particules Visibles",
       "time": "13/08 18:26"
     },
@@ -7927,6 +8055,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC-SET",
       "time": "15/08 21:05"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
+      "time": "15/08 21:27"
     }
   ]
 }
