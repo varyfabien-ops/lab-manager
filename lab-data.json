@@ -991,42 +991,6 @@
       "note": "Auto: 9956970"
     },
     {
-      "id": 1786551127051.7512,
-      "nom": "Limpidité / Coloration PE",
-      "echantillonCode": "TEST 44",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 44"
-    },
-    {
-      "id": 1786551127051.8357,
-      "nom": "pH",
-      "echantillonCode": "TEST 44",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 44"
-    },
-    {
-      "id": 1786551127051.7664,
-      "nom": "TCC0002 - Sodium",
-      "echantillonCode": "TEST 44",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 44"
-    },
-    {
-      "id": 1786551127051.9065,
-      "nom": "TCC0004 - Lidocaïne / PHBM",
-      "echantillonCode": "TEST 44",
-      "date": "2026-08-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: TEST 44"
-    },
-    {
       "id": 1786624299421.7666,
       "nom": "Apparence",
       "echantillonCode": "995968",
@@ -3758,48 +3722,6 @@
           "terminee": "13/08/2026"
         }
       }
-    },
-    {
-      "id": 1786551127051,
-      "code": "TEST 44",
-      "lot": "TEST 44",
-      "articleId": 1786534331186,
-      "articleCode": "M76015000",
-      "produitId": 1786534331186,
-      "marcheIds": [
-        1786525368760
-      ],
-      "analysesIds": [
-        1785247477146,
-        1785170122728,
-        1785247382413,
-        1785247344996
-      ],
-      "analysesParMarche": {
-        "1785247477146": [
-          1786525368760
-        ],
-        "1785170122728": [
-          1786525368760
-        ],
-        "1785247382413": [
-          1786525368760
-        ],
-        "1785247344996": [
-          1786525368760
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0049",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-12",
-      "statut": "recu",
-      "note": ""
     },
     {
       "id": 1786624337357,
@@ -7213,11 +7135,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0041 - Indice d'Acide",
-      "time": "13/08 18:10"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0004 - Lidocaïne Nébuliseur - DM",
       "time": "13/08 18:11"
     },
@@ -7459,6 +7376,11 @@
     {
       "icon": "trash",
       "text": "Réception supprimée : TEST 3",
+      "time": "15/08 16:06"
+    },
+    {
+      "icon": "trash",
+      "text": "Réception supprimée : TEST 44",
       "time": "15/08 16:06"
     }
   ]
