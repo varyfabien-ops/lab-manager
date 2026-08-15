@@ -1556,6 +1556,69 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.1816,
+      "nom": "Amines Tertiaires",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.0703,
+      "nom": "Identification Lidocaïne USP",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.8914,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.8804,
+      "nom": "Osmolalité",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.868,
+      "nom": "TCC0002 - Sodium",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.3716,
+      "nom": "TCC0003 - Métabisulfite de Sodium",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1786788865153.626,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonCode": "XXXXXX",
+      "date": "2026-08-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "note": "Auto: XXXXXX"
     }
   ],
   "catalogue": [
@@ -3633,6 +3696,44 @@
           "en_cours": "15/08/2026"
         }
       }
+    },
+    {
+      "id": 1786788865153,
+      "code": "XXXXXX",
+      "lot": "XXXXXX",
+      "articleId": 1786529504133,
+      "articleCode": "M70517000",
+      "produitId": 1786529504133,
+      "marcheIds": [],
+      "analysesIds": [
+        1785336377803,
+        1786520419939,
+        1785247477146,
+        1785169966496,
+        1785247382413,
+        1786533393826,
+        1786637416398
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTCAAAA",
+      "stabEcheance": "T6M",
+      "stabTemps": "5°C, 15°C, 25°C",
+      "stabEtudeId": 1786780207343,
+      "ptcId": 1786780253826,
+      "conditionId": 1786779408487,
+      "conditionIds": [
+        1786779408487,
+        1786779415237,
+        1786779420753
+      ],
+      "echeanceId": 1786779469460,
+      "date": "2026-08-18",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -6890,11 +6991,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "13/08 17:59"
-    },
-    {
       "icon": "trash",
       "text": "Analyse supprimee : Titrage Thiosulfate de Sodium 0,1M",
       "time": "13/08 18:00"
@@ -7138,6 +7234,11 @@
       "icon": "list-check",
       "text": "XXXXXX — TCC0002 - Sodium : en_cours",
       "time": "15/08 12:12"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
+      "time": "15/08 12:14"
     }
   ]
 }
