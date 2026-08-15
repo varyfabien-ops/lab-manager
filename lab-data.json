@@ -7575,6 +7575,11 @@
         },
         "1786637588269": {
           "0": "Positive"
+        },
+        "1786301521786": {
+          "0": "90 % - 110 %",
+          "1": "80 % - 120 %",
+          "2": "80 % - 120 %"
         }
       }
     }
@@ -7673,11 +7678,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0086 - Toluidine",
-      "time": "13/08 18:25"
-    },
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0065 - MPEG",
@@ -7922,6 +7922,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "15/08 21:04"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC-SET",
+      "time": "15/08 21:05"
     }
   ]
 }
