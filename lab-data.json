@@ -6376,7 +6376,22 @@
     }
   ],
   "etudesStab": [],
-  "ptc": [],
+  "ptc": [
+    {
+      "id": 1786779510719,
+      "ref": "PTCAAAA",
+      "conditions": [
+        null
+      ],
+      "echeances": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "analyses": []
+    }
+  ],
   "planRythmes": {
     "1785175077562_2026-08-03": "matin",
     "1786178889272_2026-08-03": "absent",
@@ -6472,11 +6487,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9956970 — Limpidité / Coloration PE : en_cours",
-      "time": "13/08 14:34"
-    },
     {
       "icon": "list-check",
       "text": "9956970 — Osmolalité : en_cours",
@@ -6721,6 +6731,11 @@
       "icon": "list-check",
       "text": "9956970 — Apparence : verifiee",
       "time": "13/08 20:21"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC créé : PTCAAAA",
+      "time": "15/08 09:38"
     }
   ]
 }
