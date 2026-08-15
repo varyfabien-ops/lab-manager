@@ -6909,16 +6909,7 @@
       "nom": "T6M"
     }
   ],
-  "etudesStab": [
-    {
-      "id": 1786780207343,
-      "numero": "STAB-TEST",
-      "articleId": 1786529504133,
-      "articleCode": "M70517000",
-      "produitNom": "Citanest 5 mg/mL (SC)",
-      "ptcId": 1786780253826
-    }
-  ],
+  "etudesStab": [],
   "ptc": [
     {
       "id": 1786780253826,
@@ -7133,11 +7124,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : TCC0004 - Lidocaïne Nébuliseur - DM",
-      "time": "13/08 18:11"
-    },
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : TCC0004 - Lidocaïne Nébuliseur - UT",
@@ -7382,6 +7368,11 @@
       "icon": "trash",
       "text": "Réception supprimée : TEST 44",
       "time": "15/08 16:06"
+    },
+    {
+      "icon": "trash",
+      "text": "Étude supprimée : STAB-TEST",
+      "time": "15/08 16:09"
     }
   ]
 }
