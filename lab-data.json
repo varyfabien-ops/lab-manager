@@ -4990,22 +4990,6 @@
       "manuel": false
     },
     {
-      "id": -402094730,
-      "date": "2026-08-21",
-      "techId": "1786302857477",
-      "desc": "Ménage Hebdomadaire",
-      "analyseNom": "Ménage Hebdomadaire",
-      "sousKey": "menage_2026-08-17_1786302857477",
-      "type": "analyse",
-      "color": {
-        "bg": "#ECEFF1",
-        "border": "#455A64"
-      },
-      "isSous": false,
-      "sousAnalyses": [],
-      "manuel": false
-    },
-    {
       "id": -402095708,
       "date": "2026-08-28",
       "techId": "1786302836845",
@@ -5521,6 +5505,22 @@
       },
       "isSous": false,
       "parentNom": null,
+      "manuel": false
+    },
+    {
+      "id": 82648368,
+      "date": "2026-08-21",
+      "techId": "1786302857477",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-17_1786302857477",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
       "manuel": false
     }
   ],
