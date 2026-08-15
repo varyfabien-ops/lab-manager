@@ -4637,7 +4637,8 @@
       },
       "isSous": false,
       "sousAnalyses": [],
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "rouge"
     },
     {
       "id": -404045466,
