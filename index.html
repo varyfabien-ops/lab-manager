@@ -2159,10 +2159,11 @@ function wizardConfirm() {
 
   for(let i=0;i<entryCount;i++){
     const code=mpOnly?lot:(stab&&!pif?lot:(entryCount>1?lot+'-'+(i+1):lot));
+    const entryId=Date.now()+i;
     const nbContenants=mpOnly?nbMp:undefined;
     const analysesParMarche=window._wizardAnalysesParMarche||{};
     state.echantillons.push({
-      id:Date.now()+i, code, lot,
+      id:entryId, code, lot,
       articleId:art?.id||null, articleCode:art?.code||'',
       produitId:prodId,
       marcheIds, analysesIds:analyseIds, analysesParMarche,
@@ -2174,7 +2175,7 @@ function wizardConfirm() {
     });
     analyses.forEach(a=>state.planning.push({
       id:Date.now()+Math.random(), nom:a.nom,
-      echantillonCode:code, date, priorite:'normale', statut:'planifie',
+      echantillonId:entryId, echantillonCode:code, date, priorite:'normale', statut:'planifie',
       note:'Auto: '+code
     }));
   }
@@ -5054,9 +5055,24 @@ function deleteEchantillon(id) {
   const e = state.echantillons.find(x=>x.id===id);
   if (!e) return;
   const lot = e.lot || String(e.id);
-  const toDelete = state.echantillons.filter(x => (x.lot||String(x.id)) === lot);
-  state.echantillons = state.echantillons.filter(x => (x.lot||String(x.id)) !== lot);
-  addActivity('trash', 'Lot supprime : ' + lot + (toDelete.length > 1 ? ' (' + toDelete.length + ' entrees)' : ''));
+  // Une réception STAB seule représente une échéance indépendante : ne jamais
+  // supprimer les autres échéances qui partagent le même numéro de lot.
+  const isIndependentEntry = (e.typeSTAB && !e.typePIF) || e.relance;
+  const toDelete = isIndependentEntry
+    ? [e]
+    : state.echantillons.filter(x => (x.lot||String(x.id)) === lot);
+  const idsToDelete = new Set(toDelete.map(x=>x.id));
+  state.echantillons = state.echantillons.filter(x => !idsToDelete.has(x.id));
+  // Retirer uniquement les tâches de planning liées aux entrées réellement supprimées.
+  const deletedCodes = new Set(toDelete.map(x=>x.code).filter(Boolean));
+  state.planning = (state.planning||[]).filter(p => {
+    if (p.echantillonId != null) return !idsToDelete.has(p.echantillonId);
+    // Anciennes données : le code seul n'identifie pas une échéance STAB lorsque
+    // plusieurs échéances partagent le même lot. On les conserve donc par sécurité.
+    return isIndependentEntry ? true : !deletedCodes.has(p.echantillonCode);
+  });
+  const detail = isIndependentEntry && e.stabEcheance ? ' — '+e.stabEcheance : '';
+  addActivity('trash', 'Réception supprimée : ' + lot + detail + (toDelete.length > 1 ? ' (' + toDelete.length + ' entrées)' : ''));
   renderEchantillonsTable(); renderDashboard(); saveData();
 }
 
@@ -5096,7 +5112,9 @@ function saveReceptionEdit() {
     e.note = note;
     if (group.length>1 && /-\d+$/.test(oldCode)) e.code = newLot+'-'+oldCode.match(/-(\d+)$/)[1];
     else e.code = newLot;
-    (state.planning||[]).forEach(p=>{ if(p.echantillonCode===oldCode) p.echantillonCode=e.code; });
+    (state.planning||[]).forEach(p=>{
+      if (p.echantillonId===e.id || (p.echantillonId==null && !(e.typeSTAB&&!e.typePIF) && p.echantillonCode===oldCode)) p.echantillonCode=e.code;
+    });
   });
   addActivity('pencil','Réception modifiée : '+newLot);
   window._editingReceptionIds = [];
