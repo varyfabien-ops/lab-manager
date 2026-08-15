@@ -958,7 +958,7 @@
     <div class="table-card-header"><h3>Études enregistrées</h3><div class="spacer"></div>
       <div class="search-wrap"><i class="ti ti-search"></i><input class="search-input" id="search-etudes-ptc" placeholder="Rechercher..." oninput="renderEtudesStab()"></div>
     </div>
-    <table><thead><tr><th>N° d'étude</th><th>PTC liée</th><th></th></tr></thead>
+    <table><thead><tr><th>N° d'étude</th><th>Code article</th><th>Produit</th><th>PTC liée</th><th></th></tr></thead>
     <tbody id="etudes-ptc-tbody"></tbody></table>
   </div>
 
@@ -1727,6 +1727,7 @@ function wizardValidate() {
   if(wizardStep===2) {
     if (isStabOnly()) {
       if (!window._wizardEtudeStabId) { toast('Sélectionnez une étude de stabilité', 'error'); return false; }
+      if (!window._wizardArticle) { toast('Cette étude doit être liée à un code article avant son enregistrement', 'error'); return false; }
     } else {
       const code=document.getElementById('w-code-article')?.value.trim();
       if(!code){ toast('Saisissez un code article','error'); return false; }
@@ -1874,11 +1875,15 @@ function onWizardEtudeStabSelect() {
   const id = parseInt(sel?.value) || null;
   window._wizardEtudeStabId = id;
   const etude = id ? (state.etudesStab||[]).find(e => e.id === id) : null;
-  if (!etude) { if (infoEl) infoEl.style.display = 'none'; return; }
+  if (!etude) { window._wizardArticle = null; if (infoEl) infoEl.style.display = 'none'; return; }
   const ptc = etude.ptcId ? (state.ptc||[]).find(p => p.id === etude.ptcId) : null;
+  const article = etude.articleId ? (state.articles||[]).find(a => a.id === etude.articleId) : null;
+  window._wizardArticle = article||null;
   if (infoEl) {
     infoEl.style.display = 'block';
-    infoEl.innerHTML = '<strong>' + etude.numero + '</strong>' + (ptc ? '<br><span style="color:var(--purple)">PTC lié : ' + ptc.ref + '</span>' : '<br><span style="color:var(--amber)">⚠️ Aucun PTC lié à cette étude — vous devrez en choisir un manuellement</span>');
+    infoEl.innerHTML = '<strong>' + etude.numero + '</strong>'
+      + (article ? '<br><span style="color:var(--text2)">Article : <strong style="font-family:monospace">'+article.code+'</strong> — '+(article.nom||'Produit non renseigné')+'</span>' : '<br><span style="color:var(--red)">⚠️ Aucun code article lié à cette étude</span>')
+      + (ptc ? '<br><span style="color:var(--purple)">PTC lié : ' + ptc.ref + '</span>' : '<br><span style="color:var(--amber)">⚠️ Aucun PTC lié à cette étude — vous devrez en choisir un manuellement</span>');
   }
 }
 window.onWizardEtudeStabSelect = onWizardEtudeStabSelect;
@@ -2507,12 +2512,13 @@ let _resultatAnalyseId = null;
 
 function renderChampsForStabCond(ech, a, cIdx, cond) {
   const existing = (ech.resultats||{})[_resultatAnalyseId] || {};
+  const existingCond = (existing.conditions||[]).find(x => x?.condition === cond) || existing.conditions?.[cIdx] || {};
   const champs = a.champsResultats && a.champsResultats.length
     ? a.champsResultats
     : [{ label: 'Résultat', type: a.typeResultat||'texte', unite: a.unite||'' }];
   return champs.map((c, i) => {
     const key = 'cond'+cIdx+'_champ'+i;
-    const val = existing.conditions?.[cIdx]?.[i]?.valeur || '';
+    const val = existingCond.champs?.[i]?.valeur || existingCond?.[i]?.valeur || '';
     if (c.type === 'conforme') {
       const isConf = val==='conforme', isNC = val==='non-conforme';
       return '<div class="form-group" style="margin-bottom:10px">'
@@ -2590,10 +2596,21 @@ function ouvrirModalResultat(echId, analyseId) {
 
     // STAB : une section par condition de température
     const isStab = ech.typeSTAB && !ech.typePIF;
-    const conditions = isStab ? (ech.stabTemps||'').split(',').map(c=>c.trim()).filter(Boolean) : [];
-    const isMultiCondition = isStab && conditions.length > 1;
+    const allConditionNames = isStab ? (ech.stabTemps||'').split(',').map(c=>c.trim()).filter(Boolean) : [];
+    const ptc = ech.ptcId ? (state.ptc||[]).find(p=>p.id===ech.ptcId) : null;
+    const echeanceId = ech.echeanceId||null;
+    const storedConditionIds = Array.isArray(ech.conditionIds) && ech.conditionIds.length
+      ? ech.conditionIds
+      : (ech.conditionId ? [ech.conditionId] : allConditionNames.map(n=>(state.stabConditions||[]).find(c=>c.nom===n)?.id).filter(Boolean));
+    const conditions = allConditionNames.filter((cond, idx) => {
+      if (!ptc || !echeanceId) return true; // compatibilité avec les anciens enregistrements
+      const conditionId = storedConditionIds[idx] || (state.stabConditions||[]).find(c=>c.nom===cond)?.id;
+      return !!conditionId && (ptc.matrix?.[conditionId]?.[echeanceId]||[]).includes(a.id);
+    });
+    const hasStabConditions = isStab && conditions.length > 0;
 
-    if (isMultiCondition) {
+    if (hasStabConditions) {
+      window._stabConditions = conditions;
       container.innerHTML = conditions.map((cond, cIdx) => {
         return '<div style="border:1px solid var(--purple);border-radius:var(--radius);padding:12px;margin-bottom:10px;background:var(--purple-dim)">'
           + '<div style="font-size:12px;font-weight:600;color:var(--purple);margin-bottom:8px"><i class="ti ti-temperature"></i> Condition : <strong>' + cond + '</strong></div>'
@@ -2724,7 +2741,7 @@ function sauvegarderResultat() {
   const statutAnalyse = document.getElementById('resultat-statut-val')?.value || 'ok';
 
   // Sauvegarde STAB multi-conditions
-  if (window._stabConditions && window._stabConditions.length > 1) {
+  if (window._stabConditions && window._stabConditions.length) {
     const ech3 = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
     if (ech3) {
       if (!ech3.resultats) ech3.resultats = {};
@@ -2787,7 +2804,7 @@ function sauvegarderResultat() {
     echRef.resultats[_resultatAnalyseId].statutAnalyse = statutAnalyse;
   }
   // Sauvegarde STAB multi-conditions
-  if (window._stabConditions && window._stabConditions.length > 1) {
+  if (window._stabConditions && window._stabConditions.length) {
     const ech3 = (state.echantillons||[]).find(e=>e.id===_resultatEchId);
     if (ech3) {
       if (!ech3.resultats) ech3.resultats = {};
@@ -8522,15 +8539,21 @@ function renderEtudesStab() {
   const tbody = document.getElementById('etudes-ptc-tbody');
   if (!tbody) return;
   const q = (document.getElementById('search-etudes-ptc')?.value || '').toLowerCase();
-  const etudes = (state.etudesStab || []).filter(e => !q || (e.numero||'').toLowerCase().includes(q)).sort((a,b)=>(a.numero||'').localeCompare(b.numero||'', 'fr', {numeric:true, sensitivity:'base'}));
+  const etudes = (state.etudesStab || []).filter(e => {
+    const article = e.articleId ? (state.articles||[]).find(a => a.id === e.articleId) : null;
+    return !q || (e.numero||'').toLowerCase().includes(q) || (article?.code||e.articleCode||'').toLowerCase().includes(q) || (article?.nom||e.produitNom||'').toLowerCase().includes(q);
+  }).sort((a,b)=>(a.numero||'').localeCompare(b.numero||'', 'fr', {numeric:true, sensitivity:'base'}));
   if (!etudes.length) {
-    tbody.innerHTML = '<tr><td colspan="3" class="empty-state"><i class="ti ti-file-certificate"></i><p>Aucune étude enregistrée</p></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-state"><i class="ti ti-file-certificate"></i><p>Aucune étude enregistrée</p></td></tr>';
     return;
   }
   tbody.innerHTML = etudes.map(e => {
     const ptc = (state.ptc||[]).find(p => p.id === e.ptcId);
+    const article = e.articleId ? (state.articles||[]).find(a => a.id === e.articleId) : null;
     return '<tr>'
       + '<td><strong style="font-family:monospace">' + e.numero + '</strong></td>'
+      + '<td>' + ((article?.code||e.articleCode) ? '<strong style="font-family:monospace">'+(article?.code||e.articleCode)+'</strong>' : '<span style="color:var(--red)">À renseigner</span>') + '</td>'
+      + '<td>' + (article?.nom||e.produitNom||'<span style="color:var(--text3)">—</span>') + '</td>'
       + '<td>' + (ptc ? '<span class="badge badge-purple" style="font-size:11px;cursor:pointer" onclick="openPtcPanel(' + e.id + ')">' + ptc.ref + '</span>' : '<span style="color:var(--text3)">—</span>') + '</td>'
       + '<td><div class="actions" style="opacity:1">'
       + '<button class="icon-btn" onclick="openPtcPanel(' + e.id + ')" title="Voir le PTC"><i class="ti ti-file-certificate"></i></button>'
@@ -8549,10 +8572,19 @@ function populatePtcSelect(selId, selectedId) {
     + (state.ptc||[]).slice().sort((a,b)=>(a.ref||'').localeCompare(b.ref||'', 'fr', {numeric:true, sensitivity:'base'})).map(p => '<option value="' + p.id + '"' + (p.id === selectedId ? ' selected' : '') + '>' + p.ref + '</option>').join('');
 }
 
+function populateEtudeArticleSelect(selectedId) {
+  const sel = document.getElementById('etude-stab-article');
+  if (!sel) return;
+  const articles = (state.articles||[]).filter(a => !a.type || a.type === 'pif_stab').slice().sort((a,b)=>(a.code||'').localeCompare(b.code||'', 'fr', {numeric:true, sensitivity:'base'}));
+  sel.innerHTML = '<option value="">— Sélectionner un code article —</option>'
+    + articles.map(a => '<option value="'+a.id+'"'+(a.id===selectedId?' selected':'')+'>'+a.code+' — '+(a.nom||'Produit non renseigné')+'</option>').join('');
+}
+
 function openModalEtudeStab() {
   window._editingEtudeStabId = null;
   document.getElementById('modal-etude-stab-title').textContent = 'Nouvelle étude';
   document.getElementById('etude-stab-numero').value = '';
+  populateEtudeArticleSelect(null);
   populatePtcSelect('etude-stab-ptc', null);
   document.getElementById('etude-stab-delete-btn').style.display = 'none';
   openModal('modal-etude-stab');
@@ -8565,6 +8597,7 @@ function editEtudeStab(id) {
   window._editingEtudeStabId = id;
   document.getElementById('modal-etude-stab-title').textContent = 'Modifier — ' + e.numero;
   document.getElementById('etude-stab-numero').value = e.numero || '';
+  populateEtudeArticleSelect(e.articleId||null);
   populatePtcSelect('etude-stab-ptc', e.ptcId);
   document.getElementById('etude-stab-delete-btn').style.display = 'inline-flex';
   openModal('modal-etude-stab');
@@ -8574,8 +8607,11 @@ window.editEtudeStab = editEtudeStab;
 function saveEtudeStab() {
   const numero = document.getElementById('etude-stab-numero').value.trim();
   if (!numero) { toast('Le n° d\'étude est obligatoire', 'error'); return; }
+  const articleId = parseInt(document.getElementById('etude-stab-article').value) || null;
+  if (!articleId) { toast('Le code article est obligatoire', 'error'); return; }
+  const article = (state.articles||[]).find(a => a.id === articleId);
   const ptcId = parseInt(document.getElementById('etude-stab-ptc').value) || null;
-  const entry = { id: window._editingEtudeStabId || Date.now(), numero, ptcId };
+  const entry = { id: window._editingEtudeStabId || Date.now(), numero, articleId, articleCode:article?.code||'', produitNom:article?.nom||'', ptcId };
   if (!state.etudesStab) state.etudesStab = [];
   if (window._editingEtudeStabId) {
     const idx = state.etudesStab.findIndex(x => x.id === window._editingEtudeStabId);
@@ -10229,6 +10265,9 @@ setTimeout(()=>{ try{ ensureRefsAndTimepointsV106(); }catch(e){ console.error(e)
     <div class="modal-body">
       <div class="form-grid">
         <div class="form-group full"><label>N° d'étude *</label><input id="etude-stab-numero" placeholder="Ex: STAB-2026-001" style="font-weight:700;font-family:monospace"></div>
+        <div class="form-group full"><label>Code article / Produit *</label>
+          <select id="etude-stab-article"><option value="">— Sélectionner un code article —</option></select>
+        </div>
         <div class="form-group full"><label>PTC liée</label>
           <select id="etude-stab-ptc"><option value="">— Aucun PTC —</option></select>
         </div>
