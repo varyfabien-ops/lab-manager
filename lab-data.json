@@ -2407,13 +2407,14 @@
       "qte": "1 L",
       "reception": "2024-12-12",
       "peremption": "2034-01-01",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-16",
+      "validite": "2031-01-20",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
       "id": 1786564862584,
-      "suiviTitree": true
+      "suiviTitree": true,
+      "ouvertPar": "KBT"
     }
   ],
   "produitsEch": [
@@ -6669,11 +6670,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : XXXXXX (2 entrees)",
-      "time": "15/08 12:25"
-    },
-    {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
       "time": "15/08 12:29"
@@ -6917,6 +6913,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot HC45819847",
       "time": "16/08 19:55"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Thiosulfate de Sodium 0,1M lot YYYYY",
+      "time": "16/08 19:56"
     }
   ]
 }
