@@ -1689,7 +1689,7 @@
     },
     {
       "id": 1786526216129,
-      "nom": "TCC0013 - Conservateurs",
+      "nom": "TCC0013 - CONSERVATEURS",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6759,11 +6759,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "PTC supprimé : PTCAAAA",
-      "time": "15/08 09:50"
-    },
-    {
       "icon": "file-description",
       "text": "PTC créé : PTCAAAA",
       "time": "15/08 09:50"
@@ -7006,6 +7001,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - BUPIVACAÏNE",
+      "time": "16/08 15:24"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0013 - CONSERVATEURS",
       "time": "16/08 15:24"
     }
   ]
