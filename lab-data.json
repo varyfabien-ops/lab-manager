@@ -1748,7 +1748,7 @@
     },
     {
       "id": 1786533393826,
-      "nom": "TCC0003 - Métabisulfite de Sodium",
+      "nom": "TCC0003 - METABISULFITE DE SODIUM",
       "habilitations": [
         "Burette"
       ],
@@ -6759,11 +6759,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude modifiée : STAB-TEST",
-      "time": "15/08 09:50"
-    },
-    {
       "icon": "package",
       "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 10:09"
@@ -7006,6 +7001,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - BUPIVACAINE",
+      "time": "16/08 15:25"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0003 - METABISULFITE DE SODIUM",
       "time": "16/08 15:25"
     }
   ]
