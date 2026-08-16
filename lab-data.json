@@ -2378,11 +2378,12 @@
       "peremption": "2029-07-31",
       "ouverture": "2025-11-24",
       "validite": "2028-02-09",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "coaUrl": "",
       "id": 1786459142083,
-      "ouvertPar": "FVY"
+      "ouvertPar": "FVY",
+      "dateArchivage": "2026-08-16"
     },
     {
       "produitId": 1786459104213,
@@ -6670,11 +6671,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : XXXXXX (2 entrees)",
-      "time": "15/08 12:19"
-    },
-    {
       "icon": "file-description",
       "text": "PTC modifié : PTCAAAA",
       "time": "15/08 12:22"
@@ -6917,6 +6913,11 @@
     {
       "icon": "trash",
       "text": "Contenant supprime : lot 2045653",
+      "time": "16/08 18:35"
+    },
+    {
+      "icon": "archive",
+      "text": "Archivé : Poudre Zinc lot V3E055123G",
       "time": "16/08 18:35"
     }
   ]
