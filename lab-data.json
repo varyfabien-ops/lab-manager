@@ -2423,6 +2423,15 @@
           "numero": "HCPC0077-I p.12-3",
           "verifiePar": 1786302836845,
           "verifieLe": "13/08/2026"
+        },
+        {
+          "id": 1786902767572,
+          "valeur": "1.001",
+          "date": "2026-08-16",
+          "techId": 1786302857477,
+          "numero": "HCPC0077-I p.12-4",
+          "verifiePar": null,
+          "verifieLe": null
         }
       ],
       "verifiedBy": "CAS",
@@ -6695,11 +6704,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "PTC modifié : PTCAAAA",
-      "time": "15/08 12:22"
-    },
-    {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
       "time": "15/08 12:23"
@@ -6943,6 +6947,11 @@
       "icon": "archive",
       "text": "Archivé : Poudre Zinc lot V3E055123G",
       "time": "16/08 18:35"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot HC45819847 (1.001)",
+      "time": "16/08 19:52"
     }
   ]
 }
