@@ -5984,7 +5984,9 @@
       "datePermFR": "09/08/2026",
       "techId": 1785175077562,
       "comment": "",
-      "dateRestrictive": ""
+      "dateRestrictive": "",
+      "archive": true,
+      "archivedAt": "16/08/2026"
     },
     {
       "id": 1786271508082,
