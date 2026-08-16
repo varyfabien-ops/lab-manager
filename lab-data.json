@@ -5990,22 +5990,6 @@
   ],
   "preparations": [
     {
-      "id": 1785422900371,
-      "catId": 1785422870804,
-      "nom": "Mélange Eau / Isopropanol (90/10)",
-      "numero": "2026/0001",
-      "datePrep": "2026-07-30",
-      "datePerm": "2026-08-30",
-      "datePrepFR": "30/07/2026",
-      "datePermFR": "30/08/2026",
-      "techId": 1785175077562,
-      "comment": "",
-      "verifiedBy": "FVY",
-      "verifiedAt": "30/07/2026",
-      "archive": true,
-      "archivedAt": "16/08/2026"
-    },
-    {
       "id": 1785742696254,
       "catId": 1785742627021,
       "nom": "Red Methyl TS",
