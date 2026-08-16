@@ -1992,7 +1992,7 @@
     },
     {
       "id": 1786638360226,
-      "nom": "Particules Visibles",
+      "nom": "PARTICULES VISIBLES",
       "habilitations": [
         "Particules"
       ],
@@ -6762,11 +6762,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : XXXXXX (2 entrees)",
-      "time": "15/08 11:58"
-    },
-    {
       "icon": "file-description",
       "text": "Étude modifiée : STAB-TEST",
       "time": "15/08 12:05"
@@ -7009,6 +7004,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : AMINES TERTIAIRES",
+      "time": "16/08 15:26"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : PARTICULES VISIBLES",
       "time": "16/08 15:26"
     }
   ]
