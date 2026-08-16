@@ -6328,6 +6328,17 @@
       "dateLiv": "2026-08-08",
       "dateReception": "2026-08-08",
       "archivedAt": "08/08/2026"
+    },
+    {
+      "id": 1786902241088,
+      "produitId": 1785746786712,
+      "nom": "LCK339",
+      "fournisseur": "Hach",
+      "ref": "LCK339",
+      "da": "",
+      "dateLiv": "",
+      "dateReception": "2026-08-16",
+      "archivedAt": "16/08/2026"
     }
   ],
   "enregistrements": [],
@@ -6649,7 +6660,6 @@
   },
   "commandesStatut": {
     "1785742919397": "en_attente",
-    "1785746786712": "en_attente",
     "1785746859729": {
       "statut": "commandee",
       "da": "YYYYYYY"
