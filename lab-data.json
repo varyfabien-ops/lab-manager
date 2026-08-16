@@ -2424,7 +2424,7 @@
       "peremption": "2028-10-31",
       "ouverture": "2026-08-12",
       "validite": "2027-12-12",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "coaUrl": "",
       "id": 1786515111560,
@@ -6729,11 +6729,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
-      "time": "15/08 12:14"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : XXXXXX (2 entrees)",
       "time": "15/08 12:14"
@@ -6977,6 +6972,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot K57089345 546",
       "time": "16/08 17:26"
+    },
+    {
+      "icon": "archive",
+      "text": "Archivé : Chloroforme lot K57089345 546",
+      "time": "16/08 17:34"
     }
   ]
 }
