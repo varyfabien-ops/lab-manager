@@ -1477,11 +1477,14 @@
     },
     {
       "id": 1785336377803,
-      "nom": "Amines Tertiaires",
+      "nom": "AMINES TERTIAIRES",
       "habilitations": [
         "IR"
       ],
+      "duree": "",
+      "code": "",
       "produitsIds": [],
+      "description": "",
       "champsResultats": [
         {
           "label": "Résultat",
@@ -1490,7 +1493,7 @@
         }
       ],
       "resultatRequis": true,
-      "description": ""
+      "sousAnalyses": []
     },
     {
       "id": 1786196502378,
@@ -6759,11 +6762,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
-      "time": "15/08 11:58"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : XXXXXX (2 entrees)",
       "time": "15/08 11:58"
@@ -7007,6 +7005,11 @@
       "icon": "book",
       "text": "Analyse modifiée : ABSORBANCE",
       "time": "16/08 15:25"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : AMINES TERTIAIRES",
+      "time": "16/08 15:26"
     }
   ]
 }
