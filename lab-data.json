@@ -5986,7 +5986,9 @@
       "comment": "",
       "dateRestrictive": "",
       "archive": true,
-      "archivedAt": "16/08/2026"
+      "archivedAt": "16/08/2026",
+      "verifiedBy": "ADD",
+      "verifiedAt": "16/08/2026"
     },
     {
       "id": 1786271508082,
