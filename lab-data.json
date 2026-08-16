@@ -7432,7 +7432,10 @@
       "icone": "ti-clipboard-list",
       "color": "#FF9800",
       "modules": [
-        "echantillons"
+        "echantillons",
+        "marches",
+        "articles",
+        "etudes-ptc"
       ]
     },
     {
