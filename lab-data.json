@@ -6004,21 +6004,6 @@
       "verifiedAt": "30/07/2026"
     },
     {
-      "id": 1785433928593,
-      "catId": 1785423885020,
-      "nom": "Mélange Eau / Isopropanol (50/50)",
-      "numero": "2026/0002",
-      "datePrep": "2026-02-28",
-      "datePerm": "2026-03-28",
-      "datePrepFR": "28/02/2026",
-      "datePermFR": "28/03/2026",
-      "techId": 1785175077562,
-      "comment": "",
-      "dateRestrictive": "",
-      "verifiedBy": "GSI",
-      "verifiedAt": "16/08/2026"
-    },
-    {
       "id": 1785742696254,
       "catId": 1785742627021,
       "nom": "Red Methyl TS",
