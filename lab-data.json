@@ -2433,22 +2433,6 @@
       "verifiedAt": "12/08/2026"
     },
     {
-      "produitId": 1786515073344,
-      "lot": "K57089345 546",
-      "qte": "1 L",
-      "reception": "2026-03-13",
-      "peremption": "2028-10-31",
-      "ouverture": "2026-07-23",
-      "validite": "2027-12-04",
-      "statut": "archive",
-      "note": "",
-      "coaUrl": "",
-      "id": 1786516710273,
-      "ouvertPar": "CPL",
-      "verifiedBy": "FVY",
-      "verifiedAt": "12/08/2026"
-    },
-    {
       "produitId": 1786563219289,
       "lot": "HC45819847",
       "qte": "1 L",
@@ -6745,11 +6729,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "XXXXXX — TCC0002 - Sodium : en_cours",
-      "time": "15/08 12:12"
-    },
-    {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 12:14"
@@ -6993,6 +6972,11 @@
       "icon": "book",
       "text": "Analyse modifiée : APPARENCE",
       "time": "16/08 15:26"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot K57089345 546",
+      "time": "16/08 17:26"
     }
   ]
 }
