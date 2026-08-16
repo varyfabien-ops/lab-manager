@@ -1767,8 +1767,14 @@
       "code": "",
       "produitsIds": [],
       "description": "Dosage de l'Adrénaline",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Teneur en Adrénaline",
+          "type": "numerique",
+          "unite": "µg/mL"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": [
         "Retraitement TCC0023 - Adrénaline",
         "Vérification TCC0023 - Adrénaline"
@@ -6748,11 +6754,6 @@
   "activity": [
     {
       "icon": "file-description",
-      "text": "PTC créé : PTCAAAA",
-      "time": "15/08 09:38"
-    },
-    {
-      "icon": "file-description",
       "text": "Étude créée : STAB-TEST",
       "time": "15/08 09:38"
     },
@@ -6995,6 +6996,11 @@
       "icon": "trash",
       "text": "Lot supprimé partout : XXXXXX (2 réception(s))",
       "time": "16/08 15:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0023 - Adrénaline",
+      "time": "16/08 15:21"
     }
   ]
 }
