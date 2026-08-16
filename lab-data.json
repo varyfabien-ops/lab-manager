@@ -2435,7 +2435,8 @@
         }
       ],
       "verifiedBy": "CAS",
-      "verifiedAt": "13/08/2026"
+      "verifiedAt": "13/08/2026",
+      "suiviTitree": true
     },
     {
       "produitId": 1786563219289,
