@@ -7433,8 +7433,8 @@
       "color": "#FF9800",
       "modules": [
         "echantillons",
-        "marches",
         "articles",
+        "stab-conditions",
         "etudes-ptc"
       ]
     },
