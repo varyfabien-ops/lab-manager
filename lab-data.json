@@ -7618,23 +7618,28 @@
   "stabConditions": [
     {
       "id": 1786779408487,
-      "nom": "5°C"
+      "nom": "5°C",
+      "couleur": "#1f5d7a"
     },
     {
       "id": 1786779415237,
-      "nom": "15°C"
+      "nom": "15°C",
+      "couleur": "#FBC02D"
     },
     {
       "id": 1786779420753,
-      "nom": "25°C"
+      "nom": "25°C",
+      "couleur": "#43A047"
     },
     {
       "id": 1786779426870,
-      "nom": "30°C"
+      "nom": "30°C",
+      "couleur": "#EC407A"
     },
     {
       "id": 1786779435869,
-      "nom": "40°C"
+      "nom": "40°C",
+      "couleur": "#1f5d7a"
     }
   ],
   "stabEcheances": [
