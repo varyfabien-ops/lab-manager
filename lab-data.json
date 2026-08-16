@@ -1941,7 +1941,7 @@
     },
     {
       "id": 1786638196863,
-      "nom": "Absorbance",
+      "nom": "ABSORBANCE",
       "habilitations": [
         "UV"
       ],
@@ -6761,11 +6761,6 @@
     {
       "icon": "package",
       "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
-      "time": "15/08 11:55"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 11:58"
     },
     {
@@ -7006,6 +7001,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - LIDOCAINE / PHBM",
+      "time": "16/08 15:25"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : ABSORBANCE",
       "time": "16/08 15:25"
     }
   ]
