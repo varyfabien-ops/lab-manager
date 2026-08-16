@@ -1958,7 +1958,7 @@
     },
     {
       "id": 1786638217013,
-      "nom": "Infrarouge",
+      "nom": "INFRAROUGE",
       "habilitations": [
         "IR"
       ],
@@ -6762,11 +6762,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude modifiée : STAB-TEST",
-      "time": "15/08 12:05"
-    },
-    {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 12:05"
@@ -7009,6 +7004,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : PARTICULES VISIBLES",
+      "time": "16/08 15:26"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : INFRAROUGE",
       "time": "16/08 15:26"
     }
   ]
