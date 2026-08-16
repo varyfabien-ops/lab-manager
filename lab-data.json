@@ -2317,22 +2317,6 @@
       "id": 1786216310048
     },
     {
-      "produitId": 1786458501179,
-      "lot": "2045653",
-      "qte": "",
-      "reception": "2026-02-20",
-      "peremption": "2027-07-12",
-      "ouverture": "2026-07-27",
-      "validite": "2027-02-22",
-      "statut": "ouvert",
-      "note": "",
-      "coaUrl": "",
-      "id": 1786458542715,
-      "ouvertPar": "CAS",
-      "verifiedBy": "FVY",
-      "verifiedAt": "11/08/2026"
-    },
-    {
       "produitId": 1786458699090,
       "lot": "HX57784410",
       "qte": "1 L",
@@ -6686,11 +6670,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
-      "time": "15/08 12:19"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprime : XXXXXX (2 entrees)",
       "time": "15/08 12:19"
@@ -6933,6 +6912,11 @@
     {
       "icon": "trash",
       "text": "Contenant supprime : lot K57089345 546",
+      "time": "16/08 18:35"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot 2045653",
       "time": "16/08 18:35"
     }
   ]
