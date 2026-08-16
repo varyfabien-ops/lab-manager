@@ -7645,7 +7645,8 @@
   "stabEcheances": [
     {
       "id": 1786779446720,
-      "nom": "T1M"
+      "nom": "T1M",
+      "delaiAnalyse": 15
     },
     {
       "id": 1786779453854,
