@@ -1805,7 +1805,7 @@
     },
     {
       "id": 1786624072580,
-      "nom": "Apparence",
+      "nom": "APPARENCE",
       "habilitations": [],
       "duree": "",
       "code": "",
@@ -6762,11 +6762,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 7 analyse(s)",
-      "time": "15/08 12:05"
-    },
-    {
       "icon": "list-check",
       "text": "XXXXXX — TCC0002 - Sodium : en_cours",
       "time": "15/08 12:12"
@@ -7009,6 +7004,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : INFRAROUGE",
+      "time": "16/08 15:26"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : APPARENCE",
       "time": "16/08 15:26"
     }
   ]
