@@ -6020,23 +6020,6 @@
       "verifiedAt": "30/07/2026"
     },
     {
-      "id": 1785433139699,
-      "catId": 1785433053899,
-      "nom": "Acide Acétique R",
-      "numero": "2026/0003",
-      "datePrep": "2026-07-30",
-      "datePerm": "2027-01-30",
-      "datePrepFR": "30/07/2026",
-      "datePermFR": "30/01/2027",
-      "techId": 1785175077562,
-      "comment": "",
-      "dateRestrictive": "2026-12-15",
-      "verifiedBy": "FVY",
-      "verifiedAt": "03/08/2026",
-      "archive": true,
-      "archivedAt": "03/08/2026"
-    },
-    {
       "id": 1785433928593,
       "catId": 1785423885020,
       "nom": "Mélange Eau / Isopropanol (50/50)",
