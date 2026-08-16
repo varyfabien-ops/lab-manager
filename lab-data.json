@@ -6339,6 +6339,17 @@
       "dateLiv": "",
       "dateReception": "2026-08-16",
       "archivedAt": "16/08/2026"
+    },
+    {
+      "id": 1786902254088,
+      "produitId": 1785742919397,
+      "nom": "Méthanol HPLC Grade",
+      "fournisseur": "MERCK",
+      "ref": "41239000",
+      "da": "",
+      "dateLiv": "",
+      "dateReception": "2026-08-16",
+      "archivedAt": "16/08/2026"
     }
   ],
   "enregistrements": [],
@@ -6659,7 +6670,6 @@
     "1786302857477_2026-09-28": "absent"
   },
   "commandesStatut": {
-    "1785742919397": "en_attente",
     "1785746859729": {
       "statut": "commandee",
       "da": "YYYYYYY"
