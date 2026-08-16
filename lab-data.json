@@ -2430,8 +2430,8 @@
           "date": "2026-08-16",
           "techId": 1786302857477,
           "numero": "HCPC0077-I p.12-4",
-          "verifiePar": null,
-          "verifieLe": null
+          "verifiePar": 1785175077562,
+          "verifieLe": "16/08/2026"
         }
       ],
       "verifiedBy": "CAS",
@@ -6706,11 +6706,6 @@
     {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
-      "time": "15/08 12:23"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
       "time": "15/08 12:25"
     },
     {
@@ -6951,6 +6946,11 @@
     {
       "icon": "droplet",
       "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot HC45819847 (1.001)",
+      "time": "16/08 19:52"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot HC45819847",
       "time": "16/08 19:52"
     }
   ]
