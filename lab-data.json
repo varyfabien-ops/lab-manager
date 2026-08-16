@@ -6648,8 +6648,9 @@
   },
   "commandesStatut": {
     "1785746859729": {
-      "statut": "commandee",
-      "da": "YYYYYYY"
+      "statut": "en_attente",
+      "da": "YYYYYYY",
+      "dateLiv": "2026-08-16"
     }
   },
   "planRythmesLocked": {
