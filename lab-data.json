@@ -6001,7 +6001,9 @@
       "techId": 1785175077562,
       "comment": "",
       "verifiedBy": "FVY",
-      "verifiedAt": "30/07/2026"
+      "verifiedAt": "30/07/2026",
+      "archive": true,
+      "archivedAt": "16/08/2026"
     },
     {
       "id": 1785742696254,
