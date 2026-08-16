@@ -4490,7 +4490,7 @@
       ],
       "echeanceId": 1786779469460,
       "date": "2026-08-20",
-      "statut": "en_analyse",
+      "statut": "recu",
       "note": "",
       "resultats": {
         "1786301521786": {
@@ -4557,9 +4557,7 @@
           "statutAnalyse": "ok"
         }
       },
-      "analyseStatuts": {
-        "1786301521786": "en_cours"
-      },
+      "analyseStatuts": {},
       "analyseStatutsInfo": {
         "1786301521786": {}
       }
@@ -7883,11 +7881,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - UT",
-      "time": "13/08 18:26"
-    },
-    {
       "icon": "list-check",
       "text": "9956970 — Apparence : verifiee",
       "time": "13/08 20:21"
@@ -8130,6 +8123,11 @@
     {
       "icon": "list-check",
       "text": "YYYYYYY — TCC0044 - RM493 / Conservateurs / Impuretés : retour à En cours",
+      "time": "16/08 10:39"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0044 - RM493 / Conservateurs / Impuretés : retour à À faire",
       "time": "16/08 10:39"
     }
   ]
