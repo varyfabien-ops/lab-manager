@@ -1369,7 +1369,7 @@
     },
     {
       "id": 1785247344996,
-      "nom": "TCC0004 - LIDOCAINE/PHBM",
+      "nom": "TCC0004 - LIDOCAINE / PHBM",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6759,11 +6759,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprime : XXXXXX",
-      "time": "15/08 10:12"
-    },
-    {
       "icon": "package",
       "text": "Réception: STAB-TEST — 1 entrée(s) — 7 analyse(s)",
       "time": "15/08 11:55"
@@ -7006,6 +7001,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - LIDOCAINE/PHBM",
+      "time": "16/08 15:25"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - LIDOCAINE / PHBM",
       "time": "16/08 15:25"
     }
   ]
