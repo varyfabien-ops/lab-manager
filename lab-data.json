@@ -1301,6 +1301,102 @@
       "stabEcheance": "T6M",
       "echeanceId": 1786779469460,
       "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1786961957730.5415,
+      "nom": "ABSORBANCE",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.4583,
+      "nom": "APPARENCE",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.3123,
+      "nom": "DENSITE",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.235,
+      "nom": "IODE LIBRE",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.3179,
+      "nom": "TCC0041 - Iode Totale",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.998,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.9783,
+      "nom": "VISCOSITE",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1786961957730.93,
+      "nom": "Volume Extractible",
+      "echantillonId": 1786961957730,
+      "echantillonCode": "24LF701A",
+      "date": "2026-07-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: 24LF701A"
     }
   ],
   "catalogue": [
@@ -3444,6 +3540,44 @@
       "analyseStatutsInfo": {
         "1786301521786": {}
       }
+    },
+    {
+      "id": 1786961957730,
+      "code": "24LF701A",
+      "lot": "24LF701A",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [],
+      "analysesIds": [
+        1786638196863,
+        1786624072580,
+        1786960813583,
+        1786960860663,
+        1786637357048,
+        1786637416398,
+        1786960782872,
+        1785170145444
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC0381",
+      "stabEcheance": "T24M",
+      "stabTemps": "25°C",
+      "stabEtudeId": 1786961858161,
+      "ptcId": 1786960643216,
+      "conditionId": 1786779420753,
+      "conditionIds": [
+        1786779420753
+      ],
+      "echeanceId": 1786960698600,
+      "date": "2026-07-15",
+      "dateFabrication": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7046,11 +7180,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "15/08 16:18"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
       "time": "15/08 16:18"
@@ -7294,6 +7423,11 @@
       "icon": "file-description",
       "text": "Étude créée : MA-24LF701A",
       "time": "17/08 12:17"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
+      "time": "17/08 12:19"
     }
   ]
 }
