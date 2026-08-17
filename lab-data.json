@@ -3679,13 +3679,32 @@
           "date": "17/08/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1786960782872": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "45",
+                  "unite": "mPa.s"
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "17/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       },
       "analyseStatuts": {
         "1786637416398": "terminee",
         "1786624072580": "terminee",
         "1786960813583": "terminee",
-        "1785170145444": "terminee"
+        "1785170145444": "terminee",
+        "1786960782872": "terminee"
       },
       "analyseStatutsInfo": {
         "1786637416398": {
@@ -3698,6 +3717,9 @@
           "terminee": "17/08/2026"
         },
         "1785170145444": {
+          "terminee": "17/08/2026"
+        },
+        "1786960782872": {
           "terminee": "17/08/2026"
         }
       }
