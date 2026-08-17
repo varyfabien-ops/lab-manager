@@ -6222,6 +6222,15 @@
       "format": "HCPCxxxx-x p.xx-x",
       "emplacement": "FRIGO",
       "desc": "TCC0013"
+    },
+    {
+      "id": 1786958675151,
+      "nom": "Solution de NaOH à 5,25 M",
+      "type": "autre",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "B1",
+      "desc": ""
     }
   ],
   "profils": [
