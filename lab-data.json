@@ -3625,13 +3625,35 @@
           "date": "17/08/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1786624072580": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "conforme",
+                  "unite": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "17/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       },
       "analyseStatuts": {
-        "1786637416398": "terminee"
+        "1786637416398": "terminee",
+        "1786624072580": "terminee"
       },
       "analyseStatutsInfo": {
         "1786637416398": {
+          "terminee": "17/08/2026"
+        },
+        "1786624072580": {
           "terminee": "17/08/2026"
         }
       }
