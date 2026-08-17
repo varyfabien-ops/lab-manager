@@ -2043,6 +2043,24 @@
       ],
       "resultatRequis": true,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786960860663,
+      "nom": "IODE LIBRE",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": "ppm"
+        }
+      ],
+      "resultatRequis": true,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -6897,11 +6915,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 10 analyse(s)",
-      "time": "15/08 16:13"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : Apparence",
       "time": "15/08 16:16"
@@ -7145,6 +7158,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : DENSITE",
       "time": "17/08 12:00"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : IODE LIBRE",
+      "time": "17/08 12:01"
     }
   ]
 }
