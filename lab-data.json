@@ -7271,7 +7271,14 @@
           "1786960735480": []
         }
       },
-      "specifications": {}
+      "specifications": {
+        "1786624072580": {
+          "0": "Clear, pale yellow to amber coloured oil"
+        },
+        "1786638217013": {
+          "0": "Positive"
+        }
+      }
     }
   ],
   "planRythmes": {
@@ -7367,11 +7374,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "list-check",
-      "text": "9956968 — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
-      "time": "15/08 16:20"
-    },
     {
       "icon": "file-description",
       "text": "PTC modifié : PTC-SET",
@@ -7616,6 +7618,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Indice d'Acide",
       "time": "17/08 12:29"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0381",
+      "time": "17/08 14:30"
     }
   ]
 }
