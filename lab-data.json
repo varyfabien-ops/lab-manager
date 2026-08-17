@@ -6658,6 +6658,14 @@
       "articleCode": "M75862417",
       "produitNom": "Setmelanotide 10 mg/mL",
       "ptcId": 1786803022644
+    },
+    {
+      "id": 1786961858161,
+      "numero": "MA-24LF701A",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitNom": "Lipiodol 10mL Autoclavé",
+      "ptcId": 1786960643216
     }
   ],
   "ptc": [
@@ -7039,11 +7047,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : L*a*b",
-      "time": "15/08 16:16"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "15/08 16:18"
     },
@@ -7285,6 +7288,11 @@
     {
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
+      "time": "17/08 12:17"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude créée : MA-24LF701A",
       "time": "17/08 12:17"
     }
   ]
