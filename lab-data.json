@@ -5299,24 +5299,6 @@
       },
       "supplementaire": false,
       "statutSuivi": "vert"
-    },
-    {
-      "id": 1786956878315,
-      "date": "2026-08-17",
-      "techId": "1785175077562",
-      "desc": "LAVEUR",
-      "analyseNom": "LAVEUR",
-      "analyseId": null,
-      "echId": null,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": "",
-      "manuel": true,
-      "color": {
-        "bg": "#E3F2FD",
-        "border": "#2196F3"
-      },
-      "supplementaire": true
     }
   ],
   "spq": [
