@@ -3697,6 +3697,29 @@
           "date": "17/08/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1786638196863": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "0.57",
+                  "unite": ""
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "0.31",
+                  "unite": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "17/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
         }
       },
       "analyseStatuts": {
@@ -3704,7 +3727,8 @@
         "1786624072580": "terminee",
         "1786960813583": "terminee",
         "1785170145444": "terminee",
-        "1786960782872": "terminee"
+        "1786960782872": "terminee",
+        "1786638196863": "terminee"
       },
       "analyseStatutsInfo": {
         "1786637416398": {
@@ -3720,6 +3744,9 @@
           "terminee": "17/08/2026"
         },
         "1786960782872": {
+          "terminee": "17/08/2026"
+        },
+        "1786638196863": {
           "terminee": "17/08/2026"
         }
       }
