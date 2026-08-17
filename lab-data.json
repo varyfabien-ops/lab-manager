@@ -5867,6 +5867,11 @@
           ]
         }
       ]
+    },
+    {
+      "id": 1786960515304,
+      "ref": "SPQ0278",
+      "marches": []
     }
   ],
   "articles": [
@@ -6770,11 +6775,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Réception supprimée : XXXXXX — T6M",
-      "time": "15/08 16:06"
-    },
-    {
-      "icon": "trash",
       "text": "Réception supprimée : XXXXXX — T3M",
       "time": "15/08 16:06"
     },
@@ -7017,6 +7017,11 @@
       "icon": "flask",
       "text": "Préparation: Solution d'Hydroxyde de Sodium (NaOH) à 5,25 M 2026/0104",
       "time": "17/08 11:29"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0278",
+      "time": "17/08 11:55"
     }
   ]
 }
