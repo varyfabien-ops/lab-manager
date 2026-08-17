@@ -5299,6 +5299,23 @@
       },
       "supplementaire": false,
       "statutSuivi": "vert"
+    },
+    {
+      "id": 1786956878315,
+      "date": null,
+      "techId": null,
+      "desc": "LAVEUR",
+      "analyseNom": "LAVEUR",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#E3F2FD",
+        "border": "#2196F3"
+      }
     }
   ],
   "spq": [
