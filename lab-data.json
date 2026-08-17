@@ -5294,7 +5294,8 @@
       "color": {
         "bg": "#FCE4EC",
         "border": "#E91E63"
-      }
+      },
+      "supplementaire": false
     }
   ],
   "spq": [
