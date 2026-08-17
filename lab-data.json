@@ -5016,7 +5016,7 @@
     {
       "id": 1786650485451,
       "date": "2026-08-17",
-      "techId": "1785175077562",
+      "techId": "1786178889272",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
       "sousKey": "step_2026-08-17_0",
@@ -5028,7 +5028,8 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1786650491932,
