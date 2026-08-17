@@ -2073,8 +2073,14 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Identification",
+          "type": "texte",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": []
     },
     {
@@ -7209,11 +7215,6 @@
     {
       "icon": "list-check",
       "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
-      "time": "15/08 16:18"
-    },
-    {
-      "icon": "list-check",
-      "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
       "time": "15/08 16:19"
     },
     {
@@ -7454,6 +7455,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : ABSORBANCE",
+      "time": "17/08 12:27"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : INFRAROUGE",
       "time": "17/08 12:27"
     }
   ]
