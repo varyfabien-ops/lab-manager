@@ -6580,6 +6580,11 @@
       "id": 1786960707551,
       "nom": "T27M",
       "delaiAnalyse": 30
+    },
+    {
+      "id": 1786960718503,
+      "nom": "T30M",
+      "delaiAnalyse": 45
     }
   ],
   "etudesStab": [
