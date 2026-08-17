@@ -5121,7 +5121,7 @@
     {
       "id": 1786650524784,
       "date": "2026-08-18",
-      "techId": "1785175077562",
+      "techId": "1786178889272",
       "desc": "TCC0065 - MPEG",
       "analyseNom": "TCC0065 - MPEG",
       "analyseId": 1786301151090,
@@ -5136,7 +5136,8 @@
       "color": null,
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1786650544017,
