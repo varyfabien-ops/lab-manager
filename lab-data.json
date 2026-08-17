@@ -2048,8 +2048,19 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Absorbance à 420 nm",
+          "type": "numerique",
+          "unite": ""
+        },
+        {
+          "label": "Absorbance à 460 nm",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": []
     },
     {
@@ -7196,11 +7207,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
-      "time": "15/08 16:18"
-    },
-    {
       "icon": "list-check",
       "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
       "time": "15/08 16:18"
@@ -7444,6 +7450,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
       "time": "17/08 12:19"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : ABSORBANCE",
+      "time": "17/08 12:27"
     }
   ]
 }
