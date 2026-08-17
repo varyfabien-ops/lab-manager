@@ -1968,8 +1968,14 @@
       "code": "",
       "produitsIds": [],
       "description": "Dosage de l'Iode Totale (LIPIODOL)",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Teneur en Iode Totale",
+          "type": "numerique",
+          "unite": "% (m/m)"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": []
     },
     {
@@ -7213,11 +7219,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "XXXXXX — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
-      "time": "15/08 16:19"
-    },
-    {
       "icon": "clipboard-check",
       "text": "TCC0044 - RM493 / Conservateurs / Impuretés — lot XXXXXX",
       "time": "15/08 16:19"
@@ -7461,6 +7462,11 @@
       "icon": "book",
       "text": "Analyse modifiée : INFRAROUGE",
       "time": "17/08 12:27"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - Iode Totale",
+      "time": "17/08 12:28"
     }
   ]
 }
