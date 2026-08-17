@@ -5295,7 +5295,8 @@
         "bg": "#FCE4EC",
         "border": "#E91E63"
       },
-      "supplementaire": false
+      "supplementaire": false,
+      "statutSuivi": "vert"
     }
   ],
   "spq": [
