@@ -5102,7 +5102,7 @@
     {
       "id": 1786650517716,
       "date": "2026-08-19",
-      "techId": "1785175077562",
+      "techId": "1786178889272",
       "desc": "Retraitement TCC0065 - MPEG",
       "analyseNom": "Retraitement TCC0065 - MPEG",
       "analyseId": 1786301151090,
@@ -5116,7 +5116,8 @@
       },
       "isSous": true,
       "parentNom": "TCC0065 - MPEG",
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1786650524784,
