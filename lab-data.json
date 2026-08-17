@@ -6053,6 +6053,17 @@
       "comment": "",
       "verifiedBy": "FVY",
       "verifiedAt": "17/08/2026"
+    },
+    {
+      "id": 1786958951489,
+      "catId": 1786958675151,
+      "nom": "Solution d'Hydroxyde de Sodium (NaOH) à 5,25 M",
+      "numero": "2026/0104",
+      "datePrep": "2026-06-03",
+      "datePerm": "2026-12-03",
+      "dateRestrictive": "2027-10-29",
+      "techId": 1786178865689,
+      "comment": ""
     }
   ],
   "cataloguePrep": [
@@ -6756,11 +6767,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
-      "time": "15/08 16:01"
-    },
-    {
       "icon": "trash",
       "text": "Réception supprimée : XXXXXX — T6M",
       "time": "15/08 16:06"
@@ -7004,6 +7010,11 @@
       "icon": "flask",
       "text": "Préparation: Solution d'Acide Sulfurique (H2SO4) à 20% (m/V) 2026/0146",
       "time": "17/08 11:28"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Solution d'Hydroxyde de Sodium (NaOH) à 5,25 M 2026/0104",
+      "time": "17/08 11:29"
     }
   ]
 }
