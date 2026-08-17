@@ -2208,6 +2208,24 @@
       "produitsIds": [],
       "sousAnalyses": [],
       "description": "Analyse de microbiologie réservée aux études de stabilité"
+    },
+    {
+      "id": 1786994574820,
+      "nom": "Endotoxin",
+      "stabOnly": true,
+      "discipline": "Microbiologie",
+      "resultatRequis": true,
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "texte",
+          "unite": ""
+        }
+      ],
+      "habilitations": [],
+      "produitsIds": [],
+      "sousAnalyses": [],
+      "description": "Analyse de microbiologie réservée aux études de stabilité"
     }
   ],
   "stabilites": [],
