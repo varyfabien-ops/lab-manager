@@ -6231,6 +6231,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "B1",
       "desc": ""
+    },
+    {
+      "id": 1786958766871,
+      "nom": "Solution d'Acide Sulfurique à 20% (m/V)",
+      "type": "autre",
+      "peremption": 12,
+      "format": "AAAA/XXXX",
+      "emplacement": "A3",
+      "desc": ""
     }
   ],
   "profils": [
