@@ -2417,6 +2417,32 @@
       "ouvertPar": "KBT",
       "verifiedBy": "ADD",
       "verifiedAt": "16/08/2026"
+    },
+    {
+      "produitId": 1785746786712,
+      "lot": "26141",
+      "qte": "25",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786957166589
+    },
+    {
+      "produitId": 1785746786712,
+      "lot": "26141",
+      "qte": "25",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1786957166590
     }
   ],
   "produitsEch": [
@@ -6699,11 +6725,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 1 entrée(s) — 8 analyse(s)",
-      "time": "15/08 12:29"
-    },
-    {
       "icon": "trash",
       "text": "Réception supprimée : XXXXXX — T6M",
       "time": "15/08 12:30"
@@ -6947,6 +6968,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Thiosulfate de Sodium 0,1M lot YYYYY",
       "time": "16/08 19:56"
+    },
+    {
+      "icon": "package",
+      "text": "2x LCK339 lot 26141 receptionne(s)",
+      "time": "17/08 10:59"
     }
   ]
 }
