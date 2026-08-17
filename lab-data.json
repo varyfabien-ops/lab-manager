@@ -2006,7 +2006,7 @@
     },
     {
       "id": 1786960782872,
-      "nom": "Viscosité",
+      "nom": "VISCOSITE",
       "habilitations": [
         "Viscosité"
       ],
@@ -6878,11 +6878,6 @@
   "activity": [
     {
       "icon": "file-description",
-      "text": "PTC créé : PTC-SET",
-      "time": "15/08 16:10"
-    },
-    {
-      "icon": "file-description",
       "text": "Étude créée : STAB-SET",
       "time": "15/08 16:10"
     },
@@ -7124,6 +7119,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Viscosité",
+      "time": "17/08 11:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : VISCOSITE",
       "time": "17/08 11:59"
     }
   ]
