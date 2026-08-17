@@ -1976,7 +1976,10 @@
         }
       ],
       "resultatRequis": true,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "TCC0041 - DOSAGE NITRATE D'ARGENT 0",
+        "5 M"
+      ]
     },
     {
       "id": 1786637416398,
@@ -7375,11 +7378,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "PTC supprimé : PTCAAAA",
-      "time": "15/08 19:10"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "15/08 21:04"
@@ -7623,6 +7621,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - INDICE D'ACIDE",
       "time": "17/08 18:40"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - Iode Totale",
+      "time": "17/08 18:42"
     }
   ]
 }
