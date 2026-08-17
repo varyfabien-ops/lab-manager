@@ -2190,6 +2190,24 @@
       ],
       "resultatRequis": true,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786994550749,
+      "nom": "Sterility",
+      "stabOnly": true,
+      "discipline": "Microbiologie",
+      "resultatRequis": true,
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "texte",
+          "unite": ""
+        }
+      ],
+      "habilitations": [],
+      "produitsIds": [],
+      "sousAnalyses": [],
+      "description": "Analyse de microbiologie réservée aux études de stabilité"
     }
   ],
   "stabilites": [],
