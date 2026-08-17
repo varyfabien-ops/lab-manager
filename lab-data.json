@@ -2023,6 +2023,26 @@
       ],
       "resultatRequis": true,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786960813583,
+      "nom": "DENSITE",
+      "habilitations": [
+        "Densité"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": "g/cm3"
+        }
+      ],
+      "resultatRequis": true,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -6877,11 +6897,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude créée : STAB-SET",
-      "time": "15/08 16:10"
-    },
-    {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 10 analyse(s)",
       "time": "15/08 16:13"
@@ -7125,6 +7140,11 @@
       "icon": "book",
       "text": "Analyse modifiée : VISCOSITE",
       "time": "17/08 11:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : DENSITE",
+      "time": "17/08 12:00"
     }
   ]
 }
