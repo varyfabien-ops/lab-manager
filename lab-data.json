@@ -1988,8 +1988,14 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Indice d'Acide",
+          "type": "numerique",
+          "unite": "mgKOH/g"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": []
     },
     {
@@ -7219,11 +7225,6 @@
   },
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "TCC0044 - RM493 / Conservateurs / Impuretés — lot XXXXXX",
-      "time": "15/08 16:19"
-    },
-    {
       "icon": "list-check",
       "text": "9956968 — TCC0044 - RM493 / Conservateurs / Impuretés : en_cours",
       "time": "15/08 16:20"
@@ -7467,6 +7468,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "17/08 12:28"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - Indice d'Acide",
+      "time": "17/08 12:29"
     }
   ]
 }
