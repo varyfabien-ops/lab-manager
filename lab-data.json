@@ -5277,6 +5277,23 @@
       "parentNom": "TCC0004 - Bupivacaïne",
       "manuel": false,
       "statutSuivi": "orange"
+    },
+    {
+      "id": 1786956802275,
+      "date": null,
+      "techId": null,
+      "desc": "Retraitement TCC0044 - Placebo",
+      "analyseNom": "Retraitement TCC0044 - Placebo",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FCE4EC",
+        "border": "#E91E63"
+      }
     }
   ],
   "spq": [
