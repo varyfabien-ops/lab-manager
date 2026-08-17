@@ -7281,6 +7281,44 @@
         },
         "1786638217013": {
           "0": "Positive"
+        },
+        "1786637357048": {
+          "0": "37,0 % (m/m) - 39,0 % (m/m)"
+        }
+      },
+      "reportInfo": {
+        "1786624072580": {
+          "methode": "Visual",
+          "nomRapport": "Appearance"
+        },
+        "1785170145444": {
+          "methode": "Ph. Eur. 2.9.17\nUSP <1>",
+          "nomRapport": "Extractible volume"
+        },
+        "1786638217013": {
+          "methode": "",
+          "nomRapport": "Identification active substance"
+        },
+        "1786960782872": {
+          "methode": "Viscosity (20°C)",
+          "nomRapport": "Viscosity (20°C)"
+        },
+        "1786638196863": {
+          "methode": "",
+          "nomRapport": "Absorbance"
+        },
+        "1786637357048": {
+          "methode": "Titration by potentiometry",
+          "nomRapport": "Iodine content"
+        },
+        "1786637416398": {
+          "nomRapport": "Acid value"
+        },
+        "1786960860663": {
+          "nomRapport": "Free iodine"
+        },
+        "1786960813583": {
+          "nomRapport": "Density (20°C)"
         }
       }
     }
@@ -7378,11 +7416,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC-SET",
-      "time": "15/08 21:05"
-    },
     {
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
@@ -7627,6 +7660,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "17/08 18:43"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0381",
+      "time": "17/08 18:50"
     }
   ]
 }
