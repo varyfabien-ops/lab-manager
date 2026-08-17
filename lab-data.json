@@ -1980,7 +1980,7 @@
     },
     {
       "id": 1786637416398,
-      "nom": "TCC0041 - Indice d'Acide",
+      "nom": "TCC0041 - INDICE D'ACIDE",
       "habilitations": [
         "Titrimétrie"
       ],
@@ -7375,11 +7375,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC-SET",
-      "time": "15/08 18:16"
-    },
-    {
       "icon": "trash",
       "text": "PTC supprimé : PTCAAAA",
       "time": "15/08 19:10"
@@ -7623,6 +7618,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "17/08 14:30"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - INDICE D'ACIDE",
+      "time": "17/08 18:40"
     }
   ]
 }
