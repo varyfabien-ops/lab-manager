@@ -4990,7 +4990,8 @@
       "isSous": true,
       "parentNom": "TCC0044 - RM493 / Conservateurs / Impuretés",
       "manuel": false,
-      "statutSuivi": "rouge"
+      "statutSuivi": "rouge",
+      "note": "Lot 9956914 - %CV Non Valide (RM493)\nLot 9956915 - OOT (RM493)\nLot 9956936 - %CV Non Valide (RM493)"
     },
     {
       "id": 1786650473884,
