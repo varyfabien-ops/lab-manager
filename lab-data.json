@@ -1977,8 +1977,9 @@
       ],
       "resultatRequis": true,
       "sousAnalyses": [
-        "TCC0041 - DOSAGE NITRATE D'ARGENT 0",
-        "5 M"
+        "TCC0041 - Titrage Nitrate d'Argent 0",
+        "5 M",
+        "Vérification TCC0041 - Iode Totale"
       ]
     },
     {
@@ -7378,11 +7379,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "15/08 21:04"
-    },
-    {
       "icon": "file-description",
       "text": "PTC modifié : PTC-SET",
       "time": "15/08 21:05"
@@ -7626,6 +7622,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "17/08 18:42"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - Iode Totale",
+      "time": "17/08 18:43"
     }
   ]
 }
