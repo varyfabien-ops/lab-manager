@@ -6225,12 +6225,12 @@
     },
     {
       "id": 1786958675151,
-      "nom": "Solution de NaOH à 5,25 M",
+      "nom": "Solution d'Hydroxyde de Sodium (NaOH) à 5,25 M",
       "type": "autre",
       "peremption": 6,
       "format": "AAAA/XXXX",
       "emplacement": "B1",
-      "desc": ""
+      "desc": "INC0267"
     },
     {
       "id": 1786958766871,
