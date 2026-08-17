@@ -4989,7 +4989,8 @@
       },
       "isSous": true,
       "parentNom": "TCC0044 - RM493 / Conservateurs / Impuretés",
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "rouge"
     },
     {
       "id": 1786650473884,
