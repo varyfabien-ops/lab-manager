@@ -6575,6 +6575,11 @@
       "id": 1786960698600,
       "nom": "T24M",
       "delaiAnalyse": 30
+    },
+    {
+      "id": 1786960707551,
+      "nom": "T27M",
+      "delaiAnalyse": 30
     }
   ],
   "etudesStab": [
