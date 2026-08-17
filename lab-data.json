@@ -2003,6 +2003,26 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1786960782872,
+      "nom": "Viscosité",
+      "habilitations": [
+        "Viscosité"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": "mPa.s"
+        }
+      ],
+      "resultatRequis": true,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -6857,11 +6877,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Étude supprimée : STAB-TEST",
-      "time": "15/08 16:09"
-    },
-    {
       "icon": "file-description",
       "text": "PTC créé : PTC-SET",
       "time": "15/08 16:10"
@@ -7105,6 +7120,11 @@
       "icon": "file-description",
       "text": "PTC créé : PTC0381",
       "time": "17/08 11:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Viscosité",
+      "time": "17/08 11:59"
     }
   ]
 }
