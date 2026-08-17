@@ -5989,6 +5989,13 @@
       "nom": "Xylocaïne 20 mg/mL + Adrénaline (AC)",
       "type": "pif_stab",
       "spqId": 1786520529756
+    },
+    {
+      "id": 1786960543922,
+      "code": "M75260000",
+      "nom": "Lipiodol 10mL Autoclacé",
+      "type": "pif_stab",
+      "spqId": 1786960515304
     }
   ],
   "preparations": [
@@ -6775,11 +6782,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Réception supprimée : XXXXXX — T3M",
-      "time": "15/08 16:06"
-    },
-    {
-      "icon": "trash",
       "text": "Réception supprimée : TEST 3",
       "time": "15/08 16:06"
     },
@@ -7021,6 +7023,11 @@
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0278",
+      "time": "17/08 11:55"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M75260000",
       "time": "17/08 11:55"
     }
   ]
