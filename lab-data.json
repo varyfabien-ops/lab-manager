@@ -6978,14 +6978,6 @@
   ],
   "etudesStab": [
     {
-      "id": 1786803055027,
-      "numero": "STAB-SET",
-      "articleId": 1786301271905,
-      "articleCode": "M75862417",
-      "produitNom": "Setmelanotide 10 mg/mL",
-      "ptcId": 1786803022644
-    },
-    {
       "id": 1786961858161,
       "numero": "MA-24LF701A",
       "articleId": 1786960543922,
@@ -7417,11 +7409,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 8 analyse(s)",
-      "time": "15/08 21:27"
-    },
-    {
       "icon": "list-check",
       "text": "YYYYYYY — TCC0044 - RM493 / Conservateurs / Impuretés : retour à En cours",
       "time": "16/08 10:39"
@@ -7665,6 +7652,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "17/08 18:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Étude supprimée : STAB-SET",
+      "time": "17/08 21:14"
     }
   ]
 }
