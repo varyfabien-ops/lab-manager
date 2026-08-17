@@ -3606,7 +3606,35 @@
       "date": "2026-07-15",
       "dateFabrication": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "resultats": {
+        "1786637416398": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Indice d'Acide",
+                  "valeur": "0.3",
+                  "unite": "mgKOH/g"
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "17/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
+      },
+      "analyseStatuts": {
+        "1786637416398": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1786637416398": {
+          "terminee": "17/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
