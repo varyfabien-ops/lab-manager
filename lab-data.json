@@ -6616,6 +6616,17 @@
       "comment": "",
       "verifiedBy": "KBT",
       "verifiedAt": "18/08/2026"
+    },
+    {
+      "id": 1787035338714,
+      "catId": 1785422870804,
+      "nom": "Mélange Eau / Isopropanol (90V/10V)",
+      "numero": "2026/0178",
+      "datePrep": "2026-08-14",
+      "datePerm": "2026-09-14",
+      "dateRestrictive": "",
+      "techId": 1785175077562,
+      "comment": ""
     }
   ],
   "cataloguePrep": [
@@ -7539,11 +7550,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot K57089345 546",
-      "time": "16/08 17:26"
-    },
-    {
       "icon": "archive",
       "text": "Archivé : Chloroforme lot K57089345 546",
       "time": "16/08 17:34"
@@ -7787,6 +7793,11 @@
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (50V/50V) 2026/0179",
       "time": "18/08 08:41"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
+      "time": "18/08 08:42"
     }
   ]
 }
