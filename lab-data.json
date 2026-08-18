@@ -2688,12 +2688,13 @@
       "qte": "1 L",
       "reception": "2026-06-08",
       "peremption": "2028-01-29",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-18",
+      "validite": "2027-07-02",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1787033845586
+      "id": 1787033845586,
+      "ouvertPar": "FVY"
     },
     {
       "produitId": 1787033801234,
@@ -7373,11 +7374,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0002 - Sodium",
-      "time": "16/08 15:23"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0002 - SODIUM",
       "time": "16/08 15:24"
     },
@@ -7619,6 +7615,11 @@
     {
       "icon": "package",
       "text": "2x NITRATE D'ARGENT 0,05M lot 26B104123 receptionne(s)",
+      "time": "18/08 08:17"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : NITRATE D'ARGENT 0,05M lot 26B104123",
       "time": "18/08 08:17"
     }
   ]
