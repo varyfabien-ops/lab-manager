@@ -5886,7 +5886,8 @@
         "bg": "#FFE0B2",
         "border": "#F57C00"
       },
-      "supplementaire": false
+      "supplementaire": false,
+      "statutSuivi": "vert"
     },
     {
       "id": 1787048983581,
