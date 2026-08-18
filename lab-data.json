@@ -2774,6 +2774,19 @@
       "coaUrl": "",
       "id": 1787034253946,
       "ouvertPar": "FVY"
+    },
+    {
+      "produitId": 1787048065275,
+      "lot": "B2248043 349",
+      "qte": "250 g",
+      "reception": "2024-08-05",
+      "peremption": "2028-11-30",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787048104475
     }
   ],
   "produitsEch": [
@@ -7596,11 +7609,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot 2045653",
-      "time": "16/08 18:35"
-    },
-    {
       "icon": "archive",
       "text": "Archivé : Poudre Zinc lot V3E055123G",
       "time": "16/08 18:35"
@@ -7844,6 +7852,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : Iodure de Potassium",
       "time": "18/08 12:14"
+    },
+    {
+      "icon": "package",
+      "text": "1x Iodure de Potassium lot B2248043 349 receptionne(s)",
+      "time": "18/08 12:15"
     }
   ]
 }
