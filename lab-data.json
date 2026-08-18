@@ -6493,6 +6493,13 @@
       "nom": "Lipiodol 10mL Autoclavé",
       "type": "pif_stab",
       "spqId": 1786960515304
+    },
+    {
+      "id": 1787034776298,
+      "code": "M76024001",
+      "nom": "Marcaïne 5 mg/mL + 5µg/mL Adrénaline (SC)",
+      "type": "pif_stab",
+      "spqId": 1787034722250
     }
   ],
   "preparations": [
@@ -7409,11 +7416,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0003 - METABISULFITE DE SODIUM",
-      "time": "16/08 15:25"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 - LIDOCAINE/PHBM",
       "time": "16/08 15:25"
     },
@@ -7655,6 +7657,11 @@
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0057",
+      "time": "18/08 08:32"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M76024001",
       "time": "18/08 08:32"
     }
   ]
