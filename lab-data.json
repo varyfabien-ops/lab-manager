@@ -2507,6 +2507,21 @@
       "note": "",
       "bvs": false,
       "estTitree": false
+    },
+    {
+      "id": 1787035057346,
+      "nom": "LCK304",
+      "fournisseur": "HACH LANGE",
+      "ref": "LCK304",
+      "cas": "N/A",
+      "localisation": "FRIGO",
+      "fc": "1",
+      "conditionnement": "1 Boîte",
+      "stockMin": "2",
+      "qteCmde": "5",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -7512,11 +7527,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : AMINES TERTIAIRES",
-      "time": "16/08 15:26"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : PARTICULES VISIBLES",
       "time": "16/08 15:26"
     },
@@ -7759,6 +7769,11 @@
       "icon": "pencil",
       "text": "Produit modifie : LCK339",
       "time": "18/08 08:36"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : LCK304",
+      "time": "18/08 08:37"
     }
   ]
 }
