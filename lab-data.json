@@ -6829,6 +6829,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "A3",
       "desc": "INC0267 - TCC0041 - Iode Totale"
+    },
+    {
+      "id": 1787047812003,
+      "nom": "Solution d'Iodobismuthate de Potassium R1",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "RP - P",
+      "desc": ""
     }
   ],
   "profils": [
