@@ -5904,7 +5904,8 @@
       "color": {
         "bg": "#FFE0B2",
         "border": "#F57C00"
-      }
+      },
+      "statutSuivi": "vert"
     }
   ],
   "spq": [
