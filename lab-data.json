@@ -2246,14 +2246,17 @@
     {
       "id": 1785746786712,
       "nom": "LCK339",
-      "fournisseur": "Hach",
+      "fournisseur": "HACH LANGE",
       "ref": "LCK339",
+      "cas": "N/A",
       "localisation": "Poste des Eaux",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "3",
       "qteCmde": "5",
-      "note": "Analyse de la STEP"
+      "note": "Analyse de la STEP",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1785746859729,
@@ -7509,11 +7512,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : ABSORBANCE",
-      "time": "16/08 15:25"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : AMINES TERTIAIRES",
       "time": "16/08 15:26"
     },
@@ -7755,6 +7753,11 @@
     {
       "icon": "pencil",
       "text": "Produit modifie : LCK314",
+      "time": "18/08 08:36"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : LCK339",
       "time": "18/08 08:36"
     }
   ]
