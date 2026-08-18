@@ -5599,7 +5599,8 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "statutSuivi": "vert"
     },
     {
       "id": 1786650493918,
