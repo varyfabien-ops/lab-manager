@@ -6607,15 +6607,13 @@
     {
       "id": 1787035222082,
       "catId": 1785422870804,
-      "nom": "Mélange Eau / Isopropanol (90/10)",
+      "nom": "Mélange Eau / Isopropanol (90V/10V)",
       "numero": "2026/0178",
       "datePrep": "2026-08-14",
       "datePerm": "2026-09-14",
       "dateRestrictive": "",
       "techId": 1785175077562,
-      "comment": "",
-      "verifiedBy": "KBT",
-      "verifiedAt": "18/08/2026"
+      "comment": ""
     }
   ],
   "cataloguePrep": [
@@ -7540,11 +7538,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : INFRAROUGE",
-      "time": "16/08 15:26"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : APPARENCE",
       "time": "16/08 15:26"
     },
@@ -7787,6 +7780,11 @@
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90/10) 2026/0178",
       "time": "18/08 08:40"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
+      "time": "18/08 08:41"
     }
   ]
 }
