@@ -2471,6 +2471,21 @@
       "note": "",
       "bvs": false,
       "estTitree": true
+    },
+    {
+      "id": 1787033801234,
+      "nom": "NITRATE D'ARGENT 0,05M",
+      "fournisseur": "MERCK - VWR",
+      "ref": "30475.297",
+      "cas": "7761-88-8",
+      "localisation": "A4",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "2",
+      "qteCmde": "2",
+      "note": "",
+      "bvs": false,
+      "estTitree": true
     }
   ],
   "contenants": [
@@ -7331,11 +7346,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : XXXXXX (2 réception(s))",
-      "time": "16/08 15:02"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0023 - Adrénaline",
       "time": "16/08 15:21"
@@ -7579,6 +7589,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "17/08 21:23"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : NITRATE D'ARGENT 0,05M",
+      "time": "18/08 08:16"
     }
   ]
 }
