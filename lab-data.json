@@ -6629,6 +6629,17 @@
       "comment": "",
       "verifiedBy": "KBT",
       "verifiedAt": "18/08/2026"
+    },
+    {
+      "id": 1787047912411,
+      "catId": 1787047812003,
+      "nom": "Solution d'Iodobismuthate de Potassium R1",
+      "numero": "2026/0180",
+      "datePrep": "2026-08-18",
+      "datePerm": "2027-02-18",
+      "dateRestrictive": "2026-10-03",
+      "techId": 1785175077562,
+      "comment": ""
     }
   ],
   "cataloguePrep": [
@@ -7570,11 +7581,6 @@
   },
   "activity": [
     {
-      "icon": "archive",
-      "text": "Archivé : Chloroforme lot K57089345 546",
-      "time": "16/08 17:34"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot K57089345 546",
       "time": "16/08 18:35"
@@ -7818,6 +7824,11 @@
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
       "time": "18/08 08:42"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Solution d'Iodobismuthate de Potassium R1 2026/0180",
+      "time": "18/08 12:11"
     }
   ]
 }
