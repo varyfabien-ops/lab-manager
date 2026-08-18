@@ -5869,6 +5869,23 @@
         "border": "#F57C00"
       },
       "statutSuivi": "rouge"
+    },
+    {
+      "id": 1787049186924,
+      "date": null,
+      "techId": null,
+      "desc": "CCM - Préparation Révélateur - J1",
+      "analyseNom": "CCM - Préparation Révélateur - J1",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      }
     }
   ],
   "spq": [
