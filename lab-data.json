@@ -5918,7 +5918,7 @@
       "echId": null,
       "type": "analyse",
       "sousAnalyses": [],
-      "note": "",
+      "note": "%CV Validité NCF (2%)",
       "manuel": true,
       "color": {
         "bg": "#FFE0B2",
