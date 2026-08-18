@@ -2698,14 +2698,15 @@
       "peremption": "2034-01-01",
       "ouverture": "2026-08-16",
       "validite": "2031-01-20",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "coaUrl": "",
       "id": 1786564862584,
       "suiviTitree": false,
       "ouvertPar": "KBT",
       "verifiedBy": "ADD",
-      "verifiedAt": "16/08/2026"
+      "verifiedAt": "16/08/2026",
+      "dateArchivage": "2026-08-18"
     },
     {
       "produitId": 1785746786712,
@@ -7609,11 +7610,6 @@
   },
   "activity": [
     {
-      "icon": "archive",
-      "text": "Archivé : Poudre Zinc lot V3E055123G",
-      "time": "16/08 18:35"
-    },
-    {
       "icon": "droplet",
       "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot HC45819847 (1.001)",
       "time": "16/08 19:52"
@@ -7857,6 +7853,11 @@
       "icon": "package",
       "text": "1x Iodure de Potassium lot B2248043 349 receptionne(s)",
       "time": "18/08 12:15"
+    },
+    {
+      "icon": "archive",
+      "text": "Archivé : Thiosulfate de Sodium 0,1M lot YYYYY",
+      "time": "18/08 12:17"
     }
   ]
 }
