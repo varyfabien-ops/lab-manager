@@ -6606,9 +6606,9 @@
     },
     {
       "id": 1787035222082,
-      "catId": 1785422870804,
-      "nom": "Mélange Eau / Isopropanol (90V/10V)",
-      "numero": "2026/0178",
+      "catId": 1785423885020,
+      "nom": "Mélange Eau / Isopropanol (50V/50V)",
+      "numero": "2026/0179",
       "datePrep": "2026-08-14",
       "datePerm": "2026-09-14",
       "dateRestrictive": "",
@@ -7537,11 +7537,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : APPARENCE",
-      "time": "16/08 15:26"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot K57089345 546",
       "time": "16/08 17:26"
@@ -7784,6 +7779,11 @@
     {
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
+      "time": "18/08 08:41"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Mélange Eau / Isopropanol (50V/50V) 2026/0179",
       "time": "18/08 08:41"
     }
   ]
