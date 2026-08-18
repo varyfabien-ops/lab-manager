@@ -2486,6 +2486,21 @@
       "note": "",
       "bvs": false,
       "estTitree": true
+    },
+    {
+      "id": 1787034196058,
+      "nom": "TITRANT 2",
+      "fournisseur": "MERCK - VWR",
+      "ref": "1.88011.1000",
+      "cas": "N/A",
+      "localisation": "I9",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "1",
+      "qteCmde": "2",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -7375,11 +7390,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0002 - SODIUM",
-      "time": "16/08 15:24"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 - BUPIVACAÏNE",
       "time": "16/08 15:24"
     },
@@ -7622,6 +7632,11 @@
       "icon": "lock-open",
       "text": "Ouverture : NITRATE D'ARGENT 0,05M lot 26B104123",
       "time": "18/08 08:17"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : TITRANT 2",
+      "time": "18/08 08:23"
     }
   ]
 }
