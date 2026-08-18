@@ -2522,6 +2522,21 @@
       "note": "",
       "bvs": false,
       "estTitree": false
+    },
+    {
+      "id": 1787048065275,
+      "nom": "Iodure de Potassium",
+      "fournisseur": "MERCK - SUPELCO",
+      "ref": "1.05043.0250",
+      "cas": "7681-11-0",
+      "localisation": "E2",
+      "fc": "0.6",
+      "conditionnement": "250 g",
+      "stockMin": "1",
+      "qteCmde": "1",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -7582,11 +7597,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Contenant supprime : lot K57089345 546",
-      "time": "16/08 18:35"
-    },
-    {
-      "icon": "trash",
       "text": "Contenant supprime : lot 2045653",
       "time": "16/08 18:35"
     },
@@ -7829,6 +7839,11 @@
       "icon": "flask",
       "text": "Préparation: Solution d'Iodobismuthate de Potassium R1 2026/0180",
       "time": "18/08 12:11"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : Iodure de Potassium",
+      "time": "18/08 12:14"
     }
   ]
 }
