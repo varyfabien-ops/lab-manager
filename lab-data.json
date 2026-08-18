@@ -2724,6 +2724,19 @@
       "note": "",
       "coaUrl": "",
       "id": 1787033845587
+    },
+    {
+      "produitId": 1787034196058,
+      "lot": "HX57156311",
+      "qte": "1 L",
+      "reception": "2026-07-03",
+      "peremption": "2028-06-30",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787034253946
     }
   ],
   "produitsEch": [
@@ -7390,11 +7403,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - BUPIVACAÏNE",
-      "time": "16/08 15:24"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0013 - CONSERVATEURS",
       "time": "16/08 15:24"
     },
@@ -7637,6 +7645,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : TITRANT 2",
       "time": "18/08 08:23"
+    },
+    {
+      "icon": "package",
+      "text": "1x TITRANT 2 lot HX57156311 receptionne(s)",
+      "time": "18/08 08:24"
     }
   ]
 }
