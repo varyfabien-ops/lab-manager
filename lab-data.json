@@ -6838,6 +6838,15 @@
       "format": "AAAA/XXXX",
       "emplacement": "RP - P",
       "desc": ""
+    },
+    {
+      "id": 1787047851450,
+      "nom": "Solution diluée d'Iodobismuthate de Potassium R",
+      "type": "pe",
+      "peremption": 6,
+      "format": "AAAA/XXXX",
+      "emplacement": "RP - P",
+      "desc": "1070603"
     }
   ],
   "profils": [
