@@ -6364,6 +6364,11 @@
       "id": 1786960515304,
       "ref": "SPQ0278",
       "marches": []
+    },
+    {
+      "id": 1787034722250,
+      "ref": "SPQ0057",
+      "marches": []
     }
   ],
   "articles": [
@@ -7404,11 +7409,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - BUPIVACAINE",
-      "time": "16/08 15:25"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0003 - METABISULFITE DE SODIUM",
       "time": "16/08 15:25"
     },
@@ -7651,6 +7651,11 @@
       "icon": "lock-open",
       "text": "Ouverture : TITRANT 2 lot HX57156311",
       "time": "18/08 08:24"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0057",
+      "time": "18/08 08:32"
     }
   ]
 }
