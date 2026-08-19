@@ -2868,6 +2868,19 @@
       "note": "",
       "coaUrl": "",
       "id": 1787112824581
+    },
+    {
+      "produitId": 1787114781363,
+      "lot": "S84043478 412",
+      "qte": "100 g",
+      "reception": "2024-07-03",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787114818147
     }
   ],
   "produitsEch": [
@@ -7709,11 +7722,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Contenant supprime : lot HC45819847",
-      "time": "16/08 19:55"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : Thiosulfate de Sodium 0,1M lot YYYYY",
       "time": "16/08 19:56"
@@ -7956,6 +7964,11 @@
     {
       "icon": "flask-2",
       "text": "Produit ajoute : NITRATE DE BISMUTH (III)",
+      "time": "19/08 06:46"
+    },
+    {
+      "icon": "package",
+      "text": "1x NITRATE DE BISMUTH (III) lot S84043478 412 receptionne(s)",
       "time": "19/08 06:46"
     }
   ]
