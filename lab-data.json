@@ -4197,7 +4197,7 @@
       "note": "",
       "analyseStatuts": {
         "1786533442513": "terminee",
-        "1785247529863": "terminee",
+        "1785247529863": "verifiee",
         "1786533393826": "verifiee",
         "1785170122728": "verifiee",
         "1785247569532": "verifiee",
@@ -4211,7 +4211,8 @@
         },
         "1785247529863": {
           "en_cours": "19/08/2026",
-          "terminee": "19/08/2026"
+          "terminee": "19/08/2026",
+          "verifiee": "19/08/2026"
         },
         "1786533393826": {
           "en_cours": "19/08/2026",
@@ -7982,11 +7983,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
-      "time": "17/08 14:30"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - INDICE D'ACIDE",
       "time": "17/08 18:40"
@@ -8229,6 +8225,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — TCC0003 - METABISULFITE DE SODIUM : verifiee",
+      "time": "19/08 07:37"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — TCC0004 - BUPIVACAINE : verifiee",
       "time": "19/08 07:37"
     }
   ]
