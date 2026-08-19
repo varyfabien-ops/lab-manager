@@ -2537,6 +2537,21 @@
       "note": "",
       "bvs": false,
       "estTitree": false
+    },
+    {
+      "id": 1787114781363,
+      "nom": "NITRATE DE BISMUTH (III)",
+      "fournisseur": "MERCK - SUPELCO",
+      "ref": "1.01878.0100",
+      "cas": "1304-85-4",
+      "localisation": "C2",
+      "fc": "0.6",
+      "conditionnement": "100 g",
+      "stockMin": "1",
+      "qteCmde": "1",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -7694,11 +7709,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot HC45819847",
-      "time": "16/08 19:52"
-    },
-    {
       "icon": "trash",
       "text": "Contenant supprime : lot HC45819847",
       "time": "16/08 19:55"
@@ -7942,6 +7952,11 @@
       "icon": "package",
       "text": "5x LCK314 lot 26124 receptionne(s)",
       "time": "19/08 06:13"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : NITRATE DE BISMUTH (III)",
+      "time": "19/08 06:46"
     }
   ]
 }
