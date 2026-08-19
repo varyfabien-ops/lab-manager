@@ -2879,7 +2879,18 @@
       "coaUrl": "",
       "id": 1787033845586,
       "ouvertPar": "FVY",
-      "suiviTitree": true
+      "suiviTitree": true,
+      "titrages": [
+        {
+          "id": 1787163223630,
+          "valeur": "0,0508 M",
+          "date": "2026-08-19",
+          "techId": 1785175077562,
+          "numero": "HCPC0077-J p.23-2",
+          "verifiePar": null,
+          "verifieLe": null
+        }
+      ]
     },
     {
       "produitId": 1787033801234,
@@ -8116,11 +8127,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "PTC supprimé : PTC-SET",
-      "time": "17/08 21:22"
-    },
-    {
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "17/08 21:23"
@@ -8364,6 +8370,11 @@
       "icon": "flask",
       "text": "Préparation: Solution diluée d'Iodobismuthate de Potassium R 2026/0181",
       "time": "19/08 19:36"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour NITRATE D'ARGENT 0,05M — Lot 26B104123 (0,0508 M)",
+      "time": "19/08 20:13"
     }
   ]
 }
