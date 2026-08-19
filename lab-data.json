@@ -4202,7 +4202,7 @@
         "1785170122728": "terminee",
         "1785247569532": "terminee",
         "1785247477146": "terminee",
-        "1785336377803": "terminee"
+        "1785336377803": "verifiee"
       },
       "analyseStatutsInfo": {
         "1786533442513": {
@@ -4231,7 +4231,8 @@
         },
         "1785336377803": {
           "en_cours": "19/08/2026",
-          "terminee": "19/08/2026"
+          "terminee": "19/08/2026",
+          "verifiee": "19/08/2026"
         }
       }
     }
@@ -7977,11 +7978,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
-      "time": "17/08 12:19"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : ABSORBANCE",
       "time": "17/08 12:27"
@@ -8225,6 +8221,11 @@
       "icon": "list-check",
       "text": "9956889 — AMINES TERTIAIRES : en_cours",
       "time": "19/08 07:36"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — AMINES TERTIAIRES : verifiee",
+      "time": "19/08 07:37"
     }
   ]
 }
