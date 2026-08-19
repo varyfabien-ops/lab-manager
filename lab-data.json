@@ -4197,13 +4197,17 @@
       "note": "",
       "analyseStatuts": {
         "1786533442513": "en_cours",
-        "1785247529863": "en_cours"
+        "1785247529863": "en_cours",
+        "1786533393826": "en_cours"
       },
       "analyseStatutsInfo": {
         "1786533442513": {
           "en_cours": "19/08/2026"
         },
         "1785247529863": {
+          "en_cours": "19/08/2026"
+        },
+        "1786533393826": {
           "en_cours": "19/08/2026"
         }
       }
@@ -7951,11 +7955,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : VISCOSITE",
-      "time": "17/08 11:59"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : DENSITE",
       "time": "17/08 12:00"
     },
@@ -8197,6 +8196,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — TCC0004 - BUPIVACAINE : en_cours",
+      "time": "19/08 07:36"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — TCC0003 - METABISULFITE DE SODIUM : en_cours",
       "time": "19/08 07:36"
     }
   ]
