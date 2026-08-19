@@ -4201,7 +4201,8 @@
         "1786533393826": "en_cours",
         "1785170122728": "en_cours",
         "1785247569532": "en_cours",
-        "1785247477146": "en_cours"
+        "1785247477146": "en_cours",
+        "1785336377803": "en_cours"
       },
       "analyseStatutsInfo": {
         "1786533442513": {
@@ -4220,6 +4221,9 @@
           "en_cours": "19/08/2026"
         },
         "1785247477146": {
+          "en_cours": "19/08/2026"
+        },
+        "1785336377803": {
           "en_cours": "19/08/2026"
         }
       }
@@ -7966,11 +7970,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude créée : MA-24LF701A",
-      "time": "17/08 12:17"
-    },
-    {
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
       "time": "17/08 12:19"
@@ -8213,6 +8212,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — Limpidité / Coloration PE : en_cours",
+      "time": "19/08 07:36"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — AMINES TERTIAIRES : en_cours",
       "time": "19/08 07:36"
     }
   ]
