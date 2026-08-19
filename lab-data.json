@@ -2559,7 +2559,7 @@
       "fournisseur": "MERCK - SUPELCO",
       "ref": "1.09060.1000",
       "cas": "7647-01-0",
-      "localisation": "",
+      "localisation": "A2",
       "fc": "0.6",
       "conditionnement": "1 L",
       "stockMin": "2",
@@ -7768,11 +7768,6 @@
   },
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: Solution d'Hydroxyde de Sodium (NaOH) à 5,25 M 2026/0104",
-      "time": "17/08 11:29"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0278",
       "time": "17/08 11:55"
@@ -8015,6 +8010,11 @@
     {
       "icon": "package",
       "text": "2x ACIDE CHLORHYDRIQUE 0,1M lot HC55999760 receptionne(s)",
+      "time": "19/08 06:55"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : ACIDE CHLORHYDRIQUE 0,1M",
       "time": "19/08 06:55"
     }
   ]
