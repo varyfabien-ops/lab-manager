@@ -4193,7 +4193,7 @@
       "date": "2026-08-19",
       "dateFabrication": "2026-07-09",
       "dateMiseStabilite": "",
-      "statut": "conforme",
+      "statut": "a_approuver",
       "note": "",
       "analyseStatuts": {
         "1786533442513": "verifiee",
@@ -4240,7 +4240,8 @@
           "terminee": "19/08/2026",
           "verifiee": "19/08/2026"
         }
-      }
+      },
+      "dateMiseADispo": "19/08/2026"
     }
   ],
   "techniciens": [
@@ -7986,11 +7987,6 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
-      "time": "17/08 18:42"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "17/08 18:43"
     },
     {
@@ -8231,6 +8227,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — TCC0023 - Adrénaline : verifiee",
+      "time": "19/08 07:37"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : 9956889",
       "time": "19/08 07:37"
     }
   ]
