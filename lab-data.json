@@ -2875,12 +2875,13 @@
       "qte": "100 g",
       "reception": "2024-07-03",
       "peremption": "2028-05-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-18",
+      "validite": "2027-09-13",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1787114818147
+      "id": 1787114818147,
+      "ouvertPar": "FVY"
     }
   ],
   "produitsEch": [
@@ -7722,11 +7723,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : Thiosulfate de Sodium 0,1M lot YYYYY",
-      "time": "16/08 19:56"
-    },
-    {
       "icon": "package",
       "text": "2x LCK339 lot 26141 receptionne(s)",
       "time": "17/08 10:59"
@@ -7970,6 +7966,11 @@
       "icon": "package",
       "text": "1x NITRATE DE BISMUTH (III) lot S84043478 412 receptionne(s)",
       "time": "19/08 06:46"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : NITRATE DE BISMUTH (III) lot S84043478 412",
+      "time": "19/08 06:47"
     }
   ]
 }
