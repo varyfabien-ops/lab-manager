@@ -1397,6 +1397,90 @@
       "stabEcheance": "T24M",
       "echeanceId": 1786960698600,
       "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1787117775758.4487,
+      "nom": "AMINES TERTIAIRES",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
+    },
+    {
+      "id": 1787117775758.817,
+      "nom": "Limpidité / Coloration PE",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
+    },
+    {
+      "id": 1787117775758.1812,
+      "nom": "Limpidité / Coloration US",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
+    },
+    {
+      "id": 1787117775758.6775,
+      "nom": "pH",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
+    },
+    {
+      "id": 1787117775758.0671,
+      "nom": "TCC0003 - METABISULFITE DE SODIUM",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
+    },
+    {
+      "id": 1787117775758.7397,
+      "nom": "TCC0004 - BUPIVACAINE",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
+    },
+    {
+      "id": 1787117775758.425,
+      "nom": "TCC0023 - Adrénaline",
+      "echantillonId": 1787117775758,
+      "echantillonCode": "9956889",
+      "date": "2026-08-19",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9956889"
     }
   ],
   "catalogue": [
@@ -4051,6 +4135,66 @@
           "terminee": "17/08/2026"
         }
       }
+    },
+    {
+      "id": 1787117775758,
+      "code": "9956889",
+      "lot": "9956889",
+      "articleId": 1787117736517,
+      "articleCode": "M76023001",
+      "produitId": 1787117736517,
+      "marcheIds": [
+        1785170017612
+      ],
+      "analysesIds": [
+        1785336377803,
+        1785247477146,
+        1785247569532,
+        1785170122728,
+        1786533393826,
+        1785247529863,
+        1786533442513
+      ],
+      "analysesParMarche": {
+        "1785336377803": [
+          1785170017612
+        ],
+        "1785247477146": [
+          1785170017612
+        ],
+        "1785247569532": [
+          1785170017612
+        ],
+        "1785170122728": [
+          1785170017612
+        ],
+        "1786533393826": [
+          1785170017612
+        ],
+        "1785247529863": [
+          1785170017612
+        ],
+        "1786533442513": [
+          1785170017612
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0056",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-19",
+      "dateFabrication": "2026-07-09",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7794,11 +7938,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article modifié : M75260000",
-      "time": "17/08 11:55"
-    },
-    {
       "icon": "file-description",
       "text": "PTC créé : PTC0381",
       "time": "17/08 11:57"
@@ -8042,6 +8181,11 @@
       "icon": "barcode",
       "text": "Article créé : M76023001",
       "time": "19/08 07:35"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Marcaïne 2,5 mg/mL + 5µg/mL Adrénaline (SC) — 1 entrée(s) — 7 analyse(s)",
+      "time": "19/08 07:36"
     }
   ]
 }
