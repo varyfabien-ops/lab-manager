@@ -2552,6 +2552,21 @@
       "note": "",
       "bvs": false,
       "estTitree": false
+    },
+    {
+      "id": 1787115261132,
+      "nom": "ACIDE CHLORHYDRIQUE 0,1M",
+      "fournisseur": "MERCK - SUPELCO",
+      "ref": "1.09060.1000",
+      "cas": "7647-01-0",
+      "localisation": "",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "2",
+      "qteCmde": "4",
+      "note": "",
+      "bvs": false,
+      "estTitree": true
     }
   ],
   "contenants": [
@@ -7727,11 +7742,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "2x LCK339 lot 26141 receptionne(s)",
-      "time": "17/08 10:59"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: Solution d'Acide Sulfurique (H2SO4) à 20% (m/V) 2026/0146",
       "time": "17/08 11:28"
@@ -7975,6 +7985,11 @@
       "icon": "lock-open",
       "text": "Ouverture : NITRATE DE BISMUTH (III) lot S84043478 412",
       "time": "19/08 06:47"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : ACIDE CHLORHYDRIQUE 0,1M",
+      "time": "19/08 06:54"
     }
   ]
 }
