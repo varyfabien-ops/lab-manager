@@ -4198,7 +4198,7 @@
       "analyseStatuts": {
         "1786533442513": "terminee",
         "1785247529863": "terminee",
-        "1786533393826": "terminee",
+        "1786533393826": "verifiee",
         "1785170122728": "verifiee",
         "1785247569532": "verifiee",
         "1785247477146": "verifiee",
@@ -4215,7 +4215,8 @@
         },
         "1786533393826": {
           "en_cours": "19/08/2026",
-          "terminee": "19/08/2026"
+          "terminee": "19/08/2026",
+          "verifiee": "19/08/2026"
         },
         "1785170122728": {
           "en_cours": "19/08/2026",
@@ -7981,11 +7982,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - Indice d'Acide",
-      "time": "17/08 12:29"
-    },
-    {
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "17/08 14:30"
@@ -8228,6 +8224,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — pH : verifiee",
+      "time": "19/08 07:37"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — TCC0003 - METABISULFITE DE SODIUM : verifiee",
       "time": "19/08 07:37"
     }
   ]
