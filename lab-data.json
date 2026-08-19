@@ -6727,6 +6727,13 @@
       "nom": "Marcaïne 5 mg/mL + 5µg/mL Adrénaline (SC)",
       "type": "pif_stab",
       "spqId": 1787034722250
+    },
+    {
+      "id": 1787117736517,
+      "code": "M76023001",
+      "nom": "Marcaïne 2,5 mg/mL + 5µg/mL Adrénaline (SC)",
+      "type": "pif_stab",
+      "spqId": 1787117702949
     }
   ],
   "preparations": [
@@ -7788,11 +7795,6 @@
   "activity": [
     {
       "icon": "barcode",
-      "text": "Article créé : M75260000",
-      "time": "17/08 11:55"
-    },
-    {
-      "icon": "barcode",
       "text": "Article modifié : M75260000",
       "time": "17/08 11:55"
     },
@@ -8034,6 +8036,11 @@
     {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0056",
+      "time": "19/08 07:35"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : M76023001",
       "time": "19/08 07:35"
     }
   ]
