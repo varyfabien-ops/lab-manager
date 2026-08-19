@@ -4193,10 +4193,10 @@
       "date": "2026-08-19",
       "dateFabrication": "2026-07-09",
       "dateMiseStabilite": "",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "analyseStatuts": {
-        "1786533442513": "terminee",
+        "1786533442513": "verifiee",
         "1785247529863": "verifiee",
         "1786533393826": "verifiee",
         "1785170122728": "verifiee",
@@ -4207,7 +4207,8 @@
       "analyseStatutsInfo": {
         "1786533442513": {
           "en_cours": "19/08/2026",
-          "terminee": "19/08/2026"
+          "terminee": "19/08/2026",
+          "verifiee": "19/08/2026"
         },
         "1785247529863": {
           "en_cours": "19/08/2026",
@@ -7984,11 +7985,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - INDICE D'ACIDE",
-      "time": "17/08 18:40"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "17/08 18:42"
     },
@@ -8230,6 +8226,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — TCC0004 - BUPIVACAINE : verifiee",
+      "time": "19/08 07:37"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — TCC0023 - Adrénaline : verifiee",
       "time": "19/08 07:37"
     }
   ]
