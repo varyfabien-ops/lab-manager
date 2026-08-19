@@ -7069,6 +7069,17 @@
       "dateRestrictive": "2026-10-03",
       "techId": 1785175077562,
       "comment": ""
+    },
+    {
+      "id": 1787160972787,
+      "catId": 1787047851450,
+      "nom": "Solution diluée d'Iodobismuthate de Potassium R",
+      "numero": "2026/0181",
+      "datePrep": "2026-08-19",
+      "datePerm": "2027-02-19",
+      "dateRestrictive": "2026-10-03",
+      "techId": 1785175077562,
+      "comment": ""
     }
   ],
   "cataloguePrep": [
@@ -8106,11 +8117,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Étude supprimée : STAB-SET",
-      "time": "17/08 21:14"
-    },
-    {
-      "icon": "trash",
       "text": "PTC supprimé : PTC-SET",
       "time": "17/08 21:22"
     },
@@ -8353,6 +8359,11 @@
       "icon": "file-description",
       "text": "PTC créé : PTC0274",
       "time": "19/08 10:01"
+    },
+    {
+      "icon": "flask",
+      "text": "Préparation: Solution diluée d'Iodobismuthate de Potassium R 2026/0181",
+      "time": "19/08 19:36"
     }
   ]
 }
