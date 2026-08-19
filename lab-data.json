@@ -2788,6 +2788,71 @@
       "note": "",
       "coaUrl": "",
       "id": 1787048104475
+    },
+    {
+      "produitId": 1785746859729,
+      "lot": "26124",
+      "qte": "25 Tubes",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787112824577
+    },
+    {
+      "produitId": 1785746859729,
+      "lot": "26124",
+      "qte": "25 Tubes",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787112824578
+    },
+    {
+      "produitId": 1785746859729,
+      "lot": "26124",
+      "qte": "25 Tubes",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787112824579
+    },
+    {
+      "produitId": 1785746859729,
+      "lot": "26124",
+      "qte": "25 Tubes",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787112824580
+    },
+    {
+      "produitId": 1785746859729,
+      "lot": "26124",
+      "qte": "25 Tubes",
+      "reception": "2026-06-11",
+      "peremption": "2028-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787112824581
     }
   ],
   "produitsEch": [
@@ -7630,11 +7695,6 @@
   "activity": [
     {
       "icon": "droplet",
-      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot HC45819847 (1.001)",
-      "time": "16/08 19:52"
-    },
-    {
-      "icon": "droplet",
       "text": "Titrage vérifié pour Thiosulfate de Sodium 0,1M — Lot HC45819847",
       "time": "16/08 19:52"
     },
@@ -7877,6 +7937,11 @@
       "icon": "archive",
       "text": "Archivé : Thiosulfate de Sodium 0,1M lot YYYYY",
       "time": "18/08 12:17"
+    },
+    {
+      "icon": "package",
+      "text": "5x LCK314 lot 26124 receptionne(s)",
+      "time": "19/08 06:13"
     }
   ]
 }
