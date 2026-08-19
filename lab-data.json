@@ -4201,7 +4201,7 @@
         "1786533393826": "terminee",
         "1785170122728": "terminee",
         "1785247569532": "terminee",
-        "1785247477146": "terminee",
+        "1785247477146": "verifiee",
         "1785336377803": "verifiee"
       },
       "analyseStatutsInfo": {
@@ -4227,7 +4227,8 @@
         },
         "1785247477146": {
           "en_cours": "19/08/2026",
-          "terminee": "19/08/2026"
+          "terminee": "19/08/2026",
+          "verifiee": "19/08/2026"
         },
         "1785336377803": {
           "en_cours": "19/08/2026",
@@ -7979,11 +7980,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : ABSORBANCE",
-      "time": "17/08 12:27"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : INFRAROUGE",
       "time": "17/08 12:27"
     },
@@ -8225,6 +8221,11 @@
     {
       "icon": "list-check",
       "text": "9956889 — AMINES TERTIAIRES : verifiee",
+      "time": "19/08 07:37"
+    },
+    {
+      "icon": "list-check",
+      "text": "9956889 — Limpidité / Coloration PE : verifiee",
       "time": "19/08 07:37"
     }
   ]
