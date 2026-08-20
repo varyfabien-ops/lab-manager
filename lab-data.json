@@ -6439,6 +6439,23 @@
         "border": "#F57C00"
       },
       "statutSuivi": "vert"
+    },
+    {
+      "id": 1787220043711,
+      "date": null,
+      "techId": null,
+      "desc": "KF - Lipiodol - OOS-2026-043",
+      "analyseNom": "KF - Lipiodol - OOS-2026-043",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      }
     }
   ],
   "spq": [
