@@ -3081,6 +3081,32 @@
           "verifieLe": null
         }
       ]
+    },
+    {
+      "produitId": 1787206482939,
+      "lot": "HC44002252",
+      "qte": "10 Ampoules",
+      "reception": "2026-01-26",
+      "peremption": "2027-01-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787206543316
+    },
+    {
+      "produitId": 1787206482939,
+      "lot": "HC44002252",
+      "qte": "10 Ampoules",
+      "reception": "2026-01-26",
+      "peremption": "2027-01-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787206543317
     }
   ],
   "produitsEch": [
@@ -8240,11 +8266,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : TITRANT 2",
-      "time": "18/08 08:23"
-    },
-    {
       "icon": "package",
       "text": "1x TITRANT 2 lot HX57156311 receptionne(s)",
       "time": "18/08 08:24"
@@ -8488,6 +8509,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : ETALON EAU 1%",
       "time": "20/08 08:14"
+    },
+    {
+      "icon": "package",
+      "text": "2x ETALON EAU 1% lot HC44002252 receptionne(s)",
+      "time": "20/08 08:15"
     }
   ]
 }
