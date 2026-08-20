@@ -2920,7 +2920,9 @@
           "verifiePar": null,
           "verifieLe": null
         }
-      ]
+      ],
+      "solutionTitreeArchive": true,
+      "solutionTitreeArchivedAt": "2026-08-20"
     },
     {
       "produitId": 1787033801234,
