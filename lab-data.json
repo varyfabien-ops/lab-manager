@@ -3054,7 +3054,18 @@
       "coaUrl": "",
       "id": 1787195600184,
       "ouvertPar": "FVY",
-      "suiviTitree": true
+      "suiviTitree": true,
+      "titrages": [
+        {
+          "id": 1787200706103,
+          "valeur": "0,1005 M",
+          "date": "2026-08-20",
+          "techId": 1785175077562,
+          "numero": "HCPC0077-J p.24-1",
+          "verifiePar": null,
+          "verifieLe": null
+        }
+      ]
     }
   ],
   "produitsEch": [
@@ -8196,11 +8207,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "2x NITRATE D'ARGENT 0,05M lot 26B104123 receptionne(s)",
-      "time": "18/08 08:17"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : NITRATE D'ARGENT 0,05M lot 26B104123",
       "time": "18/08 08:17"
@@ -8444,6 +8450,11 @@
       "icon": "lock-open",
       "text": "Ouverture : Thiosulfate de Sodium 0,1M lot HC57039147",
       "time": "20/08 05:13"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot HC57039147 (0,1005 M)",
+      "time": "20/08 06:38"
     }
   ]
 }
