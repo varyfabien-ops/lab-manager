@@ -3123,6 +3123,19 @@
       "note": "",
       "coaUrl": "",
       "id": 1787206543317
+    },
+    {
+      "produitId": 1787206692555,
+      "lot": "HX56615899",
+      "qte": "1 L",
+      "reception": "2026-04-09",
+      "peremption": "2028-03-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787206722139
     }
   ],
   "produitsEch": [
@@ -8282,11 +8295,6 @@
   },
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0057",
-      "time": "18/08 08:32"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : M76024001",
       "time": "18/08 08:32"
@@ -8529,6 +8537,11 @@
     {
       "icon": "flask-2",
       "text": "Produit ajoute : IODE 0,05M",
+      "time": "20/08 08:18"
+    },
+    {
+      "icon": "package",
+      "text": "1x IODE 0,05M lot HX56615899 receptionne(s)",
       "time": "20/08 08:18"
     }
   ]
