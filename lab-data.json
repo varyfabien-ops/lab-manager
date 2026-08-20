@@ -3088,12 +3088,13 @@
       "qte": "10 Ampoules",
       "reception": "2026-01-26",
       "peremption": "2027-01-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-20",
+      "validite": "2027-01-31",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1787206543316
+      "id": 1787206543316,
+      "ouvertPar": "FVY"
     },
     {
       "produitId": 1787206482939,
@@ -8266,11 +8267,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "1x TITRANT 2 lot HX57156311 receptionne(s)",
-      "time": "18/08 08:24"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : TITRANT 2 lot HX57156311",
       "time": "18/08 08:24"
@@ -8513,6 +8509,11 @@
     {
       "icon": "package",
       "text": "2x ETALON EAU 1% lot HC44002252 receptionne(s)",
+      "time": "20/08 08:15"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : ETALON EAU 1% lot HC44002252",
       "time": "20/08 08:15"
     }
   ]
