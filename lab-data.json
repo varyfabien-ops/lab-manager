@@ -2684,6 +2684,21 @@
       "note": "",
       "bvs": false,
       "estTitree": false
+    },
+    {
+      "id": 1787206692555,
+      "nom": "IODE 0,05M",
+      "fournisseur": "MERCK - SUPELCO",
+      "ref": "1.09099.1000",
+      "cas": "N/A",
+      "localisation": "E11",
+      "fc": "0.6",
+      "conditionnement": "1 L",
+      "stockMin": "2",
+      "qteCmde": "2",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -8267,11 +8282,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : TITRANT 2 lot HX57156311",
-      "time": "18/08 08:24"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0057",
       "time": "18/08 08:32"
@@ -8515,6 +8525,11 @@
       "icon": "lock-open",
       "text": "Ouverture : ETALON EAU 1% lot HC44002252",
       "time": "20/08 08:15"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : IODE 0,05M",
+      "time": "20/08 08:18"
     }
   ]
 }
