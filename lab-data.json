@@ -3139,7 +3139,18 @@
       "ouvertPar": "CPL",
       "verifiedBy": "FVY",
       "verifiedAt": "20/08/2026",
-      "suiviTitree": true
+      "suiviTitree": true,
+      "titrages": [
+        {
+          "id": 1787206820387,
+          "valeur": "0,0502 M",
+          "date": "2026-08-20",
+          "techId": 1785175077562,
+          "numero": "HCPC0077-J p.24-2",
+          "verifiePar": null,
+          "verifieLe": null
+        }
+      ]
     }
   ],
   "produitsEch": [
@@ -8300,11 +8311,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : LCK314",
-      "time": "18/08 08:36"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : LCK339",
       "time": "18/08 08:36"
     },
@@ -8547,6 +8553,11 @@
       "icon": "pencil",
       "text": "Produit modifie : IODE 0,05M",
       "time": "20/08 08:19"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour IODE 0,05M — Lot HX56615899 (0,0502 M)",
+      "time": "20/08 08:20"
     }
   ]
 }
