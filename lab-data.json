@@ -3130,12 +3130,13 @@
       "qte": "1 L",
       "reception": "2026-04-09",
       "peremption": "2028-03-31",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-07-15",
+      "validite": "2027-07-25",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1787206722139
+      "id": 1787206722139,
+      "ouvertPar": "CPL"
     }
   ],
   "produitsEch": [
@@ -8295,11 +8296,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : M76024001",
-      "time": "18/08 08:32"
-    },
-    {
       "icon": "file-description",
       "text": "PTC créé : PTC0275",
       "time": "18/08 08:35"
@@ -8542,6 +8538,11 @@
     {
       "icon": "package",
       "text": "1x IODE 0,05M lot HX56615899 receptionne(s)",
+      "time": "20/08 08:18"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : IODE 0,05M lot HX56615899",
       "time": "20/08 08:18"
     }
   ]
