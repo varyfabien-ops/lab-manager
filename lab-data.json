@@ -6475,24 +6475,6 @@
       "parentNom": null,
       "manuel": false,
       "supplementaire": true
-    },
-    {
-      "id": 1787220065744,
-      "date": "2026-08-17",
-      "techId": "1786178865689",
-      "desc": "Documentation",
-      "analyseNom": "Documentation",
-      "sousKey": "libre_2026-08-17_1786566189508",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#FFE0B2",
-        "border": "#F57C00"
-      },
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false,
-      "supplementaire": true
     }
   ],
   "spq": [
