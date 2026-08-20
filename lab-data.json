@@ -3047,12 +3047,13 @@
       "qte": "1 L",
       "reception": "2025-11-06",
       "peremption": "2028-04-30",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-20",
+      "validite": "2027-08-26",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1787195600184
+      "id": 1787195600184,
+      "ouvertPar": "FVY"
     }
   ],
   "produitsEch": [
@@ -8194,11 +8195,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : NITRATE D'ARGENT 0,05M",
-      "time": "18/08 08:16"
-    },
-    {
       "icon": "package",
       "text": "2x NITRATE D'ARGENT 0,05M lot 26B104123 receptionne(s)",
       "time": "18/08 08:17"
@@ -8441,6 +8437,11 @@
     {
       "icon": "package",
       "text": "1x Thiosulfate de Sodium 0,1M lot HC57039147 receptionne(s)",
+      "time": "20/08 05:13"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : Thiosulfate de Sodium 0,1M lot HC57039147",
       "time": "20/08 05:13"
     }
   ]
