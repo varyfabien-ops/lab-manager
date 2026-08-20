@@ -7227,7 +7227,9 @@
       "datePerm": "2027-01-10",
       "dateRestrictive": "2026-11-29",
       "techId": 1786271486368,
-      "comment": ""
+      "comment": "",
+      "archive": true,
+      "archivedAt": "20/08/2026"
     },
     {
       "id": 1786513109231,
