@@ -3393,6 +3393,97 @@
       "note": "",
       "coaUrl": "",
       "id": 1787304130449
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225073
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225074
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225075
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225076
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225077
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225078
+    },
+    {
+      "produitId": 1786207222803,
+      "lot": "R098B0",
+      "qte": "125 mg",
+      "reception": "2026-02-20",
+      "peremption": "",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304225079
     }
   ],
   "produitsEch": [
@@ -8593,11 +8684,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "5x LCK314 lot 26124 receptionne(s)",
-      "time": "19/08 06:13"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : NITRATE DE BISMUTH (III)",
       "time": "19/08 06:46"
@@ -8841,6 +8927,11 @@
       "icon": "package",
       "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
       "time": "21/08 11:22"
+    },
+    {
+      "icon": "package",
+      "text": "7x Methylparaben (PHBM) lot R098B0 receptionne(s)",
+      "time": "21/08 11:23"
     }
   ]
 }
