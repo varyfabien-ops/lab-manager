@@ -3237,6 +3237,110 @@
       "note": "",
       "coaUrl": "",
       "id": 1787303763913
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816969
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816970
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816971
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816972
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816973
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816974
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816975
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5N015136E",
+      "qte": "2,5 L",
+      "reception": "2026-07-22",
+      "peremption": "2030-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303816976
     }
   ],
   "produitsEch": [
@@ -8437,11 +8541,6 @@
   },
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: Solution d'Iodobismuthate de Potassium R1 2026/0180",
-      "time": "18/08 12:11"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : Iodure de Potassium",
       "time": "18/08 12:14"
@@ -8684,6 +8783,11 @@
     {
       "icon": "package",
       "text": "1x ACETONITRILE RS (HPLC) lot V5I051015N receptionne(s)",
+      "time": "21/08 11:16"
+    },
+    {
+      "icon": "package",
+      "text": "8x ACETONITRILE RS (HPLC) lot V5N015136E receptionne(s)",
       "time": "21/08 11:16"
     }
   ]
