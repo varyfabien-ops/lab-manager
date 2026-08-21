@@ -3341,6 +3341,32 @@
       "note": "",
       "coaUrl": "",
       "id": 1787303816976
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5L073045M",
+      "qte": "2,5 L",
+      "reception": "2026-02-25",
+      "peremption": "2029-11-30",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303917640
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5L073045M",
+      "qte": "2,5 L",
+      "reception": "2026-02-25",
+      "peremption": "2029-11-30",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303917641
     }
   ],
   "produitsEch": [
@@ -8541,11 +8567,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : Iodure de Potassium",
-      "time": "18/08 12:14"
-    },
-    {
       "icon": "package",
       "text": "1x Iodure de Potassium lot B2248043 349 receptionne(s)",
       "time": "18/08 12:15"
@@ -8789,6 +8810,11 @@
       "icon": "package",
       "text": "8x ACETONITRILE RS (HPLC) lot V5N015136E receptionne(s)",
       "time": "21/08 11:16"
+    },
+    {
+      "icon": "package",
+      "text": "2x ACETONITRILE RS (HPLC) lot V5L073045M receptionne(s)",
+      "time": "21/08 11:18"
     }
   ]
 }
