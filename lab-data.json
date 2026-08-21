@@ -3175,12 +3175,13 @@
       "qte": "250 mL",
       "reception": "2026-07-22",
       "peremption": "2026-12-02",
-      "ouverture": "",
-      "validite": "",
-      "statut": "en_stock",
+      "ouverture": "2026-08-20",
+      "validite": "2026-08-20",
+      "statut": "ouvert",
       "note": "",
       "coaUrl": "",
-      "id": 1787286901782
+      "id": 1787286901782,
+      "ouvertPar": "KBT"
     },
     {
       "produitId": 1787286796926,
@@ -8408,11 +8409,6 @@
   "activity": [
     {
       "icon": "flask",
-      "text": "Préparation: Mélange Eau / Isopropanol (90/10) 2026/0178",
-      "time": "18/08 08:40"
-    },
-    {
-      "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
       "time": "18/08 08:41"
     },
@@ -8654,6 +8650,11 @@
     {
       "icon": "package",
       "text": "3x ETALON CONDUCTIVITE 10µS/cm lot CS102F1 receptionne(s)",
+      "time": "21/08 06:35"
+    },
+    {
+      "icon": "lock-open",
+      "text": "Ouverture : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
       "time": "21/08 06:35"
     }
   ]
