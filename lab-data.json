@@ -3168,6 +3168,45 @@
           "verifieLe": null
         }
       ]
+    },
+    {
+      "produitId": 1787286796926,
+      "lot": "CS102F1",
+      "qte": "250 mL",
+      "reception": "2026-07-22",
+      "peremption": "2026-12-02",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787286901782
+    },
+    {
+      "produitId": 1787286796926,
+      "lot": "CS102F1",
+      "qte": "250 mL",
+      "reception": "2026-07-22",
+      "peremption": "2026-12-02",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787286901783
+    },
+    {
+      "produitId": 1787286796926,
+      "lot": "CS102F1",
+      "qte": "250 mL",
+      "reception": "2026-07-22",
+      "peremption": "2026-12-02",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787286901784
     }
   ],
   "produitsEch": [
@@ -8368,11 +8407,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : LCK304",
-      "time": "18/08 08:37"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90/10) 2026/0178",
       "time": "18/08 08:40"
@@ -8616,6 +8650,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : ETALON CONDUCTIVITE 10µS/cm",
       "time": "21/08 06:33"
+    },
+    {
+      "icon": "package",
+      "text": "3x ETALON CONDUCTIVITE 10µS/cm lot CS102F1 receptionne(s)",
+      "time": "21/08 06:35"
     }
   ]
 }
