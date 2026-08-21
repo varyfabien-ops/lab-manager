@@ -2714,6 +2714,21 @@
       "note": "",
       "bvs": false,
       "estTitree": false
+    },
+    {
+      "id": 1787303691241,
+      "nom": "ACETONITRILE RS (HPLC)",
+      "fournisseur": "CARLO ERBA",
+      "ref": "412372000",
+      "cas": "75-05-8",
+      "localisation": "I4",
+      "fc": "0.6",
+      "conditionnement": "2,5 L",
+      "stockMin": "15",
+      "qteCmde": "20",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -8410,11 +8425,6 @@
   "activity": [
     {
       "icon": "flask",
-      "text": "Préparation: Mélange Eau / Isopropanol (50V/50V) 2026/0179",
-      "time": "18/08 08:41"
-    },
-    {
-      "icon": "flask",
       "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
       "time": "18/08 08:42"
     },
@@ -8657,6 +8667,11 @@
       "icon": "lock-open",
       "text": "Ouverture : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
       "time": "21/08 06:36"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : ACETONITRILE RS (HPLC)",
+      "time": "21/08 11:14"
     }
   ]
 }
