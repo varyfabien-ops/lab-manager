@@ -3367,6 +3367,19 @@
       "note": "",
       "coaUrl": "",
       "id": 1787303917641
+    },
+    {
+      "produitId": 1787035057346,
+      "lot": "25363",
+      "qte": "25 Tubes",
+      "reception": "2026-01-29",
+      "peremption": "2027-05-31",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787304016561
     }
   ],
   "produitsEch": [
@@ -8567,11 +8580,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "1x Iodure de Potassium lot B2248043 349 receptionne(s)",
-      "time": "18/08 12:15"
-    },
-    {
       "icon": "archive",
       "text": "Archivé : Thiosulfate de Sodium 0,1M lot YYYYY",
       "time": "18/08 12:17"
@@ -8815,6 +8823,11 @@
       "icon": "package",
       "text": "2x ACETONITRILE RS (HPLC) lot V5L073045M receptionne(s)",
       "time": "21/08 11:18"
+    },
+    {
+      "icon": "package",
+      "text": "1x LCK304 lot 25363 receptionne(s)",
+      "time": "21/08 11:20"
     }
   ]
 }
