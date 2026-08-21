@@ -2699,6 +2699,21 @@
       "note": "",
       "bvs": false,
       "estTitree": true
+    },
+    {
+      "id": 1787286796926,
+      "nom": "ETALON CONDUCTIVITE 10µS/cm",
+      "fournisseur": "METTLER TOLEDO",
+      "ref": "51300169",
+      "cas": "",
+      "localisation": "E12",
+      "fc": "0",
+      "conditionnement": "250 mL",
+      "stockMin": "2",
+      "qteCmde": "3",
+      "note": "",
+      "bvs": false,
+      "estTitree": false
     }
   ],
   "contenants": [
@@ -8353,11 +8368,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : LCK339",
-      "time": "18/08 08:36"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : LCK304",
       "time": "18/08 08:37"
@@ -8601,6 +8611,11 @@
       "icon": "droplet",
       "text": "Titrage enregistré pour IODE 0,05M — Lot HX56615899 (0,0502 M)",
       "time": "20/08 08:20"
+    },
+    {
+      "icon": "flask-2",
+      "text": "Produit ajoute : ETALON CONDUCTIVITE 10µS/cm",
+      "time": "21/08 06:33"
     }
   ]
 }
