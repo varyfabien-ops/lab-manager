@@ -3224,6 +3224,19 @@
       "note": "",
       "coaUrl": "",
       "id": 1787286901784
+    },
+    {
+      "produitId": 1787303691241,
+      "lot": "V5I051015N",
+      "qte": "2,5 L",
+      "reception": "2026-02-25",
+      "peremption": "2029-11-30",
+      "ouverture": "",
+      "validite": "",
+      "statut": "en_stock",
+      "note": "",
+      "coaUrl": "",
+      "id": 1787303763913
     }
   ],
   "produitsEch": [
@@ -8425,11 +8438,6 @@
   "activity": [
     {
       "icon": "flask",
-      "text": "Préparation: Mélange Eau / Isopropanol (90V/10V) 2026/0178",
-      "time": "18/08 08:42"
-    },
-    {
-      "icon": "flask",
       "text": "Préparation: Solution d'Iodobismuthate de Potassium R1 2026/0180",
       "time": "18/08 12:11"
     },
@@ -8672,6 +8680,11 @@
       "icon": "flask-2",
       "text": "Produit ajoute : ACETONITRILE RS (HPLC)",
       "time": "21/08 11:14"
+    },
+    {
+      "icon": "package",
+      "text": "1x ACETONITRILE RS (HPLC) lot V5I051015N receptionne(s)",
+      "time": "21/08 11:16"
     }
   ]
 }
