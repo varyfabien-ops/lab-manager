@@ -6789,24 +6789,6 @@
         "border": "#F57C00"
       },
       "statutSuivi": "vert"
-    },
-    {
-      "id": 1787220055688,
-      "date": "2026-08-17",
-      "techId": "1785175077562",
-      "desc": "Documentation",
-      "analyseNom": "Documentation",
-      "sousKey": "libre_2026-08-17_1786566189508",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#FFE0B2",
-        "border": "#F57C00"
-      },
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false,
-      "supplementaire": true
     }
   ],
   "spq": [
