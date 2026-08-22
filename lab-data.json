@@ -1528,15 +1528,13 @@
     },
     {
       "id": 1785170145444,
-      "nom": "Volume Extractible",
+      "nom": "VOLUME EXTRACTIBLE",
       "habilitations": [
         "Volume"
       ],
       "duree": "",
       "code": "",
-      "produitsIds": [
-        1785169889615
-      ],
+      "produitsIds": [],
       "description": "",
       "champsResultats": [
         {
@@ -1545,7 +1543,8 @@
           "unite": "mL"
         }
       ],
-      "resultatRequis": true
+      "resultatRequis": true,
+      "sousAnalyses": []
     },
     {
       "id": 1785247344996,
@@ -8684,11 +8683,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : ACIDE CHLORHYDRIQUE 0,1M",
-      "time": "19/08 06:54"
-    },
-    {
       "icon": "package",
       "text": "2x ACIDE CHLORHYDRIQUE 0,1M lot HC55999760 receptionne(s)",
       "time": "19/08 06:55"
@@ -8932,6 +8926,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - IODE TOTALE",
       "time": "22/08 14:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : VOLUME EXTRACTIBLE",
+      "time": "22/08 14:46"
     }
   ]
 }
