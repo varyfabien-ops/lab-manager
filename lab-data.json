@@ -2088,7 +2088,7 @@
     },
     {
       "id": 1786637506133,
-      "nom": "TCC0004 - Lidocaïne Nébuliseur - DM",
+      "nom": "TCC0004 - LIDOCAINE NEBULISEUR - DM",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -8684,11 +8684,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : NITRATE DE BISMUTH (III)",
-      "time": "19/08 06:46"
-    },
-    {
       "icon": "package",
       "text": "1x NITRATE DE BISMUTH (III) lot S84043478 412 receptionne(s)",
       "time": "19/08 06:46"
@@ -8932,6 +8927,11 @@
       "icon": "package",
       "text": "7x Methylparaben (PHBM) lot R098B0 receptionne(s)",
       "time": "21/08 11:23"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - LIDOCAINE NEBULISEUR - DM",
+      "time": "22/08 14:27"
     }
   ]
 }
