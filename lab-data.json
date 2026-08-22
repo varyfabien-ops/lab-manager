@@ -3205,13 +3205,14 @@
       "peremption": "2026-12-02",
       "ouverture": "2026-08-20",
       "validite": "2026-08-20",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "coaUrl": "",
       "id": 1787286901783,
       "ouvertPar": "KBT",
       "verifiedBy": "FVY",
-      "verifiedAt": "22/08/2026"
+      "verifiedAt": "22/08/2026",
+      "dateArchivage": "2026-08-22"
     },
     {
       "produitId": 1787286796926,
@@ -8669,11 +8670,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : ACIDE CHLORHYDRIQUE 0,1M",
-      "time": "19/08 06:55"
-    },
-    {
       "icon": "file-certificate",
       "text": "SPQ créée : SPQ0056",
       "time": "19/08 07:35"
@@ -8917,6 +8913,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0011 - MEPIVACAINE",
       "time": "22/08 15:19"
+    },
+    {
+      "icon": "archive",
+      "text": "Archivé : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
+      "time": "22/08 15:51"
     }
   ]
 }
