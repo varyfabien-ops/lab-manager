@@ -2044,7 +2044,7 @@
     },
     {
       "id": 1786637357048,
-      "nom": "TCC0041 - Iode Totale",
+      "nom": "TCC0041 - IODE TOTALE",
       "habilitations": [
         "Titrimétrie"
       ],
@@ -8684,11 +8684,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : NITRATE DE BISMUTH (III) lot S84043478 412",
-      "time": "19/08 06:47"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : ACIDE CHLORHYDRIQUE 0,1M",
       "time": "19/08 06:54"
@@ -8931,6 +8926,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0023 - ADRENALINE",
+      "time": "22/08 14:45"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - IODE TOTALE",
       "time": "22/08 14:45"
     }
   ]
