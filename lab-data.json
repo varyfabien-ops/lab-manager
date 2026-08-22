@@ -1945,7 +1945,7 @@
     },
     {
       "id": 1786533442513,
-      "nom": "TCC0023 - Adrénaline",
+      "nom": "TCC0023 - ADRENALINE",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -8684,11 +8684,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "1x NITRATE DE BISMUTH (III) lot S84043478 412 receptionne(s)",
-      "time": "19/08 06:46"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : NITRATE DE BISMUTH (III) lot S84043478 412",
       "time": "19/08 06:47"
@@ -8932,6 +8927,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - LIDOCAINE NEBULISEUR - DM",
       "time": "22/08 14:27"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0023 - ADRENALINE",
+      "time": "22/08 14:45"
     }
   ]
 }
