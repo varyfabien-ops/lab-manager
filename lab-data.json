@@ -1836,7 +1836,7 @@
     },
     {
       "id": 1786344522393,
-      "nom": "TCC0011 - Mépivacaïne",
+      "nom": "TCC0011 - MEPIVACAINE",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -8683,11 +8683,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "2x ACIDE CHLORHYDRIQUE 0,1M lot HC55999760 receptionne(s)",
-      "time": "19/08 06:55"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : ACIDE CHLORHYDRIQUE 0,1M",
       "time": "19/08 06:55"
@@ -8931,6 +8926,11 @@
       "icon": "book",
       "text": "Analyse modifiée : VOLUME EXTRACTIBLE",
       "time": "22/08 14:46"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0011 - MEPIVACAINE",
+      "time": "22/08 15:19"
     }
   ]
 }
