@@ -4115,7 +4115,10 @@
         "1785170122728": {
           "en_cours": "12/08/2026"
         }
-      }
+      },
+      "_marcheIdsMerged": [
+        1785170017612
+      ]
     },
     {
       "id": 1786521095468,
@@ -4191,7 +4194,10 @@
           "en_cours": "13/08/2026",
           "terminee": "13/08/2026"
         }
-      }
+      },
+      "_marcheIdsMerged": [
+        1785169908180
+      ]
     },
     {
       "id": 1786624337357,
@@ -4283,7 +4289,12 @@
           "en_cours": "15/08/2026",
           "terminee": "15/08/2026"
         }
-      }
+      },
+      "_marcheIdsMerged": [
+        1785169908180
+      ],
+      "dateLiberationEstimee": "2026-10-30",
+      "commentaireLeadTime": "Problème analytique"
     },
     {
       "id": 1786624397684,
@@ -4790,7 +4801,10 @@
         }
       },
       "dateMiseADispo": "19/08/2026",
-      "dateApprobation": "23/08/2026"
+      "dateApprobation": "23/08/2026",
+      "_marcheIdsMerged": [
+        1785170017612
+      ]
     }
   ],
   "techniciens": [
