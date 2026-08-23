@@ -4445,11 +4445,15 @@
         }
       },
       "analyseStatuts": {
-        "1786624072580": "en_cours"
+        "1786624072580": "en_cours",
+        "1786196559426": "en_cours"
       },
       "analyseStatutsInfo": {
         "1786301521786": {},
         "1786624072580": {
+          "en_cours": "23/08/2026"
+        },
+        "1786196559426": {
           "en_cours": "23/08/2026"
         }
       }
@@ -8724,11 +8728,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — TCC0004 - BUPIVACAINE : verifiee",
-      "time": "19/08 07:37"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — TCC0023 - Adrénaline : verifiee",
       "time": "19/08 07:37"
     },
@@ -8971,6 +8970,11 @@
       "icon": "pencil",
       "text": "Produit modifie : NITRATE DE BISMUTH (III)",
       "time": "23/08 16:14"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — L*a*b : en_cours",
+      "time": "23/08 16:31"
     }
   ]
 }
