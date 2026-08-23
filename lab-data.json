@@ -8666,8 +8666,9 @@
       "dateLiv": "2026-08-16"
     },
     "1787303691241": {
-      "statut": "commandee",
-      "da": "test"
+      "statut": "en_attente",
+      "da": "test",
+      "dateLiv": "2026-08-30"
     }
   },
   "planRythmesLocked": {
