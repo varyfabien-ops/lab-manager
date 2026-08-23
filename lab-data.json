@@ -2557,6 +2557,7 @@
       "nom": "Chloroforme",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "1.02455.1000",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/102445",
       "cas": "67-66-3",
       "localisation": "E12",
       "fc": "0.6",
@@ -2564,7 +2565,8 @@
       "stockMin": "2",
       "qteCmde": "3",
       "note": "",
-      "bvs": false
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786563219289,
@@ -8707,11 +8709,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — Limpidité / Coloration US : en_cours",
-      "time": "19/08 07:36"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — Limpidité / Coloration PE : en_cours",
       "time": "19/08 07:36"
     },
@@ -8954,6 +8951,11 @@
       "icon": "pencil",
       "text": "Produit modifie : ACIDE CHLORHYDRIQUE 0,1M",
       "time": "23/08 15:50"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Chloroforme",
+      "time": "23/08 15:51"
     }
   ]
 }
