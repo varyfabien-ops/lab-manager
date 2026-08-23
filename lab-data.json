@@ -8653,6 +8653,9 @@
       "statut": "en_attente",
       "da": "YYYYYYY",
       "dateLiv": "2026-08-16"
+    },
+    "1787303691241": {
+      "statut": "a_commander"
     }
   },
   "planRythmesLocked": {
@@ -8674,11 +8677,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "barcode",
-      "text": "Article créé : M76023001",
-      "time": "19/08 07:35"
-    },
     {
       "icon": "package",
       "text": "Réception: Marcaïne 2,5 mg/mL + 5µg/mL Adrénaline (SC) — 1 entrée(s) — 7 analyse(s)",
@@ -8923,6 +8921,11 @@
       "icon": "list-check",
       "text": "YYYYYYY — APPARENCE : en_cours",
       "time": "23/08 11:44"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande : ACETONITRILE RS (HPLC) → a_commander",
+      "time": "23/08 11:51"
     }
   ]
 }
