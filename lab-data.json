@@ -946,51 +946,6 @@
       "note": "Auto: 9956904"
     },
     {
-      "id": 1786521095468.9092,
-      "nom": "L*a*b",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786521095468.1794,
-      "nom": "Osmolalité",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786521095468.183,
-      "nom": "pH",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786521095468.1914,
-      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786521095468.8662,
-      "nom": "TCC0065 - MPEG",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
       "id": 1786624299421.7666,
       "nom": "Apparence",
       "echantillonCode": "995968",
@@ -1133,78 +1088,6 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 9956968"
-    },
-    {
-      "id": 1786624397684.2212,
-      "nom": "Apparence",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.073,
-      "nom": "L*a*b",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.2412,
-      "nom": "Limpidité / Coloration PE",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.5874,
-      "nom": "Osmolalité",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.0264,
-      "nom": "pH",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.8445,
-      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.3887,
-      "nom": "TCC0065 - MPEG",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
-    },
-    {
-      "id": 1786624397684.8198,
-      "nom": "Volume Extractible",
-      "echantillonCode": "9956970",
-      "date": "2026-07-23",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956970"
     },
     {
       "id": 1786822060925.373,
@@ -4121,85 +4004,6 @@
       ]
     },
     {
-      "id": 1786521095468,
-      "code": "9956970",
-      "lot": "9956970",
-      "articleId": 1786301271905,
-      "articleCode": "M75862417",
-      "produitId": 1786301271905,
-      "marcheIds": [
-        1785169908180
-      ],
-      "analysesIds": [
-        1786196559426,
-        1785169966496,
-        1785170122728,
-        1786301521786,
-        1786301151090
-      ],
-      "analysesParMarche": {
-        "1786196559426": [
-          1785169908180
-        ],
-        "1785169966496": [
-          1785169908180
-        ],
-        "1785170122728": [
-          1785169908180
-        ],
-        "1786301521786": [
-          1785169908180
-        ],
-        "1786301151090": [
-          1785169908180
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0545",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-23",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1786624072580": "verifiee",
-        "1785169966496": "terminee",
-        "1785247477146": "terminee",
-        "1785170122728": "terminee",
-        "1785170145444": "terminee"
-      },
-      "analyseStatutsInfo": {
-        "1786624072580": {
-          "en_cours": "13/08/2026",
-          "terminee": "13/08/2026",
-          "verifiee": "13/08/2026"
-        },
-        "1785169966496": {
-          "en_cours": "13/08/2026",
-          "terminee": "13/08/2026"
-        },
-        "1785247477146": {
-          "en_cours": "13/08/2026",
-          "terminee": "13/08/2026"
-        },
-        "1785170122728": {
-          "en_cours": "13/08/2026",
-          "terminee": "13/08/2026"
-        },
-        "1785170145444": {
-          "en_cours": "13/08/2026",
-          "terminee": "13/08/2026"
-        }
-      },
-      "_marcheIdsMerged": [
-        1785169908180
-      ]
-    },
-    {
       "id": 1786624337357,
       "code": "9956968",
       "lot": "9956968",
@@ -4295,64 +4099,6 @@
       ],
       "dateLiberationEstimee": "2026-10-30",
       "commentaireLeadTime": "Problème analytique"
-    },
-    {
-      "id": 1786624397684,
-      "code": "9956970",
-      "lot": "9956970",
-      "articleId": 1786301271905,
-      "articleCode": "M75862417",
-      "produitId": 1786301271905,
-      "marcheIds": [
-        1785169908180
-      ],
-      "analysesIds": [
-        1786624072580,
-        1786196559426,
-        1785247477146,
-        1785169966496,
-        1785170122728,
-        1786301521786,
-        1786301151090,
-        1785170145444
-      ],
-      "analysesParMarche": {
-        "1786624072580": [
-          1785169908180
-        ],
-        "1786196559426": [
-          1785169908180
-        ],
-        "1785247477146": [
-          1785169908180
-        ],
-        "1785169966496": [
-          1785169908180
-        ],
-        "1785170122728": [
-          1785169908180
-        ],
-        "1786301521786": [
-          1785169908180
-        ],
-        "1786301151090": [
-          1785169908180
-        ],
-        "1785170145444": [
-          1785169908180
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0545",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-23",
-      "statut": "recu",
-      "note": ""
     },
     {
       "id": 1786822060925,
@@ -8782,11 +8528,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : IODE 0,05M lot HX56615899",
-      "time": "20/08 08:18"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : IODE 0,05M",
       "time": "20/08 08:19"
@@ -9030,6 +8771,11 @@
       "icon": "clock",
       "text": "Lot envoyé en approbation : YYYYYYY",
       "time": "23/08 17:44"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : 9956970 (2 réception(s))",
+      "time": "23/08 21:12"
     }
   ]
 }
