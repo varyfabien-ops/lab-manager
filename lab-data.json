@@ -1141,102 +1141,6 @@
       "note": "Auto: YYYYYYY"
     },
     {
-      "id": 1786961957730.5415,
-      "nom": "ABSORBANCE",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.4583,
-      "nom": "APPARENCE",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.3123,
-      "nom": "DENSITE",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.235,
-      "nom": "IODE LIBRE",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.3179,
-      "nom": "TCC0041 - Iode Totale",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.998,
-      "nom": "TCC0041 - Indice d'Acide",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.9783,
-      "nom": "VISCOSITE",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1786961957730.93,
-      "nom": "Volume Extractible",
-      "echantillonId": 1786961957730,
-      "echantillonCode": "24LF701A",
-      "date": "2026-07-15",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: 24LF701A"
-    },
-    {
       "id": 1787117775758.4487,
       "nom": "AMINES TERTIAIRES",
       "echantillonId": 1787117775758,
@@ -4147,193 +4051,6 @@
         }
       },
       "dateMiseADispo": "23/08/2026"
-    },
-    {
-      "id": 1786961957730,
-      "code": "24LF701A",
-      "lot": "24LF701A",
-      "articleId": 1786960543922,
-      "articleCode": "M75260000",
-      "produitId": 1786960543922,
-      "marcheIds": [],
-      "analysesIds": [
-        1786638196863,
-        1786624072580,
-        1786960813583,
-        1786960860663,
-        1786637357048,
-        1786637416398,
-        1786960782872,
-        1785170145444
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC0381",
-      "stabEcheance": "T24M",
-      "stabTemps": "25°C",
-      "stabEtudeId": 1786961858161,
-      "ptcId": 1786960643216,
-      "conditionId": 1786779420753,
-      "conditionIds": [
-        1786779420753
-      ],
-      "echeanceId": 1786960698600,
-      "date": "2026-07-15",
-      "dateFabrication": "",
-      "statut": "en_analyse",
-      "note": "",
-      "resultats": {
-        "1786637416398": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Indice d'Acide",
-                  "valeur": "0.3",
-                  "unite": "mgKOH/g"
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "17/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786624072580": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "conforme",
-                  "unite": ""
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "17/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786960813583": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "1.281",
-                  "unite": "g/cm3"
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "17/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1785170145444": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "10.4",
-                  "unite": "mL"
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "17/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786960782872": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "45",
-                  "unite": "mPa.s"
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "17/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786638196863": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Absorbance à 420 nm",
-                  "valeur": "0.57",
-                  "unite": ""
-                },
-                {
-                  "label": "Absorbance à 460 nm",
-                  "valeur": "0.31",
-                  "unite": ""
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "17/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      },
-      "analyseStatuts": {
-        "1786637416398": "terminee",
-        "1786624072580": "terminee",
-        "1786960813583": "terminee",
-        "1785170145444": "terminee",
-        "1786960782872": "terminee",
-        "1786638196863": "terminee",
-        "1786637357048": "terminee",
-        "1786960860663": "a_lancer"
-      },
-      "analyseStatutsInfo": {
-        "1786637416398": {
-          "terminee": "17/08/2026"
-        },
-        "1786624072580": {
-          "terminee": "17/08/2026"
-        },
-        "1786960813583": {
-          "terminee": "17/08/2026"
-        },
-        "1785170145444": {
-          "terminee": "17/08/2026"
-        },
-        "1786960782872": {
-          "terminee": "17/08/2026"
-        },
-        "1786638196863": {
-          "terminee": "17/08/2026"
-        },
-        "1786637357048": {
-          "en_cours": "19/08/2026",
-          "terminee": "19/08/2026"
-        }
-      }
     },
     {
       "id": 1787117775758,
@@ -8421,11 +8138,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage enregistré pour IODE 0,05M — Lot HX56615899 (0,0502 M)",
-      "time": "20/08 08:20"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : ETALON CONDUCTIVITE 10µS/cm",
       "time": "21/08 06:33"
@@ -8668,6 +8380,11 @@
     {
       "icon": "trash",
       "text": "Lot supprimé partout : 9956904 (1 réception(s))",
+      "time": "23/08 21:12"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : 24LF701A (1 réception(s))",
       "time": "23/08 21:12"
     }
   ]
