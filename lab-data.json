@@ -8664,6 +8664,9 @@
       "statut": "en_attente",
       "da": "YYYYYYY",
       "dateLiv": "2026-08-16"
+    },
+    "1787303691241": {
+      "statut": "a_commander"
     }
   },
   "planRythmesLocked": {
@@ -8685,11 +8688,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "package",
-      "text": "Réception: Marcaïne 2,5 mg/mL + 5µg/mL Adrénaline (SC) — 1 entrée(s) — 7 analyse(s)",
-      "time": "19/08 07:36"
-    },
     {
       "icon": "list-check",
       "text": "9956889 — TCC0023 - Adrénaline : en_cours",
@@ -8934,6 +8932,11 @@
       "icon": "shopping-cart",
       "text": "Commande : ACETONITRILE RS (HPLC) → a_commander",
       "time": "23/08 11:51"
+    },
+    {
+      "icon": "shopping-cart",
+      "text": "Commande : ACETONITRILE RS (HPLC) → a_commander",
+      "time": "23/08 11:52"
     }
   ]
 }
