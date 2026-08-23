@@ -8766,11 +8766,6 @@
   },
   "activity": [
     {
-      "icon": "lock-open",
-      "text": "Ouverture : ETALON EAU 1% lot HC44002252",
-      "time": "20/08 08:15"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : IODE 0,05M",
       "time": "20/08 08:18"
@@ -9014,6 +9009,11 @@
       "icon": "clock",
       "text": "Lot envoyé en approbation : 1786822060925",
       "time": "23/08 16:33"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : 1786822060925",
+      "time": "23/08 17:19"
     }
   ]
 }
