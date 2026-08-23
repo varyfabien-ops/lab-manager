@@ -2477,13 +2477,16 @@
       "nom": "Phenol",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "PHR1047-1G",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/sial/phr1047",
+      "cas": "",
       "localisation": "FRIGO",
       "fc": "0",
       "conditionnement": "1g",
       "stockMin": "3",
       "qteCmde": "3",
       "note": "",
-      "bvs": false
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786272744080,
@@ -8711,11 +8714,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — AMINES TERTIAIRES : verifiee",
-      "time": "19/08 07:37"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — Limpidité / Coloration PE : verifiee",
       "time": "19/08 07:37"
     },
@@ -8958,6 +8956,11 @@
       "icon": "pencil",
       "text": "Produit modifie : ALCOOL BENZYLIQUE (BnOH)",
       "time": "23/08 16:10"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Phenol",
+      "time": "23/08 16:11"
     }
   ]
 }
