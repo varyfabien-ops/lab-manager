@@ -4445,8 +4445,8 @@
         }
       },
       "analyseStatuts": {
-        "1786624072580": "en_cours",
-        "1786196559426": "en_cours",
+        "1786624072580": "verifiee",
+        "1786196559426": "verifiee",
         "1785169966496": "en_cours",
         "1786638360226": "en_cours",
         "1785170122728": "en_cours",
@@ -4458,10 +4458,14 @@
           "en_cours": "23/08/2026"
         },
         "1786624072580": {
-          "en_cours": "23/08/2026"
+          "en_cours": "23/08/2026",
+          "terminee": "23/08/2026",
+          "verifiee": "23/08/2026"
         },
         "1786196559426": {
-          "en_cours": "23/08/2026"
+          "en_cours": "23/08/2026",
+          "terminee": "23/08/2026",
+          "verifiee": "23/08/2026"
         },
         "1785169966496": {
           "en_cours": "23/08/2026"
@@ -8746,16 +8750,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "24LF701A — TCC0041 - Iode Totale : en_cours",
-      "time": "19/08 09:44"
-    },
-    {
-      "icon": "file-description",
-      "text": "PTC créé : PTC0274",
-      "time": "19/08 10:01"
-    },
-    {
       "icon": "flask",
       "text": "Préparation: Solution diluée d'Iodobismuthate de Potassium R 2026/0181",
       "time": "19/08 19:36"
@@ -8993,6 +8987,16 @@
     {
       "icon": "list-check",
       "text": "YYYYYYY — Limpidité / Coloration PE : en_cours",
+      "time": "23/08 16:31"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — L*a*b : verifiee",
+      "time": "23/08 16:31"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — APPARENCE : verifiee",
       "time": "23/08 16:31"
     }
   ]
