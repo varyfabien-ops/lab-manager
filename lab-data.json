@@ -2683,6 +2683,7 @@
       "nom": "ETALON EAU 1%",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "1.88052.0010",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/188052",
       "cas": "N/A",
       "localisation": "KF",
       "fc": "1",
@@ -8714,11 +8715,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — Limpidité / Coloration PE : verifiee",
-      "time": "19/08 07:37"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — Limpidité / Coloration US : verifiee",
       "time": "19/08 07:37"
     },
@@ -8961,6 +8957,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Phenol",
       "time": "23/08 16:11"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : ETALON EAU 1%",
+      "time": "23/08 16:12"
     }
   ]
 }
