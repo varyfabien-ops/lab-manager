@@ -4690,7 +4690,7 @@
       "date": "2026-08-19",
       "dateFabrication": "2026-07-09",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1786533442513": "verifiee",
@@ -4738,7 +4738,8 @@
           "verifiee": "19/08/2026"
         }
       },
-      "dateMiseADispo": "19/08/2026"
+      "dateMiseADispo": "19/08/2026",
+      "dateApprobation": "23/08/2026"
     }
   ],
   "techniciens": [
@@ -8709,11 +8710,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — Limpidité / Coloration PE : en_cours",
-      "time": "19/08 07:36"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — AMINES TERTIAIRES : en_cours",
       "time": "19/08 07:36"
     },
@@ -8956,6 +8952,11 @@
       "icon": "pencil",
       "text": "Produit modifie : Chloroforme",
       "time": "23/08 15:51"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : 9956889",
+      "time": "23/08 16:00"
     }
   ]
 }
