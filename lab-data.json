@@ -4448,15 +4448,16 @@
         "1786624072580": "verifiee",
         "1786196559426": "verifiee",
         "1785169966496": "terminee",
-        "1786638360226": "en_cours",
-        "1785170122728": "terminee",
-        "1786301521786": "terminee",
+        "1786638360226": "terminee",
+        "1785170122728": "verifiee",
+        "1786301521786": "verifiee",
         "1785247477146": "terminee"
       },
       "analyseStatutsInfo": {
         "1786301521786": {
           "en_cours": "23/08/2026",
-          "terminee": "23/08/2026"
+          "terminee": "23/08/2026",
+          "verifiee": "23/08/2026"
         },
         "1786624072580": {
           "en_cours": "23/08/2026",
@@ -4473,11 +4474,13 @@
           "terminee": "23/08/2026"
         },
         "1786638360226": {
-          "en_cours": "23/08/2026"
+          "en_cours": "23/08/2026",
+          "terminee": "23/08/2026"
         },
         "1785170122728": {
           "en_cours": "23/08/2026",
-          "terminee": "23/08/2026"
+          "terminee": "23/08/2026",
+          "verifiee": "23/08/2026"
         },
         "1785247477146": {
           "en_cours": "23/08/2026",
@@ -8754,11 +8757,6 @@
   },
   "activity": [
     {
-      "icon": "flask",
-      "text": "Préparation: Solution diluée d'Iodobismuthate de Potassium R 2026/0181",
-      "time": "19/08 19:36"
-    },
-    {
       "icon": "droplet",
       "text": "Titrage enregistré pour NITRATE D'ARGENT 0,05M — Lot 26B104123 (0,0508 M)",
       "time": "19/08 20:13"
@@ -9002,6 +9000,11 @@
       "icon": "list-check",
       "text": "YYYYYYY — APPARENCE : verifiee",
       "time": "23/08 16:31"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0044 - RM493 / Conservateurs / Impuretés : verifiee",
+      "time": "23/08 16:32"
     }
   ]
 }
