@@ -2487,16 +2487,18 @@
     },
     {
       "id": 1786272744080,
-      "nom": "Alcool Benzylique (BnOH)",
+      "nom": "ALCOOL BENZYLIQUE (BnOH)",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "PHR1019-1G",
+      "cas": "",
       "localisation": "FRIGO",
       "fc": "0",
       "conditionnement": "",
       "stockMin": "3",
       "qteCmde": "3",
       "note": "TCC0044",
-      "bvs": false
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786273038045,
@@ -8698,11 +8700,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — TCC0023 - Adrénaline : en_cours",
-      "time": "19/08 07:36"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — TCC0004 - BUPIVACAINE : en_cours",
       "time": "19/08 07:36"
     },
@@ -8945,6 +8942,11 @@
       "icon": "shopping-cart",
       "text": "Commande : ACETONITRILE RS (HPLC) → a_commander",
       "time": "23/08 11:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : ALCOOL BENZYLIQUE (BnOH)",
+      "time": "23/08 15:32"
     }
   ]
 }
