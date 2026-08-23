@@ -2661,6 +2661,7 @@
       "nom": "ACIDE CHLORHYDRIQUE 0,1M",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "1.09060.1000",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/109060",
       "cas": "7647-01-0",
       "localisation": "A2",
       "fc": "0.6",
@@ -8706,11 +8707,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — pH : en_cours",
-      "time": "19/08 07:36"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — Limpidité / Coloration US : en_cours",
       "time": "19/08 07:36"
     },
@@ -8953,6 +8949,11 @@
       "icon": "archive",
       "text": "Lot archive : BBBBBB",
       "time": "23/08 15:34"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : ACIDE CHLORHYDRIQUE 0,1M",
+      "time": "23/08 15:50"
     }
   ]
 }
