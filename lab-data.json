@@ -973,102 +973,6 @@
       "note": "Auto: 995968"
     },
     {
-      "id": 1786822060925.373,
-      "nom": "Apparence",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.0864,
-      "nom": "L*a*b",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.482,
-      "nom": "Limpidité / Coloration PE",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.8645,
-      "nom": "Osmolalité",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.366,
-      "nom": "Particules Visibles",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.1091,
-      "nom": "pH",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.327,
-      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1786822060925.835,
-      "nom": "TCC0065 - MPEG",
-      "echantillonId": 1786822060925,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-08-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: YYYYYYY"
-    },
-    {
       "id": 1787117775758.4487,
       "nom": "AMINES TERTIAIRES",
       "echantillonId": 1787117775758,
@@ -3727,161 +3631,6 @@
       "note": "",
       "dateApprobation": "23/08/2026",
       "dateArchivage": "23/08/2026"
-    },
-    {
-      "id": 1786822060925,
-      "code": "YYYYYYY",
-      "lot": "YYYYYYY",
-      "articleId": 1786301271905,
-      "articleCode": "M75862417",
-      "produitId": 1786301271905,
-      "marcheIds": [],
-      "analysesIds": [
-        1786624072580,
-        1786196559426,
-        1785247477146,
-        1785169966496,
-        1786638360226,
-        1785170122728,
-        1786301521786,
-        1786301151090
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC-SET",
-      "stabEcheance": "T6M",
-      "stabTemps": "5°C",
-      "stabEtudeId": 1786803055027,
-      "ptcId": 1786803022644,
-      "conditionId": 1786779408487,
-      "conditionIds": [
-        1786779408487
-      ],
-      "echeanceId": 1786779469460,
-      "date": "2026-08-20",
-      "statut": "a_approuver",
-      "note": "",
-      "resultats": {
-        "1786301521786": {
-          "conditions": [
-            {
-              "condition": "5°C",
-              "champs": [
-                {
-                  "label": "Teneur en RM493",
-                  "valeur": "101.0",
-                  "unite": "%"
-                },
-                {
-                  "label": "Teneur en Alcool Benzylique",
-                  "valeur": "98",
-                  "unite": "%"
-                },
-                {
-                  "label": "Teneur en Phenol",
-                  "valeur": "102",
-                  "unite": "%"
-                },
-                {
-                  "label": "Teneur en Impureté A",
-                  "valeur": "< LOQ",
-                  "unite": "% (m/m)"
-                },
-                {
-                  "label": "Teneur en Impureté B",
-                  "valeur": "0,2",
-                  "unite": "% (m/m)"
-                },
-                {
-                  "label": "Teneur en Impureté C",
-                  "valeur": "",
-                  "unite": "% (m/m)"
-                },
-                {
-                  "label": "Teneur en Impureté D",
-                  "valeur": "",
-                  "unite": "% (m/m)"
-                },
-                {
-                  "label": "Teneur en Impureté F",
-                  "valeur": "",
-                  "unite": "% (m/m)"
-                },
-                {
-                  "label": "Teneur en Dimère E1",
-                  "valeur": "",
-                  "unite": "% (m/m)"
-                },
-                {
-                  "label": "Teneur en Dimère E1",
-                  "valeur": "",
-                  "unite": "% (m/m)"
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "15/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        }
-      },
-      "analyseStatuts": {
-        "1786624072580": "verifiee",
-        "1786196559426": "verifiee",
-        "1785169966496": "verifiee",
-        "1786638360226": "verifiee",
-        "1785170122728": "verifiee",
-        "1786301521786": "verifiee",
-        "1785247477146": "verifiee",
-        "1786301151090": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1786301521786": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1786624072580": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1786196559426": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1785169966496": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1786638360226": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1785170122728": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1785247477146": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        },
-        "1786301151090": {
-          "en_cours": "23/08/2026",
-          "terminee": "23/08/2026",
-          "verifiee": "23/08/2026"
-        }
-      },
-      "dateMiseADispo": "23/08/2026"
     },
     {
       "id": 1787117775758,
@@ -7969,11 +7718,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "3x ETALON CONDUCTIVITE 10µS/cm lot CS102F1 receptionne(s)",
-      "time": "21/08 06:35"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
       "time": "21/08 06:35"
@@ -8217,6 +7961,11 @@
       "icon": "trash",
       "text": "Lot supprimé partout : 9956968 (1 réception(s))",
       "time": "23/08 21:12"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : YYYYYYY (1 réception(s))",
+      "time": "23/08 21:18"
     }
   ]
 }
