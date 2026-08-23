@@ -3912,7 +3912,7 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-10",
-      "statut": "a_approuver",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1785247569532": "verifiee",
@@ -3947,7 +3947,8 @@
           "terminee": "12/08/2026",
           "verifiee": "12/08/2026"
         }
-      }
+      },
+      "dateApprobation": "23/08/2026"
     },
     {
       "id": 1786344619244,
@@ -3992,8 +3993,9 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-10",
-      "statut": "a_approuver",
-      "note": ""
+      "statut": "approuve",
+      "note": "",
+      "dateApprobation": "23/08/2026"
     },
     {
       "id": 1786344619245,
@@ -4038,8 +4040,9 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-10",
-      "statut": "a_approuver",
-      "note": ""
+      "statut": "approuve",
+      "note": "",
+      "dateApprobation": "23/08/2026"
     },
     {
       "id": 1786520583228,
@@ -8700,11 +8703,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — TCC0004 - BUPIVACAINE : en_cours",
-      "time": "19/08 07:36"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — TCC0003 - METABISULFITE DE SODIUM : en_cours",
       "time": "19/08 07:36"
     },
@@ -8947,6 +8945,11 @@
       "icon": "pencil",
       "text": "Produit modifie : ALCOOL BENZYLIQUE (BnOH)",
       "time": "23/08 15:32"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : BBBBBB",
+      "time": "23/08 15:34"
     }
   ]
 }
