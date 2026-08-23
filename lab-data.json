@@ -4448,10 +4448,15 @@
         "1786624072580": "en_cours",
         "1786196559426": "en_cours",
         "1785169966496": "en_cours",
-        "1786638360226": "en_cours"
+        "1786638360226": "en_cours",
+        "1785170122728": "en_cours",
+        "1786301521786": "en_cours",
+        "1785247477146": "en_cours"
       },
       "analyseStatutsInfo": {
-        "1786301521786": {},
+        "1786301521786": {
+          "en_cours": "23/08/2026"
+        },
         "1786624072580": {
           "en_cours": "23/08/2026"
         },
@@ -4462,6 +4467,12 @@
           "en_cours": "23/08/2026"
         },
         "1786638360226": {
+          "en_cours": "23/08/2026"
+        },
+        "1785170122728": {
+          "en_cours": "23/08/2026"
+        },
+        "1785247477146": {
           "en_cours": "23/08/2026"
         }
       }
@@ -8735,11 +8746,6 @@
   },
   "activity": [
     {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : 9956889",
-      "time": "19/08 07:37"
-    },
-    {
       "icon": "list-check",
       "text": "24LF701A — TCC0041 - Iode Totale : en_cours",
       "time": "19/08 09:44"
@@ -8982,6 +8988,11 @@
     {
       "icon": "list-check",
       "text": "YYYYYYY — PARTICULES VISIBLES : en_cours",
+      "time": "23/08 16:31"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — Limpidité / Coloration PE : en_cours",
       "time": "23/08 16:31"
     }
   ]
