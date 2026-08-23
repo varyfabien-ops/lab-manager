@@ -4448,7 +4448,7 @@
         "1786624072580": "verifiee",
         "1786196559426": "verifiee",
         "1785169966496": "verifiee",
-        "1786638360226": "terminee",
+        "1786638360226": "verifiee",
         "1785170122728": "verifiee",
         "1786301521786": "verifiee",
         "1785247477146": "verifiee",
@@ -4477,7 +4477,8 @@
         },
         "1786638360226": {
           "en_cours": "23/08/2026",
-          "terminee": "23/08/2026"
+          "terminee": "23/08/2026",
+          "verifiee": "23/08/2026"
         },
         "1785170122728": {
           "en_cours": "23/08/2026",
@@ -8764,11 +8765,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage enregistré pour Thiosulfate de Sodium 0,1M — Lot HC57039147 (0,1005 M)",
-      "time": "20/08 06:38"
-    },
-    {
       "icon": "flask-2",
       "text": "Produit ajoute : ETALON EAU 1%",
       "time": "20/08 08:14"
@@ -9012,6 +9008,11 @@
       "icon": "list-check",
       "text": "YYYYYYY — Osmolalité : verifiee",
       "time": "23/08 16:32"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — PARTICULES VISIBLES : verifiee",
+      "time": "23/08 16:33"
     }
   ]
 }
