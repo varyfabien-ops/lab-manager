@@ -4451,7 +4451,8 @@
         "1786638360226": "terminee",
         "1785170122728": "verifiee",
         "1786301521786": "verifiee",
-        "1785247477146": "terminee"
+        "1785247477146": "terminee",
+        "1786301151090": "en_cours"
       },
       "analyseStatutsInfo": {
         "1786301521786": {
@@ -4485,6 +4486,9 @@
         "1785247477146": {
           "en_cours": "23/08/2026",
           "terminee": "23/08/2026"
+        },
+        "1786301151090": {
+          "en_cours": "23/08/2026"
         }
       }
     },
@@ -8757,11 +8761,6 @@
   },
   "activity": [
     {
-      "icon": "droplet",
-      "text": "Titrage enregistré pour NITRATE D'ARGENT 0,05M — Lot 26B104123 (0,0508 M)",
-      "time": "19/08 20:13"
-    },
-    {
       "icon": "package",
       "text": "1x Thiosulfate de Sodium 0,1M lot HC57039147 receptionne(s)",
       "time": "20/08 05:13"
@@ -9004,6 +9003,11 @@
     {
       "icon": "list-check",
       "text": "YYYYYYY — TCC0044 - RM493 / Conservateurs / Impuretés : verifiee",
+      "time": "23/08 16:32"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0065 - MPEG : en_cours",
       "time": "23/08 16:32"
     }
   ]
