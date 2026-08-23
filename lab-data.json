@@ -4377,7 +4377,7 @@
       ],
       "echeanceId": 1786779469460,
       "date": "2026-08-20",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "resultats": {
         "1786301521786": {
@@ -4452,7 +4452,7 @@
         "1785170122728": "verifiee",
         "1786301521786": "verifiee",
         "1785247477146": "verifiee",
-        "1786301151090": "terminee"
+        "1786301151090": "verifiee"
       },
       "analyseStatutsInfo": {
         "1786301521786": {
@@ -4492,7 +4492,8 @@
         },
         "1786301151090": {
           "en_cours": "23/08/2026",
-          "terminee": "23/08/2026"
+          "terminee": "23/08/2026",
+          "verifiee": "23/08/2026"
         }
       }
     },
@@ -8765,11 +8766,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : ETALON EAU 1%",
-      "time": "20/08 08:14"
-    },
-    {
       "icon": "package",
       "text": "2x ETALON EAU 1% lot HC44002252 receptionne(s)",
       "time": "20/08 08:15"
@@ -9012,6 +9008,11 @@
     {
       "icon": "list-check",
       "text": "YYYYYYY — PARTICULES VISIBLES : verifiee",
+      "time": "23/08 16:33"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — TCC0065 - MPEG : verifiee",
       "time": "23/08 16:33"
     }
   ]
