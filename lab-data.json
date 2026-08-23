@@ -4358,7 +4358,7 @@
       ],
       "echeanceId": 1786779469460,
       "date": "2026-08-20",
-      "statut": "recu",
+      "statut": "en_analyse",
       "note": "",
       "resultats": {
         "1786301521786": {
@@ -4425,9 +4425,14 @@
           "statutAnalyse": "ok"
         }
       },
-      "analyseStatuts": {},
+      "analyseStatuts": {
+        "1786624072580": "en_cours"
+      },
       "analyseStatutsInfo": {
-        "1786301521786": {}
+        "1786301521786": {},
+        "1786624072580": {
+          "en_cours": "23/08/2026"
+        }
       }
     },
     {
@@ -8670,11 +8675,6 @@
   },
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQ0056",
-      "time": "19/08 07:35"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : M76023001",
       "time": "19/08 07:35"
@@ -8918,6 +8918,11 @@
       "icon": "archive",
       "text": "Archivé : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
       "time": "22/08 15:51"
+    },
+    {
+      "icon": "list-check",
+      "text": "YYYYYYY — APPARENCE : en_cours",
+      "time": "23/08 11:44"
     }
   ]
 }
