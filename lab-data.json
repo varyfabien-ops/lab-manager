@@ -2637,6 +2637,7 @@
       "nom": "Iodure de Potassium",
       "fournisseur": "MERCK - SUPELCO",
       "ref": "1.05043.0250",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/105043",
       "cas": "7681-11-0",
       "localisation": "E2",
       "fc": "0.6",
@@ -8716,11 +8717,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "9956889 — pH : verifiee",
-      "time": "19/08 07:37"
-    },
-    {
-      "icon": "list-check",
       "text": "9956889 — TCC0003 - METABISULFITE DE SODIUM : verifiee",
       "time": "19/08 07:37"
     },
@@ -8962,6 +8958,11 @@
     {
       "icon": "pencil",
       "text": "Produit modifie : IODE 0,05M",
+      "time": "23/08 16:13"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Iodure de Potassium",
       "time": "23/08 16:13"
     }
   ]
