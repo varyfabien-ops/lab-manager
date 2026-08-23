@@ -6652,7 +6652,10 @@
       "parentNom": null,
       "manuel": false,
       "statutSuivi": "rouge",
-      "note": "18/08/2026 - Minéralisation des échantillons mais pas de dosage effectué. Conservation des échantillons à TA bouchés par du parafilm."
+      "note": "18/08/2026 - Minéralisation des échantillons mais pas de dosage effectué. Conservation des échantillons à TA bouchés par du parafilm.",
+      "resolutionComment": "Dosage réalisé le 19/08/2026. Aucune problème observé.",
+      "resolvedAt": "2026-08-23",
+      "resolved": true
     },
     {
       "id": 1787048983580,
