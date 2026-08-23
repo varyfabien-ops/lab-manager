@@ -901,51 +901,6 @@
       "note": "Auto: BBBBBB-3"
     },
     {
-      "id": 1786520583228.145,
-      "nom": "Identification Lidocaïne USP",
-      "echantillonCode": "9956904",
-      "date": "2026-07-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956904"
-    },
-    {
-      "id": 1786520583228.739,
-      "nom": "Limpidité / Coloration PE",
-      "echantillonCode": "9956904",
-      "date": "2026-07-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956904"
-    },
-    {
-      "id": 1786520583228.0742,
-      "nom": "Limpidité / Coloration US",
-      "echantillonCode": "9956904",
-      "date": "2026-07-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956904"
-    },
-    {
-      "id": 1786520583228.113,
-      "nom": "pH",
-      "echantillonCode": "9956904",
-      "date": "2026-07-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956904"
-    },
-    {
-      "id": 1786520583228.1746,
-      "nom": "TCC0004 - Lidocaïne / PHBM",
-      "echantillonCode": "9956904",
-      "date": "2026-07-20",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: 9956904"
-    },
-    {
       "id": 1786624299421.7666,
       "nom": "Apparence",
       "echantillonCode": "995968",
@@ -3940,68 +3895,6 @@
       "note": "",
       "dateApprobation": "23/08/2026",
       "dateArchivage": "23/08/2026"
-    },
-    {
-      "id": 1786520583228,
-      "code": "9956904",
-      "lot": "9956904",
-      "articleId": 1786520375212,
-      "articleCode": "M78004001",
-      "produitId": 1786520375212,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1786520419939,
-        1785247477146,
-        1785247569532,
-        1785170122728,
-        1785247344996
-      ],
-      "analysesParMarche": {
-        "1786520419939": [
-          1785170017612
-        ],
-        "1785247477146": [
-          1785170017612
-        ],
-        "1785247569532": [
-          1785170017612
-        ],
-        "1785170122728": [
-          1785170017612
-        ],
-        "1785247344996": [
-          1785170017612
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0047",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-07-20",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785247344996": "en_cours",
-        "1785170122728": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1785247344996": {
-          "en_cours": "12/08/2026"
-        },
-        "1786520419939": {},
-        "1785170122728": {
-          "en_cours": "12/08/2026"
-        }
-      },
-      "_marcheIdsMerged": [
-        1785170017612
-      ]
     },
     {
       "id": 1786624337357,
@@ -8528,11 +8421,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : IODE 0,05M",
-      "time": "20/08 08:19"
-    },
-    {
       "icon": "droplet",
       "text": "Titrage enregistré pour IODE 0,05M — Lot HX56615899 (0,0502 M)",
       "time": "20/08 08:20"
@@ -8775,6 +8663,11 @@
     {
       "icon": "trash",
       "text": "Lot supprimé partout : 9956970 (2 réception(s))",
+      "time": "23/08 21:12"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : 9956904 (1 réception(s))",
       "time": "23/08 21:12"
     }
   ]
