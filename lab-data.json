@@ -7503,7 +7503,8 @@
       "code": "M75862417",
       "nom": "Setmelanotide 10 mg/mL",
       "type": "pif_stab",
-      "spqId": 1786301246939
+      "spqId": 1786301246939,
+      "leadTimeJours": 72
     },
     {
       "id": 1786520375212,
@@ -8766,11 +8767,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : IODE 0,05M",
-      "time": "20/08 08:18"
-    },
-    {
       "icon": "package",
       "text": "1x IODE 0,05M lot HX56615899 receptionne(s)",
       "time": "20/08 08:18"
@@ -9014,6 +9010,11 @@
       "icon": "clock",
       "text": "Lot envoyé en approbation : 1786822060925",
       "time": "23/08 17:19"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M75862417",
+      "time": "23/08 17:26"
     }
   ]
 }
