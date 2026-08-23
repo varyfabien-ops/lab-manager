@@ -6707,7 +6707,10 @@
         "bg": "#FFE0B2",
         "border": "#F57C00"
       },
-      "statutSuivi": "rouge"
+      "statutSuivi": "rouge",
+      "resolutionComment": "Nouvelle réalisation du titre le 19/08/2026.",
+      "resolvedAt": "2026-08-23",
+      "resolved": true
     },
     {
       "id": 1787049186924,
