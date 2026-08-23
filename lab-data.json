@@ -8766,11 +8766,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "2x ETALON EAU 1% lot HC44002252 receptionne(s)",
-      "time": "20/08 08:15"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : ETALON EAU 1% lot HC44002252",
       "time": "20/08 08:15"
@@ -9013,6 +9008,11 @@
     {
       "icon": "list-check",
       "text": "YYYYYYY — TCC0065 - MPEG : verifiee",
+      "time": "23/08 16:33"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : 1786822060925",
       "time": "23/08 16:33"
     }
   ]
