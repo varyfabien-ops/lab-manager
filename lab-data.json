@@ -4388,7 +4388,7 @@
       ],
       "echeanceId": 1786779469460,
       "date": "2026-08-20",
-      "statut": "conforme",
+      "statut": "a_approuver",
       "note": "",
       "resultats": {
         "1786301521786": {
@@ -4506,7 +4506,8 @@
           "terminee": "23/08/2026",
           "verifiee": "23/08/2026"
         }
-      }
+      },
+      "dateMiseADispo": "23/08/2026"
     },
     {
       "id": 1786961957730,
@@ -8781,11 +8782,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "1x IODE 0,05M lot HX56615899 receptionne(s)",
-      "time": "20/08 08:18"
-    },
-    {
       "icon": "lock-open",
       "text": "Ouverture : IODE 0,05M lot HX56615899",
       "time": "20/08 08:18"
@@ -9029,6 +9025,11 @@
       "icon": "barcode",
       "text": "Article modifié : M75862417",
       "time": "23/08 17:26"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : YYYYYYY",
+      "time": "23/08 17:44"
     }
   ]
 }
