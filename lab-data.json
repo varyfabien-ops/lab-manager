@@ -1085,14 +1085,15 @@
     },
     {
       "id": 1785247477146,
-      "nom": "Limpidité / Coloration PE",
+      "nom": "LIMPIDITE / COLORATION PE",
       "habilitations": [],
       "duree": "",
       "code": "",
       "produitsIds": [],
       "description": "Analyse selon PE",
       "champsResultats": [],
-      "resultatRequis": false
+      "resultatRequis": false,
+      "sousAnalyses": []
     },
     {
       "id": 1785247529863,
@@ -7523,11 +7524,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "1x LCK304 lot 25363 receptionne(s)",
-      "time": "21/08 11:20"
-    },
-    {
-      "icon": "package",
       "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
       "time": "21/08 11:22"
     },
@@ -7769,6 +7765,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : OSMOLALITE",
+      "time": "24/08 08:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : LIMPIDITE / COLORATION PE",
       "time": "24/08 08:57"
     }
   ]
