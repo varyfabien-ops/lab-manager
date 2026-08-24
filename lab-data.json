@@ -1674,7 +1674,7 @@
     },
     {
       "id": 1786638279844,
-      "nom": "TCC0086 - Toluidine",
+      "nom": "TCC0086 - TOLUIDINE",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -7524,11 +7524,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "1x ACETONITRILE RS (HPLC) lot V5I051015N receptionne(s)",
-      "time": "21/08 11:16"
-    },
-    {
-      "icon": "package",
       "text": "8x ACETONITRILE RS (HPLC) lot V5N015136E receptionne(s)",
       "time": "21/08 11:16"
     },
@@ -7770,6 +7765,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0012 - PRILOCAINE",
+      "time": "24/08 08:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0086 - TOLUIDINE",
       "time": "24/08 08:57"
     }
   ]
