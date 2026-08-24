@@ -1346,7 +1346,7 @@
     },
     {
       "id": 1786520419939,
-      "nom": "Identification Lidocaïne USP",
+      "nom": "IDENTIFICATION LIDOCAINE USP",
       "habilitations": [
         "IR"
       ],
@@ -7525,11 +7525,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - LIDOCAINE NEBULISEUR - DM",
-      "time": "22/08 14:27"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0023 - ADRENALINE",
       "time": "22/08 14:45"
     },
@@ -7772,6 +7767,11 @@
       "icon": "book",
       "text": "Analyse modifiée : IDENTIFICATION CMC",
       "time": "24/08 08:58"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : IDENTIFICATION LIDOCAINE USP",
+      "time": "24/08 08:59"
     }
   ]
 }
