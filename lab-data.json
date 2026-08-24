@@ -1236,7 +1236,7 @@
     },
     {
       "id": 1786301521786,
-      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "nom": "TCC0044 - RM493 / CONSERVATEURS / IMPURETES",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -7524,11 +7524,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "8x ACETONITRILE RS (HPLC) lot V5N015136E receptionne(s)",
-      "time": "21/08 11:16"
-    },
-    {
-      "icon": "package",
       "text": "2x ACETONITRILE RS (HPLC) lot V5L073045M receptionne(s)",
       "time": "21/08 11:18"
     },
@@ -7770,6 +7765,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0086 - TOLUIDINE",
+      "time": "24/08 08:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / CONSERVATEURS / IMPURETES",
       "time": "24/08 08:57"
     }
   ]
