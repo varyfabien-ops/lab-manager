@@ -1306,7 +1306,7 @@
     },
     {
       "id": 1786344340215,
-      "nom": "TCC0012 - Prilocaïne",
+      "nom": "TCC0012 - PRILOCAINE",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -7523,11 +7523,6 @@
   },
   "activity": [
     {
-      "icon": "flask-2",
-      "text": "Produit ajoute : ACETONITRILE RS (HPLC)",
-      "time": "21/08 11:14"
-    },
-    {
       "icon": "package",
       "text": "1x ACETONITRILE RS (HPLC) lot V5I051015N receptionne(s)",
       "time": "21/08 11:16"
@@ -7771,6 +7766,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0015 - LIDOCAINE NAPHAZOLINE",
       "time": "24/08 08:56"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0012 - PRILOCAINE",
+      "time": "24/08 08:57"
     }
   ]
 }
