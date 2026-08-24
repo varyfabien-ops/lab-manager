@@ -976,15 +976,13 @@
   "catalogue": [
     {
       "id": 1785169966496,
-      "nom": "Osmolalité",
+      "nom": "OSMOLALITE",
       "habilitations": [
         "Osmolalité"
       ],
       "duree": "",
       "code": "",
-      "produitsIds": [
-        1785169889615
-      ],
+      "produitsIds": [],
       "description": "",
       "champsResultats": [
         {
@@ -993,7 +991,8 @@
           "unite": "mOsm/kg"
         }
       ],
-      "resultatRequis": true
+      "resultatRequis": true,
+      "sousAnalyses": []
     },
     {
       "id": 1785170122728,
@@ -7524,11 +7523,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "2x ACETONITRILE RS (HPLC) lot V5L073045M receptionne(s)",
-      "time": "21/08 11:18"
-    },
-    {
-      "icon": "package",
       "text": "1x LCK304 lot 25363 receptionne(s)",
       "time": "21/08 11:20"
     },
@@ -7770,6 +7764,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / CONSERVATEURS / IMPURETES",
+      "time": "24/08 08:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : OSMOLALITE",
       "time": "24/08 08:57"
     }
   ]
