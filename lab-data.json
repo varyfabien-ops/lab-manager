@@ -1116,14 +1116,15 @@
     },
     {
       "id": 1785247569532,
-      "nom": "Limpidité / Coloration US",
+      "nom": "LIMPIDITE / COLORATION US",
       "habilitations": [],
       "duree": "",
       "code": "",
       "produitsIds": [],
       "description": "Analyse selon USP",
       "champsResultats": [],
-      "resultatRequis": false
+      "resultatRequis": false,
+      "sousAnalyses": []
     },
     {
       "id": 1785262672685,
@@ -7524,11 +7525,6 @@
   "activity": [
     {
       "icon": "package",
-      "text": "1x Tampon pH 12 lot HC57833622 receptionne(s)",
-      "time": "21/08 11:22"
-    },
-    {
-      "icon": "package",
       "text": "7x Methylparaben (PHBM) lot R098B0 receptionne(s)",
       "time": "21/08 11:23"
     },
@@ -7771,6 +7767,11 @@
       "icon": "book",
       "text": "Analyse modifiée : LIMPIDITE / COLORATION PE",
       "time": "24/08 08:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : LIMPIDITE / COLORATION US",
+      "time": "24/08 08:58"
     }
   ]
 }
