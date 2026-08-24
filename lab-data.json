@@ -1616,7 +1616,7 @@
     },
     {
       "id": 1786637588269,
-      "nom": "Identification CMC",
+      "nom": "IDENTIFICATION CMC",
       "habilitations": [
         "Balance"
       ],
@@ -7524,11 +7524,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "7x Methylparaben (PHBM) lot R098B0 receptionne(s)",
-      "time": "21/08 11:23"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - LIDOCAINE NEBULISEUR - DM",
       "time": "22/08 14:27"
@@ -7771,6 +7766,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : LIMPIDITE / COLORATION US",
+      "time": "24/08 08:58"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : IDENTIFICATION CMC",
       "time": "24/08 08:58"
     }
   ]
