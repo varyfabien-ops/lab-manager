@@ -3429,7 +3429,9 @@
           "verifiee": "11/08/2026"
         }
       },
-      "dateArchivage": "11/08/2026"
+      "dateArchivage": "11/08/2026",
+      "dateLiberationEstimee": "2026-10-20",
+      "commentaireLeadTime": ""
     },
     {
       "id": 1786344619243,
@@ -3659,7 +3661,12 @@
       "dateFabrication": "2026-08-26",
       "dateMiseStabilite": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "_marcheIdsMerged": [
+        1785170017612
+      ],
+      "dateLiberationEstimee": "2026-10-20",
+      "commentaireLeadTime": ""
     }
   ],
   "techniciens": [
