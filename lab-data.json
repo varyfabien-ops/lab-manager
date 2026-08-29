@@ -748,24 +748,6 @@
       "note": "Auto: TEST-3"
     },
     {
-      "id": 1786301809768.3396,
-      "nom": "Osmolalité",
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-09",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1786301809768.018,
-      "nom": "TCC0065 - MPEG",
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-09",
-      "priorite": "normale",
-      "statut": "planifie",
-      "note": "Auto: AAAAAAA"
-    },
-    {
       "id": 1786344619243.7512,
       "nom": "pH",
       "echantillonCode": "BBBBBB-1",
@@ -971,66 +953,6 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
-    },
-    {
-      "id": 1788010827811.7495,
-      "nom": "IDENTIFICATION LIDOCAINE USP",
-      "echantillonId": 1788010827810,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-29",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788010827811.1462,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788010827810,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-29",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788010827811.1287,
-      "nom": "LIMPIDITE / COLORATION US",
-      "echantillonId": 1788010827810,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-29",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788010827811.0098,
-      "nom": "pH",
-      "echantillonId": 1788010827810,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-29",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788010827811.283,
-      "nom": "TCC0004 - LIDOCAINE / PHBM",
-      "echantillonId": 1788010827810,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-29",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA"
     }
   ],
   "catalogue": [
@@ -3381,59 +3303,6 @@
       "dateArchivage": "11/08/2026"
     },
     {
-      "id": 1786301809768,
-      "code": "AAAAAAA",
-      "lot": "AAAAAAA",
-      "articleId": 1786301271905,
-      "articleCode": "MYYYYYYYY",
-      "produitId": 1786301271905,
-      "marcheIds": [
-        1785169908180
-      ],
-      "analysesIds": [
-        1785169966496,
-        1786301151090
-      ],
-      "analysesParMarche": {
-        "1785169966496": [
-          1785169908180
-        ],
-        "1786301151090": [
-          1785169908180
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQxxxx",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "date": "2026-08-09",
-      "statut": "archive",
-      "note": "",
-      "analyseStatuts": {
-        "1785169966496": "verifiee",
-        "1786301151090": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1785169966496": {
-          "en_cours": "11/08/2026",
-          "terminee": "11/08/2026",
-          "verifiee": "11/08/2026"
-        },
-        "1786301151090": {
-          "en_cours": "11/08/2026",
-          "terminee": "11/08/2026",
-          "verifiee": "11/08/2026"
-        }
-      },
-      "dateArchivage": "11/08/2026",
-      "dateLiberationEstimee": "2026-10-20",
-      "commentaireLeadTime": ""
-    },
-    {
       "id": 1786344619243,
       "code": "BBBBBB-1",
       "lot": "BBBBBB",
@@ -3610,63 +3479,6 @@
       "note": "",
       "dateApprobation": "23/08/2026",
       "dateArchivage": "23/08/2026"
-    },
-    {
-      "id": 1788010827810,
-      "code": "AAAAAAA",
-      "lot": "AAAAAAA",
-      "articleId": 1786536010853,
-      "articleCode": "M70026001",
-      "produitId": 1786536010853,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1786520419939,
-        1785247477146,
-        1785247569532,
-        1785170122728,
-        1785247344996
-      ],
-      "analysesParMarche": {
-        "1786520419939": [
-          1785170017612
-        ],
-        "1785247477146": [
-          1785170017612
-        ],
-        "1785247569532": [
-          1785170017612
-        ],
-        "1785170122728": [
-          1785170017612
-        ],
-        "1785247344996": [
-          1785170017612
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0047",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-08-29",
-      "dateFabrication": "2026-08-26",
-      "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": "",
-      "_marcheIdsMerged": [
-        1785170017612
-      ],
-      "dateLiberationEstimee": "2026-10-20",
-      "commentaireLeadTime": ""
     }
   ],
   "techniciens": [
@@ -7645,11 +7457,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : VOLUME EXTRACTIBLE",
-      "time": "22/08 14:46"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0011 - MEPIVACAINE",
       "time": "22/08 15:19"
     },
@@ -7891,6 +7698,11 @@
     {
       "icon": "barcode",
       "text": "Article modifié : M70026001",
+      "time": "29/08 15:42"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : AAAAAAA (2 réception(s))",
       "time": "29/08 15:42"
     }
   ]
