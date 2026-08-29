@@ -6422,7 +6422,8 @@
       "code": "M70026001",
       "nom": "Xylocaïne 20 mg/mL + Adrénaline (SC)",
       "type": "pif_stab",
-      "spqId": 1786520529756
+      "spqId": 1786520529756,
+      "leadTimeJours": 4
     },
     {
       "id": 1786536054261,
@@ -7644,11 +7645,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - IODE TOTALE",
-      "time": "22/08 14:45"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : VOLUME EXTRACTIBLE",
       "time": "22/08 14:46"
     },
@@ -7891,6 +7887,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 5 analyse(s)",
       "time": "29/08 15:40"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M70026001",
+      "time": "29/08 15:42"
     }
   ]
 }
