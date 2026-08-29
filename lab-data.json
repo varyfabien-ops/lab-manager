@@ -971,6 +971,66 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
+    },
+    {
+      "id": 1788010827811.7495,
+      "nom": "IDENTIFICATION LIDOCAINE USP",
+      "echantillonId": 1788010827810,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788010827811.1462,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788010827810,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788010827811.1287,
+      "nom": "LIMPIDITE / COLORATION US",
+      "echantillonId": 1788010827810,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788010827811.0098,
+      "nom": "pH",
+      "echantillonId": 1788010827810,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788010827811.283,
+      "nom": "TCC0004 - LIDOCAINE / PHBM",
+      "echantillonId": 1788010827810,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-29",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA"
     }
   ],
   "catalogue": [
@@ -3548,6 +3608,58 @@
       "note": "",
       "dateApprobation": "23/08/2026",
       "dateArchivage": "23/08/2026"
+    },
+    {
+      "id": 1788010827810,
+      "code": "AAAAAAA",
+      "lot": "AAAAAAA",
+      "articleId": 1786536010853,
+      "articleCode": "M70026001",
+      "produitId": 1786536010853,
+      "marcheIds": [
+        1785170017612
+      ],
+      "analysesIds": [
+        1786520419939,
+        1785247477146,
+        1785247569532,
+        1785170122728,
+        1785247344996
+      ],
+      "analysesParMarche": {
+        "1786520419939": [
+          1785170017612
+        ],
+        "1785247477146": [
+          1785170017612
+        ],
+        "1785247569532": [
+          1785170017612
+        ],
+        "1785170122728": [
+          1785170017612
+        ],
+        "1785247344996": [
+          1785170017612
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0047",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-29",
+      "dateFabrication": "2026-08-26",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7525,11 +7637,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0023 - ADRENALINE",
-      "time": "22/08 14:45"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0041 - IODE TOTALE",
       "time": "22/08 14:45"
     },
@@ -7772,6 +7879,11 @@
       "icon": "book",
       "text": "Analyse modifiée : IDENTIFICATION LIDOCAINE USP",
       "time": "24/08 08:59"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 5 analyse(s)",
+      "time": "29/08 15:40"
     }
   ]
 }
