@@ -2431,8 +2431,16 @@
       "date": "2026-08-18",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785170122728": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785170122728": {
+          "en_cours": "30/08/2026"
+        }
+      }
     },
     {
       "id": 1788115440225,
@@ -6510,11 +6518,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : AAAAAAA (2 réception(s))",
-      "time": "29/08 15:42"
-    },
-    {
       "icon": "package",
       "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 5 analyse(s)",
       "time": "29/08 15:43"
@@ -6757,6 +6760,11 @@
     {
       "icon": "pencil",
       "text": "Réception modifiée : AAAAAAA",
+      "time": "30/08 20:44"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-1 — pH : en_cours",
       "time": "30/08 20:44"
     }
   ]
