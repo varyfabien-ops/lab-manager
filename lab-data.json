@@ -2477,35 +2477,6 @@
       "qte": "1 L",
       "reception": "2026-06-08",
       "peremption": "2028-01-29",
-      "ouverture": "2026-08-18",
-      "validite": "2027-07-02",
-      "statut": "archive",
-      "note": "",
-      "coaUrl": "",
-      "id": 1787033845586,
-      "ouvertPar": "FVY",
-      "suiviTitree": true,
-      "titrages": [
-        {
-          "id": 1787163223630,
-          "valeur": "0,0508 M",
-          "date": "2026-08-19",
-          "techId": 1785175077562,
-          "numero": "HCPC0077-J p.23-2",
-          "verifiePar": null,
-          "verifieLe": null
-        }
-      ],
-      "solutionTitreeArchive": true,
-      "solutionTitreeArchivedAt": "2026-08-20",
-      "dateArchivage": "2026-08-30"
-    },
-    {
-      "produitId": 1787033801234,
-      "lot": "26B104123",
-      "qte": "1 L",
-      "reception": "2026-06-08",
-      "peremption": "2028-01-29",
       "ouverture": "",
       "validite": "",
       "statut": "en_stock",
@@ -7610,11 +7581,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : NITRATE DE BISMUTH (III)",
-      "time": "23/08 16:14"
-    },
-    {
       "icon": "list-check",
       "text": "YYYYYYY — L*a*b : en_cours",
       "time": "23/08 16:31"
@@ -7857,6 +7823,11 @@
     {
       "icon": "archive",
       "text": "Archivé : NITRATE D'ARGENT 0,05M lot 26B104123",
+      "time": "30/08 11:08"
+    },
+    {
+      "icon": "trash",
+      "text": "Contenant supprime : lot 26B104123",
       "time": "30/08 11:08"
     }
   ]
