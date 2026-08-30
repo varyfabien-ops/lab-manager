@@ -2394,7 +2394,7 @@
       "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "approuve",
       "note": "",
       "_marcheIdsMerged": [
         1786526124777
@@ -2409,7 +2409,8 @@
           "verifiee": "30/08/2026"
         }
       },
-      "dateMiseADispo": "30/08/2026"
+      "dateMiseADispo": "30/08/2026",
+      "dateApprobation": "30/08/2026"
     },
     {
       "id": 1788114216603,
@@ -2456,9 +2457,10 @@
       "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "approuve",
       "note": "",
-      "dateMiseADispo": "30/08/2026"
+      "dateMiseADispo": "30/08/2026",
+      "dateApprobation": "30/08/2026"
     },
     {
       "id": 1788114216604,
@@ -2505,9 +2507,10 @@
       "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "approuve",
       "note": "",
-      "dateMiseADispo": "30/08/2026"
+      "dateMiseADispo": "30/08/2026",
+      "dateApprobation": "30/08/2026"
     }
   ],
   "techniciens": [
@@ -6487,11 +6490,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : IDENTIFICATION CMC",
-      "time": "24/08 08:58"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : IDENTIFICATION LIDOCAINE USP",
       "time": "24/08 08:59"
     },
@@ -6734,6 +6732,11 @@
       "icon": "clock",
       "text": "Lot envoyé en approbation : AAAAAAA",
       "time": "30/08 20:34"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : AAAAAAA",
+      "time": "30/08 20:35"
     }
   ]
 }
