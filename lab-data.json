@@ -3847,10 +3847,14 @@
         1786525852376
       ],
       "analyseStatuts": {
-        "1785247477146": "en_cours"
+        "1785247477146": "en_cours",
+        "1785170122728": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785247477146": {
+          "en_cours": "30/08/2026"
+        },
+        "1785170122728": {
           "en_cours": "30/08/2026"
         }
       }
@@ -7948,11 +7952,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "YYYYYYY — Limpidité / Coloration PE : en_cours",
-      "time": "23/08 16:31"
-    },
-    {
-      "icon": "list-check",
       "text": "YYYYYYY — L*a*b : verifiee",
       "time": "23/08 16:31"
     },
@@ -8194,6 +8193,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA-1 — LIMPIDITE / COLORATION PE : en_cours",
+      "time": "30/08 20:10"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-1 — pH : en_cours",
       "time": "30/08 20:10"
     }
   ]
