@@ -3589,7 +3589,7 @@
       "date": "2026-08-29",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "libere",
+      "statut": "archive",
       "note": "",
       "analyseStatuts": {
         "1786520419939": "verifiee",
@@ -3630,7 +3630,8 @@
         1785170017612
       ],
       "dateApprobation": "30/08/2026",
-      "dateLiberation": "30/08/2026"
+      "dateLiberation": "30/08/2026",
+      "dateArchivage": "30/08/2026"
     }
   ],
   "techniciens": [
@@ -7609,11 +7610,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : IODE 0,05M",
-      "time": "23/08 16:13"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Iodure de Potassium",
       "time": "23/08 16:13"
     },
@@ -7856,6 +7852,11 @@
       "icon": "rosette",
       "text": "Lot libéré : AAAAAAA",
       "time": "30/08 10:51"
+    },
+    {
+      "icon": "archive",
+      "text": "Lot archive : AAAAAAA",
+      "time": "30/08 11:06"
     }
   ]
 }
