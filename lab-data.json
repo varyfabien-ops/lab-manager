@@ -3741,7 +3741,7 @@
       "date": "2026-08-29",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "archive",
+      "statut": "libere",
       "note": "",
       "analyseStatuts": {
         "1786520419939": "verifiee",
@@ -3779,11 +3779,12 @@
       },
       "dateMiseADispo": "30/08/2026",
       "_marcheIdsMerged": [
-        1785170017612
+        1785170017612,
+        1786529402668,
+        1786525852376
       ],
       "dateApprobation": "30/08/2026",
-      "dateLiberation": "30/08/2026",
-      "dateArchivage": "30/08/2026"
+      "dateLiberation": "30/08/2026"
     },
     {
       "id": 1788113400853,
@@ -3840,7 +3841,7 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "libere",
       "note": "",
       "_marcheIdsMerged": [
         1786529402668,
@@ -3937,7 +3938,7 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "libere",
       "note": "",
       "dateMiseADispo": "30/08/2026"
     },
@@ -3996,7 +3997,7 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "libere",
       "note": "",
       "dateMiseADispo": "30/08/2026"
     }
@@ -7976,11 +7977,6 @@
   },
   "activity": [
     {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : 1786822060925",
-      "time": "23/08 17:19"
-    },
-    {
       "icon": "barcode",
       "text": "Article modifié : M75862417",
       "time": "23/08 17:26"
@@ -8224,6 +8220,11 @@
       "icon": "clock",
       "text": "Lot envoyé en approbation : AAAAAAA",
       "time": "30/08 20:11"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot restauré depuis les archives : AAAAAAA",
+      "time": "30/08 20:14"
     }
   ]
 }
