@@ -3840,7 +3840,7 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "_marcheIdsMerged": [
         1786529402668,
@@ -3851,7 +3851,7 @@
         "1785170122728": "verifiee",
         "1785247382413": "verifiee",
         "1786529364293": "verifiee",
-        "1785170145444": "terminee"
+        "1785170145444": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785247477146": {
@@ -3876,7 +3876,8 @@
         },
         "1785170145444": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         }
       }
     },
@@ -7972,11 +7973,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "YYYYYYY — TCC0065 - MPEG : verifiee",
-      "time": "23/08 16:33"
-    },
-    {
       "icon": "clock",
       "text": "Lot envoyé en approbation : 1786822060925",
       "time": "23/08 16:33"
@@ -8219,6 +8215,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA-1 — TCC0004 - Prilocaïne / PHBM : verifiee",
+      "time": "30/08 20:11"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-1 — VOLUME EXTRACTIBLE : verifiee",
       "time": "30/08 20:11"
     }
   ]
