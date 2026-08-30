@@ -3589,7 +3589,7 @@
       "date": "2026-08-29",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "a_approuver",
+      "statut": "approuve",
       "note": "",
       "analyseStatuts": {
         "1786520419939": "verifiee",
@@ -3628,7 +3628,8 @@
       "dateMiseADispo": "30/08/2026",
       "_marcheIdsMerged": [
         1785170017612
-      ]
+      ],
+      "dateApprobation": "30/08/2026"
     }
   ],
   "techniciens": [
@@ -7607,11 +7608,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Phenol",
-      "time": "23/08 16:11"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : ETALON EAU 1%",
       "time": "23/08 16:12"
     },
@@ -7853,6 +7849,11 @@
     {
       "icon": "clock",
       "text": "Lot envoyé en approbation : AAAAAAA",
+      "time": "30/08 08:59"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot approuvé : AAAAAAA",
       "time": "30/08 08:59"
     }
   ]
