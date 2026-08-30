@@ -3592,10 +3592,14 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786520419939": "en_cours"
+        "1786520419939": "en_cours",
+        "1785247477146": "en_cours"
       },
       "analyseStatutsInfo": {
         "1786520419939": {
+          "en_cours": "30/08/2026"
+        },
+        "1785247477146": {
           "en_cours": "30/08/2026"
         }
       }
@@ -7576,11 +7580,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "YYYYYYY — APPARENCE : en_cours",
-      "time": "23/08 11:44"
-    },
-    {
       "icon": "shopping-cart",
       "text": "Commande : ACETONITRILE RS (HPLC) → a_commander",
       "time": "23/08 11:51"
@@ -7823,6 +7822,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : en_cours",
+      "time": "30/08 08:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — LIMPIDITE / COLORATION PE : en_cours",
       "time": "30/08 08:58"
     }
   ]
