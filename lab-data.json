@@ -2502,7 +2502,7 @@
       "conditionId": null,
       "conditionIds": [],
       "echeanceId": null,
-      "date": "2026-08-30",
+      "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
       "statut": "recu",
@@ -2556,7 +2556,7 @@
       "conditionId": null,
       "conditionIds": [],
       "echeanceId": null,
-      "date": "2026-08-30",
+      "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
       "statut": "recu",
@@ -2607,7 +2607,7 @@
       "conditionId": null,
       "conditionIds": [],
       "echeanceId": null,
-      "date": "2026-08-30",
+      "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
       "statut": "recu",
@@ -6591,11 +6591,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0086 - TOLUIDINE",
-      "time": "24/08 08:57"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / CONSERVATEURS / IMPURETES",
       "time": "24/08 08:57"
     },
@@ -6837,6 +6832,11 @@
     {
       "icon": "barcode",
       "text": "Article modifié : M74011000",
+      "time": "30/08 20:32"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : AAAAAAA",
       "time": "30/08 20:32"
     }
   ]
