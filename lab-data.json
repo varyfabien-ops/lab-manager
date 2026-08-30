@@ -3589,14 +3589,14 @@
       "date": "2026-08-29",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "analyseStatuts": {
         "1786520419939": "verifiee",
         "1785247477146": "verifiee",
         "1785247569532": "verifiee",
         "1785170122728": "verifiee",
-        "1785247344996": "terminee"
+        "1785247344996": "verifiee"
       },
       "analyseStatutsInfo": {
         "1786520419939": {
@@ -3621,7 +3621,8 @@
         },
         "1785247344996": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         }
       }
     }
@@ -7601,11 +7602,6 @@
   },
   "activity": [
     {
-      "icon": "rosette",
-      "text": "Lot approuvé : 9956889",
-      "time": "23/08 16:00"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : ALCOOL BENZYLIQUE (BnOH)",
       "time": "23/08 16:10"
@@ -7848,6 +7844,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — LIMPIDITE / COLORATION PE : verifiee",
+      "time": "30/08 08:59"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — TCC0004 - LIDOCAINE / PHBM : verifiee",
       "time": "30/08 08:59"
     }
   ]
