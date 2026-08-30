@@ -1013,6 +1013,186 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788113400853.293,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788113400853,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788113400853.7893,
+      "nom": "pH",
+      "echantillonId": 1788113400853,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788113400853.8445,
+      "nom": "TCC0002 - SODIUM",
+      "echantillonId": 1788113400853,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788113400853.8,
+      "nom": "TCC0004 - Prilocaïne / PHBM",
+      "echantillonId": 1788113400853,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788113400853.9575,
+      "nom": "VOLUME EXTRACTIBLE",
+      "echantillonId": 1788113400853,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788113400853.3398,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788113400854,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788113400853.5498,
+      "nom": "pH",
+      "echantillonId": 1788113400854,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788113400853.6516,
+      "nom": "TCC0002 - SODIUM",
+      "echantillonId": 1788113400854,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788113400853.9646,
+      "nom": "TCC0004 - Prilocaïne / PHBM",
+      "echantillonId": 1788113400854,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788113400853.803,
+      "nom": "VOLUME EXTRACTIBLE",
+      "echantillonId": 1788113400854,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788113400853.6064,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788113400855,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788113400853.3408,
+      "nom": "pH",
+      "echantillonId": 1788113400855,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788113400853.8281,
+      "nom": "TCC0002 - SODIUM",
+      "echantillonId": 1788113400855,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788113400853.9285,
+      "nom": "TCC0004 - Prilocaïne / PHBM",
+      "echantillonId": 1788113400855,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788113400853.1235,
+      "nom": "VOLUME EXTRACTIBLE",
+      "echantillonId": 1788113400855,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
     }
   ],
   "catalogue": [
@@ -3604,6 +3784,180 @@
       "dateApprobation": "30/08/2026",
       "dateLiberation": "30/08/2026",
       "dateArchivage": "30/08/2026"
+    },
+    {
+      "id": 1788113400853,
+      "code": "AAAAAAA-1",
+      "lot": "AAAAAAA",
+      "articleId": 1786529504133,
+      "articleCode": "M70517000",
+      "produitId": 1786529504133,
+      "marcheIds": [
+        1786529402668,
+        1786525852376
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1786529364293,
+        1785170145444
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785170122728": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785247382413": [
+          1786529402668,
+          1786525852376
+        ],
+        "1786529364293": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785170145444": [
+          1786529402668,
+          1786525852376
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0058",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-25",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1788113400854,
+      "code": "AAAAAAA-2",
+      "lot": "AAAAAAA",
+      "articleId": 1786529504133,
+      "articleCode": "M70517000",
+      "produitId": 1786529504133,
+      "marcheIds": [
+        1786529402668,
+        1786525852376
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1786529364293,
+        1785170145444
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785170122728": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785247382413": [
+          1786529402668,
+          1786525852376
+        ],
+        "1786529364293": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785170145444": [
+          1786529402668,
+          1786525852376
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0058",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-25",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1788113400855,
+      "code": "AAAAAAA-3",
+      "lot": "AAAAAAA",
+      "articleId": 1786529504133,
+      "articleCode": "M70517000",
+      "produitId": 1786529504133,
+      "marcheIds": [
+        1786529402668,
+        1786525852376
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1786529364293,
+        1785170145444
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785170122728": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785247382413": [
+          1786529402668,
+          1786525852376
+        ],
+        "1786529364293": [
+          1786529402668,
+          1786525852376
+        ],
+        "1785170145444": [
+          1786529402668,
+          1786525852376
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0058",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-25",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7582,11 +7936,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "YYYYYYY — L*a*b : en_cours",
-      "time": "23/08 16:31"
-    },
-    {
-      "icon": "list-check",
       "text": "YYYYYYY — PARTICULES VISIBLES : en_cours",
       "time": "23/08 16:31"
     },
@@ -7829,6 +8178,11 @@
       "icon": "trash",
       "text": "Contenant supprime : lot 26B104123",
       "time": "30/08 11:08"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Citanest 5 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
+      "time": "30/08 20:10"
     }
   ]
 }
