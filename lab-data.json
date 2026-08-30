@@ -2394,18 +2394,19 @@
       "date": "2026-08-17",
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
-      "statut": "en_analyse",
+      "statut": "conforme",
       "note": "",
       "_marcheIdsMerged": [
         1786526124777
       ],
       "analyseStatuts": {
-        "1785247382413": "terminee"
+        "1785247382413": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785247382413": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         }
       }
     },
@@ -6483,11 +6484,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : LIMPIDITE / COLORATION PE",
-      "time": "24/08 08:57"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : LIMPIDITE / COLORATION US",
       "time": "24/08 08:58"
     },
@@ -6729,6 +6725,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA-1 — TCC0002 - SODIUM : en_cours",
+      "time": "30/08 20:33"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-1 — TCC0002 - SODIUM : verifiee",
       "time": "30/08 20:33"
     }
   ]
