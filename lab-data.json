@@ -3139,7 +3139,7 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "archive",
+      "statut": "libere",
       "note": "",
       "analyseStatuts": {
         "1785247477146": "verifiee",
@@ -3176,7 +3176,10 @@
         }
       },
       "dateApprobation": "11/08/2026",
-      "dateArchivage": "11/08/2026"
+      "dateLiberation": "11/08/2026",
+      "_marcheIdsMerged": [
+        1785336252486
+      ]
     },
     {
       "id": 1786298382053,
@@ -3221,10 +3224,10 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "archive",
+      "statut": "libere",
       "note": "",
       "dateApprobation": "11/08/2026",
-      "dateArchivage": "11/08/2026"
+      "dateLiberation": "11/08/2026"
     },
     {
       "id": 1786298382054,
@@ -3269,10 +3272,10 @@
       "stabTemps": "",
       "stabEtudeId": null,
       "date": "2026-08-09",
-      "statut": "archive",
+      "statut": "libere",
       "note": "",
       "dateApprobation": "11/08/2026",
-      "dateArchivage": "11/08/2026"
+      "dateLiberation": "11/08/2026"
     },
     {
       "id": 1786344619243,
@@ -7432,11 +7435,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Lot supprimé partout : 24LF701A (1 réception(s))",
-      "time": "23/08 21:12"
-    },
-    {
-      "icon": "trash",
       "text": "Lot supprimé partout : 9956968 (1 réception(s))",
       "time": "23/08 21:12"
     },
@@ -7679,6 +7677,11 @@
       "icon": "rosette",
       "text": "Lot restauré depuis les archives : BBBBBB",
       "time": "30/08 20:15"
+    },
+    {
+      "icon": "rosette",
+      "text": "Lot restauré depuis les archives : TEST",
+      "time": "30/08 20:16"
     }
   ]
 }
