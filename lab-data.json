@@ -3850,7 +3850,7 @@
         "1785247477146": "verifiee",
         "1785170122728": "verifiee",
         "1785247382413": "verifiee",
-        "1786529364293": "terminee",
+        "1786529364293": "verifiee",
         "1785170145444": "terminee"
       },
       "analyseStatutsInfo": {
@@ -3871,7 +3871,8 @@
         },
         "1786529364293": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         },
         "1785170145444": {
           "en_cours": "30/08/2026",
@@ -7972,11 +7973,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "YYYYYYY — PARTICULES VISIBLES : verifiee",
-      "time": "23/08 16:33"
-    },
-    {
-      "icon": "list-check",
       "text": "YYYYYYY — TCC0065 - MPEG : verifiee",
       "time": "23/08 16:33"
     },
@@ -8218,6 +8214,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA-1 — TCC0002 - SODIUM : verifiee",
+      "time": "30/08 20:11"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-1 — TCC0004 - Prilocaïne / PHBM : verifiee",
       "time": "30/08 20:11"
     }
   ]
