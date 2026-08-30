@@ -2506,7 +2506,10 @@
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "_marcheIdsMerged": [
+        1786526124777
+      ]
     },
     {
       "id": 1788114216603,
@@ -5336,7 +5339,8 @@
       "code": "M74011000",
       "nom": "Carbocaïne 10 mg/mL (SC)",
       "type": "pif_stab",
-      "spqId": 1785335987687
+      "spqId": 1785335987687,
+      "leadTimeJours": 15
     },
     {
       "id": 1786526904667,
@@ -6587,11 +6591,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0012 - PRILOCAINE",
-      "time": "24/08 08:57"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0086 - TOLUIDINE",
       "time": "24/08 08:57"
     },
@@ -6834,6 +6833,11 @@
       "icon": "pencil",
       "text": "Réception modifiée : AAAAAAA",
       "time": "30/08 20:27"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article modifié : M74011000",
+      "time": "30/08 20:32"
     }
   ]
 }
