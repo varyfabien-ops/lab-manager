@@ -170,78 +170,6 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
-    },
-    {
-      "id": 1788115440224.6387,
-      "nom": "pH",
-      "echantillonId": 1788115440223,
-      "echantillonCode": "AAAAAAA-1",
-      "date": "2026-08-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-1"
-    },
-    {
-      "id": 1788115440224.8389,
-      "nom": "TCC0002 - SODIUM",
-      "echantillonId": 1788115440223,
-      "echantillonCode": "AAAAAAA-1",
-      "date": "2026-08-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-1"
-    },
-    {
-      "id": 1788115440224.9668,
-      "nom": "pH",
-      "echantillonId": 1788115440225,
-      "echantillonCode": "AAAAAAA-2",
-      "date": "2026-08-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-2"
-    },
-    {
-      "id": 1788115440224.9324,
-      "nom": "TCC0002 - SODIUM",
-      "echantillonId": 1788115440225,
-      "echantillonCode": "AAAAAAA-2",
-      "date": "2026-08-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-2"
-    },
-    {
-      "id": 1788115440224.0994,
-      "nom": "pH",
-      "echantillonId": 1788115440226,
-      "echantillonCode": "AAAAAAA-3",
-      "date": "2026-08-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-3"
-    },
-    {
-      "id": 1788115440224.6204,
-      "nom": "TCC0002 - SODIUM",
-      "echantillonId": 1788115440226,
-      "echantillonCode": "AAAAAAA-3",
-      "date": "2026-08-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-3"
     }
   ],
   "catalogue": [
@@ -2384,163 +2312,7 @@
       "code": "HK"
     }
   ],
-  "echantillons": [
-    {
-      "id": 1788115440223,
-      "code": "AAAAAAA-1",
-      "lot": "AAAAAAA",
-      "articleId": 1786525582768,
-      "articleCode": "M74011000",
-      "produitId": 1786525582768,
-      "marcheIds": [
-        1786525368760
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247382413
-      ],
-      "analysesParMarche": {
-        "1785247477146": [
-          1786525368760
-        ],
-        "1785170122728": [
-          1786525368760
-        ],
-        "1785247382413": [
-          1786525368760
-        ],
-        "1786344522393": [
-          1786525368760
-        ],
-        "1785170145444": [
-          1786525368760
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0052",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-08-18",
-      "dateFabrication": "2026-08-15",
-      "dateMiseStabilite": "",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1785170122728": "en_cours"
-      },
-      "analyseStatutsInfo": {
-        "1785170122728": {
-          "en_cours": "30/08/2026"
-        }
-      }
-    },
-    {
-      "id": 1788115440225,
-      "code": "AAAAAAA-2",
-      "lot": "AAAAAAA",
-      "articleId": 1786525582768,
-      "articleCode": "M74011000",
-      "produitId": 1786525582768,
-      "marcheIds": [
-        1786525368760
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247382413
-      ],
-      "analysesParMarche": {
-        "1785247477146": [
-          1786525368760
-        ],
-        "1785170122728": [
-          1786525368760
-        ],
-        "1785247382413": [
-          1786525368760
-        ],
-        "1786344522393": [
-          1786525368760
-        ],
-        "1785170145444": [
-          1786525368760
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0052",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-08-18",
-      "dateFabrication": "2026-08-15",
-      "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
-    },
-    {
-      "id": 1788115440226,
-      "code": "AAAAAAA-3",
-      "lot": "AAAAAAA",
-      "articleId": 1786525582768,
-      "articleCode": "M74011000",
-      "produitId": 1786525582768,
-      "marcheIds": [
-        1786525368760
-      ],
-      "analysesIds": [
-        1785170122728,
-        1785247382413
-      ],
-      "analysesParMarche": {
-        "1785247477146": [
-          1786525368760
-        ],
-        "1785170122728": [
-          1786525368760
-        ],
-        "1785247382413": [
-          1786525368760
-        ],
-        "1786344522393": [
-          1786525368760
-        ],
-        "1785170145444": [
-          1786525368760
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0052",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-08-18",
-      "dateFabrication": "2026-08-15",
-      "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -5859,7 +5631,30 @@
     }
   ],
   "enregistrements": [],
-  "suppressionsLots": [],
+  "suppressionsLots": [
+    {
+      "id": 1788115465322,
+      "lot": "AAAAAAA",
+      "justification": "Lot Détruit",
+      "date": "30/08/2026 20:44:25",
+      "receptions": 3,
+      "snapshot": {
+        "produit": "Carbocaïne 10 mg/mL (SC)",
+        "articleCode": "M74011000",
+        "type": "PIF",
+        "typeHtml": "<span class=\"badge badge-amber\" style=\"font-size:11px\">PIF</span> ",
+        "sousSerie": "3",
+        "sousSerieHtml": "<span class=\"badge badge-yellow\" style=\"font-size:11px;font-weight:600;padding:2px 8px\">3</span>",
+        "marche": "BELGIQUE",
+        "marcheHtml": "<span class=\"badge badge-blue\" style=\"font-size:11px\">BELGIQUE</span>",
+        "echeance": "—",
+        "echeanceHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "dateReception": "18/08/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
+    }
+  ],
   "etiquettesLibres": [
     {
       "id": 1786565853590,
@@ -6518,11 +6313,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 5 analyse(s)",
-      "time": "29/08 15:43"
-    },
-    {
       "icon": "list-check",
       "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : en_cours",
       "time": "30/08 08:58"
@@ -6765,6 +6555,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA-1 — pH : en_cours",
+      "time": "30/08 20:44"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : AAAAAAA (3 réception(s)) — Motif : Lot Détruit",
       "time": "30/08 20:44"
     }
   ]
