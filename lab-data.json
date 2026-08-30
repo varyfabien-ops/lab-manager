@@ -3594,7 +3594,7 @@
       "analyseStatuts": {
         "1786520419939": "verifiee",
         "1785247477146": "terminee",
-        "1785247569532": "terminee",
+        "1785247569532": "verifiee",
         "1785170122728": "verifiee",
         "1785247344996": "terminee"
       },
@@ -3610,7 +3610,8 @@
         },
         "1785247569532": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         },
         "1785170122728": {
           "en_cours": "30/08/2026",
@@ -7600,11 +7601,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : ACIDE CHLORHYDRIQUE 0,1M",
-      "time": "23/08 15:50"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Chloroforme",
       "time": "23/08 15:51"
     },
@@ -7846,6 +7842,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — pH : verifiee",
+      "time": "30/08 08:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — LIMPIDITE / COLORATION US : verifiee",
       "time": "30/08 08:58"
     }
   ]
