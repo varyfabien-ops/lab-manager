@@ -4004,6 +4004,34 @@
       "note": "",
       "dateMiseADispo": "30/08/2026",
       "dateArchivage": "30/08/2026"
+    },
+    {
+      "id": 1788113732012,
+      "code": "AAAAAAA",
+      "lot": "AAAAAAA",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [],
+      "analysesIds": [],
+      "analysesParMarche": {},
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0278",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-25",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7981,11 +8009,6 @@
   },
   "activity": [
     {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : YYYYYYY",
-      "time": "23/08 17:44"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprimé partout : 9956970 (2 réception(s))",
       "time": "23/08 21:12"
@@ -8229,6 +8252,11 @@
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "30/08 20:14"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 0 analyse(s)",
+      "time": "30/08 20:15"
     }
   ]
 }
