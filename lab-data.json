@@ -3741,7 +3741,7 @@
       "date": "2026-08-29",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "libere",
+      "statut": "archive",
       "note": "",
       "analyseStatuts": {
         "1786520419939": "verifiee",
@@ -3784,7 +3784,8 @@
         1786525852376
       ],
       "dateApprobation": "30/08/2026",
-      "dateLiberation": "30/08/2026"
+      "dateLiberation": "30/08/2026",
+      "dateArchivage": "30/08/2026"
     },
     {
       "id": 1788113400853,
@@ -3841,7 +3842,7 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "libere",
+      "statut": "archive",
       "note": "",
       "_marcheIdsMerged": [
         1786529402668,
@@ -3881,7 +3882,8 @@
           "verifiee": "30/08/2026"
         }
       },
-      "dateMiseADispo": "30/08/2026"
+      "dateMiseADispo": "30/08/2026",
+      "dateArchivage": "30/08/2026"
     },
     {
       "id": 1788113400854,
@@ -3938,9 +3940,10 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "libere",
+      "statut": "archive",
       "note": "",
-      "dateMiseADispo": "30/08/2026"
+      "dateMiseADispo": "30/08/2026",
+      "dateArchivage": "30/08/2026"
     },
     {
       "id": 1788113400855,
@@ -3997,9 +4000,10 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "libere",
+      "statut": "archive",
       "note": "",
-      "dateMiseADispo": "30/08/2026"
+      "dateMiseADispo": "30/08/2026",
+      "dateArchivage": "30/08/2026"
     }
   ],
   "techniciens": [
@@ -7977,11 +7981,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article modifié : M75862417",
-      "time": "23/08 17:26"
-    },
-    {
       "icon": "clock",
       "text": "Lot envoyé en approbation : YYYYYYY",
       "time": "23/08 17:44"
@@ -8224,6 +8223,11 @@
     {
       "icon": "rosette",
       "text": "Lot restauré depuis les archives : AAAAAAA",
+      "time": "30/08 20:14"
+    },
+    {
+      "icon": "archive",
+      "text": "Lot archive : AAAAAAA",
       "time": "30/08 20:14"
     }
   ]
