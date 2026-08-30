@@ -172,18 +172,6 @@
       "note": "Auto: 995968"
     },
     {
-      "id": 1788114216602.716,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788114216602,
-      "echantillonCode": "AAAAAAA-1",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-1"
-    },
-    {
       "id": 1788114216602.963,
       "nom": "pH",
       "echantillonId": 1788114216602,
@@ -232,18 +220,6 @@
       "note": "Auto: AAAAAAA-1"
     },
     {
-      "id": 1788114216602.508,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788114216603,
-      "echantillonCode": "AAAAAAA-2",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-2"
-    },
-    {
       "id": 1788114216602.0935,
       "nom": "pH",
       "echantillonId": 1788114216603,
@@ -290,18 +266,6 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: AAAAAAA-2"
-    },
-    {
-      "id": 1788114216602.7449,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788114216604,
-      "echantillonCode": "AAAAAAA-3",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-3"
     },
     {
       "id": 1788114216602.96,
@@ -2504,11 +2468,10 @@
         1786526124777
       ],
       "analysesIds": [
-        1785247477146,
         1785170122728,
         1785247382413,
-        1786526216129,
-        1786344522393
+        1786344522393,
+        1786526216129
       ],
       "analysesParMarche": {
         "1785247477146": [
@@ -2556,11 +2519,10 @@
         1786526124777
       ],
       "analysesIds": [
-        1785247477146,
         1785170122728,
         1785247382413,
-        1786526216129,
-        1786344522393
+        1786344522393,
+        1786526216129
       ],
       "analysesParMarche": {
         "1785247477146": [
@@ -2608,11 +2570,10 @@
         1786526124777
       ],
       "analysesIds": [
-        1785247477146,
         1785170122728,
         1785247382413,
-        1786526216129,
-        1786344522393
+        1786344522393,
+        1786526216129
       ],
       "analysesParMarche": {
         "1785247477146": [
@@ -6626,11 +6587,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0015 - LIDOCAINE NAPHAZOLINE",
-      "time": "24/08 08:56"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0012 - PRILOCAINE",
       "time": "24/08 08:57"
     },
@@ -6873,6 +6829,11 @@
       "icon": "package",
       "text": "Réception: Carbocaïne 10 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
       "time": "30/08 20:23"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : AAAAAAA",
+      "time": "30/08 20:27"
     }
   ]
 }
