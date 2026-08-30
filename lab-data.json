@@ -172,18 +172,6 @@
       "note": "Auto: 995968"
     },
     {
-      "id": 1788114216602.963,
-      "nom": "pH",
-      "echantillonId": 1788114216602,
-      "echantillonCode": "AAAAAAA-1",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-1"
-    },
-    {
       "id": 1788114216602.1313,
       "nom": "TCC0002 - SODIUM",
       "echantillonId": 1788114216602,
@@ -194,42 +182,6 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: AAAAAAA-1"
-    },
-    {
-      "id": 1788114216602.7808,
-      "nom": "TCC0013 - CONSERVATEURS",
-      "echantillonId": 1788114216602,
-      "echantillonCode": "AAAAAAA-1",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-1"
-    },
-    {
-      "id": 1788114216602.0256,
-      "nom": "TCC0011 - MEPIVACAINE",
-      "echantillonId": 1788114216602,
-      "echantillonCode": "AAAAAAA-1",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-1"
-    },
-    {
-      "id": 1788114216602.0935,
-      "nom": "pH",
-      "echantillonId": 1788114216603,
-      "echantillonCode": "AAAAAAA-2",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-2"
     },
     {
       "id": 1788114216602.0435,
@@ -244,68 +196,8 @@
       "note": "Auto: AAAAAAA-2"
     },
     {
-      "id": 1788114216602.9443,
-      "nom": "TCC0013 - CONSERVATEURS",
-      "echantillonId": 1788114216603,
-      "echantillonCode": "AAAAAAA-2",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-2"
-    },
-    {
-      "id": 1788114216602.5962,
-      "nom": "TCC0011 - MEPIVACAINE",
-      "echantillonId": 1788114216603,
-      "echantillonCode": "AAAAAAA-2",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-2"
-    },
-    {
-      "id": 1788114216602.96,
-      "nom": "pH",
-      "echantillonId": 1788114216604,
-      "echantillonCode": "AAAAAAA-3",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-3"
-    },
-    {
       "id": 1788114216602.4275,
       "nom": "TCC0002 - SODIUM",
-      "echantillonId": 1788114216604,
-      "echantillonCode": "AAAAAAA-3",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-3"
-    },
-    {
-      "id": 1788114216602.5415,
-      "nom": "TCC0013 - CONSERVATEURS",
-      "echantillonId": 1788114216604,
-      "echantillonCode": "AAAAAAA-3",
-      "date": "2026-08-30",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: AAAAAAA-3"
-    },
-    {
-      "id": 1788114216602.9587,
-      "nom": "TCC0011 - MEPIVACAINE",
       "echantillonId": 1788114216604,
       "echantillonCode": "AAAAAAA-3",
       "date": "2026-08-30",
@@ -2468,10 +2360,7 @@
         1786526124777
       ],
       "analysesIds": [
-        1785170122728,
-        1785247382413,
-        1786344522393,
-        1786526216129
+        1785247382413
       ],
       "analysesParMarche": {
         "1785247477146": [
@@ -2522,10 +2411,7 @@
         1786526124777
       ],
       "analysesIds": [
-        1785170122728,
-        1785247382413,
-        1786344522393,
-        1786526216129
+        1785247382413
       ],
       "analysesParMarche": {
         "1785247477146": [
@@ -2573,10 +2459,7 @@
         1786526124777
       ],
       "analysesIds": [
-        1785170122728,
-        1785247382413,
-        1786344522393,
-        1786526216129
+        1785247382413
       ],
       "analysesParMarche": {
         "1785247477146": [
@@ -6591,11 +6474,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / CONSERVATEURS / IMPURETES",
-      "time": "24/08 08:57"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : OSMOLALITE",
       "time": "24/08 08:57"
     },
@@ -6838,6 +6716,11 @@
       "icon": "pencil",
       "text": "Réception modifiée : AAAAAAA",
       "time": "30/08 20:32"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : AAAAAAA",
+      "time": "30/08 20:33"
     }
   ]
 }
