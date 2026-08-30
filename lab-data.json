@@ -3592,7 +3592,7 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786520419939": "terminee",
+        "1786520419939": "verifiee",
         "1785247477146": "en_cours",
         "1785247569532": "en_cours",
         "1785170122728": "en_cours",
@@ -3601,7 +3601,8 @@
       "analyseStatutsInfo": {
         "1786520419939": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         },
         "1785247477146": {
           "en_cours": "30/08/2026"
@@ -7593,11 +7594,6 @@
   },
   "activity": [
     {
-      "icon": "rosette",
-      "text": "Lot approuvé : BBBBBB",
-      "time": "23/08 15:34"
-    },
-    {
       "icon": "archive",
       "text": "Lot archive : BBBBBB",
       "time": "23/08 15:34"
@@ -7840,6 +7836,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA — TCC0004 - LIDOCAINE / PHBM : en_cours",
+      "time": "30/08 08:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : verifiee",
       "time": "30/08 08:58"
     }
   ]
