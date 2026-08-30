@@ -3840,7 +3840,7 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "conforme",
+      "statut": "a_approuver",
       "note": "",
       "_marcheIdsMerged": [
         1786529402668,
@@ -3879,7 +3879,8 @@
           "terminee": "30/08/2026",
           "verifiee": "30/08/2026"
         }
-      }
+      },
+      "dateMiseADispo": "30/08/2026"
     },
     {
       "id": 1788113400854,
@@ -3936,8 +3937,9 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "a_approuver",
+      "note": "",
+      "dateMiseADispo": "30/08/2026"
     },
     {
       "id": 1788113400855,
@@ -3994,8 +3996,9 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "a_approuver",
+      "note": "",
+      "dateMiseADispo": "30/08/2026"
     }
   ],
   "techniciens": [
@@ -7975,11 +7978,6 @@
     {
       "icon": "clock",
       "text": "Lot envoyé en approbation : 1786822060925",
-      "time": "23/08 16:33"
-    },
-    {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : 1786822060925",
       "time": "23/08 17:19"
     },
     {
@@ -8220,6 +8218,11 @@
     {
       "icon": "list-check",
       "text": "AAAAAAA-1 — VOLUME EXTRACTIBLE : verifiee",
+      "time": "30/08 20:11"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : AAAAAAA",
       "time": "30/08 20:11"
     }
   ]
