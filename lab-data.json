@@ -170,6 +170,186 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
+    },
+    {
+      "id": 1788114216602.716,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788114216602,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788114216602.963,
+      "nom": "pH",
+      "echantillonId": 1788114216602,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788114216602.1313,
+      "nom": "TCC0002 - SODIUM",
+      "echantillonId": 1788114216602,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788114216602.7808,
+      "nom": "TCC0013 - CONSERVATEURS",
+      "echantillonId": 1788114216602,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788114216602.0256,
+      "nom": "TCC0011 - MEPIVACAINE",
+      "echantillonId": 1788114216602,
+      "echantillonCode": "AAAAAAA-1",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-1"
+    },
+    {
+      "id": 1788114216602.508,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788114216603,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788114216602.0935,
+      "nom": "pH",
+      "echantillonId": 1788114216603,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788114216602.0435,
+      "nom": "TCC0002 - SODIUM",
+      "echantillonId": 1788114216603,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788114216602.9443,
+      "nom": "TCC0013 - CONSERVATEURS",
+      "echantillonId": 1788114216603,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788114216602.5962,
+      "nom": "TCC0011 - MEPIVACAINE",
+      "echantillonId": 1788114216603,
+      "echantillonCode": "AAAAAAA-2",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-2"
+    },
+    {
+      "id": 1788114216602.7449,
+      "nom": "LIMPIDITE / COLORATION PE",
+      "echantillonId": 1788114216604,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788114216602.96,
+      "nom": "pH",
+      "echantillonId": 1788114216604,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788114216602.4275,
+      "nom": "TCC0002 - SODIUM",
+      "echantillonId": 1788114216604,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788114216602.5415,
+      "nom": "TCC0013 - CONSERVATEURS",
+      "echantillonId": 1788114216604,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
+    },
+    {
+      "id": 1788114216602.9587,
+      "nom": "TCC0011 - MEPIVACAINE",
+      "echantillonId": 1788114216604,
+      "echantillonCode": "AAAAAAA-3",
+      "date": "2026-08-30",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: AAAAAAA-3"
     }
   ],
   "catalogue": [
@@ -2312,7 +2492,164 @@
       "code": "HK"
     }
   ],
-  "echantillons": [],
+  "echantillons": [
+    {
+      "id": 1788114216602,
+      "code": "AAAAAAA-1",
+      "lot": "AAAAAAA",
+      "articleId": 1786525582768,
+      "articleCode": "M74011000",
+      "produitId": 1786525582768,
+      "marcheIds": [
+        1786526124777
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1786526216129,
+        1786344522393
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786526124777
+        ],
+        "1785170122728": [
+          1786526124777
+        ],
+        "1785247382413": [
+          1786526124777
+        ],
+        "1786526216129": [
+          1786526124777
+        ],
+        "1786344522393": [
+          1786526124777
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0052",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-15",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1788114216603,
+      "code": "AAAAAAA-2",
+      "lot": "AAAAAAA",
+      "articleId": 1786525582768,
+      "articleCode": "M74011000",
+      "produitId": 1786525582768,
+      "marcheIds": [
+        1786526124777
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1786526216129,
+        1786344522393
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786526124777
+        ],
+        "1785170122728": [
+          1786526124777
+        ],
+        "1785247382413": [
+          1786526124777
+        ],
+        "1786526216129": [
+          1786526124777
+        ],
+        "1786344522393": [
+          1786526124777
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0052",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-15",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1788114216604,
+      "code": "AAAAAAA-3",
+      "lot": "AAAAAAA",
+      "articleId": 1786525582768,
+      "articleCode": "M74011000",
+      "produitId": 1786525582768,
+      "marcheIds": [
+        1786526124777
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1786526216129,
+        1786344522393
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1786526124777
+        ],
+        "1785170122728": [
+          1786526124777
+        ],
+        "1785247382413": [
+          1786526124777
+        ],
+        "1786526216129": [
+          1786526124777
+        ],
+        "1786344522393": [
+          1786526124777
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "refSPQ": "SPQ0052",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-08-30",
+      "dateFabrication": "2026-08-15",
+      "dateMiseStabilite": "",
+      "statut": "recu",
+      "note": ""
+    }
+  ],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -6288,11 +6625,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : 9956889 (1 réception(s))",
-      "time": "23/08 21:18"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : TCC0015 - LIDOCAINE NAPHAZOLINE",
       "time": "24/08 08:56"
@@ -6536,6 +6868,11 @@
       "icon": "trash",
       "text": "Lot supprimé partout : TEST (3 réception(s))",
       "time": "30/08 20:19"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Carbocaïne 10 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
+      "time": "30/08 20:23"
     }
   ]
 }
