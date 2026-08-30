@@ -2479,7 +2479,7 @@
       "peremption": "2028-01-29",
       "ouverture": "2026-08-18",
       "validite": "2027-07-02",
-      "statut": "ouvert",
+      "statut": "archive",
       "note": "",
       "coaUrl": "",
       "id": 1787033845586,
@@ -2497,7 +2497,8 @@
         }
       ],
       "solutionTitreeArchive": true,
-      "solutionTitreeArchivedAt": "2026-08-20"
+      "solutionTitreeArchivedAt": "2026-08-20",
+      "dateArchivage": "2026-08-30"
     },
     {
       "produitId": 1787033801234,
@@ -7610,11 +7611,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Iodure de Potassium",
-      "time": "23/08 16:13"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : NITRATE DE BISMUTH (III)",
       "time": "23/08 16:14"
     },
@@ -7857,6 +7853,11 @@
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "30/08 11:06"
+    },
+    {
+      "icon": "archive",
+      "text": "Archivé : NITRATE D'ARGENT 0,05M lot 26B104123",
+      "time": "30/08 11:08"
     }
   ]
 }
