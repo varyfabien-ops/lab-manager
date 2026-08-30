@@ -3593,7 +3593,7 @@
       "note": "",
       "analyseStatuts": {
         "1786520419939": "verifiee",
-        "1785247477146": "terminee",
+        "1785247477146": "verifiee",
         "1785247569532": "verifiee",
         "1785170122728": "verifiee",
         "1785247344996": "terminee"
@@ -3606,7 +3606,8 @@
         },
         "1785247477146": {
           "en_cours": "30/08/2026",
-          "terminee": "30/08/2026"
+          "terminee": "30/08/2026",
+          "verifiee": "30/08/2026"
         },
         "1785247569532": {
           "en_cours": "30/08/2026",
@@ -7600,11 +7601,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : Chloroforme",
-      "time": "23/08 15:51"
-    },
-    {
       "icon": "rosette",
       "text": "Lot approuvé : 9956889",
       "time": "23/08 16:00"
@@ -7848,6 +7844,11 @@
       "icon": "list-check",
       "text": "AAAAAAA — LIMPIDITE / COLORATION US : verifiee",
       "time": "30/08 08:58"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — LIMPIDITE / COLORATION PE : verifiee",
+      "time": "30/08 08:59"
     }
   ]
 }
