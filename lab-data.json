@@ -3592,7 +3592,7 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786520419939": "en_cours",
+        "1786520419939": "terminee",
         "1785247477146": "en_cours",
         "1785247569532": "en_cours",
         "1785170122728": "en_cours",
@@ -3600,7 +3600,8 @@
       },
       "analyseStatutsInfo": {
         "1786520419939": {
-          "en_cours": "30/08/2026"
+          "en_cours": "30/08/2026",
+          "terminee": "30/08/2026"
         },
         "1785247477146": {
           "en_cours": "30/08/2026"
