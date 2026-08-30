@@ -3589,8 +3589,16 @@
       "date": "2026-08-29",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1786520419939": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1786520419939": {
+          "en_cours": "30/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -7568,11 +7576,6 @@
   },
   "activity": [
     {
-      "icon": "archive",
-      "text": "Archivé : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
-      "time": "22/08 15:51"
-    },
-    {
       "icon": "list-check",
       "text": "YYYYYYY — APPARENCE : en_cours",
       "time": "23/08 11:44"
@@ -7816,6 +7819,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 5 analyse(s)",
       "time": "29/08 15:43"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : en_cours",
+      "time": "30/08 08:58"
     }
   ]
 }
