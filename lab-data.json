@@ -3840,8 +3840,20 @@
       "date": "2026-08-30",
       "dateFabrication": "2026-08-25",
       "dateMiseStabilite": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "_marcheIdsMerged": [
+        1786529402668,
+        1786525852376
+      ],
+      "analyseStatuts": {
+        "1785247477146": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785247477146": {
+          "en_cours": "30/08/2026"
+        }
+      }
     },
     {
       "id": 1788113400854,
@@ -7936,11 +7948,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "YYYYYYY — PARTICULES VISIBLES : en_cours",
-      "time": "23/08 16:31"
-    },
-    {
-      "icon": "list-check",
       "text": "YYYYYYY — Limpidité / Coloration PE : en_cours",
       "time": "23/08 16:31"
     },
@@ -8182,6 +8189,11 @@
     {
       "icon": "package",
       "text": "Réception: Citanest 5 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
+      "time": "30/08 20:10"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA-1 — LIMPIDITE / COLORATION PE : en_cours",
       "time": "30/08 20:10"
     }
   ]
