@@ -2450,7 +2450,7 @@
       "analyseStatuts": {
         "1786624072580": "terminee",
         "1786638196863": "terminee",
-        "1786960813583": "a_lancer",
+        "1786960813583": "terminee",
         "1786960860663": "a_lancer",
         "1786637357048": "a_lancer",
         "1786637416398": "a_lancer",
@@ -2463,6 +2463,9 @@
           "terminee": "31/08/2026"
         },
         "1786638196863": {
+          "terminee": "31/08/2026"
+        },
+        "1786960813583": {
           "terminee": "31/08/2026"
         }
       },
@@ -2504,6 +2507,24 @@
             }
           ],
           "commentaire": "S-2607-12345",
+          "date": "31/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        },
+        "1786960813583": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "1.023",
+                  "unite": "g/cm3"
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
           "date": "31/08/2026",
           "unite": "",
           "statutAnalyse": "ok"
