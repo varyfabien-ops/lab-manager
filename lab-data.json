@@ -2448,11 +2448,12 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1786624072580": "en_cours"
+        "1786624072580": "terminee"
       },
       "analyseStatutsInfo": {
         "1786624072580": {
-          "en_cours": "31/08/2026"
+          "en_cours": "31/08/2026",
+          "terminee": "31/08/2026"
         }
       }
     }
