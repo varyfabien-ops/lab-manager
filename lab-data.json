@@ -170,6 +170,102 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
+    },
+    {
+      "id": 1788158214060.3176,
+      "nom": "ABSORBANCE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.83,
+      "nom": "APPARENCE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.251,
+      "nom": "DENSITE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.893,
+      "nom": "IODE LIBRE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.2961,
+      "nom": "TCC0041 - IODE TOTALE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.189,
+      "nom": "TCC0041 - INDICE D'ACIDE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.713,
+      "nom": "VISCOSITE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
+    },
+    {
+      "id": 1788158214060.5928,
+      "nom": "VOLUME EXTRACTIBLE",
+      "echantillonId": 1788158214059,
+      "echantillonCode": "AAAAAAA",
+      "date": "2026-08-31",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T24M",
+      "echeanceId": 1786960698600,
+      "note": "Auto: AAAAAAA"
     }
   ],
   "catalogue": [
@@ -2312,7 +2408,47 @@
       "code": "HK"
     }
   ],
-  "echantillons": [],
+  "echantillons": [
+    {
+      "id": 1788158214059,
+      "code": "AAAAAAA",
+      "lot": "AAAAAAA",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [],
+      "analysesIds": [
+        1786638196863,
+        1786624072580,
+        1786960813583,
+        1786960860663,
+        1786637357048,
+        1786637416398,
+        1786960782872,
+        1785170145444
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC0381",
+      "stabEcheance": "T24M",
+      "stabTemps": "25°C",
+      "stabEtudeId": 1786961858161,
+      "ptcId": 1786960643216,
+      "conditionId": 1786779420753,
+      "conditionIds": [
+        1786779420753
+      ],
+      "echeanceId": 1786960698600,
+      "date": "2026-08-31",
+      "dateFabrication": "2024-08-15",
+      "dateMiseStabilite": "2024-09-01",
+      "statut": "recu",
+      "note": ""
+    }
+  ],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -6314,11 +6450,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : en_cours",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA — LIMPIDITE / COLORATION PE : en_cours",
       "time": "30/08 08:58"
     },
@@ -6561,6 +6692,11 @@
       "icon": "trash",
       "text": "Lot supprimé partout : AAAAAAA (3 réception(s)) — Motif : Lot Détruit",
       "time": "30/08 20:44"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
+      "time": "31/08 08:36"
     }
   ]
 }
