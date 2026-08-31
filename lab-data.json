@@ -2462,6 +2462,26 @@
           "en_cours": "31/08/2026",
           "terminee": "31/08/2026"
         }
+      },
+      "resultats": {
+        "1786624072580": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "conforme",
+                  "unite": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "31/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        }
       }
     }
   ],
