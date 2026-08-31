@@ -2449,7 +2449,7 @@
       "note": "",
       "analyseStatuts": {
         "1786624072580": "terminee",
-        "1786638196863": "a_lancer",
+        "1786638196863": "terminee",
         "1786960813583": "a_lancer",
         "1786960860663": "a_lancer",
         "1786637357048": "a_lancer",
@@ -2460,6 +2460,9 @@
       "analyseStatutsInfo": {
         "1786624072580": {
           "en_cours": "31/08/2026",
+          "terminee": "31/08/2026"
+        },
+        "1786638196863": {
           "terminee": "31/08/2026"
         }
       },
@@ -2478,6 +2481,29 @@
             }
           ],
           "commentaire": "",
+          "date": "31/08/2026",
+          "unite": "",
+          "statutAnalyse": "ok"
+        },
+        "1786638196863": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "0.40",
+                  "unite": ""
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "0.32",
+                  "unite": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "S-2607-12345",
           "date": "31/08/2026",
           "unite": "",
           "statutAnalyse": "ok"
