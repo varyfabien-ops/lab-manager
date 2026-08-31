@@ -779,7 +779,7 @@
       "champsResultats": [
         {
           "label": "Résultat",
-          "type": "conforme",
+          "type": "texte",
           "unite": ""
         }
       ],
@@ -6533,11 +6533,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA — LIMPIDITE / COLORATION US : en_cours",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA — pH : en_cours",
       "time": "30/08 08:58"
     },
@@ -6780,6 +6775,11 @@
       "icon": "list-check",
       "text": "AAAAAAA — APPARENCE : en_cours",
       "time": "31/08 08:37"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : APPARENCE",
+      "time": "31/08 15:10"
     }
   ]
 }
