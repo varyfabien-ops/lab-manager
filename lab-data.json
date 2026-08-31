@@ -2445,8 +2445,16 @@
       "date": "2026-08-31",
       "dateFabrication": "2024-08-15",
       "dateMiseStabilite": "2024-09-01",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1786624072580": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1786624072580": {
+          "en_cours": "31/08/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -6450,11 +6458,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA — LIMPIDITE / COLORATION PE : en_cours",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA — LIMPIDITE / COLORATION US : en_cours",
       "time": "30/08 08:58"
     },
@@ -6697,6 +6700,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
       "time": "31/08 08:36"
+    },
+    {
+      "icon": "list-check",
+      "text": "AAAAAAA — APPARENCE : en_cours",
+      "time": "31/08 08:37"
     }
   ]
 }
