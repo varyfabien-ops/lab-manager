@@ -560,7 +560,7 @@
     },
     {
       "id": 1785247529863,
-      "nom": "TCC0004 - BUPIVACAINE",
+      "nom": "TCC0004 - Bupivacaïne",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -570,8 +570,14 @@
       "code": "",
       "produitsIds": [],
       "description": "Dosage de la Bupivacaïne et Impuretés (MARCAÏNE)",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Teneur en Bupivacaïne",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": [
         "Retraitement TCC0004 - Bupivacaïne",
         "Vérification TCC0004 - Bupivacaïne"
@@ -6935,11 +6941,6 @@
   },
   "activity": [
     {
-      "icon": "archive",
-      "text": "Lot archive : AAAAAAA",
-      "time": "30/08 20:14"
-    },
-    {
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 0 analyse(s)",
       "time": "30/08 20:15"
@@ -7183,6 +7184,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0003 - Métabisulfite de Sodium",
       "time": "01/09 17:55"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
+      "time": "01/09 17:56"
     }
   ]
 }
