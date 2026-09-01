@@ -831,7 +831,7 @@
     },
     {
       "id": 1786526216129,
-      "nom": "TCC0013 - CONSERVATEURS",
+      "nom": "TCC0013 - Conservateurs",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -841,8 +841,19 @@
       "code": "",
       "produitsIds": [],
       "description": "Dosage du PHBM et PHBP",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Teneur en PHBM",
+          "type": "numerique",
+          "unite": "mg/mL"
+        },
+        {
+          "label": "Teneur en PHBP",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": [
         "Retraitement TCC0013 - Conservateurs",
         "Vérification TCC0013 - Conservateurs"
@@ -6941,11 +6952,6 @@
   },
   "activity": [
     {
-      "icon": "rosette",
-      "text": "Lot restauré depuis les archives : TEST",
-      "time": "30/08 20:16"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprimé partout : BBBBBB (3 réception(s))",
       "time": "30/08 20:16"
@@ -7188,6 +7194,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0011 - Mépivacaïne",
+      "time": "01/09 17:57"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0013 - Conservateurs",
       "time": "01/09 17:57"
     }
   ]
