@@ -796,7 +796,7 @@
     },
     {
       "id": 1786344522393,
-      "nom": "TCC0011 - MEPIVACAINE",
+      "nom": "TCC0011 - Mépivacaïne",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6942,11 +6942,6 @@
   "activity": [
     {
       "icon": "rosette",
-      "text": "Lot restauré depuis les archives : BBBBBB",
-      "time": "30/08 20:15"
-    },
-    {
-      "icon": "rosette",
       "text": "Lot restauré depuis les archives : TEST",
       "time": "30/08 20:16"
     },
@@ -7189,6 +7184,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - DM",
       "time": "01/09 17:56"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0011 - Mépivacaïne",
+      "time": "01/09 17:57"
     }
   ]
 }
