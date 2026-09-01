@@ -597,7 +597,7 @@
     },
     {
       "id": 1785262672685,
-      "nom": "TCC0015 - LIDOCAINE NAPHAZOLINE",
+      "nom": "TCC0015 - Lidocaïne Naphazoline",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -607,8 +607,24 @@
       "code": "",
       "produitsIds": [],
       "description": "Dosage de la Lidocaïne, du PHBM, du Nitrate de Naphazoline, de l'APB et du Nitrate de Naphazoline (XYLOCAÏNE 5% NAPHAZOLINE)",
-      "champsResultats": [],
-      "resultatRequis": false,
+      "champsResultats": [
+        {
+          "label": "Teneur en Nitrate de Naphazoline",
+          "type": "numerique",
+          "unite": "mg/mL"
+        },
+        {
+          "label": "Teneur en PHBM",
+          "type": "numerique",
+          "unite": "mg/mL"
+        },
+        {
+          "label": "Teneur en Lidocaïne",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true,
       "sousAnalyses": [
         "Retraitement TCC0015 - Lidocaïne Naphazoline",
         "Vérification TCC0015 - Lidocaïne Naphazoline"
@@ -6953,11 +6969,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Réception modifiée : AAAAAAA",
-      "time": "30/08 20:33"
-    },
-    {
       "icon": "list-check",
       "text": "AAAAAAA-1 — TCC0002 - SODIUM : en_cours",
       "time": "30/08 20:33"
@@ -7201,6 +7212,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0012 - Prilocaïne",
       "time": "01/09 18:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
+      "time": "01/09 18:16"
     }
   ]
 }
