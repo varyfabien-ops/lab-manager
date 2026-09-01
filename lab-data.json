@@ -923,7 +923,7 @@
     },
     {
       "id": 1786533442513,
-      "nom": "TCC0023 - ADRENALINE",
+      "nom": "TCC0023 - Adrénaline",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6953,11 +6953,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article modifié : M74011000",
-      "time": "30/08 20:32"
-    },
-    {
       "icon": "pencil",
       "text": "Réception modifiée : AAAAAAA",
       "time": "30/08 20:32"
@@ -7201,6 +7196,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0086 - Toluidine",
       "time": "01/09 18:00"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0023 - Adrénaline",
+      "time": "01/09 18:01"
     }
   ]
 }
