@@ -2761,10 +2761,30 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785336377803": "en_cours"
+        "1785336377803": "terminee",
+        "1786520419939": "terminee",
+        "1785247477146": "terminee",
+        "1785247569532": "terminee",
+        "1786638360226": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026"
+        },
+        "1786520419939": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026"
+        },
+        "1785247477146": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026"
+        },
+        "1785247569532": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026"
+        },
+        "1786638360226": {
           "en_cours": "01/09/2026"
         }
       }
@@ -6771,26 +6791,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : verifiee",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA — pH : verifiee",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA — LIMPIDITE / COLORATION US : verifiee",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA — LIMPIDITE / COLORATION PE : verifiee",
-      "time": "30/08 08:59"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA — TCC0004 - LIDOCAINE / PHBM : verifiee",
       "time": "30/08 08:59"
     },
@@ -7018,6 +7018,26 @@
       "icon": "list-check",
       "text": "BBBBBB — AMINES TERTIAIRES : en_cours",
       "time": "01/09 15:26"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — IDENTIFICATION LIDOCAINE USP : en_cours",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — LIMPIDITE / COLORATION PE : en_cours",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — LIMPIDITE / COLORATION US : en_cours",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — PARTICULES VISIBLES : en_cours",
+      "time": "01/09 15:42"
     }
   ]
 }
