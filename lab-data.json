@@ -2758,8 +2758,16 @@
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "2026-09-01",
       "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785336377803": "en_cours"
+      },
+      "analyseStatutsInfo": {
+        "1785336377803": {
+          "en_cours": "01/09/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -6763,11 +6771,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA — TCC0004 - LIDOCAINE / PHBM : en_cours",
-      "time": "30/08 08:58"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA — IDENTIFICATION LIDOCAINE USP : verifiee",
       "time": "30/08 08:58"
     },
@@ -7010,6 +7013,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 14 analyse(s)",
       "time": "01/09 15:22"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — AMINES TERTIAIRES : en_cours",
+      "time": "01/09 15:26"
     }
   ]
 }
