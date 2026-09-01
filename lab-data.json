@@ -4979,6 +4979,26 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1788275615295,
+      "date": "2026-09-01",
+      "techId": "1786302836845",
+      "desc": "TCC0041 - IODE TOTALE",
+      "analyseNom": "TCC0041 - IODE TOTALE",
+      "analyseId": 1786637357048,
+      "sousKey": null,
+      "echId": 1788158214059,
+      "type": "analyse",
+      "sousAnalyses": [
+        "TCC0041 - Titrage Nitrate d'Argent 0",
+        "5 M",
+        "Vérification TCC0041 - Iode Totale"
+      ],
+      "color": null,
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "spq": [
