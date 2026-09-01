@@ -2761,33 +2761,40 @@
       "statut": "en_analyse",
       "note": "",
       "analyseStatuts": {
-        "1785336377803": "terminee",
-        "1786520419939": "terminee",
-        "1785247477146": "terminee",
-        "1785247569532": "terminee",
+        "1785336377803": "verifiee",
+        "1786520419939": "verifiee",
+        "1785247477146": "verifiee",
+        "1785247569532": "verifiee",
         "1786638360226": "en_cours"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
           "en_cours": "01/09/2026",
-          "terminee": "01/09/2026"
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
         },
         "1786520419939": {
           "en_cours": "01/09/2026",
-          "terminee": "01/09/2026"
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
         },
         "1785247477146": {
           "en_cours": "01/09/2026",
-          "terminee": "01/09/2026"
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
         },
         "1785247569532": {
           "en_cours": "01/09/2026",
-          "terminee": "01/09/2026"
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
         },
         "1786638360226": {
           "en_cours": "01/09/2026"
         }
-      }
+      },
+      "_marcheIdsMerged": [
+        1785170017612
+      ]
     }
   ],
   "techniciens": [
@@ -6790,26 +6797,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "AAAAAAA — TCC0004 - LIDOCAINE / PHBM : verifiee",
-      "time": "30/08 08:59"
-    },
-    {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : AAAAAAA",
-      "time": "30/08 08:59"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot approuvé : AAAAAAA",
-      "time": "30/08 08:59"
-    },
-    {
-      "icon": "rosette",
-      "text": "Lot libéré : AAAAAAA",
-      "time": "30/08 10:51"
-    },
-    {
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "30/08 11:06"
@@ -7037,6 +7024,26 @@
     {
       "icon": "list-check",
       "text": "BBBBBB — PARTICULES VISIBLES : en_cours",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — LIMPIDITE / COLORATION PE : verifiee",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — IDENTIFICATION LIDOCAINE USP : verifiee",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — AMINES TERTIAIRES : verifiee",
+      "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — LIMPIDITE / COLORATION US : verifiee",
       "time": "01/09 15:42"
     }
   ]
