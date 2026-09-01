@@ -776,7 +776,7 @@
     },
     {
       "id": 1786344340215,
-      "nom": "TCC0012 - PRILOCAINE",
+      "nom": "TCC0012 - Prilocaïne",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6955,11 +6955,6 @@
     {
       "icon": "pencil",
       "text": "Réception modifiée : AAAAAAA",
-      "time": "30/08 20:32"
-    },
-    {
-      "icon": "pencil",
-      "text": "Réception modifiée : AAAAAAA",
       "time": "30/08 20:33"
     },
     {
@@ -7201,6 +7196,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0023 - Adrénaline",
       "time": "01/09 18:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0012 - Prilocaïne",
+      "time": "01/09 18:02"
     }
   ]
 }
