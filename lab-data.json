@@ -2663,7 +2663,7 @@
         "1786960813583": "terminee",
         "1786960860663": "a_lancer",
         "1786637357048": "a_lancer",
-        "1786637416398": "a_lancer",
+        "1786637416398": "terminee",
         "1786960782872": "a_lancer",
         "1785170145444": "a_lancer"
       },
@@ -2677,6 +2677,9 @@
         },
         "1786960813583": {
           "terminee": "31/08/2026"
+        },
+        "1786637416398": {
+          "terminee": "01/09/2026"
         }
       },
       "resultats": {
@@ -2738,6 +2741,27 @@
           "date": "31/08/2026",
           "unite": "",
           "statutAnalyse": "ok"
+        },
+        "1786637416398": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Indice d'Acide",
+                  "valeur": "< LOQ",
+                  "valeurBrute": "",
+                  "operateur": "<",
+                  "qualificateur": "LOQ",
+                  "unite": "mgKOH/g",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "01/09/2026",
+          "unite": ""
         }
       }
     },
