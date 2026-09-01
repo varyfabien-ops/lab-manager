@@ -1022,7 +1022,7 @@
     },
     {
       "id": 1786637357048,
-      "nom": "TCC0041 - IODE TOTALE",
+      "nom": "TCC0041 - Iode Totale",
       "habilitations": [
         "Titrimétrie"
       ],
@@ -1039,8 +1039,7 @@
       ],
       "resultatRequis": true,
       "sousAnalyses": [
-        "TCC0041 - Titrage Nitrate d'Argent 0",
-        "5 M",
+        "TCC0041 - Titrage Nitrate d'Argent 0.05 M",
         "Vérification TCC0041 - Iode Totale"
       ]
     },
@@ -6954,11 +6953,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : TEST (3 réception(s))",
-      "time": "30/08 20:19"
-    },
-    {
       "icon": "package",
       "text": "Réception: Carbocaïne 10 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
       "time": "30/08 20:23"
@@ -7202,6 +7196,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Indice d'Acide",
       "time": "01/09 17:58"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0041 - Iode Totale",
+      "time": "01/09 17:59"
     }
   ]
 }
