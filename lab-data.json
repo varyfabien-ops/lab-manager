@@ -2758,14 +2758,20 @@
       "dateFabrication": "2026-08-15",
       "dateMiseStabilite": "2026-09-01",
       "dateSortieEnceinte": "",
-      "statut": "en_analyse",
+      "statut": "a_approuver",
       "note": "",
       "analyseStatuts": {
         "1785336377803": "verifiee",
         "1786520419939": "verifiee",
         "1785247477146": "verifiee",
         "1785247569532": "verifiee",
-        "1786638360226": "en_cours"
+        "1786638360226": "verifiee",
+        "1785170122728": "verifiee",
+        "1785247382413": "verifiee",
+        "1785247529863": "verifiee",
+        "1785170145444": "verifiee",
+        "1786637253094": "verifiee",
+        "1785247344996": "verifiee"
       },
       "analyseStatutsInfo": {
         "1785336377803": {
@@ -2789,12 +2795,45 @@
           "verifiee": "01/09/2026"
         },
         "1786638360226": {
-          "en_cours": "01/09/2026"
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
+        },
+        "1785170122728": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
+        },
+        "1785247382413": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
+        },
+        "1785247529863": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
+        },
+        "1785170145444": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
+        },
+        "1786637253094": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
+        },
+        "1785247344996": {
+          "en_cours": "01/09/2026",
+          "terminee": "01/09/2026",
+          "verifiee": "01/09/2026"
         }
       },
       "_marcheIdsMerged": [
         1785170017612
-      ]
+      ],
+      "dateMiseADispo": "01/09/2026"
     }
   ],
   "techniciens": [
@@ -6797,76 +6836,6 @@
   },
   "activity": [
     {
-      "icon": "archive",
-      "text": "Lot archive : AAAAAAA",
-      "time": "30/08 11:06"
-    },
-    {
-      "icon": "archive",
-      "text": "Archivé : NITRATE D'ARGENT 0,05M lot 26B104123",
-      "time": "30/08 11:08"
-    },
-    {
-      "icon": "trash",
-      "text": "Contenant supprime : lot 26B104123",
-      "time": "30/08 11:08"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Citanest 5 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
-      "time": "30/08 20:10"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — LIMPIDITE / COLORATION PE : en_cours",
-      "time": "30/08 20:10"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — pH : en_cours",
-      "time": "30/08 20:10"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — TCC0002 - SODIUM : en_cours",
-      "time": "30/08 20:10"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — TCC0004 - Prilocaïne / PHBM : en_cours",
-      "time": "30/08 20:10"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — VOLUME EXTRACTIBLE : en_cours",
-      "time": "30/08 20:10"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — LIMPIDITE / COLORATION PE : verifiee",
-      "time": "30/08 20:11"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — pH : verifiee",
-      "time": "30/08 20:11"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — TCC0002 - SODIUM : verifiee",
-      "time": "30/08 20:11"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — TCC0004 - Prilocaïne / PHBM : verifiee",
-      "time": "30/08 20:11"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — VOLUME EXTRACTIBLE : verifiee",
-      "time": "30/08 20:11"
-    },
-    {
       "icon": "clock",
       "text": "Lot envoyé en approbation : AAAAAAA",
       "time": "30/08 20:11"
@@ -7045,6 +7014,76 @@
       "icon": "list-check",
       "text": "BBBBBB — LIMPIDITE / COLORATION US : verifiee",
       "time": "01/09 15:42"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — pH : en_cours",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0002 - SODIUM : en_cours",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0004 - BUPIVACAINE : en_cours",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — VOLUME EXTRACTIBLE : en_cours",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0086 - 2.6 DMA : en_cours",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0004 - LIDOCAINE / PHBM : en_cours",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0086 - 2.6 DMA : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — VOLUME EXTRACTIBLE : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — PARTICULES VISIBLES : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — pH : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0002 - SODIUM : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0004 - BUPIVACAINE : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "list-check",
+      "text": "BBBBBB — TCC0004 - LIDOCAINE / PHBM : verifiee",
+      "time": "01/09 16:01"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : BBBBBB",
+      "time": "01/09 16:01"
     }
   ]
 }
