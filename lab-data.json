@@ -4942,6 +4942,25 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1788275489324,
+      "date": "2026-09-01",
+      "techId": "1786178889272",
+      "desc": "Vérification TCC0041 - Iode Totale",
+      "analyseNom": "Vérification TCC0041 - Iode Totale",
+      "analyseId": 1786637357048,
+      "sousKey": "1786637357048_sous_2",
+      "echId": 1788158214059,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E8F5E9",
+        "border": "#4CAF50"
+      },
+      "isSous": true,
+      "parentNom": "TCC0041 - IODE TOTALE",
+      "manuel": false
     }
   ],
   "spq": [
