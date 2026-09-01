@@ -1164,7 +1164,7 @@
     },
     {
       "id": 1786638279844,
-      "nom": "TCC0086 - TOLUIDINE",
+      "nom": "TCC0086 - Toluidine",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6953,11 +6953,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Réception modifiée : AAAAAAA",
-      "time": "30/08 20:27"
-    },
-    {
       "icon": "barcode",
       "text": "Article modifié : M74011000",
       "time": "30/08 20:32"
@@ -7201,6 +7196,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "01/09 17:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0086 - Toluidine",
+      "time": "01/09 18:00"
     }
   ]
 }
