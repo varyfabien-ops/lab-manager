@@ -500,7 +500,7 @@
     },
     {
       "id": 1785247344996,
-      "nom": "TCC0004 - LIDOCAINE / PHBM",
+      "nom": "TCC0004 - Lidocaïne / PHBM",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6941,11 +6941,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 0 analyse(s)",
-      "time": "30/08 20:15"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprimé partout : AAAAAAA (5 réception(s))",
       "time": "30/08 20:15"
@@ -7188,6 +7183,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
+      "time": "01/09 17:56"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
       "time": "01/09 17:56"
     }
   ]
