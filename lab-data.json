@@ -884,7 +884,7 @@
     },
     {
       "id": 1786533393826,
-      "nom": "TCC0003 - METABISULFITE DE SODIUM",
+      "nom": "TCC0003 - Métabisulfite de Sodium",
       "habilitations": [
         "Burette"
       ],
@@ -892,9 +892,17 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [],
-      "resultatRequis": false,
-      "sousAnalyses": []
+      "champsResultats": [
+        {
+          "label": "Teneur en Métabisulfite de Sodium",
+          "type": "numerique",
+          "unite": "mg/mL"
+        }
+      ],
+      "resultatRequis": true,
+      "sousAnalyses": [
+        "Vérification TCC0002 - Métabisulfite de Sodiul"
+      ]
     },
     {
       "id": 1786533442513,
@@ -6927,11 +6935,6 @@
   },
   "activity": [
     {
-      "icon": "rosette",
-      "text": "Lot restauré depuis les archives : AAAAAAA",
-      "time": "30/08 20:14"
-    },
-    {
       "icon": "archive",
       "text": "Lot archive : AAAAAAA",
       "time": "30/08 20:14"
@@ -7175,6 +7178,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0002 - Sodium",
       "time": "01/09 17:54"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0003 - Métabisulfite de Sodium",
+      "time": "01/09 17:55"
     }
   ]
 }
