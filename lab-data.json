@@ -4925,6 +4925,23 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": 1788275460856,
+      "date": "2026-09-01",
+      "techId": "1786178889272",
+      "desc": "Poste des Eaux - Conductivité",
+      "analyseNom": "Poste des Eaux - Conductivité",
+      "sousKey": "cond_2026-08-31_1",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#E3F2FD",
+        "border": "#2196F3"
+      },
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
     }
   ],
   "spq": [
