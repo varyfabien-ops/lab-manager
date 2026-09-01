@@ -1055,7 +1055,7 @@
     },
     {
       "id": 1786637506133,
-      "nom": "TCC0004 - LIDOCAINE NEBULISEUR - DM",
+      "nom": "TCC0004 - Lidocaïne Nébuliseur - DM",
       "habilitations": [
         "HPLC",
         "Balance",
@@ -6941,11 +6941,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : AAAAAAA (5 réception(s))",
-      "time": "30/08 20:15"
-    },
-    {
       "icon": "rosette",
       "text": "Lot restauré depuis les archives : BBBBBB",
       "time": "30/08 20:15"
@@ -7188,6 +7183,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
+      "time": "01/09 17:56"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - DM",
       "time": "01/09 17:56"
     }
   ]
