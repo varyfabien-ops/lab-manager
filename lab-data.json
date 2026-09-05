@@ -4838,6 +4838,24 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
+    },
+    {
+      "id": 1788633785626,
+      "date": "2026-09-07",
+      "techId": "1786271486368",
+      "desc": "Documentation",
+      "analyseNom": "Documentation",
+      "analyseId": null,
+      "echId": null,
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      },
+      "supplementaire": true
     }
   ],
   "spq": [
