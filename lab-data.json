@@ -172,102 +172,6 @@
       "note": "Auto: 995968"
     },
     {
-      "id": 1788158214060.3176,
-      "nom": "ABSORBANCE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.83,
-      "nom": "APPARENCE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.251,
-      "nom": "DENSITE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.893,
-      "nom": "IODE LIBRE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.2961,
-      "nom": "TCC0041 - IODE TOTALE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.189,
-      "nom": "TCC0041 - INDICE D'ACIDE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.713,
-      "nom": "VISCOSITE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
-      "id": 1788158214060.5928,
-      "nom": "VOLUME EXTRACTIBLE",
-      "echantillonId": 1788158214059,
-      "echantillonCode": "AAAAAAA",
-      "date": "2026-08-31",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T24M",
-      "echeanceId": 1786960698600,
-      "note": "Auto: AAAAAAA"
-    },
-    {
       "id": 1788268944204.1504,
       "nom": "IDENTIFICATION LIDOCAINE USP",
       "echantillonId": 1788268944203,
@@ -2619,152 +2523,6 @@
     }
   ],
   "echantillons": [
-    {
-      "id": 1788158214059,
-      "code": "AAAAAAA",
-      "lot": "AAAAAAA",
-      "articleId": 1786960543922,
-      "articleCode": "M75260000",
-      "produitId": 1786960543922,
-      "marcheIds": [],
-      "analysesIds": [
-        1786638196863,
-        1786624072580,
-        1786960813583,
-        1786960860663,
-        1786637357048,
-        1786637416398,
-        1786960782872,
-        1785170145444
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC0381",
-      "stabEcheance": "T24M",
-      "stabTemps": "25°C",
-      "stabEtudeId": 1786961858161,
-      "ptcId": 1786960643216,
-      "conditionId": 1786779420753,
-      "conditionIds": [
-        1786779420753
-      ],
-      "echeanceId": 1786960698600,
-      "date": "2026-08-31",
-      "dateFabrication": "2024-08-15",
-      "dateMiseStabilite": "2024-09-01",
-      "statut": "en_analyse",
-      "note": "",
-      "analyseStatuts": {
-        "1786624072580": "terminee",
-        "1786638196863": "terminee",
-        "1786960813583": "terminee",
-        "1786960860663": "a_lancer",
-        "1786637357048": "a_lancer",
-        "1786637416398": "terminee",
-        "1786960782872": "a_lancer",
-        "1785170145444": "a_lancer"
-      },
-      "analyseStatutsInfo": {
-        "1786624072580": {
-          "en_cours": "31/08/2026",
-          "terminee": "31/08/2026"
-        },
-        "1786638196863": {
-          "terminee": "31/08/2026"
-        },
-        "1786960813583": {
-          "terminee": "31/08/2026"
-        },
-        "1786637416398": {
-          "terminee": "01/09/2026"
-        }
-      },
-      "resultats": {
-        "1786624072580": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "conforme",
-                  "unite": ""
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "31/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786638196863": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Absorbance à 420 nm",
-                  "valeur": "0.40",
-                  "unite": ""
-                },
-                {
-                  "label": "Absorbance à 460 nm",
-                  "valeur": "0.32",
-                  "unite": ""
-                }
-              ]
-            }
-          ],
-          "commentaire": "S-2607-12345",
-          "date": "31/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786960813583": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Résultat",
-                  "valeur": "1.023",
-                  "unite": "g/cm3"
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "31/08/2026",
-          "unite": "",
-          "statutAnalyse": "ok"
-        },
-        "1786637416398": {
-          "conditions": [
-            {
-              "condition": "25°C",
-              "champs": [
-                {
-                  "label": "Indice d'Acide",
-                  "valeur": "< LOQ",
-                  "valeurBrute": "",
-                  "operateur": "<",
-                  "qualificateur": "LOQ",
-                  "unite": "mgKOH/g",
-                  "commentaire": ""
-                }
-              ]
-            }
-          ],
-          "commentaire": "",
-          "date": "01/09/2026",
-          "unite": ""
-        }
-      }
-    },
     {
       "id": 1788268944203,
       "code": "BBBBBB",
@@ -6332,6 +6090,28 @@
         "dateApprobation": "—",
         "dateLiberation": "—"
       }
+    },
+    {
+      "id": 1788598842579,
+      "lot": "AAAAAAA",
+      "justification": "Lot Détruit",
+      "date": "05/09/2026 11:00:42",
+      "receptions": 1,
+      "snapshot": {
+        "produit": "Lipiodol 10mL Autoclavé",
+        "articleCode": "M75260000",
+        "type": "STAB",
+        "typeHtml": "<span class=\"badge badge-purple\" style=\"font-size:11px\">STAB</span>",
+        "sousSerie": "—",
+        "sousSerieHtml": "<span style=\"color:var(--text3)\">—</span>",
+        "marche": "—",
+        "marcheHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "echeance": "T24M25°C",
+        "echeanceHtml": "<span class=\"badge badge-purple\" style=\"font-size:11px\">T24M</span><br><span style=\"display:inline-flex;flex-wrap:wrap;justify-content:center;gap:3px\"><span class=\"badge\" style=\"background:#43A04720;color:#43A047;border:none;font-size:11px\">25°C</span></span>",
+        "dateReception": "31/08/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
     }
   ],
   "etiquettesLibres": [
@@ -6994,11 +6774,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "AAAAAAA-1 — TCC0002 - SODIUM : en_cours",
-      "time": "30/08 20:33"
-    },
-    {
-      "icon": "list-check",
       "text": "AAAAAAA-1 — TCC0002 - SODIUM : verifiee",
       "time": "30/08 20:33"
     },
@@ -7241,6 +7016,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
       "time": "01/09 18:16"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : AAAAAAA (1 réception(s)) — Motif : Lot Détruit",
+      "time": "05/09 11:00"
     }
   ]
 }
