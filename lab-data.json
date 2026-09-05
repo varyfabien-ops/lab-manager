@@ -2491,6 +2491,16 @@
       "habilitations": [],
       "date": "2026-08-24",
       "statut": "actif"
+    },
+    {
+      "id": 1788633979042,
+      "prenom": "Romane",
+      "nom": "MORIN-DELAURIERE",
+      "visa": "RMD",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "2026-09-01",
+      "statut": "actif"
     }
   ],
   "planTasks": [
@@ -6834,11 +6844,6 @@
   },
   "activity": [
     {
-      "icon": "clock",
-      "text": "Lot envoyé en approbation : AAAAAAA",
-      "time": "30/08 20:34"
-    },
-    {
       "icon": "rosette",
       "text": "Lot approuvé : AAAAAAA",
       "time": "30/08 20:35"
@@ -7082,6 +7087,11 @@
       "icon": "trash",
       "text": "Lot supprimé partout : BBBBBB (1 réception(s)) — Motif : Lot détruit",
       "time": "05/09 11:02"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien ajoute : Romane MORIN-DELAURIERE",
+      "time": "05/09 20:46"
     }
   ]
 }
