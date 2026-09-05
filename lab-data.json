@@ -170,174 +170,6 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
-    },
-    {
-      "id": 1788268944204.1504,
-      "nom": "IDENTIFICATION LIDOCAINE USP",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.3555,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.0798,
-      "nom": "LIMPIDITE / COLORATION US",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.636,
-      "nom": "pH",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.9849,
-      "nom": "TCC0004 - LIDOCAINE / PHBM",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.495,
-      "nom": "AMINES TERTIAIRES",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.5884,
-      "nom": "PARTICULES VISIBLES",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.8438,
-      "nom": "TCC0002 - SODIUM",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.2344,
-      "nom": "TCC0004 - BUPIVACAINE",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.8674,
-      "nom": "TCC0086 - 2.6 DMA",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.998,
-      "nom": "VOLUME EXTRACTIBLE",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.6453,
-      "nom": "Contamination Particulaire - Particules sub-visibles",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.1497,
-      "nom": "Endotoxin",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
-    },
-    {
-      "id": 1788268944204.1802,
-      "nom": "Sterility",
-      "echantillonId": 1788268944203,
-      "echantillonCode": "BBBBBB",
-      "date": "2026-09-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: BBBBBB"
     }
   ],
   "catalogue": [
@@ -2522,144 +2354,7 @@
       "code": "HK"
     }
   ],
-  "echantillons": [
-    {
-      "id": 1788268944203,
-      "code": "BBBBBB",
-      "lot": "BBBBBB",
-      "articleId": 1786536010853,
-      "articleCode": "M70026001",
-      "produitId": 1786536010853,
-      "marcheIds": [
-        1785170017612
-      ],
-      "analysesIds": [
-        1786520419939,
-        1785247477146,
-        1785247569532,
-        1785170122728,
-        1785247344996,
-        1785336377803,
-        1786638360226,
-        1785247382413,
-        1785247529863,
-        1786637253094,
-        1785170145444,
-        1787126393243,
-        1786994574820,
-        1786994550749
-      ],
-      "analysesParMarche": {
-        "1786520419939": [
-          1785170017612
-        ],
-        "1785247477146": [
-          1785170017612
-        ],
-        "1785247569532": [
-          1785170017612
-        ],
-        "1785170122728": [
-          1785170017612
-        ],
-        "1785247344996": [
-          1785170017612
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "SPQ0047",
-      "refPTC": "PTC0274",
-      "stabEcheance": "T0",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": 1787126476842,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": 1786779461576,
-      "date": "2026-09-01",
-      "dateFabrication": "2026-08-15",
-      "dateMiseStabilite": "2026-09-01",
-      "dateSortieEnceinte": "",
-      "statut": "a_approuver",
-      "note": "",
-      "analyseStatuts": {
-        "1785336377803": "verifiee",
-        "1786520419939": "verifiee",
-        "1785247477146": "verifiee",
-        "1785247569532": "verifiee",
-        "1786638360226": "verifiee",
-        "1785170122728": "verifiee",
-        "1785247382413": "verifiee",
-        "1785247529863": "verifiee",
-        "1785170145444": "verifiee",
-        "1786637253094": "verifiee",
-        "1785247344996": "verifiee"
-      },
-      "analyseStatutsInfo": {
-        "1785336377803": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1786520419939": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785247477146": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785247569532": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1786638360226": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785170122728": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785247382413": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785247529863": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785170145444": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1786637253094": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        },
-        "1785247344996": {
-          "en_cours": "01/09/2026",
-          "terminee": "01/09/2026",
-          "verifiee": "01/09/2026"
-        }
-      },
-      "_marcheIdsMerged": [
-        1785170017612
-      ],
-      "dateMiseADispo": "01/09/2026"
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -6112,6 +5807,28 @@
         "dateApprobation": "—",
         "dateLiberation": "—"
       }
+    },
+    {
+      "id": 1788598958878,
+      "lot": "BBBBBB",
+      "justification": "Lot détruit",
+      "date": "05/09/2026 11:02:38",
+      "receptions": 1,
+      "snapshot": {
+        "produit": "Xylocaïne 20 mg/mL + Adrénaline (SC)",
+        "articleCode": "M70026001",
+        "type": "PIF + STAB",
+        "typeHtml": "<span class=\"badge badge-amber\" style=\"font-size:11px\">PIF</span> <span class=\"badge badge-purple\" style=\"font-size:11px\">STAB</span>",
+        "sousSerie": "1",
+        "sousSerieHtml": "<span class=\"badge badge-yellow\" style=\"font-size:11px;font-weight:600;padding:2px 8px\">1</span>",
+        "marche": "CANADA",
+        "marcheHtml": "<span class=\"badge badge-blue\" style=\"font-size:11px\">CANADA</span>",
+        "echeance": "T0",
+        "echeanceHtml": "<span class=\"badge badge-purple\" style=\"font-size:11px\">T0</span>",
+        "dateReception": "01/09/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
     }
   ],
   "etiquettesLibres": [
@@ -6773,11 +6490,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — TCC0002 - SODIUM : verifiee",
-      "time": "30/08 20:33"
-    },
-    {
       "icon": "clock",
       "text": "Lot envoyé en approbation : AAAAAAA",
       "time": "30/08 20:34"
@@ -7021,6 +6733,11 @@
       "icon": "trash",
       "text": "Lot supprimé partout : AAAAAAA (1 réception(s)) — Motif : Lot Détruit",
       "time": "05/09 11:00"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : BBBBBB (1 réception(s)) — Motif : Lot détruit",
+      "time": "05/09 11:02"
     }
   ]
 }
