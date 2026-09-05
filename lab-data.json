@@ -5922,10 +5922,12 @@
       "icone": "ti-clipboard-list",
       "color": "#FF9800",
       "modules": [
-        "echantillons",
-        "articles",
-        "stab-conditions",
-        "etudes-ptc"
+        "echantillons"
+      ],
+      "tabs": [
+        "suivi:enregistrement",
+        "suivi:archives",
+        "suivi:suppressions"
       ]
     },
     {
