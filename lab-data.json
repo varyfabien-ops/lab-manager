@@ -6126,6 +6126,18 @@
       "dateLiv": "2026-08-30",
       "dateReception": "2026-08-23",
       "archivedAt": "23/08/2026"
+    },
+    {
+      "id": 1788634081641,
+      "produitId": 1787303691241,
+      "nom": "ACETONITRILE RS (HPLC)",
+      "fournisseur": "CARLO ERBA",
+      "ref": "412372000",
+      "ficheProduit": "",
+      "da": "BBBB",
+      "dateLiv": "2026-09-10",
+      "dateReception": "2026-09-05",
+      "archivedAt": "05/09/2026"
     }
   ],
   "enregistrements": [],
@@ -6838,11 +6850,6 @@
       "statut": "en_attente",
       "da": "YYYYYYY",
       "dateLiv": "2026-08-16"
-    },
-    "1787303691241": {
-      "statut": "en_attente",
-      "da": "BBBB",
-      "dateLiv": "2026-09-10"
     }
   },
   "planRythmesLocked": {
