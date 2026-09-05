@@ -4866,6 +4866,22 @@
         "border": "#F57C00"
       },
       "supplementaire": true
+    },
+    {
+      "id": 1927650394,
+      "date": "2026-09-04",
+      "techId": "1788633979042",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-31_1788633979042",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
     }
   ],
   "spq": [
@@ -6822,6 +6838,10 @@
       "statut": "en_attente",
       "da": "YYYYYYY",
       "dateLiv": "2026-08-16"
+    },
+    "1787303691241": {
+      "statut": "commandee",
+      "da": "BBBB"
     }
   },
   "planRythmesLocked": {
