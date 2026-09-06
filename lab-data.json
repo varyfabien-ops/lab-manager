@@ -6115,9 +6115,9 @@
       "color": "#f44336",
       "modules": [
         "stabilites",
-        "stab-conditions",
         "etudes-ptc"
-      ]
+      ],
+      "tabs": []
     }
   ],
   "commandesArchives": [
