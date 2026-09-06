@@ -2571,7 +2571,14 @@
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "_marcheIdsMerged": [
+        1786525368760,
+        1786525395528,
+        1785262197983
+      ],
+      "dateLiberationEstimee": "2026-10-01",
+      "commentaireLeadTime": ""
     },
     {
       "id": 1788718736665,
@@ -2634,7 +2641,9 @@
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "dateLiberationEstimee": "2026-10-01",
+      "commentaireLeadTime": ""
     }
   ],
   "techniciens": [
