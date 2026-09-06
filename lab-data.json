@@ -1109,74 +1109,98 @@
     {
       "id": 1786177709859,
       "nom": "Tampon pH 4",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "1.99001.0001",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/199001",
+      "cas": "",
       "localisation": "pHmètre",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "3",
       "qteCmde": "3",
-      "note": ""
+      "note": "1 Boîte = 30 * 30mL",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786177856625,
       "nom": "Tampon pH 7",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "1.99002.0001",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/199002",
+      "cas": "",
       "localisation": "pHmètre",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "3",
       "qteCmde": "3",
-      "note": ""
+      "note": "1 Boîte = 30 * 30mL",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786177976942,
       "nom": "Tampon pH 10",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "1.99004.0001",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/199004",
+      "cas": "",
       "localisation": "pHmètre",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "3",
       "qteCmde": "3",
-      "note": ""
+      "note": "1 Boîte = 30 * 30mL",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786178095292,
       "nom": "Tampon pH 9",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "1.99003.0001",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/199003",
+      "cas": "",
       "localisation": "pHmètre",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "3",
       "qteCmde": "3",
-      "note": ""
+      "note": "1 Boîte = 30 * 30mL",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786178456775,
       "nom": "Tampon pH 12",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "1.99022.0001",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/199022",
+      "cas": "",
       "localisation": "pHmètre",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "1",
       "qteCmde": "1",
-      "note": ""
+      "note": "1 Boîte = 30 * 30mL",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786178517315,
       "nom": "Tampon pH 2",
-      "fournisseur": "MERCK",
+      "fournisseur": "MERCK - SUPELCO",
       "ref": "1.99012.0001",
+      "ficheProduit": "https://www.sigmaaldrich.com/FR/fr/product/mm/199012",
+      "cas": "",
       "localisation": "pHmètre",
       "fc": "1",
       "conditionnement": "1 Boîte",
       "stockMin": "3",
       "qteCmde": "3",
-      "note": ""
+      "note": "1 Boîte = 30 * 30mL",
+      "bvs": false,
+      "estTitree": false
     },
     {
       "id": 1786207222803,
@@ -6872,76 +6896,6 @@
   },
   "activity": [
     {
-      "icon": "rosette",
-      "text": "Lot approuvé : AAAAAAA",
-      "time": "30/08 20:35"
-    },
-    {
-      "icon": "trash",
-      "text": "Lot supprimé partout : AAAAAAA (3 réception(s)) — Motif : Lot Détruit",
-      "time": "30/08 20:36"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Carbocaïne 10 mg/mL (SC) — 3 entrée(s) — 5 analyse(s)",
-      "time": "30/08 20:44"
-    },
-    {
-      "icon": "pencil",
-      "text": "Réception modifiée : AAAAAAA",
-      "time": "30/08 20:44"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA-1 — pH : en_cours",
-      "time": "30/08 20:44"
-    },
-    {
-      "icon": "trash",
-      "text": "Lot supprimé partout : AAAAAAA (3 réception(s)) — Motif : Lot Détruit",
-      "time": "30/08 20:44"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
-      "time": "31/08 08:36"
-    },
-    {
-      "icon": "list-check",
-      "text": "AAAAAAA — APPARENCE : en_cours",
-      "time": "31/08 08:37"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : APPARENCE",
-      "time": "31/08 15:10"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Xylocaïne 20 mg/mL + Adrénaline (SC) — 1 entrée(s) — 14 analyse(s)",
-      "time": "01/09 15:22"
-    },
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — AMINES TERTIAIRES : en_cours",
-      "time": "01/09 15:26"
-    },
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — IDENTIFICATION LIDOCAINE USP : en_cours",
-      "time": "01/09 15:42"
-    },
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — LIMPIDITE / COLORATION PE : en_cours",
-      "time": "01/09 15:42"
-    },
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — LIMPIDITE / COLORATION US : en_cours",
-      "time": "01/09 15:42"
-    },
-    {
       "icon": "list-check",
       "text": "BBBBBB — PARTICULES VISIBLES : en_cours",
       "time": "01/09 15:42"
@@ -7120,6 +7074,76 @@
       "icon": "certificate",
       "text": "Technicien ajoute : Romane MORIN-DELAURIERE",
       "time": "05/09 20:46"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 10",
+      "time": "05/09 20:50"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 10",
+      "time": "05/09 20:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 12",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 12",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 10",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 2",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 4",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 2",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 7",
+      "time": "05/09 20:53"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 9",
+      "time": "05/09 20:54"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 2",
+      "time": "05/09 20:54"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 4",
+      "time": "05/09 20:55"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 7",
+      "time": "05/09 20:55"
+    },
+    {
+      "icon": "pencil",
+      "text": "Produit modifie : Tampon pH 9",
+      "time": "05/09 20:56"
     }
   ]
 }
