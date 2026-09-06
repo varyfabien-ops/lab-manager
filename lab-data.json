@@ -1919,6 +1919,16 @@
           "date": "2026-08-20",
           "techId": 1785175077562,
           "numero": "HCPC0077-J p.24-2",
+          "verifiePar": 1786178889272,
+          "verifieLe": "06/09/2026"
+        },
+        {
+          "id": 1788676849692,
+          "valeur": "0,0503 M",
+          "date": "2026-09-06",
+          "techId": 1785175077562,
+          "numero": "HCPC0077-J p.26-1",
+          "methode": "INC0280",
           "verifiePar": null,
           "verifieLe": null
         }
@@ -6897,16 +6907,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — PARTICULES VISIBLES : en_cours",
-      "time": "01/09 15:42"
-    },
-    {
-      "icon": "list-check",
-      "text": "BBBBBB — LIMPIDITE / COLORATION PE : verifiee",
-      "time": "01/09 15:42"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — IDENTIFICATION LIDOCAINE USP : verifiee",
       "time": "01/09 15:42"
     },
@@ -7144,6 +7144,16 @@
       "icon": "pencil",
       "text": "Produit modifie : Tampon pH 9",
       "time": "05/09 20:56"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage vérifié pour IODE 0,05M — Lot HX56615899",
+      "time": "06/09 08:39"
+    },
+    {
+      "icon": "droplet",
+      "text": "Titrage enregistré pour IODE 0,05M — Lot HX56615899 (0,0503 M)",
+      "time": "06/09 08:40"
     }
   ]
 }
