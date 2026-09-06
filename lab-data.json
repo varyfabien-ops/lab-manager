@@ -290,6 +290,102 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: 1-2"
+    },
+    {
+      "id": 1788718860845.1262,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.817,
+      "nom": "IODE LIBRE",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.5806,
+      "nom": "APPARENCE",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.4895,
+      "nom": "ABSORBANCE",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.6294,
+      "nom": "VOLUME EXTRACTIBLE",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.463,
+      "nom": "TCC0041 - Iode Totale",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.3657,
+      "nom": "VISCOSITE",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
+    },
+    {
+      "id": 1788718860845.8784,
+      "nom": "DENSITE",
+      "echantillonId": 1788718860844,
+      "echantillonCode": "2",
+      "date": "2026-09-03",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T6M",
+      "echeanceId": 1786779469460,
+      "note": "Auto: 2"
     }
   ],
   "catalogue": [
@@ -2644,6 +2740,51 @@
       "note": "",
       "dateLiberationEstimee": "2026-10-01",
       "commentaireLeadTime": ""
+    },
+    {
+      "id": 1788718860844,
+      "code": "2",
+      "lot": "2",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [
+        null,
+        null,
+        null
+      ],
+      "analysesIds": [
+        1786637416398,
+        1786960860663,
+        1786624072580,
+        1786638196863,
+        1785170145444,
+        1786637357048,
+        1786960782872,
+        1786960813583
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC0381",
+      "stabEcheance": "T6M",
+      "stabTemps": "25°C, 40°C",
+      "stabEtudeId": 1786961858161,
+      "ptcId": 1786960643216,
+      "conditionId": 1786779420753,
+      "conditionIds": [
+        1786779420753,
+        1786779435869
+      ],
+      "echeanceId": 1786779469460,
+      "date": "2026-09-03",
+      "dateFabrication": "",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "2026-09-03",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7189,11 +7330,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — LIMPIDITE / COLORATION US : verifiee",
-      "time": "01/09 15:42"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — pH : en_cours",
       "time": "01/09 16:01"
     },
@@ -7436,6 +7572,11 @@
       "icon": "package",
       "text": "Réception: Xylocaïne 10 mg/mL (SC) — 2 entrée(s) — 5 analyse(s)",
       "time": "06/09 20:18"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
+      "time": "06/09 20:21"
     }
   ]
 }
