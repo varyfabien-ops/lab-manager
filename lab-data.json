@@ -2898,6 +2898,7 @@
       "habilitations": [
         "Balance",
         "Burette",
+        "Conductivité",
         "Densité",
         "ECD",
         "HPLC",
@@ -2911,8 +2912,8 @@
         "SAA",
         "STEP",
         "Titrimétrie",
+        "TOC",
         "UV",
-        "Vérification HPLC",
         "Viscosité",
         "Volume"
       ],
@@ -8287,11 +8288,6 @@
   },
   "activity": [
     {
-      "icon": "certificate",
-      "text": "Technicien ajoute : Romane MORIN-DELAURIERE",
-      "time": "05/09 20:46"
-    },
-    {
       "icon": "pencil",
       "text": "Produit modifie : Tampon pH 10",
       "time": "05/09 20:50"
@@ -8534,6 +8530,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Poste des Eaux - EDR",
+      "time": "07/09 22:02"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 22:02"
     }
   ]
