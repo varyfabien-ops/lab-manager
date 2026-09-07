@@ -1087,7 +1087,7 @@
     },
     {
       "id": 1786638196863,
-      "nom": "ABSORBANCE",
+      "nom": "Absorbance",
       "habilitations": [
         "UV"
       ],
@@ -7328,11 +7328,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0002 - SODIUM : en_cours",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — TCC0004 - BUPIVACAINE : en_cours",
       "time": "01/09 16:01"
     },
@@ -7575,6 +7570,11 @@
       "icon": "pencil",
       "text": "Réception modifiée : TEST",
       "time": "06/09 20:53"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Absorbance",
+      "time": "07/09 14:59"
     }
   ]
 }
