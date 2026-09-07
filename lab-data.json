@@ -2879,6 +2879,7 @@
         "ECD",
         "HPLC",
         "IR",
+        "MIRRHIA",
         "Osmolalité",
         "Particules",
         "pH",
@@ -2888,6 +2889,7 @@
         "STEP",
         "Titrimétrie",
         "UV",
+        "Vérification HPLC",
         "Viscosité",
         "Volume"
       ],
@@ -8243,11 +8245,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0012 - Prilocaïne",
-      "time": "01/09 18:02"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
       "time": "01/09 18:16"
     },
@@ -8490,6 +8487,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Titrage - Thiosulfate de Sodium 0,1 M",
       "time": "07/09 16:38"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Fabien VARY",
+      "time": "07/09 16:41"
     }
   ]
 }
