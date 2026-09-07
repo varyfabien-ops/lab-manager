@@ -783,7 +783,7 @@
     },
     {
       "id": 1786520419939,
-      "nom": "IDENTIFICATION LIDOCAINE USP",
+      "nom": "Identification Lidocaïne (USP)",
       "habilitations": [
         "IR"
       ],
@@ -794,7 +794,7 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": [
-        "Identification Lidocaïne USP - J2"
+        "Identification Lidocaïne (USP) - J2"
       ]
     },
     {
@@ -7328,11 +7328,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0086 - 2.6 DMA : verifiee",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — VOLUME EXTRACTIBLE : verifiee",
       "time": "01/09 16:01"
     },
@@ -7575,6 +7570,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Identification CMC",
       "time": "07/09 15:03"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Identification Lidocaïne (USP)",
+      "time": "07/09 15:04"
     }
   ]
 }
