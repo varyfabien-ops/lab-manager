@@ -1186,7 +1186,7 @@
     },
     {
       "id": 1786960813583,
-      "nom": "DENSITE",
+      "nom": "Densité",
       "habilitations": [
         "Densité"
       ],
@@ -7328,11 +7328,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0086 - 2.6 DMA : en_cours",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — TCC0004 - LIDOCAINE / PHBM : en_cours",
       "time": "01/09 16:01"
     },
@@ -7575,6 +7570,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Apparence",
       "time": "07/09 15:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Densité",
+      "time": "07/09 15:02"
     }
   ]
 }
