@@ -1353,6 +1353,20 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1788811278269,
+      "nom": "Poste des Eaux - Conductivité",
+      "habilitations": [
+        "Conductivité"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -8264,11 +8278,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse modifiée : TCC0015 - Lidocaïne Naphazoline",
-      "time": "01/09 18:16"
-    },
-    {
       "icon": "trash",
       "text": "Lot supprimé partout : AAAAAAA (1 réception(s)) — Motif : Lot Détruit",
       "time": "05/09 11:00"
@@ -8512,6 +8521,11 @@
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 16:41"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Poste des Eaux - Conductivité",
+      "time": "07/09 22:01"
     }
   ]
 }
