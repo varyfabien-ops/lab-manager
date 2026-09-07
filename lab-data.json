@@ -584,7 +584,7 @@
     },
     {
       "id": 1785336377803,
-      "nom": "AMINES TERTIAIRES",
+      "nom": "Amines Tertiaires",
       "habilitations": [
         "IR"
       ],
@@ -7328,11 +7328,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0004 - BUPIVACAINE : en_cours",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — VOLUME EXTRACTIBLE : en_cours",
       "time": "01/09 16:01"
     },
@@ -7574,6 +7569,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Absorbance",
+      "time": "07/09 14:59"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Amines Tertiaires",
       "time": "07/09 14:59"
     }
   ]
