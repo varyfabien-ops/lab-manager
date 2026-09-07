@@ -391,7 +391,7 @@
   "catalogue": [
     {
       "id": 1785169966496,
-      "nom": "OSMOLALITE",
+      "nom": "Osmolalité",
       "habilitations": [
         "Osmolalité"
       ],
@@ -407,7 +407,9 @@
         }
       ],
       "resultatRequis": true,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification Osmolalité"
+      ]
     },
     {
       "id": 1785170122728,
@@ -8132,11 +8134,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0003 - Métabisulfite de Sodium",
-      "time": "01/09 17:55"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Bupivacaïne",
       "time": "01/09 17:56"
     },
@@ -8379,6 +8376,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Limpidité / Coloration (US)",
       "time": "07/09 15:17"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Osmolalité",
+      "time": "07/09 15:18"
     }
   ]
 }
