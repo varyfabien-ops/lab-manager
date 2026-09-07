@@ -2958,7 +2958,27 @@
       "nom": "BERTHELOT",
       "visa": "KBT",
       "role": "Technicien CQ",
-      "habilitations": [],
+      "habilitations": [
+        "Balance",
+        "Burette",
+        "Conductivité",
+        "Densité",
+        "ECD",
+        "HPLC",
+        "IR",
+        "MIRRHIA",
+        "Osmolalité",
+        "Particules",
+        "pH",
+        "Pipettes",
+        "RI",
+        "SAA",
+        "STEP",
+        "TOC",
+        "UV",
+        "Vérification HPLC",
+        "Volume"
+      ],
       "date": "2025-09-01",
       "statut": "actif"
     },
@@ -8470,11 +8490,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 10",
-      "time": "05/09 20:52"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Tampon pH 12",
       "time": "05/09 20:53"
     },
@@ -8717,6 +8732,11 @@
       "icon": "pencil",
       "text": "Technicien modifie : Camille PAAL",
       "time": "07/09 22:21"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Kévin BERTHELOT",
+      "time": "07/09 22:22"
     }
   ]
 }
