@@ -2843,12 +2843,23 @@
       "visa": "FVY",
       "role": "Technicien CQ",
       "habilitations": [
-        "pH",
-        "Volume",
         "Balance",
-        "HPLC",
         "Burette",
-        "Pipettes"
+        "Densité",
+        "ECD",
+        "HPLC",
+        "IR",
+        "Osmolalité",
+        "Particules",
+        "pH",
+        "Pipettes",
+        "RI",
+        "SAA",
+        "STEP",
+        "Titrimétrie",
+        "UV",
+        "Viscosité",
+        "Volume"
       ],
       "date": "2021-11-08",
       "statut": "actif"
@@ -8196,11 +8207,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - Iode Totale",
-      "time": "01/09 17:59"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "01/09 17:59"
     },
@@ -8443,6 +8449,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Poste des Eaux - STEP",
       "time": "07/09 15:36"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Fabien VARY",
+      "time": "07/09 15:40"
     }
   ]
 }
