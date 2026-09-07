@@ -1314,14 +1314,8 @@
       "code": "",
       "produitsIds": [],
       "description": "",
-      "champsResultats": [
-        {
-          "label": "Résultat",
-          "type": "numerique",
-          "unite": ""
-        }
-      ],
-      "resultatRequis": true,
+      "champsResultats": [],
+      "resultatRequis": false,
       "sousAnalyses": []
     },
     {
@@ -8279,11 +8273,6 @@
   "activity": [
     {
       "icon": "trash",
-      "text": "Lot supprimé partout : AAAAAAA (1 réception(s)) — Motif : Lot Détruit",
-      "time": "05/09 11:00"
-    },
-    {
-      "icon": "trash",
       "text": "Lot supprimé partout : BBBBBB (1 réception(s)) — Motif : Lot détruit",
       "time": "05/09 11:02"
     },
@@ -8525,6 +8514,11 @@
     {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Poste des Eaux - Conductivité",
+      "time": "07/09 22:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Poste des Eaux - STEP",
       "time": "07/09 22:01"
     }
   ]
