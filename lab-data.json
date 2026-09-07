@@ -1176,7 +1176,7 @@
     },
     {
       "id": 1786960782872,
-      "nom": "VISCOSITE",
+      "nom": "Viscosité",
       "habilitations": [
         "Viscosité"
       ],
@@ -1192,7 +1192,9 @@
         }
       ],
       "resultatRequis": true,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification Viscosité"
+      ]
     },
     {
       "id": 1786960813583,
@@ -7340,11 +7342,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0002 - SODIUM : verifiee",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — TCC0004 - BUPIVACAINE : verifiee",
       "time": "01/09 16:01"
     },
@@ -7586,6 +7583,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractible",
+      "time": "07/09 15:06"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Viscosité",
       "time": "07/09 15:06"
     }
   ]
