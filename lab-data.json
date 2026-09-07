@@ -2870,7 +2870,13 @@
       "nom": "PAAL",
       "visa": "CPL",
       "role": "Technicien CQ",
-      "habilitations": [],
+      "habilitations": [
+        "Balance",
+        "Burette",
+        "Densité",
+        "Particules",
+        "STEP"
+      ],
       "date": "2024-09-02",
       "statut": "actif"
     },
@@ -8207,11 +8213,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
-      "time": "01/09 17:59"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0086 - Toluidine",
       "time": "01/09 18:00"
     },
@@ -8454,6 +8455,11 @@
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 15:40"
+    },
+    {
+      "icon": "pencil",
+      "text": "Technicien modifie : Camille PAAL",
+      "time": "07/09 15:41"
     }
   ]
 }
