@@ -1120,7 +1120,9 @@
         }
       ],
       "resultatRequis": true,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification Absorbance"
+      ]
     },
     {
       "id": 1786638217013,
@@ -8138,11 +8140,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - DM",
-      "time": "01/09 17:56"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0011 - Mépivacaïne",
       "time": "01/09 17:57"
     },
@@ -8385,6 +8382,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Amines Tertiaires",
       "time": "07/09 15:18"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Absorbance",
+      "time": "07/09 15:19"
     }
   ]
 }
