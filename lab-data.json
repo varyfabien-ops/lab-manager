@@ -1303,6 +1303,26 @@
       "produitsIds": [],
       "sousAnalyses": [],
       "description": "Analyse de microbiologie réservée aux études de stabilité"
+    },
+    {
+      "id": 1788788170564,
+      "nom": "Poste des Eaux - STEP",
+      "habilitations": [
+        "STEP"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [
+        {
+          "label": "Résultat",
+          "type": "numerique",
+          "unite": ""
+        }
+      ],
+      "resultatRequis": true,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -8176,11 +8196,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0041 - Indice d'Acide",
-      "time": "01/09 17:58"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0041 - Iode Totale",
       "time": "01/09 17:59"
     },
@@ -8423,6 +8438,11 @@
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 15:24"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Poste des Eaux - STEP",
+      "time": "07/09 15:36"
     }
   ]
 }
