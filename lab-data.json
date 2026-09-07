@@ -1073,7 +1073,7 @@
     },
     {
       "id": 1786637588269,
-      "nom": "IDENTIFICATION CMC",
+      "nom": "Identification CMC",
       "habilitations": [
         "Balance"
       ],
@@ -7328,11 +7328,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0004 - LIDOCAINE / PHBM : en_cours",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — TCC0086 - 2.6 DMA : verifiee",
       "time": "01/09 16:01"
     },
@@ -7575,6 +7570,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Densité",
       "time": "07/09 15:02"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Identification CMC",
+      "time": "07/09 15:03"
     }
   ]
 }
