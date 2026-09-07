@@ -1337,6 +1337,22 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1788791920157,
+      "nom": "Titrage - Thiosulfate de Sodium 0,1 M",
+      "habilitations": [
+        "Titrimétrie",
+        "Balance",
+        "MIRRHIA"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -8227,11 +8243,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0023 - Adrénaline",
-      "time": "01/09 18:01"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0012 - Prilocaïne",
       "time": "01/09 18:02"
     },
@@ -8474,6 +8485,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Titrage - Iode 0,05 M",
       "time": "07/09 16:37"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Titrage - Thiosulfate de Sodium 0,1 M",
+      "time": "07/09 16:38"
     }
   ]
 }
