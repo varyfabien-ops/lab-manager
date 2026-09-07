@@ -6234,45 +6234,6 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
-    },
-    {
-      "id": 1788787227796,
-      "date": "2026-09-15",
-      "techId": "1786302836845",
-      "desc": "TCC0004 - Lidocaïne / PHBM",
-      "analyseNom": "TCC0004 - Lidocaïne / PHBM",
-      "analyseId": 1785247344996,
-      "sousKey": null,
-      "echId": 1788718736664,
-      "type": "analyse",
-      "sousAnalyses": [
-        "Retraitement TCC0004 - Lidocaïne / PHBM",
-        "Vérification TCC0004 - Lidocaïne / PHBM"
-      ],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false,
-      "supplementaire": false
-    },
-    {
-      "id": 1788792566908,
-      "date": "2026-09-16",
-      "techId": "1786302836845",
-      "desc": "Vérification TCC0004 - Lidocaïne / PHBM",
-      "analyseNom": "Vérification TCC0004 - Lidocaïne / PHBM",
-      "analyseId": 1785247344996,
-      "sousKey": "1785247344996_sous_1",
-      "echId": 1788718736665,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E8F5E9",
-        "border": "#4CAF50"
-      },
-      "isSous": true,
-      "parentNom": "TCC0004 - Lidocaïne / PHBM",
-      "manuel": false
     }
   ],
   "spq": [
