@@ -1361,6 +1361,21 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1788811321402,
+      "nom": "Poste des Eaux - EDR",
+      "habilitations": [
+        "TOC",
+        "Conductivité"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -8272,11 +8287,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : BBBBBB (1 réception(s)) — Motif : Lot détruit",
-      "time": "05/09 11:02"
-    },
-    {
       "icon": "certificate",
       "text": "Technicien ajoute : Romane MORIN-DELAURIERE",
       "time": "05/09 20:46"
@@ -8520,6 +8530,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Poste des Eaux - STEP",
       "time": "07/09 22:01"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Poste des Eaux - EDR",
+      "time": "07/09 22:02"
     }
   ]
 }
