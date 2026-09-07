@@ -5282,30 +5282,28 @@
       "manuel": false
     },
     {
-      "id": 1788633785626,
-      "date": "2026-09-07",
-      "techId": "1786271486368",
-      "desc": "Documentation",
-      "analyseNom": "Documentation",
-      "analyseId": null,
-      "echId": null,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "note": "",
-      "manuel": true,
-      "color": {
-        "bg": "#FFE0B2",
-        "border": "#F57C00"
-      },
-      "supplementaire": true
-    },
-    {
       "id": 1927650394,
       "date": "2026-09-04",
       "techId": "1788633979042",
       "desc": "Ménage Hebdomadaire",
       "analyseNom": "Ménage Hebdomadaire",
       "sousKey": "menage_2026-08-31_1788633979042",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": 2079160332,
+      "date": "2026-09-11",
+      "techId": "1788633979042",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-07_1788633979042",
       "type": "analyse",
       "color": {
         "bg": "#ECEFF1",
