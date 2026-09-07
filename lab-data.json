@@ -1168,7 +1168,9 @@
         }
       ],
       "resultatRequis": true,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification Particules Visibles"
+      ]
     },
     {
       "id": 1786960782872,
