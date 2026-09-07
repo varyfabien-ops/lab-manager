@@ -929,7 +929,9 @@
       "description": "",
       "champsResultats": [],
       "resultatRequis": false,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification SO2"
+      ]
     },
     {
       "id": 1786624072580,
@@ -7342,11 +7344,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "BBBBBB — TCC0004 - BUPIVACAINE : verifiee",
-      "time": "01/09 16:01"
-    },
-    {
-      "icon": "list-check",
       "text": "BBBBBB — TCC0004 - LIDOCAINE / PHBM : verifiee",
       "time": "01/09 16:01"
     },
@@ -7588,6 +7585,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Viscosité",
+      "time": "07/09 15:06"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : SO2",
       "time": "07/09 15:06"
     }
   ]
