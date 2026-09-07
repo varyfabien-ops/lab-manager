@@ -608,7 +608,9 @@
         }
       ],
       "resultatRequis": true,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification Amines Tertiaires"
+      ]
     },
     {
       "id": 1786196502378,
@@ -8136,11 +8138,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0004 - Lidocaïne / PHBM",
-      "time": "01/09 17:56"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0004 - Lidocaïne Nébuliseur - DM",
       "time": "01/09 17:56"
     },
@@ -8382,6 +8379,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Infrarouge",
+      "time": "07/09 15:18"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Amines Tertiaires",
       "time": "07/09 15:18"
     }
   ]
