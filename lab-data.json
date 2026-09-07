@@ -549,7 +549,9 @@
       "description": "Analyse selon USP",
       "champsResultats": [],
       "resultatRequis": false,
-      "sousAnalyses": []
+      "sousAnalyses": [
+        "Vérification Limpidité / Coloration (US)"
+      ]
     },
     {
       "id": 1785262672685,
@@ -8130,11 +8132,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : TCC0002 - Sodium",
-      "time": "01/09 17:54"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : TCC0003 - Métabisulfite de Sodium",
       "time": "01/09 17:55"
     },
@@ -8376,6 +8373,11 @@
     {
       "icon": "book",
       "text": "Analyse modifiée : Limpidité / Coloration (PE)",
+      "time": "07/09 15:17"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : Limpidité / Coloration (US)",
       "time": "07/09 15:17"
     }
   ]
