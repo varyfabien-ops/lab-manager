@@ -290,102 +290,6 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: 1-2"
-    },
-    {
-      "id": 1788718860845.1262,
-      "nom": "TCC0041 - Indice d'Acide",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.817,
-      "nom": "IODE LIBRE",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.5806,
-      "nom": "APPARENCE",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.4895,
-      "nom": "ABSORBANCE",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.6294,
-      "nom": "VOLUME EXTRACTIBLE",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.463,
-      "nom": "TCC0041 - Iode Totale",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.3657,
-      "nom": "VISCOSITE",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
-    },
-    {
-      "id": 1788718860845.8784,
-      "nom": "DENSITE",
-      "echantillonId": 1788718860844,
-      "echantillonCode": "2",
-      "date": "2026-09-03",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T6M",
-      "echeanceId": 1786779469460,
-      "note": "Auto: 2"
     }
   ],
   "catalogue": [
@@ -2841,61 +2745,6 @@
       "note": "",
       "dateLiberationEstimee": "2026-10-01",
       "commentaireLeadTime": ""
-    },
-    {
-      "id": 1788718860844,
-      "code": "2",
-      "lot": "2",
-      "articleId": 1786960543922,
-      "articleCode": "M75260000",
-      "produitId": 1786960543922,
-      "marcheIds": [
-        null,
-        null,
-        null
-      ],
-      "analysesIds": [
-        1786637416398,
-        1786960860663,
-        1786624072580,
-        1786638196863,
-        1785170145444,
-        1786637357048,
-        1786960782872,
-        1786960813583
-      ],
-      "analysesParMarche": {},
-      "typePIF": false,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "",
-      "refPTC": "PTC0381",
-      "stabEcheance": "T6M",
-      "stabTemps": "25°C, 40°C",
-      "stabEtudeId": 1786961858161,
-      "ptcId": 1786960643216,
-      "conditionId": 1786779420753,
-      "conditionIds": [
-        1786779420753,
-        1786779435869
-      ],
-      "echeanceId": 1786779469460,
-      "date": "2026-09-03",
-      "dateFabrication": "",
-      "dateMiseStabilite": "",
-      "dateSortieEnceinte": "2026-09-03",
-      "statut": "recu",
-      "note": "",
-      "analyseStatuts": {
-        "1786637416398": "a_lancer",
-        "1786960860663": "a_lancer",
-        "1786624072580": "a_lancer",
-        "1786638196863": "a_lancer",
-        "1785170145444": "a_lancer",
-        "1786637357048": "a_lancer",
-        "1786960782872": "a_lancer",
-        "1786960813583": "a_lancer"
-      }
     }
   ],
   "techniciens": [
@@ -7829,6 +7678,28 @@
         "dateApprobation": "—",
         "dateLiberation": "—"
       }
+    },
+    {
+      "id": 1788875689668,
+      "lot": "2",
+      "justification": "Lot Test",
+      "date": "08/09/2026 15:54:49",
+      "receptions": 1,
+      "snapshot": {
+        "produit": "Lipiodol 10mL Autoclavé",
+        "articleCode": "M75260000",
+        "type": "STAB",
+        "typeHtml": "<span class=\"badge badge-purple\" style=\"font-size:11px\">STAB</span>",
+        "sousSerie": "—",
+        "sousSerieHtml": "<span style=\"color:var(--text3)\">—</span>",
+        "marche": "—",
+        "marcheHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "echeance": "T6M25°C40°C",
+        "echeanceHtml": "<span class=\"badge badge-purple\" style=\"font-size:11px\">T6M</span><br><span style=\"display:inline-flex;flex-wrap:wrap;justify-content:center;gap:3px\"><span class=\"badge\" style=\"background:#43A04720;color:#43A047;border:none;font-size:11px\">25°C</span><span class=\"badge\" style=\"background:#E5393520;color:#E53935;border:none;font-size:11px\">40°C</span></span>",
+        "dateReception": "03/09/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
     }
   ],
   "etiquettesLibres": [
@@ -8505,11 +8376,6 @@
     },
     {
       "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 12",
-      "time": "05/09 20:53"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Tampon pH 10",
       "time": "05/09 20:53"
     },
@@ -8747,6 +8613,11 @@
       "icon": "pencil",
       "text": "Technicien modifie : Kévin BERTHELOT",
       "time": "07/09 22:22"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : 2 (1 réception(s)) — Motif : Lot Test",
+      "time": "08/09 15:54"
     }
   ]
 }
