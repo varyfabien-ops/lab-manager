@@ -2974,7 +2974,7 @@
       "statut": "recu",
       "note": "",
       "analyseStatuts": {
-        "1786624072580": "a_lancer",
+        "1786624072580": "terminee",
         "1786637416398": "a_lancer",
         "1786638196863": "terminee",
         "1786960860663": "a_lancer"
@@ -3032,10 +3032,42 @@
           "commentaire": "",
           "date": "08/09/2026",
           "unite": ""
+        },
+        "1786624072580": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "Complies",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            },
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "Complies",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "08/09/2026",
+          "unite": ""
         }
       },
       "analyseStatutsInfo": {
         "1786638196863": {
+          "terminee": "08/09/2026"
+        },
+        "1786624072580": {
           "terminee": "08/09/2026"
         }
       }
