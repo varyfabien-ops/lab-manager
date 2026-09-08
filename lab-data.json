@@ -8012,6 +8012,43 @@
           "0": "37,0 % (m/m) - 39,0 % (m/m)"
         }
       }
+    },
+    {
+      "id": 1788884001003,
+      "numero": "MA-25LF701A",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitNom": "Lipiodol 10mL Autoclavé",
+      "ptcId": 1786960643216,
+      "specifications": {
+        "1786624072580": {
+          "0": "Clear, pale yellow to amber coloured oil"
+        },
+        "1786638217013": {
+          "0": "Positive"
+        },
+        "1786637357048": {
+          "0": "37,0 % (m/m) - 39,0 % (m/m)"
+        },
+        "1786960813583": {
+          "0": "1,268 g/cm³ - 1,290 g/cm³"
+        },
+        "1786994550749": {
+          "0": "Sterile"
+        },
+        "1786960782872": {
+          "0": "34 mPa.s - 70 mPa.s"
+        },
+        "1785170145444": {
+          "0": "≥ 10 mL"
+        },
+        "1786960860663": {
+          "0": "≤ 100 ppm"
+        },
+        "1786994574820": {
+          "0": "≤ 17 EU/mL"
+        }
+      }
     }
   ],
   "ptc": [
@@ -8522,11 +8559,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 4",
-      "time": "05/09 20:53"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Tampon pH 2",
       "time": "05/09 20:53"
     },
@@ -8769,6 +8801,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "08/09 18:08"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude créée : MA-25LF701A",
+      "time": "08/09 18:13"
     }
   ]
 }
