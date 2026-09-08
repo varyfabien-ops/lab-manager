@@ -307,7 +307,7 @@
       "id": 1788900641303.69,
       "nom": "Apparence",
       "echantillonId": 1788900641303,
-      "echantillonCode": "25LF501A",
+      "echantillonCode": "25LF701A",
       "date": "2026-01-15",
       "priorite": "normale",
       "statut": "planifie",
@@ -319,7 +319,7 @@
       "id": 1788900641303.5227,
       "nom": "TCC0041 - Indice d'Acide",
       "echantillonId": 1788900641303,
-      "echantillonCode": "25LF501A",
+      "echantillonCode": "25LF701A",
       "date": "2026-01-15",
       "priorite": "normale",
       "statut": "planifie",
@@ -331,7 +331,7 @@
       "id": 1788900641303.2336,
       "nom": "Absorbance",
       "echantillonId": 1788900641303,
-      "echantillonCode": "25LF501A",
+      "echantillonCode": "25LF701A",
       "date": "2026-01-15",
       "priorite": "normale",
       "statut": "planifie",
@@ -343,7 +343,7 @@
       "id": 1788900641303.453,
       "nom": "Iode Libre",
       "echantillonId": 1788900641303,
-      "echantillonCode": "25LF501A",
+      "echantillonCode": "25LF701A",
       "date": "2026-01-15",
       "priorite": "normale",
       "statut": "planifie",
@@ -2939,8 +2939,8 @@
     },
     {
       "id": 1788900641303,
-      "code": "25LF501A",
-      "lot": "25LF501A",
+      "code": "25LF701A",
+      "lot": "25LF701A",
       "articleId": 1786960543922,
       "articleCode": "M75260000",
       "produitId": 1786960543922,
@@ -8783,11 +8783,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Poste des Eaux - STEP",
-      "time": "07/09 15:36"
-    },
-    {
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 15:40"
@@ -9031,6 +9026,11 @@
       "icon": "pencil",
       "text": "Réception modifiée : 25LF501A",
       "time": "08/09 23:07"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : 25LF701A",
+      "time": "08/09 23:35"
     }
   ]
 }
