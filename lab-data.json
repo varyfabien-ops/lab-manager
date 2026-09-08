@@ -2976,8 +2976,68 @@
       "analyseStatuts": {
         "1786624072580": "a_lancer",
         "1786637416398": "a_lancer",
-        "1786638196863": "a_lancer",
+        "1786638196863": "terminee",
         "1786960860663": "a_lancer"
+      },
+      "resultats": {
+        "1786638196863": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "0,33",
+                  "valeurBrute": "0,33",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "0,19",
+                  "valeurBrute": "0,19",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
+                }
+              ]
+            },
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "",
+                  "valeurBrute": "",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "",
+                  "valeurBrute": "",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "08/09/2026",
+          "unite": ""
+        }
+      },
+      "analyseStatutsInfo": {
+        "1786638196863": {
+          "terminee": "08/09/2026"
+        }
       }
     }
   ],
