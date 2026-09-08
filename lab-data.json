@@ -8421,7 +8421,42 @@
           "0": "≤ 17 EU/mL"
         }
       },
-      "dateMiseStabilite": "2025-10-16"
+      "specificationUnits": {
+        "1786638196863": {
+          "0": "",
+          "1": ""
+        },
+        "1786624072580": {
+          "0": ""
+        },
+        "1786960813583": {
+          "0": "g/cm3"
+        },
+        "1786994574820": {
+          "0": ""
+        },
+        "1786638217013": {
+          "0": ""
+        },
+        "1786960860663": {
+          "0": "ppm"
+        },
+        "1786994550749": {
+          "0": ""
+        },
+        "1786637416398": {
+          "0": "mgKOH/g"
+        },
+        "1786637357048": {
+          "0": "% (m/m)"
+        },
+        "1786960782872": {
+          "0": "mPa.s"
+        },
+        "1785170145444": {
+          "0": "mL"
+        }
+      }
     }
   ],
   "ptc": [
@@ -8931,11 +8966,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Technicien modifie : Camille PAAL",
-      "time": "07/09 15:41"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Titrage - Iode 0,05 M",
       "time": "07/09 16:37"
@@ -9179,6 +9209,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
       "time": "08/09 23:39"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-25LF701A",
+      "time": "08/09 23:45"
     }
   ]
 }
