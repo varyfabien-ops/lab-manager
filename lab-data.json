@@ -2822,6 +2822,22 @@
           "commentaire": "",
           "date": "08/09/2026",
           "unite": ""
+        },
+        "1785170145444": {
+          "champs": [
+            {
+              "label": "Résultat",
+              "valeur": "10,3",
+              "valeurBrute": "10,3",
+              "operateur": "=",
+              "qualificateur": "valeur",
+              "unite": "mL",
+              "commentaire": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "08/09/2026",
+          "unite": ""
         }
       }
     }
@@ -8497,11 +8513,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : Osmolalité",
-      "time": "07/09 15:18"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : Infrarouge",
       "time": "07/09 15:18"
     },
@@ -8743,6 +8754,11 @@
     {
       "icon": "clipboard-check",
       "text": "Sterility — lot 25LF701A",
+      "time": "08/09 22:45"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Volume Extractible — lot 25LF701A",
       "time": "08/09 22:45"
     }
   ]
