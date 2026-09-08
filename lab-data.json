@@ -3245,7 +3245,17 @@
       "dateMiseStabilite": "2025-10-16",
       "dateSortieEnceinte": "2026-04-14",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "analyseStatuts": {
+        "1786637416398": "a_lancer",
+        "1786960860663": "a_lancer",
+        "1786624072580": "a_lancer",
+        "1786638196863": "a_lancer",
+        "1785170145444": "a_lancer",
+        "1786637357048": "a_lancer",
+        "1786960782872": "a_lancer",
+        "1786960813583": "a_lancer"
+      }
     }
   ],
   "techniciens": [
