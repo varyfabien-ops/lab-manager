@@ -290,6 +290,138 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: 1-2"
+    },
+    {
+      "id": 1788876090903.9978,
+      "nom": "Apparence",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.1,
+      "nom": "Absorbance",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.9536,
+      "nom": "Densité",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.6714,
+      "nom": "Infrarouge",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.2502,
+      "nom": "Iode Libre",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.7124,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.4666,
+      "nom": "TCC0041 - Iode Totale",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.568,
+      "nom": "Viscosité",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.2122,
+      "nom": "Volume Extractible",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.748,
+      "nom": "Sterility",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
+    },
+    {
+      "id": 1788876090903.964,
+      "nom": "Endotoxin",
+      "echantillonId": 1788876090902,
+      "echantillonCode": "24LF701A",
+      "date": "2026-06-01",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T0",
+      "echeanceId": 1786779461576,
+      "note": "Auto: 24LF701A"
     }
   ],
   "catalogue": [
@@ -2745,6 +2877,60 @@
       "note": "",
       "dateLiberationEstimee": "2026-10-01",
       "commentaireLeadTime": ""
+    },
+    {
+      "id": 1788876090902,
+      "code": "24LF701A",
+      "lot": "24LF701A",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [],
+      "analysesIds": [
+        1786624072580,
+        1786638196863,
+        1786960813583,
+        1786638217013,
+        1786960860663,
+        1786637416398,
+        1786637357048,
+        1786960782872,
+        1785170145444,
+        1786994550749,
+        1786994574820
+      ],
+      "analysesParMarche": {},
+      "typePIF": true,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "SPQ0278",
+      "refPTC": "PTC0381",
+      "stabEcheance": "T0",
+      "stabTemps": "",
+      "stabEtudeId": 1786961858161,
+      "ptcId": 1786960643216,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": 1786779461576,
+      "date": "2026-06-01",
+      "dateFabrication": "",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": "",
+      "analyseStatuts": {
+        "1786624072580": "a_lancer",
+        "1786638196863": "a_lancer",
+        "1786960813583": "a_lancer",
+        "1786638217013": "a_lancer",
+        "1786960860663": "a_lancer",
+        "1786637416398": "a_lancer",
+        "1786637357048": "a_lancer",
+        "1786960782872": "a_lancer",
+        "1785170145444": "a_lancer",
+        "1786994550749": "a_lancer",
+        "1786994574820": "a_lancer"
+      }
     }
   ],
   "techniciens": [
@@ -8390,11 +8576,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 10",
-      "time": "05/09 20:53"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Tampon pH 2",
       "time": "05/09 20:53"
     },
@@ -8637,6 +8818,11 @@
       "icon": "file-description",
       "text": "Étude créée : MA-26LF701A",
       "time": "08/09 15:56"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 11 analyse(s)",
+      "time": "08/09 16:01"
     }
   ]
 }
