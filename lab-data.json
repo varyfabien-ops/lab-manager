@@ -7993,7 +7993,9 @@
       "articleCode": "M75260000",
       "produitNom": "Lipiodol 10mL Autoclavé",
       "ptcId": 1786960643216,
-      "dateMiseStabilite": "2026-07-01"
+      "dateMiseStabilite": "2026-07-01",
+      "archivee": true,
+      "dateArchivage": "2026-09-08T20:47:04.751Z"
     },
     {
       "id": 1788875769268,
