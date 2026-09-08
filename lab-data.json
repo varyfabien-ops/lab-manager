@@ -302,6 +302,54 @@
       "stabEcheance": "T0",
       "echeanceId": 1786779461576,
       "note": "Auto: 25LF701A"
+    },
+    {
+      "id": 1788900641303.69,
+      "nom": "Apparence",
+      "echantillonId": 1788900641303,
+      "echantillonCode": "25LF501A",
+      "date": "2026-01-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T3M",
+      "echeanceId": 1786779453854,
+      "note": "Auto: 25LF501A"
+    },
+    {
+      "id": 1788900641303.5227,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonId": 1788900641303,
+      "echantillonCode": "25LF501A",
+      "date": "2026-01-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T3M",
+      "echeanceId": 1786779453854,
+      "note": "Auto: 25LF501A"
+    },
+    {
+      "id": 1788900641303.2336,
+      "nom": "Absorbance",
+      "echantillonId": 1788900641303,
+      "echantillonCode": "25LF501A",
+      "date": "2026-01-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T3M",
+      "echeanceId": 1786779453854,
+      "note": "Auto: 25LF501A"
+    },
+    {
+      "id": 1788900641303.453,
+      "nom": "Iode Libre",
+      "echantillonId": 1788900641303,
+      "echantillonCode": "25LF501A",
+      "date": "2026-01-15",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T3M",
+      "echeanceId": 1786779453854,
+      "note": "Auto: 25LF501A"
     }
   ],
   "catalogue": [
@@ -2888,6 +2936,43 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1788900641303,
+      "code": "25LF501A",
+      "lot": "25LF501A",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [],
+      "analysesIds": [
+        1786624072580,
+        1786637416398,
+        1786638196863,
+        1786960860663
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC0381",
+      "stabEcheance": "T3M",
+      "stabTemps": "25°C, 40°C",
+      "stabEtudeId": 1788884001003,
+      "ptcId": 1786960643216,
+      "conditionId": 1786779420753,
+      "conditionIds": [
+        1786779420753,
+        1786779435869
+      ],
+      "echeanceId": 1786779453854,
+      "date": "2026-01-15",
+      "dateFabrication": "",
+      "dateMiseStabilite": "2025-10-16",
+      "dateSortieEnceinte": "2026-11-14",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -8564,11 +8649,6 @@
     {
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
-      "time": "07/09 15:23"
-    },
-    {
-      "icon": "pencil",
-      "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 15:24"
     },
     {
@@ -8810,6 +8890,11 @@
       "icon": "clipboard-check",
       "text": "Viscosité — lot 25LF701A",
       "time": "08/09 22:46"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 4 analyse(s)",
+      "time": "08/09 22:50"
     }
   ]
 }
