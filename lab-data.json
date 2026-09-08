@@ -2659,7 +2659,7 @@
       "echeanceId": 1786779461576,
       "date": "2025-10-01",
       "dateFabrication": "2025-10-01",
-      "dateMiseStabilite": "",
+      "dateMiseStabilite": "2025-10-16",
       "dateSortieEnceinte": "",
       "statut": "en_analyse",
       "note": "",
@@ -7956,7 +7956,8 @@
         "1786994574820": {
           "0": "≤ 17 EU/mL"
         }
-      }
+      },
+      "dateMiseStabilite": "2025-10-16"
     }
   ],
   "ptc": [
