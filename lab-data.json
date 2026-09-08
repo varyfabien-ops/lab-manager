@@ -170,258 +170,6 @@
       "priorite": "normale",
       "statut": "planifie",
       "note": "Auto: 995968"
-    },
-    {
-      "id": 1788718736664.512,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788718736664,
-      "echantillonCode": "TEST-1",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-1"
-    },
-    {
-      "id": 1788718736664.8254,
-      "nom": "pH",
-      "echantillonId": 1788718736664,
-      "echantillonCode": "TEST-1",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-1"
-    },
-    {
-      "id": 1788718736664.856,
-      "nom": "TCC0002 - Sodium",
-      "echantillonId": 1788718736664,
-      "echantillonCode": "TEST-1",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-1"
-    },
-    {
-      "id": 1788718736664.6104,
-      "nom": "TCC0004 - Lidocaïne / PHBM",
-      "echantillonId": 1788718736664,
-      "echantillonCode": "TEST-1",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-1"
-    },
-    {
-      "id": 1788718736664.6387,
-      "nom": "VOLUME EXTRACTIBLE",
-      "echantillonId": 1788718736664,
-      "echantillonCode": "TEST-1",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-1"
-    },
-    {
-      "id": 1788718736664.8396,
-      "nom": "LIMPIDITE / COLORATION PE",
-      "echantillonId": 1788718736665,
-      "echantillonCode": "TEST-2",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-2"
-    },
-    {
-      "id": 1788718736664.8433,
-      "nom": "pH",
-      "echantillonId": 1788718736665,
-      "echantillonCode": "TEST-2",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-2"
-    },
-    {
-      "id": 1788718736664.3618,
-      "nom": "TCC0002 - Sodium",
-      "echantillonId": 1788718736665,
-      "echantillonCode": "TEST-2",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-2"
-    },
-    {
-      "id": 1788718736664.0115,
-      "nom": "TCC0004 - Lidocaïne / PHBM",
-      "echantillonId": 1788718736665,
-      "echantillonCode": "TEST-2",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-2"
-    },
-    {
-      "id": 1788718736664.2188,
-      "nom": "VOLUME EXTRACTIBLE",
-      "echantillonId": 1788718736665,
-      "echantillonCode": "TEST-2",
-      "date": "2026-09-06",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 1-2"
-    },
-    {
-      "id": 1788876090903.9978,
-      "nom": "Apparence",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.1,
-      "nom": "Absorbance",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.9536,
-      "nom": "Densité",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.6714,
-      "nom": "Infrarouge",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.2502,
-      "nom": "Iode Libre",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.7124,
-      "nom": "TCC0041 - Indice d'Acide",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.4666,
-      "nom": "TCC0041 - Iode Totale",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.568,
-      "nom": "Viscosité",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.2122,
-      "nom": "Volume Extractible",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.748,
-      "nom": "Sterility",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
-    },
-    {
-      "id": 1788876090903.964,
-      "nom": "Endotoxin",
-      "echantillonId": 1788876090902,
-      "echantillonCode": "24LF701A",
-      "date": "2026-06-01",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "T0",
-      "echeanceId": 1786779461576,
-      "note": "Auto: 24LF701A"
     }
   ],
   "catalogue": [
@@ -2742,197 +2490,7 @@
       "code": "HK"
     }
   ],
-  "echantillons": [
-    {
-      "id": 1788718736664,
-      "code": "TEST-1",
-      "lot": "TEST",
-      "articleId": 1785343158627,
-      "articleCode": "M78003601",
-      "produitId": 1785343158627,
-      "marcheIds": [
-        1786525368760,
-        1786525395528,
-        1785262197983
-      ],
-      "analysesIds": [
-        1785247477146,
-        1785170122728,
-        1785247382413,
-        1785247344996,
-        1785170145444
-      ],
-      "analysesParMarche": {
-        "1785247477146": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785170122728": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785247382413": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785247344996": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785170145444": [
-          1785262197983
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0049",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-09-06",
-      "dateFabrication": "2026-08-15",
-      "dateMiseStabilite": "",
-      "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": "",
-      "_marcheIdsMerged": [
-        1786525368760,
-        1786525395528,
-        1785262197983
-      ],
-      "dateLiberationEstimee": "2026-10-01",
-      "commentaireLeadTime": ""
-    },
-    {
-      "id": 1788718736665,
-      "code": "TEST-2",
-      "lot": "TEST",
-      "articleId": 1785343158627,
-      "articleCode": "M78003601",
-      "produitId": 1785343158627,
-      "marcheIds": [
-        1786525368760,
-        1786525395528,
-        1785262197983
-      ],
-      "analysesIds": [
-        1785247477146,
-        1785170122728,
-        1785247382413,
-        1785247344996,
-        1785170145444
-      ],
-      "analysesParMarche": {
-        "1785247477146": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785170122728": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785247382413": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785247344996": [
-          1786525368760,
-          1786525395528,
-          1785262197983
-        ],
-        "1785170145444": [
-          1785262197983
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "refSPQ": "SPQ0049",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-09-06",
-      "dateFabrication": "2026-08-15",
-      "dateMiseStabilite": "",
-      "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": "",
-      "dateLiberationEstimee": "2026-10-01",
-      "commentaireLeadTime": ""
-    },
-    {
-      "id": 1788876090902,
-      "code": "24LF701A",
-      "lot": "24LF701A",
-      "articleId": 1786960543922,
-      "articleCode": "M75260000",
-      "produitId": 1786960543922,
-      "marcheIds": [],
-      "analysesIds": [
-        1786624072580,
-        1786638196863,
-        1786960813583,
-        1786638217013,
-        1786960860663,
-        1786637416398,
-        1786637357048,
-        1786960782872,
-        1785170145444,
-        1786994550749,
-        1786994574820
-      ],
-      "analysesParMarche": {},
-      "typePIF": true,
-      "typeSTAB": true,
-      "typeMP": false,
-      "refSPQ": "SPQ0278",
-      "refPTC": "PTC0381",
-      "stabEcheance": "T0",
-      "stabTemps": "",
-      "stabEtudeId": 1786961858161,
-      "ptcId": 1786960643216,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": 1786779461576,
-      "date": "2026-06-01",
-      "dateFabrication": "",
-      "dateMiseStabilite": "2026-07-01",
-      "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": "",
-      "analyseStatuts": {
-        "1786624072580": "a_lancer",
-        "1786638196863": "a_lancer",
-        "1786960813583": "a_lancer",
-        "1786638217013": "a_lancer",
-        "1786960860663": "a_lancer",
-        "1786637416398": "a_lancer",
-        "1786637357048": "a_lancer",
-        "1786960782872": "a_lancer",
-        "1785170145444": "a_lancer",
-        "1786994550749": "a_lancer",
-        "1786994574820": "a_lancer"
-      }
-    }
-  ],
+  "echantillons": [],
   "techniciens": [
     {
       "id": 1785175077562,
@@ -7828,6 +7386,50 @@
         "dateApprobation": "—",
         "dateLiberation": "—"
       }
+    },
+    {
+      "id": 1788884033387,
+      "lot": "TEST",
+      "justification": "Lot Test",
+      "date": "08/09/2026 18:13:53",
+      "receptions": 2,
+      "snapshot": {
+        "produit": "Xylocaïne 10 mg/mL (SC)",
+        "articleCode": "M78003601",
+        "type": "PIF",
+        "typeHtml": "<span class=\"badge badge-amber\" style=\"font-size:11px\">PIF</span> ",
+        "sousSerie": "2",
+        "sousSerieHtml": "<span class=\"badge badge-yellow\" style=\"font-size:11px;font-weight:600;padding:2px 8px\">2</span>",
+        "marche": "BELGIQUE DANEMARK / ISLANDE FRANCE",
+        "marcheHtml": "<span class=\"badge badge-blue\" style=\"font-size:11px\">BELGIQUE</span> <span class=\"badge badge-blue\" style=\"font-size:11px\">DANEMARK / ISLANDE</span> <span class=\"badge badge-blue\" style=\"font-size:11px\">FRANCE</span>",
+        "echeance": "—",
+        "echeanceHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "dateReception": "06/09/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
+    },
+    {
+      "id": 1788884039237,
+      "lot": "24LF701A",
+      "justification": "Lot Test",
+      "date": "08/09/2026 18:13:59",
+      "receptions": 1,
+      "snapshot": {
+        "produit": "Lipiodol 10mL Autoclavé",
+        "articleCode": "M75260000",
+        "type": "PIF + STAB",
+        "typeHtml": "<span class=\"badge badge-amber\" style=\"font-size:11px\">PIF</span> <span class=\"badge badge-purple\" style=\"font-size:11px\">STAB</span>",
+        "sousSerie": "1",
+        "sousSerieHtml": "<span class=\"badge badge-yellow\" style=\"font-size:11px;font-weight:600;padding:2px 8px\">1</span>",
+        "marche": "—",
+        "marcheHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "echeance": "T0",
+        "echeanceHtml": "<span class=\"badge badge-purple\" style=\"font-size:11px\">T0</span>",
+        "dateReception": "01/06/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
     }
   ],
   "etiquettesLibres": [
@@ -8559,16 +8161,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 2",
-      "time": "05/09 20:53"
-    },
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 7",
-      "time": "05/09 20:53"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Tampon pH 9",
       "time": "05/09 20:54"
     },
@@ -8805,6 +8397,16 @@
     {
       "icon": "file-description",
       "text": "Étude créée : MA-25LF701A",
+      "time": "08/09 18:13"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : TEST (2 réception(s)) — Motif : Lot Test",
+      "time": "08/09 18:13"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : 24LF701A (1 réception(s)) — Motif : Lot Test",
       "time": "08/09 18:13"
     }
   ]
