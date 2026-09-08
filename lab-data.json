@@ -5075,96 +5075,6 @@
       "statutSuivi": "vert"
     },
     {
-      "id": 1788275429943,
-      "date": "2026-08-31",
-      "techId": "1786178889272",
-      "desc": "IODE LIBRE",
-      "analyseNom": "IODE LIBRE",
-      "analyseId": 1786960860663,
-      "sousKey": null,
-      "echId": 1788158214059,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
-    },
-    {
-      "id": 1788275460856,
-      "date": "2026-09-01",
-      "techId": "1786178889272",
-      "desc": "Poste des Eaux - Conductivité",
-      "analyseNom": "Poste des Eaux - Conductivité",
-      "sousKey": "cond_2026-08-31_1",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E3F2FD",
-        "border": "#2196F3"
-      },
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false,
-      "statutSuivi": "vert"
-    },
-    {
-      "id": 1788275489324,
-      "date": "2026-09-01",
-      "techId": "1786178889272",
-      "desc": "Vérification TCC0041 - Iode Totale",
-      "analyseNom": "Vérification TCC0041 - Iode Totale",
-      "analyseId": 1786637357048,
-      "sousKey": "1786637357048_sous_2",
-      "echId": 1788158214059,
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E8F5E9",
-        "border": "#4CAF50"
-      },
-      "isSous": true,
-      "parentNom": "TCC0041 - IODE TOTALE",
-      "manuel": false
-    },
-    {
-      "id": 1788275604158,
-      "date": "2026-09-01",
-      "techId": "1786271486368",
-      "desc": "Poste des Eaux - STEP",
-      "analyseNom": "Poste des Eaux - STEP",
-      "sousKey": "step_2026-08-31_4",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E0F7FA",
-        "border": "#00BCD4"
-      },
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
-    },
-    {
-      "id": 1788275615295,
-      "date": "2026-09-01",
-      "techId": "1786302836845",
-      "desc": "TCC0041 - IODE TOTALE",
-      "analyseNom": "TCC0041 - IODE TOTALE",
-      "analyseId": 1786637357048,
-      "sousKey": null,
-      "echId": 1788158214059,
-      "type": "analyse",
-      "sousAnalyses": [
-        "TCC0041 - Titrage Nitrate d'Argent 0",
-        "5 M",
-        "Vérification TCC0041 - Iode Totale"
-      ],
-      "color": null,
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
-    },
-    {
       "id": 1893028848,
       "date": "2026-09-25",
       "techId": "1786302836845",
@@ -6513,6 +6423,38 @@
       },
       "isSous": false,
       "parentNom": null,
+      "manuel": false
+    },
+    {
+      "id": -2118384337,
+      "date": "2026-08-28",
+      "techId": "1788633979042",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-24_1788633979042",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": -2118385369,
+      "date": "2026-08-21",
+      "techId": "1788633979042",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-08-17_1788633979042",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
       "manuel": false
     }
   ],
