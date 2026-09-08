@@ -8207,10 +8207,10 @@
         },
         "1786960782872": {
           "methode": "Viscosity (20°C)",
-          "nomRapport": "Viscosity (20°C)"
+          "nomRapport": "Viscosity at 20°C"
         },
         "1786638196863": {
-          "methode": "",
+          "methode": "Ph. Eur. 2.2.25\nUSP <857>",
           "nomRapport": "Absorbance"
         },
         "1786637357048": {
@@ -8218,13 +8218,16 @@
           "nomRapport": "Iodine content"
         },
         "1786637416398": {
-          "nomRapport": "Acid value"
+          "nomRapport": "Acid value",
+          "methode": "Ph. Eur. 2.2.9\nUSP <911>, capillary method"
         },
         "1786960860663": {
-          "nomRapport": "Free iodine"
+          "nomRapport": "Free iodine",
+          "methode": "Spectrophotometry or\nPotentiometry"
         },
         "1786960813583": {
-          "nomRapport": "Density (20°C)"
+          "nomRapport": "Density at 20°C",
+          "methode": "Ph. Eur. 2.2.5\nUSP <841>, method II"
         }
       }
     },
@@ -8519,11 +8522,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 2",
-      "time": "05/09 20:53"
-    },
-    {
-      "icon": "pencil",
       "text": "Produit modifie : Tampon pH 4",
       "time": "05/09 20:53"
     },
@@ -8766,6 +8764,11 @@
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 11 analyse(s)",
       "time": "08/09 16:01"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0381",
+      "time": "08/09 18:08"
     }
   ]
 }
