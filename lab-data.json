@@ -2661,8 +2661,66 @@
       "dateFabrication": "2025-10-01",
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1786638196863": "verifiee",
+        "1786624072580": "verifiee",
+        "1785170145444": "verifiee",
+        "1786960782872": "verifiee",
+        "1786637357048": "verifiee",
+        "1786637416398": "verifiee",
+        "1786960860663": "verifiee",
+        "1786638217013": "verifiee",
+        "1786960813583": "verifiee"
+      },
+      "analyseStatutsInfo": {
+        "1786638196863": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786624072580": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1785170145444": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786960782872": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786637357048": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786637416398": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786960860663": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786638217013": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        },
+        "1786960813583": {
+          "en_cours": "08/09/2026",
+          "terminee": "08/09/2026",
+          "verifiee": "08/09/2026"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -8334,96 +8392,6 @@
   },
   "activity": [
     {
-      "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 2",
-      "time": "05/09 20:54"
-    },
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 4",
-      "time": "05/09 20:55"
-    },
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 7",
-      "time": "05/09 20:55"
-    },
-    {
-      "icon": "pencil",
-      "text": "Produit modifie : Tampon pH 9",
-      "time": "05/09 20:56"
-    },
-    {
-      "icon": "droplet",
-      "text": "Titrage vérifié pour IODE 0,05M — Lot HX56615899",
-      "time": "06/09 08:39"
-    },
-    {
-      "icon": "droplet",
-      "text": "Titrage enregistré pour IODE 0,05M — Lot HX56615899 (0,0503 M)",
-      "time": "06/09 08:40"
-    },
-    {
-      "icon": "archive",
-      "text": "Archivé : ETALON CONDUCTIVITE 10µS/cm lot CS102F1",
-      "time": "06/09 15:34"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Xylocaïne 10 mg/mL (SC) — 2 entrée(s) — 5 analyse(s)",
-      "time": "06/09 20:18"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 8 analyse(s)",
-      "time": "06/09 20:21"
-    },
-    {
-      "icon": "pencil",
-      "text": "Réception modifiée : TEST",
-      "time": "06/09 20:53"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Absorbance",
-      "time": "07/09 14:59"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Amines Tertiaires",
-      "time": "07/09 14:59"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Apparence",
-      "time": "07/09 15:01"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Densité",
-      "time": "07/09 15:02"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Identification CMC",
-      "time": "07/09 15:03"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Identification Lidocaïne (USP)",
-      "time": "07/09 15:04"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Iode Libre",
-      "time": "07/09 15:04"
-    },
-    {
-      "icon": "book",
-      "text": "Analyse modifiée : Particules Visibles",
-      "time": "07/09 15:05"
-    },
-    {
       "icon": "book",
       "text": "Analyse modifiée : Volume Extractible",
       "time": "07/09 15:06"
@@ -8581,6 +8549,96 @@
     {
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 11 analyse(s)",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Absorbance : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Apparence : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Volume Extractible : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Viscosité : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — TCC0041 - Iode Totale : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — TCC0041 - Indice d'Acide : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Iode Libre : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Infrarouge : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Densité : en_cours",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Volume Extractible : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Viscosité : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — TCC0041 - Iode Totale : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — TCC0041 - Indice d'Acide : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Iode Libre : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Infrarouge : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Densité : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Apparence : verifiee",
+      "time": "08/09 18:17"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Absorbance : verifiee",
       "time": "08/09 18:17"
     }
   ]
