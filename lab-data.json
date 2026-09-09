@@ -8972,7 +8972,7 @@
           "nomRapport": "Extractible volume"
         },
         "1786638217013": {
-          "methode": "",
+          "methode": "Ph. Eur. 2.2.24\nUSP <197A>, IR",
           "nomRapport": "Identification active substance"
         },
         "1786960782872": {
@@ -9292,11 +9292,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Technicien modifie : Camille PAAL",
-      "time": "07/09 22:21"
-    },
-    {
-      "icon": "pencil",
       "text": "Technicien modifie : Kévin BERTHELOT",
       "time": "07/09 22:22"
     },
@@ -9539,6 +9534,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 12:20"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0381",
+      "time": "09/09 12:21"
     }
   ]
 }
