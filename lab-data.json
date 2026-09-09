@@ -8582,6 +8582,8 @@
       "articleCode": "M75260000",
       "produitNom": "Lipiodol 10mL Autoclavé",
       "ptcId": 1786960643216,
+      "tailleLot": "300 L",
+      "lotPrincipeActif": "9955819",
       "specifications": {
         "1786624072580": {
           "0": "Clear, pale yellow to amber coloured oil"
@@ -8645,6 +8647,9 @@
         },
         "1785170145444": {
           "0": "mL"
+        },
+        "1787126393243": {
+          "0": ""
         }
       }
     }
@@ -9180,11 +9185,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse modifiée : Poste des Eaux - STEP",
-      "time": "07/09 22:01"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : Poste des Eaux - EDR",
       "time": "07/09 22:02"
     },
@@ -9427,6 +9427,11 @@
       "icon": "trash",
       "text": "Étude supprimée : MA-26LF701A",
       "time": "09/09 10:02"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-25LF701A",
+      "time": "09/09 10:24"
     }
   ]
 }
