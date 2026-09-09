@@ -9213,6 +9213,9 @@
         "1786960813583": {
           "nomRapport": "Density at 20°C",
           "methode": "Ph. Eur. 2.2.5\nUSP <841>, method II"
+        },
+        "1787126393243": {
+          "methode": "Ph. Eur. 2.9.19, method II\nUSP <788>"
         }
       }
     },
@@ -9507,11 +9510,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Viscosité : en_cours",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — TCC0041 - Iode Totale : en_cours",
       "time": "08/09 18:17"
     },
@@ -9754,6 +9752,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 15:18"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0381",
+      "time": "09/09 15:23"
     }
   ]
 }
