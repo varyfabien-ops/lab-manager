@@ -3074,7 +3074,7 @@
       "note": "",
       "analyseStatuts": {
         "1786624072580": "terminee",
-        "1786637416398": "a_lancer",
+        "1786637416398": "terminee",
         "1786638196863": "terminee",
         "1786960860663": "terminee",
         "1787126393243": "a_lancer"
@@ -3196,6 +3196,41 @@
           "commentaire": "",
           "date": "08/09/2026",
           "unite": ""
+        },
+        "1786637416398": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Indice d'Acide",
+                  "valeur": "0,3",
+                  "valeurBrute": "0,3",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "mgKOH/g",
+                  "commentaire": ""
+                }
+              ]
+            },
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Indice d'Acide",
+                  "valeur": "0,3",
+                  "valeurBrute": "0,3",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "mgKOH/g",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
         }
       },
       "analyseStatutsInfo": {
@@ -3207,6 +3242,9 @@
         },
         "1786960860663": {
           "terminee": "08/09/2026"
+        },
+        "1786637416398": {
+          "terminee": "09/09/2026"
         }
       }
     },
