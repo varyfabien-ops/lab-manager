@@ -3302,7 +3302,7 @@
         "1786960813583": "a_lancer",
         "1787126393243": "a_lancer",
         "1786994574820": "a_lancer",
-        "1786994550749": "a_lancer"
+        "1786994550749": "terminee"
       },
       "echeanceCommentaire": "A-2606",
       "resultats": {
@@ -3379,6 +3379,24 @@
           "commentaire": "",
           "date": "09/09/2026",
           "unite": ""
+        },
+        "1786994550749": {
+          "conditions": [
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "Sterile",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
         }
       },
       "analyseStatutsInfo": {
@@ -3386,6 +3404,9 @@
           "terminee": "09/09/2026"
         },
         "1785170145444": {
+          "terminee": "09/09/2026"
+        },
+        "1786994550749": {
           "terminee": "09/09/2026"
         }
       }
