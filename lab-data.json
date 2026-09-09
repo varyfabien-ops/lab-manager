@@ -8711,6 +8711,13 @@
         },
         "1786994574820": {
           "0": "≤ 17 EU/mL"
+        },
+        "1786638196863": {
+          "0": "≤ 0,60",
+          "1": "≤ 0,50"
+        },
+        "1786637416398": {
+          "0": "≤ 1,0 mgKOH/g"
         }
       },
       "specificationUnits": {
@@ -9284,11 +9291,6 @@
   },
   "activity": [
     {
-      "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Poste des Eaux - EDR",
-      "time": "07/09 22:02"
-    },
-    {
       "icon": "pencil",
       "text": "Technicien modifie : Fabien VARY",
       "time": "07/09 22:02"
@@ -9532,6 +9534,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 10:24"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-25LF701A",
+      "time": "09/09 12:16"
     }
   ]
 }
