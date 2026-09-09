@@ -8928,6 +8928,10 @@
         },
         "1786637416398": {
           "0": "≤ 1,0 mgKOH/g"
+        },
+        "1787126393243": {
+          "0": "≤ 3000 part./vial",
+          "1": "≤ 300 part./vial"
         }
       },
       "specificationUnits": {
@@ -8966,7 +8970,8 @@
           "0": "mL"
         },
         "1787126393243": {
-          "0": ""
+          "0": "part./vial",
+          "1": "part./vial"
         }
       }
     }
@@ -9502,11 +9507,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Volume Extractible : en_cours",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Viscosité : en_cours",
       "time": "08/09 18:17"
     },
@@ -9749,6 +9749,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 13:09"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-25LF701A",
+      "time": "09/09 15:18"
     }
   ]
 }
