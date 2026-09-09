@@ -3747,6 +3747,27 @@
           "commentaire": "",
           "date": "09/09/2026",
           "unite": ""
+        },
+        "1786637416398": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Indice d'Acide",
+                  "valeur": "0,3",
+                  "valeurBrute": "0,3",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "mgKOH/g",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
         }
       }
     }
