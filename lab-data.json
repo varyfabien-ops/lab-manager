@@ -9058,8 +9058,8 @@
           "0": "≤ 1,0 mgKOH/g"
         },
         "1787126393243": {
-          "0": "≤ 3000 part./contenant",
-          "1": "≤ 300 part./contenant"
+          "0": "≤ 3000 particules/contenant",
+          "1": "≤ 300 particules/contenant"
         }
       },
       "specificationUnits": {
@@ -9098,8 +9098,8 @@
           "0": "mL"
         },
         "1787126393243": {
-          "0": "part./contenant",
-          "1": "part./contenant"
+          "0": "particules/contenant",
+          "1": "particules/contenant"
         }
       }
     }
@@ -9638,11 +9638,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Volume Extractible : verifiee",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Viscosité : verifiee",
       "time": "08/09 18:17"
     },
@@ -9885,6 +9880,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 15:33"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-25LF701A",
+      "time": "09/09 15:38"
     }
   ]
 }
