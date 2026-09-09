@@ -3296,7 +3296,7 @@
         "1786960860663": "a_lancer",
         "1786624072580": "a_lancer",
         "1786638196863": "terminee",
-        "1785170145444": "a_lancer",
+        "1785170145444": "terminee",
         "1786637357048": "a_lancer",
         "1786960782872": "a_lancer",
         "1786960813583": "a_lancer",
@@ -3358,10 +3358,34 @@
           "commentaire": "",
           "date": "09/09/2026",
           "unite": ""
+        },
+        "1785170145444": {
+          "conditions": [
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "10,4",
+                  "valeurBrute": "10,4",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "mL",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
         }
       },
       "analyseStatutsInfo": {
         "1786638196863": {
+          "terminee": "09/09/2026"
+        },
+        "1785170145444": {
           "terminee": "09/09/2026"
         }
       }
