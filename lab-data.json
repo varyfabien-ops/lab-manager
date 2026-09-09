@@ -1402,9 +1402,14 @@
       "resultatRequis": true,
       "champsResultats": [
         {
-          "label": "Résultat",
-          "type": "texte",
-          "unite": ""
+          "label": "Particule contamination",
+          "type": "numerique",
+          "unite": "part./vial"
+        },
+        {
+          "label": "Sub visible particle",
+          "type": "numerique",
+          "unite": "part./vial"
         }
       ],
       "habilitations": [],
