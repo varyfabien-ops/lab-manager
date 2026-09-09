@@ -2873,7 +2873,7 @@
         "1786960813583": "verifiee",
         "1786994550749": "terminee",
         "1786994574820": "terminee",
-        "1787126393243": "a_lancer"
+        "1787126393243": "terminee"
       },
       "analyseStatutsInfo": {
         "1786638196863": {
@@ -2925,6 +2925,9 @@
           "terminee": "08/09/2026"
         },
         "1786994574820": {
+          "terminee": "09/09/2026"
+        },
+        "1787126393243": {
           "terminee": "09/09/2026"
         }
       },
@@ -3098,6 +3101,31 @@
               "operateur": "=",
               "qualificateur": "valeur",
               "unite": "EU/mL",
+              "commentaire": ""
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
+        },
+        "1787126393243": {
+          "champs": [
+            {
+              "label": "Particules ≥ 10 µm",
+              "valeur": "298",
+              "valeurBrute": "298",
+              "operateur": "=",
+              "qualificateur": "valeur",
+              "unite": "part./contenant",
+              "commentaire": ""
+            },
+            {
+              "label": "Particules ≥ 25 µm",
+              "valeur": "45",
+              "valeurBrute": "45",
+              "operateur": "=",
+              "qualificateur": "valeur",
+              "unite": "part./contenant",
               "commentaire": ""
             }
           ],
@@ -9610,11 +9638,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Infrarouge : en_cours",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Densité : en_cours",
       "time": "08/09 18:17"
     },
@@ -9856,6 +9879,11 @@
     {
       "icon": "clipboard-check",
       "text": "Endotoxin — lot 25LF701A",
+      "time": "09/09 15:31"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Contamination Particulaire - Particules sub-visibles — lot 25LF701A",
       "time": "09/09 15:31"
     }
   ]
