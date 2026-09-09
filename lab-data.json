@@ -1404,12 +1404,12 @@
         {
           "label": "Particules ≥ 10 µm",
           "type": "numerique",
-          "unite": "/contenant"
+          "unite": "part./contenant"
         },
         {
           "label": "Particules ≥ 25 µm",
           "type": "numerique",
-          "unite": "/contenant"
+          "unite": "part./contenant"
         }
       ],
       "habilitations": [],
