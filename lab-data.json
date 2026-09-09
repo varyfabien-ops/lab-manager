@@ -3110,27 +3110,27 @@
               "champs": [
                 {
                   "label": "Absorbance à 420 nm",
-                  "valeur": "",
-                  "valeurBrute": "",
+                  "valeur": "0,24",
+                  "valeurBrute": "0,24",
                   "operateur": "=",
                   "qualificateur": "valeur",
                   "unite": "",
-                  "commentaire": ""
+                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
                 },
                 {
                   "label": "Absorbance à 460 nm",
-                  "valeur": "",
-                  "valeurBrute": "",
+                  "valeur": "0,12",
+                  "valeurBrute": "0,12",
                   "operateur": "=",
                   "qualificateur": "valeur",
                   "unite": "",
-                  "commentaire": ""
+                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
                 }
               ]
             }
           ],
           "commentaire": "",
-          "date": "08/09/2026",
+          "date": "09/09/2026",
           "unite": ""
         },
         "1786624072580": {
@@ -3235,7 +3235,7 @@
       },
       "analyseStatutsInfo": {
         "1786638196863": {
-          "terminee": "08/09/2026"
+          "terminee": "09/09/2026"
         },
         "1786624072580": {
           "terminee": "08/09/2026"
