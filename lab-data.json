@@ -1402,14 +1402,14 @@
       "resultatRequis": true,
       "champsResultats": [
         {
-          "label": "Particule contamination",
+          "label": "Particules ≥ 10 µm",
           "type": "numerique",
-          "unite": "part./vial"
+          "unite": "/contenant"
         },
         {
-          "label": "Sub visible particle",
+          "label": "Particules ≥ 25 µm",
           "type": "numerique",
-          "unite": "part./vial"
+          "unite": "/contenant"
         }
       ],
       "habilitations": [],
