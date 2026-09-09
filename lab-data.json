@@ -446,6 +446,54 @@
       "stabEcheance": "T6M",
       "echeanceId": 1786779469460,
       "note": "Auto: 25LF701A"
+    },
+    {
+      "id": 1788951739575.2898,
+      "nom": "Absorbance",
+      "echantillonId": 1788951739575,
+      "echantillonCode": "25LF701A",
+      "date": "2026-07-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 25LF701A"
+    },
+    {
+      "id": 1788951739575.664,
+      "nom": "Apparence",
+      "echantillonId": 1788951739575,
+      "echantillonCode": "25LF701A",
+      "date": "2026-07-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 25LF701A"
+    },
+    {
+      "id": 1788951739575.1067,
+      "nom": "TCC0041 - Indice d'Acide",
+      "echantillonId": 1788951739575,
+      "echantillonCode": "25LF701A",
+      "date": "2026-07-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 25LF701A"
+    },
+    {
+      "id": 1788951739575.054,
+      "nom": "Iode Libre",
+      "echantillonId": 1788951739575,
+      "echantillonCode": "25LF701A",
+      "date": "2026-07-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 25LF701A"
     }
   ],
   "catalogue": [
@@ -3564,6 +3612,70 @@
         },
         "1786637416398": {
           "terminee": "09/09/2026"
+        }
+      }
+    },
+    {
+      "id": 1788951739575,
+      "code": "25LF701A",
+      "lot": "25LF701A",
+      "articleId": 1786960543922,
+      "articleCode": "M75260000",
+      "produitId": 1786960543922,
+      "marcheIds": [],
+      "analysesIds": [
+        1786638196863,
+        1786624072580,
+        1786637416398,
+        1786960860663
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "refSPQ": "",
+      "refPTC": "PTC0381",
+      "stabEcheance": "T9M",
+      "stabTemps": "25°C",
+      "stabEtudeId": 1788884001003,
+      "ptcId": 1786960643216,
+      "conditionId": 1786779420753,
+      "conditionIds": [
+        1786779420753
+      ],
+      "echeanceId": 1786960653872,
+      "date": "2026-07-14",
+      "dateFabrication": "2025-10-01",
+      "dateMiseStabilite": "2025-10-16",
+      "dateSortieEnceinte": "2026-07-14",
+      "statut": "conforme",
+      "note": "",
+      "analyseStatuts": {
+        "1786638196863": "verifiee",
+        "1786624072580": "verifiee",
+        "1786960860663": "verifiee",
+        "1786637416398": "verifiee"
+      },
+      "analyseStatutsInfo": {
+        "1786638196863": {
+          "en_cours": "09/09/2026",
+          "terminee": "09/09/2026",
+          "verifiee": "09/09/2026"
+        },
+        "1786624072580": {
+          "en_cours": "09/09/2026",
+          "terminee": "09/09/2026",
+          "verifiee": "09/09/2026"
+        },
+        "1786960860663": {
+          "en_cours": "09/09/2026",
+          "terminee": "09/09/2026",
+          "verifiee": "09/09/2026"
+        },
+        "1786637416398": {
+          "en_cours": "09/09/2026",
+          "terminee": "09/09/2026",
+          "verifiee": "09/09/2026"
         }
       }
     }
@@ -9291,51 +9403,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Lot supprimé partout : 2 (1 réception(s)) — Motif : Lot Test",
-      "time": "08/09 15:54"
-    },
-    {
-      "icon": "file-description",
-      "text": "Étude créée : MA-26LF701A",
-      "time": "08/09 15:56"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 11 analyse(s)",
-      "time": "08/09 16:01"
-    },
-    {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
-      "time": "08/09 18:08"
-    },
-    {
-      "icon": "file-description",
-      "text": "Étude créée : MA-25LF701A",
-      "time": "08/09 18:13"
-    },
-    {
-      "icon": "trash",
-      "text": "Lot supprimé partout : TEST (2 réception(s)) — Motif : Lot Test",
-      "time": "08/09 18:13"
-    },
-    {
-      "icon": "trash",
-      "text": "Lot supprimé partout : 24LF701A (1 réception(s)) — Motif : Lot Test",
-      "time": "08/09 18:13"
-    },
-    {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 11 analyse(s)",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
-      "text": "25LF701A — Absorbance : en_cours",
-      "time": "08/09 18:17"
-    },
-    {
       "icon": "list-check",
       "text": "25LF701A — Apparence : en_cours",
       "time": "08/09 18:17"
@@ -9539,6 +9606,51 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 12:24"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 4 analyse(s)",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Absorbance : en_cours",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Apparence : en_cours",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Iode Libre : en_cours",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — TCC0041 - Indice d'Acide : en_cours",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Absorbance : verifiee",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Apparence : verifiee",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — Iode Libre : verifiee",
+      "time": "09/09 13:02"
+    },
+    {
+      "icon": "list-check",
+      "text": "25LF701A — TCC0041 - Indice d'Acide : verifiee",
+      "time": "09/09 13:02"
     }
   ]
 }
