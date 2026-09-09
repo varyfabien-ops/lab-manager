@@ -3351,7 +3351,7 @@
         "1786638196863": "terminee",
         "1785170145444": "terminee",
         "1786637357048": "terminee",
-        "1786960782872": "a_lancer",
+        "1786960782872": "terminee",
         "1786960813583": "terminee",
         "1787126393243": "a_lancer",
         "1786994574820": "a_lancer",
@@ -3591,6 +3591,27 @@
           "commentaire": "",
           "date": "09/09/2026",
           "unite": ""
+        },
+        "1786960782872": {
+          "conditions": [
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "47",
+                  "valeurBrute": "47",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "mPa.s",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
         }
       },
       "analyseStatutsInfo": {
@@ -3616,6 +3637,9 @@
           "terminee": "09/09/2026"
         },
         "1786637416398": {
+          "terminee": "09/09/2026"
+        },
+        "1786960782872": {
           "terminee": "09/09/2026"
         }
       }
