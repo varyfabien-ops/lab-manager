@@ -3671,7 +3671,7 @@
                   "valeurBrute": "104",
                   "operateur": "=",
                   "qualificateur": "valeur",
-                  "unite": "part./vial",
+                  "unite": "particules/contenant",
                   "commentaire": ""
                 },
                 {
@@ -3680,7 +3680,7 @@
                   "valeurBrute": "26",
                   "operateur": "=",
                   "qualificateur": "valeur",
-                  "unite": "part./vial",
+                  "unite": "particules/contenant",
                   "commentaire": ""
                 }
               ]
