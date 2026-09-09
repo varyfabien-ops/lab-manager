@@ -3295,7 +3295,7 @@
         "1786637416398": "a_lancer",
         "1786960860663": "a_lancer",
         "1786624072580": "a_lancer",
-        "1786638196863": "a_lancer",
+        "1786638196863": "terminee",
         "1785170145444": "a_lancer",
         "1786637357048": "a_lancer",
         "1786960782872": "a_lancer",
@@ -3304,7 +3304,67 @@
         "1786994574820": "a_lancer",
         "1786994550749": "a_lancer"
       },
-      "echeanceCommentaire": "A-2606"
+      "echeanceCommentaire": "A-2606",
+      "resultats": {
+        "1786638196863": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "0,24",
+                  "valeurBrute": "0,24",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "0,13",
+                  "valeurBrute": "0,13",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            },
+            {
+              "condition": "40°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "0,33",
+                  "valeurBrute": "0,33",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "0,16",
+                  "valeurBrute": "0,16",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
+        }
+      },
+      "analyseStatutsInfo": {
+        "1786638196863": {
+          "terminee": "09/09/2026"
+        }
+      }
     }
   ],
   "techniciens": [
