@@ -3092,7 +3092,7 @@
                   "operateur": "=",
                   "qualificateur": "valeur",
                   "unite": "",
-                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
+                  "commentaire": ""
                 },
                 {
                   "label": "Absorbance à 460 nm",
@@ -3101,7 +3101,7 @@
                   "operateur": "=",
                   "qualificateur": "valeur",
                   "unite": "",
-                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
+                  "commentaire": ""
                 }
               ]
             },
@@ -3115,7 +3115,7 @@
                   "operateur": "=",
                   "qualificateur": "valeur",
                   "unite": "",
-                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
+                  "commentaire": ""
                 },
                 {
                   "label": "Absorbance à 460 nm",
@@ -3124,7 +3124,7 @@
                   "operateur": "=",
                   "qualificateur": "valeur",
                   "unite": "",
-                  "commentaire": "INV-2026-013 / OOT-2026-013 / A-2602-00138 : No laboratory error, OOT confirmed"
+                  "commentaire": ""
                 }
               ]
             }
