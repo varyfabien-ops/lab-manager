@@ -9292,11 +9292,6 @@
   "activity": [
     {
       "icon": "pencil",
-      "text": "Technicien modifie : Fabien VARY",
-      "time": "07/09 22:02"
-    },
-    {
-      "icon": "pencil",
       "text": "Technicien modifie : Camille PAAL",
       "time": "07/09 22:21"
     },
@@ -9539,6 +9534,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 12:16"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-25LF701A",
+      "time": "09/09 12:20"
     }
   ]
 }
