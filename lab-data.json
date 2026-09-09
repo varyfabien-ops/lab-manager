@@ -8520,25 +8520,6 @@
       "dateArchivage": "2026-09-08T20:47:04.751Z"
     },
     {
-      "id": 1788875769268,
-      "numero": "MA-26LF701A",
-      "articleId": 1786960543922,
-      "articleCode": "M75260000",
-      "produitNom": "Lipiodol 10mL Autoclavé",
-      "ptcId": 1786960643216,
-      "specifications": {
-        "1786624072580": {
-          "0": "Clear, pale yellow to amber coloured oil"
-        },
-        "1786638217013": {
-          "0": "Positive"
-        },
-        "1786637357048": {
-          "0": "37,0 % (m/m) - 39,0 % (m/m)"
-        }
-      }
-    },
-    {
       "id": 1788884001003,
       "numero": "MA-25LF701A",
       "articleId": 1786960543922,
@@ -9143,11 +9124,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Poste des Eaux - Conductivité",
-      "time": "07/09 22:01"
-    },
-    {
-      "icon": "book",
       "text": "Analyse modifiée : Poste des Eaux - STEP",
       "time": "07/09 22:01"
     },
@@ -9390,6 +9366,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "09/09 10:01"
+    },
+    {
+      "icon": "trash",
+      "text": "Étude supprimée : MA-26LF701A",
+      "time": "09/09 10:02"
     }
   ]
 }
