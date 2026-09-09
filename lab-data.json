@@ -3116,7 +3116,7 @@
               "valeurBrute": "298",
               "operateur": "=",
               "qualificateur": "valeur",
-              "unite": "particules/contenant",
+              "unite": "part./vial",
               "commentaire": ""
             },
             {
@@ -3125,7 +3125,7 @@
               "valeurBrute": "45",
               "operateur": "=",
               "qualificateur": "valeur",
-              "unite": "particules/contenant",
+              "unite": "part./vial",
               "commentaire": ""
             }
           ],
@@ -9639,11 +9639,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Iode Libre : verifiee",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Infrarouge : verifiee",
       "time": "08/09 18:17"
     },
@@ -9885,6 +9880,11 @@
     {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
+      "time": "09/09 17:32"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Contamination particulaire : particules non visibles — lot 25LF701A",
       "time": "09/09 17:32"
     }
   ]
