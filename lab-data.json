@@ -3726,6 +3726,27 @@
           "commentaire": "",
           "date": "09/09/2026",
           "unite": ""
+        },
+        "1786960860663": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Résultat",
+                  "valeur": "< 100",
+                  "valeurBrute": "100",
+                  "operateur": "<",
+                  "qualificateur": "valeur",
+                  "unite": "ppm",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
         }
       }
     }
