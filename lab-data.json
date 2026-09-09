@@ -3677,6 +3677,38 @@
           "terminee": "09/09/2026",
           "verifiee": "09/09/2026"
         }
+      },
+      "resultats": {
+        "1786638196863": {
+          "conditions": [
+            {
+              "condition": "25°C",
+              "champs": [
+                {
+                  "label": "Absorbance à 420 nm",
+                  "valeur": "0,25",
+                  "valeurBrute": "0,25",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                },
+                {
+                  "label": "Absorbance à 460 nm",
+                  "valeur": "0,13",
+                  "valeurBrute": "0,13",
+                  "operateur": "=",
+                  "qualificateur": "valeur",
+                  "unite": "",
+                  "commentaire": ""
+                }
+              ]
+            }
+          ],
+          "commentaire": "",
+          "date": "09/09/2026",
+          "unite": ""
+        }
       }
     }
   ],
