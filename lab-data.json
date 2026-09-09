@@ -3116,7 +3116,7 @@
               "valeurBrute": "298",
               "operateur": "=",
               "qualificateur": "valeur",
-              "unite": "part./contenant",
+              "unite": "particules/contenant",
               "commentaire": ""
             },
             {
@@ -3125,7 +3125,7 @@
               "valeurBrute": "45",
               "operateur": "=",
               "qualificateur": "valeur",
-              "unite": "part./contenant",
+              "unite": "particules/contenant",
               "commentaire": ""
             }
           ],
@@ -9638,11 +9638,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Viscosité : verifiee",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — TCC0041 - Iode Totale : verifiee",
       "time": "08/09 18:17"
     },
@@ -9885,6 +9880,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 15:38"
+    },
+    {
+      "icon": "clipboard-check",
+      "text": "Contamination Particulaire - Particules sub-visibles — lot 25LF701A",
+      "time": "09/09 16:12"
     }
   ]
 }
