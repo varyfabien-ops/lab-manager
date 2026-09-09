@@ -1385,8 +1385,8 @@
       "champsResultats": [
         {
           "label": "Résultat",
-          "type": "texte",
-          "unite": ""
+          "type": "numerique",
+          "unite": "EU/mL"
         }
       ],
       "habilitations": [],
