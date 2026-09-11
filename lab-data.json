@@ -7201,7 +7201,7 @@
     {
       "id": 1788812439133,
       "date": "2026-09-14",
-      "techId": "1786178865689",
+      "techId": "1786178889272",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
       "analyseId": 1788788170564,
@@ -7214,12 +7214,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812440984,
       "date": "2026-09-15",
-      "techId": "1786178865689",
+      "techId": "1786178889272",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
       "analyseId": 1788788170564,
@@ -7232,12 +7233,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812442848,
       "date": "2026-09-16",
-      "techId": "1786178865689",
+      "techId": "1786178889272",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
       "analyseId": 1788788170564,
@@ -7250,12 +7252,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812444867,
       "date": "2026-09-17",
-      "techId": "1786178865689",
+      "techId": "1786178889272",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
       "analyseId": 1788788170564,
@@ -7268,12 +7271,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812446917,
       "date": "2026-09-18",
-      "techId": "1786178865689",
+      "techId": "1786178889272",
       "desc": "Poste des Eaux - STEP",
       "analyseNom": "Poste des Eaux - STEP",
       "analyseId": 1788788170564,
@@ -7286,12 +7290,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812449400,
       "date": "2026-09-14",
-      "techId": "1786178865689",
+      "techId": "1786302836845",
       "desc": "Poste des Eaux - EDR",
       "analyseNom": "Poste des Eaux - EDR",
       "analyseId": 1788811321402,
@@ -7304,12 +7309,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812451835,
       "date": "2026-09-16",
-      "techId": "1786178865689",
+      "techId": "1786302836845",
       "desc": "Poste des Eaux - EDR",
       "analyseNom": "Poste des Eaux - EDR",
       "analyseId": 1788811321402,
@@ -7322,12 +7328,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812454801,
       "date": "2026-09-18",
-      "techId": "1786178865689",
+      "techId": "1786302836845",
       "desc": "Poste des Eaux - EDR",
       "analyseNom": "Poste des Eaux - EDR",
       "analyseId": 1788811321402,
@@ -7344,27 +7351,9 @@
       "supplementaire": false
     },
     {
-      "id": 1788812463835,
-      "date": "2026-09-18",
-      "techId": "1785175077562",
-      "desc": "Poste des Eaux - EDR",
-      "analyseNom": "Poste des Eaux - EDR",
-      "analyseId": 1788811321402,
-      "sousKey": "edr_2026-09-14_0",
-      "type": "analyse",
-      "sousAnalyses": [],
-      "color": {
-        "bg": "#E3F2FD",
-        "border": "#1565C0"
-      },
-      "isSous": false,
-      "parentNom": null,
-      "manuel": false
-    },
-    {
       "id": 1788812466684,
       "date": "2026-09-15",
-      "techId": "1786178865689",
+      "techId": "1786302836845",
       "desc": "Poste des Eaux - Conductivité",
       "analyseNom": "Poste des Eaux - Conductivité",
       "analyseId": 1788811278269,
@@ -7377,12 +7366,13 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": 1788812469084,
       "date": "2026-09-17",
-      "techId": "1786178865689",
+      "techId": "1786302836845",
       "desc": "Poste des Eaux - Conductivité",
       "analyseNom": "Poste des Eaux - Conductivité",
       "analyseId": 1788811278269,
@@ -7395,7 +7385,8 @@
       },
       "isSous": false,
       "parentNom": null,
-      "manuel": false
+      "manuel": false,
+      "supplementaire": false
     },
     {
       "id": -2118384337,
@@ -7427,6 +7418,42 @@
       },
       "isSous": false,
       "sousAnalyses": [],
+      "manuel": false
+    },
+    {
+      "id": 1789138024037,
+      "date": "2026-09-14",
+      "techId": "1785175077562",
+      "desc": "Enregistrement",
+      "analyseNom": "Enregistrement",
+      "analyseId": null,
+      "sousKey": "libre_2026-09-14_1786566181408",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      },
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false
+    },
+    {
+      "id": 1789138054070,
+      "date": "2026-09-15",
+      "techId": "1785175077562",
+      "desc": "Enregistrement",
+      "analyseNom": "Enregistrement",
+      "analyseId": null,
+      "sousKey": "libre_2026-09-14_1789138047065",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      },
+      "isSous": false,
+      "parentNom": null,
       "manuel": false
     }
   ],
@@ -8910,6 +8937,15 @@
         "bg": "#FFE0B2",
         "border": "#F57C00"
       }
+    },
+    {
+      "id": 1789138047065,
+      "nom": "Enregistrement",
+      "color": {
+        "bg": "#FFE0B2",
+        "border": "#F57C00"
+      },
+      "analyseId": null
     }
   ],
   "stabConditions": [
@@ -9608,7 +9644,7 @@
     "1786302836845_2026-09-14": "am",
     "1786178889272_2026-09-14": "matin",
     "1786178865689_2026-09-14": "matin",
-    "1786271486368_2026-09-14": "matin",
+    "1786271486368_2026-09-14": "am",
     "1788633979042_2026-09-14": "am"
   },
   "commandesStatut": {
