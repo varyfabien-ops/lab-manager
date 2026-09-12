@@ -7416,7 +7416,8 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false,
-      "supplementaire": false
+      "supplementaire": false,
+      "statutSuivi": null
     },
     {
       "id": 1788812440984,
