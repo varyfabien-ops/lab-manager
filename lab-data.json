@@ -1556,6 +1556,21 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1789225118036,
+      "nom": "Substances Apparentées (PE)",
+      "habilitations": [
+        "HPLC",
+        "MP"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -3200,7 +3215,8 @@
           "date": "09/09/2026",
           "unite": ""
         }
-      }
+      },
+      "_marcheIdsMerged": []
     },
     {
       "id": 1788900641303,
@@ -10277,11 +10293,6 @@
   "activity": [
     {
       "icon": "clipboard-check",
-      "text": "Volume Extractible — lot 25LF701A",
-      "time": "08/09 22:45"
-    },
-    {
-      "icon": "clipboard-check",
       "text": "TCC0041 - Iode Totale — lot 25LF701A",
       "time": "08/09 22:46"
     },
@@ -10524,6 +10535,11 @@
       "icon": "book",
       "text": "Analyse modifiée : Pouvoir Rotatoire (PE)",
       "time": "12/09 16:49"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Substances Apparentées (PE)",
+      "time": "12/09 16:58"
     }
   ]
 }
