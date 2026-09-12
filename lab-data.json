@@ -1515,6 +1515,18 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1789224116804,
+      "nom": "Analyse Sous-Traitance",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "Suivi des analyses sous-traitées",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -10212,11 +10224,6 @@
   "activity": [
     {
       "icon": "clipboard-check",
-      "text": "Absorbance — lot 25LF701A",
-      "time": "08/09 18:18"
-    },
-    {
-      "icon": "clipboard-check",
       "text": "Apparence — lot 25LF701A",
       "time": "08/09 18:18"
     },
@@ -10459,6 +10466,11 @@
       "icon": "package",
       "text": "Réception: Acide Chlorhydrique 10% — 1 entrée(s) — 1 analyse(s)",
       "time": "12/09 16:25"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Analyse Sous-Traitance",
+      "time": "12/09 16:41"
     }
   ]
 }
