@@ -3902,7 +3902,7 @@
       "dateFabrication": "2025-10-01",
       "dateMiseStabilite": "2025-10-16",
       "dateSortieEnceinte": "2026-07-14",
-      "statut": "conforme",
+      "statut": "a_approuver",
       "note": "",
       "analyseStatuts": {
         "1786638196863": "verifiee",
@@ -4023,7 +4023,8 @@
           "date": "09/09/2026",
           "unite": ""
         }
-      }
+      },
+      "dateMiseADispo": "12/09/2026"
     },
     {
       "id": 1789223126796,
@@ -8193,6 +8194,8 @@
       "mpLabelIndex": 2
     }
   ],
+  "planActivityLog": [],
+  "qualitySignals": [],
   "spq": [
     {
       "id": 1785247433998,
@@ -10518,11 +10521,6 @@
   },
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "Viscosité — lot 25LF701A",
-      "time": "08/09 22:46"
-    },
-    {
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 4 analyse(s)",
       "time": "08/09 22:50"
@@ -10766,6 +10764,11 @@
       "icon": "package",
       "text": "Réception: Adrénaline Tartrate — 1 entrée(s) — 2 analyse(s)",
       "time": "12/09 17:09"
+    },
+    {
+      "icon": "clock",
+      "text": "Lot envoyé en approbation : 25LF701A",
+      "time": "12/09 21:36"
     }
   ]
 }
