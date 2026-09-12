@@ -8442,6 +8442,14 @@
       "nom": "Marcaïne 2,5 mg/mL + 5µg/mL Adrénaline (SC)",
       "type": "pif_stab",
       "spqId": 1787117702949
+    },
+    {
+      "id": 1789222987462,
+      "code": "MXXXXXXXX",
+      "nom": "Acide Chlorhydrique 10%",
+      "type": "mp",
+      "spqId": 1789222954365,
+      "leadTimeJours": 60
     }
   ],
   "preparations": [
@@ -10014,11 +10022,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Apparence : verifiee",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Absorbance : verifiee",
       "time": "08/09 18:17"
     },
@@ -10261,6 +10264,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQxxxx",
       "time": "12/09 16:22"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : MXXXXXXXX",
+      "time": "12/09 16:23"
     }
   ]
 }
