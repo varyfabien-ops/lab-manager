@@ -8680,6 +8680,16 @@
       "type": "mp",
       "spqId": 1789222954365,
       "leadTimeJours": 60
+    },
+    {
+      "id": 1789224288241,
+      "code": "MYYYYYYYY",
+      "nom": "Adrénaline Tartrate",
+      "type": "mp",
+      "spqId": 1789224209808,
+      "leadTimeJours": 60,
+      "nbEtiquettesAnalyseMP": 5,
+      "nbEtiquettesVerificationMP": 2
     }
   ],
   "preparations": [
@@ -10252,11 +10262,6 @@
   "activity": [
     {
       "icon": "clipboard-check",
-      "text": "Iode Libre — lot 25LF701A",
-      "time": "08/09 18:22"
-    },
-    {
-      "icon": "clipboard-check",
       "text": "Infrarouge — lot 25LF701A",
       "time": "08/09 22:45"
     },
@@ -10499,6 +10504,11 @@
       "icon": "file-certificate",
       "text": "SPQ créée : SPQyyyy",
       "time": "12/09 16:43"
+    },
+    {
+      "icon": "barcode",
+      "text": "Article créé : MYYYYYYYY",
+      "time": "12/09 16:44"
     }
   ]
 }
