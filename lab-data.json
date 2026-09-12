@@ -494,6 +494,18 @@
       "stabEcheance": "T9M",
       "echeanceId": 1786960653872,
       "note": "Auto: 25LF701A"
+    },
+    {
+      "id": 1789223126796.8528,
+      "nom": "Dosage PE",
+      "echantillonId": 1789223126796,
+      "echantillonCode": "XXXXXX",
+      "date": "2026-09-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: XXXXXX"
     }
   ],
   "catalogue": [
@@ -3917,6 +3929,44 @@
           "unite": ""
         }
       }
+    },
+    {
+      "id": 1789223126796,
+      "code": "XXXXXX",
+      "lot": "XXXXXX",
+      "articleId": 1789222987462,
+      "articleCode": "MXXXXXXXX",
+      "produitId": 1789222987462,
+      "marcheIds": [],
+      "analysesIds": [
+        1789222909996
+      ],
+      "analysesParMarche": {
+        "1789222909996": [
+          1786526124777
+        ]
+      },
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "nbContenants": 1,
+      "nbEtiquettesAnalyseMP": 5,
+      "nbEtiquettesVerificationMP": 2,
+      "refSPQ": "SPQxxxx",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-09-12",
+      "dateFabrication": "",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -7718,6 +7768,146 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
+    },
+    {
+      "id": 1789223126796.305,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 1
+    },
+    {
+      "id": 1789223126796.8594,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 2
+    },
+    {
+      "id": 1789223126796.4055,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 3
+    },
+    {
+      "id": 1789223126796.686,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 4
+    },
+    {
+      "id": 1789223126796.805,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 5
+    },
+    {
+      "id": 1789223126796.4714,
+      "date": null,
+      "techId": null,
+      "desc": "Vérification MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Vérification MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "rgba(26,127,55,0.10)",
+        "border": "#1a7f37"
+      },
+      "mpLabelKind": "verification_mp",
+      "mpLabelIndex": 1
+    },
+    {
+      "id": 1789223126796.1526,
+      "date": null,
+      "techId": null,
+      "desc": "Vérification MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseNom": "Vérification MP - Acide Chlorhydrique 10% - XXXXXX",
+      "analyseId": null,
+      "echId": 1789223126796,
+      "echCode": "XXXXXX",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "rgba(26,127,55,0.10)",
+        "border": "#1a7f37"
+      },
+      "mpLabelKind": "verification_mp",
+      "mpLabelIndex": 2
     }
   ],
   "spq": [
@@ -10021,11 +10211,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "25LF701A — Absorbance : verifiee",
-      "time": "08/09 18:17"
-    },
-    {
       "icon": "clipboard-check",
       "text": "Absorbance — lot 25LF701A",
       "time": "08/09 18:18"
@@ -10269,6 +10454,11 @@
       "icon": "barcode",
       "text": "Article créé : MXXXXXXXX",
       "time": "12/09 16:23"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Acide Chlorhydrique 10% — 1 entrée(s) — 1 analyse(s)",
+      "time": "12/09 16:25"
     }
   ]
 }
