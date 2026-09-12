@@ -7688,6 +7688,22 @@
       "isSous": false,
       "parentNom": null,
       "manuel": false
+    },
+    {
+      "id": -1778992509,
+      "date": "2026-10-02",
+      "techId": "1788633979042",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-28_1788633979042",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
     }
   ],
   "spq": [
