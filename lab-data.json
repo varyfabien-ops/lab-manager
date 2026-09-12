@@ -506,6 +506,30 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: XXXXXX"
+    },
+    {
+      "id": 1789225762915.4915,
+      "nom": "Analyse Sous-Traitance",
+      "echantillonId": 1789225762915,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-09-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1789225762915.3098,
+      "nom": "Echantillohèque",
+      "echantillonId": 1789225762915,
+      "echantillonCode": "YYYYYYY",
+      "date": "2026-09-12",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: YYYYYYY"
     }
   ],
   "catalogue": [
@@ -4024,6 +4048,48 @@
       "nbEtiquettesAnalyseMP": 5,
       "nbEtiquettesVerificationMP": 2,
       "refSPQ": "SPQxxxx",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-09-12",
+      "dateFabrication": "",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1789225762915,
+      "code": "YYYYYYY",
+      "lot": "YYYYYYY",
+      "articleId": 1789224288241,
+      "articleCode": "MYYYYYYYY",
+      "produitId": 1789224288241,
+      "marcheIds": [],
+      "analysesIds": [
+        1789224116804,
+        1789224134104
+      ],
+      "analysesParMarche": {
+        "1789224116804": [
+          1786526124777
+        ],
+        "1789224134104": [
+          1786526124777
+        ]
+      },
+      "typePIF": false,
+      "typeSTAB": false,
+      "typeMP": true,
+      "nbContenants": 6,
+      "nbEtiquettesAnalyseMP": 5,
+      "nbEtiquettesVerificationMP": 2,
+      "refSPQ": "SPQyyyy",
       "refPTC": "",
       "stabEcheance": "",
       "stabTemps": "",
@@ -7979,6 +8045,146 @@
       },
       "mpLabelKind": "verification_mp",
       "mpLabelIndex": 2
+    },
+    {
+      "id": 1789225762915.2524,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 1
+    },
+    {
+      "id": 1789225762915.5122,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 2
+    },
+    {
+      "id": 1789225762915.1387,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 3
+    },
+    {
+      "id": 1789225762915.8506,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 4
+    },
+    {
+      "id": 1789225762915.018,
+      "date": null,
+      "techId": null,
+      "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "#FFF8E1",
+        "border": "#FF9800"
+      },
+      "mpLabelKind": "analyse_mp",
+      "mpLabelIndex": 5
+    },
+    {
+      "id": 1789225762915.9158,
+      "date": null,
+      "techId": null,
+      "desc": "Vérification MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Vérification MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "rgba(26,127,55,0.10)",
+        "border": "#1a7f37"
+      },
+      "mpLabelKind": "verification_mp",
+      "mpLabelIndex": 1
+    },
+    {
+      "id": 1789225762915.5623,
+      "date": null,
+      "techId": null,
+      "desc": "Vérification MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseNom": "Vérification MP - Adrénaline Tartrate - YYYYYYY",
+      "analyseId": null,
+      "echId": 1789225762915,
+      "echCode": "YYYYYYY",
+      "type": "analyse",
+      "sousAnalyses": [],
+      "note": "",
+      "manuel": true,
+      "color": {
+        "bg": "rgba(26,127,55,0.10)",
+        "border": "#1a7f37"
+      },
+      "mpLabelKind": "verification_mp",
+      "mpLabelIndex": 2
     }
   ],
   "spq": [
@@ -10307,11 +10513,6 @@
   "activity": [
     {
       "icon": "clipboard-check",
-      "text": "TCC0041 - Indice d'Acide — lot 25LF701A",
-      "time": "08/09 22:46"
-    },
-    {
-      "icon": "clipboard-check",
       "text": "Viscosité — lot 25LF701A",
       "time": "08/09 22:46"
     },
@@ -10554,6 +10755,11 @@
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Cendres Sulfuriques (PE)",
       "time": "12/09 16:59"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Adrénaline Tartrate — 1 entrée(s) — 2 analyse(s)",
+      "time": "12/09 17:09"
     }
   ]
 }
