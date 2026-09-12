@@ -7948,8 +7948,8 @@
     },
     {
       "id": 1789223126796.4055,
-      "date": null,
-      "techId": null,
+      "date": "2026-09-17",
+      "techId": "1785175077562",
       "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
       "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
       "analyseId": null,
@@ -7964,7 +7964,8 @@
         "border": "#FF9800"
       },
       "mpLabelKind": "analyse_mp",
-      "mpLabelIndex": 3
+      "mpLabelIndex": 3,
+      "supplementaire": false
     },
     {
       "id": 1789223126796.686,
@@ -7988,8 +7989,8 @@
     },
     {
       "id": 1789223126796.805,
-      "date": null,
-      "techId": null,
+      "date": "2026-09-18",
+      "techId": "1785175077562",
       "desc": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
       "analyseNom": "Analyse MP - Acide Chlorhydrique 10% - XXXXXX",
       "analyseId": null,
@@ -8004,7 +8005,8 @@
         "border": "#FF9800"
       },
       "mpLabelKind": "analyse_mp",
-      "mpLabelIndex": 5
+      "mpLabelIndex": 5,
+      "supplementaire": false
     },
     {
       "id": 1789223126796.4714,
@@ -8048,8 +8050,8 @@
     },
     {
       "id": 1789225762915.2524,
-      "date": null,
-      "techId": null,
+      "date": "2026-09-15",
+      "techId": "1786178865689",
       "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
       "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
       "analyseId": null,
@@ -8064,7 +8066,8 @@
         "border": "#FF9800"
       },
       "mpLabelKind": "analyse_mp",
-      "mpLabelIndex": 1
+      "mpLabelIndex": 1,
+      "supplementaire": false
     },
     {
       "id": 1789225762915.5122,
@@ -8088,8 +8091,8 @@
     },
     {
       "id": 1789225762915.1387,
-      "date": null,
-      "techId": null,
+      "date": "2026-09-16",
+      "techId": "1786178865689",
       "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
       "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
       "analyseId": null,
@@ -8104,7 +8107,8 @@
         "border": "#FF9800"
       },
       "mpLabelKind": "analyse_mp",
-      "mpLabelIndex": 3
+      "mpLabelIndex": 3,
+      "supplementaire": false
     },
     {
       "id": 1789225762915.8506,
@@ -8128,8 +8132,8 @@
     },
     {
       "id": 1789225762915.018,
-      "date": null,
-      "techId": null,
+      "date": "2026-09-17",
+      "techId": "1786178865689",
       "desc": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
       "analyseNom": "Analyse MP - Adrénaline Tartrate - YYYYYYY",
       "analyseId": null,
@@ -8144,7 +8148,8 @@
         "border": "#FF9800"
       },
       "mpLabelKind": "analyse_mp",
-      "mpLabelIndex": 5
+      "mpLabelIndex": 5,
+      "supplementaire": false
     },
     {
       "id": 1789225762915.9158,
