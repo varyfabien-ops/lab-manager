@@ -1489,6 +1489,20 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1789222909996,
+      "nom": "Dosage PE",
+      "habilitations": [
+        "MP"
+      ],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -9987,11 +10001,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Infrarouge : verifiee",
-      "time": "08/09 18:17"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Densité : verifiee",
       "time": "08/09 18:17"
     },
@@ -10234,6 +10243,11 @@
       "icon": "clipboard-check",
       "text": "Contamination particulaire : particules non visibles — lot 25LF701A",
       "time": "09/09 17:32"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Dosage PE",
+      "time": "12/09 16:21"
     }
   ]
 }
