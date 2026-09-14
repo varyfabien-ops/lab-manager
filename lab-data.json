@@ -530,6 +530,78 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: YYYYYYY"
+    },
+    {
+      "id": 1789403978055.325,
+      "nom": "Apparence",
+      "echantillonId": 1789403978055,
+      "echantillonCode": "9956037",
+      "date": "2026-09-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 9956037"
+    },
+    {
+      "id": 1789403978055.8997,
+      "nom": "L*a*b",
+      "echantillonId": 1789403978055,
+      "echantillonCode": "9956037",
+      "date": "2026-09-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 9956037"
+    },
+    {
+      "id": 1789403978055.1187,
+      "nom": "Limpidité / Coloration (PE)",
+      "echantillonId": 1789403978055,
+      "echantillonCode": "9956037",
+      "date": "2026-09-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 9956037"
+    },
+    {
+      "id": 1789403978055.245,
+      "nom": "Osmolalité",
+      "echantillonId": 1789403978055,
+      "echantillonCode": "9956037",
+      "date": "2026-09-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 9956037"
+    },
+    {
+      "id": 1789403978055.3354,
+      "nom": "pH",
+      "echantillonId": 1789403978055,
+      "echantillonCode": "9956037",
+      "date": "2026-09-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 9956037"
+    },
+    {
+      "id": 1789403978055.4792,
+      "nom": "TCC0044 - RM493 / Conservateurs / Impuretés",
+      "echantillonId": 1789403978055,
+      "echantillonCode": "9956037",
+      "date": "2026-09-14",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "T9M",
+      "echeanceId": 1786960653872,
+      "note": "Auto: 9956037"
     }
   ],
   "catalogue": [
@@ -4103,6 +4175,46 @@
       "dateFabrication": "",
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1789403978055,
+      "code": "9956037",
+      "lot": "9956037",
+      "articleId": 1786301271905,
+      "articleCode": "M75862417",
+      "produitId": 1786301271905,
+      "marcheIds": [],
+      "analysesIds": [
+        1786624072580,
+        1786196559426,
+        1785247477146,
+        1785169966496,
+        1785170122728,
+        1786301521786
+      ],
+      "analysesParMarche": {},
+      "typePIF": false,
+      "typeSTAB": true,
+      "typeMP": false,
+      "nbEtiquettesAnalyseMP": 0,
+      "nbEtiquettesVerificationMP": 0,
+      "refSPQ": "",
+      "refPTC": "PTC0334",
+      "stabEcheance": "T9M",
+      "stabTemps": "5°C",
+      "stabEtudeId": 1789403647710,
+      "ptcId": 1789401583133,
+      "conditionId": 1786779408487,
+      "conditionIds": [
+        1786779408487
+      ],
+      "echeanceId": 1786960653872,
+      "date": "2026-09-14",
+      "dateFabrication": "",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "2026-09-11",
       "statut": "recu",
       "note": ""
     }
@@ -10723,11 +10835,6 @@
   "activity": [
     {
       "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "08/09 23:45"
-    },
-    {
-      "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "09/09 09:46"
     },
@@ -10970,6 +11077,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-9956037",
       "time": "14/09 18:38"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 6 analyse(s)",
+      "time": "14/09 18:39"
     }
   ]
 }
