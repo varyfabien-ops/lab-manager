@@ -964,7 +964,27 @@
         {
           "label": "Teneur en D-Trp⁷+ D-Cys⁸ Isomers (RRT 0.95)",
           "type": "numerique",
-          "unite": ""
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Dimer E1 (RRT 1.18)",
+          "type": "numerique",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Dimer E2 (RRT 1.40)",
+          "type": "numerique",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en Impuretés Inconnues",
+          "type": "numerique",
+          "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur Totale en Impuretés",
+          "type": "numerique",
+          "unite": "% (m/m)"
         }
       ],
       "resultatRequis": true,
@@ -10874,11 +10894,6 @@
   "activity": [
     {
       "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 12:20"
-    },
-    {
-      "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "09/09 12:21"
     },
@@ -11121,6 +11136,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "14/09 20:09"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "14/09 20:10"
     }
   ]
 }
