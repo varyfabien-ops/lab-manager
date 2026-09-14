@@ -952,14 +952,19 @@
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en L-Ala³+ D-Arg⁶6 Isomers (RRT 0.87)",
+          "label": "Teneur en L-Ala³+ D-Arg⁶ Isomers (RRT 0.87)",
           "type": "texte",
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en Dimère E1",
+          "label": "Teneur en Impureté D (RRT 0.88)",
           "type": "texte",
           "unite": "% (m/m)"
+        },
+        {
+          "label": "Teneur en D-Trp⁷+ D-Cys⁸ Isomers (RRT 0.95)",
+          "type": "numerique",
+          "unite": ""
         }
       ],
       "resultatRequis": true,
@@ -10870,11 +10875,6 @@
     {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 12:16"
-    },
-    {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 12:20"
     },
     {
@@ -11116,6 +11116,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-9956037",
       "time": "14/09 20:07"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "14/09 20:09"
     }
   ]
 }
