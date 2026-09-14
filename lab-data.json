@@ -10771,22 +10771,27 @@
           "methode": "Visual"
         },
         "1786196559426": {
-          "methode": "Ph. Eur. 2.9.2, method II"
+          "methode": "Ph. Eur. 2.9.2, method II",
+          "nomRapport": ""
         },
         "1785169966496": {
           "methode": "USP <785>"
         },
         "1785170145444": {
-          "methode": "USP <697>"
+          "methode": "USP <697>",
+          "nomRapport": ""
         },
         "1786301521786": {
-          "methode": "HPLC"
+          "methode": "HPLC",
+          "nomRapport": ""
         },
         "1787126393243": {
-          "methode": "Ph. Eur. 2.9.19\nUSP <788>"
+          "methode": "Ph. Eur. 2.9.19\nUSP <788>",
+          "nomRapport": ""
         },
         "1786994574820": {
-          "methode": "Ph. Eur. 2.6.14\nUSP <85>"
+          "methode": "Ph. Eur. 2.6.14\nUSP <85>",
+          "nomRapport": ""
         },
         "1786994550749": {
           "methode": "Ph. Eur. 2.6.1\nUSP <71>"
@@ -10903,11 +10908,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 12:24"
-    },
     {
       "icon": "package",
       "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 4 analyse(s)",
@@ -11152,6 +11152,11 @@
       "icon": "file-description",
       "text": "Étude modifiée : MA-9956037",
       "time": "14/09 20:11"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0334",
+      "time": "14/09 20:12"
     }
   ]
 }
