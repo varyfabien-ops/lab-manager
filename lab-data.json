@@ -937,12 +937,12 @@
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en Impureté C",
+          "label": "Teneur en Impureté B (RRT 0.74)",
           "type": "texte",
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en Impureté D",
+          "label": "Teneur en Impureté C (RRT 0.83)",
           "type": "texte",
           "unite": "% (m/m)"
         },
