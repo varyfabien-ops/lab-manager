@@ -947,7 +947,7 @@
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en Impureté F",
+          "label": "Teneur en D-His⁴ Isomer (RRT 0.86)",
           "type": "texte",
           "unite": "% (m/m)"
         },
@@ -10867,11 +10867,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
-      "time": "09/09 10:01"
-    },
-    {
       "icon": "trash",
       "text": "Étude supprimée : MA-26LF701A",
       "time": "09/09 10:02"
@@ -11115,6 +11110,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "14/09 19:22"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "14/09 20:03"
     }
   ]
 }
