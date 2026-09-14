@@ -4213,7 +4213,7 @@
       "echeanceId": 1786960653872,
       "date": "2026-09-14",
       "dateFabrication": "",
-      "dateMiseStabilite": "",
+      "dateMiseStabilite": "2025-12-12",
       "dateSortieEnceinte": "2026-09-11",
       "statut": "recu",
       "note": "",
@@ -10185,7 +10185,8 @@
         "1785170145444": {
           "0": "mL"
         }
-      }
+      },
+      "dateMiseStabilite": "2025-12-12"
     }
   ],
   "ptc": [
