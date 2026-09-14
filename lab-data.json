@@ -952,7 +952,7 @@
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en Dimère E1",
+          "label": "Teneur en L-Ala³+ D-Arg⁶6 Isomers (RRT 0.87)",
           "type": "texte",
           "unite": "% (m/m)"
         },
@@ -10867,11 +10867,6 @@
   },
   "activity": [
     {
-      "icon": "trash",
-      "text": "Étude supprimée : MA-26LF701A",
-      "time": "09/09 10:02"
-    },
-    {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 10:24"
@@ -11115,6 +11110,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "14/09 20:03"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "14/09 20:06"
     }
   ]
 }
