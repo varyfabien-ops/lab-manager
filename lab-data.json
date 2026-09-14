@@ -10734,7 +10734,31 @@
           "methode": "Visual"
         },
         "1786196559426": {
-          "methode": "For informayion only"
+          "methode": "Ph. Eur. 2.9.2, method II"
+        },
+        "1785169966496": {
+          "methode": "USP <785>"
+        },
+        "1785170145444": {
+          "methode": "USP <697>"
+        },
+        "1786301521786": {
+          "methode": "HPLC"
+        },
+        "1787126393243": {
+          "methode": "Ph. Eur. 2.9.19\nUSP <788>"
+        },
+        "1786994574820": {
+          "methode": "Ph. Eur. 2.6.14\nUSP <85>"
+        },
+        "1786994550749": {
+          "methode": "Ph. Eur. 2.6.1\nUSP <71>"
+        },
+        "1785170122728": {
+          "methode": "USP <791>"
+        },
+        "1785247477146": {
+          "methode": "Ph. Eur. 2.2.2"
         }
       }
     }
@@ -10842,11 +10866,6 @@
     }
   },
   "activity": [
-    {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
-      "time": "09/09 09:46"
-    },
     {
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
@@ -11091,6 +11110,11 @@
       "icon": "package",
       "text": "Réception: Setmelanotide 10 mg/mL — 1 entrée(s) — 6 analyse(s)",
       "time": "14/09 18:39"
+    },
+    {
+      "icon": "file-description",
+      "text": "PTC modifié : PTC0334",
+      "time": "14/09 18:46"
     }
   ]
 }
