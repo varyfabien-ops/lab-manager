@@ -10126,8 +10126,10 @@
           "0": "90 % - 105 %",
           "3": "≤ 0,5 % (m/m)",
           "4": "≤ 1,0 % (m/m)",
-          "6": "≤ ",
-          "7": "≤ "
+          "5": "≤ 1,0 % (m/m)",
+          "6": "≤ 1,0 % (m/m)",
+          "7": "≤ 0,5 % (m/m)",
+          "8": "≤ 1,0 % (m/m)"
         },
         "1785170122728": {
           "0": "5,0 - 6,0"
@@ -10185,8 +10187,7 @@
         "1785170145444": {
           "0": "mL"
         }
-      },
-      "dateMiseStabilite": "2025-12-12"
+      }
     }
   ],
   "ptc": [
@@ -10869,11 +10870,6 @@
     {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 10:24"
-    },
-    {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 12:16"
     },
     {
@@ -11115,6 +11111,11 @@
       "icon": "book",
       "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
       "time": "14/09 20:06"
+    },
+    {
+      "icon": "file-description",
+      "text": "Étude modifiée : MA-9956037",
+      "time": "14/09 20:07"
     }
   ]
 }
