@@ -927,12 +927,12 @@
           "unite": "%"
         },
         {
-          "label": "Teneur en Impureté A",
+          "label": "Teneur en Impureté A (RRT 0.66)",
           "type": "texte",
           "unite": "% (m/m)"
         },
         {
-          "label": "Teneur en Impureté B",
+          "label": "Teneur en Impureté F (RRT 0.67)",
           "type": "texte",
           "unite": "% (m/m)"
         },
@@ -10869,11 +10869,6 @@
     {
       "icon": "file-description",
       "text": "PTC modifié : PTC0381",
-      "time": "09/09 09:48"
-    },
-    {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
       "time": "09/09 10:01"
     },
     {
@@ -11115,6 +11110,11 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0334",
       "time": "14/09 18:46"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse modifiée : TCC0044 - RM493 / Conservateurs / Impuretés",
+      "time": "14/09 19:22"
     }
   ]
 }
