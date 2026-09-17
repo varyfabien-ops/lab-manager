@@ -4455,6 +4455,17 @@
       "habilitations": [],
       "date": "2026-09-01",
       "statut": "actif"
+    },
+    {
+      "id": 1789624683407,
+      "prenom": "Alain",
+      "nom": "Dupont",
+      "visa": "ADP",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "",
+      "statut": "actif",
+      "profileId": 1789624709492
     }
   ],
   "planTasks": [
@@ -9585,6 +9596,46 @@
         "etudes-ptc"
       ],
       "tabs": []
+    },
+    {
+      "id": 1789624709492,
+      "technicienId": 1789624683407,
+      "nom": "Alain Dupont",
+      "icone": "ti-user",
+      "color": "#009688",
+      "modules": [
+        "dashboard"
+      ],
+      "tabs": [
+        "planification:planning",
+        "planification:rythmes",
+        "catalogues:reactifs-commerciaux",
+        "catalogues:reactifs-prepares",
+        "catalogues:analyses-tcc",
+        "catalogues:autres-analyses",
+        "kpi:overview",
+        "kpi:adherence",
+        "kpi:rft",
+        "kpi:initiative",
+        "kpi:lots",
+        "kpi:liberations",
+        "kpi:qualite",
+        "kpi:problemes",
+        "kpi:production",
+        "reactifs:commerciaux",
+        "reactifs:prepares",
+        "reactifs:solutions-titrees",
+        "suivi:enregistrement",
+        "suivi:approbation",
+        "suivi:liberation",
+        "suivi:lead-time",
+        "suivi:archives",
+        "suivi:suppressions"
+      ],
+      "passwordSalt": "342ada852c56861b086cf380d5af614d",
+      "passwordHash": "8c378525a258398c55d91001e7fae56d58f8ecf4fca4708871f5662b0c2b35d7",
+      "mustChangePassword": true,
+      "disabled": false
     }
   ],
   "commandesArchives": [
@@ -10909,11 +10960,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Lipiodol 10mL Autoclavé — 1 entrée(s) — 4 analyse(s)",
-      "time": "09/09 13:02"
-    },
-    {
       "icon": "list-check",
       "text": "25LF701A — Absorbance : en_cours",
       "time": "09/09 13:02"
@@ -11157,6 +11203,15 @@
       "icon": "file-description",
       "text": "PTC modifié : PTC0334",
       "time": "14/09 20:12"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien et profil utilisateur créés : Alain Dupont",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-17T05:58:03.414Z",
+      "time": "17/09/2026 07:58"
     }
   ]
 }
