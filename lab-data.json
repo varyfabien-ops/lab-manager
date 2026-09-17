@@ -8348,6 +8348,22 @@
       },
       "mpLabelKind": "verification_mp",
       "mpLabelIndex": 2
+    },
+    {
+      "id": -1376638435,
+      "date": "2026-09-18",
+      "techId": "1789624683407",
+      "desc": "Ménage Hebdomadaire",
+      "analyseNom": "Ménage Hebdomadaire",
+      "sousKey": "menage_2026-09-14_1789624683407",
+      "type": "analyse",
+      "color": {
+        "bg": "#ECEFF1",
+        "border": "#455A64"
+      },
+      "isSous": false,
+      "sousAnalyses": [],
+      "manuel": false
     }
   ],
   "planActivityLog": [],
