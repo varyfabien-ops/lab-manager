@@ -602,6 +602,78 @@
       "stabEcheance": "T9M",
       "echeanceId": 1786960653872,
       "note": "Auto: 9956037"
+    },
+    {
+      "id": 1789745363993.3882,
+      "nom": "Identification Métabisulfite de Sodium",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957129"
+    },
+    {
+      "id": 1789745363993.8357,
+      "nom": "Limpidité / Coloration (PE)",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957129"
+    },
+    {
+      "id": 1789745363993.0623,
+      "nom": "pH",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957129"
+    },
+    {
+      "id": 1789745363993.5508,
+      "nom": "TCC0003 - Métabisulfite de Sodium",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957129"
+    },
+    {
+      "id": 1789745363993.0557,
+      "nom": "TCC0004 - Lidocaïne / PHBM",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957129"
+    },
+    {
+      "id": 1789745363993.1938,
+      "nom": "TCC0023 - Adrénaline",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957129"
     }
   ],
   "catalogue": [
@@ -4267,6 +4339,65 @@
         "1785170122728": "a_lancer",
         "1786301521786": "a_lancer"
       }
+    },
+    {
+      "id": 1789745363993,
+      "code": "9957129",
+      "lot": "9957129",
+      "articleId": 1789745318808,
+      "articleCode": "M76225001",
+      "produitId": 1789745318808,
+      "marcheIds": [
+        1789745195335
+      ],
+      "analysesIds": [
+        1789745276240,
+        1785247477146,
+        1785170122728,
+        1786533393826,
+        1785247344996,
+        1786533442513
+      ],
+      "analysesParMarche": {
+        "1789745276240": [
+          1789745195335
+        ],
+        "1785247477146": [
+          1789745195335
+        ],
+        "1785170122728": [
+          1789745195335
+        ],
+        "1786533393826": [
+          1789745195335
+        ],
+        "1785247344996": [
+          1789745195335
+        ],
+        "1786533442513": [
+          1789745195335
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "nbEtiquettesAnalyseMP": 0,
+      "nbEtiquettesVerificationMP": 0,
+      "refSPQ": "SPQ0051",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-09-18",
+      "dateFabrication": "2026-09-15",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": ""
     }
   ],
   "techniciens": [
@@ -11022,11 +11153,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Absorbance : verifiee",
-      "time": "09/09 13:02"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Apparence : verifiee",
       "time": "09/09 13:02"
     },
@@ -11289,6 +11415,15 @@
       "actorColor": "",
       "timestamp": "2026-09-18T15:28:38.808Z",
       "time": "18/09/2026 17:28"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 10 mg/mL + Adrénaline (AC) — 1 entrée(s) — 6 analyse(s)",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-18T15:29:23.993Z",
+      "time": "18/09/2026 17:29"
     }
   ]
 }
