@@ -806,6 +806,18 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: 9957025"
+    },
+    {
+      "id": 1789750367702.638,
+      "nom": "TCC0031 - Eaux de Rinçage",
+      "echantillonId": 1789746929618,
+      "echantillonCode": "9957026",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Ajout lors de la modification : 9957026"
     }
   ],
   "catalogue": [
@@ -4565,6 +4577,7 @@
         1785170122728,
         1785247382413,
         1785247344996,
+        1789750362893,
         1785170145444
       ],
       "analysesParMarche": {
@@ -11505,11 +11518,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 15:38"
-    },
-    {
       "icon": "clipboard-check",
       "text": "Contamination Particulaire - Particules sub-visibles — lot 25LF701A",
       "time": "09/09 16:12"
@@ -11820,6 +11828,15 @@
       "actorId": 1789749615587,
       "actorColor": "#673AB7",
       "timestamp": "2026-09-18T16:52:42.893Z",
+      "time": "18/09/2026 18:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : 9957026",
+      "actor": "Fabien VARY",
+      "actorId": 1789749615587,
+      "actorColor": "#673AB7",
+      "timestamp": "2026-09-18T16:52:47.702Z",
       "time": "18/09/2026 18:52"
     }
   ]
