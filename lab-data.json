@@ -1706,6 +1706,18 @@
       "champsResultats": [],
       "resultatRequis": false,
       "sousAnalyses": []
+    },
+    {
+      "id": 1789745276240,
+      "nom": "Identification Métabisulfite de Sodium",
+      "habilitations": [],
+      "duree": "",
+      "code": "",
+      "produitsIds": [],
+      "description": "",
+      "champsResultats": [],
+      "resultatRequis": false,
+      "sousAnalyses": []
     }
   ],
   "stabilites": [],
@@ -10999,11 +11011,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Apparence : en_cours",
-      "time": "09/09 13:02"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Iode Libre : en_cours",
       "time": "09/09 13:02"
     },
@@ -11253,6 +11260,15 @@
       "actorId": null,
       "actorColor": "",
       "timestamp": "2026-09-18T15:27:26.312Z",
+      "time": "18/09/2026 17:27"
+    },
+    {
+      "icon": "book",
+      "text": "Analyse ajoutée au catalogue : Identification Métabisulfite de Sodium",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-18T15:27:56.240Z",
       "time": "18/09/2026 17:27"
     }
   ]
