@@ -746,6 +746,66 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: 9957026"
+    },
+    {
+      "id": 1789750292142.5156,
+      "nom": "Limpidité / Coloration (PE)",
+      "echantillonId": 1789750292141,
+      "echantillonCode": "9957025",
+      "date": "2026-09-17",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957025"
+    },
+    {
+      "id": 1789750292142.1387,
+      "nom": "pH",
+      "echantillonId": 1789750292141,
+      "echantillonCode": "9957025",
+      "date": "2026-09-17",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957025"
+    },
+    {
+      "id": 1789750292142.6638,
+      "nom": "TCC0002 - Sodium",
+      "echantillonId": 1789750292141,
+      "echantillonCode": "9957025",
+      "date": "2026-09-17",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957025"
+    },
+    {
+      "id": 1789750292142.147,
+      "nom": "TCC0004 - Lidocaïne / PHBM",
+      "echantillonId": 1789750292141,
+      "echantillonCode": "9957025",
+      "date": "2026-09-17",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957025"
+    },
+    {
+      "id": 1789750292142.895,
+      "nom": "Volume Extractible",
+      "echantillonId": 1789750292141,
+      "echantillonCode": "9957025",
+      "date": "2026-09-17",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957025"
     }
   ],
   "catalogue": [
@@ -4522,6 +4582,61 @@
       "echeanceId": null,
       "date": "2026-09-18",
       "dateFabrication": "2026-09-15",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1789750292141,
+      "code": "9957025",
+      "lot": "9957025",
+      "articleId": 1785343178510,
+      "articleCode": "M78003701",
+      "produitId": 1785343178510,
+      "marcheIds": [
+        1785262197983
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1785247344996,
+        1785170145444
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1785262197983
+        ],
+        "1785170122728": [
+          1785262197983
+        ],
+        "1785247382413": [
+          1785262197983
+        ],
+        "1785247344996": [
+          1785262197983
+        ],
+        "1785170145444": [
+          1785262197983
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "nbEtiquettesAnalyseMP": 0,
+      "nbEtiquettesVerificationMP": 0,
+      "refSPQ": "SPQ0050",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-09-17",
+      "dateFabrication": "2026-09-14",
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
       "statut": "recu",
@@ -11372,11 +11487,6 @@
   },
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "Contamination Particulaire - Particules sub-visibles — lot 25LF701A",
-      "time": "09/09 15:31"
-    },
-    {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 15:33"
@@ -11680,6 +11790,15 @@
       "actorColor": "#673AB7",
       "timestamp": "2026-09-18T16:50:43.614Z",
       "time": "18/09/2026 18:50"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 20 mg/mL SC — 1 entrée(s) — 5 analyse(s)",
+      "actor": "Fabien VARY",
+      "actorId": 1789749615587,
+      "actorColor": "#673AB7",
+      "timestamp": "2026-09-18T16:51:32.142Z",
+      "time": "18/09/2026 18:51"
     }
   ]
 }
