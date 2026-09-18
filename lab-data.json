@@ -10031,9 +10031,9 @@
         "suivi:archives",
         "suivi:suppressions"
       ],
-      "passwordSalt": "00bed78fb2aa86584e40bea138ca5f17",
-      "passwordHash": "9e80e5cd144777d448c5c6666586b64e57adbaf6b1b42dfd41003e097cf71615",
-      "mustChangePassword": true,
+      "passwordSalt": "d07b9b8aa3789b546623246b843ea22b",
+      "passwordHash": "fa9179f87d604a913aab719c73646f1ccde173b771a10b34f4f32513f0f4b167",
+      "mustChangePassword": false,
       "technicienId": 1789749577260,
       "disabled": false
     }
@@ -11360,11 +11360,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 15:30"
-    },
-    {
       "icon": "clipboard-check",
       "text": "Endotoxin — lot 25LF701A",
       "time": "09/09 15:31"
@@ -11660,6 +11655,15 @@
       "actorColor": "#8E2430",
       "timestamp": "2026-09-18T16:39:51.628Z",
       "time": "18/09/2026 18:39"
+    },
+    {
+      "icon": "lock",
+      "text": "Mot de passe personnel créé : Fabien VARY",
+      "actor": "Fabien VARY",
+      "actorId": 1789749615587,
+      "actorColor": "#673AB7",
+      "timestamp": "2026-09-18T16:40:15.144Z",
+      "time": "18/09/2026 18:40"
     }
   ]
 }
