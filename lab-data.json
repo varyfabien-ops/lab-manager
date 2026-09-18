@@ -8968,6 +8968,23 @@
           "articleId": null
         }
       ]
+    },
+    {
+      "id": 1789745246312,
+      "ref": "SPQ0051",
+      "marches": [
+        {
+          "marcheId": 1789745195335,
+          "analyses": [
+            1785247477146,
+            1785170122728,
+            1786533393826,
+            1785247344996,
+            1786533442513
+          ],
+          "articleId": null
+        }
+      ]
     }
   ],
   "articles": [
@@ -10982,11 +10999,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Absorbance : en_cours",
-      "time": "09/09 13:02"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — Apparence : en_cours",
       "time": "09/09 13:02"
     },
@@ -11233,6 +11245,15 @@
       "actorColor": "",
       "timestamp": "2026-09-17T05:58:03.414Z",
       "time": "17/09/2026 07:58"
+    },
+    {
+      "icon": "file-certificate",
+      "text": "SPQ créée : SPQ0051",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-18T15:27:26.312Z",
+      "time": "18/09/2026 17:27"
     }
   ]
 }
