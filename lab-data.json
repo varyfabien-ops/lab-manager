@@ -4530,37 +4530,6 @@
   ],
   "techniciens": [
     {
-      "id": 1785175077562,
-      "prenom": "Fabien",
-      "nom": "VARY",
-      "visa": "FVY",
-      "role": "Technicien CQ",
-      "habilitations": [
-        "Balance",
-        "Burette",
-        "Conductivité",
-        "Densité",
-        "ECD",
-        "HPLC",
-        "IR",
-        "MIRRHIA",
-        "Osmolalité",
-        "Particules",
-        "pH",
-        "Pipettes",
-        "RI",
-        "SAA",
-        "STEP",
-        "Titrimétrie",
-        "TOC",
-        "UV",
-        "Viscosité",
-        "Volume"
-      ],
-      "date": "2021-11-08",
-      "statut": "actif"
-    },
-    {
       "id": 1786178865689,
       "prenom": "Camille",
       "nom": "PAAL",
@@ -11298,11 +11267,6 @@
   "activity": [
     {
       "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 15:18"
-    },
-    {
-      "icon": "file-description",
       "text": "PTC modifié : PTC0381",
       "time": "09/09 15:23"
     },
@@ -11585,6 +11549,15 @@
       "actorColor": "",
       "timestamp": "2026-09-18T16:35:25.362Z",
       "time": "18/09/2026 18:35"
+    },
+    {
+      "icon": "trash",
+      "text": "Technicien supprime : Fabien VARY",
+      "actor": "Fabien VARY",
+      "actorId": 1789749325362,
+      "actorColor": "#8E2430",
+      "timestamp": "2026-09-18T16:39:02.676Z",
+      "time": "18/09/2026 18:39"
     }
   ]
 }
