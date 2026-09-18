@@ -808,16 +808,16 @@
       "note": "Auto: 9957025"
     },
     {
-      "id": 1789750367702.638,
+      "id": 1789750379844.3652,
       "nom": "TCC0031 - Eaux de Rinçage",
-      "echantillonId": 1789746929618,
-      "echantillonCode": "9957026",
-      "date": "2026-09-18",
+      "echantillonId": 1789750292141,
+      "echantillonCode": "9957025",
+      "date": "2026-09-17",
       "priorite": "normale",
       "statut": "planifie",
       "stabEcheance": "",
       "echeanceId": null,
-      "note": "Ajout lors de la modification : 9957026"
+      "note": "Ajout lors de la modification : 9957025"
     }
   ],
   "catalogue": [
@@ -4577,7 +4577,6 @@
         1785170122728,
         1785247382413,
         1785247344996,
-        1789750362893,
         1785170145444
       ],
       "analysesParMarche": {
@@ -4633,6 +4632,7 @@
         1785170122728,
         1785247382413,
         1785247344996,
+        1789750362893,
         1785170145444
       ],
       "analysesParMarche": {
@@ -11518,16 +11518,6 @@
   },
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "Contamination Particulaire - Particules sub-visibles — lot 25LF701A",
-      "time": "09/09 16:12"
-    },
-    {
-      "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
-      "time": "09/09 16:14"
-    },
-    {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 17:32"
@@ -11837,6 +11827,24 @@
       "actorId": 1789749615587,
       "actorColor": "#673AB7",
       "timestamp": "2026-09-18T16:52:47.702Z",
+      "time": "18/09/2026 18:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : 9957026",
+      "actor": "Fabien VARY",
+      "actorId": 1789749615587,
+      "actorColor": "#673AB7",
+      "timestamp": "2026-09-18T16:52:56.405Z",
+      "time": "18/09/2026 18:52"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : 9957025",
+      "actor": "Fabien VARY",
+      "actorId": 1789749615587,
+      "actorColor": "#673AB7",
+      "timestamp": "2026-09-18T16:52:59.845Z",
       "time": "18/09/2026 18:52"
     }
   ]
