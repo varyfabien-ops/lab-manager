@@ -4711,6 +4711,41 @@
       "date": "",
       "statut": "actif",
       "profileId": 1789624709492
+    },
+    {
+      "id": 1789749577260,
+      "prenom": "Fabien",
+      "nom": "VARY",
+      "visa": "FVY",
+      "role": "Technicien CQ",
+      "habilitations": [
+        "Balance",
+        "Burette",
+        "Conductivité",
+        "Densité",
+        "ECD",
+        "HPLC",
+        "IR",
+        "MIRRHIA",
+        "MP",
+        "Osmolalité",
+        "Particules",
+        "pH",
+        "Pipettes",
+        "Polarimètre",
+        "RI",
+        "SAA",
+        "STEP",
+        "Titrimétrie",
+        "TOC",
+        "UV",
+        "Vérification HPLC",
+        "Viscosité",
+        "Volume"
+      ],
+      "date": "2021-11-08",
+      "statut": "actif",
+      "profileId": 1789749615587
     }
   ],
   "planTasks": [
@@ -9942,6 +9977,46 @@
       "passwordHash": "8c378525a258398c55d91001e7fae56d58f8ecf4fca4708871f5662b0c2b35d7",
       "mustChangePassword": true,
       "disabled": false
+    },
+    {
+      "id": 1789749615587,
+      "technicienId": 1789749577260,
+      "nom": "Fabien VARY",
+      "icone": "ti-user",
+      "color": "#673AB7",
+      "modules": [
+        "dashboard"
+      ],
+      "tabs": [
+        "planification:planning",
+        "planification:rythmes",
+        "catalogues:reactifs-commerciaux",
+        "catalogues:reactifs-prepares",
+        "catalogues:analyses-tcc",
+        "catalogues:autres-analyses",
+        "kpi:overview",
+        "kpi:adherence",
+        "kpi:rft",
+        "kpi:initiative",
+        "kpi:lots",
+        "kpi:liberations",
+        "kpi:qualite",
+        "kpi:problemes",
+        "kpi:production",
+        "reactifs:commerciaux",
+        "reactifs:prepares",
+        "reactifs:solutions-titrees",
+        "suivi:enregistrement",
+        "suivi:approbation",
+        "suivi:liberation",
+        "suivi:lead-time",
+        "suivi:archives",
+        "suivi:suppressions"
+      ],
+      "passwordSalt": "00bed78fb2aa86584e40bea138ca5f17",
+      "passwordHash": "9e80e5cd144777d448c5c6666586b64e57adbaf6b1b42dfd41003e097cf71615",
+      "mustChangePassword": true,
+      "disabled": false
     }
   ],
   "commandesArchives": [
@@ -11267,11 +11342,6 @@
   "activity": [
     {
       "icon": "file-description",
-      "text": "PTC modifié : PTC0381",
-      "time": "09/09 15:23"
-    },
-    {
-      "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 15:24"
     },
@@ -11557,6 +11627,15 @@
       "actorId": 1789749325362,
       "actorColor": "#8E2430",
       "timestamp": "2026-09-18T16:39:02.676Z",
+      "time": "18/09/2026 18:39"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien et profil utilisateur créés : Fabien VARY",
+      "actor": "Fabien VARY",
+      "actorId": 1789749325362,
+      "actorColor": "#8E2430",
+      "timestamp": "2026-09-18T16:39:37.264Z",
       "time": "18/09/2026 18:39"
     }
   ]
