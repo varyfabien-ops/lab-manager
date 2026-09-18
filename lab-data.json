@@ -686,6 +686,66 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Ajout lors de la modification : 9957129"
+    },
+    {
+      "id": 1789746929618.3064,
+      "nom": "Limpidité / Coloration (PE)",
+      "echantillonId": 1789746929618,
+      "echantillonCode": "9957026",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957026"
+    },
+    {
+      "id": 1789746929618.7805,
+      "nom": "pH",
+      "echantillonId": 1789746929618,
+      "echantillonCode": "9957026",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957026"
+    },
+    {
+      "id": 1789746929618.1934,
+      "nom": "TCC0002 - Sodium",
+      "echantillonId": 1789746929618,
+      "echantillonCode": "9957026",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957026"
+    },
+    {
+      "id": 1789746929618.7554,
+      "nom": "TCC0004 - Lidocaïne / PHBM",
+      "echantillonId": 1789746929618,
+      "echantillonCode": "9957026",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957026"
+    },
+    {
+      "id": 1789746929618.2622,
+      "nom": "Volume Extractible",
+      "echantillonId": 1789746929618,
+      "echantillonCode": "9957026",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Auto: 9957026"
     }
   ],
   "catalogue": [
@@ -4397,6 +4457,61 @@
       "nbEtiquettesAnalyseMP": 0,
       "nbEtiquettesVerificationMP": 0,
       "refSPQ": "SPQ0051",
+      "refPTC": "",
+      "stabEcheance": "",
+      "stabTemps": "",
+      "stabEtudeId": null,
+      "ptcId": null,
+      "conditionId": null,
+      "conditionIds": [],
+      "echeanceId": null,
+      "date": "2026-09-18",
+      "dateFabrication": "2026-09-15",
+      "dateMiseStabilite": "",
+      "dateSortieEnceinte": "",
+      "statut": "recu",
+      "note": ""
+    },
+    {
+      "id": 1789746929618,
+      "code": "9957026",
+      "lot": "9957026",
+      "articleId": 1785343158627,
+      "articleCode": "M78003601",
+      "produitId": 1785343158627,
+      "marcheIds": [
+        1785262197983
+      ],
+      "analysesIds": [
+        1785247477146,
+        1785170122728,
+        1785247382413,
+        1785247344996,
+        1785170145444
+      ],
+      "analysesParMarche": {
+        "1785247477146": [
+          1785262197983
+        ],
+        "1785170122728": [
+          1785262197983
+        ],
+        "1785247382413": [
+          1785262197983
+        ],
+        "1785247344996": [
+          1785262197983
+        ],
+        "1785170145444": [
+          1785262197983
+        ]
+      },
+      "typePIF": true,
+      "typeSTAB": false,
+      "typeMP": false,
+      "nbEtiquettesAnalyseMP": 0,
+      "nbEtiquettesVerificationMP": 0,
+      "refSPQ": "SPQ0049",
       "refPTC": "",
       "stabEcheance": "",
       "stabTemps": "",
@@ -11182,11 +11297,6 @@
   },
   "activity": [
     {
-      "icon": "list-check",
-      "text": "25LF701A — TCC0041 - Indice d'Acide : verifiee",
-      "time": "09/09 13:02"
-    },
-    {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 13:09"
@@ -11462,6 +11572,15 @@
       "actorColor": "",
       "timestamp": "2026-09-18T15:30:04.673Z",
       "time": "18/09/2026 17:30"
+    },
+    {
+      "icon": "package",
+      "text": "Réception: Xylocaïne 10 mg/mL (SC) — 1 entrée(s) — 5 analyse(s)",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-18T15:55:29.619Z",
+      "time": "18/09/2026 17:55"
     }
   ]
 }
