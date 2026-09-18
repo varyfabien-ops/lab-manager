@@ -4670,8 +4670,19 @@
       "dateFabrication": "2026-09-14",
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": ""
+      "statut": "en_analyse",
+      "note": "",
+      "analyseStatuts": {
+        "1785247477146": "terminee"
+      },
+      "analyseStatutsInfo": {
+        "1785247477146": {
+          "en_cours": "18/09/2026",
+          "en_coursPar": "Fabien VARY",
+          "terminee": "18/09/2026",
+          "termineePar": "Fabien VARY"
+        }
+      }
     }
   ],
   "techniciens": [
@@ -11518,11 +11529,6 @@
   },
   "activity": [
     {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 17:32"
-    },
-    {
       "icon": "clipboard-check",
       "text": "Contamination particulaire : particules non visibles — lot 25LF701A",
       "time": "09/09 17:32"
@@ -11846,6 +11852,15 @@
       "actorColor": "#673AB7",
       "timestamp": "2026-09-18T16:52:59.845Z",
       "time": "18/09/2026 18:52"
+    },
+    {
+      "icon": "list-check",
+      "text": "9957025 — Limpidité / Coloration (PE) : en_cours",
+      "actor": "Fabien VARY",
+      "actorId": 1789749615587,
+      "actorColor": "#673AB7",
+      "timestamp": "2026-09-18T16:53:34.013Z",
+      "time": "18/09/2026 18:53"
     }
   ]
 }
