@@ -9980,12 +9980,30 @@
     },
     {
       "id": 1789749615587,
-      "technicienId": 1789749577260,
       "nom": "Fabien VARY",
       "icone": "ti-user",
       "color": "#673AB7",
       "modules": [
-        "dashboard"
+        "dashboard",
+        "planning",
+        "catalogue-analyses",
+        "kpi",
+        "reactifs",
+        "preparations",
+        "solutions-titrees",
+        "commandes",
+        "echantillons",
+        "approbation",
+        "liberation",
+        "lead-time",
+        "echantillons-archives",
+        "echantillons-suppressions",
+        "articles",
+        "habilitations",
+        "activity",
+        "stabilites",
+        "etudes-ptc",
+        "profils-config"
       ],
       "tabs": [
         "planification:planning",
@@ -10016,6 +10034,7 @@
       "passwordSalt": "00bed78fb2aa86584e40bea138ca5f17",
       "passwordHash": "9e80e5cd144777d448c5c6666586b64e57adbaf6b1b42dfd41003e097cf71615",
       "mustChangePassword": true,
+      "technicienId": 1789749577260,
       "disabled": false
     }
   ],
@@ -11343,11 +11362,6 @@
     {
       "icon": "file-description",
       "text": "Étude modifiée : MA-25LF701A",
-      "time": "09/09 15:24"
-    },
-    {
-      "icon": "file-description",
-      "text": "Étude modifiée : MA-25LF701A",
       "time": "09/09 15:30"
     },
     {
@@ -11636,6 +11650,15 @@
       "actorId": 1789749325362,
       "actorColor": "#8E2430",
       "timestamp": "2026-09-18T16:39:37.264Z",
+      "time": "18/09/2026 18:39"
+    },
+    {
+      "icon": "lock",
+      "text": "Profil utilisateur sécurisé : Fabien VARY",
+      "actor": "Fabien VARY",
+      "actorId": 1789749325362,
+      "actorColor": "#8E2430",
+      "timestamp": "2026-09-18T16:39:51.628Z",
       "time": "18/09/2026 18:39"
     }
   ]
