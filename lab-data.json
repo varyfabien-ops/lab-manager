@@ -674,6 +674,18 @@
       "stabEcheance": "",
       "echeanceId": null,
       "note": "Auto: 9957129"
+    },
+    {
+      "id": 1789745404673.0562,
+      "nom": "TCC0002 - Sodium",
+      "echantillonId": 1789745363993,
+      "echantillonCode": "9957129",
+      "date": "2026-09-18",
+      "priorite": "normale",
+      "statut": "planifie",
+      "stabEcheance": "",
+      "echeanceId": null,
+      "note": "Ajout lors de la modification : 9957129"
     }
   ],
   "catalogue": [
@@ -4354,6 +4366,7 @@
         1789745276240,
         1785247477146,
         1785170122728,
+        1785247382413,
         1786533393826,
         1785247344996,
         1786533442513
@@ -11154,11 +11167,6 @@
   "activity": [
     {
       "icon": "list-check",
-      "text": "25LF701A — Iode Libre : verifiee",
-      "time": "09/09 13:02"
-    },
-    {
-      "icon": "list-check",
       "text": "25LF701A — TCC0041 - Indice d'Acide : verifiee",
       "time": "09/09 13:02"
     },
@@ -11429,6 +11437,15 @@
       "actorColor": "",
       "timestamp": "2026-09-18T15:29:55.016Z",
       "time": "18/09/2026 17:29"
+    },
+    {
+      "icon": "pencil",
+      "text": "Réception modifiée : 9957129",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-18T15:30:04.673Z",
+      "time": "18/09/2026 17:30"
     }
   ]
 }
