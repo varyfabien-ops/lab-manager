@@ -4859,17 +4859,6 @@
       "statut": "actif"
     },
     {
-      "id": 1789624683407,
-      "prenom": "Alain",
-      "nom": "Dupont",
-      "visa": "ADP",
-      "role": "Technicien CQ",
-      "habilitations": [],
-      "date": "",
-      "statut": "actif",
-      "profileId": 1789624709492
-    },
-    {
       "id": 1789749577260,
       "prenom": "Fabien",
       "nom": "VARY",
@@ -11527,11 +11516,6 @@
   },
   "activity": [
     {
-      "icon": "clipboard-check",
-      "text": "Contamination particulaire : particules non visibles — lot 25LF701A",
-      "time": "09/09 17:32"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Dosage PE",
       "time": "12/09 16:21"
@@ -11859,6 +11843,15 @@
       "actorColor": "#673AB7",
       "timestamp": "2026-09-18T16:53:34.013Z",
       "time": "18/09/2026 18:53"
+    },
+    {
+      "icon": "trash",
+      "text": "Technicien supprime : Alain Dupont",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-20T11:14:36.251Z",
+      "time": "20/09/2026 13:14"
     }
   ]
 }
