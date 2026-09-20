@@ -10190,10 +10190,9 @@
     },
     {
       "id": 1789908635706,
-      "technicienId": 1789908585841,
       "nom": "Corentin AUBOIS",
       "icone": "ti-user",
-      "color": "#009688",
+      "color": "#00BCD4",
       "modules": [
         "dashboard"
       ],
@@ -10226,6 +10225,7 @@
       "passwordSalt": "210b31a28b92951b53d6eb934f9a4a16",
       "passwordHash": "e1e54f6c5b0f50361b4fffda366daf578a7fddadae16a1d0b4e378a64a8d2bcb",
       "mustChangePassword": true,
+      "technicienId": 1789908585841,
       "disabled": false
     }
   ],
@@ -11557,11 +11557,6 @@
   },
   "activity": [
     {
-      "icon": "barcode",
-      "text": "Article créé : MXXXXXXXX",
-      "time": "12/09 16:23"
-    },
-    {
       "icon": "package",
       "text": "Réception: Acide Chlorhydrique 10% — 1 entrée(s) — 1 analyse(s)",
       "time": "12/09 16:25"
@@ -11901,6 +11896,15 @@
       "actorColor": "",
       "timestamp": "2026-09-20T12:49:45.850Z",
       "time": "20/09/2026 14:49"
+    },
+    {
+      "icon": "lock",
+      "text": "Profil utilisateur sécurisé : Corentin AUBOIS",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-20T12:50:03.876Z",
+      "time": "20/09/2026 14:50"
     }
   ]
 }
