@@ -10140,46 +10140,6 @@
       "tabs": []
     },
     {
-      "id": 1789624709492,
-      "technicienId": 1789624683407,
-      "nom": "Alain Dupont",
-      "icone": "ti-user",
-      "color": "#009688",
-      "modules": [
-        "dashboard"
-      ],
-      "tabs": [
-        "planification:planning",
-        "planification:rythmes",
-        "catalogues:reactifs-commerciaux",
-        "catalogues:reactifs-prepares",
-        "catalogues:analyses-tcc",
-        "catalogues:autres-analyses",
-        "kpi:overview",
-        "kpi:adherence",
-        "kpi:rft",
-        "kpi:initiative",
-        "kpi:lots",
-        "kpi:liberations",
-        "kpi:qualite",
-        "kpi:problemes",
-        "kpi:production",
-        "reactifs:commerciaux",
-        "reactifs:prepares",
-        "reactifs:solutions-titrees",
-        "suivi:enregistrement",
-        "suivi:approbation",
-        "suivi:liberation",
-        "suivi:lead-time",
-        "suivi:archives",
-        "suivi:suppressions"
-      ],
-      "passwordSalt": "342ada852c56861b086cf380d5af614d",
-      "passwordHash": "8c378525a258398c55d91001e7fae56d58f8ecf4fca4708871f5662b0c2b35d7",
-      "mustChangePassword": true,
-      "disabled": false
-    },
-    {
       "id": 1789749615587,
       "nom": "Fabien VARY",
       "icone": "ti-user",
