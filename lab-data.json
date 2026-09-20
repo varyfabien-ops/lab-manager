@@ -4882,6 +4882,17 @@
       "date": "2021-11-08",
       "statut": "actif",
       "profileId": 1789749615587
+    },
+    {
+      "id": 1789908585841,
+      "prenom": "Corentin",
+      "nom": "AUBOIS",
+      "visa": "CAS",
+      "role": "Technicien CQ",
+      "habilitations": [],
+      "date": "2026-11-01",
+      "statut": "actif",
+      "profileId": 1789908635706
     }
   ],
   "planTasks": [
@@ -10176,6 +10187,46 @@
       "mustChangePassword": false,
       "technicienId": 1789749577260,
       "disabled": false
+    },
+    {
+      "id": 1789908635706,
+      "technicienId": 1789908585841,
+      "nom": "Corentin AUBOIS",
+      "icone": "ti-user",
+      "color": "#009688",
+      "modules": [
+        "dashboard"
+      ],
+      "tabs": [
+        "planification:planning",
+        "planification:rythmes",
+        "catalogues:reactifs-commerciaux",
+        "catalogues:reactifs-prepares",
+        "catalogues:analyses-tcc",
+        "catalogues:autres-analyses",
+        "kpi:overview",
+        "kpi:adherence",
+        "kpi:rft",
+        "kpi:initiative",
+        "kpi:lots",
+        "kpi:liberations",
+        "kpi:qualite",
+        "kpi:problemes",
+        "kpi:production",
+        "reactifs:commerciaux",
+        "reactifs:prepares",
+        "reactifs:solutions-titrees",
+        "suivi:enregistrement",
+        "suivi:approbation",
+        "suivi:liberation",
+        "suivi:lead-time",
+        "suivi:archives",
+        "suivi:suppressions"
+      ],
+      "passwordSalt": "210b31a28b92951b53d6eb934f9a4a16",
+      "passwordHash": "e1e54f6c5b0f50361b4fffda366daf578a7fddadae16a1d0b4e378a64a8d2bcb",
+      "mustChangePassword": true,
+      "disabled": false
     }
   ],
   "commandesArchives": [
@@ -11506,11 +11557,6 @@
   },
   "activity": [
     {
-      "icon": "file-certificate",
-      "text": "SPQ créée : SPQxxxx",
-      "time": "12/09 16:22"
-    },
-    {
       "icon": "barcode",
       "text": "Article créé : MXXXXXXXX",
       "time": "12/09 16:23"
@@ -11845,6 +11891,15 @@
       "actorId": null,
       "actorColor": "",
       "timestamp": "2026-09-20T12:49:25.076Z",
+      "time": "20/09/2026 14:49"
+    },
+    {
+      "icon": "certificate",
+      "text": "Technicien et profil utilisateur créés : Corentin AUBOIS",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-09-20T12:49:45.850Z",
       "time": "20/09/2026 14:49"
     }
   ]
