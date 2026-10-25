@@ -8951,6 +8951,27 @@
       "isSous": false,
       "sousAnalyses": [],
       "manuel": false
+    },
+    {
+      "id": 1792919523544,
+      "date": "2026-10-20",
+      "techId": "1789908585841",
+      "desc": "L*a*b",
+      "analyseNom": "L*a*b",
+      "analyseId": 1786196559426,
+      "sousKey": null,
+      "echId": 1789403978055,
+      "echIds": [
+        1789403978055
+      ],
+      "type": "analyse",
+      "sousAnalyses": [],
+      "color": null,
+      "isSous": false,
+      "parentNom": null,
+      "manuel": false,
+      "note": "",
+      "planningDetails": "Lot 9956037 · T9M · 5°C"
     }
   ],
   "planActivityLog": [],
