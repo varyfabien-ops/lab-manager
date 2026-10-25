@@ -580,90 +580,6 @@
       "note": "Auto: 9956037"
     },
     {
-      "id": 1789745363993.3882,
-      "nom": "Identification Métabisulfite de Sodium",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 9957129"
-    },
-    {
-      "id": 1789745363993.8357,
-      "nom": "Limpidité / Coloration (PE)",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 9957129"
-    },
-    {
-      "id": 1789745363993.0623,
-      "nom": "pH",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 9957129"
-    },
-    {
-      "id": 1789745363993.5508,
-      "nom": "TCC0003 - Métabisulfite de Sodium",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 9957129"
-    },
-    {
-      "id": 1789745363993.0557,
-      "nom": "TCC0004 - Lidocaïne / PHBM",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 9957129"
-    },
-    {
-      "id": 1789745363993.1938,
-      "nom": "TCC0023 - Adrénaline",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: 9957129"
-    },
-    {
-      "id": 1789745404673.0562,
-      "nom": "TCC0002 - Sodium",
-      "echantillonId": 1789745363993,
-      "echantillonCode": "9957129",
-      "date": "2026-09-18",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Ajout lors de la modification : 9957129"
-    },
-    {
       "id": 1789746929618.3064,
       "nom": "Limpidité / Coloration (PE)",
       "echantillonId": 1789746929618,
@@ -4435,69 +4351,6 @@
         "1785170122728": "a_lancer",
         "1786301521786": "a_lancer"
       }
-    },
-    {
-      "id": 1789745363993,
-      "code": "9957129",
-      "lot": "9957129",
-      "articleId": 1789745318808,
-      "articleCode": "M76225001",
-      "produitId": 1789745318808,
-      "marcheIds": [
-        1789745195335
-      ],
-      "analysesIds": [
-        1789745276240,
-        1785247477146,
-        1785170122728,
-        1785247382413,
-        1786533393826,
-        1785247344996,
-        1786533442513
-      ],
-      "analysesParMarche": {
-        "1789745276240": [
-          1789745195335
-        ],
-        "1785247477146": [
-          1789745195335
-        ],
-        "1785170122728": [
-          1789745195335
-        ],
-        "1786533393826": [
-          1789745195335
-        ],
-        "1785247344996": [
-          1789745195335
-        ],
-        "1786533442513": [
-          1789745195335
-        ]
-      },
-      "typePIF": true,
-      "typeSTAB": false,
-      "typeMP": false,
-      "nbEtiquettesAnalyseMP": 0,
-      "nbEtiquettesVerificationMP": 0,
-      "refSPQ": "SPQ0051",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-09-18",
-      "dateFabrication": "2026-09-15",
-      "dateMiseStabilite": "",
-      "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": "",
-      "_marcheIdsMerged": [
-        1789745195335
-      ]
     },
     {
       "id": 1789746929618,
@@ -10540,6 +10393,28 @@
         "dateApprobation": "—",
         "dateLiberation": "—"
       }
+    },
+    {
+      "id": 1792919684490,
+      "lot": "9957129",
+      "justification": "Lot Test",
+      "date": "25/10/2026 10:14:44",
+      "receptions": 1,
+      "snapshot": {
+        "produit": "Xylocaïne 10 mg/mL + Adrénaline (AC)",
+        "articleCode": "M76225001",
+        "type": "PIF",
+        "typeHtml": "<span class=\"badge badge-amber\" style=\"font-size:11px\">PIF</span> ",
+        "sousSerie": "1",
+        "sousSerieHtml": "<span class=\"badge badge-yellow\" style=\"font-size:11px;font-weight:600;padding:2px 8px\">1</span>",
+        "marche": "SUEDE / NORVEGE",
+        "marcheHtml": "<span class=\"badge badge-blue\" style=\"font-size:11px\">SUEDE / NORVEGE</span>",
+        "echeance": "—",
+        "echeanceHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "dateReception": "18/09/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
     }
   ],
   "etiquettesLibres": [
@@ -11656,11 +11531,6 @@
   "activity": [
     {
       "icon": "book",
-      "text": "Analyse ajoutée au catalogue : Analyse Sous-Traitance",
-      "time": "12/09 16:41"
-    },
-    {
-      "icon": "book",
       "text": "Analyse ajoutée au catalogue : Echantillohèque",
       "time": "12/09 16:42"
     },
@@ -12007,6 +11877,15 @@
       "actorColor": "#9C27B0",
       "timestamp": "2026-10-25T09:13:15.044Z",
       "time": "25/10/2026 10:13"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : 9957129 (1 réception(s)) — Motif : Lot Test",
+      "actor": "Profil non renseigné",
+      "actorId": null,
+      "actorColor": "",
+      "timestamp": "2026-10-25T09:14:44.490Z",
+      "time": "25/10/2026 10:14"
     }
   ]
 }
