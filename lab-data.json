@@ -508,30 +508,6 @@
       "note": "Auto: XXXXXX"
     },
     {
-      "id": 1789225762915.4915,
-      "nom": "Analyse Sous-Traitance",
-      "echantillonId": 1789225762915,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-09-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: YYYYYYY"
-    },
-    {
-      "id": 1789225762915.3098,
-      "nom": "Echantillohèque",
-      "echantillonId": 1789225762915,
-      "echantillonCode": "YYYYYYY",
-      "date": "2026-09-12",
-      "priorite": "normale",
-      "statut": "planifie",
-      "stabEcheance": "",
-      "echeanceId": null,
-      "note": "Auto: YYYYYYY"
-    },
-    {
       "id": 1789403978055.325,
       "nom": "Apparence",
       "echantillonId": 1789403978055,
@@ -4413,48 +4389,6 @@
       "note": ""
     },
     {
-      "id": 1789225762915,
-      "code": "YYYYYYY",
-      "lot": "YYYYYYY",
-      "articleId": 1789224288241,
-      "articleCode": "MYYYYYYYY",
-      "produitId": 1789224288241,
-      "marcheIds": [],
-      "analysesIds": [
-        1789224116804,
-        1789224134104
-      ],
-      "analysesParMarche": {
-        "1789224116804": [
-          1786526124777
-        ],
-        "1789224134104": [
-          1786526124777
-        ]
-      },
-      "typePIF": false,
-      "typeSTAB": false,
-      "typeMP": true,
-      "nbContenants": 6,
-      "nbEtiquettesAnalyseMP": 5,
-      "nbEtiquettesVerificationMP": 2,
-      "refSPQ": "SPQyyyy",
-      "refPTC": "",
-      "stabEcheance": "",
-      "stabTemps": "",
-      "stabEtudeId": null,
-      "ptcId": null,
-      "conditionId": null,
-      "conditionIds": [],
-      "echeanceId": null,
-      "date": "2026-09-12",
-      "dateFabrication": "",
-      "dateMiseStabilite": "",
-      "dateSortieEnceinte": "",
-      "statut": "recu",
-      "note": ""
-    },
-    {
       "id": 1789403978055,
       "code": "9956037",
       "lot": "9956037",
@@ -4560,7 +4494,10 @@
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "_marcheIdsMerged": [
+        1789745195335
+      ]
     },
     {
       "id": 1789746929618,
@@ -4615,7 +4552,10 @@
       "dateMiseStabilite": "",
       "dateSortieEnceinte": "",
       "statut": "recu",
-      "note": ""
+      "note": "",
+      "_marcheIdsMerged": [
+        1785262197983
+      ]
     },
     {
       "id": 1789750292141,
@@ -4682,7 +4622,10 @@
           "terminee": "18/09/2026",
           "termineePar": "Fabien VARY"
         }
-      }
+      },
+      "_marcheIdsMerged": [
+        1785262197983
+      ]
     }
   ],
   "techniciens": [
@@ -10575,6 +10518,28 @@
         "dateApprobation": "—",
         "dateLiberation": "—"
       }
+    },
+    {
+      "id": 1792919595044,
+      "lot": "YYYYYYY",
+      "justification": "Lot jeté",
+      "date": "25/10/2026 10:13:15",
+      "receptions": 1,
+      "snapshot": {
+        "produit": "Adrénaline Tartrate",
+        "articleCode": "MYYYYYYYY",
+        "type": "MP",
+        "typeHtml": "<span class=\"badge badge-green\" style=\"font-size:11px\">MP</span> ",
+        "sousSerie": "6",
+        "sousSerieHtml": "<span class=\"badge badge-green\" style=\"font-size:11px;font-weight:600;padding:2px 8px\">6</span>",
+        "marche": "—",
+        "marcheHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "echeance": "—",
+        "echeanceHtml": "<span style=\"color:var(--text3);font-size:12px\">—</span>",
+        "dateReception": "12/09/2026",
+        "dateApprobation": "—",
+        "dateLiberation": "—"
+      }
     }
   ],
   "etiquettesLibres": [
@@ -11690,11 +11655,6 @@
   },
   "activity": [
     {
-      "icon": "package",
-      "text": "Réception: Acide Chlorhydrique 10% — 1 entrée(s) — 1 analyse(s)",
-      "time": "12/09 16:25"
-    },
-    {
       "icon": "book",
       "text": "Analyse ajoutée au catalogue : Analyse Sous-Traitance",
       "time": "12/09 16:41"
@@ -12038,6 +11998,15 @@
       "actorColor": "",
       "timestamp": "2026-09-20T12:50:03.876Z",
       "time": "20/09/2026 14:50"
+    },
+    {
+      "icon": "trash",
+      "text": "Lot supprimé partout : YYYYYYY (1 réception(s)) — Motif : Lot jeté",
+      "actor": "PLANIFICATION / HABILITATIONS",
+      "actorId": 1786295495092,
+      "actorColor": "#9C27B0",
+      "timestamp": "2026-10-25T09:13:15.044Z",
+      "time": "25/10/2026 10:13"
     }
   ]
 }
